@@ -551,7 +551,7 @@ public final class SimpleTypeBuilder extends BindingComponent {
             else                javadoc = "";
 
             javadoc += Messages.format( Messages.JAVADOC_HEADING, type.getName() )
-                +"\n<p>\n<pre>\n"+out.getBuffer()+"</pre>";
+                +"\n<pre>\n"+out.getBuffer()+"</pre>";
 
         }
 
