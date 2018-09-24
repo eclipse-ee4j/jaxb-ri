@@ -9,12 +9,6 @@ The JAXB framework enables developers to perform the following operations:
 
 JAXB gives Java developers an efficient and standard way of mapping between XML and Java code. Java developers using JAXB are more productive because they can write less code themselves and do not have to be experts in XML. JAXB makes it easier for developers to extend their applications with XML and Web Services technologies.
 
-:warning: This project is now part of the EE4J initiative. This repository
-has been archived as all activities are now happening in the 
-[corresponding Eclipse repository](https://github.com/eclipse-ee4j/jaxb-ri).
-See [here](https://www.eclipse.org/ee4j/status.php) for the overall
-EE4J transition status.
-
 ## Documentation
 Documentation for this release consists of the following:
 - [Release Notes](https://javaee.github.io/jaxb-v2/doc/user-guide/ch02.html)
