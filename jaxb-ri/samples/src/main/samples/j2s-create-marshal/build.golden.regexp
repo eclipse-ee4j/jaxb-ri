@@ -1,0 +1,44 @@
+
+compile\:
+     \[echo\] Generating schemas\.\.\.
+    \[mkdir\] Created dir\: .*
+\[schemagen\] Generating schema from \d+ source files
+     \[echo\] Compiling the java source files\.\.\.
+    \[mkdir\] Created dir\: .*
+    \[javac\] Compiling \d+ source files to .*
+
+run\:
+     \[echo\] Running the sample application\.\.\.
+     \[java\] \<\?xml version\=\"1\.0\" encoding\=\"UTF\-8\" standalone\=\"yes\"\?\>
+     \[java\] \<businessCard\>
+     \[java\]     \<name\>John Doe\<\/name\>
+     \[java\]     \<title\>Sr\. Widget Designer\<\/title\>
+     \[java\]     \<company\>Acme\, Inc\.\<\/company\>
+     \[java\]     \<address\>
+     \[java\]         \<street\>123 Widget Way\<\/street\>
+     \[java\]         \<city\>Anytown\<\/city\>
+     \[java\]         \<state\>MA\<\/state\>
+     \[java\]         \<zip\>12345\<\/zip\>
+     \[java\]     \<\/address\>
+     \[java\]     \<phone\>123\.456\.7890\<\/phone\>
+     \[java\]     \<fax\>123\.456\.7891\<\/fax\>
+     \[java\]     \<email\>John\.Doe@Acme\.ORG\<\/email\>
+     \[java\] \<\/businessCard\>
+     \[java\] \<\?xml version\=\"1\.0\" encoding\=\"UTF\-8\" standalone\=\"yes\"\?\>
+     \[java\] \<businessCard\>
+     \[java\]     \<name\>John Doe\<\/name\>
+     \[java\]     \<title\>Sr\. Widget Designer\<\/title\>
+     \[java\]     \<company\>Acme\, Inc\.\<\/company\>
+     \[java\]     \<address\>
+     \[java\]         \<street\>123 Widget Way\<\/street\>
+     \[java\]         \<city\>Anytown\<\/city\>
+     \[java\]         \<state\>MA\<\/state\>
+     \[java\]         \<zip\>12345\<\/zip\>
+     \[java\]     \<\/address\>
+     \[java\]     \<phone\>123\.456\.7890\<\/phone\>
+     \[java\]     \<fax\>123\.456\.7891\<\/fax\>
+     \[java\]     \<email\>John\.Doe@Acme\.ORG\<\/email\>
+     \[java\] \<\/businessCard\>
+
+BUILD SUCCESSFUL
+Total time\: .*

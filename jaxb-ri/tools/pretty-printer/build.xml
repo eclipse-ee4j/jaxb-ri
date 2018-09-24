@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!--
+
+    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!--
+  base dir has to be jaxb-ri for this to be work correctly
+  when it's called from the jaxb-ri/build.xml
+-->
+<project name="pretty-printer" basedir="../.." default="jar">
+
+    <!-- import build properties -->
+    <property file="${basedir}/build.properties" />
+    <property name="name" value="pretty-printer" />
+    <property name="root" value="${jaxb.root}/tools/${name}" />
+
+    <target name="compile">
+        <mkdir dir="${root}/build/classes" />
+        <javac srcdir="${root}/src" destdir="${root}/build/classes"
+            debug="${compile.debug}" optimize="${compile.optimize}" source="1.6" target="1.6" />
+    </target>
+
+    <target name="jar" depends="compile">
+        <jar destfile="${root}/build/${name}.jar">
+            <fileset dir="${root}/build/classes"/>
+        </jar>
+        <zip destfile="${root}/build/${name}.src.zip">
+            <fileset dir="${root}/src"/>
+        </zip>
+        <copy todir="${jaxb.libs.util}"
+              file="${root}/build/${name}.jar" />
+    </target>
+
+    <target name="clean">
+        <delete dir="${root}/build" />
+    </target>
+</project>

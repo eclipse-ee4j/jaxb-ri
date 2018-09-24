@@ -1,0 +1,164 @@
+<html>
+<head>
+<!--
+
+    Copyright (c) 2010, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+	<title>XSOM User's Guide</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+	<style>
+		pre {
+			background-color: rgb(240,240,240);
+			margin-left:	2em;
+			margin-right: 2em;
+			padding: 1em;
+		}
+		p {
+			margin-left: 2em;
+		}
+	</style>
+</head>
+<body>
+
+<h1 style="text-align:center">XSOM User's Guide</h1>
+<div align=right style="font-size:smaller">
+By <a href="mailto:kohsuke.kawaguchi@sun.com">Kohsuke Kawaguchi</a><br>
+</div>
+
+<h1>Parsing a schema</h1>
+
+<p>
+	Use the <code>com.sun.xml.xsom.parser.XSOMParser</code> class to parse schemas. There are a couple of overloaded versions of the <code>parse</code> method.
+</p><p>
+	<code>XSOMParser</code> works like this; You create a new instance of XSOMParser, set it up, then call the parse method to parse a schema file. When a schema is parsed, all the schemas that are refered from it (&lt;include>and &lt;import>) will also be parsed.
+	
+	If you have multiple separate schema files that need to be compiled together, just call the parse method multiple times.
+</p><p>
+	Once you parse all the schemas you want, call the getResult method to obtain the <code>XSSchemaSet</code> object, then use that object to obtain information about the schema.
+</p>
+<pre>
+import com.sun.xml.xsom.parser.XSOMParser;
+import com.sun.xml.xsom.XSSchemaSet;
+
+XSOMParser parser = new XSOMParser();
+parser.setErrorHandler(...);
+parser.setEntityResolver(...);
+
+parser.parseSchema( new File("myschema.xsd"));
+parser.parseSchema( new File("XHTML.xsd"));
+
+XSSchemaSet sset = parser.getResult();
+</pre>
+<p>
+	Now you can access schema information by using this SchemaSet.
+</p>
+
+
+<h2>Parsing from SAX events</h2>
+<p>
+	For more sophisticated uses, you can feed SAX2 events to XSOM. This will be useful when the schema is not present as a stand-alone XML. For example, this can be used to:
+</p>
+<ul>
+	<li>parse XML Schema inside another XML, such as WSDL
+	<li>generate XML on-the-fly and parse it
+</ul>
+<p>
+	The following example shows how one can apply a XSLT transformation to produce XML Schema and parse it into XSOM:
+</p>
+<pre><xmp>
+import com.sun.xml.xsom.parser.XSOMParser;
+import com.sun.xml.xsom.XSSchemaSet;
+
+XSOMParser parser = new XSOMParser();
+parser.setErrorHandler(...);
+parser.setEntityResolver(...);
+
+// set up XSLT
+TransformerFactory tf = TransformerFactory.newInstance();
+Transformer t = tf.newTransformer(new StreamSource(new File("wsdl2xsd.xsl"));
+
+ContentHandler xsomHandler = parser.getParserHandler();
+
+// run the transformation and feed the result to XSOM
+t.transform(
+    new StreamSource(new File("test.wsdl")),
+    new SAXResult(xsomhandler));
+
+XSSchemaSet sset = parser.getResult();
+</xmp></pre>
+
+
+
+<h2>Error Handling</h2>
+<p>
+	All the error messages will be sent to SAX <code>ErrorHandler</code>, which can be specified through the setErrorHandler method on XSOMParser.
+</p>
+
+
+
+<h2>Entity Resolution</h2>
+<p>
+	By setting <code>EntityResolver</code>  to XSOMParser, you can redirect &lt;xs:include>s and &lt;xs:import>s to different resources. For imports, the namespace URI of the target schema is passed as the public ID, and the absolutized value of the <code>schemaLocation</code> attribute will be passed as the system ID.
+</p>
+
+
+<h2>Parsing Annotations</h2>
+<p>
+	There is a hook in XSOM that allows client applications to parse annotations in schema into an application specific data structure by using <code>AnnotationParser</code>. With this mechanism, the application-specified code can receive SAX events for every annotations found in the document.
+</p><p>
+	<code>AnnotationParser</code> will be responsible for parsing these SAX events into an object, and that object will be attached to the appropriate "owner" schema component by XSOM automatically. The information can be later retrieved through the <code>getAnnotation</code> method.
+</p><p>
+	By default, all the annotations are ignored, but you can easily parse them into a DOM tree or an application-specific data structure.
+</p><p>
+	For details, see <code>com.sun.xml.xsom.impl.parser.AnnotationParser</code> and <code>AnnotationParserFactory</code>. An annotation parser can be attached to XSOMParser through the setAnnotationParser method. There's also a convenient utility class called <tt>DomAnnotationParserFactory</tt> that parses annotations into DOM.
+</p>
+
+
+
+<h1>Accessing Schema Information</h1>
+<p>
+	The <code>com.sun.xml.xsom</code> package contains all the public interfaces available for client applications. It shouldn't be too hard to understand if you know well about schema components, which are defined in the XML Schema spec.
+</p><p>
+	The interface is modeled after <a href="XML Schema CM API.htm">this document</a> so this might help you understand XSOM.
+</p>
+<p>
+	For example, the following code lists all the global element declarations and whether they are abstract or not.
+</p>
+<pre><xmp>
+XSSchemaSet result = /* parse XML Schema */;
+
+// iterate each XSSchema object. XSSchema is a per-namespace schema.
+Iterator itr = result.iterateSchema();
+while( itr.hasNext() ) {
+  XSSchema s = (XSSchema)itr.next();
+  
+  System.out.println("Target namespace: "+s.getTargetNamespace());
+  
+  Iterator jtr = s.iterateElementDecls();
+  while( jtr.hasNext() ) {
+    XSElementDecl e = (XSElementDecl)jtr.next();
+    
+    System.out.print( e.getName() );
+    if( e.isAbstract() )
+      System.out.print(" (abstract)");
+    System.out.println();
+  }
+}
+</xmp></pre>
+
+<h2>Visitor pattern support</h2>
+<p>
+	XSOM comes with a visitor pattern support, which simplifies the development of the client application. XSOM implements two different visitors. One is a visitor that returns void, and the other is a "functor" that returns <code>Object</code>. All the interfaces are available in <code>com.sun.xml.xsom.visitor</code>.
+</p><p>
+	For more about the visitor pattern, see <a href="http://ootips.org/visitor-pattern.html">this summary</a> or read <a href="http://www.amazon.com/exec/obidos/ASIN/0201633612/ootips">this book.</a>
+</p>
+</body>
+</html>

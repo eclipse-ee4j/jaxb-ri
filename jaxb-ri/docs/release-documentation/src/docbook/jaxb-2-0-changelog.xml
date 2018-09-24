@@ -1,0 +1,1325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+        <!ENTITY % ents SYSTEM "docbook.ent">
+        %ents;
+        ]>
+
+<section version="5.0" xml:lang="en" xml:id="jaxb-2-0-changelog" xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://docbook.org/ns/docbook">
+    <title>Changelog</title>
+    <para>The JAXB 2.x RI is a major reimplementation to meet the requirements of the 2.x specifications.</para>
+    <para>
+        Please refer to the jaxb-1-0-x-changelog for older releases.
+    </para>
+    <section xml:id="a-2-4-0">
+        <title>Changes between 2.3.0.1 and 2.4.0</title>
+        <itemizedlist>
+            <listitem><para>JAXB RI is now JPMS modularized:
+                <itemizedlist>
+                    <listitem><para>All modules have native module descriptor.</para></listitem>
+                    <listitem><para>Removed jaxb-core module, which caused split package issue on JPMS.</para></listitem>
+                    <listitem><para>RI binary bundle now has single jar per dependency instead of shaded fat jars.</para></listitem>
+                    <listitem><para>Removed runtime class weaving optimization.</para></listitem>
+                </itemizedlist>
+            </para></listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-3-0-1">
+        <title>Changes between 2.3.0 and 2.3.0.1</title>
+        <itemizedlist>
+            <listitem><para>Removed legacy technology dependencies:
+                <itemizedlist>
+                    <listitem><para>com.sun.xml.bind:jaxb1-impl</para></listitem>
+                    <listitem><para>net.java.dev.msv:msv-core</para></listitem>
+                    <listitem><para>net.java.dev.msv:xsdlib</para></listitem>
+                    <listitem><para>com.sun.xml.bind.jaxb:isorelax</para></listitem>
+                </itemizedlist>
+            </para></listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-3-0">
+        <title>Changes between 2.2.11 and 2.3.0</title>
+        <itemizedlist>
+            <listitem><para>Adopt Java SE 9:
+                <itemizedlist>
+                    <listitem><para>JAXB api can now be loaded as a module.</para></listitem>
+                    <listitem><para>JAXB RI is able to run on Java SE 9 from the classpath.</para></listitem>
+                    <listitem><para>Addes support for java.util.ServiceLoader mechanism.</para></listitem>
+                    <listitem><para>Security fixes</para></listitem>
+                </itemizedlist>
+            </para></listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-2-11">
+        <title>Changes between 2.2.10 to 2.2.11</title>
+        <itemizedlist>
+            <listitem><para>Bug fixes:
+                <itemizedlist>
+                    <listitem><para>Fixed split Message bundles between modules</para></listitem>
+                    <listitem><para>Changed Codemodel to allow correct functioning of BeanValidation Plugin for XJC</para></listitem>
+                    <listitem><para>Security fixes</para></listitem>
+                    <listitem><para>Fixed <literal>'-disableXmlSecurity'</literal> flag usage</para></listitem>
+                    <listitem><para>Fixed redundant namespace prefixes</para></listitem>
+                    <listitem><para>Fixed mixed content for StAX</para></listitem>
+                    <listitem><para>Now we generate OSGI manifests for jaxb-core, jaxb-impl, jaxb-xjc anc jaxb-jxc</para></listitem>
+                    <listitem>
+                        <para>
+                            Marked <literal>com.sun.org.apache.xml.internal.resolver</literal>
+                            and <literal>com.sun.org.apache.xml.internal.resolver.tools</literal>
+                            as optional. They are part of JDK.
+                        </para>
+                    </listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/javaee/jaxb-v2/issues/973">JAXB-973</link>: generated code should be
+                        compilable with <literal>'-Xdoclint:all'</literal>
+                    </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/javaee/jaxb-v2/issues/598">JAXB-598</link>: XJC generates ordered
+                        ObjectFactories, <literal>@XmlSeeAlso</literal> annotations and episode files.
+                    </para></listitem>
+                </itemizedlist>
+            </para></listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-2-10">
+        <title>Changes between 2.2.9 to 2.2.10</title>
+        <itemizedlist>
+            <listitem><para>Bug fixes:
+                <itemizedlist>
+                    <listitem><para>Fixed for preserving whitespaces within xsd:any mixed element</para></listitem>
+                    <listitem><para>Security fixes</para></listitem>
+                    <listitem><para>Fixed circular dependency between SAAJ and JAXB; stax-ex changed not to use SAAJ-API</para></listitem>
+                    <listitem><para>Fixed catalog logging. Allow user to disable usage of system proxies. Force CatalogResolver to set verbosity level.</para></listitem>
+                    <listitem><para>Fixed stream handling</para></listitem>
+                    <listitem><para>Fixed EnvelopeFactory</para></listitem>
+                </itemizedlist>
+            </para></listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-2-9">
+        <title>Changes between 2.2.8 to 2.2.9</title>
+        <itemizedlist>
+            <listitem><para>Bug fixes:
+                <itemizedlist>
+                    <listitem><para>Security fixes.</para></listitem>
+                    <listitem>
+                        <link xlink:href="https://github.com/javaee/jaxb-v2/issues/926">JAXB-926</link>
+                        - Fixed optional property behavior for PRIMITIVE value.
+                    </listitem>
+                    <listitem><para>Fixed wrong ref element generation</para></listitem>
+                    <listitem><para>Fixed OSGi bug: <literal>NoClassDefFoundError javax/xml/soap/soapelement</literal></para></listitem>
+                </itemizedlist>
+            </para></listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-2-8">
+        <title>Changes between 2.2.7 to 2.2.8</title>
+        <itemizedlist>
+            <listitem><para>
+                This release is integrated into JDK 8. (Build <literal>2.2.8-b130911.1802</literal>)
+            </para></listitem>
+            <listitem><para>
+                JAXB RI project is now mavenized. New maven groupId introduced: org.glassfish.jaxb
+                So if you are use maven you can simply add dependency block:
+                <programlisting>
+                    &lt;dependency&gt;
+                        &lt;groupId&gt;org.glassfish.jaxb&lt;/groupId&gt;
+                        &lt;artifactId&gt;jaxb-bom&lt;/artifactId&gt;
+                        &lt;version&gt;2.2.8&lt;/version&gt;
+                        &lt;type&gt;pom&lt;/type&gt;
+                    &lt;/dependency&gt;
+                </programlisting>
+            </para></listitem>
+            <listitem><para>
+                From now JAXB RI project uses GIT VCS. You can get our sources from:
+                <programlisting>
+                    GitHub:     git clone https://github.com/javaee/jaxb-v2.git
+                </programlisting>
+            </para></listitem>
+            <listitem><para>Bug fixes:
+                <itemizedlist>
+                    <listitem><para>Integrated new osgi-fied api</para></listitem>
+                    <listitem><para>
+                        Fixed the bug with namespaces. Namespace must match in order to be able to generate ref otherwise
+                        the generated element ref belongs to different namespace. Ref generation is isolated only to cases where
+                        package mapping prevails
+                    </para></listitem>
+                    <listitem><para>Updated access to JAX-WS</para></listitem>
+                    <listitem><para>New JAXP version support added.</para></listitem>
+                    <listitem><para>Fixed broken links in documentation</para></listitem>
+                    <listitem><para>Fixed userguide</para></listitem>
+                    <listitem>[14606308, 14743364] - Fix resolution of referenced simpleType</listitem>
+                    <listitem><para>JXC findBugs fixes.</para></listitem>
+                    <listitem><para>Added txw to jaxb source repo</para></listitem>
+                    <listitem><para>Fixed bug when JAXB marshaller setting xsi:nil as true for non-nillable elements</para></listitem>
+                    <listitem><para>Fixed event handling for missing xsi type
+                        <itemizedlist>
+                            <listitem><para>added errorCounter</para></listitem>
+                            <listitem><para>added logging level check</para></listitem>
+                        </itemizedlist>
+                    </para></listitem>
+                    <listitem><para>Updated JAXB API with licence/fbugs fixes, and osgi fix</para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/javaee/metro-jax-ws/issues/1114">JAX_WS-1114</link>: Fixed marshalling
+                            of gMonth type.
+                        <itemizedlist>
+                            <listitem><para>To enable old behavior use switch: jaxb.ri.useOldGmonthMapping</para></listitem>
+                        </itemizedlist>
+                    </para></listitem>
+
+                    <listitem><para>
+                        <link xlink:href="https://github.com/javaee/jaxb-v2/issues/937">JAXB-937</link>: Fixed Coordinator
+                        ThreadLocal
+                    </para></listitem>
+                    <listitem><para>Fixed invalid absolute URL</para></listitem>
+                    <listitem><para>
+                        Removed the need for synchronization - tailor can still happen multiple times under specific
+                        circumstances, but it's better than contention within multiple threads on one class
+                    </para></listitem>
+                    <listitem><para>Fixed SimpleNameClass dependency</para></listitem>
+                    <listitem><para>Fixed managing of nested collections.</para></listitem>
+                    <listitem><para>
+                        Fixed maven configuration: made JDK deps required, map jaxb-extra-osgi exports by version, removed
+                        dep on <literal>com.sun.nio</literal>
+                    </para></listitem>
+                    <listitem><para><literal>Codemodel</literal> is imported into JAXB project tree</para></listitem>
+                    <listitem><para>Security fixes</para></listitem>
+                    <listitem><para>Added JAXB OSGi test.</para></listitem>
+                </itemizedlist>
+            </para></listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-2-7">
+        <title>Changes between 2.2.6 to 2.2.7</title>
+        <itemizedlist>
+            <listitem><para>
+                JAXB 1.0 runtime is restored. It's bundled into the <filename>jaxb-extra-osgi.jar</filename>
+                now. Required libraries are located in <filename>$JAXB_HOME/tools/jaxb1_libs</filename> folder.
+            </para></listitem>
+            <listitem><para>
+                The processing of -source XJC option is removed. We use 2.0 version of the schema compiler.
+                For generating 1.0.x code, please use an installation of the 1.0.x codebase.
+            </para></listitem>
+            <listitem><para>
+                <filename>resolver.jar</filename> is not bundled by JAXB anymore. It's already part of JDK.
+                If you are using JDK which doesn't contain it - you have to download it manually
+                (e.g. from maven: <literal>com.sun.org.apache.xml.internal:resolver</literal>).
+            </para></listitem>
+            <listitem><para>
+                JAXB project was split into several modules: core, impl, xjc and jxc. So now it is possible to use XJC
+                with other JAXB runtime implementation (e.g. EclipseLink MOXy). While using XJC be aware of having any runtime JAXB
+                implementation (respectively <filename>jaxb-impl.jar</filename> ) on classpath.
+            </para></listitem>
+            <listitem><para>Bug fixes:
+                <itemizedlist>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/javaee/jaxb-v2/issues/452">JAXB-452</link>
+                        - Embedded DOM Elements may lose locally defined namespace prefixes
+                    </para></listitem><listitem><para>
+                        <link xlink:href="https://github.com/javaee/jaxb-v2/issues/915">JAXB-915</link>
+                        - Cannot generate java classes from xjc
+                    </para></listitem><listitem><para>
+                        <link xlink:href="https://github.com/javaee/jaxb-v2/issues/919">JAXB-919</link>
+                        - xjc - proxy authentication fails
+                    </para></listitem><listitem><para>
+                        <link xlink:href="https://github.com/javaee/jaxb-v2/issues/922">JAXB-922</link>
+                        - JAXB samples fail
+                    </para></listitem><listitem><para>
+                        <link xlink:href="https://github.com/javaee/jaxb-v2/issues/939">JAXB-939</link>
+                        - '#' at the end of a namespace : different of behavior, sometimes a underscore is
+                        added, sometimes not.
+                    </para></listitem><listitem><para>
+                        <link xlink:href="https://github.com/javaee/jaxb-v2/issues/940">JAXB-940</link>
+                        - wrong default value for &quot;target&quot; parameter for xjc ant task
+                    </para></listitem><listitem><para>
+                        <link xlink:href="https://github.com/javaee/jaxb-v2/issues/948">JAXB-948</link>
+                        - JAXB differences in JDK 7 in
+                        <literal>com/sun/xml/internal/bind/v2/runtime/reflect/Lister.java#Lister.CollectionLister.endPacking</literal>
+                </para></listitem>
+                </itemizedlist>
+            </para></listitem>
+            <listitem><para>Improvement:
+                <itemizedlist><listitem><para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/912">JAXB-912</link>
+                    - XJC split
+                </para></listitem></itemizedlist>
+            </para></listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-2-6">
+        <title>Changes between 2.2.5-2 to 2.2.6</title>
+        <itemizedlist>
+            <listitem><para>Project cleaning done:
+                <itemizedlist>
+                    <listitem><para>JAXB 1.0 is not bundled anymore.</para></listitem>
+                    <listitem><para>
+                        Libraries <filename>jaxb1-xjc.jar</filename> , <filename>msv.jar</filename>
+                        was removed.
+                    </para></listitem>
+                    <listitem><para>
+                        Package com/sun/msv/datatype was extracted to
+                        <filename>jaxb-extra-osgi.jar</filename>
+                    </para></listitem>
+                </itemizedlist>
+            </para></listitem>
+            <listitem><para>Bug fixes:
+                <itemizedlist>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/javaee/jaxb-v2/issues/890">JAXB-890</link>
+                        - JAXB Unmarshaller tries to instantiate abstract class ignoring xsi:type if
+                        nillable="true".
+                    </para></listitem><listitem><para>
+                        <link xlink:href="https://github.com/javaee/jaxb-v2/issues/871">JAXB-871</link>
+                        - Disabled fields and multiple-inherence (override once => override for sub-classes).
+                    </para></listitem><listitem><para>
+                        <link xlink:href="https://github.com/javaee/jaxb-v2/issues/900">JAXB-900</link>
+                        - MarshalException for XmlIDREF used on interfaces.
+                    </para></listitem>
+                </itemizedlist>
+            </para></listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-2-5u2">
+        <title>Changes between 2.2.5-1 to 2.2.5-2</title>
+        <itemizedlist>
+            <listitem>
+                <para>Fixed version number in OSGi bundles</para>
+            </listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-2-5u1">
+        <title>Changes between 2.2.5 to 2.2.5-1</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/metro-jax-ws/issues/1059">JAX_WS-1059</link>
+                    - wsimport Ant tasks causes NoClassDefFoundError
+                </para>
+            </listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-2-5">
+        <title>Changes between 2.2.4-1 to 2.2.5</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/415">JAXB-415</link>
+                    - Marshaller.marshall throws NPE if an adapter adapts a non-null bound value to null.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/488">JAXB-488</link>
+                    - compatibility issue with JAXB 2.0
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/608">JAXB-608</link>
+                    - javax.xml.bind.DatatypeConverter.parseBoolean incorrect
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/616">JAXB-616</link>
+                    - XMLCatalog not used from xjc/xjctask when strict validation is enabled
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/617">JAXB-617</link>
+                    - setting Marshaller CharacterEncodingHandler with utf-8 does not work
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/790">JAXB-790</link>
+                    - Whitespace processing for xs:anyURI type
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/794">JAXB-794</link>
+                    - Classes annotated with <literal>@XmlTransient</literal> are still mapped to XML
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/795">JAXB-795</link>
+                    - Catalog passed to XJC is not used during the schema correctness check
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/814">JAXB-814</link>
+                    - Failing with 'no-arg default constructor' on <literal>@XmlTransient</literal>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/825">JAXB-825</link>
+                    - Attribute with default generates different types for get and set methods
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/831">JAXB-831</link>
+                    - Memory leak in <literal>com.sun.xml.bind.v2.ClassFactory</literal>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/834">JAXB-834</link>
+                    - Cannot use binding file on Windows
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/836">JAXB-836</link>
+                    - CLONE -Marshaller.marshall throws NPE if an adapter adapts a non-null bound value to null.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/837">JAXB-837</link>
+                    - XJC generated code misses out some fields from XML
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/843">JAXB-843</link>
+                    - Marshaller holds reference after marshalling for the writer that was used to marshal into
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/844">JAXB-844</link>
+                    - Memory Leak in com.sun.xml.bind.v2.runtime.Coordinator
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/847">JAXB-847</link>
+                    - DataTypeConverterImpl patch causes corrupted stream generation in some cases
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/849">JAXB-849</link>
+                    - JAXB:Invalid boolean values added to lists as 'false'
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/856">JAXB-856</link>
+                    - xs:import namespace="http://www.w3.org/2005/05/xmlmime" is not generated
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/858">JAXB-858</link>
+                    - xjc generates no JAXBElement for nillable element with required attribute
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/859">JAXB-859</link>
+                    - Corrupt license file in the distribution
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/860">JAXB-860</link>
+                    - <literal>NullPointerException com.sun.xml.bind.v2.runtime.ClassBeanInfoImpl.checkOverrideProperties(ClassBeanInfoImpl.java</literal>:205)
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/867">JAXB-867</link>
+                    - jax-ws / jax-b / glassfish 3.1.1 web services fail to send data from beans based on variable name.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/868">JAXB-868</link>
+                    - Escape policy for quote (") is different when the serialization is performed to OutputStream or
+                    Writer
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/869">JAXB-869</link>
+                    - Multiple &lt;any /> elements on a schema : second element is not loaded
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/882">JAXB-882</link>
+                    - Marshalling Objects extending <literal>JAXBElement</literal> linked by
+                    <literal>@XmlElementRef</literal>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/445">JAXB-445</link>
+                    - Generated episode bindings should contain target package name
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/499">JAXB-499</link>
+                    - Umbrella issue for all XJC related encoding issues wrt xjc itself and maven plugins/ant tasks
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/839">JAXB-839</link>
+                    - More Schema Annotations/Documentation to Javadoc
+                </para>
+            </listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-2-4u1">
+        <title>Changes between 2.2.4 to 2.2.4-1</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/834">JAXB-834</link>
+                    - Cannot use binding file on Windows
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/835">JAXB-835</link>
+                    - XJC fails with project path that contains spaces
+                </para>
+            </listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-2-4">
+        <title>Changes between 2.2.3u2 to 2.2.4</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/413">JAXB-413</link>
+                    - Redundant cast to <literal>byte[]</literal> in code generated by XJCTask
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/416">JAXB-416</link>
+                    - Ant XJC task problems with spaces in paths
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/450">JAXB-450</link>
+                    - Reusing unmarshaller results in an unexpected result
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/549">JAXB-549</link>
+                    - Unescaped javadoc in <literal>@XmlElements</literal>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/602">JAXB-602</link>
+                    - Different unmarshalling behavior between primitive
+                    type and simpletype with enumeration under restriction
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/618">JAXB-618</link>
+                    - XJC generates certain code lines in a random order
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/620">JAXB-620</link>
+                    - Problems with abstract classes and <literal>@XMLValue</literal>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/652">JAXB-652</link>
+                    - JAXB 2.2 API should be changed to work with old 2.1 jaxb implementation in JDK
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/696">JAXB-696</link>
+                    - Incorrect implementation/documentation of
+                    javax.xml.bind.annotation.adapters.NormalizedStringAdapter
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/726">JAXB-726</link>
+                    - Missing keyword 'throw'
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/761">JAXB-761</link>
+                    - DatatypeConverterInterface.printDate inconsistencies
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/774">JAXB-774</link>
+                    - Extra slash in XSD location prevents customization
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/803">JAXB-803</link>
+                    - 2.2.2 strips schemaLocation in binding files
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/804">JAXB-804</link>
+                    - JAXB 2.x : How to override an XmlElement annotation from parent class - Mission Impossible?
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/813">JAXB-813</link>
+                    - Preserving white-space in XML (xs:string enumeration value) does not work
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/815">JAXB-815</link>
+                    - Binding file cannot refer to schema file with space in file name.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/816">JAXB-816</link>
+                    - Incorrect System property to define the provider factory class
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/821">JAXB-821</link>
+                    - Global customization are not applied to xjc when input document is WSDL
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/824">JAXB-824</link>
+                    - API files in javax.xml.bind need to be updated for references to JLS with editions/hyperlinks
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/826">JAXB-826</link>
+                    - JAXB fails to unmarshal attributes as properties on aix
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/268">JAXB-268</link>
+                    - Map handling broken
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/470">JAXB-470</link>
+                    - Potential changes to make JAXB work better with OSGi
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/478">JAXB-478</link>
+                    - jaxb2-sources : Allow compilation under Java 6
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/633">JAXB-633</link>
+                    - JDefinedClass getMods()
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/768">JAXB-768</link>
+                    - Mailing list consolidation suggestions
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/784">JAXB-784</link>
+                    - JAnnotationUse should provide getters for clazz and memberValues properties
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/406">JAXB-406</link>
+                    - Allow setting of access modifiers in JMods
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/769">JAXB-769</link>
+                    - Update to command-line help text
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/772">JAXB-772</link>
+                    - Updates to XJC.html page and -Xpropertyaccessors plugin
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/783">JAXB-783</link>
+                    - I18N: xjc generates localized strings of AM/PM so compilation fails
+                </para>
+            </listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-2-3u2">
+        <title>Notable Changes between 2.2.3u1 to 2.2.3u2</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/826">JAXB-826</link>
+                    - JAXB fails to unmarshal attributes as properties on AIX
+                </para>
+            </listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-2-3u1">
+        <title>Notable Changes between 2.2.3 to 2.2.3u1</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/805">JAXB-805</link>
+                    - SpecJ performance regression
+                </para>
+            </listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-2-3">
+        <title>Notable Changes between 2.2.2 to 2.2.3</title>
+        <itemizedlist>
+            <listitem>
+                <para>6975714 - JAXB 2.2 throws IAE for invalid Boolean values</para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/620">JAXB-620</link>
+                    - Problems with abstract classes (xsi type processing)
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Regression in Jersey JSON mapping
+                </para>
+            </listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-2-2">
+        <title>Notable Changes between 2.2.1.1 to 2.2.2</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <link xlink:href="http://jcp.org/aboutJava/communityprocess/maintenance/jsr222/index2.html">
+                        Specification changelog
+                    </link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.2.1">
+                        Fixes to bugs
+                    </link>
+                </para>
+            </listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-2-1-1">
+        <title>Notable Changes between 2.2.1 to 2.2.1.1</title>
+        <itemizedlist>
+            <listitem>
+                <para>This minor-minor release contains only changes relevant to GlassFish OSGi environment</para>
+            </listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-2-1">
+        <title>Notable Changes between 2.2 to 2.2.1</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <link xlink:href="http://jcp.org/aboutJava/communityprocess/maintenance/jsr222/index2.html">
+                        Specification changelog
+                    </link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.2">
+                        Fixes to bugs
+                    </link>
+                </para>
+            </listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-2">
+        <title>Notable Changes between 2.1.12 to 2.2</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <link xlink:href="http://jcp.org/aboutJava/communityprocess/maintenance/jsr222/index2.html">Specification changelog</link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1.12">
+                        Fixes to bugs
+                    </link>
+                </para>
+            </listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-1-13">
+        <title>Notable Changes between 2.1.12 to 2.1.13</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1.12">
+                        Fixes to bugs
+                    </link>
+                </para>
+            </listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-1-12">
+        <title>Notable Changes between 2.1.11 to 2.1.12</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <link xlink:href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6846148">
+                        http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6846148
+                    </link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/jersey/jersey/issues/385">https://github.com/jersey/jersey/issues/385</link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/jersey/jersey/issues/544">https://github.com/jersey/jersey/issues/544</link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1.11">
+                        Fixes to bugs
+                    </link>
+                </para>
+            </listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-1-11">
+        <title>Notable Changes between 2.1.10 to 2.1.11</title>
+        <itemizedlist>
+            <listitem>
+                <para>Minor licencing and legal fixes. No changes to source code.</para>
+            </listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-1-10">
+        <title>Notable Changes between 2.1.9 to 2.1.10</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1.9">
+                        Fixes to bugs
+                    </link>
+                </para>
+            </listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-1-9">
+        <title>Notable Changes between 2.1.8 to 2.1.9</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1.8">
+                        Fixes to bugs
+                    </link>
+                </para>
+            </listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-1-8">
+        <title>Notable Changes between 2.1.7 to 2.1.8</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1.7">
+                        Fixes to bugs
+                    </link>
+                </para>
+            </listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-1-7">
+        <title>Notable Changes between 2.1.6 to 2.1.7</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    Fixed documentation that incorrectly showed that JAXB RI
+                    is CDDL only (it's actually CDDL/GPLv2+classpath dual license)
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1.6">
+                        Fixes to bugs
+                    </link>
+                </para>
+            </listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-1-6">
+        <title>Notable Changes between 2.1.5 to 2.1.6</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1.5">
+                        Fixes to bugs
+                    </link>
+                </para>
+            </listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-1-5">
+        <title>Notable Changes between 2.1.4 to 2.1.5</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1.4">
+                        Fixes to bugs
+                    </link>
+                </para>
+            </listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-1-4">
+        <title>Notable Changes between 2.1.3 to 2.1.4</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1.3">
+                        Fixes to bugs
+                    </link>
+                </para>
+            </listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-1-3">
+        <title>Notable Changes between 2.1.2 to 2.1.3</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1.2">
+                        Fixes to bugs
+                    </link>
+                </para>
+            </listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-1-2">
+        <title>Notable Changes between 2.1.1 to 2.1.2</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1.1">
+                        Fixes to bugs
+                    </link>
+                </para>
+            </listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-1-1">
+        <title>Notable Changes between 2.1 First Customer Ship (FCS) to 2.1.1</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1">
+                        Fixes to bugs
+                    </link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    <xref linkend="substitutable" xrefstyle="select:title"/>
+                </para>
+            </listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-1">
+        <title>Notable Changes between 2.1 Early Access 2 to 2.1 First Customer Ship (FCS)</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A%222.1+EA2%22">
+                        Fixes to bugs
+                    </link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Bug fix:
+                    <link xlink:href="http://find.me/id/6483368">#6483368 javax.xml.bind.Binder.marshal() doesn't
+                        throw expected MarshalException
+                    </link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Bug fix:
+                    <link xlink:href="http://find.me/id/6483953">#6483953
+                        javax.xml.bind.Binder.getJAXBNode(null) doesn't throw documented exception
+                    </link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>More bug fixes</para>
+            </listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-0-3">
+        <title>Notable Changes between 2.0.2 to 2.0.3</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.0.2">
+                        Fixes to bugs
+                    </link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>JavaSE 6 release is expected to include this version of the JAXB RI (certainly as of build 102.)</para>
+            </listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-0-2">
+        <title>Notable Changes between 2.0.1 to 2.0.2</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.0.1">
+                        Fixes to bugs
+                    </link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Bug fix:
+                    <link xlink:href="http://find.me/id/6372392">#6372392 Unmarshaller
+                        should report validation error for elements with xsi:nil="true" and content
+                    </link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Bug fix:
+                    <link xlink:href="http://find.me/id/6449776">#6449776
+                        ClassCastException in JAXB when using interfaces as parameters
+                    </link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>More bug fixes</para>
+            </listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-0-1">
+        <title>Notable Changes between 2.0 to 2.0.1</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.0">
+                        Fixes to bugs
+                    </link>
+                </para>
+            </listitem>
+            <listitem>
+                <para>More bug fixes</para>
+            </listitem>
+            <listitem>
+                <para>The simpler and better binding mode is improved</para>
+            </listitem>
+            <listitem>
+                <para>
+                    JAXB unofficial user's guide is available now, though it's still a work in progress
+                </para>
+            </listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-0">
+        <title>Notable Changes between 2.0 Early Access 3 and 2.0 First Customer Ship (FCS)</title>
+        <itemizedlist>
+            <listitem>
+                <para>Java to schema samples are added</para>
+            </listitem>
+            <listitem>
+                <para>Added &lt;xjc:javaType&gt; vendor customization</para>
+            </listitem>
+            <listitem>
+                <para>
+                    Added experimental &lt;xjc:simple&gt; vendor customization, which brings in a new simpler and better
+                    binding mode
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    The spec has renamed <literal>AccessType</literal> to<literal>XmlAccessType</literal>, and
+                    <literal>@AccessorType</literal> to<literal>@XmlAccessorType</literal>.
+                </para>
+            </listitem>
+            <listitem>
+                <para>Various error handling improvements</para>
+            </listitem>
+            <listitem>
+                <para>Experimental canonicaliztion support is added.</para>
+            </listitem>
+            <listitem>
+                <para>The '-b' option can now take a directory and recursively search for all "*.xjb" files.</para>
+            </listitem>
+            <listitem>
+                <para>Fixed various issues regarding using JAXB from codef inside a restricted security sandbox.</para>
+            </listitem>
+            <listitem>
+                <para>Added more pluggability points for plugins to customize the code generation behavior.</para>
+            </listitem>
+            <listitem>
+                <para>
+                    Some of the code is split into a separate <literal>istack-commons</literal>
+                    project to promote more reuse among projects.
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Made a few changes so that RetroTranslator can translate the JAXB RI (and its generated code)
+                    to run it on JDK 1.4 and earlier
+                </para>
+            </listitem>
+            <listitem>
+                <para>Improved the quality of the generated code by removing unnecessary imports.</para>
+            </listitem>
+            <listitem>
+                <para>Other countless bug fixes</para>
+            </listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-0ea3">
+        <title>Notable Changes between 2.0 Early Access 2 and 2.0 Early Access 3</title>
+        <itemizedlist>
+            <listitem>
+                <para>Map property can be now correctly bound to XML Schema</para>
+            </listitem>
+            <listitem>
+                <para>
+                    Default marshaller error handling behavior became
+                    draconian (previously errors were ignored.)
+                </para>
+            </listitem>
+            <listitem>
+                <para>@link to a parameterized type is now correctly generated</para>
+            </listitem>
+            <listitem>
+                <para>
+                    started producing architecture document for those who want
+                    to build plugins or play with the RI internal.
+                </para>
+            </listitem>
+            <listitem>
+                <para>XJC now uses the platform default proxy setting by default.</para>
+            </listitem>
+            <listitem>
+                <para>
+                    <literal>@XmlAccessorOrder</literal>,
+                    <literal>@XmlSchemaType</literal> and
+                    <literal>@XmlInlineBinaryData</literal> are implemented
+                </para>
+            </listitem>
+            <listitem>
+                <para><literal>@XmlJavaTypeAdapter</literal> on a class/package is implemented</para>
+            </listitem>
+            <listitem>
+                <para>
+                    Marshaller life-cycle events are implemented
+                </para>
+            </listitem>
+            <listitem>
+                <para>Integration to FastInfoset is improved in terms of performance</para>
+            </listitem>
+            <listitem>
+                <para>XJC can generate <literal>@Generated</literal></para>
+            </listitem>
+            <listitem>
+                <para>The unmarshaller is significantly rewritten for better performance</para>
+            </listitem>
+            <listitem>
+                <para>Added schemagen tool and its Ant task</para>
+            </listitem>
+            <listitem>
+                <para>Various improvements in error reporting during unmarshalling/marshalling</para>
+            </listitem>
+            <listitem>
+                <para>JAXB RI is now under CDDL</para>
+            </listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-0ea2">
+        <title>Notable Changes between 2.0 Early Access and 2.0 Early Access 2</title>
+        <itemizedlist>
+            <listitem>
+                <para>
+                    The default for <literal>@XmlAccessorType</literal>
+                    was changed to PUBLIC_MEMBER
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Optimized binary data handling enabled by callbacks in
+                    package javax.xml.bind.attachment. Standards supported
+                    include MTOM/XOP and WS-I AP 1.0 ref:swaRef.
+                </para>
+            </listitem>
+            <listitem>
+                <para>Unmarshal/marshal support of element defaulting</para>
+            </listitem>
+            <listitem>
+                <para>Improved the quality of the generated Java code</para>
+            </listitem>
+            <listitem>
+                <para>Fixed bugs in default value handling</para>
+            </listitem>
+            <listitem>
+                <para>Runtime performance improvements, memory usage improvements</para>
+            </listitem>
+            <listitem>
+                <para>Added support for &lt;xjc:superInterface&gt; vendor extension</para>
+            </listitem>
+            <listitem>
+                <para>Migrated source code to http://jaxb2-sources.dev.java.net</para>
+            </listitem>
+            <listitem>
+                <para>Published NetBeans project file for JAXB RI</para>
+            </listitem>
+            <listitem>
+                <para>
+                    Added more support to the schema generator: anonymous
+                    complex types, attribute refs, ID/IDREF, etc
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Implemented <literal>javax.xml.bind.Binder</literal>
+                    support (not 100% done yet)
+                </para>
+            </listitem>
+            <listitem>
+                <para>Implemented marshal-time validation</para>
+            </listitem>
+            <listitem>
+                <para>
+                    Improved xjc command line interface - better support for
+                    proxy options, more options for specifying schema files
+                </para>
+            </listitem>
+            <listitem>
+                <para>Added schema-2-Java support for simple type substitution</para>
+            </listitem>
+            <listitem>
+                <para>
+                    Added support for the new
+                    <literal>&lt;jaxb:globalBindings localScoping="nested" | "toplevel"&gt;</literal>
+                    customization which helps control deeply nested classes
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Made the default <literal>ValidationEventHandler</literal> more forgiving in 2.0 than it was in 1.0
+                    (The class still behaves the same as it did when used by a 1.0 app)
+                </para>
+            </listitem>
+            <listitem>
+                <para>Added wildcard support for DTD</para>
+            </listitem>
+            <listitem>
+                <para>Numerous other small changes and bugfixes....</para>
+            </listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-0ea">
+        <title>Notable Changes between 1.0.x FCS and 2.0 Early Access</title>
+        <itemizedlist>
+            <listitem>
+                <para>Support for 100% W3C XML Schema (not all in EA, but planned for FCS)</para>
+            </listitem>
+            <listitem>
+                <para>Support for binding Java to XML</para>
+            </listitem>
+            <listitem>
+                <para>
+                    Addition of <literal>javax.xml.bind.annotation</literal>
+                    package for controling the binding from Java to XML
+                </para>
+            </listitem>
+            <listitem>
+                <para>
+                    Significant reduction in the number of generated schema-derived classes
+                    <itemizedlist>
+                        <listitem>
+                            <para>
+                                Per complex type definition, generate one value class
+                                instead of an interface and implementation class.
+                            </para>
+                        </listitem>
+                        <listitem>
+                            <para>
+                                Per global element declaration, generate a factory
+                                method instead of generating a schema-derived interface
+                                and implementation class.
+                            </para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </listitem>
+            <listitem>
+                <para>Replaced the validation capabilities in 1.0 with JAXP 1.3 validation API's</para>
+            </listitem>
+            <listitem>
+                <para>Smaller runtime libraries</para>
+            </listitem>
+            <listitem>
+                <para>Numerous other changes...</para>
+            </listitem>
+        </itemizedlist>
+    </section>
+</section>

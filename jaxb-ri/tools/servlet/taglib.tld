@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!--
+
+    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN" "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+<taglib>
+  <tlib-version>1.0</tlib-version>
+  <jsp-version>1.2</jsp-version>
+  <short-name>xjc</short-name>
+
+  <tag>
+    <name>zipForEach</name>
+    <tag-class>com.sun.tools.xjc.servlet.ZipTag</tag-class>
+    <body-content>JSP</body-content>
+  </tag>
+  
+  <tag>
+    <name>zipFileName</name>
+    <tag-class>com.sun.tools.xjc.servlet.ZipFileNameTag</tag-class>
+    <body-content>empty</body-content>
+  </tag>
+  
+  <tag>
+    <name>header</name>
+    <tag-class>com.sun.tools.xjc.servlet.HeaderTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+      <name>title</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  
+  <tag>
+    <name>if</name>
+    <tag-class>com.sun.tools.xjc.servlet.IfTag</tag-class>
+    <body-content>JSP</body-content>
+    <attribute>
+      <name>mode</name>
+      <required>true</required>
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+  </tag>
+  
+  <tag>
+    <name>version</name>
+    <tag-class>com.sun.tools.xjc.servlet.VersionTag</tag-class>
+    <body-content>empty</body-content>
+  </tag>
+</taglib>

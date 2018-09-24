@@ -1,0 +1,36 @@
+<!--
+
+    Copyright (c) 2015, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<FindBugsFilter>
+
+    <Match>
+        <Or>
+            <!-- Performance -->
+            <Bug pattern="ES_COMPARING_STRINGS_WITH_EQ"/>
+            <Bug pattern="ES_COMPARING_PARAMETER_STRING_WITH_EQ"/>
+
+            <!-- 3rd party code -->
+            <Bug pattern="NM_METHOD_NAMING_CONVENTION"/>
+            <Bug pattern="UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR"/>
+            <Bug pattern="BC_UNCONFIRMED_CAST_OF_RETURN_VALUE"/>
+            <Bug pattern="BC_UNCONFIRMED_CAST"/>
+
+        </Or>
+    </Match>
+
+    <!-- Generated -->
+    <Match>
+        <Or>
+            <Class name="com.sun.xml.xsom.impl.scd.SimpleCharStream"/>
+        </Or>
+    </Match>
+</FindBugsFilter>

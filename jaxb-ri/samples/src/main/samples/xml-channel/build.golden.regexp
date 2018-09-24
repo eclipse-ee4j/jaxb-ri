@@ -1,0 +1,30 @@
+
+jar-check:
+
+compile\:
+     \[echo\] Compiling the schema\.\.\.
+    \[mkdir\] Created dir\: .*
+      \[xjc\] .* is not found and thus excluded from the dependency check
+      \[xjc\] Compiling .*
+      \[xjc\] Writing output to .*
+     \[echo\] Compiling the java source files\.\.\.
+    \[mkdir\] Created dir\: .*
+    \[javac\] Compiling \d+ source files to .*
+
+run\:
+     \[echo\] Running the sample application\.\.\.
+     \[java\] accepted a connection from a client
+     \[java\] Message\: message 1
+     \[java\] Message\: message 2
+     \[java\] Message\: message 3
+     \[java\] Message\: message 4
+     \[java\] Message\: message 5
+     \[java\] Message\: message 6
+     \[java\] Message\: message 7
+     \[java\] Message\: message 8
+     \[java\] Message\: message 9
+     \[java\] Message\: message 10
+     \[java\] Bye\!
+
+BUILD SUCCESSFUL
+Total time\: .*

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<section version="5.0"
+         xml:id="customization-of-schema-compilation-using-different-datatypes"
+         xml:lang="en" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>Using different datatypes</title>
+
+    <para>JAXB has a built-in table that determines what Java classes are used
+    to represent what XML Schema built-in types, but this can be
+    customized.</para>
+
+    <para>One of the common use cases for customization is to replace the
+    <literal>XMLGregorianCalendar</literal> with the friendlier
+    <literal>Calendar</literal> or <literal>Date</literal>.
+    <literal>XMLGregorianCalendar</literal> is designed to be 100% compatible with
+    XML Schema's date/time system, such as providing infinite precision in
+    sub-seconds and years, but often the ease of use of those familiar Java
+    classes win over the precise compatibility.</para>
+
+    <para>One very easy way to do this is to simply use your IDE (or even
+    "<literal>sed</literal>") to replace all the references to <literal>XMLGregorianCalendar</literal>
+    by <literal>Calendar</literal>. This is of course not a very attractive option
+    if your build process runs XJC as a part of it.</para>
+
+    <para>Alternatively, the following customization file can be used to do
+    this. When using external customization file, the JAXB spec requires you
+    to use XPath as a means to specify what your customization is attached to.
+    For example, if you want to change the class name generated from a complex
+    type, you'd use the following customization:</para>
+
+    <example>
+        <title>Customization to use Calendar for x<literal>s:date</literal></title>
+
+        <programlisting language="xml"><![CDATA[<bindings xmlns="http://java.sun.com/xml/ns/jaxb" version="2.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <globalBindings>
+    <javaType name="java.util.Calendar" xmlType="xs:date"
+      parseMethod="javax.xml.bind.DatatypeConverter.parseDate"
+      printMethod="javax.xml.bind.DatatypeConverter.printDate"
+    />
+  </globalBindings>
+</bindings>]]></programlisting>
+    </example>
+
+    <para>Save this in a file and specify this to JAXB with the "-b"
+    option.</para>
+
+    <para>To use the <literal>Date</literal> class, you'll need to do a bit more
+    work. First, put the following class into your source tree:</para>
+
+    <example>
+        <title>Adapter for Date</title>
+
+        <programlisting language="java"><![CDATA[package org.acme.foo;
+public class DateAdapter {
+  public static Date parseDate(String s) {
+    return DatatypeConverter.parseDate(s).getTime();
+  }
+  public static String printDate(Date dt) {
+    Calendar cal = new GregorianCalendar();
+    cal.setTime(dt);
+    return DatatypeConverter.printDate(cal);
+  }
+}]]></programlisting>
+    </example>
+
+    <para>... then your binding file will be the following:</para>
+
+    <example>
+        <title>Customization to use Date for x<literal>s:date</literal></title>
+
+        <programlisting language="xml"><![CDATA[<bindings xmlns="http://java.sun.com/xml/ns/jaxb" version="2.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <globalBindings>
+    <javaType name="java.util.Date" xmlType="xs:date"
+      parseMethod="org.acme.foo.DateAadpter.parseDate"
+      printMethod="org.acme.foo.DateAdapter.printDate"
+    />
+  </globalBindings>
+</bindings>]]></programlisting>
+    </example>
+</section>

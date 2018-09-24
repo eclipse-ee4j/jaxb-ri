@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<section version="5.0"
+         xml:id="annotating-your-classes-evolving-annotated-classes"
+         xml:lang="en" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>Evolving annotated classes</title>
+
+    <para>Here is the basic problem of evolution. You got your CoolApp v1,
+    which contains class Foo that has some JAXB annotations. Now you are
+    working towawrd CoolApp v2, and you want to make some changes to Foo. But
+    you want to do so in such a way that v1 and v2 can still talk to each
+    other.</para>
+
+    <para>The evolution compatibility has two different aspects. One is the
+    <emphasis>schema compatibility</emphasis>, which is about the relationship
+    between the v1 schema and the v2 schema. The other is about
+    <emphasis>runtime compatibility</emphasis>, which is about reading/writing
+    documents between two versions.</para>
+
+    <section xml:id="Runtime_compatibility">
+        <title>Runtime compatibility</title>
+
+        <para>There are two directions in the runtime compatibility. One is
+        whether v1 can still read what v2 write (<emphasis>forward
+        compatible</emphasis>), and the other is whether v2 can read what v1
+        wrote (<emphasis>backward compatible</emphasis>).</para>
+    </section>
+
+    <section xml:id="_Semi_compatible_">
+        <title>"<literal>Semi-compatible</literal>"</title>
+
+        <para>JAXB can read XML documents that don't exactly match what's
+        expected. This is the default behavior of the JAXB unmarshaller, yet
+        you can change it to a more draconian behavior (TODO: pointer to the
+        unmarshalling section.)</para>
+
+        <para>When we are talking about evolving classes, it's often
+        convenient to leave it in the default behavior, as that would allow
+        JAXB to nicely ignore elements/attributes newly added in v2. So we
+        call it <emphasis>backward semi-compatible</emphasis> if v2 can read
+        what v1 wrote in this default unmarshalling mode, and similarly
+        <emphasis>forward semi-compatible</emphasis> if v1 can read what v2
+        wrote in this default unmarshalling mode.</para>
+
+        <para>Technically, these are weaker than true backward/forward
+        compatibility (since you can't do a draconian error detection), yet in
+        practice it works just fine.</para>
+    </section>
+
+    <section xml:id="Adding_removing_changing_non_annotated_things">
+        <title>Adding/removing/changing non-annotated things</title>
+
+        <para>You can add, remove, or change any non-annotated fields,
+        methods, inner/nested types, constructors, interfaces. Those changes
+        are both backward and forward compatible, as they don't cause any
+        change to the XML representation.</para>
+
+        <para>Adding super class is backward compatible and forward
+        semi-compatible. Similarly, removing super class is forward compatible
+        and backward semi-compatible.</para>
+    </section>
+
+    <section xml:id="Adding_removing_changing_properties">
+        <title>Adding/removing/changing properties</title>
+
+        <para>Adding new annotated fields or methods is backward compatible
+        and forward semi-compatible. Similarly, removing them is forward
+        compatible and backward semi-compatible.</para>
+
+        <para>Changing a property is bit more tricky.</para>
+
+        <orderedlist>
+            <listitem>
+                <para>If you change the property name from X to Y, that would
+                be the equivalent of deleting X and adding Y, so it would be
+                backward and forward semi-compatible. What JAXB really cares
+                is properties' XML names and not Java names, so by using the
+                <literal>name</literal> parameter of <literal>XmlElement</literal>, <literal>XmlAttribute</literal> et al, you can change Java
+                property names without affecting XML, or change XML without
+                affecting Java properties. These are backward and forward
+                semi-compatible. See below:</para>
+            </listitem>
+
+            <listitem>
+                <example>
+                    <title>Changing Java without affecting XML</title>
+
+                    <programlisting language="java"><![CDATA[// BEFORE
+public class Foo {
+    public String abc;
+}
+// AFTER: Java name changed, but XML remains the same
+public class Foo {
+    @XmlElement(name="abc")
+    public String def;
+}]]></programlisting>
+                </example>
+
+                <example>
+                    <title>Changing XML without affecting Java</title>
+
+                    <programlisting language="java"><![CDATA[// BEFORE
+public class Foo {
+    public String abc;
+}
+// AFTER: no Java change, but XML will look different
+public class Foo {
+    @XmlElement(name="def")
+    public String abc;
+}]]></programlisting>
+                </example>
+            </listitem>
+
+            <listitem>
+                <para>If you change a property type, generally speaking it
+                will be not compatible at all. For example, you can't change
+                from <literal>java.util.Calendar</literal> to <literal>int</literal> and
+                expect it to work. To make it a somewhat compatible change,
+                the old type and the new type has to be related. For example,
+                <literal>String</literal> can represent all <literal>int</literal> values,
+                so changing <literal>int</literal> to <literal>String</literal> would be a
+                backward compatible and forward semi-compatible change. <literal>XmlJavaTypeAdapter</literal> allows you to make
+                changes to Java without affecting XML (or vice versa.)</para>
+            </listitem>
+        </orderedlist>
+    </section>
+
+    <section xml:id="Changing_class_names">
+        <title>Changing class names</title>
+
+        <para><literal>XmlType</literal> and <literal>XmlRootElement</literal> allows you to change a class name
+        without affecting XML.</para>
+
+        <example>
+            <title>Changing class name without affecting XML (1)</title>
+
+            <programlisting language="java"><![CDATA[// BEFORE
+@XmlRootElement
+public class Foo { ... }
+
+// AFTER: no XML change
+@XmlRootElement(name="foo")
+@XmlType(name="foo")
+public class Bar { ... }]]></programlisting>
+        </example>
+
+        <example>
+            <title>Changing class name without affecting XML (2)</title>
+
+            <programlisting language="java"><![CDATA[// BEFORE
+public class Foo { ... }
+
+// AFTER: no XML change
+@XmlType(name="foo")
+public class Bar { ... }]]></programlisting>
+        </example>
+    </section>
+
+    <section xml:id="Schema_Compatibility">
+        <title>Schema Compatibility</title>
+
+        <para>TODO.</para>
+    </section>
+</section>

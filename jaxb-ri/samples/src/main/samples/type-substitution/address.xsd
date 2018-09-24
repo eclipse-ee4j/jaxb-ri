@@ -1,0 +1,76 @@
+<!--
+
+    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+        <!-- Addresses for International Purchase Order schema, address.xsd -->
+
+<schema targetNamespace="http://www.example.com/IPO"
+        xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:ipo="http://www.example.com/IPO">
+
+  <complexType name="Address">
+    <sequence>
+      <element name="name" type="string"/>
+      <element name="street" type="string"/>
+      <element name="city" type="string"/>
+    </sequence>
+  </complexType>
+
+  <complexType name="USAddress">
+    <complexContent>
+      <extension base="ipo:Address">
+        <sequence>
+          <element name="state" type="ipo:USState"/>
+          <element name="zip" type="positiveInteger"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+
+  <complexType name="UKAddress">
+    <complexContent>
+      <extension base="ipo:Address">
+        <sequence>
+          <element name="postcode" type="ipo:UKPostcode"/>
+        </sequence>
+        <attribute name="exportCode" type="positiveInteger" fixed="1"/>
+      </extension>
+    </complexContent>
+  </complexType>
+
+  <!-- other Address derivations for more countries -->
+
+  <simpleType name="USState">
+    <restriction base="string">
+      <enumeration value="AK"/>
+      <enumeration value="AL"/>
+      <enumeration value="AR"/>
+      <enumeration value="PA"/>
+      <enumeration value="MA"/>
+      <!-- and so on ... -->
+    </restriction>
+  </simpleType>
+
+  <!-- simple type definition for UKPostcode -->
+  <simpleType name="Postcode">
+    <restriction base="string">
+      <length value="7" fixed="true"/>
+    </restriction>
+  </simpleType>
+
+  <simpleType name="UKPostcode">
+    <restriction base="ipo:Postcode">
+      <pattern value="[A-Z]{2}\d\s\d[A-Z]{2}"/>
+    </restriction>
+  </simpleType>
+
+</schema>
+

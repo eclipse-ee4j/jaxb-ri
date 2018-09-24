@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+
+    Copyright (c) 2017, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<sample since="1.0.2">
+    <title>dtd</title>
+    <description><![CDATA[
+        This sample application illustrate some of the DTD support available in 
+        the JAXB RI's extension mode. Please refer to the <a href="vendor.html>
+        Vendor Extensions</a> page for more detail.
+    ]]></description>
+        
+    <project>
+        <xjc schema="nameCard.dtd" binding="nameCard.jaxb">
+          <arg value="-dtd" /> <!-- this option is required to compile DTD -->
+        </xjc>
+        
+        <javadoc/>
+        
+        <java mainClass="DTDSample">
+            <arg path="test.xml"/>
+        </java>
+    </project>
+    
+</sample>

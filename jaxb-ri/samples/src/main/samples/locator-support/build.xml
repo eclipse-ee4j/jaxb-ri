@@ -1,0 +1,60 @@
+<?xml version="1.0" standalone="yes"?>
+<!--
+
+    Copyright (c) 2004, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<project basedir="." default="run">
+  <description>
+        This sample shows how to use the new non-standard locator support.  By 
+        following the instructions in the readme.txt file, you can cause all of 
+        the generated impl classes to implement a new interface that provides 
+        more information about error locations.  When a ValidationEvent happens 
+        on your content tree, simply retrieve the object and cast it down to 
+        &lt;tt&gt;com.sun.xml.bind.extra.Locatable&lt;/tt&gt;.
+    </description>
+  <property name="jaxb.home" value="../.." />
+  <path id="classpath">
+    <pathelement path="src" />
+    <pathelement path="classes" />
+    <pathelement path="schemas" />
+    <fileset dir="${jaxb.home}" includes="lib/*.jar" />
+  </path>
+  <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
+    <classpath refid="classpath" />
+  </taskdef>
+
+  <!--compile Java source files-->
+  <target name="compile" description="Compile all Java source files">
+    <echo message="Compiling the schema..." />
+    <mkdir dir="gen-src" />
+    <xjc extension="true" schema="po.xsd" package="primer.myPo" destdir="gen-src">
+      <arg value="-Xlocator" />
+      <produces dir="gen-src/primer.myPo" includes="**/*.java" />
+    </xjc>
+    <echo message="Compiling the java source files..." />
+    <mkdir dir="classes" />
+    <javac destdir="classes" debug="on">
+      <src path="gen-src" />
+      <classpath refid="classpath" />
+    </javac>
+  </target>
+
+  <target name="run" depends="compile" description="Run the sample app">
+    <echo message="done" />
+  </target>
+
+  <target name="clean" description="Deletes all the generated artifacts.">
+    <delete dir="gen-src" />
+    <delete dir="schemas" />
+    <delete dir="classes" />
+  </target>
+</project>
+

@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<section version="5.0" xml:id="tools-xjc" xml:lang="en"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>XJC</title>
+
+    <section>
+        <title><command>xjc</command> Overview</title>
+
+        <para>JAXB RI also provides an Ant task to run the binding complier -
+        see the instructions for <xref linkend="tools-xjc-ant-task"
+        xrefstyle="select:title" />.</para>
+    </section>
+
+    <section xml:id="section-7316528525821393">
+        <title>Launching <command>xjc</command></title>
+
+        <para>The binding compiler can be launched using the appropriate
+        <literal>xjc</literal> shell script in the <literal>bin</literal>
+        directory for your platform.</para>
+
+        <itemizedlist>
+            <listitem>
+                <para><emphasis role="bold">Solaris/Linux</emphasis></para>
+
+                <programlisting language="cli"><![CDATA[% /path/to/jaxb/bin/xjc.sh -help]]></programlisting>
+            </listitem>
+
+            <listitem>
+                <para><emphasis role="bold">Windows</emphasis></para>
+
+                <programlisting language="cli"><![CDATA[> c:\path\to\jaxb\bin\xjc.bat -help]]></programlisting>
+            </listitem>
+        </itemizedlist>
+
+        <section xml:id="section-445618689309685">
+            <title>Execute the <filename>jaxb-xjc.jar</filename> JAR
+            File</title>
+
+            <para>If all else fails, you should be able to execute the
+            <literal>jaxb-xjc.jar</literal> file:</para>
+
+            <itemizedlist>
+                <listitem>
+                    <para><emphasis
+                    role="bold">Solaris/Linux</emphasis></para>
+
+                    <programlisting language="cli"><![CDATA[% java -jar $JAXB_HOME/lib/jaxb-xjc.jar -help]]></programlisting>
+                </listitem>
+
+                <listitem>
+                    <para><emphasis role="bold">Windows</emphasis></para>
+
+                    <programlisting language="cli"><![CDATA[> java -jar %JAXB_HOME%\lib\jaxb-xjc.jar -help]]></programlisting>
+                </listitem>
+            </itemizedlist>
+
+            <para>This is equivalent of running <command>xjc.sh</command> or
+            <command>xjc.bat</command>, and it allows you to set the JVM
+            parameters.</para>
+        </section>
+    </section>
+
+    <section>
+        <title><command>xjc</command> Syntax</title>
+
+        <cmdsynopsis>
+            <command>xjc</command>
+
+            <group choice="plain" rep="repeat">
+                <arg choice="opt">OPTION</arg>
+            </group>
+
+            <arg choice="req" rep="norepeat">schema file/URL/dir/jar</arg>
+
+            <arg rep="repeat"><option>-b</option><arg
+            choice="req">binding</arg></arg>
+        </cmdsynopsis>
+
+        <informalexample>
+            <programlisting><![CDATA[Usage: xjc [-options ...] <schema file/URL/dir/jar> ... [-b <bindinfo>] ...
+If dir is specified, all schema files in it will be compiled.
+If jar is specified, /META-INF/sun-jaxb.episode binding file will be compiled.
+Options:
+  -nv                :  do not perform strict validation of the input schema(s)
+  -extension         :  allow vendor extensions - do not strictly follow the
+                        Compatibility Rules and App E.2 from the JAXB Spec
+  -b <file/dir>      :  specify external bindings files (each <file> must have its own -b)
+                        If a directory is given, **/*.xjb is searched
+  -d <dir>           :  generated files will go into this directory
+  -p <pkg>           :  specifies the target package
+  -httpproxy <proxy> :  set HTTP/HTTPS proxy. Format is [user[:password]@]proxyHost:proxyPort
+  -httpproxyfile <f> :  Works like -httpproxy but takes the argument in a file to protect password 
+  -classpath <arg>   :  specify where to find user class files
+  -catalog <file>    :  specify catalog files to resolve external entity references
+                        support TR9401, XCatalog, and OASIS XML Catalog format.
+  -readOnly          :  generated files will be in read-only mode
+  -npa               :  suppress generation of package level annotations (**/package-info.java)
+  -no-header         :  suppress generation of a file header with timestamp
+  -target (2.0|2.1)  :  behave like XJC 2.0 or 2.1 and generate code that doesn't use any 2.2 features.
+  -encoding <encoding> :  specify character encoding for generated source files
+  -enableIntrospection :  enable correct generation of Boolean getters/setters to enable Bean Introspection apis 
+  -disableXmlSecurity  :  disables XML security features when parsing XML documents 
+  -contentForWildcard  :  generates content property for types with multiple xs:any derived elements 
+  -xmlschema         :  treat input as W3C XML Schema (default)
+  -relaxng           :  treat input as RELAX NG (experimental,unsupported)
+  -relaxng-compact   :  treat input as RELAX NG compact syntax (experimental,unsupported)
+  -dtd               :  treat input as XML DTD (experimental,unsupported)
+  -wsdl              :  treat input as WSDL and compile schemas inside it (experimental,unsupported)
+  -verbose           :  be extra verbose
+  -quiet             :  suppress compiler output
+  -help              :  display this help message
+  -version           :  display version information
+  -fullversion       :  display full version information
+
+Extensions:
+  -Xinject-code      :  inject specified Java code fragments into the generated code
+  -Xlocator          :  enable source location support for generated code
+  -Xsync-methods     :  generate accessor methods with the 'synchronized' keyword
+  -mark-generated    :  mark the generated code as @javax.annotation.Generated
+  -episode           :  generate the episode file for separate compilation
+  -Xpropertyaccessors :  Use XmlAccessType PROPERTY instead of FIELD for generated classes]]></programlisting>
+        </informalexample>
+
+        <section xml:id="switches">
+            <title>Summary of Command Line Options</title>
+
+            <variablelist>
+                <varlistentry>
+                    <term><emphasis role="bold">-nv</emphasis></term>
+
+                    <listitem>
+                        <para>By default, the XJC binding compiler performs
+                        strict validation of the source schema before
+                        processing it. Use this option to disable strict
+                        schema validation. This does not mean that the binding
+                        compiler will not perform any validation, it simply
+                        means that it will perform less-strict
+                        validation.</para>
+                    </listitem>
+                </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis role="bold">-extension</emphasis></term>
+
+                    <listitem>
+                        <para>By default, the XJC binding compiler strictly
+                        enforces the rules outlined in the Compatibility
+                        chapter of the JAXB Specification. Appendix E.2
+                        defines a set of W3C XML Schema features that are not
+                        completely supported by JAXB v1.0. In some cases, you
+                        may be allowed to use them in the "-extension" mode
+                        enabled by this switch. In the default (strict) mode,
+                        you are also limited to using only the binding
+                        customizations defined in the specification. By using
+                        the "-extension" switch, you will be allowed to use
+                        the <xref linkend="jaxb-ri-extensions-overview"
+                        xrefstyle="select:title" />.</para>
+                    </listitem>
+                </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis role="bold">-b
+                    &lt;file&gt;</emphasis></term>
+
+                    <listitem>
+                        <para>Specify one or more external binding files to
+                        process. (Each binding file must have it's own <option>-b</option> switch.) The syntax of the external
+                        binding files is extremely flexible. You may have a
+                        single binding file that contains customizations for
+                        multiple schemas or you can break the customizations
+                        into multiple bindings files: <informalexample>
+                                <programlisting><![CDATA[xjc schema1.xsd schema2.xsd schema3.xsd -b bindings123.xjb
+xjc schema1.xsd schema2.xsd schema3.xsd -b bindings1.xjb -b bindings2.xjb -b bindings3.xjb]]></programlisting>
+                            </informalexample> In addition,
+                        the ordering of the schema files and binding files on
+                        the command line does not matter.</para>
+                    </listitem>
+                </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis role="bold">-d
+                    &lt;dir&gt;</emphasis></term>
+
+                    <listitem>
+                        <para>By default, the XJC binding compiler will
+                        generate the Java content classes in the current
+                        directory. Use this option to specify an alternate
+                        output directory. The output directory must already
+                        exist, the XJC binding compiler will not create it for
+                        you.</para>
+                    </listitem>
+                </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis role="bold">-encoding
+                    &lt;encoding&gt;</emphasis></term>
+
+                    <listitem>
+                        <para>Set the encoding name for generated sources,
+                        such as EUC-JP or UTF-8. If <option>-encoding</option> is
+                        not specified, the platform default encoding is
+                        used.</para>
+                    </listitem>
+                </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis role="bold">-p
+                    &lt;pkg&gt;</emphasis></term>
+
+                    <listitem>
+                        <para>Specifying a target package via this
+                        command-line option overrides any binding
+                        customization for package name and the default package
+                        name algorithm defined in the specification.</para>
+                    </listitem>
+                </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis role="bold">-httpproxy
+                    &lt;proxy&gt;</emphasis></term>
+
+                    <listitem>
+                        <para>Specify the HTTP/HTTPS proxy. The format is
+                        [user[:password]@]proxyHost[:proxyPort]. The old <option>-host</option> and <option>-port</option> are still
+                        supported by the RI for backwards compatibility, but
+                        they have been deprecated.</para>
+                    </listitem>
+                </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis role="bold">-httpproxyfile
+                    &lt;f&gt;</emphasis></term>
+
+                    <listitem>
+                        <para>Same as the <code>-httpproxy
+                        &lt;proxy&gt;</code> option, but it takes the
+                        &lt;proxy&gt; parameter in a file, so that you can
+                        protect the password (passing a password in the
+                        argument list is not safe.)</para>
+                    </listitem>
+                </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis role="bold">-classpath
+                    &lt;arg&gt;</emphasis></term>
+
+                    <listitem>
+                        <para>Specify where to find client application class
+                        files used by the <literal>&lt;jxb:javaType&gt;</literal>
+                        and <literal>&lt;xjc:superClass&gt;</literal>
+                        customizations.</para>
+                    </listitem>
+                </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis role="bold">-catalog
+                    &lt;file&gt;</emphasis></term>
+
+                    <listitem>
+                        <para>Specify catalog files to resolve external entity
+                        references. Supports TR9401, XCatalog, and OASIS XML
+                        Catalog format. Please read the <link
+                        xlink:href="catalog.html">XML Entity and URI
+                        Resolvers</link> document or the
+                        <literal>catalog-resolver</literal> sample
+                        application.</para>
+                    </listitem>
+                </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis role="bold">-readOnly</emphasis></term>
+
+                    <listitem>
+                        <para>By default, the XJC binding compiler does not
+                        write-protect the Java source files it generates. Use
+                        this option to force the XJC binding compiler to mark
+                        the generated Java sources read-only.</para>
+                    </listitem>
+                </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis role="bold">-npa</emphasis></term>
+
+                    <listitem>
+                        <para>Supress the generation of package level
+                        annotations into **/package-info.java. Using this
+                        switch causes the generated code to internalize those
+                        annotations into the other generated classes.</para>
+                    </listitem>
+                </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis role="bold">-no-header</emphasis></term>
+
+                    <listitem>
+                        <para>Supress the generation of a file header comment
+                        that includes some note and timestamp. Using this
+                        makes the generated code more
+                        <literal>diff</literal>-friendly.</para>
+                    </listitem>
+                </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis role="bold">-target (2.0|2.1)</emphasis></term>
+
+                    <listitem>
+                        <para>Avoid generating code that relies on any JAXB
+                        2.1|2.2 features. This will allow the generated code to
+                        run with JAXB 2.0 runtime (such as JavaSE 6.)</para>
+                    </listitem>
+                </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis role="bold">-xmlschema</emphasis></term>
+
+                    <listitem>
+                        <para>treat input schemas as W3C XML Schema (default).
+                        If you do not specify this switch, your input schemas
+                        will be treated as W3C XML Schema.</para>
+                    </listitem>
+                </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis role="bold">-relaxng</emphasis></term>
+
+                    <listitem>
+                        <para>Treat input schemas as RELAX NG (experimental,
+                        unsupported). Support for RELAX NG schemas is provided
+                        as a <xref linkend="jaxb-ri-extensions-overview"
+                        xrefstyle="select:title" />.</para>
+                    </listitem>
+                </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis
+                    role="bold">-relaxng-compact</emphasis></term>
+
+                    <listitem>
+                        <para>Treat input schemas as RELAX NG compact
+                        syntax(experimental, unsupported). Support for RELAX
+                        NG schemas is provided as a <xref
+                        linkend="jaxb-ri-extensions-overview"
+                        xrefstyle="select:title" />.</para>
+                    </listitem>
+                </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis role="bold">-dtd</emphasis></term>
+
+                    <listitem>
+                        <para>Treat input schemas as XML DTD (experimental,
+                        unsupported). Support for RELAX NG schemas is provided
+                        as a <xref linkend="jaxb-ri-extensions-overview"
+                        xrefstyle="select:title" />.</para>
+                    </listitem>
+                </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis role="bold">-wsdl</emphasis></term>
+
+                    <listitem>
+                        <para>Treat input as WSDL and compile schemas inside
+                        it (experimental,unsupported).</para>
+                    </listitem>
+                </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis role="bold">-quiet</emphasis></term>
+
+                    <listitem>
+                        <para>Suppress compiler output, such as progress
+                        information and warnings..</para>
+                    </listitem>
+                </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis role="bold">-verbose</emphasis></term>
+
+                    <listitem>
+                        <para>Be extra verbose, such as printing informational
+                        messages or displaying stack traces upon some
+                        errors..</para>
+                    </listitem>
+                </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis role="bold">-help</emphasis></term>
+
+                    <listitem>
+                        <para>Display a brief summary of the compiler
+                        switches.</para>
+                    </listitem>
+                </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis role="bold">-version</emphasis></term>
+
+                    <listitem>
+                        <para>Display the compiler version information.</para>
+                    </listitem>
+                </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis role="bold">&lt;schema
+                    file/URL/dir&gt;</emphasis></term>
+
+                    <listitem>
+                        <para>Specify one or more schema files to compile. If
+                        you specify a directory, then xjc will scan it for all
+                        schema files and compile them.</para>
+                    </listitem>
+                </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis role="bold">-Xlocator</emphasis></term>
+
+                    <listitem>
+                        <para>This feature causes the generated code to expose
+                        SAX Locator information about the source XML in the
+                        Java bean instances after unmarshalling.</para>
+                    </listitem>
+                </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis
+                    role="bold">-Xsync-methods</emphasis></term>
+
+                    <listitem>
+                        <para>This feature causes all of the generated method
+                        signatures to include the synchronized keyword.</para>
+                    </listitem>
+                </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis
+                    role="bold">-mark-generated</emphasis></term>
+
+                    <listitem>
+                        <para>This feature causes all of the generated code to
+                        have <link
+                        xlink:href="http://docs.oracle.com/javaee/5/api/javax/annotation/Generated.html">
+                        <literal>@Generated</literal> </link> annotation.</para>
+                    </listitem>
+                </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis role="bold">-episode
+                    &lt;FILE&gt;</emphasis></term>
+
+                    <listitem>
+                        <para>Generate an episode file from this compilation,
+                        so that other schemas that rely on this schema can be
+                        compiled later and rely on classes that are generated
+                        from this compilation. The generated episode file is
+                        really just a JAXB customization file (but with vendor
+                        extensions.)</para>
+                    </listitem>
+                </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis
+                    role="bold">-Xinject-code</emphasis></term>
+
+                </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis
+                    role="bold">-Xpropertyaccessors&gt;</emphasis></term>
+
+                    <listitem>
+                        <para>Annotate the <literal>@XmlAccessorType</literal>
+                        of generated classes with XmlAccessType PROPERTY
+                        instead of FIELD</para>
+                    </listitem>
+                </varlistentry>
+            </variablelist>
+        </section>
+
+        <section xml:id="section-3919972974137325">
+            <title>Summary of Deprecated and Removed Command Line
+            Options</title>
+
+            <variablelist>
+                <varlistentry>
+                    <term><emphasis role="bold">-host &amp;
+                    -port</emphasis></term>
+
+                    <listitem>
+                        <para>These options have been deprecated and replaced
+                        with the <emphasis role="bold">-httpproxy</emphasis>
+                        option. For backwards compatibility, we will continue
+                        to support these options, but they will no longer be
+                        documented and may be removed from future
+                        releases.</para>
+                    </listitem>
+                </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis role="bold">-use-runtime</emphasis></term>
+
+                    <listitem>
+                        <para>Since the JAXB 2.0 specification has defined a
+                        portable runtime, it is no longer necessary for the
+                        JAXB RI to generate **/impl/runtime packages.
+                        Therefore, this switch is obsolete and has been
+                        removed.</para>
+                    </listitem>
+                </varlistentry>
+            </variablelist>
+        </section>
+    </section>
+
+    <section xml:id="restrictions">
+        <title>Compiler Restrictions</title>
+
+        <para>In general, it is safest to compile all related schemas as a
+        single unit with the same binding compiler switches.</para>
+
+        <para>Please keep the following list of restrictions in mind when
+        running xjc. Most of these issues only apply when compiling multiple
+        schemas with multiple invocations of xjc.</para>
+
+        <itemizedlist>
+            <listitem>
+                <para>To compile multiple schemas at the same time, keep the
+                following precedence rules for the target Java package name in
+                mind: <orderedlist>
+                        <listitem>
+                            <para>The <option>-p</option> command line option
+                            takes the highest precedence.</para>
+                        </listitem>
+
+                        <listitem>
+                            <para><literal>&lt;jaxb:package&gt;</literal>
+                            customization</para>
+                        </listitem>
+
+                        <listitem>
+                            <para>If <literal>targetNamespace</literal> is declared,
+                            apply <literal>targetNamespace</literal> -&gt; Java
+                            package name algorithm defined in the
+                            specification.</para>
+                        </listitem>
+
+                        <listitem>
+                            <para>If no <literal>targetNamespace</literal> is
+                            declared, use a hardcoded package named
+                            "generated".</para>
+                        </listitem>
+                    </orderedlist></para>
+            </listitem>
+
+            <listitem>
+                <para>It is not legal to have more than one &lt;
+                <literal>jaxb:schemaBindings</literal>&gt; per namespace, so it is
+                impossible to have two schemas in the same target namespace
+                compiled into different Java packages.</para>
+            </listitem>
+
+            <listitem>
+                <para>All schemas being compiled into the same Java package
+                must be submitted to the XJC binding compiler at the same time
+                - they cannot be compiled independently and work as
+                expected.</para>
+            </listitem>
+
+            <listitem>
+                <para>Element substitution groups spread across multiple
+                schema files must be compiled at the same time.</para>
+            </listitem>
+        </itemizedlist>
+    </section>
+
+    <section xml:id="xjcresources">
+        <title>Generated Resource Files</title>
+
+        <para>XJC produces a set of packages containing Java source files and
+        also <literal>jaxb.properties</literal> files, depending on the binding
+        options you used for compilation. When generated,
+        <literal>jaxb.properties</literal> files must be kept with the compiled
+        source code and made available on the runtime classpath of your client
+        applications:</para>
+    </section>
+</section>

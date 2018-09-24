@@ -1,0 +1,18 @@
+
+compile\:
+     \[echo\] Compiling the schema\.\.\.
+    \[mkdir\] Created dir\: .*
+      \[xjc\] Compiling .*
+      \[xjc\] Writing output to .*
+     \[echo\] Compiling the java source files\.\.\.
+    \[mkdir\] Created dir\: .*
+    \[javac\] Compiling \d+ source files to .*
+
+run\:
+     \[echo\] Running the sample application\.\.\.
+     \[java\] \<\?xml version\=\"1\.0\" encoding\=\"UTF\-8\" standalone\=\"yes\"\?\>
+     \[java\] \<add\>\<neg\>\<number\>3\<\/number\>\<\/neg\>\<sub\>\<number\>2\<\/number\>\<number\>5\<\/number\>\<\/sub\>\<\/add\>
+
+
+BUILD SUCCESSFUL
+Total time\: .*

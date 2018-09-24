@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<section version="5.0" xml:id="unmarshalling-xmlrootelement-and-unmarshalling"
+         xml:lang="en" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title><literal>@XmlRootElement</literal> and unmarshalling</title>
+
+    <para>Classes with <literal>XmlRootElement</literal> can be unmarshalled from XML elements
+    simply by invoking the unmarshal method that takes one parameter. This is
+    the simplest mode of unmarshalling.</para>
+
+    <para>Unmarshalling with <literal>@XmlRootElement</literal></para>
+
+    <informalexample>
+        <programlisting language="java"><![CDATA[@XmlRootElement
+class Foo {
+  @XmlAttribute
+  String name;
+  @XmlElement
+  String content;
+}
+
+Unmarshaller u = ...;
+Foo foo = (Foo)u.unmarshal(new File("foo.xml"));]]></programlisting>
+    </informalexample>
+
+    <example>
+        <title>foo.xml</title>
+
+        <programlisting language="xml"><![CDATA[<foo name="something">
+  <content>abc</content>
+</foo>]]></programlisting>
+    </example>
+
+    <para>However, sometimes you may need to unmarshal an instance of a type
+    that does not have an <literal>XmlRootElement</literal>. For example, you might dynamically
+    find out at the runtime that a certain element has a certain type. For
+    example, the following document illustrates an XML instance where the
+    content of <literal>&lt;someOtherTagName&gt;</literal> element is represented by the
+    <literal>Foo</literal> class.</para>
+
+    <example>
+        <title>foo2.xml</title>
+
+        <programlisting language="xml"><![CDATA[<someOtherTagName name="something">
+  <content>abc</content>
+</someOtherTagName>]]></programlisting>
+    </example>
+
+    <para>To unmarshal this into a <literal>Foo</literal> class, use the version of
+    the <literal>unmarshal</literal> method that takes the 'expectedType' argument,
+    as follows:</para>
+
+    <example>
+        <title>Unmarshalling into a known type</title>
+
+        <programlisting language="java"><![CDATA[Unmarshaller u = ...;
+JAXBElement<Foo> root = u.unmarshal(new StreamSource(new File("foo.xml")),Foo.class);
+Foo foo = root.getValue();]]></programlisting>
+    </example>
+
+    <para>To reduce the number of the <literal>unmarshal</literal> methods, this
+    two-argument version is not defined for every single-argument version. So
+    as in this example, you might need to perform additional wrapping of the
+    input parameter.</para>
+
+    <para>This instructs JAXB that the caller is expecting to unmarshal
+    <literal>Foo</literal> instance. JAXB returns a <literal>JAXBElement</literal> of
+    <literal>Foo</literal>, and this <literal>JAXBElement</literal> captures the tag name
+    of the root element.</para>
+</section>

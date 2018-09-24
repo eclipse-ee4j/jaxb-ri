@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.0.0 http://maven.apache.org/xsd/assembly-2.0.0.xsd">
+
+    <id>zip-bundle</id>
+
+    <includeBaseDirectory>false</includeBaseDirectory>
+
+    <formats>
+        <format>zip</format>
+    </formats>
+
+    <fileSets>
+        <fileSet>
+            <directory>src/main/resources</directory>
+            <outputDirectory>jaxb-ri</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0644</fileMode>
+            <includes>
+                <include>bin/xjc.bat</include>
+                <include>bin/schemagen.bat</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>src/main/resources</directory>
+            <outputDirectory>jaxb-ri</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0755</fileMode>
+            <includes>
+                <include>bin/xjc.sh</include>
+                <include>bin/schemagen.sh</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>src/main/resources</directory>
+            <outputDirectory>jaxb-ri</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0644</fileMode>
+            <includes>
+                <include>License.txt</include>
+                <include>ThirdParty*.txt</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+
+    <dependencySets>
+        <dependencySet>
+            <outputFileNameMapping>${artifact.artifactId}.${artifact.extension}</outputFileNameMapping>
+            <useProjectArtifact>false</useProjectArtifact>
+            <useTransitiveDependencies>true</useTransitiveDependencies>
+            <useTransitiveFiltering>true</useTransitiveFiltering>
+            <outputDirectory>jaxb-ri/mod</outputDirectory>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0644</fileMode>
+            <includes>
+                <include>javax.xml.bind:jaxb-api</include>
+                <include>org.glassfish.jaxb:jaxb-xjc</include>
+                <include>org.glassfish.jaxb:jaxb-runtime</include>
+                <include>org.glassfish.jaxb:jaxb-jxc</include>
+                <include>org.glassfish.jaxb:codemodel</include>
+                <include>org.glassfish.jaxb:xsom</include>
+                <include>com.sun.xml.bind.external:rngom</include>
+                <include>com.sun.istack:istack-commons-runtime</include>
+                <include>com.sun.istack:istack-commons-tools</include>
+                <include>com.sun.xml.dtd-parser:dtd-parser</include>
+                <include>org.jvnet.staxex:stax-ex</include>
+                <include>com.sun.xml.fastinfoset:FastInfoset</include>
+                <include>org.glassfish.jaxb:txw2</include>
+                <include>javax.activation:javax.activation-api</include>
+                <include>com.sun.xml.bind.external:relaxng-datatype</include>
+            </includes>
+            <excludes>
+                <exclude>org.apache.ant:ant</exclude>
+            </excludes>
+        </dependencySet>
+        <dependencySet>
+            <outputFileNameMapping>${artifact.artifactId}.${artifact.extension}</outputFileNameMapping>
+            <useProjectArtifact>false</useProjectArtifact>
+            <useTransitiveDependencies>true</useTransitiveDependencies>
+            <outputDirectory>jaxb-ri/docs</outputDirectory>
+            <unpack>true</unpack>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0644</fileMode>
+            <includes>
+                <include>com.sun.xml.bind:jaxb-release-documentation</include>
+            </includes>
+        </dependencySet>
+        <dependencySet>
+            <outputFileNameMapping>${artifact.artifactId}.${artifact.extension}</outputFileNameMapping>
+            <useProjectArtifact>false</useProjectArtifact>
+            <outputDirectory>jaxb-ri</outputDirectory>
+            <unpack>true</unpack>
+            <directoryMode>0755</directoryMode>
+            <fileMode>0644</fileMode>
+            <includes>
+                <include>com.sun.xml.bind:jaxb-samples</include>
+            </includes>
+        </dependencySet>
+    </dependencySets>
+
+</assembly>

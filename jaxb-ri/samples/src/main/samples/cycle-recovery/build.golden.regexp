@@ -1,0 +1,19 @@
+
+compile\:
+     \[echo\] Compiling the java source files\.\.\.
+    \[mkdir\] Created dir\: .+
+    \[javac\] Compiling 2 source files to .+
+
+run\:
+     \[echo\] Running the sample application\.\.\.
+     \[java\] \<\?xml version\=\"1\.0\" encoding\=\"UTF\-8\" standalone\=\"yes\"\?\>
+     \[java\] \<person\>
+     \[java\]     \<id\>5\<\/id\>
+     \[java\]     \<name\>Joe Chin\<\/name\>
+     \[java\]     \<parent\>
+     \[java\]         \<id\>5\<\/id\>
+     \[java\]     \<\/parent\>
+     \[java\] \<\/person\>
+
+BUILD SUCCESSFUL
+Total time\: [0-9]+ seconds

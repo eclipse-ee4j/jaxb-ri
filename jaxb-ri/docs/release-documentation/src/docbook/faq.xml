@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<chapter version="5.0" xml:id="faq" xml:lang="en"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>Frequently Asked Questions</title>
+
+    <qandaset defaultlabel="qanda">
+        <qandadiv>
+            <title>JAXB 2.0</title>
+
+            <qandaentry>
+                <question>
+                    <para>Which version of J2SE does JAXB 2.0 require?</para>
+                </question>
+                
+                <answer>
+                    <para>Java SE 6 or higher.</para>
+                </answer>
+            </qandaentry>
+
+            <qandaentry>
+                <question>
+                    <para>Can I run my existing JAXB 1.0.x applications on the
+                    JAXB 2.0 runtime?</para>
+                </question>
+
+                <answer>
+                    <para>This is no longer supported. However, you should be able to deploy 
+                    <filename>http://search.maven.org/remotecontent?filepath=com/sun/xml/bind/jaxb1-impl/2.2.5-1/jaxb1-impl-2.2.5-1.jar</filename> with your
+                    with your application application.</para>
+                </answer>
+            </qandaentry>
+
+            <qandaentry>
+                <question>
+                    <para>What if I want to port my JAXB 1.0.x application to JAXB 2.0?</para>
+                </question>
+
+                <answer>
+                    <para>You need to recompile your schema with the newer
+                    JAXB 2.0 xjc and modify your application code to work with
+                    the new bindings.</para>
+                </answer>
+            </qandaentry>
+
+            <qandaentry>
+                <question>
+                    <para>Are the JAXB runtime API's thread safe?</para>
+                </question>
+
+                <answer>
+                    <para>The JAXB Specification currently does not address
+                    the thread safety of any of the runtime classes. In the
+                    case of the Oracle JAXB RI, the
+                    <literal>JAXBContext</literal> class <emphasis
+                    role="bold">is</emphasis> thread safe, but the
+                    <literal>Marshaller</literal>,
+                    <literal>Unmarshaller</literal>, and
+                    <literal>Validator</literal> classes <emphasis
+                    role="bold">are not</emphasis> thread safe.</para>
+
+                    <para>For example, suppose you have a multi-thread server
+                    application that processes incoming XML documents by JAXB.
+                    In this case, for the best performance you should have
+                    just one instance of <literal>JAXBContext</literal> in
+                    your whole application like this:</para>
+
+                    <informalexample>
+                        <programlisting language="java"><![CDATA[class MyServlet extends HttpServlet {
+    static final JAXBContext context = initContext();
+
+    private static JAXBContext initContext() {
+        return JAXBContext.newInstance("....", MyServlet.class.getClassLoader());
+    }
+}]]></programlisting>
+                    </informalexample>
+
+                    <para>And each time you need to unmarshal/marshal/validate
+                    a document. Just create a new
+                    <literal>Unmarshaller</literal>/<literal>Marshaller</literal>/<literal>Validator</literal>
+                    from this context, like this:</para>
+
+                    <informalexample>
+                        <programlisting language="java"><![CDATA[public void doGet(HttpServletRequest req, HttpServletResponse resp) {
+    Unmarshaller u = context.createUnmarshaller();
+    u.unmarshal(...);
+}]]></programlisting>
+                    </informalexample>
+
+                    <para>This is the simplest safe way to use the JAXB RI
+                    from multi-threaded applications.</para>
+
+                    <para>If you really care about the performance, and/or
+                    your application is going to read a lot of small
+                    documents, then creating <literal>Unmarshaller</literal>
+                    could be relatively an expensive operation. In that case,
+                    consider pooling <literal>Unmarshaller</literal> objects.
+                    Different threads may reuse one
+                    <literal>Unmarshaller</literal> instance, as long as you
+                    don't use one instance from two threads at the same
+                    time.</para>
+                </answer>
+            </qandaentry>
+
+            <qandaentry>
+                <question>
+                    <para>Why can't I cast the unmarshalled object into the
+                    generated type.</para>
+                </question>
+
+                <answer>
+                    <para>When you invoke
+                    <literal>JAXBContext.newInstance("aaa.bbb.ccc")</literal>,
+                    it tries to load classes and resources using the same
+                    classloader used to load the
+                    <literal>JAXBContext</literal> class itself. This
+                    classloader may be different from the classloader which
+                    was used to load your application (see the picture <xref
+                    linkend="faq-figure-1" xrefstyle="select:title" />). In
+                    this case, you'll see the above error. This problem is
+                    often seen with application servers, J2EE containers, Ant,
+                    JUnit, and other applications that use sophisticated class
+                    loading mechanisms.</para>
+
+                    <figure xml:id="faq-figure-1">
+                        <title>Parent/Child classloader</title>
+
+                        <mediaobject>
+                            <imageobject>
+                                <imagedata contentdepth="100%"
+                                           fileref="figures/classLoaderFAQ.gif"
+                                           scalefit="1" width="100%"></imagedata>
+                            </imageobject>
+                        </mediaobject>
+                    </figure>
+
+                    <para>With some applications, things get even more
+                    complicated when the JAXB-generated code can be loaded by
+                    either classloader. In this case,
+                    <literal>JAXBContext.newInstance("aaa.bbb.ccc")</literal>
+                    will work but the JVM ends up loading two copies of the
+                    generated classes for each class loader. As a result,
+                    unmarshalling works but an attempt to cast the returned
+                    object into the expected type will fail, even though its
+                    <literal>getClass().getName()</literal> returns the
+                    expected name.</para>
+
+                    <para>The solution for both situations is to pass your
+                    curent class loader like this:</para>
+
+                    <informalexample>
+                        <programlisting language="java"><![CDATA[JAXBContext.newInstance("aaa.bbb.ccc", this.getClass().getClassLoader());]]></programlisting>
+                    </informalexample>
+
+                    <para>In general, if you are writing code that uses JAXB,
+                    it is always better to explicitly pass in a class loader,
+                    so that your code will work no matter where it is
+                    deployed.</para>
+                </answer>
+            </qandaentry>
+
+            <qandaentry>
+                <question>
+                    <para>Which jar files do I need to distribute with my
+                    application that uses the JAXB RI?</para>
+                </question>
+
+                <answer>
+                    <para>For JAXB 2.2.x:</para>
+
+                    <informalexample>
+                        <programlisting><![CDATA[
+$JAXB_HOME/lib/jaxb-api.jar
+$JAXB_HOME/lib/jaxb-impl.jar]]></programlisting>
+                    </informalexample>
+                </answer>
+            </qandaentry>
+
+            <qandaentry>
+                <question>
+                    <para>How can I cause the <literal>Marshaller</literal> to
+                    generate <literal>CDATA</literal> blocks?</para>
+                </question>
+
+                <answer>
+                    <para>This functionality is not available from JAXB
+                    directly, but you can configure an Apache Xerces-J
+                    <literal>XMLSerializer</literal> to produce
+                    <literal>CDATA</literal> blocks. Please review the <link
+                    xlink:href="download/JaxbCDATASample.java">JaxbCDATASample.java</link>
+                    sample app for more detail.</para>
+                </answer>
+            </qandaentry>
+
+            <qandaentry>
+                <question>
+                    <para>Can I access &lt;xs:any/&gt; as a DOM node?</para>
+                </question>
+
+                <answer>
+                    <para>In JAXB 2.0, &lt;xs:any/&gt; is handled correctly
+                    without any customization.</para>
+
+                    <orderedlist>
+                        <listitem>
+                            <para>If it's <literal>strict</literal>, it will map
+                            to <literal>Object</literal> or
+                            <literal>List&lt;Object&gt;</literal> and when you
+                            unmarshal documents, you'll get objects that map to
+                            elements (such as <literal>JAXBElements</literal> or
+                            classes that are annotated with
+                            <literal>XmlRootElement</literal>).</para>
+                        </listitem>
+
+                        <listitem>
+                            <para>If it's <literal>skip</literal>, it will map
+                            to <literal>org.w3c.dom.Element</literal> or
+                            <literal>List&lt;Element&gt;</literal> and when you
+                            unmarshal documents, you'll get DOM elements.</para>
+                        </listitem>
+
+                        <listitem>
+                            <para>If it's <literal>lax</literal>, it will map to
+                            the same as with <literal>strict</literal>, and when
+                            you unmarshal documents, you'll get either:</para>
+
+                            <orderedlist>
+                                <listitem>
+                                    <para><literal>JAXBElement</literal>s</para>
+                                </listitem>
+
+                                <listitem>
+                                    <para>classes that are annotated with
+                                    <literal>XmlRootElement</literal></para>
+                                </listitem>
+
+                                <listitem>
+                                    <para>DOM elements</para>
+                                </listitem>
+                            </orderedlist>
+                        </listitem>
+                    </orderedlist>
+                </answer>
+            </qandaentry>
+
+            <qandaentry>
+                <question>
+                    <para>How do I find out which version of the JAXB RI I'm
+                    using?</para>
+                </question>
+
+                <answer>
+                    <para>Run the following command</para>
+
+                    <informalexample>
+                        <programlisting language="cli"><![CDATA[$ java -jar jaxb-xjc.jar -version]]></programlisting>
+                    </informalexample>
+
+                    <para>Alternatively, each JAXB jar has version information
+                    in its <literal>META-INF/MANIFEST.MF</literal>, such as
+                    this:</para>
+
+                    <informalexample>
+                        <programlisting><![CDATA[Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.8.2
+Created-By: 1.6.0_29-b11 (Sun Microsystems Inc.)
+Specification-Title: Java Architecture for XML Binding
+Specification-Version: 2.2.6
+Specification-Vendor: Oracle Corporation
+Implementation-Title: JAXB Reference Implementation 
+Implementation-Version: 2.2.5-SNAPSHOT
+Implementation-Vendor: Oracle Corporation
+Implementation-Vendor-Id: com.sun
+Extension-Name: com.sun.xml.bind
+Build-Id: 02/09/2012 01:42PM (hudson)
+Class-Path: jaxb-api.jar]]></programlisting>
+                    </informalexample>
+                </answer>
+            </qandaentry>
+        </qandadiv>
+    </qandaset>
+</chapter>

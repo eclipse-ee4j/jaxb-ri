@@ -1,0 +1,37 @@
+
+compile\:
+     \[echo\] Compiling the schema\.\.\.
+    \[mkdir\] Created dir\: .*
+      \[xjc\] .* is not found and thus excluded from the dependency check
+      \[xjc\] Compiling .*
+      \[xjc\] Writing output to .*
+     \[echo\] Compiling the java source files\.\.\.
+    \[mkdir\] Created dir\: .*
+    \[javac\] Compiling 8 source files to .*
+
+run\:
+     \[echo\] Running the sample application\.\.\.
+     \[java\] Using binder to perform xpath that returns JAXB objects
+     \[java\] Ship Address found by xpath
+     \[java\] 	Alice Smith
+     \[java\] 	123 Maple Street
+     \[java\] 	Cambridge\, MA 12345
+     \[java\] 	US
+
+     \[java\] Bill Address found by xpath
+     \[java\] 	Robert Smith
+     \[java\] 	8 Oak Avenue
+     \[java\] 	Cambridge\, MA 12345
+     \[java\] 	US
+
+     \[java\] items over \$25 found by xpath
+     \[java\] 	5 copies of \"Nosferatu \- Colorized \(1929\)\" price\= 25\.00
+     \[java\] 	3 copies of \"Godzilla and Mothra\: Battle for Earth\/Godzilla vs\. King Ghidora\" price\= 25\.00
+     \[java\] 	5 copies of \"Nosferatu \- Colorized \(1929\)\" price\= 25\.00
+     \[java\] Completed jaxbXpath
+
+     \[java\] Updateable partial binding allowing for schema evolution and preservations of comments in XML document
+     \[java\] Wrote updated DOM representation to file\: processedpo\.xml
+
+BUILD SUCCESSFUL
+Total time\: .*

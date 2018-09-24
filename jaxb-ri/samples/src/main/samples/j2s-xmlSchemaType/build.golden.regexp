@@ -1,0 +1,21 @@
+
+compile\:
+     \[echo\] Generating schemas\.\.\.
+    \[mkdir\] Created dir\: .*
+\[schemagen\] Generating schema from 2 source files
+     \[echo\] Compiling the java source files\.\.\.
+    \[mkdir\] Created dir\: .*
+    \[javac\] Compiling 3 source files to .*
+
+run\:
+     \[echo\] Running the sample application\.\.\.
+     \[java\] \<\?xml version\=\"1\.0\" encoding\=\"UTF\-8\" standalone\=\"yes\"\?\>
+     \[java\] \<trackingOrder\>
+     \[java\]     \<shipDate\>2005\-11\-05\<\/shipDate\>
+     \[java\]     \<orderDate\>\-\-11\-03\<\/orderDate\>
+     \[java\]     \<deliveryDate\>\-\-12\-05\<\/deliveryDate\>
+     \[java\]     \<trackingDuration\>P0Y0M7D0T51M02\.01S\<\/trackingDuration\>
+     \[java\] \<\/trackingOrder\>
+
+BUILD SUCCESSFUL
+Total time\: .*

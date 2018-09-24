@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<section version="5.0" xml:id="annotating-your-classes-mapping-interfaces"
+         xml:lang="en" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>Mapping interfaces</title>
+
+    <para>Because of the difference between the XML type system induced by W3C
+    XML Schema and the Java type system, JAXB cannot bind interfaces out of
+    the box, but there are a few things you can do.</para>
+
+    <section xml:id="Use__XmlRootElement">
+        <title>Use <literal>@XmlRootElement</literal></title>
+
+        <para>When your interface is implemented by a large number of
+        sub-classes, consider using <literal>XmlRootElement</literal> annotation like this:</para>
+
+        <example>
+            <title>XmlRootElement for open-ended interfaces</title>
+
+            <programlisting language="java"><![CDATA[@XmlRootElement
+class Zoo {
+  @XmlAnyElement
+  public List<Animal> animals;
+}
+
+interface Animal {
+  void sleep();
+  void eat();
+  ...
+}
+
+@XmlRootElement
+class Dog implements Animal { ... }
+
+@XmlRootElement
+class Lion implements Animal { ... }]]></programlisting>
+        </example>
+
+        <para>This will produce XML documents like this:</para>
+
+        <example>
+            <title>XML for XmlRootElement</title>
+
+            <programlisting language="xml"><![CDATA[<zoo>
+    <lion> ... </lion>
+    <dog> ... </dog>
+</zoo>]]></programlisting>
+        </example>
+
+        <para>The key characteristics of this approach is:</para>
+
+        <orderedlist>
+            <listitem>
+                <para>Implementations are open-ended; anyone can implement
+                those interfaces, even by different people from different
+                modules, provided they are all given to the
+                <literal>JAXBContext.newInstance</literal> method. There's no need
+                to list all the implementation classes in anywhere.</para>
+            </listitem>
+
+            <listitem>
+                <para>Each implementation of the interface needs to have an
+                unique element name.</para>
+            </listitem>
+
+            <listitem>
+                <para>Every reference to interface needs to have the <literal>XmlElementRef</literal> annotation. The
+                <code>type=Object.class</code> portion tells JAXB that the
+                greatest common base type of all implementations would be
+                <literal>java.lang.Object</literal>.</para>
+            </listitem>
+        </orderedlist>
+
+        <para><literal>@XmlElementWrapper</literal> is often useful with this,
+        as it allows you need to group them. Such as:</para>
+
+        <example>
+            <title>XmlRootElement for open-ended interfaces</title>
+
+            <programlisting language="java"><![CDATA[@XmlRootElement
+class Zoo {
+  @XmlElementWrapper
+  @XmlAnyElement
+  public List<Animal> onExhibit;
+  @XmlElementWrapper
+  @XmlAnyElement
+  public List<Animal> resting;
+}]]></programlisting>
+        </example>
+
+        <example>
+            <title>Effect of XmlElementWrapper</title>
+
+            <programlisting language="xml"><![CDATA[<zoo>
+    <onExhibit>
+        <lion> ... </lion>
+        <dog> ... </dog>
+    </onExhibit>
+    <resting>
+        <lion> ... </lion>
+        <dog> ... </dog>
+    </resting>
+</zoo>]]></programlisting>
+        </example>
+    </section>
+
+    <section xml:id="Use__XmlJavaTypeAdapter">
+        <title>Use <literal>@XmlJavaTypeAdapter</literal></title>
+
+        <para>When you use interfaces just to hide your implementation classes
+        from exposure, and when there's 1-to-1 (or close to 1-on-1)
+        relationship between a class and an interface, <literal>XmlJavaTypeAdapter</literal> can be used like below.</para>
+
+        <example>
+            <title>XmlJavaTypeAdapter for interfaces</title>
+
+            <programlisting language="java"><![CDATA[@XmlJavaTypeAdapter(FooImpl.Adapter.class)
+interface IFoo {
+  ...
+}
+class FooImpl implements IFoo {
+  @XmlAttribute
+  private String name;
+  @XmlElement
+  private int x;
+
+  ...
+
+  static class Adapter extends XmlAdapter<FooImpl,IFoo> {
+    IFoo unmarshal(FooImpl v) { return v; }
+    FooImpl marshal(IFoo v) { return (FooImpl)v; }
+  }
+}
+
+class Somewhere {
+  public IFoo lhs;
+  public IFoo rhs;
+}]]></programlisting>
+        </example>
+
+        <example>
+            <title>XML of XmlJavaTypeAdapter</title>
+
+            <programlisting language="xml"><![CDATA[<somewhere>
+  <lhs name="...">
+    <x>5</x>
+  </lhs>
+  <rhs name="...">
+    <x>5</x>
+  </rhs>
+</somewhere>]]></programlisting>
+        </example>
+
+        <para>The key characteristics of this approach is:</para>
+
+        <orderedlist>
+            <listitem>
+                <para>Interface and implementation will be tightly coupled
+                through an adapter, although changing an adapter code will
+                allow you to support multiple implementations.</para>
+            </listitem>
+
+            <listitem>
+                <para>There's no need of any annotation in where interfaces
+                are used.</para>
+            </listitem>
+        </orderedlist>
+
+        <para>A variation of this technique is when you have a few
+        implementations for interface, not just one.</para>
+
+        <example>
+            <title>XmlJavaTypeAdapter for interfaces with multiple
+            implementations</title>
+
+            <programlisting language="java"><![CDATA[@XmlJavaTypeAdapter(AbstractFooImpl.Adapter.class)
+interface IFoo {
+  ...
+}
+abstract class AbstractFooImpl implements IFoo {
+  ...
+
+  static class Adapter extends XmlAdapter<AbstractFooImpl,IFoo> {
+    IFoo unmarshal(AbstractFooImpl v) { return v; }
+    AbstractFooImpl marshal(IFoo v) { return (AbstractFooImpl)v; }
+  }
+}
+
+class SomeFooImpl extends AbstractFooImpl {
+  @XmlAttribute String name;
+  ...
+}
+
+class AnotherFooImpl extends AbstractFooImpl {
+  @XmlAttribute int id;
+  ...
+}
+
+class Somewhere {
+  public IFoo lhs;
+  public IFoo rhs;
+}]]></programlisting>
+        </example>
+
+        <example>
+            <title>XML of XmlJavaTypeAdapter with multiple
+            implementations</title>
+
+            <programlisting language="xml"><![CDATA[<somewhere>
+  <lhs xsi:type="someFooImpl" name="...">
+  </lhs>
+  <rhs xsi:type="anotherFooImpl" id="3" />
+</somewhere>]]></programlisting>
+        </example>
+
+        <para>Note that <literal>SomeFooImpl</literal> and
+        <literal>AnotherFooImpl</literal> must be submitted to
+        <literal>JAXBContext.newInstance</literal> one way or the other.</para>
+
+        <para>To take this example a bit further, you can use
+        <literal>Object</literal> instead of <literal>AbstractFooImpl</literal>. The
+        following example illustarates this:</para>
+
+        <example>
+            <title>XmlJavaTypeAdapter for interfaces with multiple
+            implementations</title>
+
+            <programlisting language="java"><![CDATA[@XmlJavaTypeAdapter(AnyTypeAdapter.class)
+interface IFoo {
+  ...
+}
+public class AnyTypeAdapter extends XmlAdapter<Object,Object> {
+  Object unmarshal(Object v) { return v; }
+  Object marshal(Object v) { return v; }
+}
+
+class SomeFooImpl implements IFoo {
+  @XmlAttribute String name;
+  ...
+}
+
+class Somewhere {
+  public IFoo lhs;
+  public IFoo rhs;
+}]]></programlisting>
+        </example>
+
+        <example>
+            <title>Corresponding schema</title>
+
+            <programlisting language="xml"><![CDATA[<xs:complexType name="somewhere">
+  <xs:sequence>
+    <xs:element name="lhs" type="xs:anyType" minOccurs="0"/>
+    <xs:element name="rhs" type="xs:anyType" minOccurs="0"/>
+  </xs:sequence>
+</xs:complexType>]]></programlisting>
+        </example>
+
+        <para>As you can see, the schema will generated to accept
+        <literal>xs:anyType</literal> which is more relaxed than what the Java code
+        actually demands. The instance will be the same as the above example.
+        Starting from JAXB RI 2.1, we bundle the
+        <literal>com.sun.xml.bind.AnyTypeAdapter</literal> class in the runtime that
+        defines this adapter. So you won't have to write this adapter in your
+        code.</para>
+    </section>
+
+    <section xml:id="Use__XmlElement">
+        <title>Use <literal>@XmlElement</literal></title>
+
+        <para>If the use of interface is very little and there's 1-to-1 (or
+        close to) relationship between interfaces and implementations, then
+        you might find <literal>XmlElement</literal> to be the least amount of work.</para>
+
+        <example>
+            <title>XmlElement for interfaces</title>
+
+            <programlisting language="java"><![CDATA[interface IFoo {
+  ...
+}
+class FooImpl implements IFoo {
+  ...
+}
+
+class Somewhere {
+  @XmlElement(type=FooImpl.class)
+  public IFoo lhs;
+}]]></programlisting>
+        </example>
+
+        <example>
+            <title>XML of XmlElement</title>
+
+            <programlisting language="xml"><![CDATA[<somewhere>
+  <lhs> ... </lhs>
+</somewhere>]]></programlisting>
+        </example>
+
+        <para>This effectively tells JAXB runtime that "even though the field
+        is <literal>IFoo</literal>, it's really just <literal>FooImpl</literal>.</para>
+
+        <para>In this approach, a reference to an interface has to have
+        knowledge of the actual implementation class. So while this requires
+        the least amount of typing, it probably wouldn't work very well if
+        this crosses module boundaries.</para>
+
+        <para>Like the <literal>XmlJavaTypeAdapter</literal> approach, this can be used
+        even when there are multiple implementations, provided that they share
+        the common ancestor.</para>
+
+        <para>The extreme of this case is to specify
+        <literal>@XmlElement(type=Object.class)</literal>.</para>
+    </section>
+
+    <section xml:id="Hand_write_schema">
+        <title>Hand-write schema</title>
+
+        <para>Occasionally the above approaches cause the generated schema to
+        become somewhat ugly, even though it does make the JAXB runtime work
+        correctly. In such case you can choose not to use the generated schema
+        and instead manually modify/author schemas tht better match your
+        needs.</para>
+    </section>
+
+    <section xml:id="Do_schema_to_java">
+        <title>Do schema-to-java</title>
+
+        <para>With sufficient knowlege, one can also use <literal>&lt;jaxb:class
+        ref="..."/&gt;</literal> annotation so that you can cause XJC to use the classes
+        you already wrote. See this
+        thread for an example. TODO: more details and perhaps an
+        example.</para>
+    </section>
+
+    <section xml:id="DOESN_T_WORK__Have_JAXB_generate_interaces_and_swap_different_implementations">
+        <title>DOESN'T WORK: Have JAXB generate interaces and swap different
+        implementations</title>
+
+        <para>Some
+        users attempted to use the "<literal>generateValueClass</literal>" customization
+        and see if they can completely replace the generated implementations
+        with other implementations. Unfortunately, this does not work.</para>
+
+        <para>Even with the interface/implementation mode, JAXB runtime still
+        requires that the implementation classes have all the JAXB
+        annotations. So just implementing interfaces is not sufficient. (This
+        mode is mainly added to simplify the migration from JAXB 1.0 to JAXB
+        2.0, and that's a part of the reason why things are done this
+        way.)</para>
+    </section>
+</section>

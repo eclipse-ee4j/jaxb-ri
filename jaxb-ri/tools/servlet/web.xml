@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!--
+
+    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app>
+  <distributable/>
+  
+  
+  <servlet>
+    <servlet-name>admin</servlet-name>
+    <servlet-class>com.sun.tools.xjc.servlet.AdminServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>file</servlet-name>
+    <servlet-class>com.sun.tools.xjc.servlet.FileServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>XJC</servlet-name>
+    <servlet-class>com.sun.tools.xjc.servlet.XJCServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>entry</servlet-name>
+    <servlet-class>com.sun.tools.xjc.servlet.SubmissionServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>DiskManager</servlet-name>
+    <servlet-class>com.sun.tools.xjc.servlet.reaper.DiskManagerServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>zip</servlet-name>
+    <servlet-class>com.sun.tools.xjc.servlet.SendZipFileServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>java</servlet-name>
+    <servlet-class>com.sun.tools.xjc.servlet.JavaSourceServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>javadoc</servlet-name>
+    <servlet-class>com.sun.tools.xjc.servlet.JavadocServlet</servlet-class>
+  </servlet>
+  
+  
+  <servlet-mapping>
+    <servlet-name>admin</servlet-name>
+    <url-pattern>/admin</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>file</servlet-name>
+    <url-pattern>/file/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>XJC</servlet-name>
+    <url-pattern>/compiler</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>entry</servlet-name>
+    <url-pattern>/compiler-entry</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>DiskManager</servlet-name>
+    <url-pattern>/diskmanager</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>zip</servlet-name>
+    <url-pattern>/src.zip</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>java</servlet-name>
+    <url-pattern>/java/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>javadoc</servlet-name>
+    <url-pattern>/javadoc/*</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  <taglib>
+    <taglib-uri>http://java.sun.com/xml/ns/jaxb/xjc/ontheweb</taglib-uri>
+    <taglib-location>/WEB-INF/taglib.tld</taglib-location>
+  </taglib>
+  <taglib>
+    <taglib-uri>http://java.sun.com/xml/ns/jaxb/webapp/commons</taglib-uri>
+    <taglib-location>/WEB-INF/lib/jaxb-webapp-commons.jar</taglib-location>
+  </taglib>
+</web-app>

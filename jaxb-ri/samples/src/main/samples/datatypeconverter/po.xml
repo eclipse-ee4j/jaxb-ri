@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!--
+
+    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<purchaseOrder orderDate="1999-10-20">
+  <shipTo country="US">
+    <name>Alice Smith</name>
+    <street>123 Maple Street</street>
+    <city>Cambridge</city>
+    <state>MA</state>
+    <zip>12345</zip>
+  </shipTo>
+  <billTo country="US">
+    <name>Robert Smith</name>
+    <street>8 Oak Avenue</street>
+    <city>Cambridge</city>
+    <state>MA</state>
+    <zip>12345</zip>
+  </billTo>
+  <items>
+    <item partNum="242-NO">
+      <productName>Nosferatu - Special Edition (1929)</productName>
+      <quantity>5</quantity>
+      <USPrice>19.99</USPrice>
+    </item>
+    <item partNum="242-MU">
+      <productName>The Mummy (1959)</productName>
+      <quantity>3</quantity>
+      <USPrice>19.98</USPrice>
+    </item>
+    <item partNum="242-GZ">
+      <productName>Godzilla and Mothra: Battle for Earth/Godzilla vs. King Ghidora</productName>
+      <quantity>3</quantity>
+      <USPrice>27.95</USPrice>
+    </item>
+  </items>
+</purchaseOrder>

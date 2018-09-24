@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<section version="5.0" xml:id="compiling-xml-schema-mapping-of-xs-any"
+         xml:lang="en" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>Mapping of <literal>&lt;xs:any /&gt;</literal></title>
+
+    <para>XJC binds <literal>&lt;xs:any /&gt;</literal> in the following ways:</para>
+
+    <section xml:id="processContents__skip_">
+        <title><literal>processContents="skip"</literal></title>
+
+        <para><literal>&lt;xs:any /&gt;</literal> with <code>processContents=skip</code> means
+        any well-formed XML elements can be placed. Therefore, XJC binds this
+        to DOM <literal>Element</literal> interface.</para>
+
+        <example>
+            <title>Any/Skip schema</title>
+
+            <programlisting language="xml"><![CDATA[<xs:element name="person">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" />
+      <xs:any processContents="skip" maxOccurs="unbounded" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>]]></programlisting>
+        </example>
+
+        <example>
+            <title>Any/Skip binding</title>
+
+            <programlisting language="java"><![CDATA[import org.w3c.dom.Element;
+
+@XmlRootElement
+class Person {
+  public String getName();
+  public void setName(String);
+
+  @XmlAnyElement
+  public List<Element> getAny();
+}]]></programlisting>
+        </example>
+    </section>
+
+    <section xml:id="processContents__strict_">
+        <title><literal>processContents="strict"</literal></title>
+
+        <para><literal>&lt;xs:any /&gt;</literal> with <code>processContents=strict</code> (or
+        <literal>&lt;xs:any /&gt;</literal> without any processContents attribute, since it
+        defaults to "strict") means any XML elements placed here must have
+        corresponding schema definitions. This mode is not what people
+        typically expect as "<literal>wildcard</literal>", but this is the default. The following
+        shows this binding. (<code>lax=true</code> is unintuitive, but it's
+        not an error in this document):</para>
+
+        <example>
+            <title>Any/Strict schema</title>
+
+            <programlisting language="xml"><![CDATA[<xs:element name="person">
+  <xs:complexType>
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" />
+      <xs:any maxOccurs="unbounded" minOccurs="0" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:element>]]></programlisting>
+        </example>
+
+        <example>
+            <title>Any/Strict binding</title>
+
+            <programlisting language="java"><![CDATA[@XmlRootElement
+class Person {
+  public String getName();
+  public void setName(String);
+
+  @XmlAnyElement(lax=true)
+  public List<Object> getAny();
+}]]></programlisting>
+        </example>
+
+        <para>JAXB binds any such element to an <literal>Object</literal>, and
+        during unmarshalling, all elements encountered are unmarshalled into
+        corresponding JAXB objects (including <literal>JAXBElement</literal>s if
+        necessary) and placed in this field. If it encounters elements that
+        cannot be unmarshalled, DOM elements are produced instead.</para>
+
+        <para>At runtime, you can place either DOM elements or some JAXB
+        objects that map to elements. A typical mistake is to put a
+        <literal>String</literal> that contains XML fragment, but this won't work;
+        you'd have to first read that into a DOM.</para>
+    </section>
+
+    <section xml:id="processContents__lax_">
+        <title><literal>processContents="lax"</literal></title>
+
+        <para><literal>&lt;xs:any /&gt;</literal> with <code>processContents=lax</code> means any
+        XML elements can be placed here, but if their element names match
+        those defined in the schema, they have to be valid. XJC actually
+        handles this exactly like processContents='strict', since the strict
+        binding allows unknown elements anyway.</para>
+    </section>
+</section>

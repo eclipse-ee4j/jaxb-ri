@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<section version="5.0"
+         xml:id="schema-generation-generating-schema-that-you-want"
+         xml:lang="en" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>Generating Schema that you want</title>
+
+    <para>This section discusses how you can change the generated XML schema.
+    For changes that also affect the infoset (such as changing elements to
+    attributes, namespaces, etc.), refer to a different section "XML
+    layout and in-memory data layout".</para>
+
+    <section xml:id="Adding_facets_to_datatypes">
+        <title>Adding facets to datatypes</title>
+
+        <para>As of JAXB 2.1.4, currently no support for this, although there
+        has been several discussions in the users alias.</para>
+
+        <para>The JAXB project is currently lacking resources to attack this
+        problem, and therefore looking for volunteers to work on this project.
+        The basic idea would be to define enough annotations to cover the
+        basic constraint facets (such as length, enumerations, pattern, etc.)
+        The schema generator would have to be then extended to honor those
+        annotations and generate schemas accordingly.</para>
+
+        <para>Some users pointed out relevance of this to <link
+        xlink:href="http://jcp.org/en/jsr/detail?id=303">JSR 303: Bean
+        Validation</link>. If you are interested in picking up this task, let
+        us know!</para>
+    </section>
+</section>

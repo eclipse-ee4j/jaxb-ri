@@ -1,0 +1,76 @@
+&lt;jxb:bindings version="1.0"
+               xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  &lt;jxb:bindings schemaLocation="test.xsd" node="/xs:schema">
+    &lt;jxb:globalBindings
+         fixedAttributeAsConstantProperty="true"
+         collectionType="java.util.Vector"
+         typesafeEnumBase="xs:NCName"
+         choiceContentProperty="false"
+         typesafeEnumMemberName="generateError"
+         bindingStyle="elementBinding"
+         enableFailFastCheck="false"   
+         generateIsSetMethod="false"
+         underscoreBinding="asCharInWord"/>
+    &lt;jxb:schemaBindings>
+      &lt;jxb:package name="primer.myPo">
+        &lt;jxb:javadoc>&lt;![CDATA[&lt;body>Package level documentation for generated package primer.myPo.&lt;/body>]]>
+&lt;/jxb:javadoc>
+      &lt;/jxb:package>
+      &lt;jxb:nameXmlTransform>
+        &lt;jxb:elementName suffix="Element"/>
+      &lt;/jxb:nameXmlTransform>
+    &lt;/jxb:schemaBindings>
+
+    &lt;jxb:bindings node="//xs:complexType[@name='PurchaseOrderType']">
+      &lt;jxb:class name="POType">
+        &lt;jxb:javadoc>A &amp;lt;b>Purchase Order&amp;lt;/b> consists of addresses and items.&lt;/jxb:javadoc>
+      &lt;/jxb:class>
+    &lt;/jxb:bindings>
+
+    &lt;jxb:bindings node="//xs:complexType[@name='USAddress']">
+      &lt;jxb:class>
+        &lt;jxb:javadoc>&lt;![CDATA[First line of documentation for a &lt;b>USAddress&lt;/b>.]]>&lt;/jxb:javadoc>
+      &lt;/jxb:class>
+    
+      &lt;jxb:bindings node=".//xs:element[@name='name']">
+        &lt;jxb:property name="toName"/>
+      &lt;/jxb:bindings>
+
+      &lt;jxb:bindings node=".//xs:element[@name='zip']">
+         &lt;jxb:property name="zipCode"/>
+      &lt;/jxb:bindings>
+    &lt;/jxb:bindings> &lt;!-- node="//xs:complexType[@name='USAddress']" -->
+
+    &lt;jxb:bindings node="//xs:complexType[@name='Items']">
+      &lt;jxb:bindings node=".//xs:element[@name='item']//xs:element[@name='quantity']">
+        &lt;jxb:property generateIsSetMethod="true"/>
+
+        &lt;jxb:bindings node="./xs:simpleType">
+          &lt;jxb:javaType name="short" 
+                        parseMethod="javax.xml.bind.DatatypeConverter.parseShort" 
+                        printMethod="javax.xml.bind.DatatypeConverter.printShort" />
+        &lt;/jxb:bindings>
+      &lt;/jxb:bindings>  &lt;!--  node="//xs:complexType[@name='Items']" -->
+
+      &lt;jxb:bindings node=".//xs:element[@name='USPrice']">
+        &lt;jxb:property name="Price"/>
+      &lt;/jxb:bindings>
+
+      &lt;jxb:bindings node=".//xs:attribute[@name='partNum']">
+        &lt;jxb:property name="partNumber"/>
+      &lt;/jxb:bindings>
+    &lt;/jxb:bindings>
+
+    &lt;jxb:bindings node="//xs:simpleType[@name='USState']">
+      &lt;jxb:typesafeEnumClass/>
+    &lt;/jxb:bindings>
+
+    &lt;jxb:bindings node="//xs:simpleType[@name='ZipCodeType']">
+      &lt;jxb:javaType name="int"     
+                    parseMethod="javax.xml.bind.DatatypeConverter.parseInt" 
+                    printMethod="javax.xml.bind.DatatypeConverter.printInt"/>
+    &lt;/jxb:bindings>
+  &lt;/jxb:bindings> &lt;!-- schemaLocation="po.xsd" node="/xs:schema" -->
+
+&lt;/jxb:bindings>

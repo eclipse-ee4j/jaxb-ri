@@ -1,0 +1,185 @@
+<?xml version="1.0"?>
+<!--
+
+    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<project name="XJC Servlet" default="deploy" basedir="../..">
+
+    <!-- import build properties -->
+    <property file="${basedir}/build.properties" />
+
+    <property name="servlet.root" value="${jaxb.root}/tools/servlet"/>
+    <property name="commons.root" value="${servlet.root}/../webapp-commons" />
+<!--
+  deploy.home          The name of the directory into which the
+                       deployment hierarchy will be created, and into
+                       which the build directory will be copied.
+                       Defaults to "${catalina.home}/webapps/${app.name}".
+-->
+    <!-- this property needs to be defined externally -->
+    <!--property name="catalina.home" value="${servlet.root}/catalina"/-->
+    <property name="deploy.home"   value="${catalina.home}/webapps/xjc"/>
+
+    <!-- determine the behavior of the servlet -->
+    <property name="mode" value="jwsdp" /><!-- or "standalone" -->
+
+    <!-- when deployed to JWSDP1.0_01, we can't have Xerces in our classpath. -->
+    <property name="exclusion.lib" value="xercesImpl.jar" />
+
+
+    <!-- libraries that are referenced when compiling Java source files -->
+    <path id="javac.classpath">
+      <pathelement path="${codemodel.classes}" />
+      <pathelement path="${runtime.classes}" />
+      <pathelement path="${xjc.classes}" />
+      <pathelement path="${commons.root}/jaxb-webapp-commons.jar"/>
+      <fileset dir="${jaxb.libs.redist}" includes="*.jar"/>
+      <fileset dir="${jaxb.libs.rebundle}" includes="**/*.jar"/>
+      <fileset dir="${jaxb.libs.util}" includes="*.jar"/>
+    </path>
+
+
+
+
+
+  <target name="all" depends="clean,compile"
+   description="Clean build and dist, then compile"/>
+
+
+
+  <target name="clean">
+    <delete dir="${servlet.root}/build"/>
+    <delete dir="${servlet.root}/boxed.jar"/>
+    <delete dir="${deploy.home}"/>
+  </target>
+
+
+  <target name="compile">
+    <ant target="jar" antfile="${commons.root}/build.xml" />
+
+
+    <!-- Compile Java classes as necessary -->
+    <mkdir    dir="${servlet.root}/build/classes"/>
+    <javac srcdir="${servlet.root}/src" destdir="${servlet.root}/build/classes"
+           debug="${compile.debug}" optimize="${compile.optimize}"
+    	   source="1.6" target="1.6"
+           deprecation="${compile.deprecation}" >
+      <classpath refid="javac.classpath"/>
+    </javac>
+
+    <!-- Copy associated resource files -->
+    <copy  todir="${servlet.root}/build/classes">
+      <fileset dir="${servlet.root}/src" includes="**/*.properties"/>
+    </copy>
+
+    <!-- make boxed jar file -->
+    <jar destfile="${servlet.root}/boxed.jar">
+      <fileset dir="${servlet.root}/build/classes" includes="**/boxed/**/*" />
+    </jar>
+
+    <!-- make setting file -->
+    <echo file="${servlet.root}/build/classes/com/sun/tools/xjc/servlet/Mode.properties">mode=${mode}</echo>
+  </target>
+
+
+
+  <target name="war" description="build a war file from jaxb-ri/dist" depends="compile">
+    <delete file="${servlet.root}/xjc.war" />
+    <war destfile="${servlet.root}/xjc.war" webxml="${servlet.root}/web.xml">
+      <classes dir="${servlet.root}/build/classes"/>
+      <classes dir="${servlet.root}/src" includes="**/package-list" />
+
+      <lib dir="${jaxb.root}/dist/lib" includes="*.jar" excludes="${exclusion.lib}" />
+      <lib dir="${jaxb.libs.util}" includes="mailapi.jar, smtp.jar, gsc.jar, antlr.jar"/>
+      <lib dir="${servlet.root}" includes="boxed.jar"/>
+      <lib dir="${commons.root}" includes="jaxb-webapp-commons.jar"/>
+
+      <webinf dir="${servlet.root}" includes="taglib.tld"/>
+
+      <!-- static contents -->
+      <fileset dir="${servlet.root}/web"/>
+    </war>
+  </target>
+
+
+  <target name="war-jwsdp" description="build a war file for JWSDP" depends="compile">
+    <delete file="${servlet.root}/xjc.war" />
+    <war destfile="${servlet.root}/xjc.war" webxml="${servlet.root}/web.xml">
+      <classes dir="${servlet.root}/build/classes"/>
+      <classes dir="${servlet.root}/src" includes="**/package-list" />
+
+      <lib dir="${jaxb.libs.util}" includes="mailapi.jar, smtp.jar, gsc.jar, antlr.jar"/>
+      <lib dir="${servlet.root}" includes="boxed.jar"/>
+      <lib dir="${commons.root}" includes="jaxb-webapp-commons.jar"/>
+
+      <webinf dir="${servlet.root}" includes="taglib.tld"/>
+
+      <!-- static contents -->
+      <fileset dir="${servlet.root}/web"/>
+    </war>
+  </target>
+
+
+  <!-- make sure the deployment directory is available -->
+  <target name="init-prepare">
+    <available property="deploy.dir.available" file="${catalina.home}"/>
+  </target>
+  <target name="init" depends="init-prepare" unless="deploy.dir.available">
+    <fail>
+      Directory ${catalina.home} doesn't exist. Set the property
+      catalina.home before launching ant.
+
+      e.g.,  ant -Dcatalina.home=xxxxx
+    </fail>
+  </target>
+
+
+
+  <target name="deploy" depends="init,compile"
+   description="Deploy application to servlet container">
+
+
+    <!-- Copy the contents of the build directory -->
+    <mkdir     dir="${deploy.home}/WEB-INF/classes"/>
+    <copy    todir="${deploy.home}/WEB-INF/classes">
+      <fileset dir="${servlet.root}/build/classes"/>
+      <fileset dir="${servlet.root}/src" includes="**/package-list" />
+    </copy>
+
+    <!-- Copy external dependencies as required -->
+    <mkdir  dir="${deploy.home}/WEB-INF/lib"/>
+    <copy todir="${deploy.home}/WEB-INF/lib">
+      <fileset dir="${jaxb.root}/dist/lib" includes="*.jar" excludes="${exclusion.lib}"/>
+      <fileset dir="${jaxb.libs.util}" includes="mailapi.jar, smtp.jar, gsc.jar, antlr.jar"/>
+      <fileset dir="${commons.root}" includes="jaxb-webapp-commons.jar"/>
+      <fileset dir="${servlet.root}" includes="boxed.jar"/>
+    </copy>
+
+    <copy todir="${deploy.home}/WEB-INF">
+      <fileset dir="${servlet.root}" includes="web.xml, taglib.tld" />
+    </copy>
+
+    <!-- Copy static content -->
+    <copy todir="${deploy.home}">
+      <fileset dir="${servlet.root}/web"/>
+    </copy>
+  </target>
+
+
+
+  <target name="reload" depends="init,deploy" description="Deploy and reload Tomcat">
+    <taskdef name="reload" classname="org.apache.catalina.ant.ReloadTask">
+      <classpath path="${catalina.home}/server/lib/catalina-ant.jar" />
+    </taskdef>
+    <reload url="http://localhost:8080/manager" username="tomcat" password="tomcat" path="/xjc" />
+  </target>
+
+</project>

@@ -1,0 +1,13 @@
+
+compile\:
+     \[echo\] Compiling the java source files\.\.\.
+    \[mkdir\] Created dir\: .+
+    \[javac\] Compiling 6 source files to .+
+
+run\:
+     \[echo\] Running the sample application\.\.\.
+     \[java\] this order will be shipped to Alice Smith
+     \[java\] this order will be shipped to Lee Grant
+
+BUILD SUCCESSFUL
+Total time\: .+ seconds

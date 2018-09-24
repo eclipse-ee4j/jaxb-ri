@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<!--
+
+    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<project name="reflection" basedir="../../" default="compile">
+  <description>
+    Reflection Library Sub-Project
+
+    The reflection library module provides a library to process
+    JAXB annotations at runtime. We ship this in a different package
+    to avoid class collisions and compatibility issues between the RI
+    and this library.
+  </description>
+
+  <!-- import build properties -->
+  <property file="build.properties" />
+  <import file="${jaxb.root}/build-taskdefs.xml" />
+
+  <target name="compile"
+    description="creates a distribution bundle for the JAXB2 reflection library">
+
+    <!-- this is very inefficient, but it builds everything we need -->
+    <ant dir="${jaxb.root}" target="compile" />
+
+    <macrodef name="rename">
+      <attribute name="srcdir" />
+      <sequential>
+        <prename srcdir="@{srcdir}"
+          destdir="${reflection.root}/build/src" excludes="com/sun/xml/bind/v2/package-info.java">
+
+          <pattern from="com.sun.xml.bind.v2" to="org.jvnet.jaxb.reflection" />
+          <pattern from="com.sun.xml.bind" to="org.jvnet.jaxb.reflection.impl" />
+        </prename>
+      </sequential>
+    </macrodef>
+
+    <!-- rename packages -->
+    <rename srcdir="${runtime.src}"/>
+    <rename srcdir="${runtime.root}/build/src" />
+    <rename srcdir="${runtime.root}/arch-doc" />
+    <rename srcdir="${reflection.src}" />
+
+    <mkdir dir="${reflection.classes}"/>
+    <javac srcdir="${reflection.root}/build/src" destdir="${reflection.classes}" debug="on" source="1.6" target="1.6">
+      <classpath>
+        <fileset dir="${jaxb.libs.redist}" includes="*.jar"/>
+        <fileset dir="${jaxb.libs.runtime2}" includes="**/*.jar"/>
+      </classpath>
+    </javac>
+  </target>
+
+  <target name="javadoc" depends="compile" >
+    <arch-doc destdir="${reflection.root}/build/javadoc" title="JAXB2 reflection library" access="public">
+      <params>
+        <packageset dir="${reflection.root}/build/src">
+          <include name="org/jvnet/jaxb/reflection/**" />
+          <exclude name="org/jvnet/jaxb/reflection/bytecode" />
+          <exclude name="org/jvnet/jaxb/reflection/impl/**" />
+          <exclude name="org/jvnet/jaxb/reflection/model/impl" />
+          <exclude name="org/jvnet/jaxb/reflection/runtime/**" />
+        </packageset>
+      </params>
+    </arch-doc>
+  </target>
+
+  <target name="jar" depends="compile">
+    <jar jarfile="${reflection.root}/build/jaxb2-reflection.jar">
+      <fileset dir="${reflection.root}/build/src" includes="**/*.properties" />
+      <fileset dir="${reflection.classes}" />
+      <zipgroupfileset dir="${jaxb.libs.runtime2}" includes="istack-commons-runtime.jar" />
+    </jar>
+  </target>
+
+  <target name="dist" depends="javadoc, jar">
+    <!-- build id can be overridden -->
+    <tstamp />
+    <property name="build.id" value="${DSTAMP}" />
+
+    <zip file="${reflection.root}/build/src.zip">
+      <fileset dir="${reflection.root}/build/src" />
+    </zip>
+
+    <zip file="${reflection.root}/build/jaxb2-reflection.zip">
+      <zipfileset prefix="jaxb2-reflection"
+        dir="${reflection.root}/build" includes="jaxb2-reflection.jar" />
+      <zipfileset prefix="jaxb2-reflection"
+        dir="${reflection.root}/build" includes="javadoc/**/*, src.zip"/>
+      <zipfileset fullpath="jaxb2-reflection/license.html"
+        dir="${jaxb.root}" includes="License.html"/>
+    </zip>
+
+    <ant dir="tools/installer-builder" />
+
+    <taskdef name="installerBuilder" classname="com.sun.tools.xjc.installer.builder.BuilderTask">
+        <classpath>
+            <fileset dir="${jaxb.libs.util}" includes="*.jar"/>
+        </classpath>
+    </taskdef>
+
+    <installerBuilder
+      jarFile="${reflection.root}/build/jaxb2-reflection.${build.id}.jar"
+      licenseFile="${jaxb.root}/License.txt"
+      zipFile="${reflection.root}/build/jaxb2-reflection.zip" />
+  </target>
+
+  <target name="clean">
+    <delete dir="${reflection.root}/build" />
+  </target>
+
+</project>

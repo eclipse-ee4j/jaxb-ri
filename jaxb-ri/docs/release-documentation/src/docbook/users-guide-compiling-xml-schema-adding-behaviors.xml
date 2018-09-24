@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<section version="5.0" xml:id="compiling-xml-schema-adding-behaviors"
+         xml:lang="en" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>Adding behaviors</title>
+
+    <para><emphasis>Adding behaviors to the generated code is one area that
+    still needs improvement. Your feedback is appreciated.</emphasis></para>
+
+    <para>Suppose if JAXB generated the following classes.</para>
+
+    <example>
+        <title>Simple JAXB Generated Code</title>
+
+        <programlisting language="java"><![CDATA[package org.acme.foo;
+
+@XmlRootElement
+class Person {
+  private String name;
+
+  public String getName() { return name; }
+  public void setName(String) { this.name=name; }
+}
+
+@XmlRegistry
+class ObjectFactory {
+  Person createPerson() { ... }
+}]]></programlisting>
+    </example>
+
+    <para>To add a behavior, first write a class that extends from
+    <literal>Person</literal>. You also need to extend ObjectFactory to return this
+    new class. Notice that neither classes have any JAXB annotation, and I put
+    them in a separate package. This is because we'd like
+    <literal>PersonEx</literal> class to be used in place of <literal>Person</literal>,
+    and we don't want <literal>PersonEx</literal> to be bound to its own XML
+    type.</para>
+
+    <example>
+        <title>Extended Person class</title>
+
+        <programlisting language="java"><![CDATA[package org.acme.foo.impl;
+
+class PersonEx extends Person {
+  @Override
+  public void setName(String name) {
+    if(name.length()<3) throw new IllegalArgumentException();
+    super.setName(name);
+  }
+}
+
+@XmlRegistry
+class ObjectFactoryEx extends ObjectFactory {
+  @Override
+  Person createPerson() {
+    return new PersonEx();
+  }
+}]]></programlisting>
+    </example>
+
+    <para>At runtime, you can create <literal>JAXBContext</literal> normally, like
+    this.</para>
+
+    <example>
+        <title>Creating JAXBContext</title>
+
+        <programlisting language="java"><![CDATA[JAXBContext context = JAXBContext.newInstance(ObjectFactory.class);
+// or JAXBContext.newInstance("org.acme.foo");]]></programlisting>
+    </example>
+
+    <para><literal>PersonEx</literal> can be marshalled out just like
+    <literal>Person</literal>:</para>
+
+    <example>
+        <title>Marshalling</title>
+
+        <programlisting language="java"><![CDATA[Person p = new PersonEx();
+context.createMarshaller().marshal(p,System.out);
+// this will produce <person />]]></programlisting>
+    </example>
+
+    <para>To unmarshal XML documents into <literal>PersonEx</literal>, you'll need
+    to configure the unmarshaller to use your <literal>ObjectFactoryEx</literal> as
+    the factory, like this:</para>
+
+    <example>
+        <title>Unmarshalling</title>
+
+        <programlisting language="java"><![CDATA[Unmarshaller u = context.createUnmarshaller();
+u.setProperty("com.sun.xml.bind.ObjectFactory",new ObjectFactoryEx());
+PersonEx p = (PersonEx)u.unmarshal(new StringReader("<person />"));]]></programlisting>
+    </example>
+
+    <para>If you have multiple packages and thus multiple
+    <literal>ObjectFactory</literal>s, you can pass in an array of them (<code>new
+    Object[]{new OFEx1(),new OFEx2(),...}</code>.)</para>
+
+    <section xml:id="Inserting_your_class_in_the_middle">
+        <title>Inserting your class in the middle</title>
+
+        <para>If you have a type hierarchy and would like to insert your class
+        in the middle, you can use the combination of <literal>XmlTransient</literal>
+        and <literal>@implClass</literal> of <literal>&lt;class&gt;</literal>
+        customization. See the following example:</para>
+
+        <example>
+            <title>Hierarchy of types and <literal>&lt;jaxb:class implClass&gt;</literal></title>
+
+            <programlisting language="xml"><![CDATA[<xs:schema ...>
+  <xs:complexType name="vehicle">
+    <xs:annotation><xs:appinfo>
+      <jaxb:class implClass="MyVehicle" />
+    </xs:appinfo></xs:annotation>
+  </xs:complexType>
+
+  <xs:complexType name="car">
+    <xs:complexContent>
+      <xs:extension base="vehicle" />
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="bicycle">
+    <xs:complexContent>
+      <xs:extension base="vehicle" />
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>]]></programlisting>
+        </example>
+
+        <example>
+            <title>This creates a class hierarchy like the following (among
+            the generated Java code):</title>
+
+            <programlisting language=""><![CDATA[            Vehicle
+               ^
+               |
+            MyVehicle
+               ^
+          _____|______
+         |            |
+        Car          Bicycle]]></programlisting>
+        </example>
+
+        <para>You'll then manually write <literal>MyVehicle</literal> class that
+        extends from <literal>Vehicle</literal>. Annotate this class with <literal>XmlTransient</literal>
+        to achieve the desired effect.</para>
+    </section>
+</section>

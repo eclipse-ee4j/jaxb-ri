@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!--
+
+    Copyright (c) 2017, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<jxb:bindings version="1.0"
+               xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+               xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<!-- These xjc errors are fixed by these JAXB schema annotations. -->
+<!--
+      [xjc] [ERROR] Property name "Class" is reserved by java.lang.Object.
+      [xjc]   line 19 of file:fix-collides/example
+.xsd
+      [xjc] [ERROR] Property "Zip" is already defined.
+      [xjc]   line 20 of file:fix-collides/example
+.xsd
+      [xjc] [ERROR] The following location is relevant to the above error
+      [xjc]   line 22 of file:fix-collides/example
+.xsd
+--> 
+  <jxb:bindings schemaLocation="example.xsd" node="/xs:schema">
+
+    <jxb:schemaBindings>
+      <jxb:package name="example"/>
+    </jxb:schemaBindings>
+
+    <!-- Resolve collision between XML name and Java keyword "class". -->
+    <jxb:bindings node="//xs:element[@name='Class']">
+      <!-- Customize Element interface name -->
+      <jxb:class name="Clazz"/>
+
+      <!-- Definition level customization:
+           All references to this global element will be by this
+           customized property name. -->
+      <jxb:property name="Clazz"/>
+    </jxb:bindings>
+
+    <jxb:bindings node="//xs:complexType[@name='FooBar']">
+
+      <!-- resolve name collision between attribute and element "zip" -->
+      <jxb:bindings node=".//xs:attribute[@name='zip']">
+        <jxb:property name="zipAttribute"/>
+      </jxb:bindings>
+
+    </jxb:bindings> <!-- node="//xs:complexType[@name='FooBar']" -->
+  </jxb:bindings>
+
+</jxb:bindings>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<section version="5.0"
+         xml:id="annotating-your-classes-mapping-your-favorite-class"
+         xml:lang="en" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>Mapping your favorite class</title>
+
+    <section xml:id="ResultSet">
+        <title>ResultSet</title>
+
+        <para>JAXB (or any other databinding engine, for that matter) is for
+        binding strongly-typed POJO-like objects to XML, such as
+        <literal>AddressBook</literal> class, <literal>PurchaseOrder</literal> class, and
+        so on, where you have fields and methods that shape a class.</para>
+
+        <para>There are other kinds of classes that are more close to
+        reflection. Those classes don't have methods like
+        <literal>getAddress</literal>, and instead you'd do
+        <code>get("Address")</code>. JDBC ResultSet is one of those classes.
+        It's one class that represents million different data structures, be
+        it a customer table or a product table. Generally speaking, these
+        classes does not allow JAXB to statically determine what the XML
+        representation should look like. Instead, you almost always need to
+        look at an instance to determine the shape of XML.</para>
+
+        <para>These classes are not really suitable for binding in JAXB. If
+        this is the only object that you'd want to write out, then you'd be
+        better off using XMLStreamWriter or some such XML infoset writing API.
+        There are <link
+        xlink:href="http://www.google.com/search?q=ResultSet+XML">a few online
+        articles</link> that cover this topic. Also, many modern database
+        offers a native ability to export a query into XML, which is supposed
+        to work a lot faster than you'd do in Java (and saves your time of
+        writing code.)</para>
+
+        <para>If you are using ResultSet as a part of your object tree that
+        you want to marshal to JAXB, then you can use
+        <literal>XmlJavaTypeAdapter</literal>.</para>
+    </section>
+
+    <section xml:id="HashMap">
+        <title>HashMap</title>
+
+        <para>JAXB spec defines a special handling for <literal>Map</literal> when
+        it's used as a propety of a bean. For example, the following bean
+        would produce XMLs like the following:</para>
+
+        <example>
+            <title>Bean with Map</title>
+
+            <programlisting language="java"><![CDATA[@XmlRootElement
+class Foo {
+  public HashMap<String,Integer> map;
+}]]></programlisting>
+        </example>
+
+        <example>
+            <title>XML representation</title>
+
+            <programlisting language="xml"><![CDATA[<foo>
+  <map>
+    <entry>
+      <key>a</key>
+      <value>1</value>
+    </entry>
+    <entry>
+      <key>b</key>
+      <value>2</value>
+    </entry>
+  </map>
+</foo>]]></programlisting>
+        </example>
+
+        <para>Unfortunately, as of 2.1, this processing is only defined for
+        bean properties and not when you marshal <literal>HashMap</literal> as a
+        top-level object (such as a value in <literal>JAXBElement</literal>.) In
+        such case, <literal>HashMap</literal> will be treated as a Java bean, and
+        when you look at <literal>HashMap</literal> as a bean it defines no
+        getter/setter property pair, so the following code would produce the
+        following XML:</para>
+
+        <example>
+            <title>Bean with Map</title>
+
+            <programlisting language="java"><![CDATA[m = new HashMap();
+m.put("abc",1);
+marshaller.marshal(new JAXBElement(new QName("root"),HashMap.class,m),System.out);]]></programlisting>
+        </example>
+
+        <example>
+            <title>XML representation</title>
+
+            <programlisting language="xml"><![CDATA[<root />]]></programlisting>
+        </example>
+
+        <para>This issue has been recorded as <link
+        xlink:href="https://github.com/javaee/jaxb-v2/issues/223">#223</link>
+        and the fix needs to happen in later versions of the JAXB spec.</para>
+
+        <para>In the mean time, such top-level objects have to be first
+        adapted to a bean that JAXB can process. This has added benefit of
+        being able to control XML representation better. The following code
+        illustrates how to do this:</para>
+
+        <example>
+            <title>Adapting HashMap</title>
+
+            <programlisting language="java"><![CDATA[public class MyHashMapType {
+    public List<MyHashMapEntryType> entry = new ArrayList<MyHashMapEntryType>();
+    public MyHashMapType(Map<String,Integer> map) {
+        for( Map.Entry<String,Integer> e : map.entrySet() )
+            entry.add(new MyHashMapEntryType(e));
+    }
+    public MyHashMapType() {}
+}
+
+public class MyHashMapEntryType {
+    @XmlAttribute // @XmlElement and @XmlValue are also fine
+    public String key;
+
+    @XmlAttribute // @XmlElement and @XmlValue are also fine
+    public int value;
+
+    public MyHashMapEntryType() {}
+    public MyHashMapEntryType(Map.Entry<String,Integer> e) {
+       key = e.getKey();
+       value = e.getValue();
+    }
+}
+
+marshaller.marshal(new JAXBElement(new QName("root"),MyHashMapType.class,new MyHashMapType(m)),System.out);]]></programlisting>
+        </example>
+
+        <para>If you have a lot of difference kinds of <literal>Map</literal>, you
+        can instead use <literal>Object</literal> as the key and the value type. In
+        that way, you'll be able to use maps with different type parameters,
+        at the expense of seeing <literal>xsi:type</literal> attribute on the
+        instance document.</para>
+    </section>
+</section>

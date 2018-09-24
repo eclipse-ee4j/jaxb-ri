@@ -1,0 +1,128 @@
+
+compile\:
+     \[echo\] Compiling the schema\.\.\.
+    \[mkdir\] Created dir\: .*
+      \[xjc\] Compiling .*
+      \[xjc\] Writing output to .*
+     \[echo\] Compiling the java source files\.\.\.
+    \[mkdir\] Created dir\: .*
+    \[javac\] Compiling \d+ source files to .*
+
+run\:
+     \[echo\] Running the sample application\.\.\.
+     \[java\] Original Purchase Order
+     \[java\] \<\?xml version\=\"1\.0\" encoding\=\"UTF\-8\" standalone\=\"yes\"\?\>
+     \[java\] \<ns2\:purchaseOrder xmlns\:ns2\=\"http\:\/\/www\.example\.com\/IPO\" orderDate\=\"1999\-12\-01\"\>
+     \[java\]     \<shipTo xmlns\:xsi\=\"http\:\/\/www\.w3\.org\/2001\/XMLSchema\-instance\" xsi\:type\=\"ns2\:UKAddress\" exportCode\=\"1\"\>
+     \[java\]         \<name\>Helen Zoe\<\/name\>
+     \[java\]         \<street\>47 Eden Street\<\/street\>
+     \[java\]         \<city\>Cambridge\<\/city\>
+     \[java\]         \<postcode\>CB1 1JR\<\/postcode\>
+     \[java\]     \<\/shipTo\>
+     \[java\]     \<billTo xmlns\:xsi\=\"http\:\/\/www\.w3\.org\/2001\/XMLSchema\-instance\" xsi\:type\=\"ns2\:USAddress\"\>
+     \[java\]         \<name\>Robert Smith\<\/name\>
+     \[java\]         \<street\>8 Oak Avenue\<\/street\>
+     \[java\]         \<city\>Old Town\<\/city\>
+     \[java\]         \<state\>PA\<\/state\>
+     \[java\]         \<zip\>95819\<\/zip\>
+     \[java\]     \<\/billTo\>
+     \[java\]     \<items\>
+     \[java\]         \<item partNum\=\"833\-AA\"\>
+     \[java\]             \<productName\>Lapis necklace\<\/productName\>
+     \[java\]             \<quantity\>1\<\/quantity\>
+     \[java\]             \<USPrice\>99\.95\<\/USPrice\>
+     \[java\]             \<ns2\:comment\>Want this for the holidays\!\<\/ns2\:comment\>
+     \[java\]             \<shipDate\>1999\-12\-05\<\/shipDate\>
+     \[java\]         \<\/item\>
+     \[java\]     \<\/items\>
+     \[java\] \<\/ns2\:purchaseOrder\>
+     \[java\] \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
+     \[java\] Return Merchandise\. Ship and Bill address reversed\.
+     \[java\] \<\?xml version\=\"1\.0\" encoding\=\"UTF\-8\" standalone\=\"yes\"\?\>
+     \[java\] \<ns2\:purchaseOrder xmlns\:ns2\=\"http\:\/\/www\.example\.com\/IPO\" orderDate\=\"1999\-12\-01\"\>
+     \[java\]     \<shipTo xmlns\:xsi\=\"http\:\/\/www\.w3\.org\/2001\/XMLSchema\-instance\" xsi\:type\=\"ns2\:USAddress\"\>
+     \[java\]         \<name\>Robert Smith\<\/name\>
+     \[java\]         \<street\>8 Oak Avenue\<\/street\>
+     \[java\]         \<city\>Old Town\<\/city\>
+     \[java\]         \<state\>PA\<\/state\>
+     \[java\]         \<zip\>95819\<\/zip\>
+     \[java\]     \<\/shipTo\>
+     \[java\]     \<billTo xmlns\:xsi\=\"http\:\/\/www\.w3\.org\/2001\/XMLSchema\-instance\" xsi\:type\=\"ns2\:UKAddress\" exportCode\=\"1\"\>
+     \[java\]         \<name\>Helen Zoe\<\/name\>
+     \[java\]         \<street\>47 Eden Street\<\/street\>
+     \[java\]         \<city\>Cambridge\<\/city\>
+     \[java\]         \<postcode\>CB1 1JR\<\/postcode\>
+     \[java\]     \<\/billTo\>
+     \[java\]     \<items\>
+     \[java\]         \<item partNum\=\"833\-AA\"\>
+     \[java\]             \<productName\>Lapis necklace\<\/productName\>
+     \[java\]             \<quantity\>1\<\/quantity\>
+     \[java\]             \<USPrice\>99\.95\<\/USPrice\>
+     \[java\]             \<ns2\:comment\>Want this for the holidays\!\<\/ns2\:comment\>
+     \[java\]             \<shipDate\>1999\-12\-05\<\/shipDate\>
+     \[java\]         \<\/item\>
+     \[java\]     \<\/items\>
+     \[java\] \<\/ns2\:purchaseOrder\>
+     \[java\] \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
+     \[java\] Tax Exempt Purchase Order composed within Application\.
+     \[java\] \<\?xml version\=\"1\.0\" encoding\=\"UTF\-8\" standalone\=\"yes\"\?\>
+     \[java\] \<ns2\:purchaseOrder xmlns\:ns2\=\"http\:\/\/www\.example\.com\/IPO\" xmlns\:xsi\=\"http\:\/\/www\.w3\.org\/2001\/XMLSchema\-instance\" xsi\:type\=\"ns2\:USTaxExemptPurchaseOrderType\" orderDate\=\"1999\-12\-01\"\>
+     \[java\]     \<shipTo xsi\:type\=\"ns2\:USAddress\"\>
+     \[java\]         \<name\>Robert Smith\<\/name\>
+     \[java\]         \<street\>8 Oak Avenue\<\/street\>
+     \[java\]         \<city\>Old Town\<\/city\>
+     \[java\]         \<state\>PA\<\/state\>
+     \[java\]         \<zip\>95819\<\/zip\>
+     \[java\]     \<\/shipTo\>
+     \[java\]     \<billTo xsi\:type\=\"ns2\:USAddress\"\>
+     \[java\]         \<name\>Robert Smith\<\/name\>
+     \[java\]         \<street\>8 Oak Avenue\<\/street\>
+     \[java\]         \<city\>Old Town\<\/city\>
+     \[java\]         \<state\>PA\<\/state\>
+     \[java\]         \<zip\>95819\<\/zip\>
+     \[java\]     \<\/billTo\>
+     \[java\]     \<items\>
+     \[java\]         \<item partNum\=\"833\-AA\"\>
+     \[java\]             \<productName\>Lapis necklace\<\/productName\>
+     \[java\]             \<quantity\>1\<\/quantity\>
+     \[java\]             \<USPrice\>99\.95\<\/USPrice\>
+     \[java\]             \<ns2\:comment\>Want this for the holidays\!\<\/ns2\:comment\>
+     \[java\]             \<shipDate\>1999\-12\-05\<\/shipDate\>
+     \[java\]         \<\/item\>
+     \[java\]     \<\/items\>
+     \[java\]     \<taxExemptId\>charity007\<\/taxExemptId\>
+     \[java\] \<\/ns2\:purchaseOrder\>
+     \[java\] \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
+     \[java\] US Tax exempt id\: charity44987
+     \[java\] Tax Exempt Purchase Order
+     \[java\] \<\?xml version\=\"1\.0\" encoding\=\"UTF\-8\" standalone\=\"yes\"\?\>
+     \[java\] \<ns2\:purchaseOrder xmlns\:ns2\=\"http\:\/\/www\.example\.com\/IPO\" xmlns\:xsi\=\"http\:\/\/www\.w3\.org\/2001\/XMLSchema\-instance\" xsi\:type\=\"ns2\:USTaxExemptPurchaseOrderType\" orderDate\=\"1999\-12\-01\"\>
+     \[java\]     \<shipTo xsi\:type\=\"ns2\:USAddress\"\>
+     \[java\]         \<name\>Jimmy Fund\<\/name\>
+     \[java\]         \<street\>Lansdowne Street\<\/street\>
+     \[java\]         \<city\>Boston\<\/city\>
+     \[java\]         \<state\>MA\<\/state\>
+     \[java\]         \<zip\>95819\<\/zip\>
+     \[java\]     \<\/shipTo\>
+     \[java\]     \<billTo xsi\:type\=\"ns2\:USAddress\"\>
+     \[java\]         \<name\>Jimmy Fund\<\/name\>
+     \[java\]         \<street\>Lansdowne Street\<\/street\>
+     \[java\]         \<city\>Boston\<\/city\>
+     \[java\]         \<state\>MA\<\/state\>
+     \[java\]         \<zip\>95819\<\/zip\>
+     \[java\]     \<\/billTo\>
+     \[java\]     \<items\>
+     \[java\]         \<item partNum\=\"833\-AA\"\>
+     \[java\]             \<productName\>Brochures\<\/productName\>
+     \[java\]             \<quantity\>10000\<\/quantity\>
+     \[java\]             \<USPrice\>99\.95\<\/USPrice\>
+     \[java\]             \<ns2\:comment\>\<\/ns2\:comment\>
+     \[java\]             \<shipDate\>1999\-12\-05\<\/shipDate\>
+     \[java\]         \<\/item\>
+     \[java\]     \<\/items\>
+     \[java\]     \<taxExemptId\>charity44987\<\/taxExemptId\>
+     \[java\] \<\/ns2\:purchaseOrder\>
+     \[java\] \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
+
+BUILD SUCCESSFUL
+Total time\: .* seconds

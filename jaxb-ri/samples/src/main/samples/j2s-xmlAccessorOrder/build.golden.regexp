@@ -1,0 +1,31 @@
+
+compile\:
+     \[echo\] Generating schemas\.\.\.
+    \[mkdir\] Created dir\: .*
+\[schemagen\] Generating schema from 3 source files
+     \[echo\] Compiling the java source files\.\.\.
+    \[mkdir\] Created dir\: .*
+    \[javac\] Compiling 4 source files to .*
+
+run\:
+     \[echo\] Running the sample application\.\.\.
+     \[java\] \<\?xml version\=\"1\.0\" encoding\=\"UTF\-8\" standalone\=\"yes\"\?\>
+     \[java\] \<purchaseOrder\>
+     \[java\]     \<billTo\>
+     \[java\]         \<name\>Robert Smith\<\/name\>
+     \[java\]         \<street\>8 Oak Avenue\<\/street\>
+     \[java\]         \<city\>Old Town\<\/city\>
+     \[java\]         \<state\>PA\<\/state\>
+     \[java\]         \<zip\>95819\<\/zip\>
+     \[java\]     \<\/billTo\>
+     \[java\]     \<shipTo\>
+     \[java\]         \<name\>Robert Smith\<\/name\>
+     \[java\]         \<street\>8 Oak Avenue\<\/street\>
+     \[java\]         \<city\>Old Town\<\/city\>
+     \[java\]         \<state\>PA\<\/state\>
+     \[java\]         \<zip\>95819\<\/zip\>
+     \[java\]     \<\/shipTo\>
+     \[java\] \<\/purchaseOrder\>
+
+BUILD SUCCESSFUL
+Total time\: .*

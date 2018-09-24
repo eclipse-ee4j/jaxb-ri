@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+
+    Copyright (c) 2017, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<sample since="2.0" >
+    <title>@XmlAttribute used to define properties and fields as XML Attributes</title>
+    <description><![CDATA[
+      This sample application demonstrates the use of annotation
+      @XmlAttribute for defining Java properties and fields as
+      XML attributes.
+    ]]></description>
+        
+    <project>
+        <javadoc/>
+        <schemagen>
+            <exclude name="Main.java"/>
+        </schemagen>
+        <java mainClass="Main" />
+    </project>
+    
+</sample>

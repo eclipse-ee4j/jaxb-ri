@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<section version="5.0" xml:id="jaxb-ri-extensions-dtd" xml:lang="en"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>DTD</title>
+
+    <section xml:id="section-117866877581027">
+        <title>DTD</title>
+
+        <para>The JAXB RI is shipped with experimental DTD support, which lets
+        you compile XML DTDs.</para>
+
+        <para>To compile a DTD <literal>test.dtd</literal>, run the XJC
+        binding compiler as follows:</para>
+
+        <informalexample>
+            <programlisting language="cli"><![CDATA[$ xjc.sh -dtd test.dtd]]></programlisting>
+        </informalexample>
+
+        <para>All the other command-line options of the XJC binding compiler
+        can be applied. Similarly, the <command>xjc</command> <link
+        xlink:href="http://jakarta.apache.org/ant/">ant</link> task supports
+        DTD. The generated code will be no different from what is generated
+        from W3C XML Schema. You'll use the same JAXB API to access the
+        generated code, and it is portable in the sense that it will run on
+        any JAXB 2.0 implementation.</para>
+
+        <section xml:id="section-249814783079567">
+            <title>Customization</title>
+
+            <para>The customization syntax for DTD is roughly based on the
+            ver.0.21 working draft of the JAXB specification, which is
+            available at <link
+            xlink:href="http://xml.coverpages.org/jaxb0530spec.pdf">xml.coverpages.org</link>.
+            The deviations from this document are:</para>
+
+            <itemizedlist>
+                <listitem>
+                    <para>The <literal>whitespace</literal> attribute of the
+                    <literal>conversion</literal> element takes "
+                    <literal>preserve</literal>", " <literal>replace</literal>", and "
+                    <literal>collapse</literal>" instead of "
+                    <literal>preserve</literal>"," <literal>normalize</literal>", and "
+                    <literal>collapse</literal>" as specified in the
+                    document.</para>
+                </listitem>
+
+                <listitem>
+                    <para>The <literal>interface</literal> customization just
+                    generates marker interfaces with no method.</para>
+                </listitem>
+            </itemizedlist>
+        </section>
+    </section>
+</section>

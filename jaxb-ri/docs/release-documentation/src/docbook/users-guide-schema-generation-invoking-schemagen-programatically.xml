@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<section version="5.0"
+         xml:id="schema-generation-invoking-schemagen-programatically"
+         xml:lang="en" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>Invoking schemagen programatically</title>
+
+    <para>Schemagen tools by default come in as CLI, ant task, and Maven
+    plugin. These interfaces allow you to invoke schemagen functionality from
+    your program.</para>
+
+    <section xml:id="At_runtime">
+        <title>At runtime</title>
+
+        <para>If the classes you'd like to generate schema from are already
+        available as <literal>java.lang.Class</literal> objects (meaning they are
+        already loaded and resolved in the current JVM), then the easiest way
+        to generate a schema is to use the JAXB API:</para>
+
+        <example>
+            <title>Generate schema at runtime</title>
+
+            <programlisting language="java"><![CDATA[File baseDir = new File(".");
+
+class MySchemaOutputResolver extends SchemaOutputResolver {
+    public Result createOutput( String namespaceUri, String suggestedFileName ) throws IOException {
+        return new StreamResult(new File(baseDir,suggestedFileName));
+    }
+}
+
+JAXBContext context = JAXBContext.newInstance(Foo.class, Bar.class, ...);
+context.generateSchema(new MySchemaOutputResolver());]]></programlisting>
+        </example>
+    </section>
+
+    <section xml:id="CLI_interface">
+        <title>CLI interface</title>
+
+        <para>The CLI
+        interface (<code>public static int
+        com.sun.tools.jxc.SchemaGenerator.run(String[])</code>) is the
+        easiest API to access. You can pass in all the schemagen command-line
+        arguments as a string array, and get the exit code as an int value.
+        Messages are sent to <literal>System.err</literal> and
+        <literal>System.out</literal>.</para>
+    </section>
+
+    <section xml:id="Ant_interface">
+        <title>Ant interface</title>
+
+        <para>Ant task can be invoked very easily from a non-Ant program. The
+        schemagen ant task is defined in the
+        SchemaGenTask class,</para>
+    </section>
+
+    <section xml:id="Native_Java_API">
+        <title>Native Java API</title>
+
+        <para>The above two interfaces are built on top of externally
+        committed contracts, so they'll evolve only in a compatibile way. The
+        downside is that the amount of control you can exercise over them
+        would be limited.</para>
+
+        <para>So yet another approach to invoke schemagen is to use JAXB RI's
+        internal interfaces. But be warned that those interfaces are subject
+        to change in the future versions, despite our best effort to preserve
+        them. This is the API that the JAX-WS RI uses to generate schema
+        inside WSDL when they generate WSDL, so does some other web services
+        toolkits that work with the JAXB RI.</para>
+
+        <para>Most of those interfaces are defined and well-documented in
+        the com.sun.tools.xjc.api package. You can see how the schemagen
+        tools are eventually calling into this API at the
+        implementaion of SchemaGenerator class.</para>
+    </section>
+</section>

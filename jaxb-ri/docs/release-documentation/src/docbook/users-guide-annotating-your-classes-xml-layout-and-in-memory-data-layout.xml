@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<section version="5.0"
+         xml:id="annotating-your-classes-xml-layout-and-in-memory-data-layout"
+         xml:lang="en" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>XML layout and in-memory data layout</title>
+
+    <para>Your program sometimes needs to have a different in-memory data
+    structure from its XML representation. JAXB has a few different ways to
+    achieve this.</para>
+
+    <section xml:id="XmlJavaTypeAdapter">
+        <title>XmlJavaTypeAdapter</title>
+
+        <para><literal>XmlJavaTypeAdapter</literal> allows you to de-couple the
+        in-memory representation and the XML representation by introducing an
+        intermediate representation. The basic model is as follows:</para>
+
+        <informalexample>
+            <programlisting language=""><![CDATA[In-memory objects  <===>  Intermediate objects   <===>
+XML
+                  adapter                         JAXB]]></programlisting>
+        </informalexample>
+
+        <para>Your adapter code will be responsible for converting in-memory
+        objects to/from intermediate objects. Intermediate objects are then
+        bound to XML by following the standard JAXB rules. See <literal>XmlAdapter</literal> for a general description of how
+        adapters works.</para>
+
+        <para>Adapters extend from the <literal>XmlAdapter</literal> class and provide two methods
+        "unmarshal" and "marshal" that converts values in both directions, and
+        then the <literal>XmlJavaTypeAdapter</literal> annotation is used to tell
+        JAXB where and what adapters kick in.</para>
+
+        <para>(TODO: more info about XmlJavaTypeAdapter needed)</para>
+
+        <orderedlist>
+            <listitem>
+                <para>adapting a class</para>
+            </listitem>
+
+            <listitem>
+                <para>adapting a property</para>
+            </listitem>
+
+            <listitem>
+                <para>adapting an external class</para>
+            </listitem>
+
+            <listitem>
+                <para>adapting a collection and its effect</para>
+            </listitem>
+
+            <listitem>
+                <para>adapting and using interfaces</para>
+            </listitem>
+        </orderedlist>
+    </section>
+
+    <section xml:id="Using_XmlJavaTypeAdapter_for_element_attribute_values">
+        <title>Using XmlJavaTypeAdapter for element/attribute values</title>
+
+        <para>One of the common use cases of <literal>XmlJavaTypeAdapter</literal> is to map a "value object" to
+        a string in XML. The following example illustrates how to do this, by
+        using <literal>java.awt.Color</literal> as an example.</para>
+
+        <example>
+            <title>Mapping Color to #RRGGBB</title>
+
+            <programlisting language="java"><![CDATA[@XmlRootElement
+class Box {
+  @XmlJavaTypeAdapter(ColorAdapter.class)
+  @XmlElement
+  Color fill;
+}
+
+class ColorAdapter extends XmlAdapter<String,Color> {
+  public Color unmarshal(String s) {
+    return Color.decode(s);
+  }
+  public String marshal(Color c) {
+    return "#"+Integer.toHexString(c.getRGB());
+  }
+}]]></programlisting>
+        </example>
+
+        <para>This maps to the following XML representation:</para>
+
+        <example>
+            <title>Box instance</title>
+
+            <programlisting language="xml"><![CDATA[<box>
+  <fill>#112233</fill>
+</box>]]></programlisting>
+        </example>
+
+        <para>Since <literal>XmlJavaTypeAdapter</literal> is on a field, this adapter
+        only kicks in for this particular field. If you have many
+        <literal>Color</literal> fields and would like them all to use the same
+        adapter, you can move the annotation to a package:</para>
+
+        <example>
+            <title>package-info.java</title>
+
+            <programlisting language="java"><![CDATA[@XmlJavaTypeAdapter(type=Color.class,value=ColorAdapter.class)
+package foo;]]></programlisting>
+        </example>
+
+        <example>
+            <title>Box.java</title>
+
+            <programlisting language="java"><![CDATA[@XmlRootElement
+class Box {
+  @XmlElement Color fill;
+  @XmlElement Color border;
+}]]></programlisting>
+        </example>
+
+        <para>This causes all the fields in the classes in the
+        <literal>foo</literal> package to use the same specified adapter.</para>
+
+        <para>Also see the <literal>DatatypeConverter</literal> class that defines a
+        series of basic conversion routines that you may find useful.</para>
+    </section>
+
+    <section xml:id="Pair_property">
+        <title>Pair property</title>
+
+        <para>Another useful technique is to define two properties, one for
+        JAXB and the other for your application. See the following
+        example:</para>
+
+        <example>
+            <title>Pair property sample</title>
+
+            <programlisting language="java"><![CDATA[@XmlRootElement
+class Person {
+  private int age;
+
+  // This public property is for users
+  @XmlTransient
+  public int getAge() {
+    return age;
+  }
+  public void setAge(int age) {
+    this.age = age;
+  }
+
+  // This property is for JAXB
+  @XmlAttribute(name="age")
+  private String getAge_() {
+    if(age==-1)  return "dead";
+    else         return String.valueOf(age);
+  }
+  private void setAge_(String v) throws NumberFormatException {
+    if(v.equals("dead"))   this.age=-1;
+    else                   this.age=Integer.parseInt(age);
+}]]></programlisting>
+        </example>
+
+        <para>The main "<literal>age</literal>" property is public, but marked as <literal>XmlTransient</literal>, so it's exposed in your program,
+        but JAXB will not map this to XML. There's another private "<literal>age_</literal>"
+        property. Since this is marked with <literal>XmlAttribute</literal>, this is what JAXB is going to use
+        to map to the attribute. The getter and setter methods on this
+        property will handle the conversion between the in-memory
+        representation and the XML representation.</para>
+    </section>
+</section>

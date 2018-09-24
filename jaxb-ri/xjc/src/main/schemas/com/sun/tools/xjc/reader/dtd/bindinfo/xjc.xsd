@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://java.sun.com/xml/ns/jaxb/xjc" xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc">
+  <xs:import schemaLocation="bindingfile.xsd"/>
+  <xs:element name="serializable">
+    <xs:complexType>
+      <xs:attribute name="uid" type="xs:long"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="superClass">
+    <xs:complexType>
+      <xs:attribute name="name" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="noMarshaller">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="noUnmarshaller">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="noValidator">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="noValidatingUnmarshaller">
+    <xs:complexType/>
+  </xs:element>
+</xs:schema>

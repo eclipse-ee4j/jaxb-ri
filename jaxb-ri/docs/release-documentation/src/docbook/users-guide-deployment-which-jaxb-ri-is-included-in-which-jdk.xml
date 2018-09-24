@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+        <!ENTITY % ents SYSTEM "docbook.ent">
+        %ents;
+        ]>
+<section xmlns:xlink="http://www.w3.org/1999/xlink"
+         version="5.0"
+         xml:id="deployment-which-jaxb-ri-is-included-in-which-jdk"
+         xml:lang="en"
+         xmlns="http://docbook.org/ns/docbook">
+    <title>Which JAXB RI is included in which JDK?</title>
+
+    <para>This table captures the history of the JAXB RI integration into JDK.
+        This is for information purposes only. In particular, the JAXB RI in JDK
+        is package renamed to avoid any conflict with the stand-alone JAXB RI
+        distribution or with the jaxb2-reflection library. You can use any version
+        of these with any version of JDK without worrying about implementation
+        conflicts.
+    </para>
+
+    <informaltable frame="all">
+        <tgroup cols="2" colsep="1" rowsep="1">
+            <tbody>
+                <row>
+                    <entry>
+                        <para>JDK6 first release - JDK6 u3</para>
+                    </entry>
+
+                    <entry>
+                        <link xlink:href="/2.0.3/">JAXB RI 2.0.3</link>
+                    </entry>
+                </row>
+
+                <row>
+                    <entry>
+                        <para>JDK6 u4</para>
+                    </entry>
+
+                    <entry>
+                        <link xlink:href="/2.1.3/">JAXB RI 2.1.3</link>
+                    </entry>
+                </row>
+
+                <row>
+                    <entry>
+                        <para>JDK6 u14</para>
+                    </entry>
+
+                    <entry>
+                        <link xlink:href="/2.1.10/">JAXB RI 2.1.10</link>
+                    </entry>
+                </row>
+
+                <row>
+                    <entry>
+                        <para>JDK7 first release</para>
+                    </entry>
+
+                    <entry>
+                        <link xlink:href="/2.2.4-1/">JAXB RI 2.2.4-1</link>
+                    </entry>
+                </row>
+                <row>
+                    <entry><para>JDK8 first release</para></entry>
+                    <entry>JAXB RI 2.2.8 (b130911.1802)</entry> <!--TODO: add link to 2.2.8 release-->
+                </row>
+                <row>
+                    <entry><para>JDK9 first release</para></entry>
+                    <entry>JAXB RI 2.3.0 (b170531.0717)</entry> <!--TODO: add link to 2.3.0 release-->
+                </row>
+            </tbody>
+        </tgroup>
+    </informaltable>
+</section>

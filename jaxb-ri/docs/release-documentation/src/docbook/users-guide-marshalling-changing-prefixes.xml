@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<section version="5.0" xml:id="marshalling-changing-prefixes" xml:lang="en"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>Changing prefixes</title>
+
+    <para>By default, a JAXB marshaller uses random namespace prefixes (such
+    as <literal>ns1</literal>, <literal>ns2</literal>, ...) when it needs to declare new
+    namespace URIs. While this is perfectly valid XML wrt the schema, for
+    human readability, you might want to change them to something that makes
+    more sense.</para>
+
+    <para>The JAXB RI defines NamespacePrefixMapper to allow you to do this. See
+    the <literal>namespace-prefix</literal> sample in the distribution for more
+    details.</para>
+</section>

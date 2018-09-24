@@ -1,0 +1,30 @@
+
+compile\:
+     \[echo\] Compiling the schema\.\.\.
+    \[mkdir\] Created dir\: .*
+      \[xjc\] .* is not found and thus excluded from the dependency check
+      \[xjc\] Compiling .*
+      \[xjc\] Writing output to .*
+      \[xjc\] .* is not found and thus excluded from the dependency check
+      \[xjc\] Compiling .*
+      \[xjc\] Writing output to .*
+     \[echo\] Compiling the java source files\.\.\.
+    \[mkdir\] Created dir\: .*
+    \[javac\] Compiling \d+ source files to .*
+
+run\:
+     \[echo\] Running the sample application\.\.\.
+     \[java\] \<\?xml version\=\"1\.0\" encoding\=\"UTF\-8\" standalone\=\"yes\"\?\>
+     \[java\] \<foo1 xmlns\=\"http\:\/\/www\.example\.com\/foo\" xmlns\:b\=\"http\:\/\/www\.example\.com\/bar\" xmlns\:ns3\=\"urn\:abc\" xmlns\:ns4\=\"urn\:def\"\>
+     \[java\]     \<b\:bar1\/\>
+     \[java\]     \<b\:bar2 xmlns\:xyz\=\"someNamespace\"\>xyz\:someQName\<\/b\:bar2\>
+     \[java\] \<\/foo1\>
+     \[java\] \<\?xml version\=\"1\.0\" encoding\=\"UTF\-8\" standalone\=\"yes\"\?\>
+     \[java\] \<foo1 xmlns\=\"http\:\/\/www\.example\.com\/foo\" xmlns\:b\=\"http\:\/\/www\.example\.com\/bar\" xmlns\:ns3\=\"urn\:abc\" xmlns\:ns4\=\"urn\:def\"\>
+     \[java\]     \<b\:bar2 xmlns\:ns5\=\"anotherNamespace\"\>ns5\:someQName\<\/b\:bar2\>
+     \[java\] \<\/foo1\>
+     \[java\] \<\?xml version\=\"1\.0\" encoding\=\"UTF\-8\" standalone\=\"yes\"\?\>
+     \[java\] \<ns5\:foo2 xmlns\:b\=\"http\:\/\/www\.example\.com\/bar\" xmlns\:ns3\=\"urn\:abc\" xmlns\:ns4\=\"urn\:def\" xmlns\:ns5\=\"http\:\/\/www\.example\.com\/foo\"\>someQName\<\/ns5\:foo2\>
+
+BUILD SUCCESSFUL
+Total time\: .*

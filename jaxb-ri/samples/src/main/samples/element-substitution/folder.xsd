@@ -1,0 +1,79 @@
+<!--
+
+    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://example.org"
+            xmlns="http://example.org"
+            xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+            jxb:version="2.0">
+  <xsd:annotation>
+    <xsd:appinfo>
+      <jxb:globalBindings generateIsSetMethod="true"/>
+    </xsd:appinfo>
+  </xsd:annotation>
+  <xsd:complexType name="Header" abstract="true">
+    <xsd:sequence>
+      <xsd:element name="generalComment" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="OrderHeader">
+    <xsd:complexContent>
+      <xsd:extension base="Header">
+        <xsd:sequence>
+          <xsd:element name="orderInfo" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="InvoiceHeader">
+    <xsd:complexContent>
+      <xsd:extension base="Header">
+        <xsd:sequence>
+          <xsd:element name="invoiceInfo" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType name="BidHeader">
+    <xsd:complexContent>
+      <xsd:extension base="Header">
+        <xsd:sequence>
+          <xsd:element name="bidInfo" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+
+  <xsd:element name="headerE" type="Header" abstract="true"/>
+  <xsd:element name="orderHeaderE" type="OrderHeader"
+               substitutionGroup="headerE"/>
+  <xsd:element name="invoiceHeaderE" type="InvoiceHeader"
+               substitutionGroup="headerE"/>
+  <xsd:element name="bidHeaderE" type="BidHeader"
+               substitutionGroup="headerE"/>
+
+  <!--
+  <xsd:complexType name="Document">
+    <xsd:sequence>
+       <xsd:element ref="headerE"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  -->
+
+  <xsd:element name="folder">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element ref="headerE" maxOccurs="unbounded"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

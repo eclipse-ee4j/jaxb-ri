@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<section version="5.0"
+         xml:id="compiling-xml-schema-how-modularization-of-schema-interacts-with-xjc"
+         xml:lang="en" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>How modularization of schema interacts with XJC</title>
+
+    <para>Over time schema authors have developed several techniques to
+    modularize large schemas. Some of those techniques have some noteworthy
+    interactions with XJC.</para>
+
+    <section xml:id="Chameleon_schema">
+        <title>Chameleon schema</title>
+
+        <para><link
+        xlink:href="http://www.xfront.com/ZeroOneOrManyNamespaces.html#mixed">Chameleon
+        schema"</link> (<link
+        xlink:href="http://www.google.com/search?q=chameleon+schema">read
+        more</link>, in particular <link
+        xlink:href="http://www.kohsuke.org/xmlschema/XMLSchemaDOsAndDONTs.html#avoid_chameleon">this</link>)
+        is a technique used to define multiple almost-identical sets of
+        definitions into multiple namespaces from a single schema
+        document.</para>
+
+        <para>For example, with this technique, you can write just one "foo"
+        complex type and define it into namespace X and Y. In this case, one
+        tends to hope that XJC will only give you one <literal>Foo</literal> class
+        for this, but unfortunately because it's actually defined in two
+        namespaces, JAXB needs two Java classes to distinguish <literal>X:foo</literal> and
+        <literal>Y:foo</literal>, so you'll get multiple copies.</para>
+
+        <para>If you find this to be problematic, there are a few ways to work
+        around the problem.</para>
+
+        <orderedlist>
+            <listitem>
+                <para>If you are in control of the schema, see if you can
+                rewrite the schema to avoid using this technique. In some
+                cases, the schema doesn't actually exploit the additional
+                power of this technique, so this translation can be done
+                without affecting XML instance documents. In some other cases,
+                the chameleon schema can be argued as a bad schema design, as
+                it duplicates definitions in many places.</para>
+            </listitem>
+
+            <listitem>
+                <para>If you are not in control of the schema, see if you can
+                rewrite the schema nevertheless. This will only work if your
+                transformation doesn't affect XML instance documents.</para>
+            </listitem>
+
+            <listitem>
+                <para>Perhaps there can be a plugin that eases the pain of
+                this, such as by defining common interfaces among
+                copies.</para>
+            </listitem>
+        </orderedlist>
+    </section>
+</section>

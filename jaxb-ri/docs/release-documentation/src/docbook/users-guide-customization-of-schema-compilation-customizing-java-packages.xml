@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<section version="5.0"
+         xml:id="customization-of-schema-compilation-customizing-java-packages"
+         xml:lang="en" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>Customizing Java packages</title>
+
+    <para>The JAXB specification provides a <literal>&lt;jaxb:schemaBindings&gt;</literal>
+    customization so that you can control which namespace goes to which
+    package. See the example below:</para>
+
+    <example>
+        <title>package customization</title>
+
+        <programlisting language="xml"><![CDATA[    <jaxb:schemaBindings>
+      <jaxb:package name="org.acme.foo"/>
+    </jaxb:schemaBindings>]]></programlisting>
+    </example>
+
+    <para>You can do this as an internal customization (in which case you put
+    this in <literal>&lt;xs:annotation&gt;</literal><literal>&lt;xs:appinfo&gt;</literal> under place it right under
+    the <literal>&lt;xs:schema&gt;</literal> element), or do this as an external customization,
+    like this:</para>
+
+    <example>
+        <title>External package customization</title>
+
+        <programlisting language="xml"><![CDATA[<bindings xmlns="http://java.sun.com/xml/ns/jaxb" version="2.1">
+  <bindings schemaLocation="../path/to/my.xsd">
+    <schemaBindings>
+      <package name="org.acme.foo"/>
+    </schemaBindings>
+  </bindings>
+</bindings>]]></programlisting>
+    </example>
+
+    <para>Note that this customization is per namespace. That is, even if your
+    schema is split into multiple schema documents, you cannot put them into
+    different packages if they are all in the same namespace.</para>
+
+    <section xml:id="Tip__get_rid_of_the_org_w3__2001_xmlschema_package">
+        <title>Tip: get rid of the org.w3._2001.xmlschema package</title>
+
+        <para>Under some rare circumstances, XJC will generate some Java
+        classes into a package called <literal>org.w3._2001.xmlschema</literal>.
+        This happens when XJC decides that it needs some Java artifacts for
+        the XML Schema built-in namespace of
+        <code>http://www.w3.org/2001/XMLSchema</code>.</para>
+
+        <para>Since this package name is most often problematic, you can
+        rename this by simply saving the following text in an .xsd file and
+        submitting it to XJC along with the other schemas you have:</para>
+
+        <example>
+            <title>Schemalet to get rid of org.w3._2001.xmlschema</title>
+
+            <programlisting language="xml"><![CDATA[<schema xmlns="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://www.w3.org/2001/XMLSchema"
+  xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+  jaxb:version="2.0">
+  <annotation><appinfo>
+    <jaxb:schemaBindings>
+      <jaxb:package name="org.acme.foo"/>
+    </jaxb:schemaBindings>
+  </appinfo></annotation>
+</schema>]]></programlisting>
+        </example>
+
+        <para>This is bit tricky, but the idea is that since you can define a
+        schema for one namespace in multiple schema documents, this makes XJC
+        think that this schema is a part of the built-in "XML Schema for XML
+        Schema".</para>
+    </section>
+</section>

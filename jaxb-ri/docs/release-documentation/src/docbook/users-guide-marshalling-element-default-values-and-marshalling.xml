@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<section version="5.0"
+         xml:id="marshalling-element-default-values-and-marshalling"
+         xml:lang="en" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>Element default values and marshalling</title>
+
+    <para>Because of a "strange" way element default values in XML Schema
+    work, people often get confused about its behavior. This section describes
+    how this works.</para>
+
+    <para>When a class has an element property with the default value, and if
+    a value is null, then the marshaller will not produce the corresponding
+    element in XML:</para>
+
+    <example>
+        <title>Element defaults and XML</title>
+
+        <programlisting language="java"><![CDATA[@XmlRootElement
+class Foo {
+  @XmlElement(defaultValue="value") public String a=null;
+}
+
+marshaller.marshal(new Foo(),System.out);]]></programlisting>
+    </example>
+
+    <example>
+        <title>Marshalling output from above</title>
+
+        <programlisting language="xml"><![CDATA[<foo />]]></programlisting>
+    </example>
+
+    <para>This is consistent with the XML Schema spec, where it essentially
+    states that the element defaults do not kick in when the element is
+    absent. Attribute default values do not have this problem, so if you can
+    change the schema, changing it to an attribute is usually a better idea.
+    Alternatively, depending on your expectation, setting the field to a
+    default value in Java may achieve what you are looking for.</para>
+
+    <example>
+        <title>Possible changes</title>
+
+        <programlisting language="java"><![CDATA[@XmlRootElement
+class Foo {
+  @XmlElement public String a="value";
+}
+@XmlRootElement
+class Bar {
+  @XmlAttribute public String a;
+}
+
+marshaller.marshal(new Foo(),System.out);
+marshaller.marshal(new Bar(),System.out);]]></programlisting>
+    </example>
+
+    <example>
+        <title>Marshalling output from above</title>
+
+        <programlisting language="xml"><![CDATA[<foo>
+    <a>value</a>
+</foo>
+
+<bar/>]]></programlisting>
+    </example>
+
+    <para>Also, see <xref
+    linkend="unmarshalling-element-default-values-and-unmarshalling"
+    xrefstyle="select:title" />.</para>
+</section>

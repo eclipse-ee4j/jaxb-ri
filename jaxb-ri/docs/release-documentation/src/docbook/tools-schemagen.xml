@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<section version="5.0" xml:id="tools-schemagen" xml:lang="en"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>SchemaGen</title>
+
+    <section>
+        <title><command>schemagen</command> Overview</title>
+
+        <para>The current schema generator can process either Java source
+        files or class files.</para>
+
+        <para>We also provide an Ant task to run the schema generator - see
+        the instructions for <xref linkend="tools-schemagen-ant-task"
+        xrefstyle="select:title" />.</para>
+    </section>
+
+    <section xml:id="section-182504251480881">
+        <title>Launching <command>schemagen</command></title>
+
+        <para>The schema generator can be launched using the appropriate
+        <literal>schemagen</literal> shell script in the
+        <literal>bin</literal> directory for your platform.</para>
+
+        <para>If your java sources/classes reference other classes, they must
+        be accessable on your system CLASSPATH environment variable, or they
+        need to be given to the tool by using the <option>-classpath</option>/
+        <option>-cp</option> options. Otherwise you will see errors when
+        generating your schema.</para>
+
+        <itemizedlist>
+            <listitem>
+                <para><emphasis role="bold">Solaris/Linux</emphasis></para>
+
+                <programlisting language="cli"><![CDATA[% path/to/jaxb/bin/schemagen.sh Foo.java Bar.java ...
+Note: Writing schema1.xsd]]></programlisting>
+            </listitem>
+
+            <listitem>
+                <para><emphasis role="bold">Windows</emphasis></para>
+
+                <programlisting language="cli"><![CDATA[> path\to\jaxb\bin\schemagen.bat Foo.java Bar.java ...
+Note: Writing schema1.xsd]]></programlisting>
+            </listitem>
+        </itemizedlist>
+    </section>
+
+    <section>
+        <title><command>schemagen</command> Syntax</title>
+
+        <cmdsynopsis>
+            <command>schemagen</command>
+
+            <group choice="plain" rep="repeat">
+                <arg choice="opt">OPTION</arg>
+            </group>
+
+            <arg choice="req" rep="norepeat">java files</arg>
+        </cmdsynopsis>
+
+        <informalexample>
+            <programlisting><![CDATA[Usage: schemagen [-options ...] <java files> 
+
+Options: 
+    -d <path>         :  Specify where to place processor and javac generated class files 
+    -cp <path>        :  Specify where to find user specified files  
+    -classpath <path> :  Specify where to find user specified files  
+    -episode <file>   :  generate episode file for separate compilation
+    -version          :  display version information
+    -help             :  Display this usage message]]></programlisting>
+        </informalexample>
+
+        <section xml:id="switches-1">
+            <title>Summary of Command Line Options</title>
+
+            <variablelist>
+                <varlistentry>
+                    <term xml:id="episode"><emphasis
+                    role="bold">-episode</emphasis></term>
+
+                    <listitem>
+                        <para>Generates the "episode file", which is really
+                        just a JAXB customization file (but with vendor
+                        extensions specific to the JAXB RI, as of 2.1.) When
+                        people develop additional schemas that depend on what
+                        this schemagen invocation produces, they can use this
+                        episode file to have their generated code refer to
+                        your classes.</para>
+                    </listitem>
+                </varlistentry>
+            </variablelist>
+        </section>
+    </section>
+
+    <section xml:id="section-906211973953818">
+        <title>Generated Resource Files</title>
+
+        <para>The current schema generator simply creates a schema file for
+        each namespace referenced in your Java classes. There is no way to
+        control the name of the generated schema files at this time. Use <xref
+        linkend="tools-schemagen-ant-task" xrefstyle="select:title" /> for
+        that purpose.</para>
+    </section>
+</section>

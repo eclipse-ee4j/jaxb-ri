@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<section version="5.0"
+         xml:id="other-miscellaneous-topics-performance-and-thread-safety"
+         xml:lang="en" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>Performance and thread-safety</title>
+
+    <para>The JAXBContext class is thread safe, but the Marshaller,
+    Unmarshaller, and Validator classes are not thread safe.</para>
+
+    <para>For example, suppose you have a multi-thread server application that
+    processes incoming XML documents by JAXB. In this case, for the best
+    performance you should have just one instance of JAXBContext in your whole
+    application like this:</para>
+
+    <example>
+        <title>Singleton JAXBContext</title>
+
+        <programlisting language="java"><![CDATA[class MyServlet extends HttpServlet {
+    static final JAXBContext context = initContext();
+
+    private static JAXBContext initContext() {
+        return JAXBContext.newInstance(Foo.class,Bar.class);
+    }
+}]]></programlisting>
+    </example>
+
+    <para>And each time you need to unmarshal/marshal/validate a document.
+    Just create a new Unmarshaller/Marshaller/Validator from this context,
+    like this:</para>
+
+    <example>
+        <title>Thread local Unmarshaller</title>
+
+        <programlisting language="java"><![CDATA[    public void doGet( HttpServletRequest req, HttpServletResponse ) {
+        Unmarshaller u = context.createUnmarshaller();
+        u.unmarshal(...);
+    }]]></programlisting>
+    </example>
+
+    <para>This is the simplest safe way to use the JAXB RI from multi-threaded
+    applications.</para>
+
+    <para>If you really care about the performance, and/or your application is
+    going to read a lot of small documents, then creating Unmarshaller could
+    be relatively an expensive operation. In that case, consider pooling
+    Unmarshaller objects. Different threads may reuse one Unmarshaller
+    instance, as long as you don't use one instance from two threads at the
+    same time.</para>
+</section>

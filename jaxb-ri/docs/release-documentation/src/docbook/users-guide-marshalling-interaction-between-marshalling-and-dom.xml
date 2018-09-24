@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<section version="5.0"
+         xml:id="marshalling-interaction-between-marshalling-and-dom"
+         xml:lang="en" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>Interaction between marshalling and DOM</title>
+
+    <para>Sometimes you may notice that JAXB is producing XML with seemingly
+    unnecessary namespace declarations. In this section, we'll discuss the
+    possible causes and how to resolve this.</para>
+
+    <section xml:id="Caused_by_DOM_mapping">
+        <title>Caused by DOM mapping</title>
+
+        <para>The #1 cause of extra namespace declarations is due to the DOM
+        mapping. This mainly happens because of a schema construct that forces
+        XJC to generate a property with DOM. This includes the use of wildcard
+        <literal>&lt;xs:any/&gt;</literal> (see more about this <xref
+        linkend="compiling-xml-schema-mapping-of-xs-any"
+        xrefstyle="select:title" />), as well as <literal>xs:anyType</literal>
+        (which can also happen by omission, such as <literal>&lt;xs:element
+        name="foo"/&gt;</literal>, which is interpreted as <literal>&lt;xs:element
+        name="foo" type="xs:anyType" /&gt;</literal>.</para>
+
+        <para>During unmarshalling, when a subtree of the input XML is
+        converted into XML, JAXB copies all the in-scope namespace bindings
+        active at that time to the root of the DOM element. So for example,
+        given the following Java class and XML, the DOM tree that the
+        <literal>child</literal> field will get will look like the following:</para>
+
+        <example>
+            <title>Bean with wildcard</title>
+
+            <programlisting language="java"><![CDATA[@XmlRootElement
+class Foo {
+  @XmlAnyElement
+  public Element child;
+}]]></programlisting>
+        </example>
+
+        <example>
+            <title>Instance with subtree matching wildcard</title>
+
+            <programlisting language="xml"><![CDATA[<foo xmlns:a="a" xmlns:b="b" xmlns:c="c">
+  <subtree xmlns:c="cc">
+    <data>a:xyz</data>
+  </subtree>
+</foo>]]></programlisting>
+        </example>
+
+        <example>
+            <title>DOM tree to be stored in Foo.child</title>
+
+            <programlisting language="xml"><![CDATA[<subtree xmlns:a="a" xmlns:b="b" xmlns:c="cc">
+    <data>a:xyz</data>
+  </subtree>]]></programlisting>
+        </example>
+
+        <para>Note that the two namespace declarations are copied over, but
+        <literal>c</literal> is not because it's overridden. Also not that JAXB is
+        not touching the whitespace in document. This copying of namespace
+        declarations is necessary to preserve the infoset in the input
+        document. For example, if the <literal>&lt;data&gt;</literal> is a QName, its meaning
+        would change if JAXB unmarshaller doesn't copy it.</para>
+
+        <para>Now, imagine what happens when you marshal this back to XML.
+        Despite the fact that in this example neither <literal>b</literal> nor
+        <literal>c</literal> prefixes are in use, JAXB cannot delete them, because
+        it doesn't know if those attributes are significant to the application
+        or not. Therefore, this could end up producing XML with "extra
+        namespace declarations" like:</para>
+
+        <example>
+            <title>DOM tree to be stored in Foo.child</title>
+
+            <programlisting language="xml"><![CDATA[<foo>
+  <subtree xmlns:a="a" xmlns:b="b" xmlns:c="cc">
+    <data>a:xyz</data>
+  </subtree>
+</foo>]]></programlisting>
+        </example>
+
+        <para>Resolving this problem is not possible in the general case, but
+        sometimes one of the following strategy works:</para>
+
+        <orderedlist>
+            <listitem>
+                <para>Sometimes schema author incorrectly assumes that
+                <literal>&lt;xs:element name="foo"/&gt;</literal> means
+                <literal>&lt;xs:element name="foo" type="xs:string"/&gt;</literal>,
+                because attribute declarations work somewhat like this. In
+                such a case, adding explicit <literal>type</literal> attribute
+                avoids the use of DOM, so things will work as expected.</para>
+            </listitem>
+
+            <listitem>
+                <para>The wildcard processing mode " <literal>strict</literal>"
+                would force a typed binding, and thereby eliminate any DOM
+                mapping.</para>
+            </listitem>
+
+            <listitem>
+                <para>You might be able to manulally go into the DOM tree and
+                remove unnecessary namespace declarations, if your application
+                knows what are necessary and what are not.</para>
+            </listitem>
+        </orderedlist>
+    </section>
+</section>

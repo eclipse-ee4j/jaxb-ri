@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<section version="5.0"
+         xml:id="compiling-xml-schema-fixing-broken-references-in-schema"
+         xml:lang="en" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>Fixing broken references in schema</title>
+
+    <para>Sometimes a schema may refer to another schema document without
+    indicating where the schema file can be found, like this:</para>
+
+    <example>
+        <title>Schema reference without location</title>
+
+        <programlisting language="xml"><![CDATA[<xs:import namespace="http://www.w3.org/1999/xlink" />]]></programlisting>
+    </example>
+
+    <para>In other cases, a schema may refer to another schema on the network,
+    which often slows down your compilation process and makes it unreliable.
+    Yet in some other cases, a schema may reference another schema in relative
+    path, and that may not match your directory structure.</para>
+
+    <para>XJC bundles a <link
+    xlink:href="http://xml.apache.org/commons/components/resolver/resolver-article.html">catalog
+    resolver</link> so that you can work around these situations without
+    changing the schema documents. The main idea behind the catalog is
+    "redirection" --- when XJC is about to fetch resources, it will consult
+    the catalog resolver to see if it can find the resource elsewhere (which
+    is usually your local resources.)</para>
+
+    <section xml:id="Catalog_format">
+        <title>Catalog format</title>
+
+        <para>The catalog resolver supports many different formats, but the
+        easiest one is a line based <filename>*.cat</filename> format. Other than
+        comments and empty lines, the file mainly consists of two kinds of
+        declarations, <literal>SYSTEM</literal>, and
+        <literal>PUBLIC</literal>.</para>
+
+        <example>
+            <title><filename>sample-catalog.cat</filename></title>
+
+            <programlisting language="xml"><![CDATA[--
+  sample catalog file.
+
+  double hyphens are used to begin and end a comment section.
+--
+
+SYSTEM "http://www.w3.org/2001/xml.xsd" "xml.xsd"
+
+PUBLIC "-//W3C//DTD XMLSCHEMA 200102//EN" "s4s/XMLSchema.dtd"]]></programlisting>
+        </example>
+    </section>
+
+    <section xml:id="Resolve_by_system_ID">
+        <title>Resolve by system ID</title>
+
+        <para>The SYSTEM entry has the format of "SYSTEM
+        <emphasis>REFERENCE</emphasis> <emphasis>ACTUAL-LOCATION</emphasis>",
+        which defines a simple redirection. Every time XJC loads any resource
+        (be it schemas, DTDs, any entities referenced within), it will first
+        resolve relative paths to absolute paths, then looks for a matching
+        <emphasis>REFERENCE</emphasis> line. If it is found, the specified
+        actual location is read instead. Otherwise XJC will attempt to resolve
+        the absolutepath.</para>
+
+        <para><emphasis>ACTUAL-LOCATION</emphasis> above accepts relative
+        paths, and those are resolved against the catalog file itself (so in
+        the above example, <literal>xml.xsd</literal> is assumed to be in the same
+        directory with <filename>sample-catalog.cat</filename>.</para>
+
+        <para>What you need to be careful is the fact that the
+        <emphasis>REFERENCE</emphasis> portion must be absolute, and when XJC
+        finds a reference in schema, it will first convert that to the
+        absolute path before checking the catalog. So what this means is that
+        if your schema is written like this:</para>
+
+        <example>
+            <title>Schema reference by relative path</title>
+
+            <programlisting language="xml"><![CDATA[<xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd" />]]></programlisting>
+        </example>
+
+        <para>Then your catalog entry would have to look like this:</para>
+
+        <example>
+            <title>xlink.cat</title>
+
+            <programlisting language="xml"><![CDATA[-- this doesn't work because xlink.xsd will be turned into absolute path --
+SYSTEM "xlink.xsd" "http://www.w3.org/2001/xlink.xsd"
+
+-- this will work, assuming that the above schema is in /path/to/my/test.xsd --
+SYSTEM "/path/to/my/xlink.xsd" "http://www.w3.org/2001/xlink.xsd"]]></programlisting>
+        </example>
+    </section>
+
+    <section xml:id="Resolve_by_public_ID___namespace_URI">
+        <title>Resolve by public ID / namespace URI</title>
+
+        <para>Another kind of entry has the format of "PUBLIC
+        <emphasis>PUBLICID</emphasis> <emphasis>ACTUAL-LOCATION</emphasis>" or
+        "PUBLIC <emphasis>NAMESPACEURI</emphasis>
+        <emphasis>ACTUAL-LOCATION</emphasis>".</para>
+
+        <para>The "<literal>PUBLICID</literal>" version is used to resolve DTDs and entities in
+        DTDs. But this type of entry is also used to resolve <literal>&lt;xs:import&gt;</literal>
+        statements. XJC will match the value of the namespace attribute and
+        see if there's any matching entry. So given a schema like this:</para>
+
+        <example>
+            <title>Schema import</title>
+
+            <programlisting language="xml"><![CDATA[<xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd" />
+<xs:import namespace="http://www.w3.org/1998/Math/MathML" />]]></programlisting>
+        </example>
+
+        <para>The following catalog entries will match them.</para>
+
+        <example>
+            <title>by-publicid.cat</title>
+
+            <programlisting language="xml"><![CDATA[PUBLIC "http://www.w3.org/1999/xlink" "http://www.w3.org/2001/xlink.xsd"
+PUBLIC "http://www.w3.org/1998/Math/MathML" "/path/to/my/mathml.xsd"]]></programlisting>
+        </example>
+
+        <para>As you can see, XJC will check the PUBLIC entries regardless of
+        whether <literal>&lt;xs:import&gt;</literal> has the schemaLocation attribute or not. As
+        with the case with the SYSTEM entry, the ACTUAL-LOCATION part can be
+        relative to the location of the catalog file.</para>
+    </section>
+
+    <section xml:id="Specifying_the_catalog_file">
+        <title>Specifying the catalog file</title>
+
+        <para>Once you write a catalog file, you'd need to specify that when
+        you invoke XJC.</para>
+
+        <variablelist>
+            <varlistentry>
+                <term>CLI</term>
+
+                <listitem>
+                    <para>To do this from the CLI, use the <option>-catalog</option> option. See <link
+                    xlink:href="/nonav/2.1.4/docs/xjc.html"><command>xjc
+                    -help</command> for more details</link>.</para>
+                </listitem>
+            </varlistentry>
+
+            <varlistentry>
+                <term>Ant</term>
+
+                <listitem>
+                    <para>Use the catalog attribute on the <literal>&lt;xjc&gt;</literal> task.
+                    See <link xlink:href="/nonav/2.1.4/docs/xjcTask.html">XJC
+                    ant task documentation</link> for more details.</para>
+                </listitem>
+            </varlistentry>
+
+            <varlistentry>
+                <term>Maven</term>
+
+                <listitem>
+                    <para>For the Maven
+                    plugin, use the <literal>&lt;catalog&gt;</literal> element in the
+                    configuration: <informalexample>
+                            <programlisting language=""><![CDATA[<plugin>
+    <groupId>org.jvnet.jaxb2.maven2</groupId>
+    <artifactId>maven-jaxb2-plugin</artifactId>
+    <configuration>
+        <!-- relative to the POM file -->
+        <catalog>mycatalog.cat</catalog>
+    </copnfiguration>
+</plugin>]]></programlisting>
+                        </informalexample></para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+    </section>
+
+    <section xml:id="Debugging_catalog_file">
+        <title>Debugging catalog file</title>
+
+        <para>If you are trying to write a catalog file and banging your head
+        against a wall because it's not working, you should enable the verbose
+        option of the catalog resolver. How you do this depends on what
+        interface you use:</para>
+
+        <variablelist>
+            <varlistentry>
+                <term>CLI</term>
+
+                <listitem>
+                    <para>Specify <command>export
+                    XJC_OPTS="-Dxml.catalog.verbosity=999"</command> then run
+                    XJC.</para>
+                </listitem>
+            </varlistentry>
+
+            <varlistentry>
+                <term>Ant/Maven</term>
+
+                <listitem>
+                    <para>Add <literal>-Dxml.catalog.verbosity=999</literal> as a
+                    command line option to Ant/Maven.</para>
+                </listitem>
+            </varlistentry>
+        </variablelist>
+
+        <para>If you are otherwise invoking XJC programmatically, you can set
+        the above system property before invoking XJC.</para>
+    </section>
+</section>

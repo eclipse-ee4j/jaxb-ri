@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<section version="5.0"
+         xml:id="unmarshalling-unmarshalling-is-not-working-help"
+         xml:lang="en" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>Unmarshalling is not working! Help!</title>
+
+    <para>There are a few common causes for this problem. These causes often
+    exhibit similar symptoms:</para>
+
+    <orderedlist>
+        <listitem>
+            <para>Instance documents are invalid</para>
+        </listitem>
+
+        <listitem>
+            <para><literal>JAXBContext</literal> is not created correctly.</para>
+        </listitem>
+    </orderedlist>
+
+    <section xml:id="Make_sure_your_instance_document_is_valid">
+        <title>Make sure your instance document is valid</title>
+
+        <para>First, use an independent schema validator to check if your
+        document is really valid with respect to the schema you compiled. When
+        the root element of a document is invalid, then the unmarshaller will
+        issue "unexpected element" errors. When a portion of a document is
+        invalid, JAXB skips that portion, so the end result is that the
+        unmarshalling returns normally, yet you notice that a part of the
+        content tree is missing. This is often the desirable behavior, but it
+        sometimes ends up masking a problem.</para>
+
+        <para>Also, try to install <literal>ValidationEventHandler</literal> on the
+        unmarshaller. When a portion of a document is skipped, the
+        unmarshaller notifies a <literal>ValidationEventHandler</literal>, so it
+        allows you to see what's going on.</para>
+
+        <example>
+            <title>Installing ValidationEventHandler</title>
+
+            <programlisting language="java"><![CDATA[Unmarshaller u = ...;
+// this implementation is a part of the API and convenient for trouble-shooting,
+// as it prints out errors to System.out
+u.setEventHandler(new javax.xml.bind.helpers.DefaultValidationEventHandler());
+
+u.unmarshal(new File("foo.xml"));]]></programlisting>
+        </example>
+
+        <para>Also consider installing a <literal>Schema</literal> object to the
+        unmarshaller, so that the unmarshaller performs a schema validation
+        while unmarshalling. Earlier I suggested that you try an independent
+        schema validator, but for various reasons (not all tools are reliable,
+        you might have made an error and used a different schema/instance),
+        using validating unmarshalling is a better way to guarantee the
+        validity of your instance document being unmarshalled. Please follow
+        the <link
+        xlink:href="http://java.sun.com/j2ee/1.4/docs/tutorial/doc/JAXPIntro.html#wp65584">JAXP
+        tutorial</link> for more about how to construct a <literal>Schema</literal>
+        object from your schema.</para>
+
+        <para>If you are unmarshalling from XML parser APIs (such as DOM, SAX,
+        StAX), then also make sure that the parser/DOM is configured with the
+        namespace enabled.</para>
+    </section>
+
+    <section xml:id="Check_if_your_JAXBContext_is_correct">
+        <title>Check if your JAXBContext is correct</title>
+
+        <para>(TODO: This also applies to the marshaller. Think about moving
+        it.)</para>
+
+        <para>The other possibility is that <literal>JAXBContext</literal> is not
+        set up correctly. <literal>JAXBContext</literal> "knows" a set of classes,
+        and if it doesn't know a class that it's supposed to know, then the
+        unmarshaller may fail to perform as you expected.</para>
+
+        <para>To verify that you created <literal>JAXBContext</literal> correctly,
+        call <literal>JAXBContext.toString()</literal>. It will output the list of
+        classes it knows. If a class is not in this list, the unmarshaller
+        will never return an instance of that class. Make you see all the
+        classes you expect to be returned from the unmarshaller in the list.
+        When dealing with a large schema that spans across a large number of
+        classes and packages, this is one possible cause of a problem.</para>
+
+        <para>If you noticed that a class is missing, explicitly specify that
+        to <literal>JAXBContext.newInstance</literal>. If you are binding classes
+        that are generated from XJC, then the easiest way to include all the
+        classes is to specify the generated <literal>ObjectFactory</literal>
+        class(es).</para>
+    </section>
+</section>

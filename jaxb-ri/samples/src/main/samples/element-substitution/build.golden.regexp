@@ -1,0 +1,40 @@
+
+compile\:
+     \[echo\] Compiling the schema\.\.\.
+    \[mkdir\] Created dir\: .*
+      \[xjc\] .* is not found and thus excluded from the dependency check
+      \[xjc\] Compiling .*
+      \[xjc\] Writing output to .*
+     \[echo\] Compiling the java source files\.\.\.
+    \[mkdir\] Created dir\: .*
+    \[javac\] Compiling \d+ source files to .*
+
+run\:
+     \[echo\] Running the sample application\.\.\.
+     \[java\] Unmarshalled xml element tag is\:\{http\:\/\/example\.org\}folder
+     \[java\] Processing headers\.\.\.
+     \[java\] OrderHeader info\:Order specfic comment
+     \[java\] InvoiceHeader info\:Invoice specfic comment
+     \[java\] BidHeader info\:Bid specfic comment
+     \[java\] \<\?xml version\=\"1\.0\" encoding\=\"UTF\-8\" standalone\=\"yes\"\?\>
+     \[java\] \<ns2\:folder xmlns\:ns2\=\"http\:\/\/example\.org\"\>
+     \[java\]     \<ns2\:orderHeaderE\>
+     \[java\]         \<generalComment\>A comment\<\/generalComment\>
+     \[java\]         \<orderInfo\>Order specfic comment\<\/orderInfo\>
+     \[java\]     \<\/ns2\:orderHeaderE\>
+     \[java\]     \<ns2\:invoiceHeaderE\>
+     \[java\]         \<generalComment\>A comment\<\/generalComment\>
+     \[java\]         \<invoiceInfo\>Invoice specfic comment\<\/invoiceInfo\>
+     \[java\]     \<\/ns2\:invoiceHeaderE\>
+     \[java\]     \<ns2\:bidHeaderE\>
+     \[java\]         \<generalComment\>A comment\<\/generalComment\>
+     \[java\]         \<bidInfo\>Bid specfic comment\<\/bidInfo\>
+     \[java\]     \<\/ns2\:bidHeaderE\>
+     \[java\]     \<ns2\:invoiceHeaderE\>
+     \[java\]         \<generalComment\>New Comment\<\/generalComment\>
+     \[java\]         \<invoiceInfo\>New Invoice Info\<\/invoiceInfo\>
+     \[java\]     \<\/ns2\:invoiceHeaderE\>
+     \[java\] \<\/ns2\:folder\>
+
+BUILD SUCCESSFUL
+Total time\: .*

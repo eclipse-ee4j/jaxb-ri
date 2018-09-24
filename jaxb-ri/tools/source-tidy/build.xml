@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+
+    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!--
+  base dir has to be jaxb-ri for this to be work correctly
+  when it's called from the jaxb-ri/build.xml
+-->
+<project name="sourceTidy" basedir="../.." default="compile">
+
+    <!-- import build properties -->
+    <property file="${basedir}/build.properties" />
+
+    <!-- compile Java source files -->
+    <target name="compile">
+        <javac srcdir="${jaxb.root}/tools/source-tidy" destdir="${jaxb.root}/tools/source-tidy"
+            debug="${compile.debug}" optimize="${compile.optimize}" source="1.6" target="1.6" />
+    </target>
+
+    <target name="clean">
+        <delete dir="${jaxb.root}/tools/source-tidy" includes="*.class" />
+    </target>
+</project>

@@ -1,0 +1,87 @@
+
+compile\:
+     \[echo\] Compiling the schema\.\.\.
+    \[mkdir\] Created dir\: .*
+      \[xjc\] .* is not found and thus excluded from the dependency check
+      \[xjc\] Compiling .*
+      \[xjc\] Writing output to .*
+     \[echo\] Compiling the java source files\.\.\.
+    \[mkdir\] Created dir\: .*
+    \[javac\] Compiling \d+ source files to .*
+
+run\:
+     \[echo\] Running the sample application\.\.\.
+     \[java\] Process references using polymorphic method
+     \[java\] \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
+     \[java\] \[1\]
+     \[java\] Origin\=BOSTON
+     \[java\] Destination\=SAN FRANCISCO
+     \[java\] Flight Number\: 195
+     \[java\] Meal\: breakfast
+     \[java\] \<\?xml version\=\"1\.0\" encoding\=\"UTF\-8\" standalone\=\"yes\"\?\>
+     \[java\] \<plane xmlns\=\"http\:\/\/example\.org\"\>
+     \[java\]     \<origin xmlns\=\"\"\>BOSTON\<\/origin\>
+     \[java\]     \<destination xmlns\=\"\"\>SAN FRANCISCO\<\/destination\>
+     \[java\]     \<flightNumber xmlns\=\"\"\>195\<\/flightNumber\>
+     \[java\]     \<meal xmlns\=\"\"\>breakfast\<\/meal\>
+     \[java\] \<\/plane\>
+
+     \[java\] \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
+
+     \[java\] \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
+     \[java\] \[2\]
+     \[java\] Origin\=SAN FRANCISCO
+     \[java\] Destination\=SAN FRANCISCO
+     \[java\] Rental Agency\:Hertz
+     \[java\] Rate Per Hour\:2
+     \[java\] \<\?xml version\=\"1\.0\" encoding\=\"UTF\-8\" standalone\=\"yes\"\?\>
+     \[java\] \<auto xmlns\=\"http\:\/\/example\.org\"\>
+     \[java\]     \<origin xmlns\=\"\"\>SAN FRANCISCO\<\/origin\>
+     \[java\]     \<destination xmlns\=\"\"\>SAN FRANCISCO\<\/destination\>
+     \[java\]     \<rentalAgency xmlns\=\"\"\>Hertz\<\/rentalAgency\>
+     \[java\]     \<ratePerHour xmlns\=\"\"\>2\<\/ratePerHour\>
+     \[java\] \<\/auto\>
+
+     \[java\] \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
+
+     \[java\] \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
+     \[java\] \[3\]
+     \[java\] Origin\=BOSTON
+     \[java\] Destination\=NEW YORK
+     \[java\] Track\: 9
+     \[java\] Schedule# 805
+     \[java\] \<\?xml version\=\"1\.0\" encoding\=\"UTF\-8\" standalone\=\"yes\"\?\>
+     \[java\] \<train xmlns\=\"http\:\/\/example\.org\"\>
+     \[java\]     \<origin xmlns\=\"\"\>BOSTON\<\/origin\>
+     \[java\]     \<destination xmlns\=\"\"\>NEW YORK\<\/destination\>
+     \[java\]     \<track xmlns\=\"\"\>9\<\/track\>
+     \[java\]     \<dailyScheduleNumber xmlns\=\"\"\>805\<\/dailyScheduleNumber\>
+     \[java\] \<\/train\>
+
+     \[java\] \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
+
+     \[java\] \<\?xml version\=\"1\.0\" encoding\=\"UTF\-8\" standalone\=\"yes\"\?\>
+     \[java\] \<itinerary xmlns\=\"http\:\/\/example\.org\"\>
+     \[java\]     \<plane\>
+     \[java\]         \<origin xmlns\=\"\"\>BOSTON\<\/origin\>
+     \[java\]         \<destination xmlns\=\"\"\>SAN FRANCISCO\<\/destination\>
+     \[java\]         \<flightNumber xmlns\=\"\"\>195\<\/flightNumber\>
+     \[java\]         \<meal xmlns\=\"\"\>breakfast\<\/meal\>
+     \[java\]     \<\/plane\>
+     \[java\]     \<auto\>
+     \[java\]         \<origin xmlns\=\"\"\>SAN FRANCISCO\<\/origin\>
+     \[java\]         \<destination xmlns\=\"\"\>SAN FRANCISCO\<\/destination\>
+     \[java\]         \<rentalAgency xmlns\=\"\"\>Hertz\<\/rentalAgency\>
+     \[java\]         \<ratePerHour xmlns\=\"\"\>2\<\/ratePerHour\>
+     \[java\]     \<\/auto\>
+     \[java\]     \<train\>
+     \[java\]         \<origin xmlns\=\"\"\>BOSTON\<\/origin\>
+     \[java\]         \<destination xmlns\=\"\"\>NEW YORK\<\/destination\>
+     \[java\]         \<track xmlns\=\"\"\>9\<\/track\>
+     \[java\]         \<dailyScheduleNumber xmlns\=\"\"\>805\<\/dailyScheduleNumber\>
+     \[java\]     \<\/train\>
+     \[java\] \<\/itinerary\>
+
+
+BUILD SUCCESSFUL
+Total time\: .*

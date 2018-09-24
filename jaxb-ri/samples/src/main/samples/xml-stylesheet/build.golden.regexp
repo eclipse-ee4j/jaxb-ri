@@ -1,0 +1,19 @@
+
+compile\:
+     \[echo\] Compiling the schema\.\.\.
+    \[mkdir\] Created dir\: .*
+      \[xjc\] .* is not found and thus excluded from the dependency check
+      \[xjc\] Compiling .*
+      \[xjc\] Writing output to .*
+     \[echo\] Compiling the java source files\.\.\.
+    \[mkdir\] Created dir\: .*
+    \[javac\] Compiling \d+ source files to .*
+
+run\:
+     \[echo\] Running the sample application\.\.\.
+     \[java\] \<\?xml version\='1\.0'\?\>
+     \[java\] \<\?xml\-stylesheet type\='text\/xsl' href\='foobar\.xsl' \?\>
+     \[java\] \<purchaseOrder orderDate\=\"1999\-10\-20\"\>\<shipTo country\=\"US\"\>\<name\>Alice Smith\<\/name\>\<street\>123 Maple Street\<\/street\>\<city\>Cambridge\<\/city\>\<state\>MA\<\/state\>\<zip\>12345\<\/zip\>\<\/shipTo\>\<billTo country\=\"US\"\>\<name\>Robert Smith\<\/name\>\<street\>8 Oak Avenue\<\/street\>\<city\>Cambridge\<\/city\>\<state\>MA\<\/state\>\<zip\>12345\<\/zip\>\<\/billTo\>\<items\/\>\<\/purchaseOrder\>
+
+BUILD SUCCESSFUL
+Total time\: .*

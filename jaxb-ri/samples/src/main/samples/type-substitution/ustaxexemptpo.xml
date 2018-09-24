@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!--
+
+    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<ipo:purchaseOrder xsi:type="ipo:USTaxExemptPurchaseOrderType"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns:ipo="http://www.example.com/IPO"
+                   orderDate="1999-12-01">
+
+  <shipTo xsi:type="ipo:USAddress">
+    <name>Jimmy Fund</name>
+    <street>Lansdowne Street</street>
+    <city>Boston</city>
+    <state>MA</state>
+    <zip>95819</zip>
+  </shipTo>
+
+  <billTo xsi:type="ipo:USAddress">
+    <name>Jimmy Fund</name>
+    <street>Lansdowne Street</street>
+    <city>Boston</city>
+    <state>MA</state>
+    <zip>95819</zip>
+  </billTo>
+
+  <items>
+    <item partNum="833-AA">
+      <productName>Brochures</productName>
+      <quantity>10000</quantity>
+      <USPrice>99.95</USPrice>
+      <ipo:comment></ipo:comment>
+      <shipDate>1999-12-05</shipDate>
+    </item>
+  </items>
+  <taxExemptId>charity44987</taxExemptId>
+</ipo:purchaseOrder>

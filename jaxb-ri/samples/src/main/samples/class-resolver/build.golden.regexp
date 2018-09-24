@@ -1,0 +1,12 @@
+
+compile\:
+     \[echo\] Compiling the java source files\.\.\.
+    \[mkdir\] Created dir\: .+
+    \[javac\] Compiling .+ source files to .+
+
+run\:
+     \[echo\] Running the sample application\.\.\.
+     \[java\] Foo\[a\=5\,b\=text\,c\=Bar\[x\=3\,y\=5\]\]
+
+BUILD SUCCESSFUL
+Total time\: .+ seconds

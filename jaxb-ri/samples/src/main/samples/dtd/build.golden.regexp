@@ -1,0 +1,27 @@
+
+compile\:
+     \[echo\] Compiling the schema\.\.\.
+    \[mkdir\] Created dir\: .*
+      \[xjc\] Compiling .*
+      \[xjc\] Writing output to .*
+     \[echo\] Compiling the java source files\.\.\.
+    \[mkdir\] Created dir\: .*
+    \[javac\] Compiling \d+ source files to .*
+
+run\:
+     \[echo\] Running the sample application\.\.\.
+     \[java\] \<\?xml version\=\"1\.0\" encoding\=\"UTF\-8\" standalone\=\"yes\"\?\>
+     \[java\] \<nameCards\>
+     \[java\]     \<nameCard\>
+     \[java\]         \<name\>Kohsuke Kawaguchi\<\/name\>
+     \[java\]         \<email\>kohsuke\.kawaguchi@sun\.com\<\/email\>
+     \[java\]     \<\/nameCard\>
+     \[java\]     \<nameCard\>
+     \[java\]         \<name\>Ryan Shoemaker\<\/name\>
+     \[java\]         \<email\>ryan\.shoemaker@sun\.com\<\/email\>
+     \[java\]         \<address\>somewhere\<\/address\>
+     \[java\]     \<\/nameCard\>
+     \[java\] \<\/nameCards\>
+
+BUILD SUCCESSFUL
+Total time\: .*

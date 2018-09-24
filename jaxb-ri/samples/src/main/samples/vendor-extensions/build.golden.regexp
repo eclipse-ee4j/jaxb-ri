@@ -1,0 +1,22 @@
+
+compile\:
+     \[echo\] Compiling the schema\.\.\.
+    \[mkdir\] Created dir\: .*
+      \[xjc\] .* is not found and thus excluded from the dependency check
+      \[xjc\] Compiling .*
+      \[xjc\] Writing output to .*
+     \[echo\] Compiling the java source files\.\.\.
+    \[mkdir\] Created dir\: .*
+    \[javac\] Compiling \d+ source files to .*
+
+run\:
+     \[echo\] Running the sample application\.\.\.
+     \[java\] unmarshalling from \"poInput\.xml\"\.\.\.
+     \[java\] Demo superclass override of toString\(\) method for all schema\-derived JAXB classes purchaseOrderType\.toString\(\)\=demoOfToString
+     \[java\] serializing content tree to \"po\.ser\"\.\.\.
+     \[java\] deserializing content tree from \"po\.ser\"\.\.\.
+     \[java\] marshalling to \"poMarshalled\.xml\"\.\.\.
+     \[java\] test complete\.
+
+BUILD SUCCESSFUL
+Total time\: .*

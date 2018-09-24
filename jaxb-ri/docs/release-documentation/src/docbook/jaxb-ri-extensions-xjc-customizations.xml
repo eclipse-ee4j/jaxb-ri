@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<section version="5.0" xml:id="jaxb-ri-extensions-xjc-customizations"
+         xml:lang="en" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>XJC Customizations</title>
+
+    <section xml:id="section-3752096477276927">
+        <title>Customizations</title>
+
+        <para>The JAXB RI provides additional customizations that are not
+        defined by the JAXB specification. Note the following:</para>
+
+        <itemizedlist>
+            <listitem>
+                <para>These features may only be used when the JAXB XJC
+                binding compiler is run in the <option>-extension</option>
+                mode.</para>
+            </listitem>
+
+            <listitem>
+                <para>All of the JAXB RI vendor extensions are defined in the
+                "<code>http://java.sun.com/xml/ns/jaxb/xjc</code>"
+                namespace.</para>
+            </listitem>
+
+            <listitem>
+                <para>The namespaces containing extension binding declarations
+                are specified to a JAXB processor by the occurrence of the
+                global attribute <literal>@jaxb:extensionBindingPrefixes</literal>
+                within an instance of <literal>&lt;xs:schema&gt;</literal> element.
+                The value of this attribute is a whitespace-separated list of
+                namespace prefixes. For more information, please refer to
+                section 6.1.1 of the JAXB Specification.</para>
+            </listitem>
+        </itemizedlist>
+
+        <section xml:id="section-811903782726232">
+            <title>Index of Customizations</title>
+
+            <itemizedlist>
+                <listitem>
+                    <para><xref linkend="scd"
+                    xrefstyle="select:title" /></para>
+                </listitem>
+
+                <listitem>
+                    <para><xref linkend="superclass"
+                    xrefstyle="select:title" /> - Extending a Common Super
+                    Class</para>
+                </listitem>
+
+                <listitem>
+                    <para><xref linkend="superinterface"
+                    xrefstyle="select:title" /> - Extending a Common Super
+                    Interface</para>
+                </listitem>
+
+                <listitem>
+                    <para><xref linkend="javatype" xrefstyle="select:title" />
+                    - Enhanced &lt;jaxb:javaType&gt; customization</para>
+                </listitem>
+
+                <listitem>
+                    <para><xref linkend="simple" xrefstyle="select:title" /> -
+                    Experimental simpler &amp; better binding mode</para>
+                </listitem>
+
+                <listitem>
+                    <para><xref linkend="treatrestrictionlikenewtype"
+                    xrefstyle="select:title" /> - Alternative
+                    derivation-by-restriction binding mode</para>
+                </listitem>
+
+                <listitem>
+                    <para><xref linkend="substitutable"
+                    xrefstyle="select:title" /> - Allow separate compilations
+                    to perform element substitutions</para>
+                </listitem>
+            </itemizedlist>
+        </section>
+
+        <section xml:id="scd">
+            <title>SCD Support</title>
+
+            <para>The JAXB RI supports the use of <link
+            xlink:href="http://www.w3.org/TR/2005/WD-xmlschema-ref-20050329/">schema
+            component designator</link> as a means of specifying the
+            customization target (of all standard JAXB customizations as well
+            as vendor extensions explained below.) To use this feature, use
+            the <literal>scd</literal> attribute on &lt;bindings&gt; element instead
+            of the <literal>schemaLocation</literal> and <literal>node</literal>
+            attributes.</para>
+
+            <informalexample>
+                <programlisting language="xml"><![CDATA[<bindings xmlns:tns="http://example.com/myns"
+          xmlns="http://java.sun.com/xml/ns/jaxb" version="2.1">
+    <bindings
+            ...
+            ]]><emphasis role="red">scd="tns:foo"</emphasis><![CDATA[>
+        <!-- this customization applies to the global element declaration -->
+        <!-- 'foo' in the http://example.com/myns namespace -->
+        <class name="FooElement"/>
+    </bindings>
+    <bindings
+            ...
+            ]]><emphasis role="red">scd="~tns:bar"</emphasis><![CDATA[>
+        <!-- this customization applies to the global type declaration -->
+        <!-- 'bar' in the http://example.com/myns namespace -->
+        <class name="BarType"/>
+    </bindings>
+</bindings>  ]]></programlisting>
+            </informalexample>
+
+            <para>Compared to the standard XPath based approach, SCD allows
+            more robust and concise way of identifying a target of a
+            customization. For more about SCD, refer to the scd example. Note
+            that SCD is a W3C working draft, and may change in the
+            future.</para>
+        </section>
+
+        <section xml:id="superclass">
+            <title>Extending a Common Super Class</title>
+
+            <para>The <literal>&lt;xjc:superClass&gt;</literal> customization allows
+            you to specify the fully qualified name of the Java class that is
+            to be used as the super class of all the generated implementation
+            classes. The <literal>&lt;xjc:superClass&gt;</literal> customization can
+            only occur within your <literal>&lt;jaxb:globalBindings&gt;</literal>
+            customization on the <literal>&lt;xs:schema&gt;</literal>
+            element:</para>
+
+            <informalexample>
+                <programlisting language="xml"><![CDATA[<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+           ]]><emphasis role="red">xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+           jaxb:extensionBindingPrefixes="xjc"</emphasis><![CDATA[
+           jaxb:version="2.0">
+
+    <xs:annotation>
+        <xs:appinfo>
+            <jaxb:globalBindings>
+                ]]><emphasis role="red">&lt;xjc:superClass
+                        name="org.acme.RocketBooster"/&gt;</emphasis><![CDATA[
+            </jaxb:globalBindings>
+        </xs:appinfo>
+    </xs:annotation>
+    
+    ...
+    
+</xs:schema>]]></programlisting>
+            </informalexample>
+
+            <para>In the sample above, the <literal>&lt;xjc:superClass&gt;</literal>
+            customization will cause all of the generated implementation
+            classes to extend the named class,
+            <literal>org.acme.RocketBooster</literal>.</para>
+        </section>
+
+        <section xml:id="superinterface">
+            <title>Extending a Common Super Interface</title>
+
+            <para>The <literal>&lt;xjc:superInterface&gt;</literal> customization
+            allows you to specify the fully qualified name of the Java
+            interface that is to be used as the root interface of all the
+            generated interfaces. The <literal>&lt;xjc:superInterface&gt;</literal>
+            customization can only occur within your
+            <literal>&lt;jaxb:globalBindings&gt;</literal> customization on the
+            <literal>&lt;xs:schema&gt;</literal> element:</para>
+
+            <informalexample>
+                <programlisting language="xml"><![CDATA[<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+           ]]><emphasis role="red">xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+           jaxb:extensionBindingPrefixes="xjc"</emphasis><![CDATA[
+           jaxb:version="2.0">
+
+    <xs:annotation>
+        <xs:appinfo>
+            <jaxb:globalBindings>
+                ]]><emphasis role="red">&lt;xjc:superInterface
+                        name="org.acme.RocketBooster"/&gt;</emphasis><![CDATA[
+            </jaxb:globalBindings>
+        </xs:appinfo>
+    </xs:annotation>
+
+    ...
+
+</xs:schema>]]></programlisting>
+            </informalexample>
+
+            <para>In the sample above, the
+            <literal>&lt;xjc:superInterface&gt;</literal> customization will cause
+            all of the generated interfaces to extend the named interface,
+            <literal>org.acme.RocketBooster</literal>.</para>
+        </section>
+
+        <section xml:id="javatype">
+            <title>Enhanced &lt;jaxb:javaType&gt;</title>
+
+            <para>The &lt;xjc:javaType&gt; customization can be used just like
+            the standard &lt;jaxb:javaType&gt; customization, except that it
+            allows you to specify an <literal>XmlAdapter</literal>-derived
+            class, instead of parse&amp;print method pair.</para>
+
+            <para>This customization can be used in all the places
+            &lt;jaxb:javaType&gt; is used, but nowhere else:</para>
+
+            <informalexample>
+                <programlisting language="xml"><![CDATA[<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+           ]]><emphasis role="red">xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+           jaxb:extensionBindingPrefixes="xjc"</emphasis><![CDATA[
+           jaxb:version="2.0">
+    
+    ...
+    
+    <xsd:simpleType name="LayerRate_T">
+        <xsd:annotation>
+            <xsd:appinfo>
+                ]]><emphasis role="red">&lt;xjc:javaType name="org.acme.foo.LayerRate"
+                              adapter="org.acme.foo.LayerRateAdapter"/&gt;</emphasis><![CDATA[
+            </xsd:appinfo>
+        </xsd:annotation>
+        
+        ... gory simple type definition here ...
+        
+    </xsd:simpleType>
+</xsd:schema>]]></programlisting>
+            </informalexample>
+
+            <para>In the above example, <literal>LayerRate_T</literal> simple type
+            is adapted by <literal>org.acme.foo.LayerRateAdapter</literal>, which
+            extends from <literal>XmlAdapter</literal>.</para>
+
+            <informalexample>
+                <programlisting language="xml"><![CDATA[<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+           ]]><emphasis role="red">xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+           jaxb:extensionBindingPrefixes="xjc"</emphasis><![CDATA[
+           jaxb:version="2.0">
+    
+    <xsd:annotation>
+        <xsd:appinfo>
+            <jaxb:globalBindings>
+                ]]><emphasis role="red">&lt;xjc:javaType name="org.acme.foo.MyDateType"
+                              xmlType="xsd:dateTime"
+                              adapter="org.acme.foo.MyAdapterImpl"/&gt;</emphasis><![CDATA[
+            </jaxb:globalBindings>
+        </xsd:appinfo>
+    </xsd:annotation>
+
+    ...
+    
+</xsd:schema>]]></programlisting>
+            </informalexample>
+
+            <para>In the above example, all the use of
+            <literal>xsd:dateTime</literal> type is adapter by
+            <literal>org.acme.foo.MyAdapterImpl</literal> to
+            <literal>org.acme.foo.MyDateType</literal></para>
+        </section>
+
+        <section xml:id="simple">
+            <title>Experimental simpler &amp; better binding mode</title>
+
+            <para>This experimental binding mode can be enabled as a part of
+            the global binding. See below:</para>
+
+            <informalexample>
+                <programlisting language="xml"><![CDATA[<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+           ]]><emphasis role="red">xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+           jaxb:extensionBindingPrefixes="xjc"</emphasis><![CDATA[
+           jaxb:version="2.0">
+
+    <xs:annotation>
+        <xs:appinfo>
+            <jaxb:globalBindings generateValueClass="false">
+                ]]><emphasis role="red">&lt;xjc:simple/&gt;</emphasis><![CDATA[
+            </jaxb:globalBindings>
+        </xs:appinfo>
+    </xs:annotation>
+
+    ...
+
+</xs:schema>]]></programlisting>
+            </informalexample>
+
+            <para>When enabled, XJC produces Java source code that are more
+            concise and easier to use. Improvements include:</para>
+
+            <orderedlist>
+                <listitem>
+                    <para>Some content model definitions, such as
+                    <code>A,B,A</code>, which used to cause an XJC compilation
+                    error and required manual intervention, now compile out of
+                    the box without any customization.</para>
+                </listitem>
+
+                <listitem>
+                    <para>Some content model definitions that used to bind to
+                    a non-intuitive Java class now binds to a much better Java
+                    class: <informalexample>
+                            <programlisting language="xml"><![CDATA[<!-- schema -->
+<xs:complexType name="foo">
+    <xs:choice>
+        <xs:sequence>
+            <xs:element name="a" type="xs:int"/>
+            <xs:element name="b" type="xs:int"/>
+        </xs:sequence>
+        <xs:sequence>
+            <xs:element name="b" type="xs:int"/>
+            <xs:element name="c" type="xs:int"/>
+        </xs:sequence>
+    </xs:choice>
+</xs:complexType>
+]]></programlisting>
+
+                            <programlisting language="java"><![CDATA[// before
+class Foo {
+    List<JAXBElement<Integer>> content;
+}
+
+// in <xjc:simple> binding
+class Foo {
+    Integer a;
+    int b; // notice that b is effectively mandatory, hence primitive
+    Integer c;
+}]]></programlisting>
+                        </informalexample></para>
+                </listitem>
+
+                <listitem>
+                    <para>When repetable elements are bound, the method name
+                    will become plural. <informalexample>
+                            <programlisting language="xml"><![CDATA[<!-- schema -->
+<xs:complexType name="person">
+    <xs:sequence>
+        <xs:element name="child" type="xs:string"
+                    maxOccurs="unbounded"/>
+        <xs:element name="parent" type="xs:string"
+                    maxOccurs="unbounded"/>
+    </xs:sequence>
+</xs:complexType>
+]]></programlisting>
+
+                            <programlisting language="java"><![CDATA[// before
+public class Person {
+    protected List<String> child;
+    protected List<String> parent;
+}
+
+// in <xjc:simple> binding
+public class Person {
+    protected List<String> children;
+    protected List<String> parents;
+}     ]]></programlisting>
+                        </informalexample></para>
+                </listitem>
+            </orderedlist>
+
+            <para>Once again, readers are warned that this is an <emphasis
+            role="bold">experimental binding mode</emphasis>, and therefore
+            the binding is subject to change in future versions of the JAXB RI
+            without notice. Please send feedbacks on this binding to
+            <link xlink:href="https://javaee.groups.io/g/metro">https://javaee.groups.io/g/metro</link></para>
+        </section>
+
+        <section xml:id="treatrestrictionlikenewtype">
+            <title>Alternative Derivation-by-restriction Binding Mode</title>
+
+            <para>Normally, the JAXB specification requires that a
+            derivation-by-restriction be mapped to an inheritance betwee n two
+            Java classes. This is necessary to preserve the type hierarchy,
+            but one of the downsides is that the derived class does not really
+            provide easy-to-use properties that reflect the restricted content
+            model.</para>
+
+            <para>This experimental &lt;xjc:treatRestrictionLikeNewType&gt;
+            changes this behavior by not preserving the type inheritance to
+            Java. Instead, it generates two unrelated Java classes, both with
+            proper properties. For example, given the following schema:</para>
+
+            <informalexample>
+                <programlisting language="xml"><![CDATA[<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+           jaxb:extensionBindingPrefixes="xjc"
+           xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+           jaxb:version="2.0"
+           elementFormDefault="qualified">
+
+    <xs:annotation>
+        <xs:appinfo>
+            <jaxb:globalBindings>
+                <xjc:treatRestrictionLikeNewType/>
+            </jaxb:globalBindings>
+        </xs:appinfo>
+    </xs:annotation>
+
+    <xs:complexType name="DerivedType">
+        <xs:complexContent>
+            <xs:restriction base="ResponseOptionType">
+                <xs:sequence>
+                    <xs:element name="foo" type="xs:string"/>
+                </xs:sequence>
+            </xs:restriction>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="ResponseOptionType">
+        <xs:sequence>
+            <xs:element name="foo" type="xs:string"
+                        maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>]]></programlisting>
+            </informalexample>
+
+            <para>The generated <literal>Derived</literal> class will look like this
+            (comment and annotations removed for brevity):</para>
+
+            <informalexample>
+                <programlisting language="java"><![CDATA[public class DerivedType {
+    protected String foo;
+
+    public String getFoo() { return foo; }
+    public void setFoo(String value) { this.foo = value; }
+} ]]></programlisting>
+            </informalexample>
+
+            <para>In contrast, without this customization the
+            <literal>Derived</literal> class would look like the following:</para>
+
+            <informalexample>
+                <programlisting language="java"><![CDATA[public class DerivedType extends ResponseOptionType {
+
+    // it simply inherits List<String> ResponseOptionType.getFoo()
+
+}]]></programlisting>
+            </informalexample>
+        </section>
+
+        <section xml:id="substitutable">
+            <title>Allow separate compilations to perform element
+            substitutions</title>
+
+            <para>In an attempt to make the generated code easier to use, the
+            JAXB specification sometimes choose bindings based on how certain
+            feature is used. One of them is element substitution feature. If
+            no actual element substitution happens in the schema, JAXB assumes
+            that the element is not used for substitution, and generates code
+            that assumes it.</para>
+
+            <para>Most of the time this is fine, but when you expect other
+            "extension" schemas to be compiled later on top of your base
+            schema, and if those extension schemas do element substitutions,
+            this binding causes a problem ( <link
+            xlink:href="https://github.com/javaee/jaxb-v2/issues/289">see
+            example</link>.)</para>
+
+            <para>&lt;xjc:substitutable&gt; customization is a work around for
+            this issue. It explicitly tells XJC that a certain element is used
+            for element substitution head, even though no actual substitution
+            might be present in the current compilation. This customization
+            should be attached in the element declaration itself, like
+            this:</para>
+
+            <informalexample>
+                <programlisting language="xml"><![CDATA[<xs:element name="Model" type="Model">
+    <xs:annotation>
+        <xs:appinfo>
+            <xjc:substitutable/>
+        </xs:appinfo>
+    </xs:annotation>
+</xs:element>]]></programlisting>
+            </informalexample>
+        </section>
+    </section>
+</section>

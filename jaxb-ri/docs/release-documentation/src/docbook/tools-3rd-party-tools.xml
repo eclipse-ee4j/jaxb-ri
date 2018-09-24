@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+        
+<section version="5.0" xml:lang="en" xml:id="tools-3rd-party-tools" xmlns:m="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://docbook.org/ns/docbook">
+<title>3rd Party Tools</title>
+<section xml:id="section-954928396024079">
+<title>Maven JAXB Plugin</title>
+<para>If you are using Maven, JAXB
+    jars are available in 
+    <link xlink:href="https://maven.java.net/content/repositories/releases/">the java.net maven
+    repository</link>. This repository is synced with maven central, so usually you find all JAXB releases in maven central after ~ 1 day after java.net release.</para>
+</section>
+<section xml:id="section-2642114715432213">
+<title>XJC Plugins</title>
+<para>Various people in the community have developed plugins for
+    XJC that you can use today. These plugins allow you to
+    enhance/alter the code generation of XJC in many different
+    ways.</para>
+</section>
+<section xml:id="section-926973453240119">
+<title>RDBMS Persistence</title>
+<para>Lexi has developed the 
+    <link xlink:href="http://confluence.highsource.org/display/HJ3/Home">HyperJAXB3
+    project</link> for RDBMS persistence support for the JAXB RI. </para>
+</section>
+</section>

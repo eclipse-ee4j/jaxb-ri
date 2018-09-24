@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!--
+
+    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<purchaseOrders>
+  <!-- 1st -->
+  <purchaseOrder orderDate="1999-10-20">
+    <shipTo country="US">
+      <name>Alice Smith</name>
+      <street>123 Maple Street</street>
+      <city>Cambridge</city>
+      <state>MA</state>
+      <zip>12345</zip>
+    </shipTo>
+    <billTo country="US">
+      <name>Robert Smith</name>
+      <street>8 Oak Avenue</street>
+      <city>Cambridge</city>
+      <state>MA</state>
+      <zip>12345</zip>
+    </billTo>
+    <items/>
+  </purchaseOrder>
+
+  <!-- 2nd -->
+  <purchaseOrder orderDate="1999-10-20">
+    <shipTo country="US">
+      <name>Lee Grant</name>
+      <street>123 Maple Street</street>
+      <city>Cambridge</city>
+      <state>MA</state>
+      <zip>12345</zip>
+    </shipTo>
+    <billTo country="US">
+      <name>Stonewall Jackson</name>
+      <street>8 Oak Avenue</street>
+      <city>Lexington</city>
+      <state>MA</state>
+      <zip>12345</zip>
+    </billTo>
+    <items/>
+  </purchaseOrder>
+</purchaseOrders>
+

@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<section version="5.0" xml:id="tools-xjc-ant-task" xml:lang="en"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>XJC Ant Task</title>
+
+    <section>
+        <title><command>xjc</command> Task Overview</title>
+
+        <para>The <literal>jaxb-xjc.jar</literal> file contains the
+        <literal>XJCTask.class</literal> file, which allows the XJC binding
+        compiler to be invoked from the <link
+        xlink:href="http://jakarta.apache.org/ant">Ant</link> build tool. To
+        use <literal>XJCTask</literal>, include the following statement in
+        your <literal>build.xml</literal> file:</para>
+
+        <informalexample>
+            <programlisting language="xml"><![CDATA[<taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
+    <classpath>
+        <fileset dir="path/to/jaxb/lib" includes="*.jar"/>
+    </classpath>
+</taskdef>]]></programlisting>
+        </informalexample>
+
+        <para>This maps <literal>XJCTask</literal> to an Ant task named
+        <literal>xjc</literal>. For detailed examples of using this task,
+        refer to any of the <literal>build.xml</literal> files used by the <xref
+        linkend="jaxb-2-0-sample-apps" xrefstyle="select:title" />.</para>
+    </section>
+
+    <section xml:id="section-356252324237826">
+        <title><command>xjc</command> Task Attributes</title>
+
+        <section xml:id="section-304063270056995">
+            <title>Environment Variables</title>
+
+            <itemizedlist>
+                <listitem>
+                    <para><link
+                    xlink:href="http://wiki.apache.org/ant/TheElementsOfAntStyle">ANT_OPTS</link>
+                    - command-line arguments that should be passed to the JVM.
+                    For example, you can define system properties or set the
+                    maximum Java heap size here.</para>
+                </listitem>
+            </itemizedlist>
+        </section>
+
+        <section xml:id="section-5746285947518106">
+            <title>Parameter Attributes</title>
+
+            <para><literal>xjc</literal> supports the following parameter
+            attributes.</para>
+
+            <informaltable frame="all">
+                <tgroup cols="3" colsep="1" rowsep="1">
+                    <thead>
+                        <row>
+                            <entry><emphasis
+                            role="bold">Attribute</emphasis></entry>
+
+                            <entry><emphasis
+                            role="bold">Description</emphasis></entry>
+
+                            <entry><emphasis
+                            role="bold">Required</emphasis></entry>
+                        </row>
+                    </thead>
+
+                    <tbody>
+                        <row>
+                            <entry><para><literal>schema</literal></para></entry>
+
+                            <entry><para>A schema file to be compiled. A file
+                            name (can be relative to the build script base
+                            directory), or an URL.</para></entry>
+
+                            <entry><para>This or nested &lt;
+                            <literal>schema</literal>&gt; elements are
+                            required.</para></entry>
+                        </row>
+
+                        <row>
+                            <entry><para><literal>binding</literal></para></entry>
+
+                            <entry><para>An external binding file that will be
+                            applied to the schema file.</para></entry>
+
+                            <entry><para>No</para></entry>
+                        </row>
+
+                        <row>
+                            <entry><para><literal>package</literal></para></entry>
+
+                            <entry><para>If specified, generated code will be
+                            placed under this Java package. This option is
+                            equivalent to the "-p" command-line
+                            switch.</para></entry>
+
+                            <entry><para>No</para></entry>
+                        </row>
+
+                        <row>
+                            <entry><para><literal>destdir</literal></para></entry>
+
+                            <entry><para>Generated code will be written under
+                            this directory. If you specify
+                            <literal>destdir="abc/def"</literal> and
+                            <literal>package="org.acme"</literal>, then files
+                            are generated to
+                            <literal>abc/def/org/acme</literal>.</para></entry>
+
+                            <entry><para>Yes</para></entry>
+                        </row>
+
+                        <row>
+                            <entry><para><literal>encoding</literal></para></entry>
+
+                            <entry><para>Set the encoding name for generated
+                            sources, such as EUC-JP or UTF-8. If it is not
+                            specified, the platform default encoding is
+                            used.</para></entry>
+
+                            <entry><para>No</para></entry>
+                        </row>
+
+                        <row>
+                            <entry><para><literal>readonly</literal></para></entry>
+
+                            <entry><para>Generate Java source files in the
+                            read-only mode if <literal>true</literal> is
+                            specified. <literal>false</literal> by
+                            default.</para></entry>
+
+                            <entry><para>No</para></entry>
+                        </row>
+
+                        <row>
+                            <entry><para><literal>header</literal></para></entry>
+
+                            <entry><para>Generate a header in each generated
+                            file indicating that this file is generated by such
+                            and such version of JAXB RI when.
+                            <literal>true</literal> by default.</para></entry>
+
+                            <entry><para>No</para></entry>
+                        </row>
+
+                        <row>
+                            <entry><para><literal>extension</literal></para></entry>
+
+                            <entry><para>If set to <literal>true</literal>, the XJC
+                            binding compiler will run in the extension mode.
+                            Otherwise, it will run in the strict conformance
+                            mode. Equivalent of the "
+                            <literal>-extension</literal>" command line switch.
+                            The default is
+                            <literal>false</literal>.</para></entry>
+
+                            <entry><para>No</para></entry>
+                        </row>
+
+                        <row>
+                            <entry><para><literal>catalog</literal></para></entry>
+
+                            <entry><para>Specify the catalog file to resolve
+                            external entity references. Support TR9401,
+                            XCatalog, and OASIS XML Catalog format. See the
+                            catalog-resolver sample for details.</para></entry>
+
+                            <entry><para>No</para></entry>
+                        </row>
+
+                        <row>
+                            <entry><para><literal>removeOldOutput</literal></para></entry>
+
+                            <entry><para>Used in pair with nested
+                            <literal>&lt;produces&gt;</literal> elements. When
+                            this attribute is specified as " <literal>yes</literal>",
+                            the files pointed to by the
+                            <literal>&lt;produces&gt;</literal> elements will be
+                            all deleted before the XJC binding compiler
+                            recompiles the source files. See the up-to-date
+                            check section for details.</para></entry>
+
+                            <entry><para>No</para></entry>
+                        </row>
+
+                        <row>
+                            <entry><para><literal>target</literal></para></entry>
+
+                            <entry><para>Specifies the runtime environment in
+                            which the generated code is supposed to run. Expects 2.0 or 2.1 values.
+                            This allows more up-to-date versions of XJC to be used for
+                            developing applications that run on earlier JAXB
+                            versions.</para></entry>
+
+                            <entry><para>No, defaults to "2.2"</para></entry>
+                        </row>
+
+                        <row>
+                            <entry><para><literal>language</literal></para></entry>
+
+                            <entry><para>Specifies the schema language to
+                            compile. Supported values are "WSDL", "XMLSCHEMA",
+                            and "WSDL." Case insensitive.</para></entry>
+
+                            <entry><para>No, defaults to
+                            "XMLSCHEMA"</para></entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </informaltable>
+        </section>
+
+        <section xml:id="section-123752426076382">
+            <title>Nested Elements</title>
+
+            <para><literal>xjc</literal> supports the following nested element
+            parameters.</para>
+
+            <section xml:id="section-7446361014928902">
+                <title><literal>schema</literal></title>
+
+                <para>To compile more than one schema at the same time, use a
+                nested <literal>&lt;schema&gt;</literal> element, which has
+                the same syntax as <link
+                xlink:href="http://ant.apache.org/manual/Types/fileset.html">
+                <literal>&lt;fileset&gt;</literal> </link>.</para>
+            </section>
+
+            <section xml:id="section-354179298981749">
+                <title><literal>binding</literal></title>
+
+                <para>To specify more than one external binding file at the
+                same time, use a nested <literal>&lt;binding&gt;</literal>
+                element, which has the same syntax as <link
+                xlink:href="http://ant.apache.org/manual/Types/fileset.html">
+                <literal>&lt;fileset&gt;</literal> </link>.</para>
+            </section>
+
+            <section xml:id="section-583580759538928">
+                <title><literal>classpath</literal></title>
+
+                <para>To specify locations of the user-defined classes
+                necessary during the compilation (such as an user-defined type
+                that is used through a <literal>&lt;javaType&gt;</literal>
+                customization), use nested
+                <literal>&lt;classpath&gt;</literal> elements. For the syntax,
+                see <link
+                xlink:href="http://jakarta.apache.org/ant/manual/using.html#path">"path-like
+                structure"</link> .</para>
+            </section>
+
+            <section xml:id="section-5197406266536">
+                <title><literal>arg</literal></title>
+
+                <para>Additional command line arguments passed to the XJC. For
+                details about the syntax, see <link
+                xlink:href="http://ant.apache.org/manual/using.html#arg">the
+                relevant section</link> in the Ant manual. This nested element
+                can be used to specify various options not natively supported
+                in the <command>xjc</command> Ant task. For example, currently there
+                is no native support for the following <command>xjc</command>
+                command-line options:</para>
+
+                <itemizedlist>
+                    <listitem>
+                        <para><option>-nv</option></para>
+                    </listitem>
+
+                    <listitem>
+                        <para><option>-use-runtime</option></para>
+                    </listitem>
+
+                    <listitem>
+                        <para><option>-schema</option></para>
+                    </listitem>
+
+                    <listitem>
+                        <para><option>-dtd</option></para>
+                    </listitem>
+
+                    <listitem>
+                        <para><option>-relaxng</option></para>
+                    </listitem>
+
+                    <listitem>
+                        <para><option>-Xlocator</option></para>
+                    </listitem>
+
+                    <listitem>
+                        <para><option>-Xsync-methods</option></para>
+                    </listitem>
+                </itemizedlist>
+
+                <para>To use any of these features from the
+                <literal>&lt;xjc&gt;</literal> Ant task, you must specify the
+                appropriate nested &lt; <literal>arg</literal>&gt; elements.</para>
+            </section>
+
+            <section xml:id="section-348709288221071">
+                <title><literal>depends</literal></title>
+
+                <para>Files specified with this nested element will be taken
+                into account when the XJC task does the up-to-date check. See
+                the up-to-date check section for details. For the syntax, see
+                <link
+                xlink:href="http://ant.apache.org/manual/Types/fileset.html">
+                <literal>&lt;fileset&gt;</literal> </link>.</para>
+            </section>
+
+            <section xml:id="section-061536175632223">
+                <title><literal>produces</literal></title>
+
+                <para>Files specified with this nested element will be taken
+                into account when the XJC task does the up-to-date check. See
+                the up-to-date check section for details. For the syntax, see
+                <link
+                xlink:href="http://ant.apache.org/manual/Types/fileset.html">
+                <literal>&lt;fileset&gt;</literal> </link>.</para>
+            </section>
+
+            <section xml:id="section-6395468661397454">
+                <title><literal>xmlcatalog</literal></title>
+
+                <para>The <link
+                xlink:href="http://ant.apache.org/manual/Types/xmlcatalog.html">xmlcatalog</link>
+                element is used to resolve entities when parsing schema
+                documents.</para>
+            </section>
+        </section>
+    </section>
+
+    <section xml:id="section-837075444051632">
+        <title>Generated Resource Files</title>
+
+        <para>Please see the <xref linkend="xjcresources"
+        xrefstyle="select:title" /> for more detail.</para>
+    </section>
+
+    <section xml:id="section-767416326934949">
+        <title>Up-to-date Check</title>
+
+        <para>By default, the XJC binding compiler always compiles the inputs.
+        However, with a little additional setting, it can compare timestamps
+        of the input files and output files and skip compilation if the files
+        are up-to-date.</para>
+
+        <para>Ideally, the program should be able to find out all the inputs
+        and outputs and compare their timestamps, but this is difficult and
+        time-consuming. So you have to tell the task input files and output
+        files manually by using nested <literal>&lt;depends&gt;</literal> and
+        <literal>&lt;produces&gt;</literal> elements. Basically, the XJC
+        binding compiler compares the timestamps specified by the
+        <literal>&lt;depends&gt;</literal> elements against those of the
+        <literal>&lt;produces&gt;</literal> set. If any one of the "depends"
+        file has a more recent timestamp than some of the files in the
+        "produces" set, it will compile the inputs. Otherwise it will skip the
+        compilation.</para>
+
+        <para>This will allow you to say, for example "if any of the
+        <literal>.xsd</literal> files in this directory are newer than the
+        <literal>.java</literal> files in that directory, recompile the
+        schema".</para>
+
+        <para>Files specified as the schema files and binding files are
+        automatically added to the "depends" set as well, but if those schemas
+        are including/importing other schemas, you have to use a nested
+        <literal>&lt;depends&gt;</literal> elements. No files are added to the
+        <literal>&lt;produces&gt;</literal> set, so you have to add all of
+        them manually.</para>
+
+        <para>A change in a schema or an external binding file often results
+        in a Java file that stops being generated. To avoid such an "orphan"
+        file, it is often desirable to isolate all the generated code into a
+        particular package and delete it before compiling a schema. This can
+        be done by using the <literal>removeOldOutput</literal> attribute.
+        This option allows you to remove all the files that match the
+        "produces" filesets before a compilation. <emphasis>Be careful when
+        you use this option so that you don't delete important
+        files</emphasis>.</para>
+    </section>
+
+    <section xml:id="section-31739621133682">
+        <title>Schema Language Support</title>
+
+        <para>This release of the JAXB RI includes experimental support for
+        RELAX NG, DTD, and WSDL. To compile anything other than W3C XML Schema
+        from the <command>xjc</command> Ant task, you must use the nested &lt;
+        <literal>arg</literal>&gt; element to specify the appropriate command line
+        switch, such as <option>-dtd</option>, <option>-relaxng</option>, or <option>-wsdl</option>. Otherwise, your input schemas will be treated as
+        W3C XML Schema and the binding compiler will fail.</para>
+    </section>
+
+    <section xml:id="section-607840891098334">
+        <title><command>xjc</command> Examples</title>
+
+        <para>Compile <literal>myschema.xsd</literal> and place the generated
+        files under <package>src/org/acme/foo</package>:</para>
+
+        <informalexample>
+            <programlisting language="xml"><![CDATA[<xjc schema="src/myschema.xsd" destdir="src" package="org.acme.foo"/>]]></programlisting>
+        </informalexample>
+
+        <para>Compile all XML Schema files in the <literal>src</literal>
+        directory and place the generated files under the appropriate packages
+        in the <literal>src</literal> directory:</para>
+
+        <informalexample>
+            <programlisting language="xml"><![CDATA[<xjc destdir="src">
+    <schema dir="src" includes="*.xsd"/>
+</xjc>]]></programlisting>
+        </informalexample>
+
+        <para>Compile all XML Schema files in the <literal>src</literal>
+        directory together with binding files in the same directory and places
+        the generated files under the appropriate packages in the
+        <literal>src</literal> directory. This example assumes that binding
+        files contain package customizations. This example doesn't search
+        subdirectories of the <literal>src</literal> directory to look for
+        schema files.</para>
+
+        <informalexample>
+            <programlisting language="xml"><![CDATA[<xjc destdir="src">
+    <schema dir="src" includes="*.xsd"/>
+    <binding dir="src" includes="*.xjb"/>
+</xjc>]]></programlisting>
+        </informalexample>
+
+        <para>Compile <literal>abc.xsd</literal> with an up-to-date check.
+        Compilation only happens when <literal>abc.xsd</literal> is newer than
+        any of the files in the <literal>src/org/acme/foo</literal> directory
+        (and its <literal>impl</literal> subdirectory). Files in these two
+        directories will be wiped away before a compilation, so
+        <emphasis>don't add your own code in those directories</emphasis>.
+        Note that the additional <literal>mkdir</literal> task is necessary
+        because Ant's fileset requires the directory specified by the
+        <literal>dir</literal> attribute to exist.</para>
+
+        <informalexample>
+            <programlisting language="xml"><![CDATA[<mkdir dir="src/org/acme/foo"/>
+<xjc destdir="src" schema="abc.xsd" removeOldOutput="yes"
+     package="org.acme.foo">
+    <produces dir="src/org/acme/foo" includes="* impl/*"/>
+</xjc>]]></programlisting>
+        </informalexample>
+
+        <para>More complicated example of up-to-date check. In this example,
+        we assume that you have a large set of schema documents that reference
+        each other, with DTDs that describe the schema documents. An explicit
+        &lt;depends&gt; is necessary so that when you update one of the DTDs,
+        XJC will recompile your schema. But &lt;depends&gt; don't have to
+        re-specify all the schema files, because you've already done that via
+        &lt;schema&gt;.</para>
+
+        <informalexample>
+            <programlisting language="xml"><![CDATA[<mkdir dir="src/org/acme/foo"/>
+<xjc destdir="src" removeOldOutput="yes"
+     package="org.acme.foo">
+    <schema dir="schema" includes="*.xsd"/>
+    <depends dir="schema" includes="*.dtd"/>
+    <produces dir="build/generated-src/org/acme/foo"
+              includes="**/*"/>
+</xjc>]]></programlisting>
+        </informalexample>
+
+        <para>Compile all XML Schema files in the <literal>src</literal>
+        directory and subdirectories, excluding files named
+        <literal>debug.xsd</literal>, and place the generated files under the
+        appropriate packages in the <literal>src</literal> directory. This
+        example also specifies the <option>-nv</option> option, which disables
+        the strict schema correctness checking:</para>
+
+        <informalexample>
+            <programlisting language="xml"><![CDATA[<xjc destdir="src">
+    <schema dir="src" includes="**/*.xsd"
+            excludes="**/debug.xsd"/>
+    <arg value="-nv"/>
+</xjc>]]></programlisting>
+        </informalexample>
+
+        <para>If you depend on a proxy server to resolve the location of
+        imported or included schemas (as you might if you're behind a
+        firewall), you need to make the hostname and port number accessible to
+        the JVM hosting <literal>ant</literal>. Do this by setting the
+        environment variable <literal>ANT_OPTS</literal> to a string
+        containing the appropriate <literal>java</literal> options. For
+        example, from DOS:</para>
+
+        <informalexample>
+            <programlisting><![CDATA[> set ANT_OPTS=-Dhttp.proxyHost=webcache.east
+> set ANT_OPTS=%ANT_OPTS% -Dhttp.proxyPort=8080
+> ant]]></programlisting>
+        </informalexample>
+    </section>
+</section>

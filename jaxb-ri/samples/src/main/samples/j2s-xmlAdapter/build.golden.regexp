@@ -1,0 +1,29 @@
+
+compile\:
+     \[echo\] Generating schemas\.\.\.
+    \[mkdir\] Created dir\: .*
+\[schemagen\] Generating schema from 3 source files
+     \[echo\] Compiling the java source files\.\.\.
+    \[mkdir\] Created dir\: .*
+    \[javac\] Compiling 5 source files to .*
+
+run\:
+     \[echo\] Running the sample application\.\.\.
+     \[java\] KitchenWorldBasket\:
+     \[java\] key\: 288	value\: wooden spoon
+     \[java\] key\: 289	value\: salt and pepper shakers in yellow
+     \[java\] key\: 9027	value\: glasstop stove in black
+     \[java\] key\: 10424	value\: backsplash kit in black
+
+     \[java\] \<\?xml version\=\"1\.0\" encoding\=\"UTF\-8\" standalone\=\"yes\"\?\>
+     \[java\] \<kitchenWorldBasket\>
+     \[java\]     \<basket\>
+     \[java\]         \<entry key\=\"288\"\>wooden spoon\<\/entry\>
+     \[java\]         \<entry key\=\"289\"\>salt and pepper shakers in yellow\<\/entry\>
+     \[java\]         \<entry key\=\"9027\"\>glasstop stove in black\<\/entry\>
+     \[java\]         \<entry key\=\"10424\"\>backsplash kit in black\<\/entry\>
+     \[java\]     \<\/basket\>
+     \[java\] \<\/kitchenWorldBasket\>
+
+BUILD SUCCESSFUL
+Total time\: .*

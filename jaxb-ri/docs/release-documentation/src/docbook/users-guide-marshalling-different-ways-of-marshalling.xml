@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<section version="5.0" xml:id="marshalling-different-ways-of-marshalling"
+         xml:lang="en" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>Different ways of marshalling</title>
+
+    <section xml:id="Different_output_media">
+        <title>Different output media</title>
+
+        <para>The most basic notion of the marshalling is to take a JAXB-bound
+        object that has <literal>@XmlRootElement</literal>, and write it out as a
+        whole XML document. So perhaps you have a class like this:</para>
+
+        <example>
+            <title>JAXB POJO</title>
+
+            <programlisting language="java"><![CDATA[class Point {
+  @XmlElement
+  public int x;
+  @XmlElement
+  public int y;
+  Point(...) { ... }
+}]]></programlisting>
+        </example>
+
+        <para>Then you can do:</para>
+
+        <example>
+            <title>Plain marshalling</title>
+
+            <programlisting language="java"><![CDATA[marshaller.marshal( new Point(1,3), System.out );
+marshaller.marshal( new Point(1,3), new File("out.xml") );]]></programlisting>
+        </example>
+
+        <para>.. and so on. There're seven <literal>Marshaller.marshal</literal>
+        methods that takes different output media as the second parameter. If
+        you are writing to a file, a socket, or memory, then you should use
+        the version that takes <literal>OutputStream</literal>. Unless you change
+        the target encoding to something else (default is UTF-8), there's a
+        special marshaller codepath for <literal>OutputStream</literal>, which makes
+        it run really fast. You also don't have to use
+        <literal>BufferedOutputStream</literal>, since the JAXB RI does the adequate
+        buffering.</para>
+
+        <para>You can also write to <literal>Writer</literal>, but in this case
+        you'll be responsible for encoding characters, so in general you need
+        to be careful. If you want to marshal XML into an encoding other than
+        UTF-8, it's best to use the <literal>JAXB_ENCODING</literal> property and
+        then write to <literal>OutputStream</literal>, as it escapes characters to
+        things like <literal>&amp;#x1824;</literal> correctly.</para>
+
+        <para>The next medium we support is W3C DOM. This is bit unintuitive,
+        but you'll do it like this:</para>
+
+        <example>
+            <title>Marshal to DOM</title>
+
+            <programlisting language="java"><![CDATA[DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+dbf.setNamespaceAware(true);
+Document doc = dbf.newDocumentBuilder().newDocument();
+
+marshaller.marshal( new Point(1,3), doc );]]></programlisting>
+        </example>
+
+        <para>And after the method invocation you get a complete DOM tree that
+        represents the marshalled document.</para>
+
+        <para>The other versions of the marshal methods are there to write XML
+        documents in terms of other XML APIs, such as SAX and StAX. The
+        version that takes <literal>ContentHandler</literal> is useful when you need
+        a custom formatting needs (like you want each attribute to be in new
+        line, etc), but otherwise they are not very interesting if you are
+        writing a whole document.</para>
+    </section>
+
+    <section xml:id="Marshalling_into_a_subtree">
+        <title>Marshalling into a subtree</title>
+
+        <para>Another common use of JAXB is where you are writing a bigger
+        document, and you use JAXB to generate part(s) of it. The JAX-WS RI is
+        the prime example. It produces a SOAP message, and JAXB is only used
+        to produce the body. When you are doing this, you first set
+        <literal>JAXB_FRAGMENT</literal> property on the marshaller. This changes
+        the behaviors of the marshaller so that it works better in this
+        situation.</para>
+
+        <para>If you are writing to an <literal>OutputStream</literal> or
+        <literal>Writer</literal> and generally sending it to someone else, you can
+        do something like this:</para>
+
+        <example>
+            <title>Marshalling into a subtree</title>
+
+            <programlisting language="java"><![CDATA[System.out.println("<envelope>");
+marshaller.marshal( object, System.out );
+System.out.println("</envelope>");]]></programlisting>
+        </example>
+
+        <para>Like I mentioned, this is probably the fastest, even though
+        <literal>println</literal> isn't very pretty. <literal>JAXB_FRAGMENT</literal>
+        prevents the marshaller from producing an XML declaration, so the
+        above works just fine. The downside of this approach is that if the
+        ancestor elements declare the namespaces, JAXB won't be able to take
+        advantage of them.</para>
+
+        <para>You can also marshal an object as a subtree of an existing DOM
+        tree. To do this, you pass the <literal>Element</literal> object as the
+        second parameter, and the marshaller will marshal an object as a child
+        of this node.</para>
+
+        <para>StAX is also very convenient for doing this sort of things. You
+        can create <literal>XMLStreamWriter</literal>, write some stuff, and then
+        pass that to the marshaller. <literal>JAXB_FRAGMENT</literal> prevents the
+        marshaller from producing <literal>startDocument</literal> and
+        <literal>endDocument</literal> token. When doing this sub-tree marshaling to
+        DOM and StAX, JAXB can take advantage of available in-scope namespace
+        bindings.</para>
+
+        <para>Finally, you can marshal an object as a subtree into
+        <literal>ContentHandler</literal>, but it requires a fair amount of SAX
+        programming experience, and it goes beyond the scope of this
+        entry.</para>
+    </section>
+
+    <section xml:id="Marshalling_a_non_element">
+        <title>Marshalling a non-element</title>
+
+        <para>Another common use case is where you have an object that doesn't
+        have <literal>@XmlRootElement</literal> on it. JAXB allows you to marshal it
+        like this:</para>
+
+        <example>
+            <title>Marshalling a non-element</title>
+
+            <programlisting language="java"><![CDATA[marshaller.marshal( new JAXBElement(
+  new QName("","rootTag"),Point.class,new Point(...)));]]></programlisting>
+        </example>
+
+        <para>This puts the <literal>&lt;rootTag&gt;</literal> element as the root element,
+        followed by the contents of the object, then <literal>&lt;/rootTag&gt;</literal>. You can
+        actually use it with a class that has <literal>@XmlRootElement</literal>,
+        and that simply renames the root element name.</para>
+
+        <para>At the first glance the second <literal>Point.class</literal>
+        parameter may look redundant, but it's actually necessary to determine
+        if the marshaller will produce (infamous)
+        <literal>@xsi</literal>:type. In this example, both the class and the
+        instance are <literal>Point</literal>, so you won't see
+        <literal>@xsi</literal>:type. But if they are different, you'll see
+        it.</para>
+
+        <para>This can be also used to marshal a simple object, like
+        <literal>String</literal> or an integer.</para>
+
+        <para>Marshalling a non-element with
+        <literal>@xsi</literal>:type</para>
+
+        <informalexample>
+            <programlisting language="java"><![CDATA[marshaller.marshal( new JAXBElement(
+  new QName("","rootTag"),String.class,"foo bar"));]]></programlisting>
+        </informalexample>
+
+        <para>But unfortunately it <emphasis role="bold">cannot</emphasis> be
+        used to marshal objects like <literal>List</literal> or <literal>Map</literal>, as
+        they aren't handled as the first-class citizen in the JAXB
+        world.</para>
+    </section>
+
+    <section xml:id="Connecting_to_other_XML_APIs">
+        <title>Connecting to other XML APIs</title>
+
+        <para>Because of the <literal>Source</literal> and <literal>Result</literal>
+        support, JAXB objects can be easily marshalled into other XML APIs
+        that are not mentioned here. For example, <link
+        xlink:href="http://www.dom4j.org/">dom4j</link> has
+        <literal>DocumentResult</literal> that extends <literal>Result</literal>, so you
+        can do:</para>
+
+        <example>
+            <title>Marshalling to dom4j</title>
+
+            <programlisting language="java"><![CDATA[DocumentResult dr = new DocumentResult();
+marshaller.marshal( object, dr );
+o = dr.getDocument();]]></programlisting>
+        </example>
+
+        <para>Similar mechanism is available for JDOM and XOM. This conversion
+        is much more efficient than first marshalling to
+        <literal>ByteArrayOutputStream</literal> and then read it back into these
+        DOMs. The same mechanism can be used to marshal to FastInfoset or send the
+        marshaled document to an XSLT engine (<literal>TransformerHandler</literal>.)</para>
+
+        <para>The other interesting connector is <literal>JAXBSource</literal>,
+        which wraps a marshaller and allows a JAXB object to be used as a
+        "source" of XML. Many XML APIs take <literal>Source</literal> as an input,
+        and now JAXB object can be passed to them directly.</para>
+
+        <para>For example, you can marshal a JAXB object and unmarshal it into
+        another JAXBContext like this:</para>
+
+        <example>
+            <title>Loading into a different JAXBContext</title>
+
+            <programlisting language="java"><![CDATA[JAXBContext context1 = ... ;
+JAXBContext context2 = ... ;
+
+context1.createUnmarshaller().unmarshal( new JAXBSource(context2,object) );]]></programlisting>
+        </example>
+
+        <para>This amounts to looking at the same XML by using different
+        schema, and again this is much more efficient than going through
+        <literal>ByteArrayOutputStream</literal>.</para>
+    </section>
+</section>

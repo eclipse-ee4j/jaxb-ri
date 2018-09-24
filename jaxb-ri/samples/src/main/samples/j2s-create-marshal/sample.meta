@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+
+    Copyright (c) 2017, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<sample since="2.0">
+    <title>Java to Schema Binding</title>
+    <description><![CDATA[
+      This sample application demonstrates marshalling, unmarshalling and
+      unmarshal validation with existing Java classes annotated with 
+      JAXB annotations.
+    ]]></description>
+        
+    <project>
+        <javadoc/>
+        <schemagen/>
+        <java mainClass="Main" />
+    </project>
+    
+</sample>

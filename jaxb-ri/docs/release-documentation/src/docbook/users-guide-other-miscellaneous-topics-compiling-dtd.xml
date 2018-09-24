@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<section version="5.0" xml:id="other-miscellaneous-topics-compiling-dtd"
+         xml:lang="en" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>Compiling DTD</title>
+
+    <para>The JAXB RI is shipped with an "experimental" DTD support, which
+    let's you compile XML DTDs. It is marked "experimental" not because the
+    feature is unstable nor unreliable, but rather because it's not a part of
+    the JAXB specification and therefore the level of commitment to
+    compatibility is lower.</para>
+
+    <example>
+        <title>To compile a DTD, run the XJC binding compiler as
+        follows:</title>
+
+        <programlisting language=""><![CDATA[$ xjc.sh -dtd test.dtd]]></programlisting>
+    </example>
+
+    <para>All the other command-line options of the XJC binding compiler can
+    be applied. Similarly, the XJC ant task supports DTD. The generated code
+    will be no different from what is generated from W3C XML Schema. You'll
+    use the same JAXB API to access the generated code, and it is portable in
+    the sense that it will run on any JAXB 2.0 implementation.</para>
+
+    <para>DTD long predates XML namespace, although people since then
+    developed various techniques to use XML namespaces in conjunction with
+    DTD. Because of this, XJC is currently unable to reverse-engineer the use
+    of XML namespace from DTD. If you compile DTDs that use those techniques,
+    you'd either manuallly modify the generated code, or you can try a tool
+    like <link
+    xlink:href="http://www.thaiopensource.com/relaxng/trang.html">Trang</link>
+    that can convert DTD into XML Schema in ways that better preserves XML
+    namespaces.</para>
+
+    <section xml:id="Customizations">
+        <title>Customizations</title>
+
+        <para>The customization syntax for DTD is roughly based on the
+        ver.0.21 working draft of the JAXB specification, which is available
+        at <link
+        xlink:href="http://xml.coverpages.org/jaxb0530spec.pdf">xml.coverpages.org</link>.
+        The deviations from this document are:</para>
+
+        <itemizedlist>
+            <listitem>
+                <para>The <literal>whitespace</literal> attribute of the
+                <literal>conversion</literal> element takes "
+                <literal>preserve</literal>", " <literal>replace</literal>", and "
+                <literal>collapse</literal>" instead of " <literal>preserve</literal>", "
+                <literal>normalize</literal>", and " <literal>collapse</literal>" as
+                specified in the document.</para>
+            </listitem>
+
+            <listitem>
+                <para>The <literal>interface</literal> customization just generates
+                marker interfaces with no method.</para>
+            </listitem>
+        </itemizedlist>
+    </section>
+
+    <section xml:id="Compiling_DTD_from_Maven2">
+        <title>Compiling DTD from Maven2</title>
+
+        <example>
+            <title>The following POM snippest describes how to invoke XJC to
+            compile DTD from a Maven 2 project:</title>
+
+            <programlisting language="xml"><![CDATA[<plugin>
+  <groupId>org.jvnet.jaxb2.maven2</groupId>
+  <artifactId>maven-jaxb2-plugin</artifactId>
+  <executions>
+    <execution>
+      <goals>
+        <goal>generate</goal>
+      </goals>
+      <configuration>
+        <!--  if you want to put DTD somewhere else
+        <schemaDirectory>src/main/jaxb</schemaDirectory>
+        -->
+        <extension>true</extension>
+        <schemaLanguage>DTD</schemaLanguage>
+        <schemaIncludes>
+          <schemaInclude>*.dtd</schemaInclude>
+        </schemaIncludes>
+        <bindingIncludes>
+          <bindingInclude>*.jaxb</bindingInclude>
+        </bindingIncludes>
+        <args>
+          <arg>-Xinject-listener-code</arg>
+        </args>
+      </configuration>
+    </execution>
+  </executions>
+  <dependencies>
+    <dependency>
+      <groupId>org.jvnet.jaxb2-commons</groupId>
+      <artifactId>property-listener-injector</artifactId>
+      <version>1.0</version>
+    </dependency>
+  </dependencies>
+</plugin>]]></programlisting>
+        </example>
+
+        <example>
+            <title>The dependencies section inside the plugin element can be
+            used to specify additional XJC plugins. If you'd like to use more
+            recent version of the JAXB RI, you can specify a dependency to XJC
+            here to do so, like this:</title>
+
+            <programlisting language="xml"><![CDATA[<dependency>
+  <groupId>com.sun.xml.bind</groupId>
+  <artifactId>jaxb-xjc</artifactId>
+  <version>2.1.2</version>
+</dependency>]]></programlisting>
+        </example>
+    </section>
+</section>

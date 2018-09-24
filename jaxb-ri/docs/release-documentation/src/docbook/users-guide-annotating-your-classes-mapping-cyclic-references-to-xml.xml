@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<section version="5.0"
+         xml:id="annotating-your-classes-mapping-cyclic-references-to-xml"
+         xml:lang="en" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>Mapping cyclic references to XML</title>
+
+    <para>Object models designed in Java often have cycles, which prevent
+    straight-forward conversion to XML by JAXB. In fact, when you try to
+    marshal an object tree that contains a cycle, the JAXB marshaller reports
+    an error, pointing out the objects that formed the cycle. This is because
+    JAXB by itself cannot figure out how to cut cycles into a tree.</para>
+
+    <para>Thus it is your responsibility to annotate classes and use other
+    means to "tell" JAXB how to handle a cycle. This chapter talks about
+    various techniques to do this.</para>
+
+    <section xml:id="Parent_pointers">
+        <title>Parent pointers</title>
+
+        <para>One of the very common forms of cycle is a parent pointer. The
+        following example illustrates a typical parent pointer, and how this
+        can be turned into "natural" XML:</para>
+
+        <example>
+            <title>Classes with parent pointer</title>
+
+            <programlisting language="java"><![CDATA[@XmlRootElement
+class Department {
+  @XmlAttribute
+  String name;
+  @XmlElement(name="employee")
+  List<Employee> employees;
+}
+
+class Employee {
+  @XmlTransient
+  Department department;  // parent pointer
+  @XmlAttribute
+  String name;
+
+  public void afterUnmarshal(Unmarshaller u, Object parent) {
+    this.department = (Department)parent;
+  }
+}]]></programlisting>
+        </example>
+
+        <para>This will produce the following XML:</para>
+
+        <example>
+            <title>XML view of department</title>
+
+            <programlisting language="xml"><![CDATA[<department name="accounting">
+  <employee name="Joe Chin" />
+  <employee name="Adam Smith" />
+  ...
+</department>]]></programlisting>
+        </example>
+
+        <para>And reading this document back into Java objects will produce
+        the expected tree with all the proper parent pointers set up
+        correctly.</para>
+
+        <para>The first technique here is the use of <literal>XmlTransient</literal> on the parent pointer. This tells
+        JAXB that you don't need this parent pointer to be represented
+        explicitly in XML, because the fact that <literal>employee</literal> is
+        always contained inside <literal>department</literal> implies the
+        parent/child relationship. This causes the marshaller to produce the
+        expected XML. However, when you unmarshal it, since this field is not
+        bound, the <literal>Employee.department</literal> field will be left
+        null.</para>
+
+        <para>That's where the second technique comes in, which is the use of
+        the <literal>afterUnmarshal</literal> callback. This method is invoked by
+        the JAXB implementation on each instance when the unmarshalling of a
+        <literal>Employee</literal> object completes. Furthermore, the second
+        parameter to the method is the parent object, which in this case is a
+        <literal>Department</literal> object. So in this example, this sets up the
+        parent pointer correctly.</para>
+
+        <para>This callback can be also used to perform other
+        post-unmarshalling set up work.</para>
+    </section>
+
+    <section xml:id="Many_to_many_relationship">
+        <title>Many-to-many relationship</title>
+
+        <para>TBD</para>
+    </section>
+
+    <section xml:id="_XmlID_and__XmlIDREF">
+        <title><literal>@XmlID</literal> and
+        <literal>@XmlIDREF</literal></title>
+
+        <para>When a reference to another object is annotated with <literal>XmlIDREF</literal>, its corresponding XML it will be
+        referenced by <literal>xs:IDREF</literal>, instead of containment. See below
+        for an example:</para>
+
+        <para>Example of <literal>@XmlID</literal> and
+        <literal>@XmlIDREF</literal></para>
+
+        <informalexample>
+            <programlisting language="java"><![CDATA[@XmlRootElement
+class Root {
+  List<Foo> foos;
+  List<Bar> bars;
+}
+class Foo {
+  // you don't have to make it an attribute, but that's more common
+  @XmlAttribute @XmlIDREF Bar bar;
+}
+class Bar {
+  // you don't have to make it an attribute, but that's more common
+  @XmlAttribute @XmlID String id;
+}]]></programlisting>
+        </informalexample>
+
+        <example>
+            <title>Schema for above</title>
+
+            <programlisting language="xml"><![CDATA[<xs:complexType name="foo">
+  <xs:sequence/>
+  <xs:attribute name="bar" type="xs:IDREF"/>
+  </xs:sequence>
+</xs:complexType>
+<xs:complexType name="bar">
+  <xs:sequence/>
+  <xs:attribute name="id" type="xs:ID"/>
+</xs:complexType>]]></programlisting>
+        </example>
+
+        <example>
+            <title>A sample instance</title>
+
+            <programlisting language="xml"><![CDATA[<root>
+  <foo bar="x"/>
+  <foo bar="y"/>
+  <bar id="x"/>
+  <bar id="y"/>
+</root>]]></programlisting>
+        </example>
+
+        <para>There are a few things to consider when you do this. First, the
+        object to be referenced must have an ID that is unique within the
+        whole document. You'd also need to ensure that the referenced objects
+        are <emphasis>contained</emphasis> somewhere else (like in the
+        <literal>Root</literal> class in this case), or else <literal>Bar</literal>
+        objects will never be marshalled. This technique can be used to remove
+        the cyclic references, but it's only possible when your object model
+        has an easy cut point.</para>
+    </section>
+
+    <section xml:id="Use_the_CycleRecoverable_interface">
+        <title>Use the CycleRecoverable interface</title>
+
+        <para>Starting 2.1 EA2, the JAXB RI exposes <literal>CycleRecoverable</literal> interface. Applications can
+        choose to implement this interface in some of its objects. When a
+        cyclic reference is detected during marshalling, and if the object
+        that formed a cycle implements this interface, then the method on this
+        interface is called to allow an application to nominate its
+        replacement to be written to XML. In this way, the application can
+        recover from a cycle gracefully.</para>
+
+        <para>This technique allows you to cope with a situation where you
+        cannot easily determine upfront as to where a cycle might happen. On
+        the other hand, this feature is a JAXB RI feature. Another downside of
+        this is that unless you nominate your replacement carefully, you can
+        make the marshalling output invalid with respect to the schema, and
+        thus you might hit another problem when you try to read it back
+        later.</para>
+    </section>
+</section>

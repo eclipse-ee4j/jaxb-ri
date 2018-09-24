@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<chapter version="5.0" xml:id="jaxb-2-0-overview" xml:lang="en"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>Overview</title>
+
+    <para>The <trademark>Java</trademark> Architecture for XML Binding (JAXB)
+    provides an API and tools that automate the mapping between XML documents
+    and Java objects.</para>
+
+    <para>The JAXB framework enables developers to perform the following
+    operations:</para>
+
+    <itemizedlist>
+        <listitem>
+            <para><emphasis role="bold">Unmarshal</emphasis> XML content into
+            a Java representation</para>
+        </listitem>
+
+        <listitem>
+            <para><emphasis role="bold">Access</emphasis> and <emphasis
+            role="bold">update</emphasis> the Java representation</para>
+        </listitem>
+
+        <listitem>
+            <para><emphasis role="bold">Marshal</emphasis> the Java
+            representation of the XML content into XML content</para>
+        </listitem>
+    </itemizedlist>
+
+    <para>JAXB gives Java developers an efficient and standard way of mapping
+    between XML and Java code. Java developers using JAXB are more productive
+    because they can write less code themselves and do not have to be experts
+    in XML. JAXB makes it easier for developers to extend their applications
+    with XML and Web Services technologies.</para>
+
+    <section xml:id="documentation">
+        <title>Documentation</title>
+
+        <para>Documentation for this release consists of the following:</para>
+
+        <itemizedlist>
+            <listitem>
+                <para><xref linkend="jaxb-2-0-release-notes"
+                xrefstyle="select:title" /></para>
+            </listitem>
+
+            <listitem>
+                <para>Running the binding compiler (XJC): [<xref
+                linkend="tools-xjc" xrefstyle="select:title" />, <xref
+                linkend="tools-xjc-ant-task"
+                xrefstyle="select:title" />]</para>
+            </listitem>
+
+            <listitem>
+                <para>Running the schema generator (schemagen): [<xref
+                linkend="tools-schemagen" xrefstyle="select:title" />, <xref
+                linkend="tools-schemagen-ant-task"
+                xrefstyle="select:title" />]</para>
+            </listitem>
+
+            <listitem>
+                <para><xref linkend="users-guide"
+                xrefstyle="select:title" /></para>
+            </listitem>
+
+            <listitem>
+                <para><link
+                xlink:href="api/">Javadoc
+                API documentation (javax.xml.bind.*)</link></para>
+            </listitem>
+
+            <listitem>
+                <para><xref linkend="jaxb-2-0-sample-apps"
+                xrefstyle="select:title" /></para>
+            </listitem>
+
+            <listitem>
+                <para>JAXB FAQs [<xref linkend="faq"
+                xrefstyle="select:title" />, <link
+                xlink:href="http://java.sun.com/xml/jaxb/faq.html">java.sun.com</link>]</para>
+            </listitem>
+        </itemizedlist>
+    </section>
+
+    <section xml:id="license">
+        <title>Software Licenses</title>
+
+        <itemizedlist>
+            <listitem>
+                <para>2013 Oracle Corporation
+                and/or its affiliates. All rights reserved.</para>
+            </listitem>
+
+            <listitem>
+                <para>The JAXB RI &jaxb.release.impl.version;&jaxb.release.impl.version.suffix; Release is covered
+                under the <link xlink:href="http://www.eclipse.org/org/documents/edl-v10.php">terms
+                        of the Eclipse Distribution License v. 1.0
+                        </link></para>
+            </listitem>
+
+            <listitem>
+                <para>Additional copyright notices and license terms
+                applicable to portions of the software are set forth in the
+                <link xlink:href="NOTICE.md">3rd Party
+                License README</link></para>
+            </listitem>
+        </itemizedlist>
+    </section>
+
+    <xi:include href="jaxb-2-0-sample-apps.xml" />
+</chapter>

@@ -1,0 +1,27 @@
+<!--
+
+    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<schema targetNamespace="http://www.example.com/IPO"
+        xmlns="http://www.w3.org/2001/XMLSchema"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+        xmlns:ipo="http://www.example.com/IPO">
+  <include schemaLocation="ipo.xsd"/>
+  <complexType name="USTaxExemptPurchaseOrderType">
+    <complexContent>
+      <extension base="ipo:PurchaseOrderType">
+        <sequence>
+          <element name="taxExemptId" type="xsd:string"/>
+        </sequence>
+      </extension>
+    </complexContent>
+  </complexType>
+</schema>

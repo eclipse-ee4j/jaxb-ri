@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+
+    Copyright (c) 2017, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<sample since="1.0.2">
+    <title>pull parser based unmarshalling</title>
+    <description><![CDATA[
+      This sample app demonstrates how a pull-parser can
+      be used with JAXB to increase the flexibility of processing.
+    ]]></description>
+        
+    <readme/>
+
+    <project>
+        <depends>
+          <jar name="sjsxp.jar" from="http://java.sun.com"/>
+        </depends>
+        <xjc schema="contact.xsd" package="contact" />
+        <javadoc/>
+        <java mainClass="Main">
+            <arg value="Jane Smith" />
+        </java>
+    </project>
+    
+</sample>

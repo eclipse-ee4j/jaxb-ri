@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<section version="5.0"
+         xml:id="other-miscellaneous-topics-designing-a-client-server-protocol-in-xml"
+         xml:lang="en" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>Designing a client/server protocol in XML</title>
+
+    <para>Occasionally, people try to define a custom protocol that allows
+    multiple XML requests/responses to be sent over a single transport channel.
+    This section discusses the non-trivial interaction between XML and
+    sockets, and how you can design a protocol correctly.</para>
+
+    <para>XML1.0 requires a conforming parser to read the entire data till end
+    of the stream (because a parser needs to handle documents like
+    <literal>&lt;root/&gt;&lt;!-- post root comment --&gt;</literal>). As a result,
+    a naive attempt to keep one <literal>OutputStream</literal> open and marshal
+    objects multiple times fails.</para>
+
+    <example>
+        <title>One easy way to work around this limitation is to design your
+        protocol so that the data on the wire will look like the
+        following:</title>
+
+        <programlisting language="xml"><![CDATA[<conversation>
+  <!-- message 1 -->
+  <message>
+    ...
+  </message>
+
+  <!-- message 2 -->
+  <message>
+    ...
+  </message>
+
+  ...
+</conversation>]]></programlisting>
+    </example>
+
+    <para>The <literal>&lt;conversation&gt;</literal> start tag is sent immediately after the
+    socket is opened. This works as a container to send multiple "messages",
+    and this is also an excellent opportunity to do the hand-shaking (e.g.,
+    <literal>protocol-version='1.0'</literal> attribute.) Once the
+    <literal>&lt;conversation&gt;</literal> tag is written, multiple messages can be marshalled
+    as a tree into the channel, possibly with a large time lag in between. You
+    can use the JAXB marshaller to produce such message. When the sender wants
+    to disconnect the channel, it can do so by sending the
+    <literal>&lt;/conversation&gt;</literal> end tag, followed by the socket
+    disconnection.</para>
+
+    <para>Of course, you can choose any tag names freely, and each message can
+    have different tag names.</para>
+
+    <para>The receiver would use the StAX API and use
+    <literal>XMLStreamReader</literal> to read this stream. You'd have to use this
+    to process the first <literal>&lt;conversation&gt;</literal> start tag. After that, every
+    time you call a JAXB unmarshaller, you'll get the next message.</para>
+
+    <para>For the concrete code, see the <literal>xml-channel</literal> example in
+    the JAXB RI distribution.</para>
+</section>

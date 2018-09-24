@@ -1,0 +1,25 @@
+
+compile\:
+     \[echo\] Compiling the schema\.\.\.
+    \[mkdir\] Created dir\: .*
+      \[xjc\] .* is not found and thus excluded from the dependency check
+      \[xjc\] Compiling .*
+      \[xjc\] Writing output to .*
+     \[echo\] Compiling the java source files\.\.\.
+    \[mkdir\] Created dir\: .*
+    \[javac\] Compiling \d+ source files to .*
+
+run\:
+     \[echo\] Running the sample application\.\.\.
+     \[java\] Ship the following items to\: 
+     \[java\] 	Alice Smith
+     \[java\] 	123 Maple Street
+     \[java\] 	Cambridge\, MA 12345
+     \[java\] 	US
+
+     \[java\] 	5 copies of \"Nosferatu \- Special Edition \(1929\)\"
+     \[java\] 	3 copies of \"The Mummy \(1959\)\"
+     \[java\] 	3 copies of \"Godzilla and Mothra\: Battle for Earth\/Godzilla vs\. King Ghidora\"
+
+BUILD SUCCESSFUL
+Total time\: .*

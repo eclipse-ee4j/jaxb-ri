@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+
+    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<project basedir="${basedir}" default="xjc" name="Java Architecture for XML Binding">
+  <property environment="env"/>
+  <property file="${env.JAXB_HOME}/etc/build.properties"/>
+  <path id="jaxb.lib">
+    <fileset dir="${env.JAXB_HOME}/lib">
+      <include name="*.jar"/>
+    </fileset>
+  </path>
+  <target name="xjc">
+    <java classname="com.sun.tools.xjc.Driver" fork="yes" failonerror="true">
+      <classpath refid="jaxb.lib"/>
+      <jvmarg value="-Dhttp.proxyHost=${xjc.proxy}"/>
+      <jvmarg value="-Dhttp.proxyPort=${xjc.port}"/>
+      <arg line="${xjc.opts}"/>
+    </java>
+  </target>
+</project>

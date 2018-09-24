@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!--
+
+    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<project name="apgen" basedir="../../" default="deploy">
+
+    <description>
+      Annotation Proxy Generator
+      ==========================
+
+      Generates implementations of the Quick class for annotations.
+      This is a tool used to build the runtime module.
+    </description>
+
+    <!-- import build properties -->
+    <property file="${basedir}/build.properties" />
+
+    <!-- compile Java source files -->
+    <target name="compile"
+           description="compile all classes">
+        <mkdir dir="${apgen.classes}" />
+
+        <javac srcdir="${apgen.src}" destdir="${apgen.classes}"
+            debug="${compile.debug}" optimize="${compile.optimize}"
+      		source="1.6" target="1.6"
+            deprecation="${compile.deprecation}" >
+            <compilerarg line="${runtime.compilerarg}"/>
+            <classpath>
+              <pathelement path="${cpath.fromsource}"/>
+              <pathelement path="${jaxb.libs.compiler}/istack-commons-tools.jar"/>
+              <pathelement path="${jaxb.libs.compiler}/codemodel.jar" />
+              <fileset dir="${jaxb.libs.util}" includes="*.jar"/>
+            </classpath>
+        </javac>
+    </target>
+
+    <!-- remove all intermediate files -->
+    <target name="clean">
+        <parallel>
+            <delete dir="/tools/apgen/build" />
+        </parallel>
+    </target>
+</project>

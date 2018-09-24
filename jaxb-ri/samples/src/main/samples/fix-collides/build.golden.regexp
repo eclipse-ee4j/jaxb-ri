@@ -1,0 +1,21 @@
+
+compile\:
+     \[echo\] Compiling the schema\.\.\.
+    \[mkdir\] Created dir\: .*
+      \[xjc\] Compiling .*
+      \[xjc\] Writing output to .*
+     \[echo\] Compiling the java source files\.\.\.
+    \[mkdir\] Created dir\: .*
+    \[javac\] Compiling \d+ source files to .*
+
+run\:
+     \[echo\] Running the sample application\.\.\.
+     \[java\] \<\?xml version\=\"1\.0\" encoding\=\"UTF\-8\" standalone\=\"yes\"\?\>
+     \[java\] \<FooBar zip\=\"01803\"\>
+     \[java\]     \<foo\>34\<\/foo\>
+     \[java\]     \<Class\>35\<\/Class\>
+     \[java\]     \<zip\>2149\<\/zip\>
+     \[java\] \<\/FooBar\>
+
+BUILD SUCCESSFUL
+Total time\: .*

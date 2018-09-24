@@ -1,0 +1,27 @@
+
+compile\:
+     \[echo\] Generating schemas\.\.\.
+    \[mkdir\] Created dir\: .*
+\[schemagen\] Generating schema from 3 source files
+     \[echo\] Compiling the java source files\.\.\.
+    \[mkdir\] Created dir\: .*
+    \[javac\] Compiling 4 source files to .*
+
+run\:
+     \[echo\] Running the sample application\.\.\.
+     \[java\] \<\?xml version\=\"1\.0\" encoding\=\"UTF\-8\" standalone\=\"yes\"\?\>
+     \[java\] \<purchaseOrder cCardVendor=\"AMERICANEXPRESS\"\>
+     \[java\]     \<shipTo state\=\"CA\" country\=\"USA\" zip\=\"90952\"\>
+     \[java\]         \<city\>Mill Valley\<\/city\>
+     \[java\]         \<name\>Alice Smith\<\/name\>
+     \[java\]         \<street\>123 Maple Street\<\/street\>
+     \[java\]     \<\/shipTo\>
+     \[java\]     \<billTo state\=\"PA\" country\=\"USA\" zip\=\"95819\"\>
+     \[java\]         \<city\>Old Town\<\/city\>
+     \[java\]         \<name\>Robert Smith\<\/name\>
+     \[java\]         \<street\>8 Oak Avenue\<\/street\>
+     \[java\]     \<\/billTo\>
+     \[java\] \<\/purchaseOrder\>
+
+BUILD SUCCESSFUL
+Total time\: .*

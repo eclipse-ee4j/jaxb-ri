@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.sun.xml.bind.mvn</groupId>
+        <artifactId>jaxb-docs-parent</artifactId>
+        <version>2.4.0-SNAPSHOT</version>
+    </parent>
+
+    <groupId>com.sun.xml.bind</groupId>
+    <artifactId>jaxb-release-documentation</artifactId>
+    <packaging>pom</packaging>
+    <name>JAXB Release Documentation</name>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <tasks>
+                                <echo message="Preparing char entities"/>
+                                <mkdir dir="${src.dir}"/>
+                                <copy todir="${src.dir}">
+                                    <fileset dir="src/docbook"/>
+                                </copy>
+                                <replace file="${src.dir}/docbook.ent" token="$version" value="${project.version}"/>
+                                <replace file="${src.dir}/docbook.ent" token="$repository" value="${javanet.repository.id}"/>
+
+                                <replace file="${src.dir}/docbook.ent" token="$release.spec.version" value="${release.spec.version}"/>
+                                <replace file="${src.dir}/docbook.ent" token="$release.impl.version.suffix" value="${release.impl.version.suffix}"/>
+                                <replace file="${src.dir}/docbook.ent" token="$release.impl.version" value="${release.impl.version}"/>
+                            </tasks>
+                        </configuration>
+                        <id>process-entities</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.agilejava.docbkx</groupId>
+                <artifactId>docbkx-maven-plugin</artifactId>
+                <version>2.0.11</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>net.sf.docbook</groupId>
+                        <artifactId>docbook-xml</artifactId>
+                        <version>5.0-all</version>
+                        <type>zip</type>
+                        <classifier>resources</classifier>
+                        <scope>runtime</scope>
+                    </dependency>
+                    <dependency>
+                        <groupId>net.sf.xslthl</groupId>
+                        <artifactId>xslthl</artifactId>
+                        <version>2.0.1</version>
+                        <scope>runtime</scope>
+                    </dependency>
+                    <dependency>
+                        <groupId>net.sf.offo</groupId>
+                        <artifactId>fop-hyph</artifactId>
+                        <version>1.2</version>
+                        <scope>runtime</scope>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <xincludeSupported>true</xincludeSupported>
+                    <sourceDirectory>${src.dir}</sourceDirectory>
+                    <targetDirectory>${project.build.directory}/docbook</targetDirectory>
+                    <htmlStylesheet>style/documentation.css</htmlStylesheet>
+                    <htmlCustomization>${project.basedir}/src/main/docbook/stylesheet/htmlCustomizations.xsl</htmlCustomization>
+                    <foCustomization>${project.basedir}/src/main/docbook/stylesheet/foCustomizations.xsl</foCustomization>
+                    <partAutolabel>true</partAutolabel>
+                    <sectionAutolabel>true</sectionAutolabel>
+                    <sectionLabelIncludesComponentLabel>true</sectionLabelIncludesComponentLabel>
+                    <useExtensions>true</useExtensions>
+                    <linenumberingExtension>true</linenumberingExtension>
+                    <linenumberingEveryNth>1</linenumberingEveryNth>
+                    <calloutsExtension>true</calloutsExtension>
+                    <calloutGraphics>true</calloutGraphics>
+                    <calloutGraphicsPath>icons/callouts/</calloutGraphicsPath>
+                    <highlightSource>true</highlightSource>
+                    <highlightDefaultLanguage>true</highlightDefaultLanguage>
+                    <htmlLongdesc>false</htmlLongdesc>
+                    <keepRelativeImageUris>true</keepRelativeImageUris>
+                    <generateIdAttributes>true</generateIdAttributes>
+                    <chapterAutolabel>0</chapterAutolabel>
+                    <qandaDefaultlabel>0</qandaDefaultlabel>
+
+                    <preProcess>
+                        <copy todir="${project.build.directory}/docbook/figures">
+                            <fileset dir="${src.dir}/figures" />
+                        </copy>
+                        <copy todir="${project.build.directory}/docbook/download">
+                            <fileset dir="${src.dir}/download" />
+                        </copy>
+                        <copy todir="${project.build.directory}/docbook/style">
+                            <fileset dir="${src.dir}/style" />
+                        </copy>
+                        <copy todir="${project.build.directory}/docbook/icons">
+                            <fileset dir="${src.dir}/icons" />
+                        </copy>
+                        <copy todir="${project.build.directory}/docbook">
+                            <fileset dir="${resources.dir}" />
+                        </copy>
+                    </preProcess>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>Single page HTML and PDF</id>
+                        <goals>
+                            <goal>generate-html</goal>
+                            <goal>generate-pdf</goal>
+                        </goals>
+                        <configuration>
+                            <includes>release-documentation.xml</includes>
+                        </configuration>
+                        <phase>package</phase>
+                    </execution>
+                    <execution>
+                        <id>Multiple HTML pages</id>
+                        <goals>
+                            <goal>generate-html</goal>
+                        </goals>
+                        <configuration>
+                            <includes>index.xml</includes>
+                            <chunkedOutput>true</chunkedOutput>
+                            <chunkSectionDepth>0</chunkSectionDepth>
+                            <useIdAsFilename>false</useIdAsFilename>
+                        </configuration>
+                        <phase>package</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/main/assembly/docbook.xml</descriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin> <!-- remove the generated src dir-->
+                <artifactId>maven-clean-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <properties>
+        <assembly.directory>${project.build.directory}/assembly</assembly.directory>
+        <src.dir>${project.basedir}/target/gen-src</src.dir>
+        <resources.dir>${project.basedir}/src/main/resources</resources.dir>
+        <javanet.repository.id>snapshots</javanet.repository.id>
+    </properties>
+
+</project>

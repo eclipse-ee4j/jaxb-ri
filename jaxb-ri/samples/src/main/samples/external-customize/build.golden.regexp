@@ -1,0 +1,49 @@
+
+compile\:
+     \[echo\] Compiling the schema\.\.\.
+    \[mkdir\] Created dir\: .*
+      \[xjc\] Compiling .*
+      \[xjc\] Writing output to .*
+     \[echo\] Compiling the java source files\.\.\.
+    \[mkdir\] Created dir\: .*
+    \[javac\] Compiling \d+ source files to .*
+
+run\:
+     \[echo\] Running the sample application\.\.\.
+     \[java\] \<\?xml version\=\"1\.0\" encoding\=\"UTF\-8\" standalone\=\"yes\"\?\>
+     \[java\] \<purchaseOrder orderDate\=\"1999\-10\-20\"\>
+     \[java\]     \<shipTo country\=\"US\"\>
+     \[java\]         \<name\>Alice Smith\<\/name\>
+     \[java\]         \<street\>123 Maple Street\<\/street\>
+     \[java\]         \<city\>Cambridge\<\/city\>
+     \[java\]         \<state\>MA\<\/state\>
+     \[java\]         \<zip\>12345\<\/zip\>
+     \[java\]     \<\/shipTo\>
+     \[java\]     \<billTo country\=\"US\"\>
+     \[java\]         \<name\>John Bob\<\/name\>
+     \[java\]         \<street\>242 Main Street\<\/street\>
+     \[java\]         \<city\>Beverly Hills\<\/city\>
+     \[java\]         \<state\>CA\<\/state\>
+     \[java\]         \<zip\>90210\<\/zip\>
+     \[java\]     \<\/billTo\>
+     \[java\]     \<items\>
+     \[java\]         \<item partNum\=\"242\-NO\"\>
+     \[java\]             \<productName\>Nosferatu \- Special Edition \(1929\)\<\/productName\>
+     \[java\]             \<quantity\>5\<\/quantity\>
+     \[java\]             \<USPrice\>16\.95\<\/USPrice\>
+     \[java\]         \<\/item\>
+     \[java\]         \<item partNum\=\"242\-MU\"\>
+     \[java\]             \<productName\>The Mummy \(1959\)\<\/productName\>
+     \[java\]             \<quantity\>3\<\/quantity\>
+     \[java\]             \<USPrice\>16\.94\<\/USPrice\>
+     \[java\]         \<\/item\>
+     \[java\]         \<item partNum\=\"242\-GZ\"\>
+     \[java\]             \<productName\>Godzilla and Mothra\: Battle for Earth\/Godzilla vs\. King Ghidora\<\/productName\>
+     \[java\]             \<quantity\>3\<\/quantity\>
+     \[java\]             \<USPrice\>23\.70\<\/USPrice\>
+     \[java\]         \<\/item\>
+     \[java\]     \<\/items\>
+     \[java\] \<\/purchaseOrder\>
+
+BUILD SUCCESSFUL
+Total time\: .*

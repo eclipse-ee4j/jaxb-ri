@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<section version="5.0" xml:id="tools-schemagen-ant-task" xml:lang="en"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>SchemaGen Ant Task</title>
+
+    <section>
+        <title><command>schemagen</command> Task Overview</title>
+
+        <para>The <literal>jaxb-xjc.jar</literal> file contains the
+        <literal>SchemaGenTask.class</literal> file, which allows the schema
+        generator to be invoked from the <link
+        xlink:href="http://jakarta.apache.org/ant">Ant</link> build tool. To
+        use <literal>SchemaGenTask</literal>, include the following statement
+        in your <literal>build.xml</literal> file:</para>
+
+        <informalexample>
+            <programlisting language="xml"><![CDATA[<taskdef name="schemagen"
+         classname="com.sun.tools.jxc.SchemaGenTask">
+    <classpath>
+        <fileset dir="path/to/jaxb/lib" includes="*.jar"/>
+    </classpath>
+</taskdef>]]></programlisting>
+        </informalexample>
+
+        <para>This maps <literal>SchemaGenTask</literal> to an Ant task named
+        <literal>schemagen</literal>. For detailed examples of using this
+        task, refer to the <literal>build.xml</literal> files used by the java to
+        schema <xref linkend="jaxb-2-0-sample-apps"
+        xrefstyle="select:title" />.</para>
+    </section>
+
+    <section xml:id="section-417846742205862">
+        <title><command>schemagen</command> Task Attributes</title>
+
+        <section xml:id="section-077165761436022">
+            <title>Environment Variables</title>
+
+            <itemizedlist>
+                <listitem>
+                    <para><link
+                    xlink:href="http://wiki.apache.org/ant/TheElementsOfAntStyle">ANT_OPTS</link>
+                    - command-line arguments that should be passed to the JVM.
+                    For example, you can define system properties or set the
+                    maximum Java heap size here.</para>
+                </listitem>
+            </itemizedlist>
+        </section>
+
+        <section xml:id="section-914482811856355">
+            <title>Parameter Attributes</title>
+
+            <para><literal>schemagen</literal> supports most of the attributes
+            defined by <link
+            xlink:href="http://ant.apache.org/manual/CoreTasks/javac.html">the
+            javac task</link>, plus the following parameter attributes.</para>
+
+            <informaltable frame="all">
+                <tgroup cols="3" colsep="1" rowsep="1">
+                    <thead>
+                        <row>
+                            <entry><emphasis
+                            role="bold">Attribute</emphasis></entry>
+
+                            <entry><emphasis
+                            role="bold">Description</emphasis></entry>
+
+                            <entry><emphasis
+                            role="bold">Required</emphasis></entry>
+                        </row>
+                    </thead>
+
+                    <tbody>
+                        <row>
+                            <entry><para><literal>destdir</literal></para></entry>
+
+                            <entry><para>Base directory to place the generated
+                            schema files</para></entry>
+
+                            <entry><para>No</para></entry>
+                        </row>
+
+                        <row>
+                            <entry><para><literal>classpath</literal></para></entry>
+
+                            <entry><para>Works just like the nested
+                            &lt;classpath&gt; element</para></entry>
+
+                            <entry><para>No</para></entry>
+                        </row>
+
+                        <row>
+                            <entry><para><literal>episode</literal></para></entry>
+
+                            <entry><para>If specified, generate an episode file
+                            in the specified name. For more about the episode
+                            file, see <xref linkend="episode"
+                            xrefstyle="select:title" />.</para></entry>
+
+                            <entry><para>No</para></entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </informaltable>
+        </section>
+
+        <section xml:id="section-107210544982149">
+            <title>Nested Elements</title>
+
+            <para><literal>xjc</literal> supports all the nested elements
+            defined by <link
+            xlink:href="http://ant.apache.org/manual/CoreTasks/javac.html">the
+            javac task</link>, the following nested element parameters.</para>
+
+            <section xml:id="section-1989087498722346">
+                <title><literal>schema</literal></title>
+
+                <para>Control the file name of the generated schema. This
+                element takes a mandatory <literal>namespace</literal> attribute and
+                a mandaotry <literal>file</literal> attribute. When this element is
+                present, the schema document generated for the specified
+                namespace will be placed in the specified file name.</para>
+
+                <para>The file name is interpreted as relative to the destdir
+                attribute. In the absence of the destdir attribute, file names
+                are relative to the project base directory. This element can
+                be specified multiple times.</para>
+            </section>
+
+            <section xml:id="section-652997891191299">
+                <title><literal>classpath</literal></title>
+
+                <para>A <link
+                xlink:href="http://ant.apache.org/manual/using.html#path">path-like
+                structure</link> that represents the classpath. If your Java
+                sources/classes depend on other libraries, they need to be
+                available in the classpath.</para>
+            </section>
+        </section>
+    </section>
+
+    <section xml:id="section-9298229576523986">
+        <title><command>schemagen</command> Examples</title>
+
+        <para>Generate schema files from source files in the <literal>src</literal>
+        dir and place them in the <filename>build/schemas</filename> directory.</para>
+
+        <informalexample>
+            <programlisting language="xml"><![CDATA[<schemagen srcdir="src" destdir="build/schemas">]]></programlisting>
+        </informalexample>
+
+        <para>Compile a portion of the source tree.</para>
+
+        <informalexample>
+            <programlisting language="xml"><![CDATA[<schemagen destdir="build/schemas">
+    <src path="src"/>
+    <exclude name="Main.java"/>
+</schemagen>]]></programlisting>
+        </informalexample>
+
+        <para>Set schema file names.</para>
+
+        <informalexample>
+            <programlisting language="xml"><![CDATA[<schemagen srcdir="src" destdir="build/schemas">
+    <schema namespace="http://myschema.acme.org/common"
+            file="myschema-common.xsd"/>
+    <schema namespace="http://myschema.acme.org/onion"
+            file="myschema-onion.xsd"/>
+</schemagen>]]></programlisting>
+        </informalexample>
+    </section>
+</section>

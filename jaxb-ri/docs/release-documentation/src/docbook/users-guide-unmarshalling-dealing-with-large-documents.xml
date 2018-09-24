@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<section version="5.0" xml:id="unmarshalling-dealing-with-large-documents"
+         xml:lang="en" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>Dealing with large documents</title>
+
+    <para>JAXB API is designed to make it easy to read the whole XML document
+    into a single tree of JAXB objects. This is the typical use case, but in
+    some situations this is not desirable. Perhaps:</para>
+
+    <orderedlist>
+        <listitem>
+            <para>A document is huge and therefore the whole may not fit the
+            memory.</para>
+        </listitem>
+
+        <listitem>
+            <para>A document is a live stream of XML (such as <link
+            xlink:href="http://www.xmpp.org/">XMPP</link>) and therefore you
+            can't wait for the EOF.</para>
+        </listitem>
+
+        <listitem>
+            <para>You only need to databind the portion of a document and
+            would like to process the rest in other XML APIs.</para>
+        </listitem>
+    </orderedlist>
+
+    <para>This section discusses several advanced techniques to deal with
+    these situations.</para>
+
+    <section xml:id="Processing_a_document_by_chunk">
+        <title>Processing a document by chunk</title>
+
+        <para>When a document is large, it's usually because there's
+        repetitive parts in it. Perhaps it's a purchase order with a large
+        list of line items, or perhaps it's an XML log file with large number
+        of log entries.</para>
+
+        <para>This kind of XML is suitable for chunk-processing; the main idea
+        is to use the StAX API, run a loop, and unmarshal individual chunks
+        separately. Your program acts on a single chunk, and then throws it
+        away. In this way, you'll be only keeping at most one chunk in memory,
+        which allows you to process large documents.</para>
+
+        <para>See the streaming-unmarshalling example and the
+        partial-unmarshalling example in the JAXB RI distribution for more
+        about how to do this. The streaming-unmarshalling example has an
+        advantage that it can handle chunks at arbitrary nest level, yet it
+        requires you to deal with the push model --- JAXB unmarshaller will
+        "<literal>push</literal>" new chunk to you and you'll need to process them right
+        there.</para>
+
+        <para>In contrast, the partial-unmarshalling example works in a pull
+        model (which usually makes the processing easier), but this approach
+        has some limitations in databinding portions other than the repeated
+        part.</para>
+    </section>
+
+    <section xml:id="Processing_a_live_stream_of_XML">
+        <title>Processing a live stream of XML</title>
+
+        <para>The techniques discussed above can be used to handle this case
+        as well, since they let you unmarshal chunks one by one. See the
+        xml-channel example in the JAXB RI distribution for more about how to
+        do this.</para>
+    </section>
+
+    <section xml:id="Creating_virtual_infosets">
+        <title>Creating virtual infosets</title>
+
+        <para>For further advanced cases, one could always run a streaming
+        infoset conversion outside JAXB API and basically curve just the
+        portion of the infoset you want to data-bind, and feed it as a
+        complete infoset into JAXB API. JAXB API accepts XML infoset in many
+        different forms (DOM, SAX, StAX), so there's a fair amount of
+        flexibility in choosing the right trade off between the development
+        effort in doing this and the runtime performance.</para>
+
+        <para>For more about this, refer to the respective XML infoset
+        API.</para>
+    </section>
+</section>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<section version="5.0"
+         xml:id="unmarshalling-element-default-values-and-unmarshalling"
+         xml:lang="en" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>Element default values and unmarshalling</title>
+
+    <para>Because of the "strange" way that element default values in XML
+    Schema work, people often get confused about their behavior. This section
+    describes how this works.</para>
+
+    <para>When a class has an element property with the default value, and if
+    the document you are reading is missing the element, then the unmarshaller
+    does <emphasis>not</emphasis> fill the field with the default value.
+    Instead, the unmarshaller fills in the field when the element is present
+    but the content is missing. See below:</para>
+
+    <example>
+        <title>XML instance 1</title>
+
+        <programlisting language="xml"><![CDATA[<foo />]]></programlisting>
+    </example>
+
+    <example>
+        <title>XML instance 2</title>
+
+        <programlisting language="xml"><![CDATA[<foo>
+  <a/>  <!-- or <a></a> -->
+</foo>]]></programlisting>
+    </example>
+
+    <example>
+        <title>XML instance 3</title>
+
+        <programlisting language="xml"><![CDATA[<foo>
+  <a>abc</a>
+</foo>]]></programlisting>
+    </example>
+
+    <example>
+        <title>Element defaults and XML</title>
+
+        <programlisting language="java"><![CDATA[@XmlRootElement
+class Foo {
+  @XmlElement(defaultValue="value") public String a=null;
+}
+
+Foo foo = unmarshaller.unmarshal("instance1.xml");
+System.out.println(foo.a);   // null
+
+Foo foo = unmarshaller.unmarshal("instance2.xml");
+System.out.println(foo.a);   // "value". The default kicked in.
+
+Foo foo = unmarshaller.unmarshal("instance3.xml");
+System.out.println(foo.a);   // "abc". Read from the instance.]]></programlisting>
+    </example>
+
+    <para>This is consistent with the XML Schema spec, where it essentially
+    states that the element defaults do not kick in when the element is
+    absent, so unfortunately we can't change this behavior.</para>
+
+    <para>Depending on your expectation, using a field initializer may achieve
+    what you are looking for. See below:</para>
+
+    <example>
+        <title>Possible changes by using field initializer</title>
+
+        <programlisting language="java"><![CDATA[@XmlRootElement
+class Foo {
+  @XmlElement public String a="value";
+}
+
+Foo foo = unmarshaller.unmarshal("instance1.xml");
+System.out.println(foo.a);   // "value", because JAXB didn't overwrite the value
+
+Foo foo = unmarshaller.unmarshal("instance2.xml");
+System.out.println(foo.a);   // "", because <a> element had 0-length string in it
+
+Foo foo = unmarshaller.unmarshal("instance3.xml");
+System.out.println(foo.a);   // "abc". Read from the instance.]]></programlisting>
+    </example>
+
+    <para>Alternatively, attribute default values work in a way that agrees
+    with the typical expectation, so consider using that. Also, see <xref
+    linkend="marshalling-element-default-values-and-marshalling"
+    xrefstyle="select:title" />.</para>
+</section>

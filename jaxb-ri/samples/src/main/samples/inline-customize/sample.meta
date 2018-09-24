@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+
+    Copyright (c) 2017, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<sample since="1.0">
+    <title>inline-customize (formerly SampleApp6)</title>
+    <description><![CDATA[
+        This sample application demonstrates how to customize the default 
+        binding produced by the XJC binding compiler.
+    ]]></description>
+        
+    <project>
+        <datatypeConverterSrc>
+            <src>
+                <include name="**/MyDatatypeConverter.java"/>
+            </src>
+        </datatypeConverterSrc>
+        
+        <xjc schema="po.xsd"/>
+        
+        <javadoc/>
+        
+        <java mainClass="Main"/>
+    </project>
+    
+</sample>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<section version="5.0"
+         xml:id="deployment-migrating-jaxb-2-0-applications-to-javase-6"
+         xml:lang="en" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>Older versions of JAXB and JavaSE</title>
+
+    <para>JavaSE 6 ships with its own JAXB 2.0 implementation. This
+    implementation is based on the JAXB RI, where the only differences
+    are:</para>
+
+    <itemizedlist>
+        <listitem>
+            <para><emphasis role="bold">No RI-specific vendor extensions are
+            supported:</emphasis> This is so that portability across different
+            JavaSE 6 implementations will be guaranteed.</para>
+        </listitem>
+
+        <listitem>
+            <para><emphasis role="bold">Code in JavaSE 6 is hosted in its own
+            packages to avoid conflicts:</emphasis> This allows applications
+            to continue to use a specific version of the JAXB RI that they
+            choose to use.</para>
+        </listitem>
+    </itemizedlist>
+
+    <para>Therefore, if you develop an application that uses JAXB 2.0 for
+    JavaSE 5 today, the easiest way to upgrade to JavaSE 6 is to do nothing.
+    You should keep the JAXB RI in your development environment, keep bundling
+    the JAXB RI runtime jars to your app, just like you do that today.</para>
+
+    <section xml:id="Reducing_footprint">
+        <title>Reducing footprint</title>
+
+        <para>If you'd like to reduce the footprint of your application by
+        taking advantage of a JAXB implementation in JavaSE, you can take
+        the following steps:</para>
+
+        <orderedlist>
+            <listitem>
+                <para>You will no longer have to ship
+                <filename>jaxb-api.jar</filename> in your application. This doesn't
+                require any change to your code.</para>
+            </listitem>
+
+            <listitem>
+                <para>If your application does not use any of the vendor
+                extension features of the JAXB RI runtime (such as
+                unmarshaller/marshaller properties whose names start with
+                "<literal>com.sun.</literal>"), then you will no longer have to ship
+                <filename>jaxb-impl.jar</filename> (nor <filename>jaxb1-impl.jar</filename>,
+                <filename>jaxb-libs.jar</filename>.) When you do this, be sure to test
+                your application since it's not very easy to find all such
+                dependencies.</para>
+            </listitem>
+        </orderedlist>
+    </section>
+
+    <section xml:id="Using_JAXB_with_JavaSE">
+        <title>Using JAXB with Java SE</title>
+
+        <para>JavaSE comes with JAXB 2.x API/implementation in <literal>rt.jar</literal>. Each 
+        version of JavaSE (6, 7, 8, ...) contains different version of JAXB 2.x 
+        API. Therefore, if you want to use different version of JAXB API/implementation 
+        than the one present in your version of JDK, you are required to override 
+        a portion of <literal>rt.jar</literal> with the new API. There are 
+        several ways to achieve this:</para>
+
+        <orderedlist>
+            <listitem>
+                <para>
+                    Place the <filename>jaxb-api.jar</filename> into
+                    <code>$JRE_HOME/lib/endorsed</code>. <emphasis role="bold">Do not put other JAXB jars into the
+                    endorsed directory.</emphasis> And put jaxb-impl, jaxb-core to classpath of your application.
+                    This essentially makes your JRE to "JRE X + JAXB 2.y". This would
+                    affect any other applications that use this JRE, and it's easy.
+                    On the other hand, in various scenarios you may not be able to
+                    alter the JRE.
+                </para>
+            </listitem>
+
+            <listitem>
+                <para>
+                    Use the system property <literal>java.endorsed.dirs</literal> when you launch your application, and
+                    have it point to the directory which contains the <filename>jaxb-api.jar</filename> only.
+                    <emphasis role="bold">The directory must not contain any other jaxb artifacts (like jaxb-impl.jar or
+                    jaxb-xjc.jar).</emphasis> This allows you use to use different version of JAXB for different
+                    applications.
+                </para>
+            </listitem>
+
+        </orderedlist>
+
+        <para>No matter which approach you take, make sure not to include jar
+        files other than <filename>jaxb-api.jar</filename>. Doing so, for example
+        including <filename>jaxb-xjc.jar</filename>, may result in classloading
+        related errors such as "taskdef A class needed by class
+        com.sun.tools.xjc.XJCTask cannot be found:
+        org/apache/tools/ant/...."</para>
+
+        <para>See <link
+        xlink:href="http://docs.oracle.com/javase/6/docs/technotes/guides/standards/">the
+        endorsed directory mechanism</link> for more details.</para>
+    </section>
+
+    <section xml:id="Where_s_the_XJC_ant_task_">
+        <title>Where's the XJC ant task?</title>
+
+        <para>JavaSE has never shipped an Ant task implementation, so we are
+        just following that tradition. There's an (process-wise) overhead of
+        adding additional dependencies during the JavaSE build, and there
+        would likely be some runtime dependency issues in having a class in
+        <literal>tools.jar</literal> that would require the ant classes, due to
+        class loader delegation.</para>
+
+        <para>We are thinking about perhaps releasing a small jar that only
+        contains the ant task for JDK6.</para>
+
+        <para>Please also note that the syntax of <literal>&lt;xjc&gt;</literal> task is neither
+        defined in the JAXB spec nor in the JavaSE spec. Therefore other
+        JavaSE vendors may not implement that at all, or do so in a different
+        class name, etc. Therefore, from a portability perspective, if you
+        choose to depend on the <literal>&lt;xjc&gt;</literal> task you should bundle the JAXB
+        RI.</para>
+    </section>
+</section>

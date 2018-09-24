@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<chapter version="5.0" xml:id="articles" xml:lang="en"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>Related Articles</title>
+
+    <section>
+        <title>Introductory</title>
+
+        <itemizedlist>
+            <listitem>
+                <para><link
+                xlink:href="https://blogs.oracle.com/CoreJavaTechTips/entry/exchanging_data_with_xml_and">Exchanging
+                Data with XML and JAXB, Part I</link> and <link
+                xlink:href="https://blogs.oracle.com/CoreJavaTechTips/entry/exchanging_data_with_xml_and1">Part
+                II</link> by Jennie Hall</para>
+            </listitem>
+        </itemizedlist>
+    </section>
+
+    <section>
+        <title>Blogs</title>
+
+        <itemizedlist>
+ 
+            <listitem>
+                <para><link xlink:href="https://blogs.oracle.com/mgrebac/">Martin
+                Grebac's blog</link></para>
+            </listitem>
+
+            <listitem>
+                <para><link xlink:href="http://lexicore.blogspot.com/">Aleksei
+                Valikov's blog</link></para>
+            </listitem>
+        </itemizedlist>
+    </section>
+
+    <section>
+        <title>Interesting articles</title>
+
+        <itemizedlist>
+            <listitem>
+                <para><link
+                xlink:href="http://www.devx.com/xml/Article/28784/0/page/4">JAXB
+                1.0.5 and RELAX NG support</link></para>
+            </listitem>
+
+            <listitem>
+                <para><link
+                xlink:href="http://amazing-development.com/archives/2005/12/08/xml-with-schema-and-xinclude-in-java/">JAXB
+                and XInclude - Alternative to XIncluder</link></para>
+            </listitem>
+
+            <listitem>
+                <para><link
+                xlink:href="http://www.jroller.com/gmazza/entry/kohmori_reports_now_using_jaxb">Kohmori
+                Reports now using JAXB!</link></para>
+            </listitem>
+        </itemizedlist>
+    </section>
+</chapter>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<section version="5.0"
+         xml:id="customization-of-schema-compilation-using-scd-for-customizations"
+         xml:lang="en" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>Using SCD for customizations</title>
+
+    <para>When using an external customization file, the JAXB spec requires
+    that you use XPath as a means to specify what your customization is
+    attached to. For example, if you want to change the class name generated
+    from a complex type, you'd write something like:</para>
+
+    <example>
+        <title>External customization example</title>
+
+        <programlisting language="xml"><![CDATA[<bindings xmlns="http://java.sun.com/xml/ns/jaxb" version="2.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <bindings schemaLocation="../path/to/my.xsd" node="/xs:schema/xs:complexType[@name='foo']">
+    <class name="FooType"/>
+  </bindings>
+</bindings>]]></programlisting>
+    </example>
+
+    <para>While the above process works, the problem with this is that the
+    XPath+ <literal>schemaLocation</literal> combo tends to be verbose and error
+    prone. It's verbose, because often a trivial target schema component like
+    this "global complex type foo" takes up a lot of characters. The xs
+    namespace declaration also takes up some space, although in this case we
+    managed to avoid declaring the "tns" namespace (that represents the
+    namespace that the schema defines.)</para>
+
+    <para>It's also error prone, because it relies on the way schema documents
+    are laid out, because the schemaLocation attribute needs to point to the
+    right schema document file. When a schema is split into multiple files for
+    modularity (happens especially often with large schemas), then you'd have
+    to find which schema file it is. Even though you can use relative paths,
+    this hard-coding of path information makes it hard to pass around the
+    binding file to other people.</para>
+
+    <para>JAXB RI 2.1 and onward offers a better way to do this as a vendor
+    extension.</para>
+
+    <para>The key technology to solve this problem is a <link
+    xlink:href="http://www.w3.org/TR/xmlschema-ref/">"<literal>schema component
+    designator</literal>"</link> (SCD.) This is a path language just like XPath, but
+    whereas XPath is designed to refer to XML infoset items like elements and
+    attributes, SCD is designed to refer to schema components like element
+    declarations or complex types.</para>
+
+    <para>With SCD, the above binding can be written more concisely as
+    follows:</para>
+
+    <example>
+        <title>External customization by SCD</title>
+
+        <programlisting language="xml"><![CDATA[<bindings xmlns="http://java.sun.com/xml/ns/jaxb" version="2.1" xmlns:tns="http://my.namespace/">
+  <bindings scd="/type::tns:foo">
+    <class name="FooType"/>
+  </bindings>
+</bindings>]]></programlisting>
+    </example>
+
+    <para><code>/type::tns:foo</code> can be written more concisely as
+    <code>/~tns:foo</code>, too. If you are interested in more about the
+    syntax of SCDs, read <link
+    xlink:href="http://www.w3.org/TR/xmlschema-ref/#section-path-examples">the
+    example part of the spec</link>, and maybe <link
+    xlink:href="http://www.w3.org/TR/xmlschema-ref/#section-path-ebnf">EBNF</link>.
+    If you know XPath, I think you'll find this fairly easy to learn.</para>
+
+    <para>Another benefit of an SCD is that tools will have easier time
+    generating SCDs than XPath, as XPaths are often vulnerable to small
+    changes in the schema document, while SCDs are much more robust. The
+    downside of using SCD is as of JAXB 2.1, this feature is a vendor
+    extension and not defined in the spec.</para>
+</section>

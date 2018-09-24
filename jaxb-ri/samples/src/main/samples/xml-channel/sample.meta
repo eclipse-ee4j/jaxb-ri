@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+
+    Copyright (c) 2017, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<sample since="1.0">
+    <title>XML message passing via socket</title>
+    <description><![CDATA[
+      This example demonstrates how one can use one communication channel
+      (such as a socket) to send multiple XML messages, and how it can be
+      combined with JAXB.
+    ]]></description>
+        
+    <readme/>
+    
+    <project>
+        <depends>
+          <jar name="sjsxp.jar" from="http://java.sun.com"/>
+        </depends>
+        <xjc schema="message.xsd" package="message"/>
+        <javadoc/>
+        <java mainClass="Test" />
+    </project>
+    
+</sample>

@@ -1,0 +1,594 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<section version="5.0" xml:id="jaxb-ri-extensions-runtime-properties"
+         xml:lang="en" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>Runtime Properties</title>
+
+    <section xml:id="section-872160760955562">
+        <title>Marshaller Properties</title>
+
+        <para>The JAXB RI provides additional Marshaller properties that are
+        not defined by the JAXB specification. These properties allow you to
+        better control the marshalling process, but they only work with the
+        JAXB RI; they may not work with other JAXB providers.</para>
+
+        <section xml:id="section-151118438382732">
+            <title>Index of Marshaller Properties</title>
+
+            <itemizedlist>
+                <listitem>
+                    <para><xref linkend="prefixmapper"
+                    xrefstyle="select:title" /></para>
+                </listitem>
+
+                <listitem>
+                    <para><xref linkend="indent"
+                    xrefstyle="select:title" /></para>
+                </listitem>
+
+                <listitem>
+                    <para><xref linkend="charescape"
+                    xrefstyle="select:title" /></para>
+                </listitem>
+
+                <listitem>
+                    <para><xref linkend="xmldecl"
+                    xrefstyle="select:title" /></para>
+                </listitem>
+
+                <listitem>
+                    <para><xref linkend="jaxbann"
+                    xrefstyle="select:title" /></para>
+                </listitem>
+            </itemizedlist>
+        </section>
+
+        <section xml:id="prefixmapper">
+            <title>Namespace Prefix Mapping</title>
+
+            <informaltable frame="all">
+                <tgroup cols="2" colsep="1" rowsep="1">
+                    <tbody>
+                        <row>
+                            <entry><emphasis role="bold">Property
+                            name:</emphasis></entry>
+
+                            <entry><literal>com.sun.xml.bind.namespacePrefixMapper</literal></entry>
+                        </row>
+
+                        <row>
+                            <entry><emphasis
+                            role="bold">Type:</emphasis></entry>
+
+                            <entry><literal>com.sun.xml.bind.marshaller.NamespacePrefixMapper</literal></entry>
+                        </row>
+
+                        <row>
+                            <entry><emphasis role="bold">Default
+                            value:</emphasis></entry>
+
+                            <entry><para>null</para></entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </informaltable>
+
+            <para>The JAXB RI provides a mechanism for users to control
+            declarations of namespace URIs and what prefixes they will be
+            bound to. This is the general procedure:</para>
+
+            <orderedlist>
+                <listitem>
+                    <para>The application developer provides an implementation
+                    of
+                    <literal>com.sun.xml.bind.marshaller.NamespacePrefixMapper</literal>.</para>
+                </listitem>
+
+                <listitem>
+                    <para>This class is then set on the marshaller via the RI
+                    specific property
+                    <literal>com.sun.xml.bind.namespacePrefixMapper</literal>.</para>
+                </listitem>
+
+                <listitem>
+                    <para>Each time the marshaller sees a URI, it performs a
+                    callback on the mapper: "What prefix do you want for this
+                    namespace URI?"</para>
+                </listitem>
+
+                <listitem>
+                    <para>If the mapper returns something, the marshaller will
+                    try to use it.</para>
+                </listitem>
+            </orderedlist>
+
+            <para>The
+            <literal>com.sun.xml.bind.marshaller.NamespacePrefixMapper</literal>
+            class has the following method that you need to implement:</para>
+
+            <informalexample>
+                <programlisting language="java"><![CDATA[/**
+ * Implemented by the user application to determine URI -> prefix
+ * mapping.
+ * 
+ * This is considered as an interface, though it's implemented
+ * as an abstract class to make it easy to add new methods in
+ * a future. 
+ * 
+ * @author
+ *     Kohsuke Kawaguchi (kohsuke.kawaguchi@sun.com)
+ */
+public abstract class NamespacePrefixMapper {
+
+    private static final String[] EMPTY_STRING = new String[0];
+
+    /**
+     * Returns a preferred prefix for the given namespace URI.
+     * 
+     * This method is intended to be overrided by a derived class.
+     *
+     * <p>
+     * As noted in the return value portion of the javadoc, there
+     * are several cases where the preference cannot be honored.
+     * Specifically, as of JAXB RI 2.0 and onward:
+     *
+     * <ol>
+     * <li>
+     * If the prefix returned is already in use as one of the in-scope
+     * namespace bindings. This is partly necessary for correctness
+     * (so that we don't unexpectedly change the meaning of QNames
+     * bound to {@link String}), partly to simplify the marshaller.
+     * <li>
+     * If the prefix returned is "" yet the current {@link JAXBContext}
+     * includes classes that use the empty namespace URI. This allows
+     * the JAXB RI to reserve the "" prefix for the empty namespace URI,
+     * which is the only possible prefix for the URI.
+     * This restriction is also to simplify the marshaller.
+     * </ol>
+     *
+     * @param namespaceUri
+     *      The namespace URI for which the prefix needs to be found.
+     *      Never be null. "" is used to denote the default namespace.
+     * @param suggestion
+     *      When the content tree has a suggestion for the prefix
+     *      to the given namespaceUri, that suggestion is passed as a
+     *      parameter. Typicall this value comes from the QName.getPrefix
+     *      to show the preference of the content tree. This parameter
+     *      may be null, and this parameter may represent an already
+     *      occupied prefix. 
+     * @param requirePrefix
+     *      If this method is expected to return non-empty prefix.
+     *      When this flag is true, it means that the given namespace URI
+     *      cannot be set as the default namespace.
+     * 
+     * @return
+     *      null if there's no prefered prefix for the namespace URI.
+     *      In this case, the system will generate a prefix for you.
+     * 
+     *      Otherwise the system will try to use the returned prefix,
+     *      but generally there's no guarantee if the prefix will be
+     *      actually used or not.
+     * 
+     *      return "" to map this namespace URI to the default namespace.
+     *      Again, there's no guarantee that this preference will be
+     *      honored.
+     * 
+     *      If this method returns "" when requirePrefix=true, the return
+     *      value will be ignored and the system will generate one.
+     * 
+     * @since JAXB 1.0.1
+     */
+    public abstract String getPreferredPrefix(String namespaceUri, String suggestion, boolean requirePrefix);
+
+    /**
+     * Returns a list of namespace URIs that should be declared
+     * at the root element.
+     *
+     * <p>
+     * By default, the JAXB RI 1.0.x produces namespace declarations only when
+     * they are necessary, only at where they are used. Because of this
+     * lack of look-ahead, sometimes the marshaller produces a lot of
+     * namespace declarations that look redundant to human eyes. For example,
+     * <pre><xmp>
+     * <?xml version="1.0"?>
+     * <root>
+     *   <ns1:child xmlns:ns1="urn:foo"> ... </ns1:child>
+     *   <ns2:child xmlns:ns2="urn:foo"> ... </ns2:child>
+     *   <ns3:child xmlns:ns3="urn:foo"> ... </ns3:child>
+     *   ...
+     * </root>
+     * </xmp></pre>
+     *
+     * <p>
+     * The JAXB RI 2.x mostly doesn't exhibit this behavior any more,
+     * as it declares all statically known namespace URIs (those URIs
+     * that are used as element/attribute names in JAXB annotations),
+     * but it may still declare additional namespaces in the middle of
+     * a document, for example when (i) a QName as an attribute/element value
+     * requires a new namespace URI, or (ii) DOM nodes as a portion of an object
+     * tree requires a new namespace URI.
+     *
+     * <p>
+     * If you know in advance that you are going to use a certain set of
+     * namespace URIs, you can override this method and have the marshaller
+     * declare those namespace URIs at the root element.
+     *
+     * <p>
+     * For example, by returning <code>new String[]{"urn:foo"}</code>,
+     * the marshaller will produce:
+     * <pre><xmp>
+     * <?xml version="1.0"?>
+     * <root xmlns:ns1="urn:foo">
+     *   <ns1:child> ... </ns1:child>
+     *   <ns1:child> ... </ns1:child>
+     *   <ns1:child> ... </ns1:child>
+     *   ...
+     * </root>
+     * </xmp></pre>
+     * <p>
+     * To control prefixes assigned to those namespace URIs, use the
+     * {@link #getPreferredPrefix(String, String, boolean)} method. 
+     * 
+     * @return
+     *      A list of namespace URIs as an array of {@link String}s.
+     *      This method can return a length-zero array but not null.
+     *      None of the array component can be null. To represent
+     *      the empty namespace, use the empty string <code>""</code>.
+     * 
+     * @since
+     *      JAXB RI 1.0.2 
+     */
+    public String[] getPreDeclaredNamespaceUris() {
+        return EMPTY_STRING;
+    }
+
+    /**
+     * Similar to {@link #getPreDeclaredNamespaceUris()} but allows the
+     * (prefix,nsUri) pairs to be returned.
+     *
+     * <p>
+     * With {@link #getPreDeclaredNamespaceUris()}, applications who wish to control
+     * the prefixes as well as the namespaces needed to implement both
+     * {@link #getPreDeclaredNamespaceUris()} and {@link #getPreferredPrefix(String, String, boolean)}.
+     *
+     * <p>
+     * This version eliminates the needs by returning an array of pairs.
+     *
+     * @return
+     *      always return a non-null (but possibly empty) array. The array stores
+     *      data like (prefix1,nsUri1,prefix2,nsUri2,...) Use an empty string to represent
+     *      the empty namespace URI and the default prefix. Null is not allowed as a value
+     *      in the array.
+     *
+     * @since
+     *      JAXB RI 2.0 beta
+     */
+    public String[] getPreDeclaredNamespaceUris2() {
+        return EMPTY_STRING;
+    }
+
+    /**
+     * Returns a list of (prefix,namespace URI) pairs that represents
+     * namespace bindings available on ancestor elements (that need not be repeated
+     * by the JAXB RI.)
+     *
+     * <p>
+     * Sometimes JAXB is used to marshal an XML document, which will be
+     * used as a subtree of a bigger document. When this happens, it's nice
+     * for a JAXB marshaller to be able to use in-scope namespace bindings
+     * of the larger document and avoid declaring redundant namespace URIs.
+     *
+     * <p>
+     * This is automatically done when you are marshalling to {@link XMLStreamWriter},
+     * {@link XMLEventWriter}, {@link DOMResult}, or {@link Node}, because
+     * those output format allows us to inspect what's currently available
+     * as in-scope namespace binding. However, with other output format,
+     * such as {@link OutputStream}, the JAXB RI cannot do this automatically.
+     * That's when this method comes into play.
+     *
+     * <p>
+     * Namespace bindings returned by this method will be used by the JAXB RI,
+     * but will not be re-declared. They are assumed to be available when you insert
+     * this subtree into a bigger document.
+     *
+     * <p>
+     * It is <b>NOT</b> OK to return  the same binding, or give
+     * the receiver a conflicting binding information.
+     * It's a responsibility of the caller to make sure that this doesn't happen
+     * even if the ancestor elements look like:
+     * <pre><xmp>
+     *   <foo:abc xmlns:foo="abc">
+     *     <foo:abc xmlns:foo="def">
+     *       <foo:abc xmlns:foo="abc">
+     *         ... JAXB marshalling into here.
+     *       </foo:abc>
+     *     </foo:abc>
+     *   </foo:abc>
+     * </xmp></pre>
+     *
+     * @return
+     *      always return a non-null (but possibly empty) array. The array stores
+     *      data like (prefix1,nsUri1,prefix2,nsUri2,...) Use an empty string to represent
+     *      the empty namespace URI and the default prefix. Null is not allowed as a value
+     *      in the array.
+     *
+     * @since JAXB RI 2.0 beta
+     */
+    public String[] getContextualNamespaceDecls() {
+        return EMPTY_STRING;
+    }
+}]]></programlisting>
+            </informalexample>
+
+            <para>See the <xref linkend="jaxb-2-0-sample-apps"
+            xrefstyle="select:title" /> sample application for a detailed
+            example.</para>
+        </section>
+
+        <section xml:id="indent">
+            <title>Indentation</title>
+
+            <informaltable frame="all">
+                <tgroup cols="2" colsep="1" rowsep="1">
+                    <tbody>
+                        <row>
+                            <entry><emphasis role="bold">Property
+                            name:</emphasis></entry>
+
+                            <entry><literal>com.sun.xml.bind.indentString</literal></entry>
+                        </row>
+
+                        <row>
+                            <entry><emphasis
+                            role="bold">Type:</emphasis></entry>
+
+                            <entry><literal>java.lang.String</literal></entry>
+                        </row>
+
+                        <row>
+                            <entry><emphasis role="bold">Default
+                            value:</emphasis></entry>
+
+                            <entry><para>" " (four whitespaces)</para></entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </informaltable>
+
+            <para>This property controls the string used for the indentation
+            of XML. An element of depth <emphasis>k</emphasis> will be
+            indented by printing this string <emphasis>k</emphasis> times.
+            Note that the "<literal>jaxb.formatted.output</literal>" property
+            needs to be set to "true" for the formatting/indentation of the
+            output to occur. See the API documentation for <link
+            xlink:href="api/javax/xml/bind/Marshaller.html">
+            <literal>javax.xml.bind.Marshaller</literal> </link> interface for
+            details of this property.</para>
+        </section>
+
+        <section xml:id="charescape">
+            <title>Character Escaping Control</title>
+
+            <informaltable frame="all">
+                <tgroup cols="2" colsep="1" rowsep="1">
+                    <tbody>
+                        <row>
+                            <entry><emphasis role="bold">Property
+                            name:</emphasis></entry>
+
+                            <entry><literal>com.sun.xml.bind.characterEscapeHandler</literal></entry>
+                        </row>
+
+                        <row>
+                            <entry><emphasis
+                            role="bold">Type:</emphasis></entry>
+
+                            <entry><literal>com.sun.xml.bind.marshaller.CharacterEscapeHandler</literal></entry>
+                        </row>
+
+                        <row>
+                            <entry><emphasis role="bold">Default
+                            value:</emphasis></entry>
+
+                            <entry><para>null</para></entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </informaltable>
+
+            <para>By default, the marshaller implementation of the JAXB RI
+            tries to escape characters so they can be safely represented in
+            the output encoding (by using Unicode numeric character references
+            of the form &amp;#dddd;)</para>
+
+            <para>Unfortunately, due to various technical reasons, the default
+            behavior may not meet your expectations. If you need to handle
+            escaping more adroitly than the default manner, you can do so by
+            doing the following:</para>
+
+            <orderedlist>
+                <listitem>
+                    <para>Write a class that implements the
+                    <literal>com.sun.xml.bind.marshaller.CharacterEscapeHandler</literal>
+                    interface.</para>
+                </listitem>
+
+                <listitem>
+                    <para>Create a new instance of it.</para>
+                </listitem>
+
+                <listitem>
+                    <para>Set that instance to the Marshaller by using this
+                    property.</para>
+                </listitem>
+            </orderedlist>
+
+            <para>See the <xref linkend="jaxb-2-0-sample-apps"
+            xrefstyle="select:title" /> sample application for more
+            details.</para>
+        </section>
+
+        <section xml:id="xmldecl">
+            <title>XML Declaration Control</title>
+
+            <informaltable frame="all">
+                <tgroup cols="2" colsep="1" rowsep="1">
+                    <tbody>
+                        <row>
+                            <entry><emphasis role="bold">Property
+                            name:</emphasis></entry>
+
+                            <entry><literal>com.sun.xml.bind.xmlDeclaration</literal></entry>
+                        </row>
+
+                        <row>
+                            <entry><emphasis
+                            role="bold">Type:</emphasis></entry>
+
+                            <entry><literal>boolean</literal></entry>
+                        </row>
+
+                        <row>
+                            <entry><emphasis role="bold">Default
+                            value:</emphasis></entry>
+
+                            <entry><para>true</para></entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </informaltable>
+
+            <para>This experimental JAXB RI 1.0.x property has been adopted as
+            a standard in JAXB 2.0. The 2.0 RI will continue to support this
+            property, but client code should be using the <link
+            xlink:href="api/javax/xml/bind/Marshaller.html#JAXB_FRAGMENT">Marshaller.JAXB_FRAGMENT</link>
+            property instead. Please refer to the <link
+            xlink:href="api/javax/xml/bind/Marshaller.html#supportedProps">Marshaller
+            javadoc</link> for a complete description of the behavior.</para>
+
+            <para>In JAXB 2.0, calling:</para>
+
+            <informalexample>
+                <programlisting language="java"><![CDATA[marshaller.setProperty("com.sun.xml.bind.xmlDeclaration", true);]]></programlisting>
+            </informalexample>
+
+            <para>is equivalent to calling:</para>
+
+            <informalexample>
+                <programlisting language="java"><![CDATA[marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);]]></programlisting>
+            </informalexample>
+
+            <para>JAXB 1.0 generated code and clients will continue to work
+            exactly the same on the JAXB 2.0 runtime as they did on the JAXB
+            1.0 runtime.</para>
+
+            <para>Enabling fragment marshalling could be useful if you are
+            inserting the output of the XML into another XML.</para>
+        </section>
+
+        <section xml:id="xmlheader">
+            <title>XML Preamble Control</title>
+
+            <informaltable frame="all">
+                <tgroup cols="2" colsep="1" rowsep="1">
+                    <tbody>
+                        <row>
+                            <entry><emphasis role="bold">Property
+                            name:</emphasis></entry>
+
+                            <entry><literal>com.sun.xml.bind.xmlHeaders</literal></entry>
+                        </row>
+
+                        <row>
+                            <entry><emphasis
+                            role="bold">Type:</emphasis></entry>
+
+                            <entry><literal>java.lang.String</literal></entry>
+                        </row>
+
+                        <row>
+                            <entry><emphasis role="bold">Default
+                            value:</emphasis></entry>
+
+                            <entry><para>null</para></entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </informaltable>
+
+            <para>This property allows you to specify an XML preamble
+            (&lt;?xml ...&gt; declaration) and any additional PIs, comments,
+            DOCTYPE declaration that follows it. This property takes effect
+            only when you are marshalling to <literal>OutputStream</literal>,
+            <literal>Writer</literal>, or <literal>StreamResult</literal>. Note that this
+            property interacts with the <literal>Marshaller.JAXB_FRAGMENT</literal>
+            property. If that property is untouched or set to false, then JAXB
+            would always write its XML preamble, so this property can be only
+            used to write PIs, comments, DOCTYPE, etc. On the other hand, if
+            it is set to true, then JAXB will not write its own XML preamble,
+            so this property may contain custom XML preamble.</para>
+        </section>
+
+        <section xml:id="jaxbann">
+            <title>Jaxb Annotation Control</title>
+
+            <informaltable frame="all">
+                <tgroup cols="2" colsep="1" rowsep="1">
+                    <tbody>
+                        <row>
+                            <entry><emphasis role="bold">Property
+                            name:</emphasis></entry>
+
+                            <entry><literal>com.sun.xml.bind.XmlAccessorFactory</literal></entry>
+                        </row>
+
+                        <row>
+                            <entry><emphasis
+                            role="bold">Type:</emphasis></entry>
+
+                            <entry><literal>boolean</literal></entry>
+                        </row>
+
+                        <row>
+                            <entry><emphasis role="bold">Default
+                            value:</emphasis></entry>
+
+                            <entry><para>false</para></entry>
+                        </row>
+                    </tbody>
+                </tgroup>
+            </informaltable>
+
+            <para>This property provides support for a custom
+            com.sun.xml.bind.v2.runtime.reflect.Accessor implementation.  It
+            allows the user to control the access to class fields and
+            properties.</para>
+
+            <para>In JAXB 2.1, set the property to enable:</para>
+
+            <informalexample>
+                <programlisting language="java"><![CDATA[marshaller.setProperty("com.sun.xml.bind.XmlAccessorFactory", true);]]></programlisting>
+            </informalexample>
+        </section>
+    </section>
+</section>

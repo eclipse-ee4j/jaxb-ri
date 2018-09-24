@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+<!ENTITY % ents SYSTEM "docbook.ent">
+%ents;
+]>
+<section version="5.0" xml:id="compiling-xml-schema-avoid-strong-databinding"
+         xml:lang="en" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:ns5="http://www.w3.org/1999/xhtml"
+         xmlns:ns3="http://www.w3.org/2000/svg"
+         xmlns:ns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML">
+    <title>Avoid strong databinding</title>
+
+    <para>Under some limited circumstances, a weaker databinding is preferable
+    for various reasons. JAXB does offer a few ways for you to achieve
+    this.</para>
+
+    <section xml:id="Avoid_mapping_to_enum">
+        <title>Avoid mapping to enum</title>
+
+        <para>The following customization will stop binding a simple type to a
+        type-safe enum. This can be convenient when number of constants is too
+        large to be an useful enum (by default, the JAXB spec won't generate
+        enum with more than 256 constants, but even 100 might be too large for
+        you.)</para>
+
+        <example>
+            <title>Avoid mapping one simple type</title>
+
+            <programlisting language="xml"><![CDATA[<xs:simpleType name="foo">
+  <xs:annotation><xs:appinfo>
+    <jaxb:typesafeEnumClass map="false" />
+  </xs:appinfo></xs:annotation>
+  <xs:restriction base="xs:string">
+    <xs:enumeration value="x" />
+    <xs:enumeration value="y" />
+    <xs:enumeration value="z" />
+  </xs:restriction>
+</xs:simpleType>]]></programlisting>
+        </example>
+
+        <para>To disable such type-safe enum binding altogether for the entire
+        schema, use a global binding setting like this (this is actually
+        telling XJC not to generate enums if a simple type has more than 0
+        constants --- the net effect is no enum generation):</para>
+
+        <example>
+            <title>Avoid generating enums at all</title>
+
+            <programlisting language="xml"><![CDATA[<xs:schema ...>
+  <xs:annotation><xs:appinfo>
+    <jaxb:globalBindings typesafeEnumMaxMembers="0" />
+  </xs:appinfo></xs:annotation>
+  ...
+</xs:schema>]]></programlisting>
+        </example>
+    </section>
+
+    <section xml:id="Mapping_to_DOM">
+        <title>Mapping to DOM</title>
+
+        <para>The <literal>&lt;jaxb:dom&gt;</literal>customization allows you to map
+        a certain part of the schema into a DOM tree. This customization can
+        be attached to the following schema components:</para>
+
+        <itemizedlist>
+            <listitem>
+                <para>Wildcards (<literal>&lt;xs:any&gt;</literal>)</para>
+            </listitem>
+
+            <listitem>
+                <para>Type definitions (<literal>&lt;xs:complexType&gt;</literal> and
+                <literal>&lt;xs:simpleType&gt;</literal>)</para>
+            </listitem>
+
+            <listitem>
+                <para>Model groups
+                (<literal>&lt;xs:choice&gt;</literal>,<literal>&lt;xs:all&gt;</literal>,<literal>&lt;xs:sequence&gt;</literal>)</para>
+            </listitem>
+
+            <listitem>
+                <para>Model group declarations (<literal>&lt;xs:group&gt;</literal>)</para>
+            </listitem>
+
+            <listitem>
+                <para>Particles</para>
+            </listitem>
+
+            <listitem>
+                <para>Element declarations (<literal>&lt;xs:element&gt;</literal>)</para>
+            </listitem>
+        </itemizedlist>
+
+        <para>In the following example, a wildcard is mapped to a DOM node.
+        Each element that matches to the wildcard will be turned into a DOM
+        tree.</para>
+
+        <example>
+            <title>Dom Customization example</title>
+
+            <programlisting language="xml"><![CDATA[<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+               xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+               jaxb:version="2.0">
+
+        <xs:element>
+           <xs:complexType>
+              <xs:sequence>
+                 <xs:any maxOccurs="unbounded" processContents="skip">
+                    <xs:annotation><xs:appinfo>
+                      <jaxb:dom/>
+                    </xs:appinfo></xs:annotation>
+                 </xs:any>
+              </xs:sequence>
+           </xs:complexType>
+        </xs:element>
+    .
+    .
+    .
+    </xs:schema>]]></programlisting>
+        </example>
+
+        <para>This extension can be used to access wildcard content or can be
+        used to process a part of a document by using other technologies that
+        require "raw" XML. By default, JAXB generates a <code>getContent()</code> method
+        for accessing wildcard content, but it only supports "lax" handling
+        which means that unknown content is discarded. You may find more
+        information in 7.12 chapter of <link
+        xlink:href="http://www.jcp.org/en/jsr/detail?id=222">JAXB 2
+        specification</link>.</para>
+    </section>
+</section>

@@ -1,0 +1,50 @@
+
+compile\:
+     \[echo\] Compiling the schema\.\.\.
+    \[mkdir\] Created dir\: .*
+      \[xjc\] .* is not found and thus excluded from the dependency check
+      \[xjc\] Compiling .*
+      \[xjc\] Writing output to .*
+     \[echo\] Compiling the java source files\.\.\.
+    \[mkdir\] Created dir\: .*
+    \[javac\] Compiling \d+ source files to .*
+
+run\:
+     \[echo\] Running the sample application\.\.\.
+     \[java\] \<\?xml version\=\"1\.0\" encoding\=\"UTF\-8\" standalone\=\"yes\"\?\>
+     \[java\] \<purchaseOrder orderDate\=\".*\"\>
+     \[java\]     \<shipTo\>
+     \[java\]         \<name\>Alice Smith\<\/name\>
+     \[java\]         \<street\>123 Maple Street\<\/street\>
+     \[java\]         \<city\>Cambridge\<\/city\>
+     \[java\]         \<state\>MA\<\/state\>
+     \[java\]         \<zip\>12345\<\/zip\>
+     \[java\]     \<\/shipTo\>
+     \[java\]     \<billTo\>
+     \[java\]         \<name\>Robert Smith\<\/name\>
+     \[java\]         \<street\>8 Oak Avenue\<\/street\>
+     \[java\]         \<city\>Cambridge\<\/city\>
+     \[java\]         \<state\>MA\<\/state\>
+     \[java\]         \<zip\>12345\<\/zip\>
+     \[java\]     \<\/billTo\>
+     \[java\]     \<items\>
+     \[java\]         \<item partNum\=\"242\-NO\"\>
+     \[java\]             \<productName\>Nosferatu \- Special Edition \(1929\)\<\/productName\>
+     \[java\]             \<quantity\>5\<\/quantity\>
+     \[java\]             \<USPrice\>19\.99\<\/USPrice\>
+     \[java\]         \<\/item\>
+     \[java\]         \<item partNum\=\"242\-MU\"\>
+     \[java\]             \<productName\>The Mummy \(1959\)\<\/productName\>
+     \[java\]             \<quantity\>3\<\/quantity\>
+     \[java\]             \<USPrice\>19\.98\<\/USPrice\>
+     \[java\]         \<\/item\>
+     \[java\]         \<item partNum\=\"242\-GZ\"\>
+     \[java\]             \<productName\>Godzilla and Mothra\: Battle for Earth\/Godzilla vs\. King Ghidora\<\/productName\>
+     \[java\]             \<quantity\>3\<\/quantity\>
+     \[java\]             \<USPrice\>27\.95\<\/USPrice\>
+     \[java\]         \<\/item\>
+     \[java\]     \<\/items\>
+     \[java\] \<\/purchaseOrder\>
+
+BUILD SUCCESSFUL
+Total time\: .*

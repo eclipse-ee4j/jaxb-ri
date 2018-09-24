@@ -1,0 +1,33 @@
+--
+
+  Copyright (c) 2005, 2018 Oracle and/or its affiliates. All rights reserved.
+
+  This program and the accompanying materials are made available under the
+  terms of the Eclipse Distribution License v. 1.0, which is available at
+  http://www.eclipse.org/org/documents/edl-v10.php.
+
+  SPDX-License-Identifier: BSD-3-Clause
+
+--
+
+--
+  sample catalog file.
+  
+  double hyphens are used to begin and end a comment section.
+  
+  
+  SYSTEM "<reference>" "<actualLocation>" will define a simple
+  redirection. Whenever XJC tries to load a file from <reference>,
+  this statement will redirect it to <actualLocation>.
+  <refence> needs to be an absolute URI, and <actualLocation> can
+  be relative to the catalog file itself.
+  
+  PUBLIC "<publicId>" "<actualLocation>" will define a mapping
+  from public ID to its actual location. This is primarily used in
+  conjunction with DTD, but also when XJC resolves <xs:import>s,
+  it will pass the namespace URI as the public ID.
+--
+
+SYSTEM "http://www.w3.org/2001/xml.xsd" "xml.xsd"
+
+PUBLIC "-//W3C//DTD XMLSCHEMA 200102//EN" "s4s/XMLSchema.dtd"

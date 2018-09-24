@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-8'?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+           xmlns:x="http://annotations">
+	<start>
+		<element name="x" x:anno="anno">
+			<x:annotation x:ann="ann">
+				<x:param/>
+			</x:annotation>
+			<empty/>
+		</element>
+	</start>
+</grammar>

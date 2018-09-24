@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+
+    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<e:itinerary xmlns="" xmlns:e="http://example.org">
+  <e:plane>
+    <origin>BOSTON</origin>
+    <destination>SAN FRANCISCO</destination>
+    <flightNumber>195</flightNumber>
+    <meal>breakfast</meal>
+  </e:plane>
+  <e:auto>
+    <origin>SAN FRANCISCO</origin>
+    <destination>SAN FRANCISCO</destination>
+    <rentalAgency>Hertz</rentalAgency>
+    <ratePerHour>2</ratePerHour>
+  </e:auto>
+  <e:train>
+    <origin>BOSTON</origin>
+    <destination>NEW YORK</destination>
+    <track>9</track>
+    <dailyScheduleNumber>805</dailyScheduleNumber>
+  </e:train>
+</e:itinerary>
+
+
