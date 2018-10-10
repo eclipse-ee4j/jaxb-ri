@@ -24,7 +24,7 @@
 
     <groupId>com.sun.xml.bind.mvn</groupId>
     <artifactId>jaxb-parent</artifactId>
-
+    <version>2.4.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>JAXB Reference Implementation</name>
     <description>
@@ -174,8 +174,8 @@
             <!-- JDK dependencies -->
             <dependency>
                 <!-- required by com.sun.tools.xjc.Options on JDK < 9
-                (com.sun.org.apache.xml.internal.resolver.CatalogManager
-                 com.sun.org.apache.xml.internal.resolver.tools.CatalogResolver) -->
+               (com.sun.org.apache.xml.internal.resolver.CatalogManager
+                com.sun.org.apache.xml.internal.resolver.tools.CatalogResolver) -->
                 <groupId>com.sun.org.apache.xml.internal</groupId>
                 <artifactId>resolver</artifactId>
                 <version>20050927</version>
@@ -622,7 +622,7 @@
                     <name>!dev</name>
                 </property>
             </activation>
-<!--            <properties>
+            <!--            <properties>
                 <skipOsgiTests>false</skipOsgiTests>
             </properties>-->
             <modules>
@@ -795,7 +795,7 @@
                     </exclusions>
                 </dependency>
                 <!-- needed for cobertura-instrument ant task to work
-                     and to not be included in assemblies/shaded jars -->
+                and to not be included in assemblies/shaded jars -->
                 <dependency>
                     <groupId>oro</groupId>
                     <artifactId>oro</artifactId>
