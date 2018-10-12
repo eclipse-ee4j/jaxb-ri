@@ -24,7 +24,7 @@
 
     <groupId>com.sun.xml.bind.mvn</groupId>
     <artifactId>jaxb-parent</artifactId>
-
+    <version>2.4.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>JAXB Reference Implementation</name>
     <description>
@@ -32,15 +32,18 @@
     </description>
 
     <url>https://javaee.github.io/jaxb-v2/</url>
-    <organization>
-        <name>Oracle Corporation</name>
-        <url>http://www.oracle.com/</url>
-    </organization>
+    <scm>
+        <connection>scm:git:ssh://git@github.com/eclipse-ee4j/jaxb-ri</connection>
+        <developerConnection>scm:git:ssh://git@github.com/eclipse-ee4j/jaxb-ri.git</developerConnection>
+        <url>https://github.com/eclipse-ee4j/jaxb-ri.git</url>
+        <tag>HEAD</tag>
+    </scm>
 
     <licenses>
         <license>
-            <name>Eclipse Distribution License 1.0 (BSD)</name>
-            <url>https://projects.eclipse.org/content/eclipse-distribution-license-1.0-bsd</url>
+            <name>Eclipse Distribution License - v 1.0</name>
+            <url>http://www.eclipse.org/org/documents/edl-v10.php</url>
+            <distribution>repo</distribution>
         </license>
     </licenses>
 
@@ -52,16 +55,14 @@
         </developer>
     </developers>
 
-    <scm>
-        <connection>scm:git:ssh://git@github.com/eclipse-ee4j/jaxb-ri</connection>
-        <developerConnection>scm:git:ssh://git@github.com/eclipse-ee4j/jaxb-ri.git</developerConnection>
-        <url>https://github.com/eclipse-ee4j/jaxb-ri.git</url>
-        <tag>HEAD</tag>
-    </scm>
+    <organization>
+        <name>Oracle Corporation</name>
+        <url>http://www.oracle.com/</url>
+    </organization>
 
     <issueManagement>
-        <system>jira</system>
-        <url>http://java.net/jira/browse/JAXB</url>
+        <system>github</system>
+        <url>https://github.com/eclipse-ee4j/jaxb-ri/issues</url>
     </issueManagement>
 
     <mailingLists>
@@ -173,8 +174,8 @@
             <!-- JDK dependencies -->
             <dependency>
                 <!-- required by com.sun.tools.xjc.Options on JDK < 9
-                (com.sun.org.apache.xml.internal.resolver.CatalogManager
-                 com.sun.org.apache.xml.internal.resolver.tools.CatalogResolver) -->
+               (com.sun.org.apache.xml.internal.resolver.CatalogManager
+                com.sun.org.apache.xml.internal.resolver.tools.CatalogResolver) -->
                 <groupId>com.sun.org.apache.xml.internal</groupId>
                 <artifactId>resolver</artifactId>
                 <version>20050927</version>
@@ -621,7 +622,7 @@
                     <name>!dev</name>
                 </property>
             </activation>
-<!--            <properties>
+            <!--            <properties>
                 <skipOsgiTests>false</skipOsgiTests>
             </properties>-->
             <modules>
@@ -794,7 +795,7 @@
                     </exclusions>
                 </dependency>
                 <!-- needed for cobertura-instrument ant task to work
-                     and to not be included in assemblies/shaded jars -->
+                and to not be included in assemblies/shaded jars -->
                 <dependency>
                     <groupId>oro</groupId>
                     <artifactId>oro</artifactId>
