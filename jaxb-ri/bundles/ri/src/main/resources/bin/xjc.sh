@@ -71,7 +71,7 @@ ${JAXB_HOME}/mod/javax.activation.jar:\
 ${JAXB_HOME}/mod/relaxng-datatype.jar
 
 
-JAVA_VERSION=`${JAVA} -version 2>&1 | head -n 1 | cut -d'"' -f2 | sed -E 's/^(1\.)?([0-9]+).+$/\2/'`
+JAVA_VERSION=`${JAVA} -version 2>&1 | head -n 1 | cut -d'"' -f2 | sed -E 's/^(1\.)?([0-9]+)(.+)?$/\2/'`
 echo "Java major version: ${JAVA_VERSION}"
 
 # Check if supports module path
