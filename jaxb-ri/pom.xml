@@ -165,12 +165,6 @@
                 <version>1.3</version>
                 <scope>test</scope>
             </dependency>
-            <dependency>
-                <groupId>com.google.code.javaparser</groupId>
-                <artifactId>javaparser</artifactId>
-                <version>1.0.8</version>
-                <scope>test</scope>
-            </dependency>
             <!-- JDK dependencies -->
             <dependency>
                 <!-- required by com.sun.tools.xjc.Options on JDK < 9
