@@ -578,7 +578,6 @@
         <module>boms/bom</module>
         <module>boms/bom-ext</module>
         <module>external</module>
-        <module>codemodel</module>
         <module>txw</module>
         <module>runtime</module>
         <module>xjc</module>
