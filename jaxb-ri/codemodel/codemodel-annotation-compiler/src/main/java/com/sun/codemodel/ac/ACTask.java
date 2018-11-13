@@ -10,12 +10,30 @@
 
 package com.sun.codemodel.ac;
 
+import com.sun.codemodel.ClassType;
+import com.sun.codemodel.JAnnotationWriter;
+import com.sun.codemodel.JClassAlreadyExistsException;
+import com.sun.codemodel.JCodeModel;
+import com.sun.codemodel.JDefinedClass;
+import com.sun.codemodel.JMod;
+import com.sun.codemodel.JPackage;
+import com.sun.codemodel.JType;
+import org.apache.tools.ant.AntClassLoader;
+import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.Project;
+import org.apache.tools.ant.Task;
+import org.apache.tools.ant.types.Path;
+import org.apache.tools.ant.types.Reference;
+
+import java.io.Closeable;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -25,27 +43,6 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
-
-import com.sun.codemodel.ClassType;
-import com.sun.codemodel.JAnnotationWriter;
-import com.sun.codemodel.JClassAlreadyExistsException;
-import com.sun.codemodel.JCodeModel;
-import com.sun.codemodel.JDefinedClass;
-import com.sun.codemodel.JMod;
-import com.sun.codemodel.JPackage;
-import com.sun.codemodel.JType;
-import com.sun.istack.tools.MaskingClassLoader;
-import java.io.Closeable;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
-
-import org.apache.tools.ant.AntClassLoader;
-import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.Project;
-import org.apache.tools.ant.Task;
-import org.apache.tools.ant.types.Path;
-import org.apache.tools.ant.types.Reference;
 
 /**
  * Annotation compiler ant task.
@@ -221,15 +218,7 @@ public class ACTask extends Task {
 
     @Override
     public void execute() throws BuildException {
-        AntClassLoader acl = null;
-        if ((endorsedJars != null) && (!endorsedJars.isEmpty())) {
-            acl = new AntClassLoader(project, classpath);
-            ClassLoader maskedLoader = new MaskingClassLoader(acl, "javax.xml.bind");
-            URL[] jars = new URL[endorsedJars.size()];
-            userLoader = new URLClassLoader(endorsedJars.toArray(jars), maskedLoader);
-        } else {
-            userLoader = acl = new AntClassLoader(project, classpath);
-        }
+        userLoader = new AntClassLoader(project, classpath);
         try {
             // find clsses to be bound
             for (String path : classpath.list()) {
@@ -280,16 +269,14 @@ public class ACTask extends Task {
                 throw new BuildException("Unable to queue code to " + output, e);
             }
         } finally {
-            if (userLoader != acl && userLoader instanceof Closeable) {
+            if (userLoader instanceof Closeable) {
                 try {
                     ((Closeable) userLoader).close();
                 } catch (IOException ioe) {
                     //ignore
                 }
             }
-            acl.cleanup();
             userLoader = null;
-            acl = null;
         }
     }
 

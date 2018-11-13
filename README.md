@@ -9,6 +9,11 @@ The JAXB framework enables developers to perform the following operations:
 
 JAXB gives Java developers an efficient and standard way of mapping between XML and Java code. Java developers using JAXB are more productive because they can write less code themselves and do not have to be experts in XML. JAXB makes it easier for developers to extend their applications with XML and Web Services technologies.
 
+# Codemodel
+Codemodel is an independent library for java code generation, which is released separately and integrated in JAXB. 
+Besides JAXB it is used in [istack-commons-project](https://github.com/bravehorsie/jaxb-istack-commons), 
+which in turn is a dependency of JAXB
+
 ## Documentation
 Documentation for this release consists of the following:
 - [Release Notes](https://javaee.github.io/jaxb-v2/doc/user-guide/ch02.html)
