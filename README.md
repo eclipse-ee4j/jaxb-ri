@@ -15,6 +15,11 @@ has been archived as all activities are now happening in the
 See [here](https://www.eclipse.org/ee4j/status.php) for the overall
 EE4J transition status.
 
+# Codemodel
+Codemodel is an independent library for java code generation, which is released separately and integrated in JAXB. 
+Besides JAXB it is used in [istack-commons-project](https://github.com/eclipse-ee4j/jaxb-istack-commons), 
+which in turn is a dependency of JAXB
+
 ## Documentation
 Documentation for this release consists of the following:
 - [Release Notes](https://javaee.github.io/jaxb-v2/doc/user-guide/ch02.html)
