@@ -11,7 +11,7 @@ JAXB gives Java developers an efficient and standard way of mapping between XML 
 
 # Codemodel
 Codemodel is an independent library for java code generation, which is released separately and integrated in JAXB. 
-Besides JAXB it is used in [istack-commons-project](https://github.com/bravehorsie/jaxb-istack-commons), 
+Besides JAXB it is used in [istack-commons-project](https://github.com/eclipse-ee4j/jaxb-istack-commons), 
 which in turn is a dependency of JAXB
 
 ## Documentation
