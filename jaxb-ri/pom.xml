@@ -77,21 +77,6 @@
 
     <repositories>
         <repository>
-            <id>releases.java.net</id>
-            <url>http://maven.java.net/content/repositories/releases/</url>
-            <layout>default</layout>
-        </repository>
-        <repository>
-            <id>shapshots.java.net</id>
-            <url>http://maven.java.net/content/repositories/snapshots/</url>
-            <layout>default</layout>
-        </repository>
-        <repository>
-            <id>jvnet-nexus-staging</id>
-            <url>http://maven.java.net/content/repositories/staging/</url>
-            <layout>default</layout>
-        </repository>
-        <repository>
             <id>netbeans</id>
             <name>Repository hosting NetBeans modules</name>
             <url>http://bits.netbeans.org/nexus/content/groups/netbeans</url>
@@ -103,13 +88,8 @@
 
     <pluginRepositories>
         <pluginRepository>
-            <id>releases.java.net</id>
-            <url>http://maven.java.net/content/repositories/releases/</url>
-            <layout>default</layout>
-        </pluginRepository>
-        <pluginRepository>
-            <id>jvnet-nexus-staging</id>
-            <url>http://maven.java.net/content/repositories/staging/</url>
+            <id>oss-nexus-staging</id>
+            <url>https://oss.sonatype.org/content/repositories/staging/</url>
             <layout>default</layout>
         </pluginRepository>
     </pluginRepositories>
@@ -136,7 +116,7 @@
         <copyright.exclude.file>tools/config/copyright-exclude</copyright.exclude.file>
         <mrjar.sourceDirectory>${project.basedir}/src/main/java-mr</mrjar.sourceDirectory>
         <base.java.level>7</base.java.level>
-        <upper.java.level>9</upper.java.level>
+        <upper.java.level>11</upper.java.level>
     </properties>
 
     <dependencyManagement>
@@ -157,12 +137,6 @@
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>xmlunit</groupId>
-                <artifactId>xmlunit</artifactId>
-                <version>1.3</version>
                 <scope>test</scope>
             </dependency>
             <!-- JDK dependencies -->
@@ -571,13 +545,11 @@
     <modules>
         <module>boms/bom</module>
         <module>boms/bom-ext</module>
-        <module>external</module>
         <module>txw</module>
         <module>runtime</module>
         <module>xjc</module>
         <module>jxc</module>
         <module>bundles</module>
-        <module>xsom</module>
     </modules>
 
     <profiles>
@@ -864,19 +836,6 @@
                                 </goals>
                             </execution>
                         </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <!-- lukas: FIX-ME in java.net:parent -->
-            <id>jvnet-release</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>3.0.0-M1</version>
                     </plugin>
                 </plugins>
             </build>
