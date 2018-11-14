@@ -15,13 +15,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.sun.xml.bind.mvn</groupId>
-        <artifactId>jaxb-parent</artifactId>
-        <version>2.4.0-SNAPSHOT</version>
+        <groupId>org.eclipse.ee4j</groupId>
+        <artifactId>project</artifactId>
+        <version>1.0.5</version>
     </parent>
 
     <groupId>org.glassfish.jaxb</groupId>
     <artifactId>xsom</artifactId>
+    <version>2.4.0-SNAPSHOT</version>
+
     <name>XSOM</name>
     <description>XML Schema Object Model (XSOM) is a Java library that allows applications to easily parse XML Schema
         documents and inspect information in them. It is expected to be useful for applications that need to take XML
@@ -32,16 +34,22 @@
         <findbugs.exclude>${project.basedir}/exclude-xsom.xml</findbugs.exclude>
         <copyright.template.file>${project.basedir}/copyright.txt</copyright.template.file>
         <copyright.exclude.file>${project.basedir}/copyright-exclude</copyright.exclude.file>
+        <!--TODO update to 2.3.2 after first jaxb-ri/external release-->
+        <relaxng.version>2.4.0-SNAPSHOT</relaxng.version>
+        <upper.java.level>9</upper.java.level>
+        <base.java.level>7</base.java.level>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.sun.xml.bind.external</groupId>
             <artifactId>relaxng-datatype</artifactId>
+            <version>${relaxng.version}</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+            <version>4.12</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -73,6 +81,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
                 <executions>
                     <execution>
                         <id>default-compile</id>
@@ -97,6 +106,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.1.1</version>
                 <executions>
                     <execution>
                         <id>copy-relaxng-to-mp</id>
@@ -108,7 +118,10 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.0.1</version>
+
                 <configuration>
                     <additionalJOptions>
                         <additionalparam>-Xdoclint:none</additionalparam>
@@ -116,6 +129,81 @@
                         <additionalJOption>${project.build.directory}/mod/</additionalJOption>
                     </additionalJOptions>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <executions>
+                    <execution>
+                        <id>default-compile</id>
+                        <configuration>
+                            <release>${upper.java.level}</release>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>base-compile</id>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                        <configuration>
+                            <release>${base.java.level}</release>
+                            <excludes>
+                                <exclude>module-info.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.0.0-M2</version>
+                <executions>
+                    <execution>
+                        <id>enforce-versions</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <rules>
+                        <requireJavaVersion>
+                            <version>[9,)</version>
+                        </requireJavaVersion>
+                        <requireMavenVersion>
+                            <version>[3.3.9,)</version>
+                        </requireMavenVersion>
+                        <DependencyConvergence/>
+                    </rules>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>add-resource</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>add-resource</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/../../</directory>
+                                    <targetPath>META-INF</targetPath>
+                                    <includes>
+                                        <include>LICENSE.md</include>
+                                        <include>NOTICE.md</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
