@@ -384,7 +384,7 @@
                                 </includes>
                                 <excludes>
                                     <exclude>org.glassfish.jaxb:jaxb-runtime</exclude>
-                                    <exclude>javax.xml.bind:jaxb-api</exclude>
+                                    <exclude>jakarta.xml.bind:jakarta.xml.bind-api</exclude>
                                 </excludes>
                             </artifactSet>
                             <transformers>
@@ -394,7 +394,7 @@
                                         <Major-Version>${jaxb.majorVersion}.${jaxb.minorVersion}.${jaxb.incrementalVersion}</Major-Version>
                                         <Specification-Version>${jaxb-api.majorVersion}.${jaxb-api.minorVersion}</Specification-Version>
                                         <Git-Revision>${buildNumber}</Git-Revision>
-                                        <Class-Path>jaxb-api.jar</Class-Path>
+                                        <Class-Path>jakarta.xml.bind-api.jar</Class-Path>
                                         <Multi-Release>true</Multi-Release>
                                     </manifestEntries>
                                 </transformer>

@@ -43,13 +43,13 @@
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>codemodel</artifactId>
-            <version>${project.version}</version>
+            <version>${codemodel.version}</version>
             <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>xsom</artifactId>
-            <version>${project.version}</version>
+            <version>${xsom.version}</version>
             <optional>true</optional>
         </dependency>
         <dependency>
@@ -371,7 +371,7 @@
                                 </includes>
 
                                 <excludes>
-                                    <exclude>javax.xml.bind:jaxb-api</exclude>
+                                    <exclude>jakarta.xml.bind:jakarta.xml.bind-api</exclude>
                                     <exclude>org.glassfish.jaxb:txw2</exclude>
                                     <exclude>javax.xml.stream:stax-api</exclude>
                                     <exclude>com.sun.istack:istack-commons-runtime</exclude>

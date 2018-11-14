@@ -35,8 +35,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -61,8 +61,8 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>javax.activation</groupId>
-            <artifactId>javax.activation-api</artifactId>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
         </dependency>
     </dependencies>
 
@@ -118,7 +118,8 @@
                     <execution>
                         <id>default-compile</id>
                         <configuration>
-                            <release>${upper.java.level}</release>
+                            <source>${upper.java.level}</source>
+                            <target>${upper.java.level}</target>
                         </configuration>
                     </execution>
                     <execution>

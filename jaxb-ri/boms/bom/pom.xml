@@ -30,13 +30,15 @@
     <description>JAXB Bill of Materials (BOM)</description>
 
     <properties>
-        <jaxb-api.version>2.3.1</jaxb-api.version>
+        <jaxb-api.version>2.3.2</jaxb-api.version>
         <jaxb-api-osgi.version>2.3</jaxb-api-osgi.version>
-        <istack.version>3.0.7</istack.version>
-        <fastinfoset.version>1.2.15</fastinfoset.version>
-        <stax-ex.version>1.8</stax-ex.version>
-        <dtd-parser.version>1.4</dtd-parser.version>
+        <istack.version>3.0.8</istack.version>
+        <fastinfoset.version>1.2.16</fastinfoset.version>
+        <stax-ex.version>1.8.1</stax-ex.version>
+        <dtd-parser.version>1.4.1</dtd-parser.version>
+        <codemodel.version>2.3.2</codemodel.version>
         <relaxng.version>2.3.2</relaxng.version>
+        <xsom.version>2.3.2</xsom.version>
     </properties>
 
     <dependencyManagement>
@@ -83,8 +85,8 @@
             </dependency>
 
             <dependency> <!--JAXB-API-->
-                <groupId>javax.xml.bind</groupId>
-                <artifactId>jaxb-api</artifactId>
+                <groupId>jakarta.xml.bind</groupId>
+                <artifactId>jakarta.xml.bind-api</artifactId>
                 <version>${jaxb-api.version}</version>
                 <classifier>sources</classifier>
             </dependency>
@@ -152,8 +154,8 @@
             <!-- Dependencies -->
 
             <dependency> <!--JAXB-API-->
-                <groupId>javax.xml.bind</groupId>
-                <artifactId>jaxb-api</artifactId>
+                <groupId>jakarta.xml.bind</groupId>
+                <artifactId>jakarta.xml.bind-api</artifactId>
                 <version>${jaxb-api.version}</version>
             </dependency>
             <dependency>
@@ -165,34 +167,16 @@
                 <groupId>com.sun.xml.fastinfoset</groupId>
                 <artifactId>FastInfoset</artifactId>
                 <version>${fastinfoset.version}</version>
-                <exclusions>
-                    <!-- part of JDK 6+ -->
-                    <exclusion>
-                        <artifactId>jsr173_api</artifactId>
-                        <groupId>javax.xml.bind</groupId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.jvnet.staxex</groupId>
                 <artifactId>stax-ex</artifactId>
                 <version>${stax-ex.version}</version>
-                <exclusions>
-                    <!-- part of JDK 6+ -->
-                    <exclusion>
-                        <groupId>javax.activation</groupId>
-                        <artifactId>activation</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>stax-api</artifactId>
-                        <groupId>javax.xml.stream</groupId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
-                <groupId>javax.activation</groupId>
-                <artifactId>javax.activation-api</artifactId>
-                <version>1.2.0</version>
+                <groupId>jakarta.activation</groupId>
+                <artifactId>jakarta.activation-api</artifactId>
+                <version>1.2.1</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
