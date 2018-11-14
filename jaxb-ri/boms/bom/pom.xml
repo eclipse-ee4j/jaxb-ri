@@ -38,7 +38,7 @@
         <dtd-parser.version>1.4.1</dtd-parser.version>
         <codemodel.version>2.3.2</codemodel.version>
         <relaxng.version>2.3.2</relaxng.version>
-        <xsom.version>2.4.0-SNAPSHOT</xsom.version>
+        <xsom.version>2.3.2</xsom.version>
     </properties>
 
     <dependencyManagement>

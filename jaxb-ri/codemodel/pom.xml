@@ -41,7 +41,8 @@
                     <execution>
                         <id>default-compile</id>
                         <configuration>
-                            <release>${upper.java.level}</release>
+                            <source>${upper.java.level}</source>
+                            <target>${upper.java.level}</target>
                         </configuration>
                     </execution>
                     <execution>

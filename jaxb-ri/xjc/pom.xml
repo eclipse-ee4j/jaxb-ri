@@ -191,7 +191,8 @@
                     <execution>
                         <id>default-compile</id>
                         <configuration>
-                            <release>${upper.java.level}</release>
+                            <source>${upper.java.level}</source>
+                            <target>${upper.java.level}</target>
                             <compilerArgs>
                                 <arg>--module-path</arg>
                                 <arg>${project.build.directory}/mods:${project.build.directory}/lib/ant</arg>
@@ -277,7 +278,8 @@
                                        destdir="${project.build.outputDirectory}/META-INF/versions/${upper.java.level}"
                                        classpath="${project.build.outputDirectory}"
                                        includeantruntime="false"
-                                       release="${upper.java.level}">
+                                       source="${upper.java.level}"
+                                       target="${upper.java.level}">
                                     <compilerarg line="--module-path ${project.build.directory}/mods" />
                                     <compilerarg line="--add-modules ant,com.sun.istack.tools" />
                                     <compilerarg line="--add-reads com.sun.istack.tools=ant" />

@@ -116,7 +116,7 @@
         <copyright.exclude.file>tools/config/copyright-exclude</copyright.exclude.file>
         <mrjar.sourceDirectory>${project.basedir}/src/main/java-mr</mrjar.sourceDirectory>
         <base.java.level>7</base.java.level>
-        <upper.java.level>11</upper.java.level>
+        <upper.java.level>9</upper.java.level>
     </properties>
 
     <dependencyManagement>
@@ -521,7 +521,8 @@
                     <execution>
                         <id>default-compile</id>
                         <configuration>
-                            <release>${upper.java.level}</release>
+                            <source>${upper.java.level}</source>
+                            <target>${upper.java.level}</target>
                         </configuration>
                     </execution>
                     <execution>
