@@ -75,8 +75,8 @@
                     <scope>test</scope>
                 </dependency>
                 <dependency>
-                    <groupId>javax.xml.bind</groupId>
-                    <artifactId>jaxb-api</artifactId>
+                    <groupId>jakarta.xml.bind</groupId>
+                    <artifactId>jakarta.xml.bind-api</artifactId>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -213,7 +213,7 @@
                         <configuration>
                             <outputDirectory>${module.path}/api</outputDirectory>
                             <silent>false</silent>
-                            <includeArtifactIds>jaxb-api</includeArtifactIds>
+                            <includeArtifactIds>jakarta.xml.bind-api</includeArtifactIds>
                         </configuration>
                     </execution>
                 </executions>
@@ -273,7 +273,7 @@
                                     <include>org.glassfish.jaxb:jaxb-runtime</include>
                                 </includes>
                                 <excludes>
-                                    <exclude>javax.xml.bind:jaxb-api</exclude>
+                                    <exclude>jakarta.xml.bind:jakarta.xml.bind-api</exclude>
                                     <exclude>javax.xml.stream:stax-api</exclude>
                                     <exclude>com.sun.xml.bind.external:relaxng-datatype</exclude>
                                     <exclude>com.sun.xml.fastinfoset:FastInfoset</exclude>

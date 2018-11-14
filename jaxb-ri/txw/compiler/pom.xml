@@ -48,12 +48,12 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>codemodel</artifactId>
-            <version>${project.version}</version>
+            <version>${codemodel.version}</version>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>xsom</artifactId>
-            <version>${project.version}</version>
+            <version>${xsom.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.ant</groupId>
