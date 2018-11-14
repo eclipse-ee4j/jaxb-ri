@@ -15,10 +15,20 @@ has been archived as all activities are now happening in the
 See [here](https://www.eclipse.org/ee4j/status.php) for the overall
 EE4J transition status.
 
-# Codemodel
+# jaxb-ri/codemodel
 Codemodel is an independent library for java code generation, which is released separately and integrated in JAXB. 
 Besides JAXB it is used in [istack-commons-project](https://github.com/eclipse-ee4j/jaxb-istack-commons), 
 which in turn is a dependency of JAXB
+
+# jaxb-ri/xsom
+XML Schema Object Model (XSOM) is a Java library that allows applications to easily parse XML Schema
+documents and inspect information in them. It is released separately because it is a dependency of 
+[jaxb-fi](https://github.com/eclipse-ee4j/jaxb-fi),
+which in turn is a dependency of JAXB
+
+# jaxb-ri/external
+RNGOM and relaxng-datatype under jaxb-ri/external are tools for working with RelaxNG. It is released separately because it is a dependency of 
+several jaxb-ri projects including jaxb-ri/xsom above.
 
 ## Documentation
 Documentation for this release consists of the following:
