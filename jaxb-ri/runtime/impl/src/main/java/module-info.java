@@ -20,7 +20,7 @@ module com.sun.xml.bind {
     requires java.desktop;
     requires java.logging;
 
-    requires transitive java.activation;
+    requires transitive jakarta.activation;
     requires transitive java.xml;
 
     requires com.sun.xml.txw2;

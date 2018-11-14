@@ -66,7 +66,7 @@
             <directoryMode>0755</directoryMode>
             <fileMode>0644</fileMode>
             <includes>
-                <include>javax.xml.bind:jaxb-api</include>
+                <include>jakarta.xml.bind:jakarta.xml.bind-api</include>
                 <include>org.glassfish.jaxb:jaxb-xjc</include>
                 <include>org.glassfish.jaxb:jaxb-runtime</include>
                 <include>org.glassfish.jaxb:jaxb-jxc</include>
@@ -79,7 +79,7 @@
                 <include>org.jvnet.staxex:stax-ex</include>
                 <include>com.sun.xml.fastinfoset:FastInfoset</include>
                 <include>org.glassfish.jaxb:txw2</include>
-                <include>javax.activation:javax.activation-api</include>
+                <include>jakarta.activation:jakarta.activation-api</include>
                 <include>com.sun.xml.bind.external:relaxng-datatype</include>
             </includes>
             <excludes>

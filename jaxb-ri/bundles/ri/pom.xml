@@ -30,8 +30,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
             <optional>true</optional>
         </dependency>
         <dependency>
@@ -52,13 +52,13 @@
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>codemodel</artifactId>
-            <version>${project.version}</version>
+            <version>${codemodel.version}</version>
             <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>xsom</artifactId>
-            <version>${project.version}</version>
+            <version>${xsom.version}</version>
             <optional>true</optional>
         </dependency>
         <dependency>
@@ -117,8 +117,8 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>javax.activation</groupId>
-            <artifactId>javax.activation-api</artifactId>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
             <optional>true</optional>
         </dependency>
     </dependencies>

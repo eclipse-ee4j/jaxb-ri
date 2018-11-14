@@ -247,8 +247,7 @@
                                 <excludes>
                                     <exclude>org.glassfish.jaxb:jaxb-xjc</exclude>
                                     <exclude>org.glassfish.jaxb:jaxb-runtime</exclude>
-                                    <exclude>javax.xml.bind:jaxb-api</exclude>
-
+                                    <exclude>jakarta.xml.bind:jakarta.xml.bind-api</exclude>
                                     <exclude>org.glassfish.jaxb:xsom</exclude>
                                     <exclude>com.sun.xml.bind.external:relaxng-datatype</exclude>
 
