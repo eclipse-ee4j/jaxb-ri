@@ -41,7 +41,7 @@
             <dependency>
                 <groupId>com.sun.xml.bind.external</groupId>
                 <artifactId>rngom</artifactId>
-                <version>${project.version}</version>
+                <version>${relaxng.version}</version>
             </dependency>
             <!-- Dependencies -->
             <dependency>
@@ -57,7 +57,7 @@
             <dependency> <!-- xjc dependency... needed to be specified for xjc maven-dependency-plugin -->
                 <groupId>com.sun.xml.bind.external</groupId>
                 <artifactId>relaxng-datatype</artifactId>
-                <version>${project.version}</version>
+                <version>${relaxng.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
