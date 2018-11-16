@@ -34,8 +34,7 @@
         <findbugs.exclude>${project.basedir}/exclude-xsom.xml</findbugs.exclude>
         <copyright.template.file>${project.basedir}/copyright.txt</copyright.template.file>
         <copyright.exclude.file>${project.basedir}/copyright-exclude</copyright.exclude.file>
-        <!--TODO update to 2.3.2 after first jaxb-ri/external release-->
-        <relaxng.version>2.4.0-SNAPSHOT</relaxng.version>
+        <relaxng.version>2.3.2</relaxng.version>
         <upper.java.level>9</upper.java.level>
         <base.java.level>7</base.java.level>
     </properties>
