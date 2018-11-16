@@ -64,7 +64,7 @@
         <dependency>
             <groupId>com.sun.xml.bind.external</groupId>
             <artifactId>rngom</artifactId>
-            <version>${project.version}</version>
+            <version>${relaxng.version}</version>
             <optional>true</optional>
         </dependency>
         <dependency>
