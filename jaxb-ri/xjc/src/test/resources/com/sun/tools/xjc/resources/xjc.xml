@@ -50,7 +50,7 @@
         <echo message="Compiling the schema..."/>
         <xjc schema="${schema}" package="simple" destdir="${build.dir}" fork="true">
             <produces dir="${build.dir}/simple" includes="**/*.java"/>
-            <jvmarg line="--add-modules java.activation"/>
+            <jvmarg line="--add-modules jakarta.activation"/>
         </xjc>
     </target>
 
@@ -58,7 +58,7 @@
         <echo message="Compiling the schema..."/>
         <xjc schema="${schema}" package="simple" destdir="${build.dir}" fork="false">
             <produces dir="${build.dir}/simple" includes="**/*.java"/>
-            <jvmarg line="--add-modules java.activation"/>
+            <jvmarg line="--add-modules jakarta.activation"/>
         </xjc>
     </target>
 
