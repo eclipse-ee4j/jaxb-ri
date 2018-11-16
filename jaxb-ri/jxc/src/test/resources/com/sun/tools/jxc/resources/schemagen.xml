@@ -49,7 +49,7 @@
         <echo message="Generating schemas..."/>
         <schemagen destdir="${build.dir}" fork="true">
             <src path="${src.dir}"/>
-            <jvmarg line="--add-modules java.activation"/>
+            <jvmarg line="--add-modules jakarta.activation"/>
         </schemagen>
     </target>
 

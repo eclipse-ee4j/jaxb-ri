@@ -102,7 +102,7 @@
                             <additionalJOptions>
                                 <additionalJOption>-Xdoclint:none</additionalJOption>
                                 <additionalJOption>--add-modules</additionalJOption>
-                                <additionalJOption>java.activation,java.xml.bind</additionalJOption>
+                                <additionalJOption>jakarta.activation,java.xml.bind</additionalJOption>
                                 <additionalJOption>--add-exports</additionalJOption>
                                 <additionalJOption>java.xml/com.sun.org.apache.xml.internal.resolver.tools=ALL-UNNAMED</additionalJOption>
                                 <additionalJOption>--add-exports</additionalJOption>
