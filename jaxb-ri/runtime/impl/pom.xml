@@ -147,7 +147,7 @@
                 <configuration>
                     <additionalJOptions>
                         <additionalJOption>--add-modules</additionalJOption>
-                        <additionalJOption>java.activation</additionalJOption>
+                        <additionalJOption>jakarta.activation</additionalJOption>
                         <additionalJOption>--module-path</additionalJOption>
                         <additionalJOption>${module.path}</additionalJOption>
                     </additionalJOptions>
