@@ -218,7 +218,6 @@
                     <reuseForks>true</reuseForks>
                     <argLine>
                         --module-path ${module.path}
-                        --upgrade-module-path ${module.path}/api
                         -Djdk.attach.allowAttachSelf
                     </argLine>
                 </configuration>

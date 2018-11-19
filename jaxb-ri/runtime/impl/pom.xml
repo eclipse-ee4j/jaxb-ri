@@ -94,19 +94,7 @@
                         <configuration>
                             <outputDirectory>${module.path}</outputDirectory>
                             <silent>false</silent>
-                            <includeArtifactIds>txw2,istack-commons-runtime,stax-ex,FastInfoset</includeArtifactIds>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>prepare-upgrade-module-path</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${module.path}/api</outputDirectory>
-                            <silent>false</silent>
-                            <includeArtifactIds>jaxb-api</includeArtifactIds>
+                            <includeArtifactIds>txw2,istack-commons-runtime,stax-ex,FastInfoset,jakarta.xml.bind-api</includeArtifactIds>
                         </configuration>
                     </execution>
                 </executions>
