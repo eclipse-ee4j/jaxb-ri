@@ -101,12 +101,14 @@
                             <includeDependencySources>false</includeDependencySources>
                             <additionalJOptions>
                                 <additionalJOption>-Xdoclint:none</additionalJOption>
+                                <!--Non MR-JAR version of xjc/src/main/java/com/sun/tools/xjc/CatalogUtil.java uses
+                                com.sun.org.apache.xml.internal.resolver (see resolver dependency)-->
+                                <additionalJOption>--module-path</additionalJOption>
+                                <additionalJOption>${module.path}</additionalJOption>
                                 <additionalJOption>--add-modules</additionalJOption>
-                                <additionalJOption>jakarta.activation,java.xml.bind</additionalJOption>
-                                <additionalJOption>--add-exports</additionalJOption>
-                                <additionalJOption>java.xml/com.sun.org.apache.xml.internal.resolver.tools=ALL-UNNAMED</additionalJOption>
-                                <additionalJOption>--add-exports</additionalJOption>
-                                <additionalJOption>java.xml/com.sun.org.apache.xml.internal.resolver=ALL-UNNAMED</additionalJOption>
+                                <additionalJOption>resolver</additionalJOption>
+                                <additionalJOption>--add-reads</additionalJOption>
+                                <additionalJOption>com.sun.tools.xjc=resolver</additionalJOption>
                             </additionalJOptions>
                             <additionalDependencies>
                                 <additionalDependency>
@@ -250,6 +252,24 @@
                                     <classifier>sources</classifier>
                                     <overWrite>false</overWrite>
                                     <outputDirectory>${generated.sources.dir}</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>prepare-module-path</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${module.path}</outputDirectory>
+                            <silent>false</silent>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.sun.org.apache.xml.internal</groupId>
+                                    <artifactId>resolver</artifactId>
+                                    <overWrite>false</overWrite>
                                 </artifactItem>
                             </artifactItems>
                         </configuration>
