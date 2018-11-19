@@ -106,7 +106,7 @@
         <findbugs.threshold>High</findbugs.threshold>
         <findbugs.exclude/>
         <findbugs.version>3.0.1</findbugs.version>
-        <skipSources>true</skipSources>
+        <skipSources>false</skipSources>
         <skipOsgiTests>true</skipOsgiTests>
         <netbeans.hint.jdkPlatform>JDK_9</netbeans.hint.jdkPlatform>
         <felix.junit4osgi>1.0.0</felix.junit4osgi>
@@ -425,24 +425,6 @@
 
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>prepare-upgrade-module-path</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${module.path}/api</outputDirectory>
-                            <silent>false</silent>
-                            <includeArtifactIds>jaxb-api</includeArtifactIds>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
             </plugin>
@@ -549,38 +531,6 @@
     </modules>
 
     <profiles>
-        <profile>
-            <id>modules-path</id>
-            <activation>
-                <jdk>[1.7,9)</jdk>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-compiler-plugin</artifactId>
-                        <configuration>
-                            <compilerArgs>
-                                <arg>--upgrade-module-path</arg>
-                                <arg>${module.path}/api</arg>
-                                <arg>--module-path</arg>
-                                <arg>${module.path}</arg>
-                            </compilerArgs>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <configuration>
-                            <additionalJOption>--upgrade-module-path</additionalJOption>
-                            <additionalJOption>${module.path}/api</additionalJOption>
-                            <additionalJOption>--module-path</additionalJOption>
-                            <additionalJOption>${module.path}</additionalJOption>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
         <profile>
             <id>default-profile</id>
             <activation>
