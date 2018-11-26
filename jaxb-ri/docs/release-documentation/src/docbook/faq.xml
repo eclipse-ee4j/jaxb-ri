@@ -191,8 +191,8 @@
 
                     <informalexample>
                         <programlisting><![CDATA[
-$JAXB_HOME/lib/jaxb-api.jar
-$JAXB_HOME/lib/jaxb-impl.jar]]></programlisting>
+$JAXB_HOME/mod/jakarta.xml.bind-api.jar
+$JAXB_HOME/mod/jaxb-impl.jar]]></programlisting>
                     </informalexample>
                 </answer>
             </qandaentry>
@@ -294,7 +294,7 @@ Implementation-Vendor: Oracle Corporation
 Implementation-Vendor-Id: com.sun
 Extension-Name: com.sun.xml.bind
 Build-Id: 02/09/2012 01:42PM (hudson)
-Class-Path: jaxb-api.jar]]></programlisting>
+Class-Path: jakarta.xml.bind-api.jar]]></programlisting>
                     </informalexample>
                 </answer>
             </qandaentry>
