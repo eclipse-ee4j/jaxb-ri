@@ -83,16 +83,16 @@
                 <programlisting language="cli"><![CDATA[
                     # Using JAXB standalone jars
                     # Replace JavaSE bundled java.xml.bind with standalone API jar
-                    user@host: java com.example.jaxb.Main -cp jaxbclient.jar --upgrade-module-path path/to/jaxb-api.jar
+                    user@host: java com.example.jaxb.Main -cp jaxbclient.jar --upgrade-module-path path/to/jakarta.xml.bind-api.jar
                     --module-path path/to/jaxb-runtime.jar --add-modules com.sun.xml.bind
 
                     #Same as above with client on module path
-                    user@host: java -m com.example.jaxbclasses/com.example.jaxb.Main --upgrade-module-path path/to/jaxb-api.jar
+                    user@host: java -m com.example.jaxbclasses/com.example.jaxb.Main --upgrade-module-path path/to/jakarta.xml.bind-api.jar
                     --module-path path/to/jaxb-runtime.jar:jaxbclient.jar --add-modules com.sun.xml.bind
 
              ]]></programlisting>
             </example>
-            <para>--upgrade-module-path will replace JavaSE java.xml.bind (runtime and API) with jaxb-api.jar contents.</para>
+            <para>--upgrade-module-path will replace JavaSE java.xml.bind (runtime and API) with jakarta.xml.bind-api.jar contents.</para>
             <para>Since java.xml.bind module
                 <link xmlns:xlink="http://openjdk.java.net/jeps/320">is removed starting from Java 11, there is no need
                     to upgrade this module on 11 and later.</link></para>

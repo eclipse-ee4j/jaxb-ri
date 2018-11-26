@@ -185,7 +185,7 @@ public class SchemaGenerator {
     }
 
     /**
-     * Computes the file system path of {@code jaxb-api.jar} so that
+     * Computes the file system path of {@code jakarta.xml.bind-api.jar} so that
      * Annotation Processing will see them in the {@code -cp} option.
      *
      * <p>

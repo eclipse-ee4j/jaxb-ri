@@ -56,7 +56,7 @@ fi
 
 #JXC module path
 JAXB_PATH=${JAXB_HOME}/mod/jaxb-xjc.jar:\
-${JAXB_HOME}/mod/jaxb-api.jar:\
+${JAXB_HOME}/mod/jakarta.xml.bind-api.jar:\
 ${JAXB_HOME}/mod/codemodel.jar:\
 ${JAXB_HOME}/mod/jaxb-runtime.jar:\
 ${JAXB_HOME}/mod/istack-commons-runtime.jar:\
@@ -67,7 +67,7 @@ ${JAXB_HOME}/mod/dtd-parser.jar:\
 ${JAXB_HOME}/mod/txw2.jar:\
 ${JAXB_HOME}/mod/stax-ex.jar:\
 ${JAXB_HOME}/mod/FastInfoset.jar:\
-${JAXB_HOME}/mod/javax.activation.jar:\
+${JAXB_HOME}/mod/jakarta.activation-api.jar:\
 ${JAXB_HOME}/mod/relaxng-datatype.jar
 
 
@@ -82,7 +82,7 @@ then
 elif [[ ${JAVA_VERSION} -ge 9 && ${JAVA_VERSION} -le 10 ]] ;
 then
   #module path + upgrade
-  exec "${JAVA}" --module-path "${JAXB_PATH}" --upgrade-module-path ${JAXB_HOME}/mod/jaxb-api.jar ${XJC_OPTS} -m com.sun.tools.xjc/com.sun.tools.xjc.XJCFacade "$@"
+  exec "${JAVA}" --module-path "${JAXB_PATH}" --upgrade-module-path ${JAXB_HOME}/mod/jakarta.xml.bind-api.jar ${XJC_OPTS} -m com.sun.tools.xjc/com.sun.tools.xjc.XJCFacade "$@"
 else
   #module path
   exec "${JAVA}" --module-path "${JAXB_PATH}" ${XJC_OPTS} -m com.sun.tools.xjc/com.sun.tools.xjc.XJCFacade "$@"
