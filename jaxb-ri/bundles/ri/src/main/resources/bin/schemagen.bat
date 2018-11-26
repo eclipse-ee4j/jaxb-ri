@@ -31,7 +31,7 @@ echo JAXB_HOME must be set before running this script
 goto END
 
 :SETCLASSPATH
-set JAXB_PATH=%JAXB_HOME%/mod/jaxb-api.jar;%JAXB_HOME%/mod/jaxb-jxc.jar;%JAXB_HOME%/mod/jaxb-xjc.jar;%JAXB_HOME%/mod/jaxb-runtime.jar;%JAXB_HOME%/mod/stax-ex.jar;%JAXB_HOME%/mod/istack-commons-runtime.jar;%JAXB_HOME%/mod/istack-commons-tools.jar;%JAXB_HOME%/mod/FastInfoset.jar;%JAXB_HOME%/mod/dtd-parser.jar;%JAXB_HOME%/mod/rngom.jar;%JAXB_HOME%/mod/codemodel.jar;%JAXB_HOME%/mod/xsom.jar;%JAXB_HOME%/mod/txw2.jar;%JAXB_HOME%/lib/relaxngDatatype.jar;%JAXB_HOME%/mod/javax.activation.jar
+set JAXB_PATH=%JAXB_HOME%/mod/jakarta.xml.bind-api.jar;%JAXB_HOME%/mod/jaxb-jxc.jar;%JAXB_HOME%/mod/jaxb-xjc.jar;%JAXB_HOME%/mod/jaxb-runtime.jar;%JAXB_HOME%/mod/stax-ex.jar;%JAXB_HOME%/mod/istack-commons-runtime.jar;%JAXB_HOME%/mod/istack-commons-tools.jar;%JAXB_HOME%/mod/FastInfoset.jar;%JAXB_HOME%/mod/dtd-parser.jar;%JAXB_HOME%/mod/rngom.jar;%JAXB_HOME%/mod/codemodel.jar;%JAXB_HOME%/mod/xsom.jar;%JAXB_HOME%/mod/txw2.jar;%JAXB_HOME%/lib/relaxngDatatype.jar;%JAXB_HOME%/mod/jakarta.activation-api.jar
 
 if "%CLASSPATH%" == "" goto NOUSERCLASSPATH
 set LOCALCLASSPATH=%JAXB_PATH%;%CLASSPATH%
@@ -84,7 +84,7 @@ goto END
 :JDK9_OR_GREATER
 if %JAVA_VERSION% GTR 10 goto JDK11_OR_GREATER
 rem module path + upgrade
-%JAVA% --upgrade-module-path %JAXB_HOME%/mod/jaxb-api.jar %SCHEMAGEN_OPTS% --module-path %LOCALCLASSPATH% -m com.sun.tools.jxc/com.sun.tools.jxc.SchemaGeneratorFacade %*
+%JAVA% --upgrade-module-path %JAXB_HOME%/mod/jakarta.xml.bind-api.jar %SCHEMAGEN_OPTS% --module-path %LOCALCLASSPATH% -m com.sun.tools.jxc/com.sun.tools.jxc.SchemaGeneratorFacade %*
 goto END
 
 :JDK11_OR_GREATER
