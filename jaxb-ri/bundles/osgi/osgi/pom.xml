@@ -320,7 +320,7 @@
                                     javax.xml.bind.annotation.adapters;version=${jaxb-api-osgi.version},
                                     javax.xml.bind.attachment;version=${jaxb-api-osgi.version},
                                     javax.xml.bind.helpers;version=${jaxb-api-osgi.version},
-                                    javax.activation,
+                                    javax.activation;version=!,
                                     javax.annotation.processing,
                                     javax.imageio,
                                     javax.imageio.stream,
