@@ -42,7 +42,7 @@ set JAVA=%JAVA_HOME%\bin\java
 goto LAUNCHSCHEMAGEN
 
 :LAUNCHSCHEMAGEN
-"%JAVA%" %SCHEMAGEN_OPTS% -cp "%WEBSERVICES_LIB%\jaxb2\lib\jaxb-api.jar;%WEBSERVICES_LIB%\jaxb2\lib\jaxb-core.jar;%WEBSERVICES_LIB%\jaxb2\lib\jaxb-xjc.jar;%WEBSERVICES_LIB%\jaxb2\lib\jaxb-jxc.jar;%WEBSERVICES_LIB%\jaxb2\lib\jaxb-impl.jar;%WEBSERVICES_LIB%\jaxp\lib\jsr173_api.jar;%WEBSERVICES_LIB%\jaf\lib\activation.jar;%WEBSERVICES_LIB%\jaxp\lib\resolver.jar" com.sun.tools.jxc.SchemaGeneratorFacade %*
+"%JAVA%" %SCHEMAGEN_OPTS% -cp "%WEBSERVICES_LIB%\jaxb2\lib\jakarta.xml.bind-api.jar;%WEBSERVICES_LIB%\jaxb2\lib\jaxb-core.jar;%WEBSERVICES_LIB%\jaxb2\lib\jaxb-xjc.jar;%WEBSERVICES_LIB%\jaxb2\lib\jaxb-jxc.jar;%WEBSERVICES_LIB%\jaxb2\lib\jaxb-impl.jar;%WEBSERVICES_LIB%\jaxp\lib\jsr173_api.jar;%WEBSERVICES_LIB%\jaf\lib\activation.jar;%WEBSERVICES_LIB%\jaxp\lib\resolver.jar" com.sun.tools.jxc.SchemaGeneratorFacade %*
 goto END
 
 :END
