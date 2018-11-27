@@ -117,6 +117,7 @@
         <mrjar.sourceDirectory>${project.basedir}/src/main/java-mr</mrjar.sourceDirectory>
         <base.java.level>7</base.java.level>
         <upper.java.level>9</upper.java.level>
+        <root.dir>${session.executionRootDirectory}/..</root.dir>
     </properties>
 
     <dependencyManagement>
@@ -518,6 +519,32 @@
                             <excludes>
                                 <exclude>module-info.java</exclude>
                             </excludes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>add-resource</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>add-resource</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>${root.dir}</directory>
+                                    <targetPath>META-INF</targetPath>
+                                    <includes>
+                                        <include>LICENSE.md</include>
+                                        <include>NOTICE.md</include>
+                                    </includes>
+                                </resource>
+                            </resources>
                         </configuration>
                     </execution>
                 </executions>
