@@ -161,7 +161,6 @@
                         </goals>
                         <configuration>
                             <excludes>**/module-info.java</excludes>
-                            <skip>${skipSources}</skip>
                             <artifactItems>
                                 <artifactItem>
                                     <groupId>org.glassfish.jaxb</groupId>
@@ -248,14 +247,6 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <filters>
-                                <filter>
-                                    <artifact>*:*</artifact>
-                                    <excludes>
-                                        <exclude>module-info.java</exclude>
-                                    </excludes>
-                                </filter>
-                            </filters>
                             <artifactSet>
                                 <includes>
                                     <include>org.glassfish.jaxb:jaxb-runtime</include>

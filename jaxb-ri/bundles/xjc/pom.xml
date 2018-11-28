@@ -98,30 +98,22 @@
         <plugins>
             <plugin>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                        <configuration>
-                            <sourceFileExcludes>
-                                <sourceFileExclude>META-INF/versions/**</sourceFileExclude>
-                            </sourceFileExcludes>
-                            <additionalJOptions>
-                                <additionalJOption>-Xdoclint:none</additionalJOption>
-                                <!--Non MR-JAR version of xjc/src/main/java/com/sun/tools/xjc/CatalogUtil.java uses
-                                com.sun.org.apache.xml.internal.resolver (see resolver dependency)-->
-                                <additionalJOption>--module-path</additionalJOption>
-                                <additionalJOption>${module.path}</additionalJOption>
-                                <additionalJOption>--add-modules</additionalJOption>
-                                <additionalJOption>resolver</additionalJOption>
-                                <additionalJOption>--add-reads</additionalJOption>
-                                <additionalJOption>com.sun.tools.xjc=resolver</additionalJOption>
-                            </additionalJOptions>
-                        </configuration>
-                    </execution>
-                </executions>
+                <configuration>
+                    <sourceFileExcludes>
+                        <sourceFileExclude>META-INF/versions/**</sourceFileExclude>
+                    </sourceFileExcludes>
+                    <additionalJOptions>
+                        <additionalJOption>-Xdoclint:none</additionalJOption>
+                        <!--Non MR-JAR version of xjc/src/main/java/com/sun/tools/xjc/CatalogUtil.java uses
+                        com.sun.org.apache.xml.internal.resolver (see resolver dependency)-->
+                        <additionalJOption>--module-path</additionalJOption>
+                        <additionalJOption>${module.path}</additionalJOption>
+                        <additionalJOption>--add-modules</additionalJOption>
+                        <additionalJOption>resolver</additionalJOption>
+                        <additionalJOption>--add-reads</additionalJOption>
+                        <additionalJOption>com.sun.tools.xjc=resolver</additionalJOption>
+                    </additionalJOptions>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.felix</groupId>
@@ -184,7 +176,6 @@
                         </goals>
                         <configuration>
                             <excludes>**/module-info.java</excludes>
-                            <skip>${skipSources}</skip>
                             <artifactItems>
                                 <artifactItem>
                                     <groupId>org.glassfish.jaxb</groupId>
@@ -371,14 +362,6 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                                <filters>
-                                    <filter>
-                                        <artifact>*:*</artifact>
-                                        <excludes>
-                                            <exclude>module-info.java</exclude>
-                                        </excludes>
-                                    </filter>
-                                </filters>
                             <artifactSet>
                                 <includes>
                                     <include>org.glassfish.jaxb:jaxb-xjc</include>
@@ -442,23 +425,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                        <configuration>
-                            <skipSource>${skipSources}</skipSource>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
         </plugins>
     </build>
 </project>
