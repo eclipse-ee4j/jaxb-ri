@@ -162,31 +162,38 @@
                 </configuration>
             </plugin>
             <plugin>
-                <artifactId>maven-jar-plugin</artifactId>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>default-jar</id>
+                        <id>add-mr-resource</id>
+                        <phase>prepare-package</phase>
                         <goals>
-                            <goal>jar</goal>
+                            <goal>add-resource</goal>
                         </goals>
                         <configuration>
-                            <archive>
-                                <manifestEntries>
-                                    <Multi-Release>true</Multi-Release>
-                                </manifestEntries>
-                                <manifest>
-                                    <mainClass>com.sun.tools.jxc.SchemaGeneratorFacade</mainClass>
-                                </manifest>
-                            </archive>
+                            <resources>
+                                <resource>
+                                    <directory>${mrjar.sourceDirectory}</directory>
+                                    <targetPath>META-INF/versions</targetPath>
+                                </resource>
+                            </resources>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>package-test-jar</id>
-                        <goals>
-                            <goal>test-jar</goal>
-                        </goals>
-                    </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Multi-Release>true</Multi-Release>
+                        </manifestEntries>
+                        <manifest>
+                            <mainClass>com.sun.tools.jxc.SchemaGeneratorFacade</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
             </plugin>
 
             <plugin>
@@ -208,6 +215,20 @@
                                 <arg>--add-reads</arg>
                                 <arg>com.sun.istack.tools=ant</arg>
                             </compilerArgs>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>default-compile-mr</id>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                        <configuration>
+                            <compileSourceRoots>
+                                <compileSourceRoot>${mrjar.sourceDirectory}/${upper.java.level}</compileSourceRoot>
+                            </compileSourceRoots>
+                            <outputDirectory>${project.build.outputDirectory}/META-INF/versions/${upper.java.level}</outputDirectory>
+                            <source>${upper.java.level}</source>
+                            <target>${upper.java.level}</target>
                         </configuration>
                     </execution>
                     <execution>
@@ -241,57 +262,6 @@
                         <additionalJOption>com.sun.istack.tools=ant</additionalJOption>
                     </additionalJOptions>
                 </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.8</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.ant</groupId>
-                        <artifactId>ant</artifactId>
-                        <version>${ant.version}</version>
-                    </dependency>
-                </dependencies>
-                <executions>
-                    <execution>
-                        <id>compile-java9</id>
-                        <phase>compile</phase>
-                        <configuration>
-                            <tasks>
-                                <mkdir dir="${project.build.outputDirectory}/META-INF/versions/${upper.java.level}" />
-                                <javac srcdir="${mrjar.sourceDirectory}"
-                                       destdir="${project.build.outputDirectory}/META-INF/versions/${upper.java.level}"
-                                       classpath="${project.build.outputDirectory}"
-                                       includeantruntime="false"
-                                       source="${upper.java.level}"
-                                       target="${upper.java.level}">
-                                    <compilerarg line="--module-path ${project.build.directory}/mods" />
-                                    <compilerarg line="--add-modules ant,com.sun.istack.tools,com.sun.tools.xjc" />
-                                    <compilerarg line="--add-reads com.sun.istack.tools=ant" />
-                                </javac>
-                            </tasks>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>update-source-jar</id>
-                        <phase>verify</phase>
-                        <configuration>
-                            <tasks>
-                                <jar destfile="${project.build.directory}/jaxb-jxc-${project.version}-sources.jar" update="true">
-                                    <zipfileset prefix="META-INF/versions" dir="${mrjar.sourceDirectory}"/>
-                                </jar>
-                            </tasks>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
