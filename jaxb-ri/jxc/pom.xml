@@ -88,6 +88,16 @@
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
                     <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/mods</outputDirectory>
+                            <excludeArtifactIds>jmockit</excludeArtifactIds>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <id>copy-ant</id>
                         <phase>process-test-sources</phase>
                         <goals>
@@ -142,7 +152,13 @@
                         <bin.folder>${project.build.directory}</bin.folder>
                     </systemPropertyVariables>
                     <forkCount>1</forkCount>
-                    <reuseForks>false</reuseForks>
+                    <reuseForks>true</reuseForks>
+                    <argLine>
+                        --add-opens com.sun.tools.jxc/com.sun.tools.jxc.ap=ALL-UNNAMED
+                        --add-opens com.sun.tools.jxc/com.sun.tools.jxc=ALL-UNNAMED
+                        --module-path ${module.path}
+                        -Djdk.attach.allowAttachSelf
+                    </argLine>
                 </configuration>
             </plugin>
             <plugin>
@@ -162,7 +178,7 @@
                                     <mainClass>com.sun.tools.jxc.SchemaGeneratorFacade</mainClass>
                                 </manifest>
                             </archive>
-                        </configuration>                    
+                        </configuration>
                     </execution>
                     <execution>
                         <id>package-test-jar</id>
@@ -212,18 +228,6 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <forkCount>1</forkCount>
-                    <reuseForks>true</reuseForks>
-                    <argLine>
-                        --module-path ${module.path}
-                        -Djdk.attach.allowAttachSelf
-                    </argLine>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
                     <additionalJOptions>
@@ -237,22 +241,6 @@
                         <additionalJOption>com.sun.istack.tools=ant</additionalJOption>
                     </additionalJOptions>
                 </configuration>
-            </plugin>
-
-            <plugin>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/mods</outputDirectory>
-                            <excludeArtifactIds>jmockit</excludeArtifactIds>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
 
             <plugin>
@@ -293,7 +281,6 @@
                         <id>update-source-jar</id>
                         <phase>verify</phase>
                         <configuration>
-                            <skip>${skipSources}</skip>
                             <tasks>
                                 <jar destfile="${project.build.directory}/jaxb-jxc-${project.version}-sources.jar" update="true">
                                     <zipfileset prefix="META-INF/versions" dir="${mrjar.sourceDirectory}"/>

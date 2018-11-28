@@ -86,27 +86,17 @@
         </repository>
     </repositories>
 
-    <pluginRepositories>
-        <pluginRepository>
-            <id>oss-nexus-staging</id>
-            <url>https://oss.sonatype.org/content/repositories/staging/</url>
-            <layout>default</layout>
-        </pluginRepository>
-    </pluginRepositories>
-
     <properties>
         <junit.version>4.12</junit.version>
         <args4j.version>1.0</args4j.version>
 
         <module.path>${project.build.directory}/mods</module.path>
         <!-- This will work ONLY if mvn is run from root folder. In case of runing from submodules - fail :( -->
-        <javadoc.links.dir>${user.dir}/tools/javadoc-link</javadoc.links.dir>
         <glassfish.findbugs.version>1.7</glassfish.findbugs.version>
         <findbugs.skip>false</findbugs.skip>
         <findbugs.threshold>High</findbugs.threshold>
         <findbugs.exclude/>
         <findbugs.version>3.0.1</findbugs.version>
-        <skipSources>false</skipSources>
         <skipOsgiTests>true</skipOsgiTests>
         <netbeans.hint.jdkPlatform>JDK_9</netbeans.hint.jdkPlatform>
         <felix.junit4osgi>1.0.0</felix.junit4osgi>
@@ -118,6 +108,7 @@
         <base.java.level>7</base.java.level>
         <upper.java.level>9</upper.java.level>
         <root.dir>${session.executionRootDirectory}/..</root.dir>
+        <oss.disallow.snapshots>true</oss.disallow.snapshots>
     </properties>
 
     <dependencyManagement>
@@ -159,9 +150,17 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-shade-plugin</artifactId>
-                    <version>2.4.3</version>
+                    <version>3.2.1</version>
                     <configuration>
                         <createDependencyReducedPom>false</createDependencyReducedPom>
+                        <filters>
+                            <filter>
+                                <artifact>*:*</artifact>
+                                <excludes>
+                                    <exclude>module-info.java</exclude>
+                                </excludes>
+                            </filter>
+                        </filters>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -180,20 +179,12 @@
                 <plugin>
                     <groupId>org.apache.felix</groupId>
                     <artifactId>maven-bundle-plugin</artifactId>
-                    <version>3.5.0</version>
-                    <extensions>true</extensions>
-                    <dependencies>
-                        <dependency>
-                            <groupId>biz.aQute.bnd</groupId>
-                            <artifactId>biz.aQute.bndlib</artifactId>
-                            <version>3.3.0</version>
-                        </dependency>
-                    </dependencies>
+                    <version>4.1.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.0.2</version>
+                    <version>3.1.0</version>
                     <configuration>
                         <archive>
                             <manifestEntries>
@@ -218,12 +209,12 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>3.1.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.6.0</version>
+                    <version>3.8.0</version>
                     <configuration>
                         <source>1.7</source>
                         <target>1.7</target>
@@ -237,7 +228,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.20</version>
+                    <version>3.0.0-M1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -292,22 +283,12 @@
                         <dependencySourceExcludes>
                             <dependencySourceExclude>com.sun.xml:*</dependencySourceExclude>
                         </dependencySourceExcludes>
-                        <offlineLinks>
-                            <offlineLink>
-                                <url>http://docs.oracle.com/javase/6/docs/api/</url>
-                                <location>${javadoc.links.dir}/javase6/</location>
-                            </offlineLink>
-                            <offlineLink>
-                                <url>http://jaxb.java.net/nonav/${project.version}/docs/api/</url>
-                                <location>${javadoc.links.dir}/jaxb-api/</location>
-                            </offlineLink>
-                        </offlineLinks>
                     </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>1.12</version>
+                    <version>3.0.0</version>
                     <executions>
                         <execution>
                             <id>jaxb.version</id>
@@ -335,7 +316,7 @@
                 <plugin>
                     <groupId>org.glassfish.copyright</groupId>
                     <artifactId>glassfish-copyright-maven-plugin</artifactId>
-                    <version>1.42</version>
+                    <version>1.50</version>
                     <configuration>
                         <templateFile>${copyright.template.file}</templateFile>
                         <!--todo: fix me-->
@@ -377,27 +358,9 @@
                     </dependencies>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-deploy-plugin</artifactId>
-                    <version>2.8.2</version>
-                    <configuration>
-                        <retryFailedDeploymentCount>10</retryFailedDeploymentCount>
-                    </configuration>
-                </plugin>
-                <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>properties-maven-plugin</artifactId>
                     <version>1.0-alpha-2</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-site-plugin</artifactId>
-                    <version>3.6</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-gpg-plugin</artifactId>
-                    <version>1.6</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -405,15 +368,6 @@
                     <version>1.4</version>
                     <configuration>
                         <locale>en-US</locale>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.glassfish.build</groupId>
-                    <artifactId>gfnexus-maven-plugin</artifactId>
-                    <version>0.20</version>
-                    <configuration>
-                        <promotionProfile>metro</promotionProfile>
-                        <message>JAXB-${project.version}</message>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -428,6 +382,27 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-resource</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>add-resource</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>${root.dir}</directory>
+                                    <targetPath>META-INF</targetPath>
+                                    <includes>
+                                        <include>LICENSE.md</include>
+                                        <include>NOTICE.md</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -453,26 +428,6 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-site-plugin</artifactId>
-                <configuration>
-                    <reportPlugins>
-                        <plugin>
-                            <groupId>org.codehaus.mojo</groupId>
-                            <artifactId>findbugs-maven-plugin</artifactId>
-                            <version>${findbugs.version}</version>
-                            <configuration>
-                                <skip>${findbugs.skip}</skip>
-                                <threshold>${findbugs.threshold}</threshold>
-                                <excludeFilterFile>
-                                    ${findbugs.exclude}
-                                </excludeFilterFile>
-                            </configuration>
-                        </plugin>
-                    </reportPlugins>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>buildnumber-maven-plugin</artifactId>
                 <executions>
@@ -483,14 +438,11 @@
                         </goals>
                         <configuration>
                             <getRevisionOnlyOnce>true</getRevisionOnlyOnce>
+                            <shortRevisionLength>7</shortRevisionLength>
                             <revisionOnScmFailure>unknown</revisionOnScmFailure>
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.glassfish.build</groupId>
-                <artifactId>gfnexus-maven-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -519,33 +471,36 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>3.0.0</version>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>add-resource</id>
-                        <phase>generate-resources</phase>
+                        <id>attach-sources</id>
                         <goals>
-                            <goal>add-resource</goal>
+                            <goal>jar-no-fork</goal>
                         </goals>
-                        <configuration>
-                            <resources>
-                                <resource>
-                                    <directory>${root.dir}</directory>
-                                    <targetPath>META-INF</targetPath>
-                                    <includes>
-                                        <include>LICENSE.md</include>
-                                        <include>NOTICE.md</include>
-                                    </includes>
-                                </resource>
-                            </resources>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
         </plugins>
     </build>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>${findbugs.version}</version>
+                <configuration>
+                    <skip>${findbugs.skip}</skip>
+                    <threshold>${findbugs.threshold}</threshold>
+                    <excludeFilterFile>
+                        ${findbugs.exclude}
+                    </excludeFilterFile>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
 
     <modules>
         <module>boms/bom</module>
@@ -574,48 +529,12 @@
             </modules>
         </profile>
         <profile>
-            <id>sources-profile</id>
-            <properties>
-                <skipSources>false</skipSources>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>attach-sources</id>
-                                <goals>
-                                    <goal>jar-no-fork</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>attach-javadocs</id>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>release-profile</id>
-            <properties>
-                <skipSources>false</skipSources>
-            </properties>
+            <id>oss-release</id>
             <build>
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-enforcer-plugin</artifactId>
-                        <version>3.0.0-M1</version>
                         <executions>
                             <execution>
                                 <id>enforce-no-snapshots</id>
@@ -631,62 +550,10 @@
                                             <message>release version no SNAPSHOT Allowed!</message>
                                         </requireReleaseVersion>
                                     </rules>
-                                    <fail>true</fail>
+                                    <fail>${oss.disallow.snapshots}</fail>
                                 </configuration>
                             </execution>
                         </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-site-plugin</artifactId>
-                        <configuration>
-                            <skipDeploy>true</skipDeploy>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>attach-sources</id>
-                                <goals>
-                                    <goal>jar-no-fork</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>attach-javadocs</id>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-deploy-plugin</artifactId>
-                        <inherited>true</inherited>
-                        <configuration>
-                            <retryFailedDeploymentCount>10</retryFailedDeploymentCount>
-                        </configuration>
                     </plugin>
                 </plugins>
             </build>
@@ -793,19 +660,6 @@
                                 <phase>process-classes</phase>
                                 <goals>
                                     <goal>instrument</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <inherited>true</inherited>
-                        <executions>
-                            <execution>
-                                <id>attach-sources</id>
-                                <goals>
-                                    <goal>jar</goal>
                                 </goals>
                             </execution>
                         </executions>
