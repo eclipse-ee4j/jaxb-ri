@@ -214,20 +214,18 @@ public class SchemaGenBase extends ApBasedTask {
     @Override
     protected void compile() {
         try {
-            boolean ok = false;
             if (getFork()) {
                 setupCommand();
                 setupForkCommand("com.sun.tools.jxc.SchemaGeneratorFacade");
                 int status = run(getCommandline().getCommandline());
-                ok = (status == 0);
+                if (status != 0) {
+                    if (!getVerbose()) {
+                        log("Command invoked: " + "schemagen" + getCommandline().toString());
+                    }
+                    throw new BuildException("schemagen" + " failed", getLocation());
+                }
             } else {
                 super.compile();
-            }
-            if (!ok) {
-                if (!getVerbose()) {
-                    log("Command invoked: " + "schemagen" + getCommandline().toString());
-                }
-                throw new BuildException("schemagen" + " failed", getLocation());
             }
         } catch (Exception ex) {
             if (ex instanceof BuildException) {
