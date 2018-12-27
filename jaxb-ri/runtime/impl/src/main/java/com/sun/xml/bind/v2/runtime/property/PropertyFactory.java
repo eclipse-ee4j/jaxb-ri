@@ -14,6 +14,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 
+import com.sun.xml.bind.v2.model.core.ClassInfo;
 import com.sun.xml.bind.v2.model.core.ID;
 import com.sun.xml.bind.v2.model.core.PropertyKind;
 import com.sun.xml.bind.v2.model.runtime.RuntimeAttributePropertyInfo;
@@ -121,6 +122,9 @@ public abstract class PropertyFactory {
 
         RuntimeTypeInfo rti = types.iterator().next();
         if(!(rti instanceof RuntimeNonElement)) return false;
+	
+	//if hasSubClasses it's not a leaf and we can't optimize, see #1135
+        if (rti instanceof ClassInfo && ((ClassInfo) rti).hasSubClasses()) return false;
 
         if(info.id()==ID.IDREF)
             // IDREF is always handled as leaf -- Transducer maps IDREF String back to an object
