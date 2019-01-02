@@ -24,7 +24,7 @@ if not "%JAXB_HOME%" == "" goto CHECKJAVAHOME
 rem Try to locate JAXB_HOME
 set JAXB_HOME=%~dp0
 set JAXB_HOME=%JAXB_HOME%\..
-if exist "%JAXB_HOME%\lib\jaxb-xjc.jar" goto CHECKJAVAHOME
+if exist "%JAXB_HOME%\mod\jaxb-xjc.jar" goto CHECKJAVAHOME
 
 rem Unable to find it
 echo JAXB_HOME must be set before running this script
@@ -42,7 +42,7 @@ goto LAUNCHXJC
 
 :LAUNCHXJC
 rem JXC module path
-set JAXB_PATH=%JAXB_HOME%/mod/jaxb-xjc.jar;%JAXB_HOME%/mod/jakarta.xml.bind-api.jar;%JAXB_HOME%/mod/codemodel.jar;%JAXB_HOME%/mod/jaxb-runtime.jar;%JAXB_HOME%/mod/istack-commons-runtime.jar;%JAXB_HOME%/mod/istack-commons-tools.jar;%JAXB_HOME%/mod/rngom.jar;%JAXB_HOME%/mod/xsom.jar;%JAXB_HOME%/mod/dtd-parser.jar;%JAXB_HOME%/mod/txw2.jar;%JAXB_HOME%/mod/stax-ex.jar;%JAXB_HOME%/mod/FastInfoset.jar;%JAXB_HOME%/mod/jakarta.activation-api.jar;%JAXB_HOME%/lib/relaxngDatatype.jar
+set JAXB_PATH=%JAXB_HOME%/mod/jaxb-xjc.jar;%JAXB_HOME%/mod/jakarta.xml.bind-api.jar;%JAXB_HOME%/mod/codemodel.jar;%JAXB_HOME%/mod/jaxb-runtime.jar;%JAXB_HOME%/mod/istack-commons-runtime.jar;%JAXB_HOME%/mod/istack-commons-tools.jar;%JAXB_HOME%/mod/rngom.jar;%JAXB_HOME%/mod/xsom.jar;%JAXB_HOME%/mod/dtd-parser.jar;%JAXB_HOME%/mod/txw2.jar;%JAXB_HOME%/mod/stax-ex.jar;%JAXB_HOME%/mod/FastInfoset.jar;%JAXB_HOME%/mod/jakarta.activation-api.jar;%JAXB_HOME%/mod/relaxng-datatype.jar
 
 rem Set Java Version
 for /f "tokens=3" %%i in ('java -version 2^>^&1 ^| %SystemRoot%\system32\find.exe "version"') do (
