@@ -237,6 +237,13 @@ public class JMethod extends JGenerifiableImpl implements JDeclaration, JAnnotat
         annotations.add(a);
         return a;
     }
+    
+    public JAnnotationUse annotate(JAnnotationUse existingAnnotation) {
+    	if (annotations == null) 
+    		annotations = new ArrayList<JAnnotationUse>();
+    	annotations.add(existingAnnotation);
+    	return existingAnnotation;
+    }
 
     /**
      * Adds an annotation to this variable.
