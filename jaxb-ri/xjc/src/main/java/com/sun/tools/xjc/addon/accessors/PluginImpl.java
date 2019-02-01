@@ -47,6 +47,7 @@ import com.sun.xml.bind.api.impl.NameConverter;
  *     Martin Grebac (martin.grebac@sun.com)
  * @author
  *     Piotr Wilkin (piotr.wilkin@syndatis.com)
+ *
  */
 public class PluginImpl extends Plugin {
 
