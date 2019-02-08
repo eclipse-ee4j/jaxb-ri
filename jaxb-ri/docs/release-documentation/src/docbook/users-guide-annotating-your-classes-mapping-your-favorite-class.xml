@@ -114,7 +114,7 @@ marshaller.marshal(new JAXBElement(new QName("root"),HashMap.class,m),System.out
         </example>
 
         <para>This issue has been recorded as <link
-        xlink:href="https://github.com/javaee/jaxb-v2/issues/223">#223</link>
+        xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/223">#223</link>
         and the fix needs to happen in later versions of the JAXB spec.</para>
 
         <para>In the mean time, such top-level objects have to be first

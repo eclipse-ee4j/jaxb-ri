@@ -75,7 +75,6 @@
                         <entry>
                             <para>
                                 <filename>jaxb-api.jar</filename>,
-                                <filename>jaxb-core.jar</filename>,
                                 <filename>jaxb-impl.jar</filename>,
                             </para>
                         </entry>
@@ -91,7 +90,6 @@
                         <entry>
                             <para>
                                 <filename>jaxb-api.jar</filename>,
-                                <filename>jaxb-core.jar</filename>,
                                 <filename>jaxb-impl.jar</filename>,
                                 <filename>jaxb-xjc.jar</filename>
                             </para>

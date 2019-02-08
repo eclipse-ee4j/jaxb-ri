@@ -23,8 +23,18 @@
     <para>
         Please refer to the jaxb-1-0-x-changelog for older releases.
     </para>
-    <section xml:id="a-2-4-0">
-        <title>Changes between 2.3.0.1 and 2.4.0</title>
+    <section xml:id="a-2-3-2">
+        <title>Changes between 2.3.1 and 2.3.2</title>
+        <itemizedlist>
+            <listitem><para>First release under Eclipse Jakarta EE Platform:
+                <itemizedlist>
+                    <listitem><para>Uptake of renamed Jakarta APIs.</para></listitem>
+                </itemizedlist>
+            </para></listitem>
+        </itemizedlist>
+    </section>
+    <section xml:id="a-2-3-1">
+        <title>Changes between 2.3.0.1 and 2.3.1</title>
         <itemizedlist>
             <listitem><para>JAXB RI is now JPMS modularized:
                 <itemizedlist>
@@ -82,11 +92,11 @@
                         </para>
                     </listitem>
                     <listitem><para>
-                        <link xlink:href="https://github.com/javaee/jaxb-v2/issues/973">JAXB-973</link>: generated code should be
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/973">JAXB-973</link>: generated code should be
                         compilable with <literal>'-Xdoclint:all'</literal>
                     </para></listitem>
                     <listitem><para>
-                        <link xlink:href="https://github.com/javaee/jaxb-v2/issues/598">JAXB-598</link>: XJC generates ordered
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/598">JAXB-598</link>: XJC generates ordered
                         ObjectFactories, <literal>@XmlSeeAlso</literal> annotations and episode files.
                     </para></listitem>
                 </itemizedlist>
@@ -115,7 +125,7 @@
                 <itemizedlist>
                     <listitem><para>Security fixes.</para></listitem>
                     <listitem>
-                        <link xlink:href="https://github.com/javaee/jaxb-v2/issues/926">JAXB-926</link>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/926">JAXB-926</link>
                         - Fixed optional property behavior for PRIMITIVE value.
                     </listitem>
                     <listitem><para>Fixed wrong ref element generation</para></listitem>
@@ -145,7 +155,7 @@
             <listitem><para>
                 From now JAXB RI project uses GIT VCS. You can get our sources from:
                 <programlisting>
-                    GitHub:     git clone https://github.com/javaee/jaxb-v2.git
+                    GitHub:     git clone https://github.com/eclipse-ee4j/jaxb-ri.git
                 </programlisting>
             </para></listitem>
             <listitem><para>Bug fixes:
@@ -180,7 +190,7 @@
                     </para></listitem>
 
                     <listitem><para>
-                        <link xlink:href="https://github.com/javaee/jaxb-v2/issues/937">JAXB-937</link>: Fixed Coordinator
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/937">JAXB-937</link>: Fixed Coordinator
                         ThreadLocal
                     </para></listitem>
                     <listitem><para>Fixed invalid absolute URL</para></listitem>
@@ -225,26 +235,26 @@
             <listitem><para>Bug fixes:
                 <itemizedlist>
                     <listitem><para>
-                        <link xlink:href="https://github.com/javaee/jaxb-v2/issues/452">JAXB-452</link>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/452">JAXB-452</link>
                         - Embedded DOM Elements may lose locally defined namespace prefixes
                     </para></listitem><listitem><para>
-                        <link xlink:href="https://github.com/javaee/jaxb-v2/issues/915">JAXB-915</link>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/915">JAXB-915</link>
                         - Cannot generate java classes from xjc
                     </para></listitem><listitem><para>
-                        <link xlink:href="https://github.com/javaee/jaxb-v2/issues/919">JAXB-919</link>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/919">JAXB-919</link>
                         - xjc - proxy authentication fails
                     </para></listitem><listitem><para>
-                        <link xlink:href="https://github.com/javaee/jaxb-v2/issues/922">JAXB-922</link>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/922">JAXB-922</link>
                         - JAXB samples fail
                     </para></listitem><listitem><para>
-                        <link xlink:href="https://github.com/javaee/jaxb-v2/issues/939">JAXB-939</link>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/939">JAXB-939</link>
                         - '#' at the end of a namespace : different of behavior, sometimes a underscore is
                         added, sometimes not.
                     </para></listitem><listitem><para>
-                        <link xlink:href="https://github.com/javaee/jaxb-v2/issues/940">JAXB-940</link>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/940">JAXB-940</link>
                         - wrong default value for &quot;target&quot; parameter for xjc ant task
                     </para></listitem><listitem><para>
-                        <link xlink:href="https://github.com/javaee/jaxb-v2/issues/948">JAXB-948</link>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/948">JAXB-948</link>
                         - JAXB differences in JDK 7 in
                         <literal>com/sun/xml/internal/bind/v2/runtime/reflect/Lister.java#Lister.CollectionLister.endPacking</literal>
                 </para></listitem>
@@ -252,7 +262,7 @@
             </para></listitem>
             <listitem><para>Improvement:
                 <itemizedlist><listitem><para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/912">JAXB-912</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/912">JAXB-912</link>
                     - XJC split
                 </para></listitem></itemizedlist>
             </para></listitem>
@@ -277,14 +287,14 @@
             <listitem><para>Bug fixes:
                 <itemizedlist>
                     <listitem><para>
-                        <link xlink:href="https://github.com/javaee/jaxb-v2/issues/890">JAXB-890</link>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/890">JAXB-890</link>
                         - JAXB Unmarshaller tries to instantiate abstract class ignoring xsi:type if
                         nillable="true".
                     </para></listitem><listitem><para>
-                        <link xlink:href="https://github.com/javaee/jaxb-v2/issues/871">JAXB-871</link>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/871">JAXB-871</link>
                         - Disabled fields and multiple-inherence (override once => override for sub-classes).
                     </para></listitem><listitem><para>
-                        <link xlink:href="https://github.com/javaee/jaxb-v2/issues/900">JAXB-900</link>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/900">JAXB-900</link>
                         - MarshalException for XmlIDREF used on interfaces.
                     </para></listitem>
                 </itemizedlist>
@@ -315,177 +325,177 @@
         <itemizedlist>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/415">JAXB-415</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/415">JAXB-415</link>
                     - Marshaller.marshall throws NPE if an adapter adapts a non-null bound value to null.
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/488">JAXB-488</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/488">JAXB-488</link>
                     - compatibility issue with JAXB 2.0
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/608">JAXB-608</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/608">JAXB-608</link>
                     - javax.xml.bind.DatatypeConverter.parseBoolean incorrect
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/616">JAXB-616</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/616">JAXB-616</link>
                     - XMLCatalog not used from xjc/xjctask when strict validation is enabled
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/617">JAXB-617</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/617">JAXB-617</link>
                     - setting Marshaller CharacterEncodingHandler with utf-8 does not work
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/790">JAXB-790</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/790">JAXB-790</link>
                     - Whitespace processing for xs:anyURI type
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/794">JAXB-794</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/794">JAXB-794</link>
                     - Classes annotated with <literal>@XmlTransient</literal> are still mapped to XML
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/795">JAXB-795</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/795">JAXB-795</link>
                     - Catalog passed to XJC is not used during the schema correctness check
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/814">JAXB-814</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/814">JAXB-814</link>
                     - Failing with 'no-arg default constructor' on <literal>@XmlTransient</literal>
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/825">JAXB-825</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/825">JAXB-825</link>
                     - Attribute with default generates different types for get and set methods
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/831">JAXB-831</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/831">JAXB-831</link>
                     - Memory leak in <literal>com.sun.xml.bind.v2.ClassFactory</literal>
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/834">JAXB-834</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/834">JAXB-834</link>
                     - Cannot use binding file on Windows
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/836">JAXB-836</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/836">JAXB-836</link>
                     - CLONE -Marshaller.marshall throws NPE if an adapter adapts a non-null bound value to null.
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/837">JAXB-837</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/837">JAXB-837</link>
                     - XJC generated code misses out some fields from XML
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/843">JAXB-843</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/843">JAXB-843</link>
                     - Marshaller holds reference after marshalling for the writer that was used to marshal into
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/844">JAXB-844</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/844">JAXB-844</link>
                     - Memory Leak in com.sun.xml.bind.v2.runtime.Coordinator
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/847">JAXB-847</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/847">JAXB-847</link>
                     - DataTypeConverterImpl patch causes corrupted stream generation in some cases
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/849">JAXB-849</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/849">JAXB-849</link>
                     - JAXB:Invalid boolean values added to lists as 'false'
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/856">JAXB-856</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/856">JAXB-856</link>
                     - xs:import namespace="http://www.w3.org/2005/05/xmlmime" is not generated
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/858">JAXB-858</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/858">JAXB-858</link>
                     - xjc generates no JAXBElement for nillable element with required attribute
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/859">JAXB-859</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/859">JAXB-859</link>
                     - Corrupt license file in the distribution
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/860">JAXB-860</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/860">JAXB-860</link>
                     - <literal>NullPointerException com.sun.xml.bind.v2.runtime.ClassBeanInfoImpl.checkOverrideProperties(ClassBeanInfoImpl.java</literal>:205)
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/867">JAXB-867</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/867">JAXB-867</link>
                     - jax-ws / jax-b / glassfish 3.1.1 web services fail to send data from beans based on variable name.
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/868">JAXB-868</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/868">JAXB-868</link>
                     - Escape policy for quote (") is different when the serialization is performed to OutputStream or
                     Writer
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/869">JAXB-869</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/869">JAXB-869</link>
                     - Multiple &lt;any /> elements on a schema : second element is not loaded
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/882">JAXB-882</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/882">JAXB-882</link>
                     - Marshalling Objects extending <literal>JAXBElement</literal> linked by
                     <literal>@XmlElementRef</literal>
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/445">JAXB-445</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/445">JAXB-445</link>
                     - Generated episode bindings should contain target package name
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/499">JAXB-499</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/499">JAXB-499</link>
                     - Umbrella issue for all XJC related encoding issues wrt xjc itself and maven plugins/ant tasks
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/839">JAXB-839</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/839">JAXB-839</link>
                     - More Schema Annotations/Documentation to Javadoc
                 </para>
             </listitem>
@@ -496,13 +506,13 @@
         <itemizedlist>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/834">JAXB-834</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/834">JAXB-834</link>
                     - Cannot use binding file on Windows
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/835">JAXB-835</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/835">JAXB-835</link>
                     - XJC fails with project path that contains spaces
                 </para>
             </listitem>
@@ -513,183 +523,183 @@
         <itemizedlist>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/413">JAXB-413</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/413">JAXB-413</link>
                     - Redundant cast to <literal>byte[]</literal> in code generated by XJCTask
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/416">JAXB-416</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/416">JAXB-416</link>
                     - Ant XJC task problems with spaces in paths
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/450">JAXB-450</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/450">JAXB-450</link>
                     - Reusing unmarshaller results in an unexpected result
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/549">JAXB-549</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/549">JAXB-549</link>
                     - Unescaped javadoc in <literal>@XmlElements</literal>
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/602">JAXB-602</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/602">JAXB-602</link>
                     - Different unmarshalling behavior between primitive
                     type and simpletype with enumeration under restriction
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/618">JAXB-618</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/618">JAXB-618</link>
                     - XJC generates certain code lines in a random order
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/620">JAXB-620</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/620">JAXB-620</link>
                     - Problems with abstract classes and <literal>@XMLValue</literal>
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/652">JAXB-652</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/652">JAXB-652</link>
                     - JAXB 2.2 API should be changed to work with old 2.1 jaxb implementation in JDK
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/696">JAXB-696</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/696">JAXB-696</link>
                     - Incorrect implementation/documentation of
                     javax.xml.bind.annotation.adapters.NormalizedStringAdapter
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/726">JAXB-726</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/726">JAXB-726</link>
                     - Missing keyword 'throw'
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/761">JAXB-761</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/761">JAXB-761</link>
                     - DatatypeConverterInterface.printDate inconsistencies
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/774">JAXB-774</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/774">JAXB-774</link>
                     - Extra slash in XSD location prevents customization
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/803">JAXB-803</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/803">JAXB-803</link>
                     - 2.2.2 strips schemaLocation in binding files
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/804">JAXB-804</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/804">JAXB-804</link>
                     - JAXB 2.x : How to override an XmlElement annotation from parent class - Mission Impossible?
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/813">JAXB-813</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/813">JAXB-813</link>
                     - Preserving white-space in XML (xs:string enumeration value) does not work
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/815">JAXB-815</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/815">JAXB-815</link>
                     - Binding file cannot refer to schema file with space in file name.
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/816">JAXB-816</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/816">JAXB-816</link>
                     - Incorrect System property to define the provider factory class
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/821">JAXB-821</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/821">JAXB-821</link>
                     - Global customization are not applied to xjc when input document is WSDL
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/824">JAXB-824</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/824">JAXB-824</link>
                     - API files in javax.xml.bind need to be updated for references to JLS with editions/hyperlinks
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/826">JAXB-826</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/826">JAXB-826</link>
                     - JAXB fails to unmarshal attributes as properties on aix
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/268">JAXB-268</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/268">JAXB-268</link>
                     - Map handling broken
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/470">JAXB-470</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/470">JAXB-470</link>
                     - Potential changes to make JAXB work better with OSGi
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/478">JAXB-478</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/478">JAXB-478</link>
                     - jaxb2-sources : Allow compilation under Java 6
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/633">JAXB-633</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/633">JAXB-633</link>
                     - JDefinedClass getMods()
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/768">JAXB-768</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/768">JAXB-768</link>
                     - Mailing list consolidation suggestions
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/784">JAXB-784</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/784">JAXB-784</link>
                     - JAnnotationUse should provide getters for clazz and memberValues properties
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/406">JAXB-406</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/406">JAXB-406</link>
                     - Allow setting of access modifiers in JMods
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/769">JAXB-769</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/769">JAXB-769</link>
                     - Update to command-line help text
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/772">JAXB-772</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/772">JAXB-772</link>
                     - Updates to XJC.html page and -Xpropertyaccessors plugin
                 </para>
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/783">JAXB-783</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/783">JAXB-783</link>
                     - I18N: xjc generates localized strings of AM/PM so compilation fails
                 </para>
             </listitem>
@@ -700,7 +710,7 @@
         <itemizedlist>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/826">JAXB-826</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/826">JAXB-826</link>
                     - JAXB fails to unmarshal attributes as properties on AIX
                 </para>
             </listitem>
@@ -711,7 +721,7 @@
         <itemizedlist>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/805">JAXB-805</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/805">JAXB-805</link>
                     - SpecJ performance regression
                 </para>
             </listitem>
@@ -725,7 +735,7 @@
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues/620">JAXB-620</link>
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/620">JAXB-620</link>
                     - Problems with abstract classes (xsi type processing)
                 </para>
             </listitem>
@@ -748,7 +758,7 @@
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.2.1">
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.2.1">
                         Fixes to bugs
                     </link>
                 </para>
@@ -775,7 +785,7 @@
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.2">
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.2">
                         Fixes to bugs
                     </link>
                 </para>
@@ -792,7 +802,7 @@
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1.12">
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1.12">
                         Fixes to bugs
                     </link>
                 </para>
@@ -804,7 +814,7 @@
         <itemizedlist>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1.12">
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1.12">
                         Fixes to bugs
                     </link>
                 </para>
@@ -833,7 +843,7 @@
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1.11">
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1.11">
                         Fixes to bugs
                     </link>
                 </para>
@@ -853,7 +863,7 @@
         <itemizedlist>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1.9">
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1.9">
                         Fixes to bugs
                     </link>
                 </para>
@@ -865,7 +875,7 @@
         <itemizedlist>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1.8">
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1.8">
                         Fixes to bugs
                     </link>
                 </para>
@@ -877,7 +887,7 @@
         <itemizedlist>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1.7">
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1.7">
                         Fixes to bugs
                     </link>
                 </para>
@@ -895,7 +905,7 @@
             </listitem>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1.6">
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1.6">
                         Fixes to bugs
                     </link>
                 </para>
@@ -907,7 +917,7 @@
         <itemizedlist>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1.5">
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1.5">
                         Fixes to bugs
                     </link>
                 </para>
@@ -919,7 +929,7 @@
         <itemizedlist>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1.4">
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1.4">
                         Fixes to bugs
                     </link>
                 </para>
@@ -931,7 +941,7 @@
         <itemizedlist>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1.3">
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1.3">
                         Fixes to bugs
                     </link>
                 </para>
@@ -943,7 +953,7 @@
         <itemizedlist>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1.2">
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1.2">
                         Fixes to bugs
                     </link>
                 </para>
@@ -955,7 +965,7 @@
         <itemizedlist>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1.1">
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1.1">
                         Fixes to bugs
                     </link>
                 </para>
@@ -967,7 +977,7 @@
         <itemizedlist>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1">
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.1">
                         Fixes to bugs
                     </link>
                 </para>
@@ -984,7 +994,7 @@
         <itemizedlist>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A%222.1+EA2%22">
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues?q=is%3Aissue+is%3Aclosed+milestone%3A%222.1+EA2%22">
                         Fixes to bugs
                     </link>
                 </para>
@@ -1015,7 +1025,7 @@
         <itemizedlist>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.0.2">
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.0.2">
                         Fixes to bugs
                     </link>
                 </para>
@@ -1030,7 +1040,7 @@
         <itemizedlist>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.0.1">
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.0.1">
                         Fixes to bugs
                     </link>
                 </para>
@@ -1061,7 +1071,7 @@
         <itemizedlist>
             <listitem>
                 <para>
-                    <link xlink:href="https://github.com/javaee/jaxb-v2/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.0">
+                    <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues?q=is%3Aissue+is%3Aclosed+milestone%3A2.0">
                         Fixes to bugs
                     </link>
                 </para>
