@@ -476,7 +476,7 @@ public class Person {
             "extension" schemas to be compiled later on top of your base
             schema, and if those extension schemas do element substitutions,
             this binding causes a problem ( <link
-            xlink:href="https://github.com/javaee/jaxb-v2/issues/289">see
+            xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/289">see
             example</link>.)</para>
 
             <para>&lt;xjc:substitutable&gt; customization is a work around for
