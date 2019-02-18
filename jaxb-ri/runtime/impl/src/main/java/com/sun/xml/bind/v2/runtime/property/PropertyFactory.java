@@ -14,6 +14,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 
+import com.sun.xml.bind.v2.model.core.ClassInfo;
 import com.sun.xml.bind.v2.model.core.ID;
 import com.sun.xml.bind.v2.model.core.PropertyKind;
 import com.sun.xml.bind.v2.model.runtime.RuntimeAttributePropertyInfo;
@@ -125,6 +126,9 @@ public abstract class PropertyFactory {
         if(info.id()==ID.IDREF)
             // IDREF is always handled as leaf -- Transducer maps IDREF String back to an object
             return true;
+
+        //if hasSubClasses it's not a leaf and we can't optimize, see #1135
+        if (rti instanceof ClassInfo && ((ClassInfo) rti).hasSubClasses()) return false;
 
         if(((RuntimeNonElement)rti).getTransducer()==null)
             // Transducer!=null means definitely binds to PCDATA.
