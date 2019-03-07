@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -88,57 +88,25 @@
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
                     <execution>
+                        <id>copy-schemagen</id>
                         <phase>validate</phase>
                         <goals>
                             <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.build.directory}/mods</outputDirectory>
-                            <excludeArtifactIds>jmockit</excludeArtifactIds>
+                            <outputDirectory>${project.build.directory}/schemagen-cp</outputDirectory>
+                            <includeArtifactIds>jakarta.activation,jakarta.xml.bind-api,jaxb-runtime,jaxb-xjc,stax-ex,istack-commons-runtime,istack-commons-tools,dtd-parser,rngom,relaxng-datatype,xsom,codemodel,txw2</includeArtifactIds>
                         </configuration>
                     </execution>
                     <execution>
                         <id>copy-ant</id>
-                        <phase>process-test-sources</phase>
+                        <phase>validate</phase>
                         <goals>
                             <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
                             <outputDirectory>${project.build.directory}/lib/ant</outputDirectory>
-                            <includeArtifactIds>ant,ant-launcher,ant-nodeps,cobertura</includeArtifactIds>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>copy-lib</id>
-                        <phase>process-test-sources</phase>
-                        <goals>
-                            <goal>copy</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/lib/</outputDirectory>
-                            <excludeTransitive>true</excludeTransitive>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>${project.groupId}</groupId>
-                                    <artifactId>jaxb-xjc</artifactId>
-                                    <type>jar</type>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>${project.groupId}</groupId>
-                                    <artifactId>txw2</artifactId>
-                                    <type>jar</type>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>${project.groupId}</groupId>
-                                    <artifactId>jaxb-runtime</artifactId>
-                                    <type>jar</type>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>com.sun.istack</groupId>
-                                    <artifactId>istack-commons-runtime</artifactId>
-                                    <type>jar</type>
-                                </artifactItem>
-                            </artifactItems>
+                            <includeArtifactIds>ant,ant-launcher</includeArtifactIds>
                         </configuration>
                     </execution>
                 </executions>
@@ -206,8 +174,8 @@
                             <source>${upper.java.level}</source>
                             <target>${upper.java.level}</target>
                             <compilerArgs>
-                                <arg>--module-path</arg>
-                                <arg>${project.build.directory}/mods:${project.build.directory}/lib/ant</arg>
+                                <arg>--upgrade-module-path</arg>
+                                <arg>${project.build.directory}/lib/ant</arg>
                                 <arg>--add-modules</arg>
                                 <arg>ant</arg>
                                 <arg>--add-reads</arg>

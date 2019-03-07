@@ -129,14 +129,26 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>copy-lib</id>
+                        <id>copy-resolver</id>
                         <phase>validate</phase>
                         <goals>
                             <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
                             <outputDirectory>${project.build.directory}/mods</outputDirectory>
-                            <excludeArtifactIds>jmockit</excludeArtifactIds>
+                            <includeArtifactIds>resolver</includeArtifactIds>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <!--Dependencies for XJCTask see xjc.xml-->
+                        <id>copy-xjctask</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/xjctask-cp</outputDirectory>
+                            <includeArtifactIds>jakarta.activation,istack-commons-tools,istack-commons-runtime,jaxb-runtime,jakarta.xml.bind-api,codemodel,xsom,relaxng-datatype,rngom</includeArtifactIds>
                         </configuration>
                     </execution>
                 </executions>
@@ -203,14 +215,16 @@
                             <source>${upper.java.level}</source>
                             <target>${upper.java.level}</target>
                             <compilerArgs>
-                                <arg>--module-path</arg>
-                                <arg>${project.build.directory}/mods:${project.build.directory}/lib/ant</arg>
+                                <arg>--upgrade-module-path</arg>
+                                <arg>${project.build.directory}/mods/:${project.build.directory}/lib/ant</arg>
                                 <arg>--add-modules</arg>
-                                <arg>ant</arg>
+                                <arg>ant,resolver</arg>
                                 <arg>--add-reads</arg>
                                 <arg>com.sun.tools.xjc=ant</arg>
                                 <arg>--add-reads</arg>
                                 <arg>com.sun.istack.tools=ant</arg>
+                                <arg>--add-reads</arg>
+                                <arg>com.sun.tools.xjc=resolver</arg>
                             </compilerArgs>
                         </configuration>
                     </execution>

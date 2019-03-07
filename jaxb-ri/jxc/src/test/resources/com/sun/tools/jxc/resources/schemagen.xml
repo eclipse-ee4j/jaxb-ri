@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2017, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2017, 2019 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -19,7 +19,7 @@
 
     <target name="init">
         <property name="libs.folder" value="${bin.folder}/lib"/>
-        <property name="modules.folder" value="${bin.folder}/mods"/>
+        <property name="schemagen.lib" value="${bin.folder}/schemagen-cp"/>
         <property name="lib.dir" value="lib"/>
         <property name="build.dir" value="build"/>
         <property name="src.dir" value="src"/>
@@ -35,7 +35,7 @@
         <path id="task.cp">
             <pathelement location="${bin.folder}/classes"/>
             <fileset dir="${lib.dir}"/>
-            <fileset dir="${modules.folder}"/>
+            <fileset dir="${schemagen.lib}"/>
         </path>
     </target>
 
@@ -49,7 +49,6 @@
         <echo message="Generating schemas..."/>
         <schemagen destdir="${build.dir}" fork="true">
             <src path="${src.dir}"/>
-            <jvmarg line="--add-modules jakarta.activation"/>
         </schemagen>
     </target>
 

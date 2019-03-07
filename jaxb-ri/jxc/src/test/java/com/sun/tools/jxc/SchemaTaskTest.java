@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2017, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -42,16 +42,12 @@ public class SchemaTaskTest extends SchemaAntTaskTestBase {
     }
 
     public void testFork() throws FileNotFoundException, IOException {
-        if (is9()){
-            copy(pkg, "MyTrackingOrder.java", SchemaTaskTest.class.getResourceAsStream("resources/MyTrackingOrder.java_"));
-            assertEquals(0, AntExecutor.exec(script, "schemagen-fork"));
-        }
+        copy(pkg, "MyTrackingOrder.java", SchemaTaskTest.class.getResourceAsStream("resources/MyTrackingOrder.java_"));
+        assertEquals(0, AntExecutor.exec(script, "schemagen-fork"));
     }
 
     public void testAddmodules() throws IOException {
-        if (is9()){
-            copy(pkg, "MyTrackingOrder.java", SchemaTaskTest.class.getResourceAsStream("resources/MyTrackingOrder.java_"));
-            assertEquals(0, AntExecutor.exec(script, "schemagen-addmodules"));
-        }
+        copy(pkg, "MyTrackingOrder.java", SchemaTaskTest.class.getResourceAsStream("resources/MyTrackingOrder.java_"));
+        assertEquals(0, AntExecutor.exec(script, "schemagen-addmodules"));
     }
 }
