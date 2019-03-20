@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2018, 2019 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -54,6 +54,28 @@
         </para>
     </section>
 
+    <section xml:id="Command-line-examples">
+
+        <para>
+            <example><title>JAXB on JPMS Command line examples</title>
+                <programlisting language="java"><![CDATA[
+                #Both client and JAXB on module path:
+                user@host: java -m com.example.jaxbclasses/com.example.jaxb.Main
+                --module-path jaxbclient.jar:jaxb-api.jar:jaxb-runtime.jar
+
+                #Both client and JAXB on classpath:
+                java com.example.jaxb.Main -cp jaxbclient.jar:jaxb-api.jar:jaxb-runtime.jar
+
+                #Client on classpath, JAXB on module path:
+                user@host: java com.example.jaxb.Main -cp jaxbclient.jar --module-path jaxb-api.jar:jaxb-runtime.jar
+                --add-modules java.xml.bind
+
+             ]]></programlisting>
+            </example>
+            JAXB API will delegate openness to implementation module after resolving it with service discovery mechanism.
+        </para>
+    </section>
+
     <section xml:id="Jaxb_api_upgrade">
         <title>Upgrading JavaSE modules on Java 9 and 10.</title>
         <para>
@@ -81,14 +103,8 @@
             <example><title>Upgrading JavaSE java.xml.bind module with JAXB API</title>
 
                 <programlisting language="cli"><![CDATA[
-                    # Using JAXB standalone jars
                     # Replace JavaSE bundled java.xml.bind with standalone API jar
-                    user@host: java com.example.jaxb.Main -cp jaxbclient.jar --upgrade-module-path path/to/jakarta.xml.bind-api.jar
-                    --module-path path/to/jaxb-runtime.jar --add-modules com.sun.xml.bind
-
-                    #Same as above with client on module path
-                    user@host: java -m com.example.jaxbclasses/com.example.jaxb.Main --upgrade-module-path path/to/jakarta.xml.bind-api.jar
-                    --module-path path/to/jaxb-runtime.jar:jaxbclient.jar --add-modules com.sun.xml.bind
+                    java --upgrade-module-path path/to/jakarta.xml.bind-api.jar ...
 
              ]]></programlisting>
             </example>
@@ -96,20 +112,6 @@
             <para>Since java.xml.bind module
                 <link xmlns:xlink="http://openjdk.java.net/jeps/320">is removed starting from Java 11, there is no need
                     to upgrade this module on 11 and later.</link></para>
-
-            <example><title>Using bundled JavaSE JAXB</title>
-
-                <programlisting language="cli"><![CDATA[
-
-                    # Using JAXB bundled in JDK
-                    # No need for standalone jars here
-                    user@host: java com.example.jaxb.Main -cp jaxbclient.jar
-
-                    user@host: java -m com.example.jaxbclasses/com.example.jaxb.Main
-                    --module-path jaxbclient.jar
-
-             ]]></programlisting>
-            </example>
 
         </para>
     </section>
