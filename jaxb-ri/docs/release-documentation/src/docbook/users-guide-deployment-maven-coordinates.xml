@@ -30,7 +30,7 @@
         <title>Maven coordinates for JAXB artifacts</title>
         <itemizedlist>
             <listitem>
-                <para><emphasis role="bold">java.xml.bind:jaxb-api</emphasis> API classes for JAXB.
+                <para><emphasis role="bold">jakarta.xml.bind:jakarta.xml.bind-api</emphasis> API classes for JAXB.
                     Required to compile against JAXB.</para>
             </listitem>
             <listitem>

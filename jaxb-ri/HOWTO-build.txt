@@ -8,5 +8,10 @@
 # SPDX-License-Identifier: BSD-3-Clause
 #
 
-Three words. "mvn clean install"
+JavaSE 11 and Maven 3.3.9 are required for the build.
+
+Run "mvn clean install" in jaxb-ri subdirectory.
+
+If staging repository (https://oss.sonatype.org/content/repositories/staging/) dependencies
+are used in project add "staging" profile "mvn clean install -Pstaging"
 
