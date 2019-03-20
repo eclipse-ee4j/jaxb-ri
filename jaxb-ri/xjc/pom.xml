@@ -216,7 +216,7 @@
                             <target>${upper.java.level}</target>
                             <compilerArgs>
                                 <arg>--upgrade-module-path</arg>
-                                <arg>${project.build.directory}/mods/:${project.build.directory}/lib/ant</arg>
+                                <arg>${project.build.directory}/mods/${path.separator}${project.build.directory}/lib/ant</arg>
                                 <arg>--add-modules</arg>
                                 <arg>ant,resolver</arg>
                                 <arg>--add-reads</arg>
