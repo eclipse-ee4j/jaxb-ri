@@ -12,6 +12,7 @@ JAXB gives Java developers an efficient and standard way of mapping between XML 
 ## Documentation
 Documentation for this release consists of the following:
 - [Release Notes](https://javaee.github.io/jaxb-v2/doc/user-guide/ch02.html)
+- [Maven artifacts](#maven-artifacts)
 - [JAXB Users Guide](https://javaee.github.io/jaxb-v2/doc/user-guide/ch03.html)
 - [Sample Apps](https://javaee.github.io/jaxb-v2/doc/user-guide/ch01.html#jaxb-2-0-sample-apps)
 - JAXB FAQs [Frequently Asked Questions](https://javaee.github.io/jaxb-v2/doc/user-guide/ch06.html)
@@ -53,47 +54,47 @@ which in turn is a dependency of JAXB
 RNGOM and relaxng-datatype under jaxb-ri/external are tools for working with RelaxNG. It is released separately because it is a dependency of 
 several jaxb-ri projects including jaxb-ri/xsom above.
 
-##Using JAXB with Maven 
+## <a name="maven-artifacts"></a> Using JAXB with Maven 
 
-###Maven coordinates for JAXB artifacts
+### Maven coordinates for JAXB artifacts
 
--   **jakarta.xml.bind:jakarta.xml.bind-api** API classes for JAXB. Required to compile
+-   **jakarta.xml.bind:jakarta.xml.bind-api**: API classes for JAXB. Required to compile
     against JAXB.
 
--   **org.glassfish.jaxb:jaxb-runtime** Implementation of JAXB, runtime used
+-   **org.glassfish.jaxb:jaxb-runtime**: Implementation of JAXB, runtime used
     for serialization and deserialization java objects to/from xml.
 
--   **org.glassfish.jaxb:jaxb-xjc:** Tool to generate JAXB java sources
+-   **org.glassfish.jaxb:jaxb-xjc**: Tool to generate JAXB java sources
     from XML representation.
 
--   **org.glassfish.jaxb:jaxb-jxc:** Tool to generate XML schema from
+-   **org.glassfish.jaxb:jaxb-jxc**: Tool to generate XML schema from
     JAXB java sources.
 
 
-####JAXB fat-jar bundles:    
+#### JAXB fat-jar bundles:    
 
--   **com.sun.xml.bind:jaxb-impl** JAXB runtime fat jar.
--   **com.sun.xml.bind:jaxb-xjc** Class generation tool fat jar.
--   **com.sun.xml.bind:jaxb-xjc** Schema generation tool fat jar.
+-   **com.sun.xml.bind:jaxb-impl**: JAXB runtime fat jar.
+-   **com.sun.xml.bind:jaxb-xjc**: Class generation tool fat jar.
+-   **com.sun.xml.bind:jaxb-xjc**: Schema generation tool fat jar.
 
 In contrast to `org.glassfish.jaxb` artifacts, these jars have all dependency classes included inside. These artifacts does not contain JPMS module descriptors.
 In Maven projects `org.glassfish.jaxb` artifacts are supposed to be used instead. 
 
 
-####Binary distribution:
--   **com.sun.xml.bind:jaxb-ri:** Zip distribution containing tooling
+#### Binary distribution:
+-   **com.sun.xml.bind:jaxb-ri**: Zip distribution containing tooling
     scripts and all dependency jars in one archive.
 
-Old fashioned zip archive distribution with all dependencies and tooling scripts.
+Old fashioned zip archive distribution.
 
-##Examples
+## Examples
 ### JAXB API and Runtime 
 
 Minimum requirement to compile is jaxb-api. If application is
 running on an environment where JAXB runtime is provided, `jaxb-api` is
 all that is needed.
 
-``` {.xml}
+```xml
 <!-- API -->
 <dependency>
     <groupId>jakarta.xml.bind</groupId>
@@ -105,7 +106,7 @@ all that is needed.
 If application needs to include the runtime, e.g. running
 standalone on JavaSE `jaxb-runtime` should be also included.
 
-``` {.xml}
+```xml
 <!-- API -->
 <dependency>
     <groupId>jakarta.xml.bind</groupId>
@@ -128,7 +129,7 @@ To generate JAXB classes from schema in Maven project, a community
 [maven-jaxb2-plugin](https://github.com/highsource/maven-jaxb2-plugin)
 can be used. 
 
-``` {.xml}
+```xml
 <build>
     <plugins>
         <plugin>
@@ -151,7 +152,7 @@ See the [maven-jaxb2-plugin documentation](https://github.com/highsource/maven-j
 
 Alternatively there are tooling artifacts jaxb-xjc and jaxb-jxc, which can be invoked manually. 
 
-``` {.xml}
+```xml
 <!-- Tooling dependencies -->
 <dependency>
     <groupId>org.glassfish.jaxb</groupId>
@@ -216,7 +217,7 @@ Alternatively there are tooling artifacts jaxb-xjc and jaxb-jxc, which can be in
 </plugin>
 ```
 
-##Using JAXB tools with Ant
+## Using JAXB tools with Ant
 
 - Running the binding compiler (XJC): [XJC, XJC Ant Task](https://eclipse-ee4j.github.io/jaxb-ri/docs/ch04.html#tools-xjc-ant-task)
 - Running the schema generator (schemagen): [SchemaGen, SchemaGen Ant Task](https://eclipse-ee4j.github.io/jaxb-ri/docs/ch04.html#tools-schemagen-ant-task)
@@ -224,6 +225,6 @@ Alternatively there are tooling artifacts jaxb-xjc and jaxb-jxc, which can be in
 See also [xml schema compiler
 usage](https://eclipse-ee4j.github.io/jaxb-ri/docs/ch03.html#schema-generation-invoking-schemagen-programatically).
 
-##XJC and Schemagen command line scripts
+## XJC and Schemagen command line scripts
 Where are schemagen and xjc command line scripts available in JavaSE
 prior to 11? These are included only in the [JAXB zip distribution.](https://repo1.maven.org/maven2/com/sun/xml/bind/jaxb-ri/2.3.2/)
