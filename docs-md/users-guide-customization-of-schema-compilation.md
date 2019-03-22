@@ -1,2 +1,0 @@
-Customization of Schema Compilation
-===================================

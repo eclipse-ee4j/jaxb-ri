@@ -1,2 +1,0 @@
-JAXB RI Extensions
-==================

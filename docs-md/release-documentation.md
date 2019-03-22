@@ -1,5 +1,0 @@
----
-title: JAXB Release Documentation
----
-
-
