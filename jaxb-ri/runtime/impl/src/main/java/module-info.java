@@ -50,6 +50,7 @@ module com.sun.xml.bind {
     exports com.sun.xml.bind.v2.util;
 
     opens com.sun.xml.bind.v2.model.nav to com.sun.tools.xjc;
+    opens com.sun.xml.bind.v2.model.nav to com.sun.xml.ws.jaxws;
 
     uses javax.xml.bind.JAXBContextFactory;
 
