@@ -67,7 +67,7 @@ ${JAXB_HOME}/mod/dtd-parser.jar:\
 ${JAXB_HOME}/mod/txw2.jar:\
 ${JAXB_HOME}/mod/stax-ex.jar:\
 ${JAXB_HOME}/mod/FastInfoset.jar:\
-${JAXB_HOME}/mod/jakarta.activation.jar:\
+${JAXB_HOME}/mod/jakarta.activation-api.jar:\
 ${JAXB_HOME}/mod/relaxng-datatype.jar
 
 
