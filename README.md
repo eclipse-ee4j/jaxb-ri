@@ -30,7 +30,7 @@ terms of [OCA](http://oracle.com/technetwork/goto/oca).
 - JAXB-RI project home page: [https://javaee.github.io/jaxb-v2/](https://javaee.github.io/jaxb-v2/)
 - [METRO project](https://javaee.github.io/metro)
 - [JSR 222](https://jcp.org/en/jsr/detail?id=222)
-- [Download standalone distribution](https://repo1.maven.org/maven2/com/sun/xml/bind/jaxb-ri/2.3.0/jaxb-ri-2.3.0.zip)
+- [Download standalone distribution](https://repo1.maven.org/maven2/com/sun/xml/bind/jaxb-ri/2.3.2/jaxb-ri-2.3.2.zip)
 
 ## Build instructions
 JavaSE 11 and Maven 3.3.9 are required to build JAXB.
