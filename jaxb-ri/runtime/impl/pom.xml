@@ -54,6 +54,7 @@
         <dependency>
             <groupId>com.sun.xml.fastinfoset</groupId>
             <artifactId>FastInfoset</artifactId>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

@@ -200,10 +200,10 @@
                                 <Build-Version>JAXB RI ${project.version}</Build-Version>
                                 <Major-Version>${jaxb.majorVersion}.${jaxb.minorVersion}.${jaxb.incrementalVersion}</Major-Version>
                             </manifestEntries>
-                            <manifest>
-                                <addClasspath>true</addClasspath>
-                            </manifest>
                         </archive>
+                        <excludes>
+                            <exclude>META-INF/jpms.args</exclude>
+                        </excludes>
                     </configuration>
                 </plugin>
                 <plugin>
