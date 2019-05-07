@@ -57,7 +57,7 @@ ${JAXB_HOME}/mod/codemodel.jar:\
 ${JAXB_HOME}/mod/xsom.jar:\
 ${JAXB_HOME}/mod/txw2.jar:\
 ${JAXB_HOME}/mod/relaxng-datatype.jar:\
-${JAXB_HOME}/mod/jakarta.activation.jar
+${JAXB_HOME}/mod/jakarta.activation-api.jar
 
 
 # add the api jar file
