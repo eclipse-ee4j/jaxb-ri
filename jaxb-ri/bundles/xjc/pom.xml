@@ -397,14 +397,6 @@
                                     </manifestEntries>
                                 </transformer>
                             </transformers>
-                            <filters>
-                                <filter>
-                                    <artifact>com.sun.istack:istack-commons-tools</artifact>
-                                    <excludes>
-                                        <exclude>META-INF/jpms.args</exclude>
-                                    </excludes>
-                                </filter>
-                            </filters>
                         </configuration>
                     </execution>
                 </executions>

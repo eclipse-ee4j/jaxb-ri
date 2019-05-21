@@ -251,7 +251,7 @@
                                 <includes>
                                     <include>org.glassfish.jaxb:jaxb-runtime</include>
                                     <include>org.glassfish.jaxb:txw2</include>
-                                    <exclude>com.sun.istack:istack-commons-runtime</exclude>
+                                    <include>com.sun.istack:istack-commons-runtime</include>
                                 </includes>
                                 <excludes>
                                     <exclude>jakarta.xml.bind:jakarta.xml.bind-api</exclude>
@@ -262,14 +262,6 @@
                                     <exclude>javax.activation:activation</exclude>
                                 </excludes>
                             </artifactSet>
-                            <filters>
-                                <filter>
-                                    <artifact>com.sun.istack:istack-commons-tools</artifact>
-                                    <excludes>
-                                        <exclude>META-INF/jpms.args</exclude>
-                                    </excludes>
-                                </filter>
-                            </filters>
                         </configuration>
                     </execution>
                 </executions>
