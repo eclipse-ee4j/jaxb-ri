@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2017, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,7 +24,7 @@ module com.sun.xml.bind {
     requires transitive java.xml;
 
     requires com.sun.xml.txw2;
-    requires com.sun.xml.fastinfoset;
+    requires static com.sun.xml.fastinfoset;
     requires org.jvnet.staxex;
     requires com.sun.istack.runtime;
 

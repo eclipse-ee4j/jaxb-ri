@@ -98,6 +98,8 @@
             <groupId>com.sun.org.apache.xml.internal</groupId>
             <artifactId>resolver</artifactId>
             <scope>provided</scope>
+            <!--Not needed starting from JavaSE 11-->
+            <optional>true</optional>
         </dependency>
     </dependencies>
 

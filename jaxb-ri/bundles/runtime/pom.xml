@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -250,6 +250,8 @@
                             <artifactSet>
                                 <includes>
                                     <include>org.glassfish.jaxb:jaxb-runtime</include>
+                                    <include>org.glassfish.jaxb:txw2</include>
+                                    <include>com.sun.istack:istack-commons-runtime</include>
                                 </includes>
                                 <excludes>
                                     <exclude>jakarta.xml.bind:jakarta.xml.bind-api</exclude>
@@ -258,8 +260,6 @@
                                     <exclude>com.sun.xml.fastinfoset:FastInfoset</exclude>
                                     <exclude>org.jvnet.staxex:stax-ex</exclude>
                                     <exclude>javax.activation:activation</exclude>
-                                    <exclude>org.glassfish.jaxb:txw2</exclude>
-                                    <exclude>com.sun.istack:istack-commons-runtime</exclude>
                                 </excludes>
                             </artifactSet>
                         </configuration>
