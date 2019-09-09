@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -50,7 +50,7 @@ public abstract class SimpleTypeImpl extends DeclarationImpl
     private Ref.SimpleType baseType;
 
     public XSType[] listSubstitutables() {
-        return Util.listSubstitutables(this);
+        return ImplUtil.listSubstitutables(this);
     }
 
     public void redefine( SimpleTypeImpl st ) {

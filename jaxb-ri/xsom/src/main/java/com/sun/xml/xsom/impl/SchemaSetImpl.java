@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -288,7 +288,7 @@ public class SchemaSetImpl implements XSSchemaSet
         public int getRedefinedCount() { return 0; }
 
         public XSType[] listSubstitutables() {
-            return Util.listSubstitutables(this);
+            return ImplUtil.listSubstitutables(this);
         }
     }
 
@@ -339,7 +339,7 @@ public class SchemaSetImpl implements XSSchemaSet
         public int getRedefinedCount() { return 0; }
 
         public XSType[] listSubstitutables() {
-            return Util.listSubstitutables(this);
+            return ImplUtil.listSubstitutables(this);
         }
 
         private final WildcardImpl anyWildcard = new WildcardImpl.Any(null,null,null,null,XSWildcard.SKIP);

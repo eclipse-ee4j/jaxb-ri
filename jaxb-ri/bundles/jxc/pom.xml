@@ -33,11 +33,42 @@
 
     <dependencies>
         <dependency>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-xjc</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>jakarta.activation</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-jxc</artifactId>
-            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant</artifactId>
+            <scope>provided</scope>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>com.sun.org.apache.xml.internal</groupId>
+            <artifactId>resolver</artifactId>
+            <scope>provided</scope>
+            <!--Not needed starting from JavaSE 11-->
+            <optional>true</optional>
+        </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -46,8 +77,8 @@
     </dependencies>
 
     <properties>
-        <generated.sources.dir>${project.build.directory}/generated-sources</generated.sources.dir>
-        <generated.classes.dir>${project.build.directory}/classes</generated.classes.dir>
+        <dep.sources>${project.build.directory}/generated-sources/dependencies</dep.sources>
+        <dep.sources.mr>${project.build.directory}/generated-sources/dependencies-mr</dep.sources.mr>
     </properties>
 
     <profiles>
@@ -83,15 +114,173 @@
 
     <build>
         <plugins>
+            <plugin> <!-- want to unpack sources from individual modules -->
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack-sources</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeGroupIds>org.glassfish.jaxb</includeGroupIds>
+                            <includeScope>provided</includeScope>
+                            <classifier>sources</classifier>
+                            <excludeTransitive>true</excludeTransitive>
+                            <excludes>module-info.*,META-INF/versions/**,META-INF/MANIFEST.MF</excludes>
+                            <outputDirectory>${dep.sources}</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>unpack-sources-mr</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeGroupIds>org.glassfish.jaxb</includeGroupIds>
+                            <includeScope>provided</includeScope>
+                            <classifier>sources</classifier>
+                            <excludeTransitive>true</excludeTransitive>
+                            <includes>META-INF/versions/9/**</includes>
+                            <outputDirectory>${dep.sources.mr}</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-resource</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>add-resource</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>${dep.sources}</directory>
+                                    <excludes>
+                                        <exclude>**/*.java</exclude>
+                                    </excludes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>add-sources</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${dep.sources}</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>add-mr-resource</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>add-resource</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>${dep.sources.mr}</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>default-compile</id>
+                        <configuration>
+                            <compilerArgs>
+                                <arg>--add-reads</arg>
+                                <arg>com.sun.xml.bind.jxc=ALL-UNNAMED</arg>
+                            </compilerArgs>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>default-compile-mr</id>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                        <configuration>
+                            <compileSourceRoots>
+                                <compileSourceRoot>${dep.sources.mr}/META-INF/versions/9</compileSourceRoot>
+                            </compileSourceRoots>
+                            <outputDirectory>${project.build.outputDirectory}/META-INF/versions/${upper.java.level}</outputDirectory>
+                            <source>${upper.java.level}</source>
+                            <target>${upper.java.level}</target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>bundle-manifest</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>manifest</goal>
+                        </goals>
+                        <configuration>
+                            <instructions>
+                                <Export-Package>*</Export-Package>
+                                <Import-Package>
+                                    javax.activation;version=!,
+                                    com.sun.source.tree;resolution:="optional",
+                                    com.sun.source.util;resolution:="optional",
+                                    *
+                                </Import-Package>
+                            </instructions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+                        <manifestEntries>
+                            <Class-Path>jaxb-impl.jar jaxb-xjc.jar</Class-Path>
+                            <Multi-Release>true</Multi-Release>
+                        </manifestEntries>
+                        <manifest>
+                            <mainClass>com.sun.tools.jxc.SchemaGeneratorFacade</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
-                    <additionalparam>-Xdoclint:none</additionalparam>
+                    <includeDependencySources>false</includeDependencySources>
                     <sourceFileExcludes>
                         <sourceFileExclude>META-INF/versions/**</sourceFileExclude>
                     </sourceFileExcludes>
+                    <additionalJOptions>
+                        <additionalJOption>--add-reads</additionalJOption>
+                        <additionalJOption>com.sun.xml.bind.jxc=ALL-UNNAMED</additionalJOption>
+                    </additionalJOptions>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-junit4osgi-plugin</artifactId>
@@ -126,168 +315,13 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>bundle-manifest</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>manifest</goal>
-                        </goals>
-                        <configuration>
-                            <instructions>
-                                <Export-Package>*</Export-Package>
-                                <Import-Package>
-                                    com.sun.source.tree;resolution:="optional",
-                                    com.sun.source.util;resolution:="optional",
-                                    *
-                                </Import-Package>
-                            </instructions>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
-                    </archive>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>unpack-sources</id>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <configuration>
-                            <excludes>**/module-info.java</excludes>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>org.glassfish.jaxb</groupId>
-                                    <artifactId>jaxb-jxc</artifactId>
-                                    <classifier>sources</classifier>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${generated.sources.dir}</outputDirectory>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>unpack-classes</id>
-                        <phase>process-sources</phase>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <configuration>
-                            <excludes>**/module-info.class</excludes>
-                            <skip>false</skip>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>org.glassfish.jaxb</groupId>
-                                    <artifactId>jaxb-jxc</artifactId>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${generated.classes.dir}</outputDirectory>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>add-sources</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>add-source</goal>
-                        </goals>
-                        <configuration>
-                            <sources>
-                                <source>${generated.sources.dir}</source>
-                            </sources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <artifactId>maven-shade-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <artifactSet>
-                                <includes>
-                                    <include>org.glassfish.jaxb:jaxb-jxc</include>
-                                </includes>
-                                <excludes>
-                                    <exclude>org.glassfish.jaxb:jaxb-xjc</exclude>
-                                    <exclude>org.glassfish.jaxb:jaxb-runtime</exclude>
-                                    <exclude>jakarta.xml.bind:jakarta.xml.bind-api</exclude>
-                                    <exclude>org.glassfish.jaxb:xsom</exclude>
-                                    <exclude>com.sun.xml.bind.external:relaxng-datatype</exclude>
-
-                                    <exclude>org.glassfish.jaxb:codemodel</exclude>
-                                    <exclude>com.sun.tools.rngom:rngom</exclude>
-                                    <exclude>com.sun.xml.bind.external:rngom</exclude>
-                                    <exclude>com.sun.xml.dtd-parser:dtd-parser</exclude>
-                                    <exclude>com.sun.istack:istack-commons-tools</exclude>
-                                    <exclude>org.apache.ant:ant</exclude>
-                                    <exclude>org.apache.ant:ant-launcher</exclude>
-                                    <exclude>com.sun.org.apache.xml.internal:resolver</exclude>
-                                    <exclude>org.glassfish.jaxb:txw2</exclude>
-                                    <exclude>javax.xml.stream:stax-api</exclude>
-                                    <exclude>com.sun.istack:istack-commons-runtime</exclude>
-                                    <exclude>com.sun.xml.fastinfoset:FastInfoset</exclude>
-                                    <exclude>org.jvnet.staxex:stax-ex</exclude>
-                                    <exclude>javax.activation:activation</exclude>
-                                </excludes>
-                            </artifactSet>
-                            <transformers>
-                                <transformer
-                                    implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.sun.tools.jxc.SchemaGeneratorFacade</mainClass>
-                                    <manifestEntries>
-                                        <Class-Path>jaxb-impl.jar jaxb-xjc.jar</Class-Path>
-                                        <Major-Version>${jaxb.majorVersion}.${jaxb.minorVersion}.${jaxb.incrementalVersion}</Major-Version>
-                                        <Specification-Version>${jaxb-api.majorVersion}.${jaxb-api.minorVersion}</Specification-Version>
-                                        <Git-Revision>${buildNumber}</Git-Revision>
-                                        <Multi-Release>true</Multi-Release>
-                                    </manifestEntries>
-                                </transformer>
-                            </transformers>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
                 <executions>
                     <execution>
-                        <id>integration-test</id>
-                        <goals>
-                            <goal>test</goal>
-                        </goals>
+                        <id>default-test</id>
                         <phase>integration-test</phase>
                         <configuration>
-                            <skip>false</skip>
                             <systemProperties>
                                 <jaxb.spec.version>${jaxb-api.version}</jaxb.spec.version>
                                 <osgi.dist>${project.build.directory}/${project.build.finalName}</osgi.dist>

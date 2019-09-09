@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -153,7 +153,7 @@ public class Options {
         return compatibilityMode == EXTENSION;
     }
 
-    private static final Logger logger = com.sun.xml.bind.Util.getClassLogger();
+    private static final Logger logger = com.sun.xml.bind.Utils.getClassLogger();
 
     /**
      * Generates output for the specified version of the runtime.

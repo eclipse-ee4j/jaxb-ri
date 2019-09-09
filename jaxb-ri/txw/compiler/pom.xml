@@ -1,6 +1,6 @@
 <!--
 
-    Copyright (c) 2005, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2005, 2019 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -31,34 +31,31 @@
     </description>
 
     <properties>
-        <findbugs.exclude>${project.basedir}/exclude-txwc2.xml</findbugs.exclude>
+        <spotbugs.exclude>${project.basedir}/exclude-txwc2.xml</spotbugs.exclude>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.sun.xml.bind.external</groupId>
             <artifactId>rngom</artifactId>
-            <version>${relaxng.version}</version>
         </dependency>
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>org.glassfish.jaxb</groupId>
             <artifactId>txw2</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>org.glassfish.jaxb</groupId>
             <artifactId>codemodel</artifactId>
-            <version>${codemodel.version}</version>
         </dependency>
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>org.glassfish.jaxb</groupId>
             <artifactId>xsom</artifactId>
-            <version>${xsom.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.ant</groupId>
             <artifactId>ant</artifactId>
             <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>args4j</groupId>
@@ -79,17 +76,7 @@
                     </archive>
                 </configuration>
             </plugin>
-            <plugin>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <configuration>
-                    <additionalJOptions>
-                        <additionalJOption>-Xdoclint:none</additionalJOption>
-                    </additionalJOptions>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
-
-
 </project>
 

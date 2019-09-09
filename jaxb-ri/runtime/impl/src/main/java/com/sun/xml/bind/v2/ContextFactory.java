@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -26,7 +26,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 
 import com.sun.istack.FinalArrayList;
-import com.sun.xml.bind.Util;
+import com.sun.xml.bind.Utils;
 import com.sun.xml.bind.api.JAXBRIContext;
 import com.sun.xml.bind.api.TypeReference;
 import com.sun.xml.bind.v2.model.annotation.RuntimeAnnotationReader;
@@ -80,7 +80,7 @@ public class ContextFactory {
 
         Boolean improvedXsiTypeHandling = getPropertyValue(properties, JAXBRIContext.IMPROVED_XSI_TYPE_HANDLING, Boolean.class);
         if (improvedXsiTypeHandling == null) {
-            String improvedXsiSystemProperty = Util.getSystemProperty(JAXBRIContext.IMPROVED_XSI_TYPE_HANDLING);
+            String improvedXsiSystemProperty = Utils.getSystemProperty(JAXBRIContext.IMPROVED_XSI_TYPE_HANDLING);
             if (improvedXsiSystemProperty == null) {
                 improvedXsiTypeHandling = true;
             } else {
@@ -92,20 +92,20 @@ public class ContextFactory {
            JAXBRIContext.XMLACCESSORFACTORY_SUPPORT,Boolean.class);
         if(xmlAccessorFactorySupport==null){
             xmlAccessorFactorySupport = false;
-            Util.getClassLogger().log(Level.FINE, "Property " + 
-                JAXBRIContext.XMLACCESSORFACTORY_SUPPORT + 
+            Utils.getClassLogger().log(Level.FINE, "Property " +
+                JAXBRIContext.XMLACCESSORFACTORY_SUPPORT +
                 "is not active.  Using JAXB's implementation");
         }
 
         Boolean backupWithParentNamespace = getPropertyValue(properties, JAXBRIContext.BACKUP_WITH_PARENT_NAMESPACE, Boolean.class);
 
         RuntimeAnnotationReader ar = getPropertyValue(properties,JAXBRIContext.ANNOTATION_READER,RuntimeAnnotationReader.class);
-        
+
         Collection<TypeReference> tr = getPropertyValue(properties, JAXBRIContext.TYPE_REFERENCES, Collection.class);
         if (tr == null) {
             tr = Collections.<TypeReference>emptyList();
         }
-                
+
         Map<Class,Class> subclassReplacements;
         try {
             subclassReplacements = TypeCast.checkedCast(
@@ -149,8 +149,8 @@ public class ContextFactory {
             return type.cast(o);
     }
 
-    /** 
-     * 
+    /**
+     *
      * @param classes
      * @param typeRefs
      * @param subclassReplacements
@@ -176,7 +176,7 @@ public class ContextFactory {
     }
 
     /**
-     * 
+     *
      * @param classes
      * @param typeRefs
      * @param subclassReplacements
@@ -192,9 +192,9 @@ public class ContextFactory {
      * @deprecated use {@code createContext( Class[] classes, Map<String,Object> properties)} method instead
      */
     @Deprecated
-    public static JAXBRIContext createContext( Class[] classes, 
-            Collection<TypeReference> typeRefs, Map<Class,Class> subclassReplacements, 
-            String defaultNsUri, boolean c14nSupport, RuntimeAnnotationReader ar, 
+    public static JAXBRIContext createContext( Class[] classes,
+            Collection<TypeReference> typeRefs, Map<Class,Class> subclassReplacements,
+            String defaultNsUri, boolean c14nSupport, RuntimeAnnotationReader ar,
             boolean xmlAccessorFactorySupport, boolean allNillable, boolean retainPropertyInfo, boolean improvedXsiTypeHandling) throws JAXBException {
 
         JAXBContextImpl.JAXBContextBuilder builder = new JAXBContextImpl.JAXBContextBuilder();

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -35,7 +35,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import com.sun.istack.Nullable;
 import com.sun.istack.NotNull;
-import com.sun.xml.bind.Util;
+import com.sun.xml.bind.Utils;
 import com.sun.xml.bind.api.CompositeStructure;
 import com.sun.xml.bind.api.ErrorListener;
 import com.sun.xml.bind.v2.TODO;
@@ -115,7 +115,7 @@ import org.xml.sax.SAXParseException;
  */
 public final class XmlSchemaGenerator<T,C,F,M> {
 
-    private static final Logger logger = Util.getClassLogger();
+    private static final Logger logger = Utils.getClassLogger();
 
     /**
      * Java classes to be written, organized by their namespace.
@@ -523,8 +523,8 @@ public final class XmlSchemaGenerator<T,C,F,M> {
          * statement.
          */
         private boolean useSwaRef;
-        
-        /** 
+
+        /**
          * Import for mime namespace needs to be generated.
          * See #856
          */
