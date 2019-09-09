@@ -232,33 +232,12 @@
                 <configuration>
                     <sourceFileExcludes>
                         <sourceFileExclude>META-INF/versions/**</sourceFileExclude>
-                        <sourceFileExclude>module-info.java</sourceFileExclude>
                     </sourceFileExcludes>
                     <includeDependencySources>false</includeDependencySources>
-                    <doclint>none</doclint>
-                    <source>1.8</source>
-                    <!--<additionalJOptions>-->
-                        <!--Non MR-JAR version of xjc/src/main/java/com/sun/tools/xjc/CatalogUtil.java uses
-                        com.sun.org.apache.xml.internal.resolver (see resolver dependency)-->
-<!--                        <additionalJOption>- -module-path</additionalJOption>
-                        <additionalJOption>${module.path}</additionalJOption>
-                        <additionalJOption>- -add-modules</additionalJOption>
-                        <additionalJOption>resolver</additionalJOption>
-                        <additionalJOption>- -add-reads</additionalJOption>
-                        <additionalJOption>com.sun.tools.xjc=resolver</additionalJOption>
-                    </additionalJOptions>-->
-                    <additionalDependencies>
-                        <additionalDependency>
-                            <groupId>org.apache.ant</groupId>
-                            <artifactId>ant</artifactId>
-                            <version>${ant.version}</version>
-                        </additionalDependency>
-                        <additionalDependency>
-                            <groupId>com.sun.org.apache.xml.internal</groupId>
-                            <artifactId>resolver</artifactId>
-                            <version>20050927</version>
-                        </additionalDependency>
-                    </additionalDependencies>
+                    <additionalJOptions>
+                        <additionalJOption>--add-reads</additionalJOption>
+                        <additionalJOption>com.sun.xml.bind.osgi=ALL-UNNAMED</additionalJOption>
+                    </additionalJOptions>
                 </configuration>
             </plugin>
 
