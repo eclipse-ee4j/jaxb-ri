@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -28,7 +28,6 @@ import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamException;
 
 import com.sun.istack.FinalArrayList;
-import com.sun.xml.bind.Util;
 import com.sun.xml.bind.api.AccessorException;
 import com.sun.xml.bind.v2.ClassFactory;
 import com.sun.xml.bind.v2.WellKnownNamespace;
@@ -419,7 +418,7 @@ public final class ClassBeanInfoImpl<BeanT> extends JaxBeanInfo<BeanT> implement
 
     private static final AttributeProperty[] EMPTY_PROPERTIES = new AttributeProperty[0];
 
-    private static final Logger logger = Util.getClassLogger();
+    private static final Logger logger = com.sun.xml.bind.Utils.getClassLogger();
 
 }
 

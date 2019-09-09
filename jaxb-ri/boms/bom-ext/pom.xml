@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -33,7 +33,11 @@
     </description>
 
     <properties>
-        <ant.version>1.10.2</ant.version>
+        <codemodel.version>${project.version}</codemodel.version>
+        <dtd-parser.version>1.4.2</dtd-parser.version>
+        <relaxng.version>${project.version}</relaxng.version>
+        <xsom.version>${project.version}</xsom.version>
+        <ant.version>1.10.7</ant.version>
     </properties>
 
     <dependencyManagement>
@@ -45,11 +49,33 @@
             </dependency>
             <!-- Dependencies -->
             <dependency>
+                <groupId>org.glassfish.jaxb</groupId>
+                <artifactId>xsom</artifactId>
+                <version>${xsom.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.xml.dtd-parser</groupId>
+                <artifactId>dtd-parser</artifactId>
+                <version>${dtd-parser.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.sun.istack</groupId>
                 <artifactId>istack-commons-tools</artifactId>
                 <version>${istack.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.glassfish.jaxb</groupId>
+                <artifactId>codemodel</artifactId>
+                <version>${codemodel.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.glassfish.jaxb</groupId>
+                <artifactId>txw2</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+        <dependency>
                 <groupId>org.apache.ant</groupId>
                 <artifactId>ant</artifactId>
                 <version>${ant.version}</version>
@@ -68,17 +94,22 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>3.0.1</version>
+                    <version>3.1.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>3.0.0-M2</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>3.0.0-M1</version>
+                    <version>3.1.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
-                    <version>2.8.2</version>
+                    <version>3.0.0-M1</version>
                 </plugin>
             </plugins>
         </pluginManagement>

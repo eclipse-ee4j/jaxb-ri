@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -26,7 +26,6 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 import com.sun.istack.Nullable;
-import com.sun.xml.bind.Util;
 import com.sun.xml.bind.api.AccessorException;
 import com.sun.xml.bind.api.JAXBRIContext;
 import com.sun.xml.bind.v2.model.core.Adapter;
@@ -199,7 +198,7 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
     public static class FieldReflection<BeanT, ValueT> extends Accessor<BeanT, ValueT> {
         public final Field f;
 
-        private static final Logger logger = Util.getClassLogger();
+        private static final Logger logger = com.sun.xml.bind.Utils.getClassLogger();
 
         public FieldReflection(Field f) {
             this(f, false);
@@ -282,7 +281,7 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
         public final Method getter;
         public final Method setter;
 
-        private static final Logger logger = Util.getClassLogger();
+        private static final Logger logger = com.sun.xml.bind.Utils.getClassLogger();
 
         public GetterSetterReflection(Method getter, Method setter) {
             super(

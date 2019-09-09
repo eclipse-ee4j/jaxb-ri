@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -418,7 +418,7 @@ public final class SimpleTypeBuilder extends BindingComponent {
             // if the type itself doesn't have the enumeration facet,
             // it won't be mapped to a type-safe enum.
             return false;
-        
+
         if(facets.size() > builder.getGlobalBinding().getDefaultEnumMemberSizeCap()) {
             // if there are too many facets, it's not very useful
             // produce warning when simple type is not mapped to enum
@@ -433,7 +433,7 @@ public final class SimpleTypeBuilder extends BindingComponent {
 
                 reportedEnumMemberSizeWarnings.add(type);
             }
-            
+
             return false;
         }
 

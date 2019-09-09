@@ -30,7 +30,7 @@
     <description>JAXB (JSR 222) Reference Implementation</description>
 
     <properties>
-        <findbugs.exclude>${project.basedir}/exclude-runtime.xml</findbugs.exclude>
+        <spotbugs.exclude>${project.basedir}/exclude-runtime.xml</spotbugs.exclude>
     </properties>
 
     <dependencies>
@@ -39,36 +39,58 @@
             <artifactId>jakarta.xml.bind-api</artifactId>
         </dependency>
         <dependency>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>txw2</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.sun.istack</groupId>
             <artifactId>istack-commons-runtime</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.jvnet.staxex</groupId>
             <artifactId>stax-ex</artifactId>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>com.sun.xml.fastinfoset</groupId>
             <artifactId>FastInfoset</artifactId>
             <optional>true</optional>
         </dependency>
+
+        <dependency>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>jakarta.activation</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.sun.activation</groupId>
-            <artifactId>jakarta.activation</artifactId>
-        </dependency>
     </dependencies>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>base-compile</id>
+                        <configuration>
+                            <release>${base.java.level}</release>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -80,61 +102,6 @@
                         --add-opens com.sun.xml.bind/com.sun.xml.bind.v2=java.xml.bind
                         --add-opens com.sun.xml.bind/com.sun.xml.bind.v2.schemagen=java.xml.bind
                     </argLine>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>prepare-module-path</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${module.path}</outputDirectory>
-                            <silent>false</silent>
-                            <includeArtifactIds>txw2,istack-commons-runtime,stax-ex,FastInfoset,jakarta.xml.bind-api</includeArtifactIds>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>default-compile</id>
-                        <configuration>
-                            <source>${upper.java.level}</source>
-                            <target>${upper.java.level}</target>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>base-compile</id>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                        <configuration>
-                            <release>${base.java.level}</release>
-                            <excludes>
-                                <exclude>module-info.java</exclude>
-                            </excludes>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <configuration>
-                    <additionalJOptions>
-                        <additionalJOption>--add-modules</additionalJOption>
-                        <additionalJOption>jakarta.activation</additionalJOption>
-                        <additionalJOption>--module-path</additionalJOption>
-                        <additionalJOption>${module.path}</additionalJOption>
-                    </additionalJOptions>
                 </configuration>
             </plugin>
         </plugins>

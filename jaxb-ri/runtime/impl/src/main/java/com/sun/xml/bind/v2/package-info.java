@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -31,7 +31,7 @@
  * The followings are the interesting pieces inside the runtime.
  *
  * <dl>
- *  <dt>{@link com.sun.xml.bind.v2.model model}
+ *  <dt>{@code com.sun.xml.bind.v2.model model}
  *  <dd>
  *    This set of classes and interfaces models JAXB-bound types.
  *

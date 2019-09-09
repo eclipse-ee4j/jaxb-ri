@@ -33,22 +33,41 @@
     </description>
 
     <properties>
-        <findbugs.exclude>${project.basedir}/exclude-jxc.xml</findbugs.exclude>
+        <spotbugs.exclude>${project.basedir}/exclude-jxc.xml</spotbugs.exclude>
     </properties>
 
     <dependencies>
         <dependency>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>jaxb-xjc</artifactId>
         </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>jaxb-runtime</artifactId>
+
+        <dependency><!-- Ant is provided through transitive dependency from XJC. But to be consistent we have it also here -->
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant</artifactId>
+            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>com.sun.istack</groupId>
-            <artifactId>istack-commons-runtime</artifactId>
+            <groupId>com.sun.org.apache.xml.internal</groupId>
+            <artifactId>resolver</artifactId>
+            <scope>provided</scope>
+            <!--Not needed starting from JavaSE 11-->
+            <optional>true</optional>
         </dependency>
+
+        <dependency>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>jakarta.activation</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.jmockit</groupId>
             <artifactId>jmockit</artifactId>
@@ -58,16 +77,6 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>txw2</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency><!-- Ant is provided through transitive dependency from XJC. But to be consistent we have it also here -->
-            <groupId>org.apache.ant</groupId>
-            <artifactId>ant</artifactId>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -171,17 +180,11 @@
                     <execution>
                         <id>default-compile</id>
                         <configuration>
-                            <source>${upper.java.level}</source>
-                            <target>${upper.java.level}</target>
                             <compilerArgs>
-                                <arg>--upgrade-module-path</arg>
-                                <arg>${project.build.directory}/lib/ant</arg>
-                                <arg>--add-modules</arg>
-                                <arg>ant</arg>
                                 <arg>--add-reads</arg>
-                                <arg>com.sun.tools.jxc=ant</arg>
+                                <arg>com.sun.tools.jxc=ALL-UNNAMED</arg>
                                 <arg>--add-reads</arg>
-                                <arg>com.sun.istack.tools=ant</arg>
+                                <arg>com.sun.istack.tools=ALL-UNNAMED</arg>
                             </compilerArgs>
                         </configuration>
                     </execution>
@@ -199,20 +202,6 @@
                             <target>${upper.java.level}</target>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>base-compile</id>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                        <configuration>
-                            <!-- TODO find how to include tools.jar on classpath and replace with "release" -->
-                            <source>1.7</source>
-                            <target>1.7</target>
-                            <excludes>
-                                <exclude>module-info.java</exclude>
-                            </excludes>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
             <plugin>
@@ -220,14 +209,10 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
                     <additionalJOptions>
-                        <additionalJOption>--upgrade-module-path</additionalJOption>
-                        <additionalJOption>${project.build.directory}/mods</additionalJOption>
-                        <additionalJOption>--add-modules</additionalJOption>
-                        <additionalJOption>ant</additionalJOption>
                         <additionalJOption>--add-reads</additionalJOption>
-                        <additionalJOption>com.sun.tools.jxc=ant</additionalJOption>
+                        <additionalJOption>com.sun.tools.jxc=ALL-UNNAMED</additionalJOption>
                         <additionalJOption>--add-reads</additionalJOption>
-                        <additionalJOption>com.sun.istack.tools=ant</additionalJOption>
+                        <additionalJOption>com.sun.istack.tools=ALL-UNNAMED</additionalJOption>
                     </additionalJOptions>
                 </configuration>
             </plugin>
