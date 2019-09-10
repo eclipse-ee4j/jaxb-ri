@@ -192,6 +192,16 @@
                                         <exclude>**/*.java</exclude>
                                     </excludes>
                                 </resource>
+                                <resource>
+                                    <directory>${dep.sources}/com/sun/tools/xjc/runtime</directory>
+                                    <targetPath>com/sun/tools/xjc/runtime</targetPath>
+                                    <includes>
+                                        <include>*.java</include>
+                                    </includes>
+                                    <excludes>
+                                        <exclude>package-info.java</exclude>
+                                    </excludes>
+                                </resource>
                             </resources>
                         </configuration>
                     </execution>
