@@ -106,7 +106,13 @@
             </resource>
             <resource>
                 <directory>src/main/schemas</directory>
-                <filtering>false</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/java/com/sun/tools/xjc/runtime</directory>
+                <targetPath>com/sun/tools/xjc/runtime</targetPath>
+                <excludes>
+                    <exclude>package-info.java</exclude>
+                </excludes>
             </resource>
         </resources>
         <plugins>
@@ -243,30 +249,6 @@
                         <additionalJOption>com.sun.tools.xjc=ALL-UNNAMED</additionalJOption>
                     </additionalJOptions>
                 </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy-resources</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${basedir}/target/classes/com/sun/tools/xjc/runtime</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>src/main/java/com/sun/tools/xjc/runtime</directory>
-                                    <filtering>false</filtering>
-                                    <excludes>
-                                        <exclude>package-info.java</exclude>
-                                    </excludes>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
