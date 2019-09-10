@@ -129,6 +129,15 @@
                 <artifactId>resolver</artifactId>
                 <version>20050927</version>
             </dependency>
+
+            <!-- CQ #20807 -->
+            <!-- contains com.sun.source.tree and com.sun.source.util JDK provided packages required by jxc (ApNavigator) -->
+            <dependency>
+                <groupId>org.checkerframework</groupId>
+                <artifactId>compiler</artifactId>
+                <version>2.4.0</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -424,8 +433,7 @@
                             <goal>compile</goal>
                         </goals>
                         <configuration>
-                            <source>${base.java.level}</source>
-                            <target>${base.java.level}</target>
+                            <release>${base.java.level}</release>
                             <excludes>
                                 <exclude>module-info.java</exclude>
                             </excludes>

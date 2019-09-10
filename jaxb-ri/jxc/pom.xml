@@ -62,6 +62,14 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- CQ #20807 -->
+        <dependency>
+            <groupId>org.checkerframework</groupId>
+            <artifactId>compiler</artifactId>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+
         <dependency>
             <groupId>org.jmockit</groupId>
             <artifactId>jmockit</artifactId>
