@@ -228,12 +228,6 @@
                             <target>${upper.java.level}</target>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>base-compile</id>
-                        <configuration>
-                            <release>${base.java.level}</release>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
             <plugin>
