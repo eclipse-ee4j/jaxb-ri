@@ -1364,15 +1364,16 @@ context.generateSchema(<span class="ReservedWord">new</span> MySchemaOutputResol
         The schema generator would have to be then extended to honor those
         annotations and generate schemas accordingly.</p><p>Some users pointed out relevance of this to <a class="link" href="http://jcp.org/en/jsr/detail?id=303" target="_top">JSR 303: Bean
         Validation</a>. If you are interested in picking up this task, let
-        us know!</p></div></div></div><div lang="en" class="section" title="7.&nbsp;Deployment"><div class="titlepage"><div><div><h2 class="title" style="clear: both" id="deployment">7.&nbsp;Deployment</h2></div></div></div><div lang="en" class="section" title="7.1.&nbsp;Using JAXB with Maven"><div class="titlepage"><div><div><h3 class="title" id="deployment-maven-coordinates">7.1.&nbsp;Using JAXB with Maven</h3></div></div></div><div class="section" title="7.1.1.&nbsp;Maven coordinates for JAXB artifacts"><div class="titlepage"><div><div><h4 class="title" id="Maven_artifacts">7.1.1.&nbsp;Maven coordinates for JAXB artifacts</h4></div></div></div><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p><span class="bold"><strong>java.xml.bind:jaxb-api</strong></span> API classes for JAXB.
-                    Required to compile against JAXB.</p></li><li class="listitem"><p><span class="bold"><strong>org.glassfish.jaxb:jaxb-runtime</strong></span> Contains the main runtime used
+        us know!</p></div></div></div><div lang="en" class="section" title="7.&nbsp;Deployment"><div class="titlepage"><div><div><h2 class="title" style="clear: both" id="deployment">7.&nbsp;Deployment</h2></div></div></div><div lang="en" class="section" title="7.1.&nbsp;Using JAXB with Maven"><div class="titlepage"><div><div><h3 class="title" id="deployment-maven-coordinates">7.1.&nbsp;Using JAXB with Maven</h3></div></div></div><div class="section" title="7.1.1.&nbsp;Maven coordinates for JAXB artifacts"><div class="titlepage"><div><div><h4 class="title" id="Maven_artifacts">7.1.1.&nbsp;Maven coordinates for JAXB artifacts</h4></div></div></div><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p><span class="bold"><strong>jakarta.xml.bind:jakarta.xml.bind-api:</strong></span> API classes for JAXB.
+                    Required to compile against JAXB.</p></li><li class="listitem"><p><span class="bold"><strong>org.glassfish.jaxb:jaxb-runtime:</strong></span> Contains the main runtime used
                     for serialization and deserialization java objects to/from xml.</p></li><li class="listitem"><p><span class="bold"><strong>org.glassfish.jaxb:jaxb-xjc:</strong></span> Tool to generate JAXB java sources
                     from XML representation.</p></li><li class="listitem"><p><span class="bold"><strong>org.glassfish.jaxb:jaxb-jxc:</strong></span> Tool to generate XML schema from
-                    JAXB java sources.</p></li><li class="listitem"><p><span class="bold"><strong>com.sun.xml.bind:jaxb-ri:</strong></span> Zip distribution containing tooling scripts
-                    and all dependency jars in one archive.</p></li></ul></div></div><div class="section" title="7.1.2.&nbsp;JAXB API and Runtime"><div class="titlepage"><div><div><h4 class="title" id="Api_and_runtime">7.1.2.&nbsp;JAXB API and Runtime</h4></div></div></div><p>
+                    JAXB java sources.</p></li></ul></div></div><div class="section" title="7.1.2.&nbsp;JAXB fat-jar bundles"><div class="titlepage"><div><div><h4 class="title" id="Fat-jar">7.1.2.&nbsp;JAXB fat-jar bundles</h4></div></div></div><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p><span class="bold"><strong>com.sun.xml.bind:jaxb-impl:</strong></span> JAXB runtime fat jar.</p></li><li class="listitem"><p><span class="bold"><strong>com.sun.xml.bind:jaxb-xjc:</strong></span> Class generation tool fat jar.</p></li><li class="listitem"><p><span class="bold"><strong>com.sun.xml.bind:jaxb-jxc:</strong></span> Schema generation tool fat jar.</p></li></ul></div><p>In contrast to <code class="literal">org.glassfish.jaxb</code> artifacts, these jars have all dependency classes included inside. These artifacts does not contain JPMS module descriptors.
+            In Maven projects <code class="literal">org.glassfish.jaxb</code> artifacts are supposed to be used instead. </p></div><div class="section" title="7.1.3.&nbsp;Binary distribution"><div class="titlepage"><div><div><h4 class="title" id="Binary-distribution">7.1.3.&nbsp;Binary distribution</h4></div></div></div><div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem"><p><span class="bold"><strong>com.sun.xml.bind:jaxb-ri:</strong></span> Zip distribution containing tooling
+                    scripts and all dependency jars in one archive.</p></li></ul></div></div><div class="section" title="7.1.4.&nbsp;JAXB API and Runtime"><div class="titlepage"><div><div><h4 class="title" id="Api_and_runtime">7.1.4.&nbsp;JAXB API and Runtime</h4></div></div></div><p>
             Minimum requirement to compile is jaxb-api. If a client application is running on an environment where JAXB
             runtime is provided, <code class="literal">jaxb-api</code> is all that is needed.
-                </p><div class="example"><a name="d0e4351"></a><p class="title"><b>Example&nbsp;88.&nbsp;API only</b></p><div class="example-contents"><pre class="programlisting">
+                </p><div class="example"><a name="d0e4382"></a><p class="title"><b>Example&nbsp;88.&nbsp;API only</b></p><div class="example-contents"><pre class="programlisting">
                 <span class="Comment">&lt;!-- API --&gt;</span>
                 <span class="ReservedWord">&lt;dependency&gt;</span>
                     <span class="ReservedWord">&lt;groupId&gt;</span>jakarta.xml.bind<span class="ReservedWord">&lt;/groupId&gt;</span>
@@ -1382,7 +1383,7 @@ context.generateSchema(<span class="ReservedWord">new</span> MySchemaOutputResol
              </pre></div></div><p><br class="example-break"></p><p>
             If client application needs to include the runtime, e.g. running standalone on JavaSE
             <code class="literal">jaxb-runtime</code> should be also included.
-            </p><div class="example"><a name="d0e4361"></a><p class="title"><b>Example&nbsp;89.&nbsp;API + Runtime</b></p><div class="example-contents"><pre class="programlisting">
+            </p><div class="example"><a name="d0e4392"></a><p class="title"><b>Example&nbsp;89.&nbsp;API + Runtime</b></p><div class="example-contents"><pre class="programlisting">
                 <span class="Comment">&lt;!-- API --&gt;</span>
                 <span class="ReservedWord">&lt;dependency&gt;</span>
                     <span class="ReservedWord">&lt;groupId&gt;</span>jakarta.xml.bind<span class="ReservedWord">&lt;/groupId&gt;</span>
@@ -1396,10 +1397,10 @@ context.generateSchema(<span class="ReservedWord">new</span> MySchemaOutputResol
                     <span class="ReservedWord">&lt;artifactId&gt;</span>jaxb-runtime<span class="ReservedWord">&lt;/artifactId&gt;</span>
                     <span class="ReservedWord">&lt;version&gt;</span>${jaxb.version}<span class="ReservedWord">&lt;/version&gt;</span>
                 <span class="ReservedWord">&lt;/dependency&gt;</span>
-    </pre></div></div><p><br class="example-break"></p></div><div class="section" title="7.1.3.&nbsp;Using JAXB tools for java sources and XML schema generation"><div class="titlepage"><div><div><h4 class="title" id="Jaxb_tooling">7.1.3.&nbsp;Using JAXB tools for java sources and XML schema generation</h4></div></div></div><p>
-            To generate JAXB classes from schema community
+    </pre></div></div><p><br class="example-break"></p></div><div class="section" title="7.1.5.&nbsp;Using JAXB tools for java sources and XML schema generation"><div class="titlepage"><div><div><h4 class="title" id="Jaxb_tooling">7.1.5.&nbsp;Using JAXB tools for java sources and XML schema generation</h4></div></div></div><p>
+            To generate JAXB classes from schema in Maven project, a community
             <a class="link" href="https://github.com/highsource/maven-jaxb2-plugin" target="_top">maven-jaxb2-plugin</a> can be used.
-            </p><div class="example"><a name="d0e4374"></a><p class="title"><b>Example&nbsp;90.&nbsp;Using maven-jaxb2-plugin</b></p><div class="example-contents"><pre class="programlisting">
+            </p><div class="example"><a name="d0e4405"></a><p class="title"><b>Example&nbsp;90.&nbsp;Using maven-jaxb2-plugin</b></p><div class="example-contents"><pre class="programlisting">
                 <span class="ReservedWord">&lt;build&gt;</span>
                     <span class="ReservedWord">&lt;plugins&gt;</span>
                         <span class="ReservedWord">&lt;plugin&gt;</span>
@@ -1416,11 +1417,12 @@ context.generateSchema(<span class="ReservedWord">new</span> MySchemaOutputResol
                         <span class="ReservedWord">&lt;/plugin&gt;</span>
                     <span class="ReservedWord">&lt;/plugins&gt;</span>
                 <span class="ReservedWord">&lt;/build&gt;</span>
-    </pre></div></div><p><br class="example-break"></p><p>
+    </pre></div></div><p><br class="example-break">
+            See the <a class="link" href="https://github.com/highsource/maven-jaxb2-plugin" target="_top">maven-jaxb2-plugin documentation</a> for configuration details.</p><p>
         Alternatively to community plugins, there are tooling artifacts jaxb-xjc and jaxb-jxc,
         which can be used for
         java from XML schema generation and vice versa.
-        </p><div class="example"><a name="d0e4381"></a><p class="title"><b>Example&nbsp;91.&nbsp;Using JAXB tooling artifacts</b></p><div class="example-contents"><pre class="programlisting">
+        </p><div class="example"><a name="d0e4416"></a><p class="title"><b>Example&nbsp;91.&nbsp;Using JAXB tooling artifacts</b></p><div class="example-contents"><pre class="programlisting">
             <span class="Comment">&lt;!-- Tooling dependencies --&gt;</span>
             <span class="ReservedWord">&lt;dependency&gt;</span>
                 <span class="ReservedWord">&lt;groupId&gt;</span>org.glassfish.jaxb<span class="ReservedWord">&lt;/groupId&gt;</span>
@@ -1468,7 +1470,7 @@ context.generateSchema(<span class="ReservedWord">new</span> MySchemaOutputResol
                         <span class="ReservedWord">&lt;configuration&gt;</span>
                             <span class="ReservedWord">&lt;executable&gt;</span>java<span class="ReservedWord">&lt;/executable&gt;</span>
                             <span class="ReservedWord">&lt;arguments&gt;</span>
-                                <span class="ReservedWord">&lt;argument&gt;</span>--module-path<span class="ReservedWord">&lt;/argument&gt;</span> <span class="Comment">&lt;!-- or -p  --&gt;</span>
+                                <span class="ReservedWord">&lt;argument&gt;</span>--module-path<span class="ReservedWord">&lt;/argument&gt;</span>
                                 <span class="ReservedWord">&lt;modulepath/&gt;</span>
                                 <span class="ReservedWord">&lt;argument&gt;</span>-m<span class="ReservedWord">&lt;/argument&gt;</span>
                                 <span class="ReservedWord">&lt;argument&gt;</span>com.sun.tools.jxc/com.sun.tools.jxc.SchemaGeneratorFacade<span class="ReservedWord">&lt;/argument&gt;</span>
@@ -1491,7 +1493,7 @@ context.generateSchema(<span class="ReservedWord">new</span> MySchemaOutputResol
         JAXB does reflectively access private members of the class, so client application if loaded from module path
             needs to "open" packages containing jaxb classes to JAXB. There are alternative JAXB implementations,
             which will have different module names, JAXB requires pojo classes to be open only to API module.
-        </p><div class="example"><a name="d0e4408"></a><p class="title"><b>Example&nbsp;92.&nbsp;JPMS module descriptor opening JAXB pojo classes to JAXB API</b></p><div class="example-contents"><pre class="programlisting">
+        </p><div class="example"><a name="d0e4443"></a><p class="title"><b>Example&nbsp;92.&nbsp;JPMS module descriptor opening JAXB pojo classes to JAXB API</b></p><div class="example-contents"><pre class="programlisting">
                 <span class="Comment">//JPMS module descriptor</span>
                 module com.example.jaxbclasses {
 
@@ -1503,7 +1505,22 @@ context.generateSchema(<span class="ReservedWord">new</span> MySchemaOutputResol
 
              </pre></div></div><p><br class="example-break">
         JAXB API will delegate openness to implementation module after resolving it with service discovery mechanism.
-        </p></div><div class="section" title="7.2.2.&nbsp;Upgrading JavaSE modules on Java 9 and 10."><div class="titlepage"><div><div><h4 class="title" id="Jaxb_api_upgrade">7.2.2.&nbsp;Upgrading JavaSE modules on Java 9 and 10.</h4></div></div></div><p>
+        </p></div><div class="section" title="7.2.2.&nbsp;"><div class="titlepage"></div><p>
+            </p><div class="example"><a name="d0e4452"></a><p class="title"><b>Example&nbsp;93.&nbsp;JAXB on JPMS Command line examples</b></p><div class="example-contents"><pre class="programlisting">
+                #Both client and JAXB on module path:
+                user<span class="Annotation">@host:</span> java -m com.example.jaxbclasses/com.example.jaxb.Main
+                --module-path jaxbclient.jar:jaxb-api.jar:jaxb-runtime.jar
+
+                #Both client and JAXB on classpath:
+                java com.example.jaxb.Main -cp jaxbclient.jar:jaxb-api.jar:jaxb-runtime.jar
+
+                #Client on classpath, JAXB on module path:
+                user<span class="Annotation">@host:</span> java com.example.jaxb.Main -cp jaxbclient.jar --module-path jaxb-api.jar:jaxb-runtime.jar
+                --add-modules java.xml.bind
+
+             </pre></div></div><p><br class="example-break">
+            JAXB API will delegate openness to implementation module after resolving it with service discovery mechanism.
+        </p></div><div class="section" title="7.2.3.&nbsp;Upgrading JavaSE modules on Java 9 and 10."><div class="titlepage"><div><div><h4 class="title" id="Jaxb_api_upgrade">7.2.3.&nbsp;Upgrading JavaSE modules on Java 9 and 10.</h4></div></div></div><p>
             Prior to Java 11, JavaSE contains JAXB bundled inside JDK. Module <code class="literal">java.xml.bind</code>
             contains JAXB API and runtime.
 
@@ -1517,32 +1534,15 @@ context.generateSchema(<span class="ReservedWord">new</span> MySchemaOutputResol
             JavaSE bundled <code class="literal">java.xml.bind</code> module contains both API and Runtime classes and
             should be replaced with JAXB API module, which has the same <code class="literal">java.xml.bind</code> module name.
 
-            </p><div class="example"><a name="d0e4439"></a><p class="title"><b>Example&nbsp;93.&nbsp;Upgrading JavaSE java.xml.bind module with JAXB API</b></p><div class="example-contents"><pre class="programlisting">
-                    # Using JAXB standalone jars
+            </p><div class="example"><a name="d0e4483"></a><p class="title"><b>Example&nbsp;94.&nbsp;Upgrading JavaSE java.xml.bind module with JAXB API</b></p><div class="example-contents"><pre class="programlisting">
                     # Replace JavaSE bundled java.xml.bind with standalone API jar
-                    user@host: java com.example.jaxb.Main -cp jaxbclient.jar --upgrade-module-path path/to/jakarta.xml.bind-api.jar
-                    --module-path path/to/jaxb-runtime.jar --add-modules com.sun.xml.bind
-
-                    #Same as above with client on module path
-                    user@host: java -m com.example.jaxbclasses/com.example.jaxb.Main --upgrade-module-path path/to/jakarta.xml.bind-api.jar
-                    --module-path path/to/jaxb-runtime.jar:jaxbclient.jar --add-modules com.sun.xml.bind
+                    java --upgrade-module-path path/to/jakarta.xml.bind-api.jar ...
 
              </pre></div></div><p><br class="example-break">
             </p><p>--upgrade-module-path will replace JavaSE java.xml.bind (runtime and API) with jakarta.xml.bind-api.jar contents.</p><p>
             </p><p>Since java.xml.bind module
                 is removed starting from Java 11, there is no need
                     to upgrade this module on 11 and later.</p><p>
-
-            </p><div class="example"><a name="d0e4453"></a><p class="title"><b>Example&nbsp;94.&nbsp;Using bundled JavaSE JAXB</b></p><div class="example-contents"><pre class="programlisting">
-
-                    # Using JAXB bundled in JDK
-                    # No need for standalone jars here
-                    user@host: java com.example.jaxb.Main -cp jaxbclient.jar
-
-                    user@host: java -m com.example.jaxbclasses/com.example.jaxb.Main
-                    --module-path jaxbclient.jar
-
-             </pre></div></div><p><br class="example-break">
 
         </p></div></div><div lang="en" class="section" title="7.3.&nbsp;Older versions of JAXB and JavaSE"><div class="titlepage"><div><div><h3 class="title" id="deployment-migrating-jaxb-2-0-applications-to-javase-6">7.3.&nbsp;Older versions of JAXB and JavaSE</h3></div></div></div><p>JavaSE 6 ships with its own JAXB 2.0 implementation. This
     implementation is based on the JAXB RI, where the only differences
@@ -1667,7 +1667,7 @@ at com.sun.xml.bind.v2.model.impl.ClassInfoImpl.&lt;init&gt;(ClassInfoImpl.java:
     Unmarshaller, and Validator classes are not thread safe.</p><p>For example, suppose you have a multi-thread server application that
     processes incoming XML documents by JAXB. In this case, for the best
     performance you should have just one instance of JAXBContext in your whole
-    application like this:</p><div class="example"><a name="d0e4698"></a><p class="title"><b>Example&nbsp;95.&nbsp;Singleton JAXBContext</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">class</span> MyServlet <span class="ReservedWord">extends</span> HttpServlet {
+    application like this:</p><div class="example"><a name="d0e4736"></a><p class="title"><b>Example&nbsp;95.&nbsp;Singleton JAXBContext</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">class</span> MyServlet <span class="ReservedWord">extends</span> HttpServlet {
     <span class="ReservedWord">static</span> <span class="ReservedWord">final</span> JAXBContext context = initContext();
 
     <span class="ReservedWord">private</span> <span class="ReservedWord">static</span> JAXBContext initContext() {
@@ -1675,7 +1675,7 @@ at com.sun.xml.bind.v2.model.impl.ClassInfoImpl.&lt;init&gt;(ClassInfoImpl.java:
     }
 }</pre></div></div><br class="example-break"><p>And each time you need to unmarshal/marshal/validate a document.
     Just create a new Unmarshaller/Marshaller/Validator from this context,
-    like this:</p><div class="example"><a name="d0e4705"></a><p class="title"><b>Example&nbsp;96.&nbsp;Thread local Unmarshaller</b></p><div class="example-contents"><pre class="programlisting">    <span class="ReservedWord">public</span> <span class="ReservedWord">void</span> doGet( HttpServletRequest req, HttpServletResponse ) {
+    like this:</p><div class="example"><a name="d0e4743"></a><p class="title"><b>Example&nbsp;96.&nbsp;Thread local Unmarshaller</b></p><div class="example-contents"><pre class="programlisting">    <span class="ReservedWord">public</span> <span class="ReservedWord">void</span> doGet( HttpServletRequest req, HttpServletResponse ) {
         Unmarshaller u = context.createUnmarshaller();
         u.unmarshal(...);
     }</pre></div></div><br class="example-break"><p>This is the simplest safe way to use the JAXB RI from multi-threaded
@@ -1688,7 +1688,7 @@ at com.sun.xml.bind.v2.model.impl.ClassInfoImpl.&lt;init&gt;(ClassInfoImpl.java:
     let's you compile XML DTDs. It is marked "experimental" not because the
     feature is unstable nor unreliable, but rather because it's not a part of
     the JAXB specification and therefore the level of commitment to
-    compatibility is lower.</p><div class="example"><a name="d0e4720"></a><p class="title"><b>Example&nbsp;97.&nbsp;To compile a DTD, run the XJC binding compiler as
+    compatibility is lower.</p><div class="example"><a name="d0e4758"></a><p class="title"><b>Example&nbsp;97.&nbsp;To compile a DTD, run the XJC binding compiler as
         follows:</b></p><div class="example-contents"><pre class="programlisting">$ xjc.sh -dtd test.dtd</pre></div></div><br class="example-break"><p>All the other command-line options of the XJC binding compiler can
     be applied. Similarly, the XJC ant task supports DTD. The generated code
     will be no different from what is generated from W3C XML Schema. You'll
@@ -1709,7 +1709,7 @@ at com.sun.xml.bind.v2.model.impl.ClassInfoImpl.&lt;init&gt;(ClassInfoImpl.java:
                 <code class="literal">collapse</code>" instead of " <code class="literal">preserve</code>", "
                 <code class="literal">normalize</code>", and " <code class="literal">collapse</code>" as
                 specified in the document.</p></li><li class="listitem"><p>The <code class="literal">interface</code> customization just generates
-                marker interfaces with no method.</p></li></ul></div></div><div class="section" title="8.2.2.&nbsp;Compiling DTD from Maven2"><div class="titlepage"><div><div><h4 class="title" id="Compiling_DTD_from_Maven2">8.2.2.&nbsp;Compiling DTD from Maven2</h4></div></div></div><div class="example"><a name="d0e4777"></a><p class="title"><b>Example&nbsp;98.&nbsp;The following POM snippest describes how to invoke XJC to
+                marker interfaces with no method.</p></li></ul></div></div><div class="section" title="8.2.2.&nbsp;Compiling DTD from Maven2"><div class="titlepage"><div><div><h4 class="title" id="Compiling_DTD_from_Maven2">8.2.2.&nbsp;Compiling DTD from Maven2</h4></div></div></div><div class="example"><a name="d0e4815"></a><p class="title"><b>Example&nbsp;98.&nbsp;The following POM snippest describes how to invoke XJC to
             compile DTD from a Maven 2 project:</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;plugin&gt;</span>
   <span class="ReservedWord">&lt;groupId&gt;</span>org.jvnet.jaxb2.maven2<span class="ReservedWord">&lt;/groupId&gt;</span>
   <span class="ReservedWord">&lt;artifactId&gt;</span>maven-jaxb2-plugin<span class="ReservedWord">&lt;/artifactId&gt;</span>
@@ -1743,7 +1743,7 @@ at com.sun.xml.bind.v2.model.impl.ClassInfoImpl.&lt;init&gt;(ClassInfoImpl.java:
       <span class="ReservedWord">&lt;version&gt;</span>1.0<span class="ReservedWord">&lt;/version&gt;</span>
     <span class="ReservedWord">&lt;/dependency&gt;</span>
   <span class="ReservedWord">&lt;/dependencies&gt;</span>
-<span class="ReservedWord">&lt;/plugin&gt;</span></pre></div></div><br class="example-break"><div class="example"><a name="d0e4782"></a><p class="title"><b>Example&nbsp;99.&nbsp;The dependencies section inside the plugin element can be
+<span class="ReservedWord">&lt;/plugin&gt;</span></pre></div></div><br class="example-break"><div class="example"><a name="d0e4820"></a><p class="title"><b>Example&nbsp;99.&nbsp;The dependencies section inside the plugin element can be
             used to specify additional XJC plugins. If you'd like to use more
             recent version of the JAXB RI, you can specify a dependency to XJC
             here to do so, like this:</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;dependency&gt;</span>
@@ -1757,7 +1757,7 @@ at com.sun.xml.bind.v2.model.impl.ClassInfoImpl.&lt;init&gt;(ClassInfoImpl.java:
     of the stream (because a parser needs to handle documents like
     <code class="literal">&lt;root/&gt;&lt;!-- post root comment --&gt;</code>). As a result,
     a naive attempt to keep one <code class="literal">OutputStream</code> open and marshal
-    objects multiple times fails.</p><div class="example"><a name="d0e4801"></a><p class="title"><b>Example&nbsp;100.&nbsp;One easy way to work around this limitation is to design your
+    objects multiple times fails.</p><div class="example"><a name="d0e4839"></a><p class="title"><b>Example&nbsp;100.&nbsp;One easy way to work around this limitation is to design your
         protocol so that the data on the wire will look like the
         following:</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;conversation&gt;</span>
   <span class="Comment">&lt;!-- message 1 --&gt;</span>

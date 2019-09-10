@@ -1,2 +1,0 @@
-Compiling XML Schema
-====================
