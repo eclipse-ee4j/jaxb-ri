@@ -49,7 +49,7 @@ import com.sun.tools.rngdatatype.ValidationContext;
  * 
  * <p>
  * Typical usage would be:
- * <PRE><XMP>
+ * <PRE>
  * class MyDatatype implements Datatype {
  *     ....
  *     public DatatypeStreamingValidator createStreamingValidator( ValidationContext context ) {
@@ -57,7 +57,7 @@ import com.sun.tools.rngdatatype.ValidationContext;
  *     }
  *     ....
  * }
- * </XMP></PRE>
+ * </PRE>
  * 
  * @author <a href="mailto:kohsuke.kawaguchi@sun.com">Kohsuke KAWAGUCHI</a>
  */
