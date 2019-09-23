@@ -10,9 +10,7 @@
 
 package extend;
 
-import org.example.impl.PlaneTypeImpl;
-
-public class PlaneTypeExtend extends PlaneTypeImpl {
+public class PlaneTypeExtend extends PlaneType {
     public void printTravelSummary() {
 	super.printTravelSummary();
 	System.out.println("Flight Number: " + getFlightNumber());

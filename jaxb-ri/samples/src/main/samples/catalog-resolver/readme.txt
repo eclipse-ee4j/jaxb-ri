@@ -22,6 +22,6 @@ http://wwws.sun.com/software/xml/developers/resolver/article/
 DEBUG TIPS
 ==========
 
-If you suspect that the catlog resolution is not happening
+If you suspect that the catalog resolution is not happening
 (for example, you see errors like UnknownHostException), then 
 use the -debug option of XJC.

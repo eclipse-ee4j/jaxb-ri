@@ -1,0 +1,58 @@
+<?xml version="1.0" standalone="yes"?>
+<!--
+
+    Copyright (c) 2004, 2019 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<project basedir="." default="run">
+  <description>
+    This example shows how you can use experimental RELAX NG support.
+
+    Please be warned that this feature is experimental, and therefore
+    not suitable for the production purpose. A future version of JAXB RI
+    can change the way it handles RELAX NG, or even drop the support for it.
+
+    That said, everything is basically the same as XML Schema ---
+    except that you are using RELAX NG as the source schema.
+
+    See http://relaxng.org/ for more information about RELAX NG.
+    </description>
+  <property name="jaxb.home" value="../.." />
+  <path id="classpath">
+    <pathelement path="src" />
+    <pathelement path="classes" />
+    <!--additional jar files for this sample-->
+    <fileset dir="${jaxb.home}" includes="lib/*.jar" />
+  </path>
+  <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
+    <classpath refid="classpath" />
+  </taskdef>
+  <!--compile Java source files-->
+  <target name="compile" description="Compile all Java source files">
+    <echo message="Compiling the java source files..." />
+    <mkdir dir="classes" />
+    <javac destdir="classes" debug="on">
+      <src path="src" />
+      <classpath refid="classpath" />
+    </javac>
+  </target>
+
+  <target name="run" depends="compile" description="Run the sample app">
+    <echo message="Running the sample application..." />
+    <java classname="Main" fork="true">
+      <classpath refid="classpath" />
+    </java>
+  </target>
+
+  <target name="clean" description="Deletes all the generated artifacts.">
+    <delete dir="classes" />
+  </target>
+</project>
+

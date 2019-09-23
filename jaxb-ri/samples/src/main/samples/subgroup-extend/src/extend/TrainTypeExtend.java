@@ -10,9 +10,7 @@
 
 package extend;
 
-import org.example.impl.TrainTypeImpl;
-
-public class TrainTypeExtend extends TrainTypeImpl {
+public class TrainTypeExtend extends TrainType {
     public void printTravelSummary() {
 	super.printTravelSummary();
         System.out.println("Track: " + getTrack());
