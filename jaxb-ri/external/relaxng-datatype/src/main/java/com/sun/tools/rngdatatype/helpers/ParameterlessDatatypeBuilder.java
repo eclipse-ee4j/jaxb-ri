@@ -47,7 +47,7 @@ import com.sun.tools.rngdatatype.ValidationContext;
  * 
  * <p>
  * Typical usage would be:
- * <PRE><XMP>
+ * <PRE>
  * class MyDatatypeLibrary implements DatatypeLibrary {
  *     ....
  *     DatatypeBuilder createDatatypeBuilder( String typeName ) {
@@ -55,7 +55,7 @@ import com.sun.tools.rngdatatype.ValidationContext;
  *     }
  *     ....
  * }
- * </XMP></PRE>
+ * </PRE>
  * 
  * @author <a href="mailto:kohsuke.kawaguchi@sun.com">Kohsuke KAWAGUCHI</a>
  */

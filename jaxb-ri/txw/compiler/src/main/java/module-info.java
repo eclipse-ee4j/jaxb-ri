@@ -16,7 +16,4 @@ module com.sun.tools.txw2 {
     requires com.sun.tools.rngom;
     requires com.sun.codemodel;
 
-    requires ant;
-    requires ant.launcher;
-    requires args4j;
 }
