@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,18 +18,18 @@
  * <p>
  * XJC consists of the following major components.
  * <dl>
- *  <dt>{@link com.sun.tools.xjc.reader Schema reader}
+ *  <dt>{@link com.sun.tools.xjc.reader.internalizer.DOMForest Schema reader}
  *  <dd>
  *   Schema readers read XML Schema documents (or DTD, RELAX NG, ...)
  *   and builds a model.
  *
- *  <dt>{@link com.sun.tools.xjc.model Model}
+ *  <dt>{@link com.sun.tools.xjc.model.Model Model}
  *  <dd>
  *   Model represents the 'blueprint' of the code to be generated.
  *   Model talks in terms of higher level constructs like 'class' and 'property'
  *   without getting too much into the details of the Java source code.
  *
- *  <dt>{@link com.sun.tools.xjc.generator Code generator}
+ *  <dt>{@link com.sun.tools.xjc.generator.bean.BeanGenerator Code generator}
  *  <dd>
  *   Code generators use a model as an input and builds Java code AST
  *   into CodeModel. It also produces an {@link com.sun.tools.xjc.outline.Outline} which captures

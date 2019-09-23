@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2017, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -72,6 +72,12 @@ public abstract class XjcAntTaskTestBase extends TestCase {
   }
 
   static boolean is9() {
-    return System.getProperty("java.version").startsWith("9");
+      String s = System.getProperty("java.version");
+      try {
+          int i = Integer.parseInt(s);
+          return i > 8;
+      } catch (Throwable t) {
+          return false;
+      }
   }
 }

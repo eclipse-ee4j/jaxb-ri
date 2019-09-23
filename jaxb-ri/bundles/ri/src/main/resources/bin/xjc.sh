@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
 #
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -67,7 +67,7 @@ ${JAXB_HOME}/mod/dtd-parser.jar:\
 ${JAXB_HOME}/mod/txw2.jar:\
 ${JAXB_HOME}/mod/stax-ex.jar:\
 ${JAXB_HOME}/mod/FastInfoset.jar:\
-${JAXB_HOME}/mod/jakarta.activation-api.jar:\
+${JAXB_HOME}/mod/jakarta.activation.jar:\
 ${JAXB_HOME}/mod/relaxng-datatype.jar
 
 

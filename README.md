@@ -41,4 +41,3 @@ JAXB is licensed under Eclipse Distribution License v. 1.0, which is available a
 We use Eclipse Contributor Agreement and can only accept contributions under the 
 terms of [ECA](https://www.eclipse.org/legal/ECA.php).
 
-

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,7 +18,7 @@ import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.sun.xml.bind.Util;
+import com.sun.xml.bind.Utils;
 
 /**
  * Replaces a few constant pool tokens from a class "template" and then loads it into the VM.
@@ -29,7 +29,7 @@ public final class ClassTailor {
 
     private ClassTailor() {} // no instanciation please
 
-    private static final Logger logger = Util.getClassLogger();
+    private static final Logger logger = Utils.getClassLogger();
 
     /**
      * Returns the class name in the JVM format (such as "java/lang/String")

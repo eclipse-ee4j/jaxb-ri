@@ -34,14 +34,18 @@
     </description>
 
     <properties>
-        <findbugs.skip>false</findbugs.skip>
-        <findbugs.threshold>Low</findbugs.threshold>
-        <findbugs.exclude>${project.basedir}/exclude.xml</findbugs.exclude>
+        <spotbugs.threshold>Low</spotbugs.threshold>
+        <spotbugs.exclude>${project.basedir}/exclude.xml</spotbugs.exclude>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
         </dependency>
         <dependency>
@@ -55,14 +59,12 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>org.glassfish.jaxb</groupId>
             <artifactId>xsom</artifactId>
-            <version>${xsom.version}</version>
         </dependency>
         <dependency>
-            <groupId>${project.groupId}</groupId>
+            <groupId>org.glassfish.jaxb</groupId>
             <artifactId>codemodel</artifactId>
-            <version>${codemodel.version}</version>
         </dependency>
         <dependency>
             <groupId>com.sun.xml.bind.external</groupId>
@@ -77,14 +79,6 @@
             <artifactId>istack-commons-tools</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.sun.istack</groupId>
-            <artifactId>istack-commons-runtime</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.xml.bind.external</groupId>
-            <artifactId>relaxng-datatype</artifactId>
-        </dependency>
-        <dependency>
             <groupId>args4j</groupId>
             <artifactId>args4j</artifactId>
             <scope>test</scope>
@@ -92,12 +86,15 @@
         <dependency>
             <groupId>org.apache.ant</groupId>
             <artifactId>ant</artifactId>
+            <optional>true</optional>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.sun.org.apache.xml.internal</groupId>
             <artifactId>resolver</artifactId>
             <scope>provided</scope>
+            <!--Not needed starting from JavaSE 11-->
+            <optional>true</optional>
         </dependency>
     </dependencies>
 
@@ -109,7 +106,13 @@
             </resource>
             <resource>
                 <directory>src/main/schemas</directory>
-                <filtering>false</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/java/com/sun/tools/xjc/runtime</directory>
+                <targetPath>com/sun/tools/xjc/runtime</targetPath>
+                <excludes>
+                    <exclude>package-info.java</exclude>
+                </excludes>
             </resource>
         </resources>
         <plugins>
@@ -129,14 +132,15 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>copy-lib</id>
+                        <!--Dependencies for XJCTask see xjc.xml-->
+                        <id>copy-xjctask</id>
                         <phase>validate</phase>
                         <goals>
                             <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.build.directory}/mods</outputDirectory>
-                            <excludeArtifactIds>jmockit</excludeArtifactIds>
+                            <outputDirectory>${project.build.directory}/xjctask-cp</outputDirectory>
+                            <includeArtifactIds>jakarta.activation,istack-commons-tools,istack-commons-runtime,jaxb-runtime,jakarta.xml.bind-api,codemodel,xsom,relaxng-datatype,rngom</includeArtifactIds>
                         </configuration>
                     </execution>
                 </executions>
@@ -200,17 +204,13 @@
                     <execution>
                         <id>default-compile</id>
                         <configuration>
-                            <source>${upper.java.level}</source>
-                            <target>${upper.java.level}</target>
                             <compilerArgs>
-                                <arg>--module-path</arg>
-                                <arg>${project.build.directory}/mods:${project.build.directory}/lib/ant</arg>
-                                <arg>--add-modules</arg>
-                                <arg>ant</arg>
                                 <arg>--add-reads</arg>
-                                <arg>com.sun.tools.xjc=ant</arg>
+                                <arg>com.sun.tools.xjc=ALL-UNNAMED</arg>
                                 <arg>--add-reads</arg>
-                                <arg>com.sun.istack.tools=ant</arg>
+                                <arg>com.sun.istack.tools=ALL-UNNAMED</arg>
+                                <arg>--add-reads</arg>
+                                <arg>com.sun.tools.xjc=ALL-UNNAMED</arg>
                             </compilerArgs>
                         </configuration>
                     </execution>
@@ -228,18 +228,6 @@
                             <target>${upper.java.level}</target>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>base-compile</id>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                        <configuration>
-                            <release>${base.java.level}</release>
-                            <excludes>
-                                <exclude>module-info.java</exclude>
-                            </excludes>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
             <plugin>
@@ -247,46 +235,14 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
                     <additionalJOptions>
-                        <!-- javadoc plugin 3.0.1 overrides module-path, by opt/arg files,
-                        but java treats upgrade-module-path as module-path if modules are non-upgradable -->
-                        <additionalJOption>--upgrade-module-path</additionalJOption>
-                        <additionalJOption>${project.build.directory}/mods</additionalJOption>
-                        <additionalJOption>--add-modules</additionalJOption>
-                        <additionalJOption>ant</additionalJOption>
                         <additionalJOption>--add-reads</additionalJOption>
-                        <additionalJOption>com.sun.istack.tools=ant</additionalJOption>
+                        <additionalJOption>com.sun.tools.xjc=ALL-UNNAMED</additionalJOption>
                         <additionalJOption>--add-reads</additionalJOption>
-                        <additionalJOption>com.sun.tools.xjc=ant</additionalJOption>
-                        <!--Non MR-JAR version of xjc/src/main/java/com/sun/tools/xjc/CatalogUtil.java uses
-                         com.sun.org.apache.xml.internal.resolver (see resolver dependency)-->
+                        <additionalJOption>com.sun.istack.tools=ALL-UNNAMED</additionalJOption>
                         <additionalJOption>--add-reads</additionalJOption>
-                        <additionalJOption>com.sun.tools.xjc=resolver</additionalJOption>
+                        <additionalJOption>com.sun.tools.xjc=ALL-UNNAMED</additionalJOption>
                     </additionalJOptions>
                 </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy-resources</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${basedir}/target/classes/com/sun/tools/xjc/runtime</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>src/main/java/com/sun/tools/xjc/runtime</directory>
-                                    <filtering>false</filtering>
-                                    <excludes>
-                                        <exclude>package-info.java</exclude>
-                                    </excludes>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,10 +11,9 @@
 package com.sun.xml.bind.v2.runtime.reflect.opt;
 
 import java.io.InputStream;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.sun.xml.bind.Util;
+import com.sun.xml.bind.Utils;
 import com.sun.xml.bind.v2.bytecode.ClassTailor;
 
 /**
@@ -22,10 +21,10 @@ import com.sun.xml.bind.v2.bytecode.ClassTailor;
  */
 class AccessorInjector {
 
-    private static final Logger logger = Util.getClassLogger();
+    private static final Logger logger = Utils.getClassLogger();
 
     protected static final boolean noOptimize =
-        Util.getSystemProperty(ClassTailor.class.getName()+".noOptimize")!=null;
+        Utils.getSystemProperty(ClassTailor.class.getName()+".noOptimize")!=null;
 
     static {
         if(noOptimize)

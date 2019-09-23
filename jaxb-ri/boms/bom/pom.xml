@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -30,15 +30,13 @@
     <description>JAXB Bill of Materials (BOM)</description>
 
     <properties>
-        <jaxb-api.version>2.3.2</jaxb-api.version>
+        <jaxb-api.version>2.3.3</jaxb-api.version>
         <jaxb-api-osgi.version>2.3</jaxb-api-osgi.version>
-        <istack.version>3.0.8</istack.version>
-        <fastinfoset.version>1.2.16</fastinfoset.version>
-        <stax-ex.version>1.8.1</stax-ex.version>
-        <dtd-parser.version>1.4.1</dtd-parser.version>
-        <codemodel.version>2.3.2</codemodel.version>
-        <relaxng.version>2.3.2</relaxng.version>
-        <xsom.version>2.3.2</xsom.version>
+        <istack.version>3.0.9</istack.version>
+        <fastinfoset.version>1.2.17</fastinfoset.version>
+        <stax-ex.version>1.8.2</stax-ex.version>
+
+        <jakarta.activation.version>1.2.1</jakarta.activation.version>
     </properties>
 
     <dependencyManagement>
@@ -102,11 +100,6 @@
                 <version>${fastinfoset.version}</version>
                 <classifier>sources</classifier>
             </dependency>
-            <dependency>
-                <groupId>com.sun.xml.dtd-parser</groupId>
-                <artifactId>dtd-parser</artifactId>
-                <version>${dtd-parser.version}</version>
-            </dependency>
 
 
             <!-- *** BINARIES *** -->
@@ -156,6 +149,12 @@
             <dependency> <!--JAXB-API-->
                 <groupId>jakarta.xml.bind</groupId>
                 <artifactId>jakarta.xml.bind-api</artifactId>
+                <exclusions>
+                    <exclusion>
+                        <groupId>jakarta.activation</groupId>
+                        <artifactId>jakarta.activation-api</artifactId>
+                    </exclusion>
+                </exclusions>
                 <version>${jaxb-api.version}</version>
             </dependency>
             <dependency>
@@ -176,7 +175,12 @@
             <dependency>
                 <groupId>jakarta.activation</groupId>
                 <artifactId>jakarta.activation-api</artifactId>
-                <version>1.2.1</version>
+                <version>${jakarta.activation.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.activation</groupId>
+                <artifactId>jakarta.activation</artifactId>
+                <version>${jakarta.activation.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -187,7 +191,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>3.0.1</version>
+                    <version>3.1.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -197,12 +201,12 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>3.1.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
-                    <version>2.8.2</version>
+                    <version>3.0.0-M1</version>
                 </plugin>
             </plugins>
         </pluginManagement>

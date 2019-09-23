@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,7 +16,7 @@ import java.util.Map;
 
 import javax.xml.namespace.QName;
 
-import com.sun.xml.bind.Util;
+import com.sun.xml.bind.Utils;
 import com.sun.xml.bind.api.AccessorException;
 import com.sun.xml.bind.api.JAXBRIContext;
 import com.sun.xml.bind.v2.WellKnownNamespace;
@@ -222,7 +222,7 @@ public final class StructureLoader extends Loader {
             Boolean backupWithParentNamespace = ((JAXBContextImpl) state.getContext().getJAXBContext()).backupWithParentNamespace;
 			backupWithParentNamespace = backupWithParentNamespace != null
 					? backupWithParentNamespace
-					: Boolean.parseBoolean(Util.getSystemProperty(JAXBRIContext.BACKUP_WITH_PARENT_NAMESPACE));
+					: Boolean.parseBoolean(Utils.getSystemProperty(JAXBRIContext.BACKUP_WITH_PARENT_NAMESPACE));
             if ((beanInfo != null) && (beanInfo.getTypeNames() != null) && backupWithParentNamespace) {
                 Iterator<?> typeNamesIt = beanInfo.getTypeNames().iterator();
                 QName parentQName = null;

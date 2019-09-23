@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -19,6 +19,7 @@
         <groupId>com.sun.xml.bind.mvn</groupId>
         <artifactId>jaxb-bundles</artifactId>
         <version>2.4.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>com.sun.xml.bind</groupId>
@@ -52,13 +53,11 @@
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>codemodel</artifactId>
-            <version>${codemodel.version}</version>
             <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>xsom</artifactId>
-            <version>${xsom.version}</version>
             <optional>true</optional>
         </dependency>
         <dependency>
@@ -99,7 +98,6 @@
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>txw2</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>com.sun.xml.bind</groupId>
@@ -117,9 +115,8 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>jakarta.activation</groupId>
-            <artifactId>jakarta.activation-api</artifactId>
-            <optional>true</optional>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>jakarta.activation</artifactId>
         </dependency>
     </dependencies>
 

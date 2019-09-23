@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2018, 2019 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -30,11 +30,11 @@
         <title>Maven coordinates for JAXB artifacts</title>
         <itemizedlist>
             <listitem>
-                <para><emphasis role="bold">java.xml.bind:jaxb-api</emphasis> API classes for JAXB.
+                <para><emphasis role="bold">jakarta.xml.bind:jakarta.xml.bind-api:</emphasis> API classes for JAXB.
                     Required to compile against JAXB.</para>
             </listitem>
             <listitem>
-                <para><emphasis role="bold">org.glassfish.jaxb:jaxb-runtime</emphasis> Contains the main runtime used
+                <para><emphasis role="bold">org.glassfish.jaxb:jaxb-runtime:</emphasis> Contains the main runtime used
                     for serialization and deserialization java objects to/from xml.</para>
             </listitem>
             <listitem>
@@ -45,9 +45,32 @@
                 <para><emphasis role="bold">org.glassfish.jaxb:jaxb-jxc:</emphasis> Tool to generate XML schema from
                     JAXB java sources.</para>
             </listitem>
+        </itemizedlist>
+    </section>
+
+    <section xml:id="Fat-jar">
+        <title>JAXB fat-jar bundles</title>
+        <itemizedlist>
             <listitem>
-                <para><emphasis role="bold">com.sun.xml.bind:jaxb-ri:</emphasis> Zip distribution containing tooling scripts
-                    and all dependency jars in one archive.</para>
+                <para><emphasis role="bold">com.sun.xml.bind:jaxb-impl:</emphasis> JAXB runtime fat jar.</para>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">com.sun.xml.bind:jaxb-xjc:</emphasis> Class generation tool fat jar.</para>
+            </listitem>
+            <listitem>
+                <para><emphasis role="bold">com.sun.xml.bind:jaxb-jxc:</emphasis> Schema generation tool fat jar.</para>
+            </listitem>
+        </itemizedlist>
+        <para>In contrast to <literal>org.glassfish.jaxb</literal> artifacts, these jars have all dependency classes included inside. These artifacts does not contain JPMS module descriptors.
+            In Maven projects <literal>org.glassfish.jaxb</literal> artifacts are supposed to be used instead. </para>
+    </section>
+
+    <section xml:id="Binary-distribution">
+        <title>Binary distribution</title>
+        <itemizedlist>
+            <listitem>
+                <para><emphasis role="bold">com.sun.xml.bind:jaxb-ri:</emphasis> Zip distribution containing tooling
+                    scripts and all dependency jars in one archive.</para>
             </listitem>
         </itemizedlist>
     </section>
@@ -97,7 +120,7 @@
         <title>Using JAXB tools for java sources and XML schema generation</title>
 
         <para>
-            To generate JAXB classes from schema community
+            To generate JAXB classes from schema in Maven project, a community
             <link xlink:href="https://github.com/highsource/maven-jaxb2-plugin">maven-jaxb2-plugin</link> can be used.
             <example><title>Using maven-jaxb2-plugin</title>
 
@@ -119,7 +142,8 @@
                     </plugins>
                 </build>
     ]]></programlisting>
-            </example></para>
+            </example>
+            See the <link xlink:href="https://github.com/highsource/maven-jaxb2-plugin">maven-jaxb2-plugin documentation</link> for configuration details.</para>
 
     <para>
         Alternatively to community plugins, there are tooling artifacts jaxb-xjc and jaxb-jxc,
@@ -175,7 +199,7 @@
                         <configuration>
                             <executable>java</executable>
                             <arguments>
-                                <argument>--module-path</argument> <!-- or -p  -->
+                                <argument>--module-path</argument>
                                 <modulepath/>
                                 <argument>-m</argument>
                                 <argument>com.sun.tools.jxc/com.sun.tools.jxc.SchemaGeneratorFacade</argument>

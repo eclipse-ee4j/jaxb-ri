@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -77,7 +77,7 @@ import com.sun.xml.bind.v2.runtime.unmarshaller.UnmarshallingContext;
 import com.sun.xml.bind.v2.util.ByteArrayOutputStreamEx;
 import com.sun.xml.bind.v2.util.DataSourceSource;
 import java.util.logging.Logger;
-import com.sun.xml.bind.Util;
+import com.sun.xml.bind.Utils;
 import java.util.logging.Level;
 
 import org.xml.sax.SAXException;
@@ -93,7 +93,7 @@ import org.xml.sax.SAXException;
 public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<Type,Class>
     implements RuntimeBuiltinLeafInfo, Transducer<T> {
 
-    private static final Logger logger = Util.getClassLogger();
+    private static final Logger logger = Utils.getClassLogger();
     
     private RuntimeBuiltinLeafInfoImpl(Class type, QName... typeNames) {
         super(type, typeNames);

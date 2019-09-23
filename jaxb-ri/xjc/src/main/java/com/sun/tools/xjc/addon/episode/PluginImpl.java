@@ -87,6 +87,7 @@ public class PluginImpl extends Plugin {
      * and generate them in an episode file.
      */
     public boolean run(Outline model, Options opt, ErrorHandler errorHandler) throws SAXException {
+        OutputStream episodeFileOutputStream = null;
         try {
             // reorganize qualifying components by their namespaces to
             // generate the list nicely
@@ -136,8 +137,8 @@ public class PluginImpl extends Plugin {
                     hasComponentInNoNamespace = true;
             }
 
-            OutputStream os = new FileOutputStream(episodeFile);
-            Bindings bindings = TXW.create(Bindings.class, new StreamSerializer(os, "UTF-8"));
+            episodeFileOutputStream = new FileOutputStream(episodeFile);
+            Bindings bindings = TXW.create(Bindings.class, new StreamSerializer(episodeFileOutputStream, "UTF-8"));
             if(hasComponentInNoNamespace) // otherwise jaxb binding NS should be the default namespace
                 bindings._namespace(Const.JAXB_NSURI,"jaxb");
             else
@@ -176,6 +177,14 @@ public class PluginImpl extends Plugin {
         } catch (IOException e) {
             errorHandler.error(new SAXParseException("Failed to write to "+episodeFile,null,e));
             return false;
+        } finally {
+            if (episodeFileOutputStream != null) {
+                try {
+                    episodeFileOutputStream.close();
+                } catch (IOException e) {
+                    errorHandler.error(new SAXParseException("Failed to close file handle for "+episodeFile,null,e));
+                }
+            }
         }
     }
 

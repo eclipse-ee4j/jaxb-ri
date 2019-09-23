@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -33,22 +33,43 @@
     </description>
 
     <properties>
-        <findbugs.exclude>${project.basedir}/exclude-jxc.xml</findbugs.exclude>
+        <spotbugs.exclude>${project.basedir}/exclude-jxc.xml</spotbugs.exclude>
     </properties>
 
     <dependencies>
         <dependency>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>jaxb-xjc</artifactId>
         </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>jaxb-runtime</artifactId>
+
+        <dependency><!-- Ant is provided through transitive dependency from XJC. But to be consistent we have it also here -->
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant</artifactId>
+            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>com.sun.istack</groupId>
-            <artifactId>istack-commons-runtime</artifactId>
+            <groupId>com.sun.org.apache.xml.internal</groupId>
+            <artifactId>resolver</artifactId>
+            <scope>provided</scope>
+            <!--Not needed starting from JavaSE 11-->
+            <optional>true</optional>
         </dependency>
+
+        <!-- CQ #20807 -->
+        <dependency>
+            <groupId>org.checkerframework</groupId>
+            <artifactId>compiler</artifactId>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+
         <dependency>
             <groupId>org.jmockit</groupId>
             <artifactId>jmockit</artifactId>
@@ -58,16 +79,6 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>txw2</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency><!-- Ant is provided through transitive dependency from XJC. But to be consistent we have it also here -->
-            <groupId>org.apache.ant</groupId>
-            <artifactId>ant</artifactId>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -88,57 +99,25 @@
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
                     <execution>
+                        <id>copy-schemagen</id>
                         <phase>validate</phase>
                         <goals>
                             <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.build.directory}/mods</outputDirectory>
-                            <excludeArtifactIds>jmockit</excludeArtifactIds>
+                            <outputDirectory>${project.build.directory}/schemagen-cp</outputDirectory>
+                            <includeArtifactIds>jakarta.activation,jakarta.xml.bind-api,jaxb-runtime,jaxb-xjc,stax-ex,istack-commons-runtime,istack-commons-tools,dtd-parser,rngom,relaxng-datatype,xsom,codemodel,txw2</includeArtifactIds>
                         </configuration>
                     </execution>
                     <execution>
                         <id>copy-ant</id>
-                        <phase>process-test-sources</phase>
+                        <phase>validate</phase>
                         <goals>
                             <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
                             <outputDirectory>${project.build.directory}/lib/ant</outputDirectory>
-                            <includeArtifactIds>ant,ant-launcher,ant-nodeps,cobertura</includeArtifactIds>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>copy-lib</id>
-                        <phase>process-test-sources</phase>
-                        <goals>
-                            <goal>copy</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/lib/</outputDirectory>
-                            <excludeTransitive>true</excludeTransitive>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>${project.groupId}</groupId>
-                                    <artifactId>jaxb-xjc</artifactId>
-                                    <type>jar</type>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>${project.groupId}</groupId>
-                                    <artifactId>txw2</artifactId>
-                                    <type>jar</type>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>${project.groupId}</groupId>
-                                    <artifactId>jaxb-runtime</artifactId>
-                                    <type>jar</type>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>com.sun.istack</groupId>
-                                    <artifactId>istack-commons-runtime</artifactId>
-                                    <type>jar</type>
-                                </artifactItem>
-                            </artifactItems>
+                            <includeArtifactIds>ant,ant-launcher</includeArtifactIds>
                         </configuration>
                     </execution>
                 </executions>
@@ -203,17 +182,11 @@
                     <execution>
                         <id>default-compile</id>
                         <configuration>
-                            <source>${upper.java.level}</source>
-                            <target>${upper.java.level}</target>
                             <compilerArgs>
-                                <arg>--module-path</arg>
-                                <arg>${project.build.directory}/mods:${project.build.directory}/lib/ant</arg>
-                                <arg>--add-modules</arg>
-                                <arg>ant</arg>
                                 <arg>--add-reads</arg>
-                                <arg>com.sun.tools.jxc=ant</arg>
+                                <arg>com.sun.tools.jxc=ALL-UNNAMED</arg>
                                 <arg>--add-reads</arg>
-                                <arg>com.sun.istack.tools=ant</arg>
+                                <arg>com.sun.istack.tools=ALL-UNNAMED</arg>
                             </compilerArgs>
                         </configuration>
                     </execution>
@@ -231,20 +204,6 @@
                             <target>${upper.java.level}</target>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>base-compile</id>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                        <configuration>
-                            <!-- TODO find how to include tools.jar on classpath and replace with "release" -->
-                            <source>1.7</source>
-                            <target>1.7</target>
-                            <excludes>
-                                <exclude>module-info.java</exclude>
-                            </excludes>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
             <plugin>
@@ -252,14 +211,10 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
                     <additionalJOptions>
-                        <additionalJOption>--upgrade-module-path</additionalJOption>
-                        <additionalJOption>${project.build.directory}/mods</additionalJOption>
-                        <additionalJOption>--add-modules</additionalJOption>
-                        <additionalJOption>ant</additionalJOption>
                         <additionalJOption>--add-reads</additionalJOption>
-                        <additionalJOption>com.sun.tools.jxc=ant</additionalJOption>
+                        <additionalJOption>com.sun.tools.jxc=ALL-UNNAMED</additionalJOption>
                         <additionalJOption>--add-reads</additionalJOption>
-                        <additionalJOption>com.sun.istack.tools=ant</additionalJOption>
+                        <additionalJOption>com.sun.istack.tools=ALL-UNNAMED</additionalJOption>
                     </additionalJOptions>
                 </configuration>
             </plugin>

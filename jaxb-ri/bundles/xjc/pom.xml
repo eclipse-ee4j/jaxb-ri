@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -35,23 +35,66 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant</artifactId>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.org.apache.xml.internal</groupId>
+            <artifactId>resolver</artifactId>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-xjc</artifactId>
-            <version>${project.version}</version>
-            <optional>true</optional>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>codemodel</artifactId>
-            <version>${codemodel.version}</version>
-            <optional>true</optional>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>xsom</artifactId>
-            <version>${xsom.version}</version>
-            <optional>true</optional>
+            <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.sun.istack</groupId>
+            <artifactId>istack-commons-tools</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind.external</groupId>
+            <artifactId>relaxng-datatype</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind.external</groupId>
+            <artifactId>rngom</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.dtd-parser</groupId>
+            <artifactId>dtd-parser</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -60,8 +103,8 @@
     </dependencies>
 
     <properties>
-        <generated.sources.dir>${project.build.directory}/generated-sources</generated.sources.dir>
-        <generated.classes.dir>${project.build.directory}/classes</generated.classes.dir>
+        <dep.sources>${project.build.directory}/generated-sources/dependencies</dep.sources>
+        <dep.sources.mr>${project.build.directory}/generated-sources/dependencies-mr</dep.sources.mr>
     </properties>
 
     <profiles>
@@ -96,25 +139,161 @@
     </profiles>
     <build>
         <plugins>
+            <plugin> <!-- want to unpack sources from individual modules -->
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack-sources</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeGroupIds>org.glassfish.jaxb,com.sun.istack,com.sun.xml.bind.external,com.sun.xml.dtd-parser</includeGroupIds>
+                            <includeScope>provided</includeScope>
+                            <classifier>sources</classifier>
+                            <excludeTransitive>true</excludeTransitive>
+                            <excludes>module-info.*,META-INF/versions/**,META-INF/MANIFEST.MF</excludes>
+                            <outputDirectory>${dep.sources}</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>unpack-sources-mr</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeGroupIds>org.glassfish.jaxb,com.sun.istack,com.sun.xml.bind.external,com.sun.xml.dtd-parser</includeGroupIds>
+                            <includeScope>provided</includeScope>
+                            <classifier>sources</classifier>
+                            <excludeTransitive>true</excludeTransitive>
+                            <includes>META-INF/versions/9/**</includes>
+                            <outputDirectory>${dep.sources.mr}</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-resource</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>add-resource</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>${dep.sources}</directory>
+                                    <excludes>
+                                        <exclude>**/*.java</exclude>
+                                    </excludes>
+                                </resource>
+                                <resource>
+                                    <directory>${dep.sources}/com/sun/tools/xjc/runtime</directory>
+                                    <targetPath>com/sun/tools/xjc/runtime</targetPath>
+                                    <includes>
+                                        <include>*.java</include>
+                                    </includes>
+                                    <excludes>
+                                        <exclude>package-info.java</exclude>
+                                    </excludes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>add-sources</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${dep.sources}</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>add-mr-resource</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>add-resource</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>${dep.sources.mr}</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>default-compile</id>
+                        <configuration>
+                            <compilerArgs>
+                                <arg>--add-reads</arg>
+                                <arg>com.sun.xml.bind.xjc=ALL-UNNAMED</arg>
+                            </compilerArgs>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>default-compile-mr</id>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                        <configuration>
+                            <compileSourceRoots>
+                                <compileSourceRoot>${dep.sources.mr}/META-INF/versions/9</compileSourceRoot>
+                            </compileSourceRoots>
+                            <outputDirectory>${project.build.outputDirectory}/META-INF/versions/${upper.java.level}</outputDirectory>
+                            <source>${upper.java.level}</source>
+                            <target>${upper.java.level}</target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+                        <manifestEntries>
+                            <Class-Path>jaxb-impl.jar</Class-Path>
+                            <Multi-Release>true</Multi-Release>
+                        </manifestEntries>
+                        <manifest>
+                            <mainClass>com.sun.tools.xjc.XJCFacade</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
                     <sourceFileExcludes>
                         <sourceFileExclude>META-INF/versions/**</sourceFileExclude>
                     </sourceFileExcludes>
+                    <includeDependencySources>false</includeDependencySources>
                     <additionalJOptions>
-                        <additionalJOption>-Xdoclint:none</additionalJOption>
-                        <!--Non MR-JAR version of xjc/src/main/java/com/sun/tools/xjc/CatalogUtil.java uses
-                        com.sun.org.apache.xml.internal.resolver (see resolver dependency)-->
-                        <additionalJOption>--module-path</additionalJOption>
-                        <additionalJOption>${module.path}</additionalJOption>
-                        <additionalJOption>--add-modules</additionalJOption>
-                        <additionalJOption>resolver</additionalJOption>
                         <additionalJOption>--add-reads</additionalJOption>
-                        <additionalJOption>com.sun.tools.xjc=resolver</additionalJOption>
+                        <additionalJOption>com.sun.xml.bind.xjc=ALL-UNNAMED</additionalJOption>
                     </additionalJOptions>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-junit4osgi-plugin</artifactId>
@@ -165,145 +344,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>unpack-sources</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <configuration>
-                            <excludes>**/module-info.java</excludes>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>org.glassfish.jaxb</groupId>
-                                    <artifactId>jaxb-xjc</artifactId>
-                                    <classifier>sources</classifier>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${generated.sources.dir}</outputDirectory>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>org.glassfish.jaxb</groupId>
-                                    <artifactId>xsom</artifactId>
-                                    <classifier>sources</classifier>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${generated.sources.dir}</outputDirectory>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>com.sun.xml.bind.external</groupId>
-                                    <artifactId>relaxng-datatype</artifactId>
-                                    <classifier>sources</classifier>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${generated.sources.dir}</outputDirectory>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>org.glassfish.jaxb</groupId>
-                                    <artifactId>codemodel</artifactId>
-                                    <classifier>sources</classifier>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${generated.sources.dir}</outputDirectory>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>com.sun.xml.bind.external</groupId>
-                                    <artifactId>rngom</artifactId>
-                                    <classifier>sources</classifier>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${generated.sources.dir}</outputDirectory>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>com.sun.xml.dtd-parser</groupId>
-                                    <artifactId>dtd-parser</artifactId>
-                                    <classifier>sources</classifier>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${generated.sources.dir}</outputDirectory>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>com.sun.istack</groupId>
-                                    <artifactId>istack-commons-tools</artifactId>
-                                    <classifier>sources</classifier>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${generated.sources.dir}</outputDirectory>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>unpack-classes</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <configuration>
-                            <excludes>**/module-info.class</excludes>
-                            <skip>false</skip>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>org.glassfish.jaxb</groupId>
-                                    <artifactId>jaxb-xjc</artifactId>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${generated.classes.dir}</outputDirectory>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>org.glassfish.jaxb</groupId>
-                                    <artifactId>xsom</artifactId>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${generated.classes.dir}</outputDirectory>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>com.sun.xml.bind.external</groupId>
-                                    <artifactId>relaxng-datatype</artifactId>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${generated.classes.dir}</outputDirectory>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>org.glassfish.jaxb</groupId>
-                                    <artifactId>codemodel</artifactId>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${generated.classes.dir}</outputDirectory>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>com.sun.xml.bind.external</groupId>
-                                    <artifactId>rngom</artifactId>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${generated.classes.dir}</outputDirectory>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>com.sun.xml.dtd-parser</groupId>
-                                    <artifactId>dtd-parser</artifactId>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${generated.classes.dir}</outputDirectory>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>com.sun.istack</groupId>
-                                    <artifactId>istack-commons-tools</artifactId>
-                                    <overWrite>false</overWrite>
-                                    <outputDirectory>${generated.classes.dir}</outputDirectory>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>prepare-module-path</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${module.path}</outputDirectory>
-                            <silent>false</silent>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>com.sun.org.apache.xml.internal</groupId>
-                                    <artifactId>resolver</artifactId>
-                                    <overWrite>false</overWrite>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
 
             <plugin>
                 <groupId>org.apache.felix</groupId>
@@ -318,85 +358,11 @@
                         <configuration>
                             <instructions>
                                 <Export-Package>*</Export-Package>
-                                <Import-Package>com.sun.org.apache.xml.internal.resolver;resolution:=optional,com.sun.org.apache.xml.internal.resolver.tools;resolution:=optional,*</Import-Package>
+                                <Import-Package>
+                                    javax.activation;version=!,
+                                    *
+                                </Import-Package>
                             </instructions>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
-                    </archive>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>add-sources</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>add-source</goal>
-                        </goals>
-                        <configuration>
-                            <sources>
-                                <source>${generated.sources.dir}</source>
-                            </sources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <artifactId>maven-shade-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <artifactSet>
-                                <includes>
-                                    <include>org.glassfish.jaxb:jaxb-xjc</include>
-                                    <include>org.glassfish.jaxb:codemodel</include>
-                                    <include>org.glassfish.jaxb:xsom</include>
-                                    <include>com.sun.istack:istack-commons-tools</include>
-                                    <include>com.sun.xml.dtd-parser:dtd-parser</include>
-                                    <include>com.sun.xml.bind.external:rngom</include>
-                                    <include>com.sun.xml.bind.external:relaxng-datatype</include>
-                                </includes>
-
-                                <excludes>
-                                    <exclude>jakarta.xml.bind:jakarta.xml.bind-api</exclude>
-                                    <exclude>org.glassfish.jaxb:txw2</exclude>
-                                    <exclude>javax.xml.stream:stax-api</exclude>
-                                    <exclude>com.sun.istack:istack-commons-runtime</exclude>
-                                    <exclude>org.apache.ant:ant</exclude>
-                                    <exclude>org.apache.ant:ant-launcher</exclude>
-                                    <exclude>com.sun.org.apache.xml.internal:resolver</exclude>
-                                </excludes>
-
-                            </artifactSet>
-                            <transformers>
-                                <transformer
-                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.sun.tools.xjc.XJCFacade</mainClass>
-                                    <manifestEntries>
-                                        <Class-Path>jaxb-impl.jar</Class-Path>
-                                        <Major-Version>${jaxb.majorVersion}.${jaxb.minorVersion}.${jaxb.incrementalVersion}</Major-Version>
-                                        <Specification-Version>${jaxb-api.majorVersion}.${jaxb-api.minorVersion}</Specification-Version>
-                                        <Git-Revision>${buildNumber}</Git-Revision>
-                                        <Multi-Release>true</Multi-Release>
-                                    </manifestEntries>
-                                </transformer>
-                            </transformers>
                         </configuration>
                     </execution>
                 </executions>
@@ -410,13 +376,9 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <id>integration-test</id>
-                        <goals>
-                            <goal>test</goal>
-                        </goals>
+                        <id>default-test</id>
                         <phase>integration-test</phase>
                         <configuration>
-                            <skip>false</skip>
                             <systemProperties>
                                 <jaxb.spec.version>${jaxb-api.version}</jaxb.spec.version>
                                 <osgi.dist>${project.build.directory}/${project.build.finalName}</osgi.dist>

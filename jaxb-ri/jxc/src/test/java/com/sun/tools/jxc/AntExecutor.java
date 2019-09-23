@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2017, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,9 +14,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * @author Yan GAO (gaoyan.gao@oracle.com)
@@ -30,10 +32,6 @@ public class AntExecutor {
         File heapDump = null;
         List<String> cmd = new ArrayList<String>();
         cmd.add("java");
-        if (SchemaAntTaskTestBase.is9()) {
-            cmd.add("--add-modules");
-            cmd.add("java.xml.ws");
-        }
         if (DEBUG) {
             cmd.add("-Xdebug");
             cmd.add("-Xnoagent");
@@ -47,7 +45,7 @@ public class AntExecutor {
         cmd.add("-cp");
         cmd.add(getAntCP(new File(System.getProperty("bin.folder"), "lib/ant")));
         cmd.add("org.apache.tools.ant.Main");
-//        cmd.add("-v");
+//        cmd.add("-d");
         cmd.add("-f");
         cmd.add(script.getName());
         cmd.addAll(Arrays.asList(targets));
@@ -78,11 +76,19 @@ public class AntExecutor {
     private static class InOut extends Thread {
 
         private InputStream is;
-        private OutputStream out;
+        private PrintStream out;
 
-        public InOut(InputStream is, OutputStream out) {
+        public InOut(InputStream is, PrintStream out) {
             this.is = is;
             this.out = out;
+        }
+
+        @Override
+        public void run() {
+            Scanner sc = new Scanner(is);
+            while (sc.hasNextLine()) {
+                out.println(sc.nextLine());
+            }
         }
     }
 }

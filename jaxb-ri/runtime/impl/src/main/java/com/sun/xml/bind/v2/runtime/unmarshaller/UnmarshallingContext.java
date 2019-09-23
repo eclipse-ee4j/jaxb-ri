@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -38,7 +38,6 @@ import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
 import com.sun.istack.SAXParseException2;
 import com.sun.xml.bind.IDResolver;
-import com.sun.xml.bind.Util;
 import com.sun.xml.bind.api.AccessorException;
 import com.sun.xml.bind.api.ClassResolver;
 import com.sun.xml.bind.unmarshaller.InfosetScanner;
@@ -448,7 +447,7 @@ public final class UnmarshallingContext extends Coordinator
 
     public void clearStates() {
         State last = current;
-        while (last.next != null) last = last.next;        
+        while (last.next != null) last = last.next;
         while (last.prev != null) {
             last.loader = null;
             last.nil = false;

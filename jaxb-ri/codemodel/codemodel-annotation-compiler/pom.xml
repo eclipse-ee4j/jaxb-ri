@@ -1,6 +1,6 @@
 <!--
 
-    Copyright (c) 2010, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2010, 2019 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,7 +23,7 @@
     <artifactId>codemodel-annotation-compiler</artifactId>
     <name>Codemodel Annotation Compiler</name>
     <description>The annotation compiler ant task for the CodeModel java source code generation library</description>
-    
+
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -33,8 +33,38 @@
         <dependency>
             <groupId>org.apache.ant</groupId>
             <artifactId>ant</artifactId>
-            <version>1.10.2</version>
+            <version>1.10.7</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>default-compile</id>
+                        <configuration>
+                            <compilerArgs>
+                                <arg>--add-reads</arg>
+                                <arg>com.sun.codemodel.ac=ALL-UNNAMED</arg>
+                            </compilerArgs>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <additionalJOptions>
+                        <additionalJOption>--add-reads</additionalJOption>
+                        <additionalJOption>com.sun.codemodel.ac=ALL-UNNAMED</additionalJOption>
+                    </additionalJOptions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
