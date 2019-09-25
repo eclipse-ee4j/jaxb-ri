@@ -135,7 +135,7 @@
                     <argLine>
                         --add-opens com.sun.tools.jxc/com.sun.tools.jxc.ap=ALL-UNNAMED
                         --add-opens com.sun.tools.jxc/com.sun.tools.jxc=ALL-UNNAMED
-                        --module-path ${module.path}
+                        --module-path "${module.path}"
                         -Djdk.attach.allowAttachSelf
                     </argLine>
                 </configuration>
