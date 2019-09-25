@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -141,7 +141,7 @@ public class XmlSchemaGeneratorTest extends TestCase {
 
         @Override
         public Result createOutput(String arg0, String arg1) throws IOException {
-            return new StreamResult(new File(arg1));
+            return new StreamResult(new File(arg1).toURI().getPath());
         }
     }
 }
