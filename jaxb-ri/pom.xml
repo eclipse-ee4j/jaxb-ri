@@ -71,6 +71,7 @@
     </mailingLists>
 
     <properties>
+        <vendor.name>Oracle Corporation</vendor.name>
         <copyright.exclude>tools/config/copyright-exclude</copyright.exclude>
         <copyright.ignoreyear>false</copyright.ignoreyear>
         <copyright.scmonly>true</copyright.scmonly>
@@ -313,6 +314,10 @@
                             <version>1.10.7</version>
                         </dependency>
                     </dependencies>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>3.0.0-M3</version>
                 </plugin>
             </plugins>
         </pluginManagement>

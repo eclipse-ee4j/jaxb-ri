@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,6 +20,7 @@ import javax.xml.stream.XMLStreamException;
 import com.sun.istack.NotNull;
 import com.sun.xml.bind.api.AccessorException;
 import com.sun.xml.bind.v2.model.runtime.RuntimePropertyInfo;
+import com.sun.xml.bind.v2.runtime.reflect.opt.OptimizedTransducedAccessorFactory;
 
 import org.xml.sax.SAXException;
 
@@ -37,6 +38,14 @@ import org.xml.sax.SAXException;
  * @author Kohsuke Kawaguchi (kk@kohsuke.org)
  */
 public interface Transducer<ValueT> {
+
+    /**
+     * If this {@link Transducer} is the default transducer for the <code>ValueT</code>,
+     * this method returns true.
+     *
+     * Used exclusively by {@link OptimizedTransducedAccessorFactory#get(RuntimePropertyInfo)}
+     */
+    boolean isDefault();
 
     /**
      * If true, this {@link Transducer} doesn't declare any namespace,
