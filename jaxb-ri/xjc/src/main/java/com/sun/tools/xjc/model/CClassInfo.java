@@ -37,6 +37,7 @@ import com.sun.tools.xjc.reader.xmlschema.BGMBuilder;
 import com.sun.tools.xjc.reader.xmlschema.bindinfo.BIFactoryMethod;
 import com.sun.xml.bind.v2.model.core.ClassInfo;
 import com.sun.xml.bind.v2.model.core.Element;
+import com.sun.xml.xsom.ForeignAttributes;
 import com.sun.xml.xsom.XSComponent;
 
 import org.xml.sax.Locator;
@@ -188,9 +189,11 @@ public final class CClassInfo extends AbstractCElement implements ClassInfo<NTyp
     public boolean inheritsAttributeWildcard() {
         if (getRefBaseClass() != null) {
             CClassRef cref = (CClassRef)baseClass;
-            if (cref.getSchemaComponent().getForeignAttributes().size() > 0) {
-                return true;
-            }           
+            for(ForeignAttributes foreignAttributes: cref.getSchemaComponent().getForeignAttributes()) {
+                if(foreignAttributes.getLength() > 0) {
+                    return true;
+                }
+            }
         } else {
             for( CClassInfo c=getBaseClass(); c!=null; c=c.getBaseClass() ) {
                 if(c.hasAttributeWildcard)
