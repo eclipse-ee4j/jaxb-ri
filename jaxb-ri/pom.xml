@@ -87,7 +87,6 @@
         <spotbugs.version>3.1.12.2</spotbugs.version>
 
         <junit.version>4.12</junit.version>
-        <args4j.version>1.0</args4j.version>
 
         <module.path>${project.build.directory}/mods</module.path>
         <!-- This will work ONLY if mvn is run from root folder. In case of runing from submodules - fail :( -->
@@ -104,11 +103,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>args4j</groupId>
-                <artifactId>args4j</artifactId>
-                <version>${args4j.version}</version>
-            </dependency>
             <!-- Test -->
             <dependency>
                 <groupId>org.jmockit</groupId>
@@ -165,7 +159,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.1.1</version>
+                    <version>3.1.2</version>
                     <configuration>
                         <excludes>
                             <exclude>META-INF/jpms.args</exclude>
@@ -244,8 +238,7 @@
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>3.1.1</version>
                     <configuration>
-                        <detectJavaApiLink>false</detectJavaApiLink>
-                        <detectOfflineLinks>false</detectOfflineLinks>
+                        <release>11</release>
                         <aggregate>false</aggregate>
                         <dependencySourceExcludes>
                             <dependencySourceExclude>com.sun.xml.bind:*</dependencySourceExclude>
@@ -443,7 +436,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.1.1</version>
                 <executions>
                     <execution>
                         <id>default-jar</id>

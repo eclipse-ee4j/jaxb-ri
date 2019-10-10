@@ -8,8 +8,8 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-module com.sun.xml.bind.runtime {
-    requires java.xml.bind;
+module com.sun.xml.bind {
+    requires transitive java.xml.bind;
     requires java.compiler;
     requires java.desktop;
     requires java.logging;
@@ -48,9 +48,7 @@ module com.sun.xml.bind.runtime {
     exports com.sun.xml.txw2.annotation;
     exports com.sun.xml.txw2.output;
 
-    opens com.sun.xml.bind.v2.model.nav to com.sun.tools.xjc;
-
-    uses javax.xml.bind.JAXBContextFactory;
+    opens com.sun.xml.bind.v2.model.nav to com.sun.tools.xjc, com.sun.tools.ws.jaxws, com.sun.xml.ws;
 
     provides javax.xml.bind.JAXBContextFactory with com.sun.xml.bind.v2.JAXBContextFactory;
 }

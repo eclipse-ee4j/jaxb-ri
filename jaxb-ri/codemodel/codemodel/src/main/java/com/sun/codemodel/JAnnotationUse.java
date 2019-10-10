@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -382,6 +382,7 @@ public final class JAnnotationUse extends JAnnotationValue {
      * @deprecated
      *      use {@link JAnnotationArrayMember#annotate}
      */
+    @Deprecated
     public JAnnotationUse annotate(Class <? extends Annotation> clazz) {
          JAnnotationUse annotationUse = new JAnnotationUse(owner().ref(clazz));
          return annotationUse;

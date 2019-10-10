@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2005, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -89,7 +89,7 @@ public class NameUtil {
      * {"Abc", "100","Ghi"}.
      */
     public static String[] toWordList(String s) {
-        ArrayList ss = new ArrayList();
+        ArrayList<String> ss = new ArrayList<>();
         int n = s.length();
         for (int i = 0; i < n;) {
 
@@ -113,7 +113,7 @@ public class NameUtil {
 //      so there's not much point in rejecting things in this way.
 //        if (ss.size() == 0)
 //            throw new IllegalArgumentException("Zero-length identifier");
-        return (String[])(ss.toArray(new String[0]));
+        return ss.toArray(new String[ss.size()]);
     }
 
     protected static String toMixedCaseName(String[] ss, boolean startUpper) {

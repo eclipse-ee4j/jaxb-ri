@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2005, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -116,7 +116,7 @@ public class TxwTask extends org.apache.tools.ant.Task {
         Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
 
         try {
-            InputSource in = new InputSource(schemaFile.toURL().toExternalForm());
+            InputSource in = new InputSource(schemaFile.toURI().toURL().toExternalForm());
 
             String msg = "Compiling: " + in.getSystemId();
             log( msg, Project.MSG_INFO );

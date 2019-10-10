@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -247,6 +247,7 @@ public final class JCodeModel {
      *      The naming convention doesn't match the rest of the CodeModel.
      *      Use {@link #anonymousClass(JClass)} instead.
      */
+    @Deprecated
     public JDefinedClass newAnonymousClass(JClass baseType) {
         return new JAnonymousClass(baseType);
     }
@@ -356,7 +357,7 @@ public final class JCodeModel {
      * @see #_ref(Class) for the version that handles more cases.
      */
     public JClass ref(Class<?> clazz) {
-        JReferencedClass jrc = (JReferencedClass)refClasses.get(clazz);
+        JReferencedClass jrc = refClasses.get(clazz);
         if (jrc == null) {
             if (clazz.isPrimitive())
                 throw new IllegalArgumentException(clazz+" is a primitive");

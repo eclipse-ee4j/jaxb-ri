@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2005, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -46,6 +46,7 @@ public class IndentingXMLStreamWriter extends DelegatingXMLStreamWriter {
      * @deprecated
      *      Only return the length of the indent string.
      */
+    @Deprecated
     public int getIndentStep() {
         return indentStep.length();
     }
@@ -61,6 +62,7 @@ public class IndentingXMLStreamWriter extends DelegatingXMLStreamWriter {
      * @deprecated
      *      Should use the version that takes string.
      */
+    @Deprecated
     public void setIndentStep(int indentStep) {
         StringBuilder s = new StringBuilder();
         for (; indentStep > 0; indentStep--) s.append(' ');
