@@ -11,6 +11,7 @@
 package com.sun.tools.txw2;
 
 /**
+ * Signals a bad command line argument.
  *
  * @author lukas
  */

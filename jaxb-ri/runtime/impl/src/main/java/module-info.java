@@ -51,7 +51,7 @@ module org.glassfish.jaxb.runtime {
 
     opens com.sun.xml.bind.v2.model.nav to org.glassfish.jaxb.xjc;
 
-//    uses javax.xml.bind.JAXBContextFactory;
+    uses javax.xml.bind.JAXBContextFactory;
 
     provides javax.xml.bind.JAXBContextFactory with com.sun.xml.bind.v2.JAXBContextFactory;
 }

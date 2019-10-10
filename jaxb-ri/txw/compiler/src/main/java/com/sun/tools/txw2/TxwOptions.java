@@ -69,8 +69,15 @@ public class TxwOptions {
      */
     public boolean noPackageNamespace;
 
+    /**
+     * Type of input schema language. One of the {@code Language}
+     * constants.
+     */
     public Language language;
 
+    /**
+     * Type of the schema language.
+     */
     public enum Language {
         XML,
         XMLSCHEMA,
@@ -81,7 +88,7 @@ public class TxwOptions {
         String src = null;
         for (int i = 0; i < args.length; i++) {
             if (args[i].length() == 0) {
-                throw new BadCommandLineException();
+                throw new BadCommandLineException(getMessage("missingOperand"));
             }
             if (args[i].charAt(0) == '-') {
                 int j = parseArgument(args, i);
