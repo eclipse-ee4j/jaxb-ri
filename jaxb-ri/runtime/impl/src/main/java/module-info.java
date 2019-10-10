@@ -14,8 +14,8 @@
  * @uses javax.xml.bind.JAXBContextFactory
  *
  */
-module com.sun.xml.bind {
-    requires java.xml.bind;
+module org.glassfish.jaxb.runtime {
+    requires transitive java.xml.bind;
     requires java.compiler;
     requires java.desktop;
     requires java.logging;
@@ -23,7 +23,7 @@ module com.sun.xml.bind {
     requires transitive jakarta.activation;
     requires transitive java.xml;
 
-    requires com.sun.xml.txw2;
+    requires transitive com.sun.xml.txw2;
     requires static com.sun.xml.fastinfoset;
     requires static org.jvnet.staxex;
     requires com.sun.istack.runtime;
@@ -49,7 +49,7 @@ module com.sun.xml.bind {
     exports com.sun.xml.bind.v2.schemagen.xmlschema;
     exports com.sun.xml.bind.v2.util;
 
-    opens com.sun.xml.bind.v2.model.nav to com.sun.tools.xjc;
+    opens com.sun.xml.bind.v2.model.nav to org.glassfish.jaxb.xjc;
 
     uses javax.xml.bind.JAXBContextFactory;
 

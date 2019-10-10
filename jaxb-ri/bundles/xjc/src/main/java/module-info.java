@@ -12,24 +12,28 @@
  * JAXB Binding Compiler. Contains source code needed for binding customization files into java sources.
  * In other words: the *tool* to generate java classes for the given xml representation.
  */
-module com.sun.xml.bind.xjc {
+module com.sun.tools.xjc {
 
     requires java.logging;
-    requires java.compiler;
+    requires transitive java.compiler;
     requires jdk.compiler;
-    requires java.desktop;
+    requires transitive java.desktop;
 
-    requires java.xml.bind;
-    requires com.sun.xml.bind.runtime;
+    requires transitive jakarta.activation;
+
+    requires transitive java.xml.bind;
+    requires transitive com.sun.xml.bind;
 
     opens com.sun.tools.xjc.reader.xmlschema.bindinfo to java.xml.bind;
-    opens com.sun.tools.xjc.model to com.sun.xml.bind.runtime;
-    opens com.sun.tools.xjc.generator.bean to com.sun.xml.bind.runtime;
 
     exports com.sun.tools.xjc;
+    exports com.sun.tools.xjc.api;
+    exports com.sun.tools.xjc.generator.bean to java.xml.bind;
+    exports com.sun.tools.xjc.model;
+    exports com.sun.tools.xjc.model.nav;
+    exports com.sun.tools.xjc.outline;
     exports com.sun.tools.xjc.reader;
     exports com.sun.tools.xjc.reader.internalizer;
-    exports com.sun.tools.xjc.api;
     exports com.sun.tools.xjc.util;
 
     exports com.sun.xml.xsom;
@@ -64,12 +68,4 @@ module com.sun.xml.bind.xjc {
     exports com.sun.tools.rngdatatype.helpers;
 
     uses com.sun.tools.xjc.Plugin;
-
-    provides com.sun.tools.xjc.Plugin with
-        com.sun.tools.xjc.addon.accessors.PluginImpl,
-        com.sun.tools.xjc.addon.at_generated.PluginImpl,
-        com.sun.tools.xjc.addon.code_injector.PluginImpl,
-        com.sun.tools.xjc.addon.episode.PluginImpl,
-        com.sun.tools.xjc.addon.locator.SourceLocationAddOn,
-        com.sun.tools.xjc.addon.sync.SynchronizedMethodAddOn;
 }

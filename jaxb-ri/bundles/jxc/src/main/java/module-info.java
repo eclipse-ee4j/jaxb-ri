@@ -8,13 +8,13 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-module com.sun.xml.bind.jxc {
+module com.sun.tools.jxc {
     requires transitive java.xml.bind;
     requires java.compiler;
     requires jdk.compiler;
     requires java.logging;
-    requires transitive com.sun.xml.bind.runtime;
-    requires transitive com.sun.xml.bind.xjc;
+    requires transitive com.sun.xml.bind;
+    requires transitive com.sun.tools.xjc;
 
     exports com.sun.tools.jxc;
     exports com.sun.tools.jxc.ap;

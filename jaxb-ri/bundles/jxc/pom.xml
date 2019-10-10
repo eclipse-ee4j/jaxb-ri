@@ -209,7 +209,7 @@
                         <configuration>
                             <compilerArgs>
                                 <arg>--add-reads</arg>
-                                <arg>com.sun.xml.bind.jxc=ALL-UNNAMED</arg>
+                                <arg>com.sun.tools.jxc=ALL-UNNAMED</arg>
                             </compilerArgs>
                         </configuration>
                     </execution>
@@ -276,7 +276,7 @@
                     </sourceFileExcludes>
                     <additionalJOptions>
                         <additionalJOption>--add-reads</additionalJOption>
-                        <additionalJOption>com.sun.xml.bind.jxc=ALL-UNNAMED</additionalJOption>
+                        <additionalJOption>com.sun.tools.jxc=ALL-UNNAMED</additionalJOption>
                     </additionalJOptions>
                 </configuration>
             </plugin>

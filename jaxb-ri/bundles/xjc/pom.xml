@@ -251,7 +251,7 @@
                         <configuration>
                             <compilerArgs>
                                 <arg>--add-reads</arg>
-                                <arg>com.sun.xml.bind.xjc=ALL-UNNAMED</arg>
+                                <arg>com.sun.tools.xjc=ALL-UNNAMED</arg>
                             </compilerArgs>
                         </configuration>
                     </execution>
@@ -297,7 +297,7 @@
                     <includeDependencySources>false</includeDependencySources>
                     <additionalJOptions>
                         <additionalJOption>--add-reads</additionalJOption>
-                        <additionalJOption>com.sun.xml.bind.xjc=ALL-UNNAMED</additionalJOption>
+                        <additionalJOption>com.sun.tools.xjc=ALL-UNNAMED</additionalJOption>
                     </additionalJOptions>
                 </configuration>
             </plugin>

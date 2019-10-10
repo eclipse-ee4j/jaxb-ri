@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -630,6 +630,7 @@ public class JDefinedClass
      *
      * @deprecated
      */
+    @Deprecated
     public JDefinedClass _class(int mods, String name, boolean isInterface) throws JClassAlreadyExistsException {
     	return _class(mods,name,isInterface?ClassType.INTERFACE:ClassType.CLASS);
     }

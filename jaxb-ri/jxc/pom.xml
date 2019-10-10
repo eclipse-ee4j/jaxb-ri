@@ -133,8 +133,8 @@
                     <forkCount>1</forkCount>
                     <reuseForks>true</reuseForks>
                     <argLine>
-                        --add-opens com.sun.tools.jxc/com.sun.tools.jxc.ap=ALL-UNNAMED
-                        --add-opens com.sun.tools.jxc/com.sun.tools.jxc=ALL-UNNAMED
+                        --add-opens org.glassfish.jaxb.jxc/com.sun.tools.jxc.ap=ALL-UNNAMED
+                        --add-opens org.glassfish.jaxb.jxc/com.sun.tools.jxc=ALL-UNNAMED
                         --module-path "${module.path}"
                         -Djdk.attach.allowAttachSelf
                     </argLine>
@@ -184,7 +184,7 @@
                         <configuration>
                             <compilerArgs>
                                 <arg>--add-reads</arg>
-                                <arg>com.sun.tools.jxc=ALL-UNNAMED</arg>
+                                <arg>org.glassfish.jaxb.jxc=ALL-UNNAMED</arg>
                                 <arg>--add-reads</arg>
                                 <arg>com.sun.istack.tools=ALL-UNNAMED</arg>
                             </compilerArgs>
@@ -212,7 +212,7 @@
                 <configuration>
                     <additionalJOptions>
                         <additionalJOption>--add-reads</additionalJOption>
-                        <additionalJOption>com.sun.tools.jxc=ALL-UNNAMED</additionalJOption>
+                        <additionalJOption>org.glassfish.jaxb.jxc=ALL-UNNAMED</additionalJOption>
                         <additionalJOption>--add-reads</additionalJOption>
                         <additionalJOption>com.sun.istack.tools=ALL-UNNAMED</additionalJOption>
                     </additionalJOptions>

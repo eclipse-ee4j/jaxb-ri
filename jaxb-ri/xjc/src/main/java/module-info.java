@@ -12,29 +12,33 @@
  * JAXB Binding Compiler. Contains source code needed for binding customization files into java sources.
  * In other words: the *tool* to generate java classes for the given xml representation.
  */
-module com.sun.tools.xjc {
+module org.glassfish.jaxb.xjc {
+
+    requires transitive jakarta.activation;
 
     requires java.logging;
-    requires java.compiler;
+    requires transitive java.compiler;
+    requires transitive java.xml;
     requires jdk.compiler;
     requires java.desktop;
 
     requires com.sun.tools.rngdatatype;
-    requires com.sun.codemodel;
-    requires java.xml.bind;
-    requires com.sun.xml.bind;
+    requires transitive com.sun.codemodel;
+    requires transitive java.xml.bind;
+    requires transitive org.glassfish.jaxb.runtime;
     requires com.sun.istack.runtime;
     requires com.sun.istack.tools;
-    requires com.sun.xml.xsom;
+    requires transitive com.sun.xml.xsom;
     requires com.sun.tools.rngom;
     requires com.sun.xml.dtdparser;
     requires com.sun.xml.txw2;
 
     opens com.sun.tools.xjc.reader.xmlschema.bindinfo to java.xml.bind;
-    opens com.sun.tools.xjc.model to com.sun.xml.bind;
-    opens com.sun.tools.xjc.generator.bean to com.sun.xml.bind;
+    opens com.sun.tools.xjc.generator.bean to org.glassfish.jaxb.runtime;
 
     exports com.sun.tools.xjc;
+    exports com.sun.tools.xjc.model;
+    exports com.sun.tools.xjc.outline;
     exports com.sun.tools.xjc.reader;
     exports com.sun.tools.xjc.reader.internalizer;
     exports com.sun.tools.xjc.api;
@@ -42,11 +46,4 @@ module com.sun.tools.xjc {
 
     uses com.sun.tools.xjc.Plugin;
 
-    provides com.sun.tools.xjc.Plugin with
-        com.sun.tools.xjc.addon.accessors.PluginImpl,
-        com.sun.tools.xjc.addon.at_generated.PluginImpl,
-        com.sun.tools.xjc.addon.code_injector.PluginImpl,
-        com.sun.tools.xjc.addon.episode.PluginImpl,
-        com.sun.tools.xjc.addon.locator.SourceLocationAddOn,
-        com.sun.tools.xjc.addon.sync.SynchronizedMethodAddOn;
 }

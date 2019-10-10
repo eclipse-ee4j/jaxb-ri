@@ -9,11 +9,15 @@
  */
 
 module com.sun.tools.txw2 {
+    requires transitive java.xml;
+
     requires com.sun.xml.txw2;
     requires com.sun.xml.xsom;
-
     requires com.sun.tools.rngdatatype;
-    requires com.sun.tools.rngom;
-    requires com.sun.codemodel;
+    requires transitive com.sun.tools.rngom;
+    requires transitive com.sun.codemodel;
 
+    exports com.sun.tools.txw2;
+    exports com.sun.tools.txw2.model;
+    exports com.sun.tools.txw2.model.prop;
 }

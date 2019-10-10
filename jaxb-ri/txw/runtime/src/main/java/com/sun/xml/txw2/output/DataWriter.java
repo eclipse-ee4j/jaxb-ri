@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2018, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -134,6 +134,7 @@ public class DataWriter extends XMLWriter
      * @deprecated
      *      Only return the length of the indent string.
      */
+    @Deprecated
     public int getIndentStep ()
     {
         return indentStep.length();
@@ -150,6 +151,7 @@ public class DataWriter extends XMLWriter
      * @deprecated
      *      Should use the version that takes string.
      */
+    @Deprecated
     public void setIndentStep (int indentStep)
     {
         StringBuilder s = new StringBuilder();
