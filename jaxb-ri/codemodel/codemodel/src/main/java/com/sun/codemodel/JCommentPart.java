@@ -122,6 +122,12 @@ public class JCommentPart extends ArrayList<Object> {
                 case '>':
                     sb.append("&gt;");
                     break;
+                case '@':
+                    sb.append("&#064;");
+                    break;
+                case '&':
+                    sb.append("&amp;");
+                    break;
                 case '*':
                     sb.append(c);
                     if (s.charAt(i+1) == '/') {
