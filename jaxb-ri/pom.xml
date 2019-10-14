@@ -26,9 +26,9 @@
     <artifactId>jaxb-parent</artifactId>
     <version>2.4.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>JAXB Reference Implementation</name>
+    <name>Jakarta XML Binding Implementation</name>
     <description>
-        Open source Reference Implementation of JSR-222: Java Architecture for XML Binding
+        Open source Implementation of Jakarta XML Binding (formerly JSR-222)
     </description>
 
     <url>https://javaee.github.io/jaxb-v2/</url>
@@ -55,11 +55,6 @@
         </developer>
     </developers>
 
-    <organization>
-        <name>Oracle Corporation</name>
-        <url>http://www.oracle.com/</url>
-    </organization>
-
     <issueManagement>
         <system>github</system>
         <url>https://github.com/eclipse-ee4j/jaxb-ri/issues</url>
@@ -67,7 +62,7 @@
 
     <mailingLists>
         <mailingList>
-            <name>JAXB mailing list</name>
+            <name>Jakarta XML Binding Implementation mailing list</name>
             <post>jaxb-dev@eclipse.org</post>
             <subscribe>https://dev.eclipse.org/mailman/listinfo/jaxb-dev</subscribe>
             <unsubscribe>https://dev.eclipse.org/mailman/listinfo/jaxb-dev</unsubscribe>
@@ -99,6 +94,8 @@
         <upper.java.level>9</upper.java.level>
         <root.dir>${session.executionRootDirectory}/..</root.dir>
         <oss.disallow.snapshots>true</oss.disallow.snapshots>
+        <vendor.name>Eclipse Foundation</vendor.name>
+        <vendor.id>org.eclipse</vendor.id>
     </properties>
 
     <dependencyManagement>
@@ -196,12 +193,12 @@
                     <configuration>
                         <archive>
                             <manifestEntries>
-                                <Specification-Title>Java Architecture for XML Binding</Specification-Title>
+                                <Specification-Title>Jakarta XML Binding</Specification-Title>
                                 <Specification-Version>${jaxb-api.majorVersion}.${jaxb-api.minorVersion}</Specification-Version>
-                                <Implementation-Title>JAXB Implementation</Implementation-Title>
+                                <Implementation-Title>Jakarta XML Binding Implementation</Implementation-Title>
                                 <Implementation-Version>${project.version}</Implementation-Version>
-                                <Implementation-Vendor>Oracle</Implementation-Vendor>
-                                <Implementation-Vendor-Id>com.oracle</Implementation-Vendor-Id>
+                                <Implementation-Vendor>${vendor.name}</Implementation-Vendor>
+                                <Implementation-Vendor-Id>${vendor.id}</Implementation-Vendor-Id>
                                 <Git-Revision>${buildNumber}</Git-Revision>
                                 <Git-Url>${project.scm.connection}</Git-Url>
                                 <Build-Id>${project.version}</Build-Id>
@@ -218,12 +215,12 @@
                     <configuration>
                         <archive>
                             <manifestEntries>
-                                <Specification-Title>Java Architecture for XML Binding</Specification-Title>
+                                <Specification-Title>Jakarta XML Binding</Specification-Title>
                                 <Specification-Version>${jaxb-api.majorVersion}.${jaxb-api.minorVersion}</Specification-Version>
-                                <Implementation-Title>JAXB Implementation</Implementation-Title>
+                                <Implementation-Title>Jakarta XML Binding Implementation</Implementation-Title>
                                 <Implementation-Version>${project.version}</Implementation-Version>
-                                <Implementation-Vendor>Oracle</Implementation-Vendor>
-                                <Implementation-Vendor-Id>com.oracle</Implementation-Vendor-Id>
+                                <Implementation-Vendor>${vendor.name}</Implementation-Vendor>
+                                <Implementation-Vendor-Id>${vendor.id}</Implementation-Vendor-Id>
                                 <Git-Revision>${buildNumber}</Git-Revision>
                                 <Git-Url>${project.scm.connection}</Git-Url>
                                 <Build-Id>${project.version}</Build-Id>
@@ -442,12 +439,12 @@
                         <configuration>
                             <archive>
                                 <manifestEntries>
-                                    <Specification-Title>Java Architecture for XML Binding</Specification-Title>
+                                    <Specification-Title>Jakarta XML Binding</Specification-Title>
                                     <Specification-Version>${jaxb-api.majorVersion}.${jaxb-api.minorVersion}</Specification-Version>
-                                    <Implementation-Title>JAXB Implementation</Implementation-Title>
+                                    <Implementation-Title>Jakarta XML Binding Implementation</Implementation-Title>
                                     <Implementation-Version>${project.version}</Implementation-Version>
-                                    <Implementation-Vendor>Oracle</Implementation-Vendor>
-                                    <Implementation-Vendor-Id>com.oracle</Implementation-Vendor-Id>
+                                    <Implementation-Vendor>${vendor.name}</Implementation-Vendor>
+                                    <Implementation-Vendor-Id>${vendor.id}</Implementation-Vendor-Id>
                                     <Git-Revision>${buildNumber}</Git-Revision>
                                     <Git-Url>${project.scm.connection}</Git-Url>
                                     <Build-Id>${project.version}</Build-Id>

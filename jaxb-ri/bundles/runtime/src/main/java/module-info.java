@@ -48,7 +48,11 @@ module com.sun.xml.bind {
     exports com.sun.xml.txw2.annotation;
     exports com.sun.xml.txw2.output;
 
-    opens com.sun.xml.bind.v2.model.nav to com.sun.tools.xjc, com.sun.tools.ws, com.sun.tools.ws.jaxws, com.sun.xml.ws;
+    opens com.sun.xml.bind.v2.model.nav to
+            com.sun.tools.xjc,
+            com.sun.xml.ws.rt,
+            com.sun.xml.ws,
+            com.sun.tools.ws;
 
     provides javax.xml.bind.JAXBContextFactory with com.sun.xml.bind.v2.JAXBContextFactory;
 }
