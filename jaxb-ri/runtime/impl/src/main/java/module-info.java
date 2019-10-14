@@ -26,7 +26,7 @@ module org.glassfish.jaxb.runtime {
     requires transitive com.sun.xml.txw2;
     requires static com.sun.xml.fastinfoset;
     requires static org.jvnet.staxex;
-    requires com.sun.istack.runtime;
+    requires transitive com.sun.istack.runtime;
 
     exports com.sun.xml.bind;
     exports com.sun.xml.bind.annotation;
