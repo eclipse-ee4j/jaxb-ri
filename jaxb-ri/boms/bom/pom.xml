@@ -32,7 +32,7 @@
     <properties>
         <jaxb-api.version>2.3.2</jaxb-api.version>
         <jaxb-api-osgi.version>2.3</jaxb-api-osgi.version>
-        <istack.version>3.0.9</istack.version>
+        <istack.version>3.0.10</istack.version>
         <fastinfoset.version>1.2.17</fastinfoset.version>
         <stax-ex.version>1.8.2</stax-ex.version>
 
