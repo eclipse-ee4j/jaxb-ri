@@ -18,6 +18,7 @@
       combined with JAXB.
     </description>
   <property name="jaxb.home" value="../.." />
+  <mkdir dir="lib"/>
   <path id="classpath">
     <pathelement path="src" />
     <pathelement path="classes" />
@@ -36,8 +37,13 @@
   <target name="jar-check">
     <available file="lib/sjsxp.jar" property="sjsxp.jar-present" />
     <fail unless="sjsxp.jar-present">
-              Please download sjsxp.jar from the web and place it in the lib directory.
-            </fail>
+      Please download sjsxp.jar from the web and place it in the lib directory.
+
+      Alternatively download from maven central:
+      mvn org.apache.maven.plugins:maven-dependency-plugin:2.4:get -DremoteRepositories=http://download.java.net/maven/2 \
+      -Dartifact=com.sun.xml.stream:sjsxp:LATEST -Ddest=./lib/sjsxp.jar
+
+    </fail>
   </target>
 
   <!--compile Java source files-->

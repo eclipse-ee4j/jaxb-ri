@@ -10,9 +10,7 @@
 
 package extend;
 
-import org.example.impl.TravelTypeImpl;
-
-public class TravelTypeExtend extends TravelTypeImpl {
+public class TravelTypeExtend extends TravelType {
     public void printTravelSummary() {
 	System.out.println("Origin=" + getOrigin());
 	System.out.println("Destination=" + getDestination());

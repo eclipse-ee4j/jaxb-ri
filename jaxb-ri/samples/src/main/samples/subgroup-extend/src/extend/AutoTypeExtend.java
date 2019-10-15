@@ -10,9 +10,7 @@
 
 package extend;
 
-import org.example.impl.AutoTypeImpl;
-
-public class AutoTypeExtend extends AutoTypeImpl {
+public class AutoTypeExtend extends AutoType {
     public void printTravelSummary() {
 	super.printTravelSummary();
 	System.out.println("Rental Agency:" + getRentalAgency());
