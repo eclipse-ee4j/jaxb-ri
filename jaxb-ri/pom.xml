@@ -71,7 +71,6 @@
     </mailingLists>
 
     <properties>
-        <vendor.name>Oracle Corporation</vendor.name>
         <copyright.exclude>tools/config/copyright-exclude</copyright.exclude>
         <copyright.ignoreyear>false</copyright.ignoreyear>
         <copyright.scmonly>true</copyright.scmonly>

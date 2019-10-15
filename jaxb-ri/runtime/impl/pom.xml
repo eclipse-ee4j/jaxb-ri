@@ -118,15 +118,6 @@
                             <target>${upper.java.level}</target>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>base-compile</id>
-                        <configuration>
-                            <release>${base.java.level}</release>
-                            <excludes>
-                                <exclude>module-info.java</exclude>
-                            </excludes>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
             <plugin>
@@ -171,8 +162,11 @@
                     <forkCount>1</forkCount>
                     <reuseForks>true</reuseForks>
                     <argLine>
-                        --add-opens com.sun.xml.bind/com.sun.xml.bind.v2=java.xml.bind
-                        --add-opens com.sun.xml.bind/com.sun.xml.bind.v2.schemagen=java.xml.bind
+                        --add-opens org.glassfish.jaxb.runtime/com.sun.xml.bind.v2=java.xml.bind
+                        --add-opens org.glassfish.jaxb.runtime/com.sun.xml.bind.v2.schemagen=java.xml.bind
+                        --add-opens java.base/java.lang=org.glassfish.jaxb.runtime
+                        --add-opens java.base/java.lang.reflect=org.glassfish.jaxb.runtime
+                        --add-opens org.glassfish.jaxb.runtime/com.sun.xml.bind.v2.runtime.reflect.opt=java.xml.bind
                     </argLine>
                 </configuration>
             </plugin>
