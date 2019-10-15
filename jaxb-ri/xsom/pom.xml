@@ -41,7 +41,7 @@
         <spotbugs.threshold>Low</spotbugs.threshold>
         <spotbugs.version>3.1.12.2</spotbugs.version>
 
-        <relaxng.version>2.3.2</relaxng.version>
+        <relaxng.version>2.3.3-b01</relaxng.version>
         <upper.java.level>9</upper.java.level>
         <base.java.level>8</base.java.level>
     </properties>
