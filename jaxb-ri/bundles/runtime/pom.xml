@@ -235,7 +235,10 @@
                         </goals>
                         <configuration>
                             <instructions>
-                                <Export-Package>*</Export-Package>
+                                <Export-Package>
+                                    !META-INF.*,
+                                    *
+                                </Export-Package>
                                 <Import-Package>
                                     javax.activation;version=!,
                                     *

@@ -330,6 +330,7 @@
                                     javax.swing.border,
                                     javax.swing.tree,
                                     javax.tools,
+                                    javax.xml.catalog;optional=true,
                                     javax.xml.datatype,
                                     javax.xml.namespace,
                                     javax.xml.parsers,
@@ -397,6 +398,18 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Multi-Release>true</Multi-Release>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
             </plugin>
 
             <plugin>

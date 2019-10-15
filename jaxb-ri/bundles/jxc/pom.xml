@@ -241,7 +241,11 @@
                         </goals>
                         <configuration>
                             <instructions>
-                                <Export-Package>*</Export-Package>
+                                <Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
+                                <Export-Package>
+                                    !META-INF.*,
+                                    *
+                                </Export-Package>
                                 <Import-Package>
                                     javax.activation;version=!,
                                     *
@@ -263,6 +267,18 @@
                         <manifest>
                             <mainClass>com.sun.tools.jxc.SchemaGeneratorFacade</mainClass>
                         </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Multi-Release>true</Multi-Release>
+                        </manifestEntries>
                     </archive>
                 </configuration>
             </plugin>
