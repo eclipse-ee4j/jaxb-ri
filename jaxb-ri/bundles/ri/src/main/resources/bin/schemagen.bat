@@ -84,12 +84,12 @@ goto END
 :JDK9_OR_GREATER
 if %JAVA_VERSION% GTR 10 goto JDK11_OR_GREATER
 rem module path + upgrade
-%JAVA% --upgrade-module-path %JAXB_HOME%/mod/jakarta.xml.bind-api.jar %SCHEMAGEN_OPTS% --module-path %LOCALCLASSPATH% -m com.sun.tools.jxc/com.sun.tools.jxc.SchemaGeneratorFacade %*
+%JAVA% --upgrade-module-path %JAXB_HOME%/mod/jakarta.xml.bind-api.jar %SCHEMAGEN_OPTS% --module-path %LOCALCLASSPATH% -m org.glassfish.jaxb.jxc/com.sun.tools.jxc.SchemaGeneratorFacade %*
 goto END
 
 :JDK11_OR_GREATER
 rem module path only
-%JAVA% %SCHEMAGEN_OPTS% --module-path %LOCALCLASSPATH% -m com.sun.tools.jxc/com.sun.tools.jxc.SchemaGeneratorFacade %*
+%JAVA% %SCHEMAGEN_OPTS% --module-path %LOCALCLASSPATH% -m org.glassfish.jaxb.jxc/com.sun.tools.jxc.SchemaGeneratorFacade %*
 goto END
 
 :END

@@ -104,9 +104,9 @@ then
 elif [[ ${JAVA_VERSION} -ge 9 && ${JAVA_VERSION} -le 10 ]] ;
 then
   #module path + upgrade
-  exec "${JAVA}" --upgrade-module-path ${JAXB_HOME}/mod/jakarta.xml.bind-api.jar ${SCHEMAGEN_OPTS} --module-path "${LOCALPATH}" -m com.sun.tools.jxc/com.sun.tools.jxc.SchemaGeneratorFacade "$@"
+  exec "${JAVA}" --upgrade-module-path ${JAXB_HOME}/mod/jakarta.xml.bind-api.jar ${SCHEMAGEN_OPTS} --module-path "${LOCALPATH}" -m org.glassfish.jaxb.jxc/com.sun.tools.jxc.SchemaGeneratorFacade "$@"
 else
   #module path
-  exec "${JAVA}" ${SCHEMAGEN_OPTS} --module-path "${LOCALPATH}" -m com.sun.tools.jxc/com.sun.tools.jxc.SchemaGeneratorFacade "$@"
+  exec "${JAVA}" ${SCHEMAGEN_OPTS} --module-path "${LOCALPATH}" -m org.glassfish.jaxb.jxc/com.sun.tools.jxc.SchemaGeneratorFacade "$@"
 fi
 

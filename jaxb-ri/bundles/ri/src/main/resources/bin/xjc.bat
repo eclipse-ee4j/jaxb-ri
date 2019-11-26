@@ -67,12 +67,12 @@ GOTO END
 :JDK9_OR_GREATER
 if %JAVA_VERSION% GTR 10 goto JDK11_OR_GREATER
 rem module path + upgrade
-%JAVA% --module-path %JAXB_PATH% --upgrade-module-path %JAXB_HOME%/mod/jakarta.xml.bind-api.jar %XJC_OPTS% -m com.sun.tools.xjc/com.sun.tools.xjc.XJCFacade %*
+%JAVA% --module-path %JAXB_PATH% --upgrade-module-path %JAXB_HOME%/mod/jakarta.xml.bind-api.jar %XJC_OPTS% -m org.glassfish.jaxb.xjc/com.sun.tools.xjc.XJCFacade %*
 GOTO END
 
 :JDK11_OR_GREATER
 rem module path
-%JAVA% --module-path %JAXB_PATH% %XJC_OPTS% -m com.sun.tools.xjc/com.sun.tools.xjc.XJCFacade %*
+%JAVA% --module-path %JAXB_PATH% %XJC_OPTS% -m org.glassfish.jaxb.xjc/com.sun.tools.xjc.XJCFacade %*
 GOTO END
 
 :END
