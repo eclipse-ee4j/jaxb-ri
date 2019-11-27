@@ -1,4 +1,4 @@
-[![Master Build Status](https://travis-ci.org/eclipse-ee4j/jaxb-ri.svg?branch=master)](https://travis-ci.org/eclipse-ee4j/jaxb-ri)
+[![Build Status](https://travis-ci.com/eclipse-ee4j/jaxb-ri.svg?branch=master)](https://travis-ci.com/eclipse-ee4j/jaxb-ri)
 
 # JAXB
 
