@@ -1,3 +1,5 @@
+[![Master Build Status](https://travis-ci.org/eclipse-ee4j/jaxb-ri.svg?branch=master)](https://travis-ci.org/eclipse-ee4j/jaxb-ri)
+
 # JAXB
 
 The Java™ Architecture for XML Binding (JAXB) provides an API and tools that automate the mapping between XML documents and Java objects.

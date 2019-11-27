@@ -9,15 +9,17 @@
 
 language: java
 
+dist: bionic
+
 jdk:
   - oraclejdk11
+  - openjdk11
 
 cache:
   directories:
     - .autoconf
     - $HOME/.m2
 
-install: true
 script:
   - cd jaxb-ri
-  - mvn --update-snapshots --strict-checksums --activate-profiles staging,oss-release clean install
+  - mvn -B -V -U -C -Pstaging,oss-release clean verify -Dgpg.skip=true -Doss.disallow.snapshots=false
