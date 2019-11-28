@@ -20,6 +20,9 @@ cache:
     - .autoconf
     - $HOME/.m2
 
+install:
+  - git fetch --unshallow
+
 script:
   - cd jaxb-ri
   - mvn -B -V -U -C -Pstaging,oss-release clean verify org.glassfish.copyright:glassfish-copyright-maven-plugin:check -Dgpg.skip=true -Doss.disallow.snapshots=false
