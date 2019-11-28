@@ -28,7 +28,7 @@ module com.sun.tools.xjc {
 
     exports com.sun.tools.xjc;
     exports com.sun.tools.xjc.api;
-    exports com.sun.tools.xjc.generator.bean to java.xml.bind;
+    exports com.sun.tools.xjc.generator.bean to com.sun.xml.bind;
     exports com.sun.tools.xjc.model;
     exports com.sun.tools.xjc.model.nav;
     exports com.sun.tools.xjc.outline;
