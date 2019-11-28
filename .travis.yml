@@ -22,4 +22,4 @@ cache:
 
 script:
   - cd jaxb-ri
-  - mvn -B -V -U -C -Pstaging,oss-release clean verify -Dgpg.skip=true -Doss.disallow.snapshots=false
+  - mvn -B -V -U -C -Pstaging,oss-release clean verify org.glassfish.copyright:glassfish-copyright-maven-plugin:check -Dgpg.skip=true -Doss.disallow.snapshots=false
