@@ -27,8 +27,25 @@ package-list
 /copyright.txt
 License.txt
 LICENSE.md
+LICENSE.txt
 license.txt
+jing-copying.html
 
-/rngom/src/
+/relaxng-datatype/src/main/java/com/sun/tools/rngdatatype/
+/rngom/src/main/java/com/sun/tools/rngom/
+/rngom/src/main/resources/com/sun/tools/rngom/
+/rngom/src/test/java/com/sun/tools/rngom/
+/rngom/src/test/java/DraconianErrorHandler.java
+/rngom/src/test/java/Main.java
+
+/runtime/impl/src/main/java/com/sun/xml/bind/marshaller/XMLWriter.java
+
+/tools/pretty-printer/src/com/sun/tools/xmlpp/DataWriter.java
+/tools/pretty-printer/src/com/sun/tools/xmlpp/XMLWriter.java
+
+/txw/runtime/src/main/java/com/sun/xml/txw2/NamespaceSupport.java
+/txw/runtime/src/main/java/com/sun/xml/txw2/output/XMLWriter.java
+
+/txw/compiler/src/main/java/com/sun/tools/txw2/RELAXNGLoader.java
 
 readme.txt
