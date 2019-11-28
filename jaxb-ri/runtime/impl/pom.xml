@@ -129,7 +129,6 @@
                         <Implementation-Vendor-Id>${project.groupId}</Implementation-Vendor-Id>
                         <Implementation-Build-Id>${project.version} - ${scmBranch}-${buildNumber}, ${timestamp}</Implementation-Build-Id>
                         <Multi-Release>true</Multi-Release>
-                        <_noee>true</_noee>
                         <Import-Package>
                             javax.activation;version=!,
                             *
