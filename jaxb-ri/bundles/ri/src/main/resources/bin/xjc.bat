@@ -38,6 +38,12 @@ goto LAUNCHXJC
 rem JXC module path
 set JAXB_PATH=%JAXB_HOME%/mod/jaxb-xjc.jar;%JAXB_HOME%/mod/jakarta.xml.bind-api.jar;%JAXB_HOME%/mod/jaxb-impl.jar;%JAXB_HOME%/mod/jakarta.activation.jar
 
+rem store and reset JAVA_TOOL_OPTIONS to avoid additional output from `java --version`
+IF DEFINED JAVA_TOOL_OPTIONS (
+  SET _OPTS=%JAVA_TOOL_OPTIONS%
+  SET JAVA_TOOL_OPTIONS=
+)
+
 rem Set Java Version
 for /f "tokens=3" %%i in ('java -version 2^>^&1 ^| %SystemRoot%\system32\find.exe "version"') do (
   set JAVA_VERSION1=%%i
@@ -53,6 +59,10 @@ for /f "tokens=1,2 delims=." %%j in ('echo %JAVA_VERSION1:~1,-1%') do (
 rem Remove -ea
 for /f "delims=-" %%i in ('echo %JAVA_VERSION2%') do set JAVA_VERSION=%%i
 echo Java major version: %JAVA_VERSION%
+
+if DEFINED _OPTS (
+  SET JAVA_TOOL_OPTIONS=%_OPTS%
+)
 
 if %JAVA_VERSION% GEQ 9 goto JDK11_OR_GREATER
 %JAVA% -cp %JAXB_PATH% %XJC_OPTS% com.sun.tools.xjc.XJCFacade %*

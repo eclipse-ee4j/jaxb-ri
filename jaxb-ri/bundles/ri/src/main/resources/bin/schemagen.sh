@@ -76,8 +76,19 @@ then
     JAXB_HOME="`cygpath -w "$JAXB_HOME"`"
 fi
 
+if [ -n "$JAVA_TOOL_OPTIONS" ]
+then
+    _OPTS="$JAVA_TOOL_OPTIONS"
+    unset JAVA_TOOL_OPTIONS
+fi
+
 JAVA_VERSION=`${JAVA} -version 2>&1 | head -n 1 | cut -d'"' -f2 | sed -E 's/^(1\.)?([0-9]+).+$/\2/'`
 echo "Java major version: ${JAVA_VERSION}"
+
+if [ -n "$_OPTS" ]
+then
+    export JAVA_TOOL_OPTIONS="$_OPTS"
+fi
 
 # Check if supports module path
 if [[ ${JAVA_VERSION} -lt 9 ]] ;

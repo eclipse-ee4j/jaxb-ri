@@ -49,6 +49,12 @@ set TOOLS_PATH=%JAVA_HOME%/lib/tools.jar;%LOCALCLASSPATH%
 goto LAUNCHSCHEMAGEN
 
 :LAUNCHSCHEMAGEN
+rem store and reset JAVA_TOOL_OPTIONS to avoid additional output from `java --version`
+IF DEFINED JAVA_TOOL_OPTIONS (
+  SET _OPTS=%JAVA_TOOL_OPTIONS%
+  SET JAVA_TOOL_OPTIONS=
+)
+
 rem Set Java Version
 for /f "tokens=3" %%i in ('java -version 2^>^&1 ^| %SystemRoot%\system32\find.exe "version"') do (
   set JAVA_VERSION1=%%i
@@ -64,6 +70,10 @@ for /f "tokens=1,2 delims=." %%j in ('echo %JAVA_VERSION1:~1,-1%') do (
 rem Remove -ea
 for /f "delims=-" %%i in ('echo %JAVA_VERSION2%') do set JAVA_VERSION=%%i
 echo Java major version: %JAVA_VERSION%
+
+if DEFINED _OPTS (
+  SET JAVA_TOOL_OPTIONS=%_OPTS%
+)
 
 if %JAVA_VERSION% GEQ 9 goto JDK11_OR_GREATER
 
