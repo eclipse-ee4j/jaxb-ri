@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -198,7 +198,7 @@ public final class ConfigReader  {
         reader.setErrorHandler(errorHandler);
         Config config = new Config(runtime);
         runtime.setRootHandler(config);
-        reader.parse(new InputSource(xmlFile.toURL().toExternalForm()));
+        reader.parse(new InputSource(xmlFile.toURI().toURL().toExternalForm()));
         runtime.reset();
 
         return config;

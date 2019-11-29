@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -101,7 +101,7 @@ public class SchemaGenerator extends AbstractProcessor {
 
                             StreamResult ss = new StreamResult(out);
                             processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "Writing "+file);
-                            ss.setSystemId(file.toURL().toExternalForm());
+                            ss.setSystemId(file.toURI().toURL().toExternalForm());
                             return ss;
                         }
                     }, errorListener);
