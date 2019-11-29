@@ -50,8 +50,7 @@
             <directoryMode>0755</directoryMode>
             <fileMode>0644</fileMode>
             <includes>
-                <include>License.txt</include>
-                <include>ThirdParty*.txt</include>
+                <include>*</include>
             </includes>
         </fileSet>
     </fileSets>
@@ -67,25 +66,10 @@
             <fileMode>0644</fileMode>
             <includes>
                 <include>jakarta.xml.bind:jakarta.xml.bind-api</include>
-                <include>org.glassfish.jaxb:jaxb-xjc</include>
-                <include>org.glassfish.jaxb:jaxb-runtime</include>
-                <include>org.glassfish.jaxb:jaxb-jxc</include>
-                <include>org.glassfish.jaxb:codemodel</include>
-                <include>org.glassfish.jaxb:xsom</include>
-                <include>com.sun.xml.bind.external:rngom</include>
-                <include>com.sun.istack:istack-commons-runtime</include>
-                <include>com.sun.istack:istack-commons-tools</include>
-                <include>com.sun.xml.dtd-parser:dtd-parser</include>
-                <include>org.jvnet.staxex:stax-ex</include>
-                <include>com.sun.xml.fastinfoset:FastInfoset</include>
-                <include>org.glassfish.jaxb:txw2</include>
-                <include>com.sun.activation:jakarta.activation</include>
-                <include>com.sun.xml.bind.external:relaxng-datatype</include>
+                <include>com.sun.xml.bind:jaxb-impl</include>
+                <include>com.sun.xml.bind:jaxb-xjc</include>
+                <include>com.sun.xml.bind:jaxb-jxc</include>
             </includes>
-            <excludes>
-                <exclude>org.apache.ant:ant</exclude>
-                <exclude>jakarta.activation:jakarta.activation-api</exclude>
-            </excludes>
         </dependencySet>
         <dependencySet>
             <outputFileNameMapping>${artifact.artifactId}.${artifact.extension}</outputFileNameMapping>
