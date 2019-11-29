@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -109,7 +109,7 @@ public class SchemaConstraintChecker {
     public static void main(String[] args) throws IOException {
         InputSource[] sources = new InputSource[args.length];
         for (int i = 0; i < args.length; i++)
-            sources[i] = new InputSource(new File(args[i]).toURL().toExternalForm());
+            sources[i] = new InputSource(new File(args[i]).toURI().toURL().toExternalForm());
 
         check(sources, new ConsoleErrorReporter(), null, true);
     }

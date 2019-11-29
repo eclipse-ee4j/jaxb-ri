@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -42,7 +42,7 @@ public class Util
             if(o instanceof URL) {
                 return new InputSource(escapeSpace(((URL)o).toExternalForm()));
             } else {
-                String url = ((File)o).toURL().toExternalForm();
+                String url = ((File)o).toURI().toURL().toExternalForm();
                 return new InputSource(escapeSpace(url));
             }
         } catch (IOException e) {

@@ -83,7 +83,7 @@ public class Driver {
         XMLInputFactory xif = XMLInputFactory.newInstance();
 
         for (File value : files) {
-            String url = value.toURL().toString();
+            String url = value.toURI().toURL().toString();
 
             if (value.getName().toLowerCase().endsWith(".wsdl")) {
                 // read it as WSDL.

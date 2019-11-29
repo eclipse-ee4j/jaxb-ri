@@ -528,7 +528,7 @@ public class DXMLPrinter {
         };
 
         // the error handler passed to Parseable will receive parsing errors.
-        String path = new File(args[0]).toURL().toString();
+        String path = new File(args[0]).toURI().toURL().toString();
         if (args[0].endsWith(".rng")) {
             p = new SAXParseable(new InputSource(path), eh);
         } else {

@@ -388,7 +388,7 @@ public class Options {
 
     private InputSource fileToInputSource(File source) {
         try {
-            String url = source.toURL().toExternalForm();
+            String url = source.toURI().toURL().toExternalForm();
             return new InputSource(Util.escapeSpace(url));
         } catch (MalformedURLException e) {
             return new InputSource(source.getPath());
@@ -424,7 +424,7 @@ public class Options {
     private InputSource absolutize(InputSource is) {
         // absolutize all the system IDs in the input, so that we can map system IDs to DOM trees.
         try {
-            URL baseURL = new File(".").getCanonicalFile().toURL();
+            URL baseURL = new File(".").getCanonicalFile().toURI().toURL();
             is.setSystemId(new URL(baseURL, is.getSystemId()).toExternalForm());
         } catch (IOException e) {
             logger.log(Level.FINE, "{0}, {1}", new Object[]{is.getSystemId(), e.getLocalizedMessage()});
@@ -509,7 +509,7 @@ public class Options {
             for (String p : a.split(File.pathSeparator)) {
                 File file = new File(p);
                 try {
-                    classpaths.add(file.toURL());
+                    classpaths.add(file.toURI().toURL());
                 } catch (MalformedURLException e) {
                     throw new BadCommandLineException(
                         Messages.format(Messages.NOT_A_VALID_FILENAME, file), e);
@@ -881,7 +881,7 @@ public class Options {
      */
     public void scanEpisodeFile(File jar) throws BadCommandLineException {
         try {
-            URLClassLoader ucl = new URLClassLoader(new URL[]{jar.toURL()});
+            URLClassLoader ucl = new URLClassLoader(new URL[]{jar.toURI().toURL()});
             Enumeration<URL> resources = ucl.findResources("META-INF/sun-jaxb.episode");
             while (resources.hasMoreElements()) {
                 URL url = resources.nextElement();
