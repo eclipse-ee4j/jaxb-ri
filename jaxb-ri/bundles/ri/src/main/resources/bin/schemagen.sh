@@ -46,17 +46,7 @@ fi
 JAXB_PATH=${JAXB_HOME}/mod/jakarta.xml.bind-api.jar:\
 ${JAXB_HOME}/mod/jaxb-jxc.jar:\
 ${JAXB_HOME}/mod/jaxb-xjc.jar:\
-${JAXB_HOME}/mod/jaxb-runtime.jar:\
-${JAXB_HOME}/mod/stax-ex.jar:\
-${JAXB_HOME}/mod/istack-commons-runtime.jar:\
-${JAXB_HOME}/mod/istack-commons-tools.jar:\
-${JAXB_HOME}/mod/FastInfoset.jar:\
-${JAXB_HOME}/mod/dtd-parser.jar:\
-${JAXB_HOME}/mod/rngom.jar:\
-${JAXB_HOME}/mod/codemodel.jar:\
-${JAXB_HOME}/mod/xsom.jar:\
-${JAXB_HOME}/mod/txw2.jar:\
-${JAXB_HOME}/mod/relaxng-datatype.jar:\
+${JAXB_HOME}/mod/jaxb-impl.jar:\
 ${JAXB_HOME}/mod/jakarta.activation.jar
 
 
@@ -101,12 +91,7 @@ then
   fi
 
   exec "${JAVA}" ${SCHEMAGEN_OPTS} -cp "${LOCALPATH}" com.sun.tools.jxc.SchemaGeneratorFacade "$@"
-elif [[ ${JAVA_VERSION} -ge 9 && ${JAVA_VERSION} -le 10 ]] ;
-then
-  #module path + upgrade
-  exec "${JAVA}" --upgrade-module-path ${JAXB_HOME}/mod/jakarta.xml.bind-api.jar ${SCHEMAGEN_OPTS} --module-path "${LOCALPATH}" -m com.sun.tools.jxc/com.sun.tools.jxc.SchemaGeneratorFacade "$@"
 else
   #module path
-  exec "${JAVA}" ${SCHEMAGEN_OPTS} --module-path "${LOCALPATH}" -m com.sun.tools.jxc/com.sun.tools.jxc.SchemaGeneratorFacade "$@"
+  exec "${JAVA}" ${SCHEMAGEN_OPTS} --module-path "${LOCALPATH}" -m com.sun.tools.jxc "$@"
 fi
-

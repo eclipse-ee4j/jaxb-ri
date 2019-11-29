@@ -36,7 +36,7 @@ goto LAUNCHXJC
 
 :LAUNCHXJC
 rem JXC module path
-set JAXB_PATH=%JAXB_HOME%/mod/jaxb-xjc.jar;%JAXB_HOME%/mod/jakarta.xml.bind-api.jar;%JAXB_HOME%/mod/codemodel.jar;%JAXB_HOME%/mod/jaxb-runtime.jar;%JAXB_HOME%/mod/istack-commons-runtime.jar;%JAXB_HOME%/mod/istack-commons-tools.jar;%JAXB_HOME%/mod/rngom.jar;%JAXB_HOME%/mod/xsom.jar;%JAXB_HOME%/mod/dtd-parser.jar;%JAXB_HOME%/mod/txw2.jar;%JAXB_HOME%/mod/stax-ex.jar;%JAXB_HOME%/mod/FastInfoset.jar;%JAXB_HOME%/mod/jakarta.activation.jar;%JAXB_HOME%/mod/relaxng-datatype.jar
+set JAXB_PATH=%JAXB_HOME%/mod/jaxb-xjc.jar;%JAXB_HOME%/mod/jakarta.xml.bind-api.jar;%JAXB_HOME%/mod/jaxb-impl.jar;%JAXB_HOME%/mod/jakarta.activation.jar
 
 rem Set Java Version
 for /f "tokens=3" %%i in ('java -version 2^>^&1 ^| %SystemRoot%\system32\find.exe "version"') do (
@@ -54,19 +54,13 @@ rem Remove -ea
 for /f "delims=-" %%i in ('echo %JAVA_VERSION2%') do set JAVA_VERSION=%%i
 echo Java major version: %JAVA_VERSION%
 
-if %JAVA_VERSION% GEQ 9 goto JDK9_OR_GREATER
+if %JAVA_VERSION% GEQ 9 goto JDK11_OR_GREATER
 %JAVA% -cp %JAXB_PATH% %XJC_OPTS% com.sun.tools.xjc.XJCFacade %*
-GOTO END
-
-:JDK9_OR_GREATER
-if %JAVA_VERSION% GTR 10 goto JDK11_OR_GREATER
-rem module path + upgrade
-%JAVA% --module-path %JAXB_PATH% --upgrade-module-path %JAXB_HOME%/mod/jakarta.xml.bind-api.jar %XJC_OPTS% -m com.sun.tools.xjc/com.sun.tools.xjc.XJCFacade %*
 GOTO END
 
 :JDK11_OR_GREATER
 rem module path
-%JAVA% --module-path %JAXB_PATH% %XJC_OPTS% -m com.sun.tools.xjc/com.sun.tools.xjc.XJCFacade %*
+%JAVA% --module-path %JAXB_PATH% %XJC_OPTS% -m com.sun.tools.xjc %*
 GOTO END
 
 :END
