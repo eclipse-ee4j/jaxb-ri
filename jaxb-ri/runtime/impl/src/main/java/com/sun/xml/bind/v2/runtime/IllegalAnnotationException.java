@@ -122,7 +122,7 @@ public class IllegalAnnotationException extends JAXBException {
      * if you see this behavior.
      *
      *
-     * <h4>List of {@link Location}</h4>
+     * <p><strong>List of {@link Location}</strong></p>
      * <p>
      * Each error location is identified not just by one {@link Location}
      * object, but by a sequence of {@link Location}s that shows why
