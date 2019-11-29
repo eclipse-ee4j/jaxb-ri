@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -30,6 +30,12 @@ public abstract class FilterTransducer<T> implements Transducer<T> {
 
     protected FilterTransducer(Transducer<T> core) {
         this.core = core;
+    }
+
+    public final boolean isDefault() {
+        // this must be used as a decorating transducer,
+        // so it may never be default.
+        return false;
     }
 
     public boolean useNamespace() {
