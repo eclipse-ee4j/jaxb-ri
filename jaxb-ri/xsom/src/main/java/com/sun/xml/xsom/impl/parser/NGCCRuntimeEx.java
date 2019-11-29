@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -271,7 +271,7 @@ public class NGCCRuntimeEx extends NGCCRuntime implements PatcherManager {
      * document will be parsed multiple times if they are for different
      * target namespaces.
      *
-     * <h2>Document Graph Model</h2>
+     * <h4>Document Graph Model</h4>
      * <p>
      * The challenge we are facing here is that you have a graph of
      * documents that reference each other. Each document has an unique

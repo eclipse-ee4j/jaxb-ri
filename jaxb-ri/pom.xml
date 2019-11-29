@@ -413,6 +413,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                        <configuration>
+                            <source>${upper.java.level}</source>
+                            <target>${upper.java.level}</target>
+                        </configuration>
                 <executions>
                     <execution>
                         <id>default-compile</id>
@@ -421,7 +425,7 @@
                             <target>${upper.java.level}</target>
                         </configuration>
                     </execution>
-                    <execution>
+<!--                    <execution>
                         <id>base-compile</id>
                         <goals>
                             <goal>compile</goal>
@@ -432,7 +436,7 @@
                                 <exclude>module-info.java</exclude>
                             </excludes>
                         </configuration>
-                    </execution>
+                    </execution>-->
                 </executions>
             </plugin>
             <plugin>

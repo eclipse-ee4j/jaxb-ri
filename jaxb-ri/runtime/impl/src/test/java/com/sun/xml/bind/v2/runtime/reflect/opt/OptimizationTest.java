@@ -18,6 +18,8 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import java.io.StringReader;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.VarHandle;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
@@ -32,6 +34,16 @@ public class OptimizationTest {
     private static final String EXPECTED_ACCESSOR_CLASS_REF = Book.class.getName() + "$JaxbAccessorM_getAuthor_setAuthor_java_lang_String";
     private static final String OPTIMIZATION_ON = "AUTHOR_EXPECTING_OPTIMIZATION_ON";
     private static final String OPTIMIZATION_OFF = "AUTHOR_EXPECTING_OPTIMIZATION_OFF";
+    private static final VarHandle MODIFIERS;
+
+    static {
+        try {
+            MethodHandles.Lookup lookup = MethodHandles.privateLookupIn(Field.class, MethodHandles.lookup());
+            MODIFIERS = lookup.findVarHandle(Field.class, "modifiers", int.class);
+        } catch (IllegalAccessException | NoSuchFieldException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
 
     @Test
     public void checkNoOptimizationFlagFalse() throws JAXBException {
@@ -61,12 +73,13 @@ public class OptimizationTest {
 
     private void setNoOptimizationFlag(boolean flag) throws NoSuchFieldException, IllegalAccessException {
         Field noOptimizationField = OptimizedAccessorFactory.class.getField("noOptimization");
-        Field modifiersField = Field.class.getDeclaredField("modifiers");
-        modifiersField.setAccessible(true);
         noOptimizationField.setAccessible(true);
-        modifiersField.setInt(noOptimizationField, noOptimizationField.getModifiers() & ~Modifier.FINAL);
+        if (Modifier.isFinal(noOptimizationField.getModifiers())) {
+            MODIFIERS.set(noOptimizationField, noOptimizationField.getModifiers() & ~Modifier.FINAL);
+        }
         noOptimizationField.setBoolean(OptimizedAccessorFactory.class, true);
     }
+
 
     @XmlRootElement
     static class Book {
