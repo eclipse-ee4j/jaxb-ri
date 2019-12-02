@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -122,7 +122,7 @@ public class IllegalAnnotationException extends JAXBException {
      * if you see this behavior.
      *
      *
-     * <h3>List of {@link Location}</h3>
+     * <p><strong>List of {@link Location}</strong></p>
      * <p>
      * Each error location is identified not just by one {@link Location}
      * object, but by a sequence of {@link Location}s that shows why

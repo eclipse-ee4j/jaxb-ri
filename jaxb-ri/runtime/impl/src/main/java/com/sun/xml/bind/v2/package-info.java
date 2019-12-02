@@ -9,9 +9,9 @@
  */
 
 /**
- * <h1>The JAXB 2.0 runtime</h1>.
+ * <h2>The JAXB 2.0 runtime</h2>.
  *
- * <h1>Overview</h1>
+ * <h2>Overview</h2>
  * <p>
  * This module provides code that implements {@link javax.xml.bind.JAXBContext}.
  * Roughly speaking the runtime works like this:
@@ -26,7 +26,7 @@
  *      composing unmarshallers and marshallers.
  * </ol>
  *
- * <h1>Interesting Pieces inside Runtime</h1>
+ * <h2>Interesting Pieces inside Runtime</h2>
  * <p>
  * The followings are the interesting pieces inside the runtime.
  *
@@ -44,7 +44,7 @@
  * The classes <b>NOT</b> in the {@link com.sun.xml.bind.v2} package (and its subpackages)
  * are also used by old JAXB 1.0 clients.
  *
- * <h1>Models</h1>
+ * <h2>Models</h2>
  * <p>
  * "Model" is the portion of the code that represents JAXB-bound types.
  *
@@ -108,7 +108,7 @@
  *
  *
  *
- * <h1>Performance Characteristics</h1>
+ * <h2>Performance Characteristics</h2>
  * <p>
  * Model construction happens inside {@link javax.xml.bind.JAXBContext#newInstance(Class[])}.
  * It's desirable for this step to be fast and consume less memory,
@@ -122,7 +122,7 @@
  *
  *
  *
- * <h1>Bootstrap Sequence</h1>
+ * <h2>Bootstrap Sequence</h2>
  * <p>
  * The following picture illustrates how the {@link javax.xml.bind.JAXBContext#newInstance(Class[])} method
  * triggers activities.

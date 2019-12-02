@@ -9,7 +9,7 @@
  */
 
 /**
- * <h1>Schema to Java compiler</h1>.
+ * <h2>Schema to Java compiler</h2>.
  *
  * <p>
  * This module contains the code that implements the schema compiler 'XJC'.
