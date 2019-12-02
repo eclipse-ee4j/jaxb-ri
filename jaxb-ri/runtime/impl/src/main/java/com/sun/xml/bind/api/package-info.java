@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -9,7 +9,7 @@
  */
 
 /**
- * <h1>Runtime API for the JAX-WS RI</h1>.
+ * <h2>Runtime API for the JAX-WS RI</h2>.
  *
  * This API is designed for the use by the JAX-WS RI runtime. The API is is subject to
  * change without notice.

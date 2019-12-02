@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -9,7 +9,7 @@
  */
 
 /**
- * <h1>Library for generating Java source code</h1>.
+ * <h2>Library for generating Java source code</h2>.
  *
  * <p>
  * CodeModel is a library that allows you to generate Java source
@@ -26,7 +26,7 @@
  * create a {@link JMethod} from {@link JDefinedClass}, and so on.
  *
  * <p>
- * This design brings the following beneefits:
+ * This design brings the following benefits:
  *
  * <ul>
  *  <li>source code can be written in random order
@@ -42,7 +42,7 @@
  * more discussions about the performance and possible improvements.
  *
  *
- * <h2>Using CodeModel</h2>
+ * <h3>Using CodeModel</h3>
  * <p>
  * {@link com.sun.codemodel.JCodeModel} is the entry point to
  * the library. See its javadoc for more details about how to use
@@ -50,7 +50,7 @@
  *
  *
  *
- * <h2>Performance</h2>
+ * <h3>Performance</h3>
  * <p>
  * Generally speaking, CodeModel is expected to be used in
  * an environment where the resource constraint is not severe.
