@@ -330,7 +330,7 @@
                                     javax.swing.border,
                                     javax.swing.tree,
                                     javax.tools,
-                                    javax.xml.catalog;optional=true,
+                                    javax.xml.catalog;resolution:=optional,
                                     javax.xml.datatype,
                                     javax.xml.namespace,
                                     javax.xml.parsers,
