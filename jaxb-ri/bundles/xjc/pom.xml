@@ -384,7 +384,7 @@
                                 </Export-Package>
                                 <Import-Package>
                                     javax.activation;version=!,
-                                    javax.xml.catalog;optional=true,
+                                    javax.xml.catalog;resolution:=optional,
                                     *
                                 </Import-Package>
                             </instructions>
