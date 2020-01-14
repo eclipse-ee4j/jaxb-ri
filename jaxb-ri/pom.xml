@@ -548,99 +548,45 @@
         </profile>
         <profile>
             <id>coverage</id>
-            <activation>
-                <property>
-                    <name>cobertura-build</name>
-                </property>
-            </activation>
-            <properties>
-                <cobertura.report.format>xml</cobertura.report.format>
-                <cobertura.version>1.9.4.1</cobertura.version>
-                <cobertura.skip>false</cobertura.skip>
-                <net.sourceforge.cobertura.datafile>${basedir}/target/cobertura/cobertura.ser</net.sourceforge.cobertura.datafile>
-            </properties>
-            <dependencies>
-                <!-- cobertura library -->
-                <dependency>
-                    <groupId>net.sourceforge.cobertura</groupId>
-                    <artifactId>cobertura</artifactId>
-                    <version>${cobertura.version}</version>
-                    <exclusions>
-                        <exclusion>
-                            <groupId>oro</groupId>
-                            <artifactId>oro</artifactId>
-                        </exclusion>
-                        <exclusion>
-                            <groupId>asm</groupId>
-                            <artifactId>asm</artifactId>
-                        </exclusion>
-                        <exclusion>
-                            <groupId>asm</groupId>
-                            <artifactId>asm-tree</artifactId>
-                        </exclusion>
-                        <exclusion>
-                            <groupId>log4j</groupId>
-                            <artifactId>log4j</artifactId>
-                        </exclusion>
-                    </exclusions>
-                </dependency>
-                <!-- needed for cobertura-instrument ant task to work
-                and to not be included in assemblies/shaded jars -->
-                <dependency>
-                    <groupId>oro</groupId>
-                    <artifactId>oro</artifactId>
-                    <version>2.0.8</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>asm</groupId>
-                    <artifactId>asm</artifactId>
-                    <version>3.3.1</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>asm</groupId>
-                    <artifactId>asm-tree</artifactId>
-                    <version>3.3.1</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>log4j</groupId>
-                    <artifactId>log4j</artifactId>
-                    <version>1.2.17</version>
-                    <scope>test</scope>
-                </dependency>
-            </dependencies>
             <build>
                 <pluginManagement>
                     <plugins>
                         <plugin>
-                            <groupId>org.codehaus.mojo</groupId>
-                            <artifactId>cobertura-maven-plugin</artifactId>
-                            <version>2.7</version>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.osgi</groupId>
-                            <artifactId>maven-bundle-plugin</artifactId>
+                            <groupId>org.jacoco</groupId>
+                            <artifactId>jacoco-maven-plugin</artifactId>
+                            <version>0.8.5</version>
                         </plugin>
                     </plugins>
                 </pluginManagement>
                 <plugins>
                     <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>cobertura-maven-plugin</artifactId>
-                        <inherited>true</inherited>
-                        <configuration>
-                            <attach>true</attach>
-                            <skip>${cobertura.skip}</skip>
-                        </configuration>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>instrument-code</id>
-                                <phase>process-classes</phase>
+                                <id>default-prepare-agent</id>
                                 <goals>
-                                    <goal>instrument</goal>
+                                    <goal>prepare-agent</goal>
                                 </goals>
+                            </execution>
+                            <execution>
+                                <id>default-report</id>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                                <!-- configuration should be removed once this bug https://github.com/jacoco/jacoco/issues/407 is fixed -->
+                                <configuration>
+                                    <excludes>
+                                        <exclude>com/sun/istack/logging/StackHelper.class</exclude>
+                                        <exclude>com/sun/tools/jxc/SchemaGenerator.class</exclude>
+                                        <exclude>com/sun/tools/jxc/SchemaGenerator$JavacOptions.class</exclude>
+                                        <exclude>com/sun/tools/jxc/SchemaGenerator$Runner.class</exclude>
+                                        <exclude>com/sun/tools/jxc/SchemaGenTask.class</exclude>
+                                        <exclude>com/sun/tools/xjc/CatalogUtil.class</exclude>
+                                        <exclude>com/sun/tools/xjc/XJC2Task.class</exclude>
+                                        <exclude>com/sun/xml/bind/v2/runtime/reflect/opt/*.class</exclude>
+                                    </excludes>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
