@@ -10,7 +10,7 @@
 
 package com.sun.tools.xjc.util;
 
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
  * {@link XmlAdapter} used inside XJC is almost always unmarshal-only.

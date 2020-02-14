@@ -10,7 +10,7 @@
 
 package com.sun.tools.xjc.api.impl.s2j;
 
-import javax.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
 import com.sun.tools.xjc.outline.FieldOutline;

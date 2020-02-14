@@ -8,8 +8,8 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Unmarshaller;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.Unmarshaller;
 import java.io.FileReader;
 
 import javax.xml.stream.*;

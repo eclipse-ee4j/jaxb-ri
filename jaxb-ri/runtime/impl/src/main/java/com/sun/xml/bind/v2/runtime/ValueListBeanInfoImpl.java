@@ -14,9 +14,9 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.List;
 
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.ValidationEvent;
-import javax.xml.bind.helpers.ValidationEventImpl;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.ValidationEvent;
+import jakarta.xml.bind.helpers.ValidationEventImpl;
 import javax.xml.stream.XMLStreamException;
 
 import com.sun.istack.FinalArrayList;

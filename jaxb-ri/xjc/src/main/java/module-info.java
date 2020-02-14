@@ -24,7 +24,7 @@ module org.glassfish.jaxb.xjc {
 
     requires com.sun.tools.rngdatatype;
     requires transitive com.sun.codemodel;
-    requires transitive java.xml.bind;
+    requires transitive jakarta.xml.bind;
     requires transitive org.glassfish.jaxb.runtime;
     requires com.sun.istack.runtime;
     requires com.sun.istack.tools;
@@ -33,7 +33,7 @@ module org.glassfish.jaxb.xjc {
     requires com.sun.xml.dtdparser;
     requires com.sun.xml.txw2;
 
-    opens com.sun.tools.xjc.reader.xmlschema.bindinfo to java.xml.bind;
+    opens com.sun.tools.xjc.reader.xmlschema.bindinfo to jakarta.xml.bind;
     opens com.sun.tools.xjc.generator.bean to org.glassfish.jaxb.runtime;
 
     exports com.sun.tools.xjc;

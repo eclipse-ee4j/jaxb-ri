@@ -12,7 +12,7 @@ package com.sun.tools.xjc.model;
 
 import java.util.Collection;
 
-import javax.activation.MimeType;
+import jakarta.activation.MimeType;
 import javax.xml.namespace.QName;
 
 import com.sun.codemodel.JClass;

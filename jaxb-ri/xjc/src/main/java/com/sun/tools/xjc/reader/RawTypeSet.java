@@ -14,7 +14,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.activation.MimeType;
+import jakarta.activation.MimeType;
 
 import com.sun.tools.xjc.model.CElementPropertyInfo;
 import static com.sun.tools.xjc.model.CElementPropertyInfo.CollectionMode.*;

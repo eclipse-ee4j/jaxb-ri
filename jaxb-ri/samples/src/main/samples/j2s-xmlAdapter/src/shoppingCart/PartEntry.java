@@ -15,8 +15,8 @@
 
 package shoppingCart;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlValue;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlValue;
 
 public class PartEntry {
   @XmlValue public String value;

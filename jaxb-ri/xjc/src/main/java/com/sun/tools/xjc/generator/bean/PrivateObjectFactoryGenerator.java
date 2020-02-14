@@ -10,7 +10,7 @@
 
 package com.sun.tools.xjc.generator.bean;
 
-import javax.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBContext;
 
 import com.sun.codemodel.JClass;
 import com.sun.codemodel.JPackage;

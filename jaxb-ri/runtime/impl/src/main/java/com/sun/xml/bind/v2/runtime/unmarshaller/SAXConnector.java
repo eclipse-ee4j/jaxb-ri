@@ -11,8 +11,8 @@
 package com.sun.xml.bind.v2.runtime.unmarshaller;
 
 import com.sun.xml.bind.Utils;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.UnmarshallerHandler;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.UnmarshallerHandler;
 
 import com.sun.xml.bind.WhiteSpaceProcessor;
 import java.util.logging.Level;

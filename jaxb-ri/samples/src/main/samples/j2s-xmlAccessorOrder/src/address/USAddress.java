@@ -14,8 +14,8 @@
 
 package address;
 
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlTransient;
 
 @XmlType(propOrder={"name", "street", "city" , "state", "zip"})
 public class USAddress {

@@ -21,9 +21,9 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.xml.bind.ValidationEvent;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.helpers.ValidationEventImpl;
+import jakarta.xml.bind.ValidationEvent;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.helpers.ValidationEventImpl;
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamException;
 

@@ -10,7 +10,7 @@
 
 import java.io.*;
 
-import javax.xml.bind.*;
+import jakarta.xml.bind.*;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import static javax.xml.XMLConstants.W3C_XML_SCHEMA_NS_URI;

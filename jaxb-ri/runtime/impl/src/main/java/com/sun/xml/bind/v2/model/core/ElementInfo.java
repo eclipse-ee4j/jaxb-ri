@@ -12,7 +12,7 @@ package com.sun.xml.bind.v2.model.core;
 
 import java.util.Collection;
 
-import javax.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBElement;
 
 /**
  * A particular use (specialization) of {@link JAXBElement}.

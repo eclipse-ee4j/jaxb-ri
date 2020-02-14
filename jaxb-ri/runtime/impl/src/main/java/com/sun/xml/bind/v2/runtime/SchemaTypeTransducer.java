@@ -12,7 +12,7 @@ package com.sun.xml.bind.v2.runtime;
 
 import java.io.IOException;
 
-import javax.xml.bind.annotation.XmlSchemaType;
+import jakarta.xml.bind.annotation.XmlSchemaType;
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamException;
 

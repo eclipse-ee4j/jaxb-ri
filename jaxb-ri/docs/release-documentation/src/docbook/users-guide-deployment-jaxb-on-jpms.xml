@@ -43,10 +43,10 @@
                 module com.example.jaxbclasses {
 
                 //jaxb-api module name
-                requires java.xml.bind;
+                requires jakarta.xml.bind;
 
                 //open jaxb pojo package to make accessing private members possible for JAXB.
-                opens com.example.jaxbclasses.pojos to java.xml.bind;
+                opens com.example.jaxbclasses.pojos to jakarta.xml.bind;
 
              ]]></programlisting>
         </example>
@@ -68,7 +68,7 @@
 
                 #Client on classpath, JAXB on module path:
                 user@host: java com.example.jaxb.Main -cp jaxbclient.jar --module-path jaxb-api.jar:jaxb-runtime.jar
-                --add-modules java.xml.bind
+                --add-modules jakarta.xml.bind
 
              ]]></programlisting>
             </example>
@@ -79,7 +79,7 @@
     <section xml:id="Jaxb_api_upgrade">
         <title>Upgrading JavaSE modules on Java 9 and 10.</title>
         <para>
-            Prior to Java 11, JavaSE contains JAXB bundled inside JDK. Module <literal>java.xml.bind</literal>
+            Prior to Java 11, JavaSE contains JAXB bundled inside JDK. Module <literal>jakarta.xml.bind</literal>
             contains JAXB API and runtime.
 
             <itemizedlist>
@@ -88,7 +88,7 @@
                         to provide standalone JAXB jars to java runtime.</para>
                 </listitem>
                 <listitem>
-                    <para>If standalone JAXB is used, JavaSE bundled java.xml.bind module should be replaced with
+                    <para>If standalone JAXB is used, JavaSE bundled jakarta.xml.bind module should be replaced with
                     JAXB API.</para>
                 </listitem>
 
@@ -97,19 +97,19 @@
              Similar to
             <link xmlns:xlink="https://docs.oracle.com/javase/8/docs/technotes/guides/standards/">endorsed mechanism
             </link> prior to Java 9, starting from 9 there is an "upgrade module" mechanism which can replace content of JDK module.
-            JavaSE bundled <literal>java.xml.bind</literal> module contains both API and Runtime classes and
-            should be replaced with JAXB API module, which has the same <literal>java.xml.bind</literal> module name.
+            JavaSE bundled <literal>jakarta.xml.bind</literal> module contains both API and Runtime classes and
+            should be replaced with JAXB API module, which has the same <literal>jakarta.xml.bind</literal> module name.
 
-            <example><title>Upgrading JavaSE java.xml.bind module with JAXB API</title>
+            <example><title>Upgrading JavaSE jakarta.xml.bind module with JAXB API</title>
 
                 <programlisting language="cli"><![CDATA[
-                    # Replace JavaSE bundled java.xml.bind with standalone API jar
+                    # Replace JavaSE bundled jakarta.xml.bind with standalone API jar
                     java --upgrade-module-path path/to/jakarta.xml.bind-api.jar ...
 
              ]]></programlisting>
             </example>
-            <para>--upgrade-module-path will replace JavaSE java.xml.bind (runtime and API) with jakarta.xml.bind-api.jar contents.</para>
-            <para>Since java.xml.bind module
+            <para>--upgrade-module-path will replace JavaSE jakarta.xml.bind (runtime and API) with jakarta.xml.bind-api.jar contents.</para>
+            <para>Since jakarta.xml.bind module
                 <link xmlns:xlink="http://openjdk.java.net/jeps/320">is removed starting from Java 11, there is no need
                     to upgrade this module on 11 and later.</link></para>
 

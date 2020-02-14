@@ -12,11 +12,11 @@ package com.sun.xml.bind.v2.runtime;
 
 import java.util.HashMap;
 
-import javax.xml.bind.ValidationEvent;
-import javax.xml.bind.ValidationEventHandler;
-import javax.xml.bind.ValidationEventLocator;
-import javax.xml.bind.annotation.adapters.XmlAdapter;
-import javax.xml.bind.helpers.ValidationEventImpl;
+import jakarta.xml.bind.ValidationEvent;
+import jakarta.xml.bind.ValidationEventHandler;
+import jakarta.xml.bind.ValidationEventLocator;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.helpers.ValidationEventImpl;
 
 import com.sun.xml.bind.v2.ClassFactory;
 import com.sun.xml.bind.v2.runtime.unmarshaller.UnmarshallingContext;

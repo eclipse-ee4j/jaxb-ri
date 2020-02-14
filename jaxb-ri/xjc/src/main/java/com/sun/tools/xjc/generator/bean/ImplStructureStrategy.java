@@ -13,9 +13,9 @@
  */
 package com.sun.tools.xjc.generator.bean;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlEnumValue;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlEnumValue;
 
 import com.sun.codemodel.JClassContainer;
 import com.sun.codemodel.JDefinedClass;

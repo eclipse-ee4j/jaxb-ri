@@ -89,16 +89,16 @@
                                     org.xml.sax.ext,
                                     javax.lang.model.type,
                                     javax.lang.model,
-                                    javax.xml.bind.annotation,
-                                    javax.xml.bind.helpers,
-                                    javax.xml.bind,
+                                    jakarta.xml.bind.annotation,
+                                    jakarta.xml.bind.helpers,
+                                    jakarta.xml.bind,
                                     org.xml.sax.helpers,
                                     javax.xml.transform.dom,
                                     javax.annotation.processing,
                                     javax.xml.transform.dom,
                                     javax.xml.validation,
                                     javax.xml.namespace,
-                                    javax.xml.bind.annotation.adapters,
+                                    jakarta.xml.bind.annotation.adapters,
                                     com.sun.source.tree,
                                     org.w3c.dom,
                                     javax.lang.model.element,
@@ -106,7 +106,7 @@
                                     org.xml.sax,
                                     javax.xml.stream.util,
                                     javax.xml.transform.sax,
-                                    javax.activation,
+                                    jakarta.activation,
                                     javax.tools,
                                     javax.xml.parsers,
                                     javax.imageio,
@@ -120,7 +120,7 @@
                                     javax.swing,
                                     javax.xml.stream.events,
                                     com.sun.source.util,
-                                    javax.xml.bind.attachment
+                                    jakarta.xml.bind.attachment
                                 </org.osgi.framework.system.packages.extra>
                             </configuration>
                         </configuration>

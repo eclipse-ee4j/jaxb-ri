@@ -10,9 +10,9 @@
 
 package com.sun.xml.bind.v2.model.core;
 
-import javax.xml.bind.annotation.XmlMimeType;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.XmlInlineBinaryData;
+import jakarta.xml.bind.annotation.XmlMimeType;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlInlineBinaryData;
 
 /**
  * An Enum that indicates if the property is

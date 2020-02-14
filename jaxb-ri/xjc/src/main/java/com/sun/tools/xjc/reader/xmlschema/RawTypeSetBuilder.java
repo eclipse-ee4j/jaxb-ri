@@ -13,7 +13,7 @@ package com.sun.tools.xjc.reader.xmlschema;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import javax.activation.MimeType;
+import jakarta.activation.MimeType;
 import javax.xml.namespace.QName;
 
 import com.sun.tools.xjc.model.CAdapter;

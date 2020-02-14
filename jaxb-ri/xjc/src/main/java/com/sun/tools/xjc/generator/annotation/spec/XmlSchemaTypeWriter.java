@@ -10,7 +10,7 @@
 
 package com.sun.tools.xjc.generator.annotation.spec;
 
-import javax.xml.bind.annotation.XmlSchemaType;
+import jakarta.xml.bind.annotation.XmlSchemaType;
 import com.sun.codemodel.JAnnotationWriter;
 import com.sun.codemodel.JType;
 

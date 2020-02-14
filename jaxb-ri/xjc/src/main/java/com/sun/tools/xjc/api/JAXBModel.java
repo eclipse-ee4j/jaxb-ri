@@ -12,7 +12,7 @@ package com.sun.tools.xjc.api;
 
 import java.util.List;
 
-import javax.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBContext;
 
 /**
  * The in-memory representation of the JAXB binding.

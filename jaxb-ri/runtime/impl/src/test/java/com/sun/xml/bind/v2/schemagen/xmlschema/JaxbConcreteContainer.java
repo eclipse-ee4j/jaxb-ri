@@ -8,23 +8,26 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-package com.sun.xml.bind.v2.schemagen.xmlidref;
+package com.sun.xml.bind.v2.schemagen.xmlschema;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlType;
 
 /**
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "concreteDeploymentType")
-public class JaxbConcreteDeployment extends JaxbDeployment {
+@XmlType(name = "concreteContainerType")
+public class JaxbConcreteContainer  extends JaxbContainer {
+
+    public static final String ELEMENT_NAME = "concreteContainer";
 
     @Override
     public String toString() {
-        return "JaxbConcreteDeployment{" +
-                "contextRoot='" + getContextRoot() + '\'' +
+        return "JaxbConcreteContainer{" +
+                "deployments=" + getDeployments() +
                 '}';
     }
+
 }
 

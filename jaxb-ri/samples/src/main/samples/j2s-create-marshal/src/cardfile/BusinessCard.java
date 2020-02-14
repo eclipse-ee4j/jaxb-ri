@@ -10,7 +10,7 @@
 
 package cardfile;
 
-import javax.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.*;
 
 @XmlRootElement
 public class BusinessCard {

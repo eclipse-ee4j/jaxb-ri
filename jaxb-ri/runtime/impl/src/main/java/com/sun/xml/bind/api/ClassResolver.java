@@ -10,10 +10,10 @@
 
 package com.sun.xml.bind.api;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.ValidationEventHandler;
-import javax.xml.bind.annotation.XmlAnyElement;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.Unmarshaller;
+import jakarta.xml.bind.ValidationEventHandler;
+import jakarta.xml.bind.annotation.XmlAnyElement;
 
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;

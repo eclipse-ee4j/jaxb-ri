@@ -10,8 +10,8 @@
 
 package com.sun.tools.xjc.generator.annotation.spec;
 
-import javax.xml.bind.annotation.XmlNsForm;
-import javax.xml.bind.annotation.XmlSchema;
+import jakarta.xml.bind.annotation.XmlNsForm;
+import jakarta.xml.bind.annotation.XmlSchema;
 import com.sun.codemodel.JAnnotationWriter;
 
 /**

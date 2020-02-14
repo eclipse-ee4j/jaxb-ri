@@ -13,8 +13,8 @@ package com.sun.xml.bind.v2.runtime.reflect;
 import java.io.IOException;
 import java.util.concurrent.Callable;
 
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.annotation.XmlValue;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.annotation.XmlValue;
 import javax.xml.stream.XMLStreamException;
 
 import com.sun.istack.NotNull;

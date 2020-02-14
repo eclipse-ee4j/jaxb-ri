@@ -255,7 +255,7 @@
                                     *
                                 </Export-Package>
                                 <Import-Package>
-                                    javax.activation;version=!,
+                                    jakarta.activation;version=!,
                                     *
                                 </Import-Package>
                             </instructions>

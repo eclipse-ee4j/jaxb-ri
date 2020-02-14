@@ -16,8 +16,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.annotation.XmlElement;
 import javax.xml.namespace.QName;
 
 import com.sun.codemodel.JPackage;

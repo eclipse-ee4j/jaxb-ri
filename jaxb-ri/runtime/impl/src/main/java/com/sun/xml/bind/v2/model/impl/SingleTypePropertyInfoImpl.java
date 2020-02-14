@@ -13,7 +13,7 @@ package com.sun.xml.bind.v2.model.impl;
 import java.util.Collections;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlList;
+import jakarta.xml.bind.annotation.XmlList;
 
 import com.sun.xml.bind.v2.model.core.ID;
 import com.sun.xml.bind.v2.model.core.NonElement;

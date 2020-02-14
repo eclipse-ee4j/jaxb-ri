@@ -12,11 +12,11 @@ package com.sun.xml.bind.v2.model.core;
 
 import java.util.Collection;
 
-import javax.activation.MimeType;
-import javax.xml.bind.annotation.XmlID;
-import javax.xml.bind.annotation.XmlIDREF;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.XmlSchemaType;
+import jakarta.activation.MimeType;
+import jakarta.xml.bind.annotation.XmlID;
+import jakarta.xml.bind.annotation.XmlIDREF;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlSchemaType;
 import javax.xml.namespace.QName;
 
 import com.sun.istack.Nullable;

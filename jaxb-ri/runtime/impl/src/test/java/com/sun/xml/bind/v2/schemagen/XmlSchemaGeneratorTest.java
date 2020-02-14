@@ -18,8 +18,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.SchemaOutputResolver;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.SchemaOutputResolver;
 import javax.xml.transform.Result;
 import javax.xml.transform.stream.StreamResult;
 

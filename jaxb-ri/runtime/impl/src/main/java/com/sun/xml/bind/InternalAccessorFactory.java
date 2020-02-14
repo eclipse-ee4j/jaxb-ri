@@ -12,7 +12,7 @@ package com.sun.xml.bind;
 
 import java.lang.reflect.Field;
 import com.sun.xml.bind.v2.runtime.reflect.Accessor;
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBException;
 
 /**
  * A means to allow the user to provide customized Accessor  

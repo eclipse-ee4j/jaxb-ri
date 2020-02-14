@@ -13,8 +13,8 @@ package com.sun.xml.bind.v2.runtime;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
-import javax.xml.bind.ValidationEvent;
-import javax.xml.bind.helpers.ValidationEventImpl;
+import jakarta.xml.bind.ValidationEvent;
+import jakarta.xml.bind.helpers.ValidationEventImpl;
 import javax.xml.stream.XMLStreamException;
 
 import com.sun.xml.bind.api.CompositeStructure;

@@ -27,7 +27,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.ElementFilter;
-import javax.xml.bind.SchemaOutputResolver;
+import jakarta.xml.bind.SchemaOutputResolver;
 import javax.xml.namespace.QName;
 import java.io.File;
 import java.io.IOException;
@@ -47,7 +47,7 @@ import java.util.StringTokenizer;
  *
  * @author Bhakti Mehta (bhakti.mehta@sun.com)
  */
-@SupportedAnnotationTypes("javax.xml.bind.annotation.*")
+@SupportedAnnotationTypes("jakarta.xml.bind.annotation.*")
 @SupportedOptions("jaxb.config")
 public final class AnnotationParser extends AbstractProcessor {
 

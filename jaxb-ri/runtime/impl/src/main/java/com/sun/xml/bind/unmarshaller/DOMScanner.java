@@ -12,9 +12,9 @@ package com.sun.xml.bind.unmarshaller;
 
 import java.util.Enumeration;
 
-import javax.xml.bind.ValidationEventLocator;
-import javax.xml.bind.helpers.AbstractUnmarshallerImpl;
-import javax.xml.bind.helpers.ValidationEventLocatorImpl;
+import jakarta.xml.bind.ValidationEventLocator;
+import jakarta.xml.bind.helpers.AbstractUnmarshallerImpl;
+import jakarta.xml.bind.helpers.ValidationEventLocatorImpl;
 
 import com.sun.xml.bind.v2.runtime.unmarshaller.LocatorEx;
 
@@ -36,7 +36,7 @@ import org.xml.sax.helpers.NamespaceSupport;
  * 
  * <p>
  * This class is just intended to be used by {@link AbstractUnmarshallerImpl}.
- * The javax.xml.bind.helpers package is generally a wrong place to put
+ * The jakarta.xml.bind.helpers package is generally a wrong place to put
  * classes like this.
  *
  * @author <ul><li>Kohsuke Kawaguchi, Sun Microsystems, Inc.</li></ul>

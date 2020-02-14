@@ -10,8 +10,8 @@
 
 package com.sun.xml.bind.v2;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
 import java.util.Map;
 
 /**
@@ -20,7 +20,7 @@ import java.util.Map;
  *
  * Redirects to {@link ContextFactory}, which is not removed due to compatibility reasons.
  */
-public class JAXBContextFactory implements javax.xml.bind.JAXBContextFactory {
+public class JAXBContextFactory implements jakarta.xml.bind.JAXBContextFactory {
 
     /**
      * Creates JAXB context.

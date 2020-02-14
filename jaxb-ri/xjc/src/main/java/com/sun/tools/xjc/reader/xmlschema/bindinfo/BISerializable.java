@@ -10,7 +10,7 @@
 
 package com.sun.tools.xjc.reader.xmlschema.bindinfo;
 
-import javax.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlAttribute;
 
 
 /**

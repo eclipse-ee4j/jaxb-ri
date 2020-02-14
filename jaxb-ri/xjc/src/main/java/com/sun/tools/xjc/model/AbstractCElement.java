@@ -10,7 +10,7 @@
 
 package com.sun.tools.xjc.model;
 
-import javax.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlTransient;
 
 import com.sun.xml.xsom.XSComponent;
 

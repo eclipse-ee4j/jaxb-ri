@@ -10,7 +10,7 @@
 
 package address;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(namespace="http://www.example.com/MYPO1")
 public class USAddress {

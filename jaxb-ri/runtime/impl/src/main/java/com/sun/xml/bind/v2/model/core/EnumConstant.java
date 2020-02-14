@@ -10,7 +10,7 @@
 
 package com.sun.xml.bind.v2.model.core;
 
-import javax.xml.bind.annotation.XmlEnumValue;
+import jakarta.xml.bind.annotation.XmlEnumValue;
 
 /**
  * Individual constant of an enumeration.

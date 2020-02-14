@@ -10,7 +10,7 @@
 
 /**
  *  Illustrates the use of
- *  @javax.xml.bind.annotation.XmlType.propOrder() to customize the
+ *  @jakarta.xml.bind.annotation.XmlType.propOrder() to customize the
  *  ordering of properties.
  *
  *  $Id: USAddress.java,v 1.1 2007-12-05 00:49:36 kohsuke Exp $
@@ -18,7 +18,7 @@
  *  Author: Sekhar Vajjhala
  */  
 
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlType;
 
 @XmlType(propOrder={"name", "street", "city", "state",  "zip"})
 public class USAddress {

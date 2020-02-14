@@ -163,7 +163,7 @@ public class Options {
 
     public Options() {
         try {
-            Class.forName("javax.xml.bind.JAXBPermission");
+            Class.forName("jakarta.xml.bind.JAXBPermission");
         } catch (ClassNotFoundException cnfe) {
             target = SpecVersion.V2_1;
         }

@@ -10,7 +10,7 @@
 
 package com.sun.xml.bind.v2.runtime.reflect;
 
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBException;
 
 import com.sun.xml.bind.WhiteSpaceProcessor;
 import com.sun.xml.bind.api.AccessorException;

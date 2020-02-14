@@ -13,7 +13,7 @@
  */
 module org.glassfish.jaxb.jxc {
 
-    requires transitive java.xml.bind;
+    requires transitive jakarta.xml.bind;
     requires java.compiler;
     requires jdk.compiler;
     requires java.logging;

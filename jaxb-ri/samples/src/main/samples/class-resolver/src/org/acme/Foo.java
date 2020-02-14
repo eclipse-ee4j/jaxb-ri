@@ -10,7 +10,7 @@
 
 package org.acme;
 
-import javax.xml.bind.annotation.XmlIDREF;
+import jakarta.xml.bind.annotation.XmlIDREF;
 
 /**
  * @author Kohsuke Kawaguchi

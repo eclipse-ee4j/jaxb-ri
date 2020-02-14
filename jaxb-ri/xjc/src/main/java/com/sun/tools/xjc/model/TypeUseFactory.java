@@ -10,8 +10,8 @@
 
 package com.sun.tools.xjc.model;
 
-import javax.activation.MimeType;
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.activation.MimeType;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 import com.sun.xml.bind.v2.TODO;
 import com.sun.xml.bind.v2.model.core.Adapter;

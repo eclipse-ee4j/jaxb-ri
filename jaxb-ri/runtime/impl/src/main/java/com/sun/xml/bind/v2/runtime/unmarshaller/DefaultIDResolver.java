@@ -13,7 +13,7 @@ package com.sun.xml.bind.v2.runtime.unmarshaller;
 import java.util.HashMap;
 import java.util.concurrent.Callable;
 
-import javax.xml.bind.ValidationEventHandler;
+import jakarta.xml.bind.ValidationEventHandler;
 
 import com.sun.xml.bind.IDResolver;
 

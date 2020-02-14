@@ -10,8 +10,8 @@
 
 package com.sun.xml.bind.v2.model.core;
 
-import javax.xml.bind.annotation.adapters.XmlAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.sun.xml.bind.v2.model.annotation.AnnotationReader;
 import com.sun.xml.bind.v2.model.nav.Navigator;
@@ -25,7 +25,7 @@ public class Adapter<TypeT,ClassDeclT> {
     /**
      * The adapter class. Always non-null.
      *
-     * A class that derives from {@link javax.xml.bind.annotation.adapters.XmlAdapter}.
+     * A class that derives from {@link jakarta.xml.bind.annotation.adapters.XmlAdapter}.
      */
     public final ClassDeclT adapterType;
 

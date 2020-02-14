@@ -10,9 +10,9 @@
 
 package com.sun.tools.xjc.model;
 
-import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
-import javax.xml.bind.annotation.adapters.NormalizedStringAdapter;
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.annotation.adapters.CollapsedStringAdapter;
+import jakarta.xml.bind.annotation.adapters.NormalizedStringAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 import com.sun.codemodel.JClass;
 import com.sun.tools.xjc.model.nav.EagerNClass;

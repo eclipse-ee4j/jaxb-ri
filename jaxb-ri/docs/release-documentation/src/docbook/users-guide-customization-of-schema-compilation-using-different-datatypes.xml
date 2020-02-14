@@ -54,8 +54,8 @@
         <programlisting language="xml"><![CDATA[<bindings xmlns="http://java.sun.com/xml/ns/jaxb" version="2.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <globalBindings>
     <javaType name="java.util.Calendar" xmlType="xs:date"
-      parseMethod="javax.xml.bind.DatatypeConverter.parseDate"
-      printMethod="javax.xml.bind.DatatypeConverter.printDate"
+      parseMethod="jakarta.xml.bind.DatatypeConverter.parseDate"
+      printMethod="jakarta.xml.bind.DatatypeConverter.printDate"
     />
   </globalBindings>
 </bindings>]]></programlisting>

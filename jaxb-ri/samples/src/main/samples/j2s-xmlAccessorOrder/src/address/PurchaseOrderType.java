@@ -15,8 +15,8 @@
 
 package address;
 
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="purchaseOrder")
 @XmlType(name="PurchaseOrderType")

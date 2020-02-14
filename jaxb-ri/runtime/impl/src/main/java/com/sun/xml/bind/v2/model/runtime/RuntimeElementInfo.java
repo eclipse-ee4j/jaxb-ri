@@ -12,7 +12,7 @@ package com.sun.xml.bind.v2.model.runtime;
 
 import java.lang.reflect.Type;
 
-import javax.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBElement;
 
 import com.sun.xml.bind.v2.model.core.ElementInfo;
 

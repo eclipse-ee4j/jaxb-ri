@@ -60,8 +60,8 @@
 
         <jxb:bindings node="./xs:simpleType">
           <jxb:javaType name="short" 
-                        parseMethod="javax.xml.bind.DatatypeConverter.parseShort" 
-                        printMethod="javax.xml.bind.DatatypeConverter.printShort" />
+                        parseMethod="jakarta.xml.bind.DatatypeConverter.parseShort" 
+                        printMethod="jakarta.xml.bind.DatatypeConverter.printShort" />
         </jxb:bindings>
       </jxb:bindings>  <!--  node="//xs:complexType[@name='Items']" -->
 
@@ -80,8 +80,8 @@
 
     <jxb:bindings node="//xs:simpleType[@name='ZipCodeType']">
       <jxb:javaType name="int"     
-                    parseMethod="javax.xml.bind.DatatypeConverter.parseInt" 
-                    printMethod="javax.xml.bind.DatatypeConverter.printInt"/>
+                    parseMethod="jakarta.xml.bind.DatatypeConverter.parseInt" 
+                    printMethod="jakarta.xml.bind.DatatypeConverter.printInt"/>
     </jxb:bindings>
   </jxb:bindings> <!-- schemaLocation="po.xsd" node="/xs:schema" -->
 

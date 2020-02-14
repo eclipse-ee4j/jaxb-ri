@@ -18,9 +18,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.bind.SchemaOutputResolver;
-import javax.xml.bind.annotation.XmlList;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import jakarta.xml.bind.SchemaOutputResolver;
+import jakarta.xml.bind.annotation.XmlList;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.xml.namespace.QName;
 import javax.xml.transform.Result;
 

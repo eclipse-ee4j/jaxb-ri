@@ -12,7 +12,7 @@ package com.sun.xml.bind.marshaller;
 
 import java.io.OutputStream;
 
-import javax.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBContext;
 import javax.xml.stream.XMLEventWriter;
 import javax.xml.stream.XMLStreamWriter;
 import javax.xml.transform.dom.DOMResult;

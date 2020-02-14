@@ -14,7 +14,7 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.xml.namespace.QName;
-import javax.xml.bind.annotation.XmlSeeAlso;
+import jakarta.xml.bind.annotation.XmlSeeAlso;
 
 import com.sun.codemodel.CodeWriter;
 import com.sun.codemodel.JCodeModel;

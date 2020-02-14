@@ -22,8 +22,8 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
 
 import com.sun.istack.FinalArrayList;
 import com.sun.xml.bind.Utils;
@@ -35,7 +35,7 @@ import com.sun.xml.bind.v2.util.TypeCast;
 
 /**
  * This class is responsible for producing RI JAXBContext objects.  In
- * the RI, this is the class that the javax.xml.bind.context.factory
+ * the RI, this is the class that the jakarta.xml.bind.context.factory
  * property will point to.
  *
  * <p>

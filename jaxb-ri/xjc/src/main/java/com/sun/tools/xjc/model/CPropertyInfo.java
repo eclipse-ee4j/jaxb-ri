@@ -15,10 +15,10 @@ import java.util.Collection;
 import java.util.Map;
 
 import javax.xml.XMLConstants;
-import javax.xml.bind.annotation.XmlInlineBinaryData;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import jakarta.xml.bind.annotation.XmlInlineBinaryData;
+import jakarta.xml.bind.annotation.XmlSchemaType;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.xml.namespace.QName;
 
 import com.sun.codemodel.JClass;
@@ -70,7 +70,7 @@ public abstract class CPropertyInfo implements PropertyInfo<NType,NClass>, CCust
     public String javadoc="";
 
     /**
-     * Property annotated with {@link javax.xml.bind.annotation.XmlInlineBinaryData}.
+     * Property annotated with {@link jakarta.xml.bind.annotation.XmlInlineBinaryData}.
      */
     public boolean inlineBinaryData;
 

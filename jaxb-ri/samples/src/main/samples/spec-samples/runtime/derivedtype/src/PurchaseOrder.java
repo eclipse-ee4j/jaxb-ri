@@ -14,7 +14,7 @@
  *  $Id: PurchaseOrder.java,v 1.1 2007-12-05 00:49:37 kohsuke Exp $
  */
 
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class PurchaseOrder {

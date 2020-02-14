@@ -10,7 +10,7 @@
 
 package com.sun.xml.bind.v2.runtime.reflect;
 
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 import com.sun.xml.bind.api.AccessorException;
 import com.sun.xml.bind.v2.ClassFactory;

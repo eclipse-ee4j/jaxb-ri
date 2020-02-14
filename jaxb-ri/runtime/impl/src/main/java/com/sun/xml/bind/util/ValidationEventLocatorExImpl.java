@@ -10,7 +10,7 @@
 
 package com.sun.xml.bind.util;
 
-import javax.xml.bind.helpers.ValidationEventLocatorImpl;
+import jakarta.xml.bind.helpers.ValidationEventLocatorImpl;
 
 import com.sun.xml.bind.ValidationEventLocatorEx;
 

@@ -13,7 +13,7 @@ package com.sun.tools.xjc.api.impl.s2j;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBElement;
 
 import com.sun.codemodel.JBlock;
 import com.sun.codemodel.JClass;

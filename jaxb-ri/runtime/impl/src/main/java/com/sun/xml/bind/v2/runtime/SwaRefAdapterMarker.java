@@ -11,8 +11,8 @@
 package com.sun.xml.bind.v2.runtime;
 
 
-import javax.activation.DataHandler;
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.activation.DataHandler;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 
 /**

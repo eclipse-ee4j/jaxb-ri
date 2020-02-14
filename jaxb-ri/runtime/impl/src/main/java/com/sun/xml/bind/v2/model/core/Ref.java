@@ -10,8 +10,8 @@
 
 package com.sun.xml.bind.v2.model.core;
 
-import javax.xml.bind.annotation.XmlList;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import jakarta.xml.bind.annotation.XmlList;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import com.sun.xml.bind.v2.model.annotation.AnnotationReader;
 import com.sun.xml.bind.v2.model.impl.ModelBuilderI;

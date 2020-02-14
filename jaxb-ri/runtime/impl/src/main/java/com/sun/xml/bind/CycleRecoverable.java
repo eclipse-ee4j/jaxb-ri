@@ -10,7 +10,7 @@
 
 package com.sun.xml.bind;
 
-import javax.xml.bind.Marshaller;
+import jakarta.xml.bind.Marshaller;
 
 /**
  * Optional interface that can be implemented by JAXB-bound objects

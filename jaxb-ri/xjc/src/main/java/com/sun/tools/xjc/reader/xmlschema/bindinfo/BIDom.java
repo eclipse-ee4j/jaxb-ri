@@ -10,8 +10,8 @@
 
 package com.sun.tools.xjc.reader.xmlschema.bindinfo;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import javax.xml.namespace.QName;
 
 import com.sun.tools.xjc.reader.Const;

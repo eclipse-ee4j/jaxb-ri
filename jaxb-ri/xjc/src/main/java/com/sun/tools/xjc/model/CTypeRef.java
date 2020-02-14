@@ -11,7 +11,7 @@
 package com.sun.tools.xjc.model;
 
 import javax.xml.XMLConstants;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.xml.namespace.QName;
 
 import com.sun.tools.xjc.model.nav.NClass;

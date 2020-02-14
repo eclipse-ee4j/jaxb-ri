@@ -13,9 +13,9 @@ package com.sun.xml.bind.v2.runtime.unmarshaller;
 import java.util.Collection;
 import java.util.Collections;
 
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.ValidationEvent;
-import javax.xml.bind.helpers.ValidationEventImpl;
+import jakarta.xml.bind.Unmarshaller;
+import jakarta.xml.bind.ValidationEvent;
+import jakarta.xml.bind.helpers.ValidationEventImpl;
 import javax.xml.namespace.QName;
 
 import com.sun.xml.bind.v2.runtime.JaxBeanInfo;

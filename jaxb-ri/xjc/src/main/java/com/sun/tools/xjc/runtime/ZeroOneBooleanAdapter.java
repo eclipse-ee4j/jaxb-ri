@@ -10,8 +10,8 @@
 
 package com.sun.tools.xjc.runtime;
 
-import javax.xml.bind.DatatypeConverter;
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.DatatypeConverter;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
  * Serializes {@code boolean} as 0 or 1.

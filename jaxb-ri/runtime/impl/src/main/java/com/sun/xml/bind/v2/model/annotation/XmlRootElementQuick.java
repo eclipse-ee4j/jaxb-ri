@@ -11,7 +11,7 @@
 package com.sun.xml.bind.v2.model.annotation;
 
 import java.lang.annotation.Annotation;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 
 /**

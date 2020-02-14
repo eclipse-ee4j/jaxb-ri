@@ -12,8 +12,8 @@ package com.sun.xml.bind.v2.model.core;
 
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlValue;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlValue;
 
 /**
  * Information about JAXB-bound class.

@@ -26,9 +26,9 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.activation.MimeType;
-import javax.xml.bind.SchemaOutputResolver;
-import javax.xml.bind.annotation.XmlElement;
+import jakarta.activation.MimeType;
+import jakarta.xml.bind.SchemaOutputResolver;
+import jakarta.xml.bind.annotation.XmlElement;
 import javax.xml.namespace.QName;
 import javax.xml.transform.Result;
 import javax.xml.transform.stream.StreamResult;

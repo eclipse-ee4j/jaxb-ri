@@ -10,7 +10,7 @@
 
 package com.sun.xml.bind.v2.runtime.unmarshaller;
 
-import javax.xml.bind.annotation.DomHandler;
+import jakarta.xml.bind.annotation.DomHandler;
 import javax.xml.transform.Result;
 import javax.xml.transform.sax.TransformerHandler;
 import com.sun.xml.bind.v2.runtime.JAXBContextImpl;

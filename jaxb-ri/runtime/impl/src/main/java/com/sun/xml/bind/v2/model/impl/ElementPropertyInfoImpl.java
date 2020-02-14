@@ -14,9 +14,9 @@ import java.util.AbstractList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElements;
-import javax.xml.bind.annotation.XmlList;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElements;
+import jakarta.xml.bind.annotation.XmlList;
 import javax.xml.namespace.QName;
 
 import com.sun.istack.FinalArrayList;

@@ -17,7 +17,7 @@
  * Map a class with a single property that has been marked with
  * @XmlValue to simple schema type.
  */
-import javax.xml.bind.annotation.XmlValue;
+import jakarta.xml.bind.annotation.XmlValue;
  
 public class Foo {
     /**

@@ -11,5 +11,5 @@
 @XmlAccessorType(FIELD)
 package cardfile;
 
-import javax.xml.bind.annotation.XmlAccessorType;
-import static javax.xml.bind.annotation.XmlAccessType.FIELD; 
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import static jakarta.xml.bind.annotation.XmlAccessType.FIELD; 

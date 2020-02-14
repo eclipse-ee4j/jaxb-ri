@@ -61,7 +61,7 @@
             <programlisting language="java"><![CDATA[Unmarshaller u = ...;
 // this implementation is a part of the API and convenient for trouble-shooting,
 // as it prints out errors to System.out
-u.setEventHandler(new javax.xml.bind.helpers.DefaultValidationEventHandler());
+u.setEventHandler(new jakarta.xml.bind.helpers.DefaultValidationEventHandler());
 
 u.unmarshal(new File("foo.xml"));]]></programlisting>
         </example>

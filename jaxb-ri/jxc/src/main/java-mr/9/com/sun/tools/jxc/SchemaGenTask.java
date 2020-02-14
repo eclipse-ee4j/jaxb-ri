@@ -36,7 +36,7 @@ public class SchemaGenTask extends SchemaGenBase {
 
         getCommandline().createClasspath(getProject()).append(new Path(getProject(), antcp));
 
-        getCommandline().createVmArgument().setLine("--add-modules java.xml.bind");
+        getCommandline().createVmArgument().setLine("--add-modules jakarta.xml.bind");
 
         if (getModulepath() != null && getModulepath().size() > 0) {
             getCommandline().createModulepath(getProject()).add(getModulepath());

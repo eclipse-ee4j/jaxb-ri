@@ -13,7 +13,7 @@
  *
  * <h2>Overview</h2>
  * <p>
- * This module provides code that implements {@link javax.xml.bind.JAXBContext}.
+ * This module provides code that implements {@link jakarta.xml.bind.JAXBContext}.
  * Roughly speaking the runtime works like this:
  *
  * <ol>
@@ -110,7 +110,7 @@
  *
  * <h2>Performance Characteristics</h2>
  * <p>
- * Model construction happens inside {@link javax.xml.bind.JAXBContext#newInstance(Class[])}.
+ * Model construction happens inside {@link jakarta.xml.bind.JAXBContext#newInstance(Class[])}.
  * It's desirable for this step to be fast and consume less memory,
  * but it's not too performance sensitive.
  *
@@ -124,7 +124,7 @@
  *
  * <h2>Bootstrap Sequence</h2>
  * <p>
- * The following picture illustrates how the {@link javax.xml.bind.JAXBContext#newInstance(Class[])} method
+ * The following picture illustrates how the {@link jakarta.xml.bind.JAXBContext#newInstance(Class[])} method
  * triggers activities.
  *
  */

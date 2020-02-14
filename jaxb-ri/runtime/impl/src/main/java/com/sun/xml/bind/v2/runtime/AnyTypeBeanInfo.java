@@ -12,9 +12,9 @@ package com.sun.xml.bind.v2.runtime;
 
 import java.io.IOException;
 
-import javax.xml.bind.annotation.W3CDomHandler;
-import javax.xml.bind.helpers.ValidationEventImpl;
-import javax.xml.bind.ValidationEvent;
+import jakarta.xml.bind.annotation.W3CDomHandler;
+import jakarta.xml.bind.helpers.ValidationEventImpl;
+import jakarta.xml.bind.ValidationEvent;
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamException;
 

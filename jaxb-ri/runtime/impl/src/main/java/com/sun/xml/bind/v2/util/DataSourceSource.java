@@ -15,10 +15,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.MimeType;
-import javax.activation.MimeTypeParseException;
+import jakarta.activation.DataHandler;
+import jakarta.activation.DataSource;
+import jakarta.activation.MimeType;
+import jakarta.activation.MimeTypeParseException;
 import javax.xml.transform.Source;
 import javax.xml.transform.stream.StreamSource;
 

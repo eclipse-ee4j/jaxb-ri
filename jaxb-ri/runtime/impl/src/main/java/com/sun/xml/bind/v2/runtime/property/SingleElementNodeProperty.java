@@ -36,7 +36,7 @@ import com.sun.xml.bind.v2.runtime.unmarshaller.Loader;
 import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader;
 import com.sun.xml.bind.v2.util.QNameMap;
 
-import javax.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBElement;
 import org.xml.sax.SAXException;
 
 /**

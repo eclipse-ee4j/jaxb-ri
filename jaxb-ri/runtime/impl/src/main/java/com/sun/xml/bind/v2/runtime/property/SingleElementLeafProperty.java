@@ -13,7 +13,7 @@ package com.sun.xml.bind.v2.runtime.property;
 import java.io.IOException;
 import java.lang.reflect.Modifier;
 
-import javax.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBElement;
 import javax.xml.stream.XMLStreamException;
 
 import com.sun.xml.bind.api.AccessorException;

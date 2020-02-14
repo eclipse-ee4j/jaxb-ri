@@ -88,7 +88,7 @@
             <listitem>
                 <para><link
                 xlink:href="api/">Javadoc
-                API documentation (javax.xml.bind.*)</link></para>
+                API documentation (jakarta.xml.bind.*)</link></para>
             </listitem>
 
             <listitem>

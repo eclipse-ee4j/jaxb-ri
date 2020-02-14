@@ -23,8 +23,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
-import javax.activation.MimeTypeParseException;
-import javax.xml.bind.DatatypeConverter;
+import jakarta.activation.MimeTypeParseException;
+import jakarta.xml.bind.DatatypeConverter;
 
 import com.sun.codemodel.JJavaName;
 import com.sun.codemodel.util.JavadocEscapeWriter;

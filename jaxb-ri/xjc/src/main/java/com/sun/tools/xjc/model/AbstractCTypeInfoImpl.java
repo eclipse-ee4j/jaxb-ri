@@ -10,7 +10,7 @@
 
 package com.sun.tools.xjc.model;
 
-import javax.activation.MimeType;
+import jakarta.activation.MimeType;
 
 import com.sun.codemodel.JExpression;
 import com.sun.tools.xjc.outline.Outline;

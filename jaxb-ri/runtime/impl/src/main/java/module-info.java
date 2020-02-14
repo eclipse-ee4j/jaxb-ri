@@ -11,11 +11,11 @@
 /**
  * The XML Binding (JAXB) RI modularization implementation.
  *
- * @uses javax.xml.bind.JAXBContextFactory
+ * @uses jakarta.xml.bind.JAXBContextFactory
  *
  */
 module org.glassfish.jaxb.runtime {
-    requires transitive java.xml.bind;
+    requires transitive jakarta.xml.bind;
     requires java.compiler;
     requires java.desktop;
     requires java.logging;
@@ -50,8 +50,12 @@ module org.glassfish.jaxb.runtime {
     exports com.sun.xml.bind.v2.util;
 
     opens com.sun.xml.bind.v2.model.nav to org.glassfish.jaxb.xjc;
+    opens com.sun.xml.bind.v2.runtime.reflect.opt to jakarta.xml.bind;
+    opens com.sun.xml.bind.v2.schemagen to jakarta.xml.bind;
+    opens com.sun.xml.bind.v2.schemagen.xmlschema to jakarta.xml.bind;
+    opens com.sun.xml.bind.v2 to jakarta.xml.bind;
 
-    uses javax.xml.bind.JAXBContextFactory;
+    uses jakarta.xml.bind.JAXBContextFactory;
 
-    provides javax.xml.bind.JAXBContextFactory with com.sun.xml.bind.v2.JAXBContextFactory;
+    provides jakarta.xml.bind.JAXBContextFactory with com.sun.xml.bind.v2.JAXBContextFactory;
 }

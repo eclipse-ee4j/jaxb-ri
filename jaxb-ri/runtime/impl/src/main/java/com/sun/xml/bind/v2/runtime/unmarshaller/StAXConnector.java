@@ -10,8 +10,8 @@
 
 package com.sun.xml.bind.v2.runtime.unmarshaller;
 
-import javax.xml.bind.ValidationEventLocator;
-import javax.xml.bind.helpers.ValidationEventLocatorImpl;
+import jakarta.xml.bind.ValidationEventLocator;
+import jakarta.xml.bind.helpers.ValidationEventLocatorImpl;
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.stream.Location;
 import javax.xml.stream.XMLStreamException;

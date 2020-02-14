@@ -12,7 +12,7 @@ package com.sun.xml.bind.v2.runtime.unmarshaller;
 
 import java.net.URL;
 
-import javax.xml.bind.ValidationEventLocator;
+import jakarta.xml.bind.ValidationEventLocator;
 
 import org.xml.sax.Locator;
 import org.w3c.dom.Node;

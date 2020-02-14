@@ -10,7 +10,7 @@
 
 package com.sun.xml.bind;
 
-import javax.xml.bind.ValidationEventLocator;
+import jakarta.xml.bind.ValidationEventLocator;
 
 /**
  * Defines additional accessor methods for the event source location.
@@ -24,7 +24,7 @@ import javax.xml.bind.ValidationEventLocator;
  * 
  * <h2>Usage</h2>
  * <p>
- * If you obtain a reference to {@link javax.xml.bind.ValidationEventLocator},
+ * If you obtain a reference to {@link jakarta.xml.bind.ValidationEventLocator},
  * check if you can cast it to {@link ValidationEventLocatorEx} first, like this:
  * <pre>
  * void foo( ValidationEvent e ) {

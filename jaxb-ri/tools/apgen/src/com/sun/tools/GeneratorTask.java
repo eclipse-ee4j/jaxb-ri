@@ -310,7 +310,7 @@ public class GeneratorTask extends Task {
     @Override
     public void execute() throws BuildException {
         if ((endorsedJars != null) && (!endorsedJars.isEmpty())) {
-            ClassLoader maskedLoader = new MaskingClassLoader(new AntClassLoader(project, classpath), "javax.xml.bind");
+            ClassLoader maskedLoader = new MaskingClassLoader(new AntClassLoader(project, classpath), "jakarta.xml.bind");
             URL[] jars = new URL[endorsedJars.size()];
             userLoader = new URLClassLoader(endorsedJars.toArray(jars), maskedLoader);
         } else {

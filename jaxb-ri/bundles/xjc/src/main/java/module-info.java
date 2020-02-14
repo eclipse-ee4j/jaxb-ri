@@ -21,10 +21,10 @@ module com.sun.tools.xjc {
 
     requires transitive jakarta.activation;
 
-    requires transitive java.xml.bind;
+    requires transitive jakarta.xml.bind;
     requires transitive com.sun.xml.bind;
 
-    opens com.sun.tools.xjc.reader.xmlschema.bindinfo to java.xml.bind;
+    opens com.sun.tools.xjc.reader.xmlschema.bindinfo to jakarta.xml.bind;
 
     exports com.sun.tools.xjc;
     exports com.sun.tools.xjc.api;

@@ -24,13 +24,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.xml.XMLConstants;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.UnmarshalException;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.ValidationEvent;
-import javax.xml.bind.ValidationEventHandler;
-import javax.xml.bind.ValidationEventLocator;
-import javax.xml.bind.helpers.ValidationEventImpl;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.UnmarshalException;
+import jakarta.xml.bind.Unmarshaller;
+import jakarta.xml.bind.ValidationEvent;
+import jakarta.xml.bind.ValidationEventHandler;
+import jakarta.xml.bind.ValidationEventLocator;
+import jakarta.xml.bind.helpers.ValidationEventImpl;
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.namespace.QName;
 

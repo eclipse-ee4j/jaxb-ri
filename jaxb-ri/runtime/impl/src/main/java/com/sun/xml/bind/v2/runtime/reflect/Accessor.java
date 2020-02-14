@@ -22,8 +22,8 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 import com.sun.istack.Nullable;
 import com.sun.xml.bind.api.AccessorException;
@@ -147,7 +147,7 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
             javax.xml.datatype.Duration.class,
             javax.xml.datatype.XMLGregorianCalendar.class,
             java.awt.Image.class,
-            javax.activation.DataHandler.class,
+            jakarta.activation.DataHandler.class,
             javax.xml.transform.Source.class,
             java.util.Date.class,
             java.io.File.class,

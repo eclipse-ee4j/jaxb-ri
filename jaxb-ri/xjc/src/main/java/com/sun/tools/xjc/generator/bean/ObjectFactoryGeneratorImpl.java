@@ -14,8 +14,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.annotation.XmlInlineBinaryData;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.annotation.XmlInlineBinaryData;
 import javax.xml.namespace.QName;
 
 import com.sun.codemodel.JClass;

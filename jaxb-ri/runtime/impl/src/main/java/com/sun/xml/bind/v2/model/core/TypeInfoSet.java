@@ -12,9 +12,9 @@ package com.sun.xml.bind.v2.model.core;
 
 import java.util.Map;
 
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.annotation.XmlSchema;
-import javax.xml.bind.annotation.XmlNsForm;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.annotation.XmlSchema;
+import jakarta.xml.bind.annotation.XmlNsForm;
 import javax.xml.namespace.QName;
 import javax.xml.transform.Result;
 

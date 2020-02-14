@@ -13,7 +13,7 @@ package com.sun.xml.bind.v2.model.impl;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import javax.xml.bind.annotation.XmlElementDecl;
+import jakarta.xml.bind.annotation.XmlElementDecl;
 
 import com.sun.xml.bind.v2.model.annotation.Locatable;
 import com.sun.xml.bind.v2.model.annotation.MethodLocatable;

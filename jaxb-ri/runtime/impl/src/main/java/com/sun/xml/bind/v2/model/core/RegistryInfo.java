@@ -12,7 +12,7 @@ package com.sun.xml.bind.v2.model.core;
 
 import java.util.Set;
 
-import javax.xml.bind.annotation.XmlRegistry;
+import jakarta.xml.bind.annotation.XmlRegistry;
 
 /**
  * Represents the information in a class with {@link XmlRegistry} annotaion.

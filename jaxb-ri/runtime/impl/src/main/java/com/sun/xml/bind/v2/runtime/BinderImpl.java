@@ -10,11 +10,11 @@
 
 package com.sun.xml.bind.v2.runtime;
 
-import javax.xml.bind.Binder;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.PropertyException;
-import javax.xml.bind.ValidationEventHandler;
+import jakarta.xml.bind.Binder;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.PropertyException;
+import jakarta.xml.bind.ValidationEventHandler;
 import javax.xml.validation.Schema;
 import javax.xml.namespace.QName;
 

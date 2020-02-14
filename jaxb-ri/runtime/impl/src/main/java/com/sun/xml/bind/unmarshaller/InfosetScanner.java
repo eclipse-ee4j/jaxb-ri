@@ -10,7 +10,7 @@
 
 package com.sun.xml.bind.unmarshaller;
 
-import javax.xml.bind.Binder;
+import jakarta.xml.bind.Binder;
 
 import com.sun.xml.bind.v2.runtime.unmarshaller.LocatorEx;
 

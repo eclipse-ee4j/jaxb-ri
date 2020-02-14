@@ -9,7 +9,7 @@
  */
 
 module com.sun.xml.bind {
-    requires transitive java.xml.bind;
+    requires transitive jakarta.xml.bind;
     requires java.compiler;
     requires java.desktop;
     requires java.logging;
@@ -54,5 +54,5 @@ module com.sun.xml.bind {
             com.sun.xml.ws,
             com.sun.tools.ws;
 
-    provides javax.xml.bind.JAXBContextFactory with com.sun.xml.bind.v2.JAXBContextFactory;
+    provides jakarta.xml.bind.JAXBContextFactory with com.sun.xml.bind.v2.JAXBContextFactory;
 }

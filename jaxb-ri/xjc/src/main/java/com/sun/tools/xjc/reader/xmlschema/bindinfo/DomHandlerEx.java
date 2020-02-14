@@ -10,8 +10,8 @@
 
 package com.sun.tools.xjc.reader.xmlschema.bindinfo;
 
-import javax.xml.bind.ValidationEventHandler;
-import javax.xml.bind.annotation.DomHandler;
+import jakarta.xml.bind.ValidationEventHandler;
+import jakarta.xml.bind.annotation.DomHandler;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Source;
 import javax.xml.transform.dom.DOMSource;

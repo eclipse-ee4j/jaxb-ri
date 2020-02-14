@@ -10,7 +10,7 @@
 
 package com.sun.xml.bind.v2.model.core;
 
-import javax.xml.bind.annotation.XmlIDREF;
+import jakarta.xml.bind.annotation.XmlIDREF;
 
 import com.sun.xml.bind.v2.model.annotation.Locatable;
 

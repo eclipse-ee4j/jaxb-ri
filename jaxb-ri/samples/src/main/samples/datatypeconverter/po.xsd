@@ -151,8 +151,8 @@
                   </xsd:documentation>
                   <xsd:appinfo>
                     <jxb:javaType name="short"
-                                  parseMethod="javax.xml.bind.DatatypeConverter.parseShort"
-                                  printMethod="javax.xml.bind.DatatypeConverter.printShort"/>
+                                  parseMethod="jakarta.xml.bind.DatatypeConverter.parseShort"
+                                  printMethod="jakarta.xml.bind.DatatypeConverter.printShort"/>
                   </xsd:appinfo>
                 </xsd:annotation>
                 <xsd:restriction base="xsd:positiveInteger">
@@ -232,8 +232,8 @@
       </xsd:documentation>
       <xsd:appinfo>
         <jxb:javaType name="int"
-                      parseMethod="javax.xml.bind.DatatypeConverter.parseInt"
-                      printMethod="javax.xml.bind.DatatypeConverter.printInt"/>
+                      parseMethod="jakarta.xml.bind.DatatypeConverter.parseInt"
+                      printMethod="jakarta.xml.bind.DatatypeConverter.printInt"/>
       </xsd:appinfo>
     </xsd:annotation>
     <xsd:restriction base="xsd:integer">

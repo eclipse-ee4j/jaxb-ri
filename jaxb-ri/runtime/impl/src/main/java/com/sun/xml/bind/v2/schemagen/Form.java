@@ -10,7 +10,7 @@
 
 package com.sun.xml.bind.v2.schemagen;
 
-import javax.xml.bind.annotation.XmlNsForm;
+import jakarta.xml.bind.annotation.XmlNsForm;
 import javax.xml.namespace.QName;
 
 import com.sun.xml.bind.v2.schemagen.xmlschema.LocalAttribute;

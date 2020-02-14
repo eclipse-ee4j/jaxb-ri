@@ -15,8 +15,8 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.Map;
 
-import javax.activation.MimeType;
-import javax.xml.bind.annotation.W3CDomHandler;
+import jakarta.activation.MimeType;
+import jakarta.xml.bind.annotation.W3CDomHandler;
 import javax.xml.namespace.QName;
 
 import com.sun.tools.xjc.model.nav.NClass;

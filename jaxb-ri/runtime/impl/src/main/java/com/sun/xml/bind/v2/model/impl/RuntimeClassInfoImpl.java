@@ -19,7 +19,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBException;
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamException;
 

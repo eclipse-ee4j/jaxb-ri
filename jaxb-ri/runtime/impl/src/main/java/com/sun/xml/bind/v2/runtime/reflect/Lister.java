@@ -28,7 +28,7 @@ import java.util.TreeSet;
 import java.util.Stack;
 import java.util.concurrent.Callable;
 
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBException;
 
 import com.sun.istack.SAXException2;
 import com.sun.xml.bind.api.AccessorException;

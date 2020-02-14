@@ -12,9 +12,9 @@ package com.sun.xml.bind.v2.model.impl;
 
 import java.util.Iterator;
 
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlEnumValue;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlEnumValue;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import javax.xml.namespace.QName;
 
 import com.sun.xml.bind.v2.model.annotation.Locatable;
@@ -25,7 +25,7 @@ import com.sun.xml.bind.v2.model.core.Element;
 import com.sun.xml.bind.v2.model.core.ClassInfo;
 import com.sun.xml.bind.v2.runtime.Location;
 import java.util.Collection;
-import javax.xml.bind.annotation.XmlSchemaType;
+import jakarta.xml.bind.annotation.XmlSchemaType;
 
 /**
  * {@link EnumLeafInfo} implementation.

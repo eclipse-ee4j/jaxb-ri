@@ -14,12 +14,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.xml.bind.annotation.W3CDomHandler;
-import javax.xml.bind.annotation.XmlList;
-import javax.xml.bind.annotation.XmlMixed;
-import javax.xml.bind.annotation.XmlNsForm;
-import javax.xml.bind.annotation.XmlValue;
-import javax.xml.bind.annotation.XmlInlineBinaryData;
+import jakarta.xml.bind.annotation.W3CDomHandler;
+import jakarta.xml.bind.annotation.XmlList;
+import jakarta.xml.bind.annotation.XmlMixed;
+import jakarta.xml.bind.annotation.XmlNsForm;
+import jakarta.xml.bind.annotation.XmlValue;
+import jakarta.xml.bind.annotation.XmlInlineBinaryData;
 import javax.xml.namespace.QName;
 
 import com.sun.codemodel.JAnnotatable;

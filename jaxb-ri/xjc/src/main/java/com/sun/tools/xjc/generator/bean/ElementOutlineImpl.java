@@ -11,7 +11,7 @@
 package com.sun.tools.xjc.generator.bean;
 
 
-import javax.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
 import com.sun.codemodel.JClass;

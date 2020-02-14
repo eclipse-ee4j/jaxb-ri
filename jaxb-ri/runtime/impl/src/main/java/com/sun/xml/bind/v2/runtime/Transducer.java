@@ -12,7 +12,7 @@ package com.sun.xml.bind.v2.runtime;
 
 import java.io.IOException;
 
-import javax.xml.bind.annotation.XmlValue;
+import jakarta.xml.bind.annotation.XmlValue;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamException;

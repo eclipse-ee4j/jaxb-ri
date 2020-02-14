@@ -12,8 +12,8 @@ import java.math.BigDecimal;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import javax.xml.bind.JAXB;
-import javax.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXB;
+import jakarta.xml.bind.JAXBElement;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;

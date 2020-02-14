@@ -15,9 +15,9 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.UnmarshallerHandler;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Unmarshaller;
+import jakarta.xml.bind.UnmarshallerHandler;
 import javax.xml.validation.ValidatorHandler;
 
 import com.sun.istack.NotNull;

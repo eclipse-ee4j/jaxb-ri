@@ -10,8 +10,8 @@
 
 package com.sun.tools.xjc.api.impl.s2j;
 
-import javax.xml.bind.annotation.XmlAttachmentRef;
-import javax.xml.bind.annotation.XmlList;
+import jakarta.xml.bind.annotation.XmlAttachmentRef;
+import jakarta.xml.bind.annotation.XmlList;
 
 import com.sun.codemodel.JAnnotatable;
 import com.sun.codemodel.JPrimitiveType;

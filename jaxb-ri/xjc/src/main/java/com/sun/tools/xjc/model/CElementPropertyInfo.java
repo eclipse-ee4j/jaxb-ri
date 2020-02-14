@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.activation.MimeType;
+import jakarta.activation.MimeType;
 import javax.xml.namespace.QName;
 
 import com.sun.tools.xjc.model.nav.NClass;

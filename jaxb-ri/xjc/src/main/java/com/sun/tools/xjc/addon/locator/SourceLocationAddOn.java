@@ -12,7 +12,7 @@ package com.sun.tools.xjc.addon.locator;
 
 import java.io.IOException;
 
-import javax.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlTransient;
 
 import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JMod;

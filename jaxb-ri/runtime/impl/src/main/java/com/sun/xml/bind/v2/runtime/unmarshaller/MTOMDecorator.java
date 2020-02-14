@@ -10,8 +10,8 @@
 
 package com.sun.xml.bind.v2.runtime.unmarshaller;
 
-import javax.activation.DataHandler;
-import javax.xml.bind.attachment.AttachmentUnmarshaller;
+import jakarta.activation.DataHandler;
+import jakarta.xml.bind.attachment.AttachmentUnmarshaller;
 import javax.xml.namespace.NamespaceContext;
 
 import com.sun.xml.bind.v2.WellKnownNamespace;

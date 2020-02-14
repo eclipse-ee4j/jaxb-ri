@@ -13,7 +13,7 @@ package com.sun.xml.bind.v2.runtime;
 import java.awt.*;
 import java.io.IOException;
 
-import javax.activation.MimeType;
+import jakarta.activation.MimeType;
 import javax.xml.stream.XMLStreamException;
 
 import com.sun.xml.bind.api.AccessorException;

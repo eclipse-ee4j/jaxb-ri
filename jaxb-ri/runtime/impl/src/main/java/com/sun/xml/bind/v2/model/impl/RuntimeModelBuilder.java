@@ -15,7 +15,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.Map;
 
-import javax.activation.MimeType;
+import jakarta.activation.MimeType;
 
 import com.sun.xml.bind.WhiteSpaceProcessor;
 import com.sun.xml.bind.api.AccessorException;

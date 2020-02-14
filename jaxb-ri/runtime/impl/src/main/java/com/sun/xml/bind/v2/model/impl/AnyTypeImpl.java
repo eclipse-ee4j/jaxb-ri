@@ -11,7 +11,7 @@
 package com.sun.xml.bind.v2.model.impl;
 
 import javax.xml.namespace.QName;
-import javax.xml.bind.annotation.XmlIDREF;
+import jakarta.xml.bind.annotation.XmlIDREF;
 
 import com.sun.xml.bind.v2.runtime.Location;
 import com.sun.xml.bind.v2.model.core.NonElement;

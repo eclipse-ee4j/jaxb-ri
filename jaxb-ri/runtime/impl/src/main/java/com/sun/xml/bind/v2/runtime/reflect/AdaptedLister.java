@@ -10,8 +10,8 @@
 
 package com.sun.xml.bind.v2.runtime.reflect;
 
-import javax.xml.bind.annotation.adapters.XmlAdapter;
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.JAXBException;
 
 import com.sun.xml.bind.v2.runtime.Coordinator;
 import com.sun.xml.bind.v2.runtime.XMLSerializer;

@@ -12,9 +12,9 @@ package com.sun.xml.bind;
 
 import java.util.concurrent.Callable;
 
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.ValidationEventHandler;
-import javax.xml.bind.annotation.XmlIDREF;
+import jakarta.xml.bind.Unmarshaller;
+import jakarta.xml.bind.ValidationEventHandler;
+import jakarta.xml.bind.annotation.XmlIDREF;
 
 import org.xml.sax.SAXException;
 

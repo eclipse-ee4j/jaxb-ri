@@ -10,7 +10,7 @@
 
 package com.sun.xml.bind.v2.runtime.unmarshaller;
 
-import javax.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBElement;
 
 import com.sun.xml.bind.v2.runtime.reflect.TransducedAccessor;
 import com.sun.xml.bind.api.AccessorException;

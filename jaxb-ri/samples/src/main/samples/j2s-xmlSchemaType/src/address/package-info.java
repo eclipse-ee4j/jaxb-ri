@@ -11,4 +11,4 @@
 @XmlSchemaType(name="gMonthDay", type=javax.xml.datatype.XMLGregorianCalendar.class)
 package address;
 
-import javax.xml.bind.annotation.XmlSchemaType;
+import jakarta.xml.bind.annotation.XmlSchemaType;

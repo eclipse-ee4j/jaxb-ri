@@ -8,8 +8,8 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.Marshaller;
 
 import address.PurchaseOrderType;
 import address.USAddress;

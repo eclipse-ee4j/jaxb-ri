@@ -13,7 +13,7 @@ package com.sun.xml.bind;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBException;
 
 import com.sun.xml.bind.v2.runtime.reflect.Accessor;
 

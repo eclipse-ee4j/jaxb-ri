@@ -10,7 +10,7 @@
 
 package com.sun.xml.bind;
 
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
  * {@link XmlAdapter} useful for mapping interfaces.

@@ -13,7 +13,7 @@ package com.sun.xml.bind.v2.schemagen;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-import javax.xml.bind.SchemaOutputResolver;
+import jakarta.xml.bind.SchemaOutputResolver;
 import javax.xml.transform.Result;
 
 import com.sun.xml.bind.Utils;

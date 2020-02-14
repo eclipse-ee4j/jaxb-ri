@@ -12,7 +12,7 @@ package com.sun.xml.bind.v2.runtime.output;
 
 import java.io.IOException;
 
-import javax.xml.bind.attachment.AttachmentMarshaller;
+import jakarta.xml.bind.attachment.AttachmentMarshaller;
 import javax.xml.stream.XMLStreamException;
 
 import com.sun.xml.bind.v2.WellKnownNamespace;

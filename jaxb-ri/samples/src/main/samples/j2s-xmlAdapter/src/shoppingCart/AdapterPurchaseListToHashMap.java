@@ -18,7 +18,7 @@ package shoppingCart;
 import java.util.HashMap;
 import java.util.TreeMap;
 import java.util.Iterator;
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 /*
  *

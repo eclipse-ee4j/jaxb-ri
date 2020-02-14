@@ -10,8 +10,8 @@
 
 package com.sun.xml.bind.v2.model.impl;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlSchema;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlSchema;
 import javax.xml.namespace.QName;
 
 import com.sun.xml.bind.api.impl.NameConverter;

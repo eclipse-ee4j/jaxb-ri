@@ -10,8 +10,8 @@
 
 package address;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name="purchaseOrder",namespace="http://www.example.com/MYPO1")
 @XmlType(name="PurchaseOrderType")

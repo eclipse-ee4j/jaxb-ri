@@ -12,7 +12,7 @@ package com.sun.xml.bind.v2.runtime.reflect;
 
 import java.util.Iterator;
 
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBException;
 
 import org.xml.sax.SAXException;
 

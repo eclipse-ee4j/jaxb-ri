@@ -12,7 +12,7 @@ package com.sun.xml.bind.v2.runtime.unmarshaller;
 
 import java.util.Collection;
 
-import javax.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
 import com.sun.xml.bind.DatatypeConverterImpl;

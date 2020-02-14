@@ -10,8 +10,8 @@
 
 import java.io.File;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBElement;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.XMLReader;

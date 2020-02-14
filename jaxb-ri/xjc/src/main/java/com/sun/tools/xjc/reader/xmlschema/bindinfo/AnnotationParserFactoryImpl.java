@@ -10,10 +10,10 @@
 
 package com.sun.tools.xjc.reader.xmlschema.bindinfo;
 
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.UnmarshallerHandler;
-import javax.xml.bind.helpers.DefaultValidationEventHandler;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Unmarshaller;
+import jakarta.xml.bind.UnmarshallerHandler;
+import jakarta.xml.bind.helpers.DefaultValidationEventHandler;
 import javax.xml.validation.ValidatorHandler;
 
 import com.sun.tools.xjc.Options;

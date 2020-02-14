@@ -240,7 +240,7 @@
                                     *
                                 </Export-Package>
                                 <Import-Package>
-                                    javax.activation;version=!,
+                                    jakarta.activation;version=!,
                                     *
                                 </Import-Package>
                             </instructions>
@@ -288,7 +288,7 @@
                                     javax.xml.transform.dom,
                                     javax.xml.namespace,
                                     javax.imageio.stream,
-                                    javax.activation,
+                                    jakarta.activation,
                                     org.xml.sax.helpers,
                                     javax.xml.validation,
                                     org.w3c.dom,

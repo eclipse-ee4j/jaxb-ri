@@ -13,9 +13,9 @@ package com.sun.xml.bind.v2;
 import java.util.Arrays;
 import java.io.StringWriter;
 
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.annotation.adapters.HexBinaryAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.xml.namespace.QName;
 
 import com.sun.xml.bind.api.Bridge;

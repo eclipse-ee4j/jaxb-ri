@@ -12,7 +12,7 @@ package com.sun.tools.xjc.api;
 
 import java.io.IOException;
 
-import javax.xml.bind.SchemaOutputResolver;
+import jakarta.xml.bind.SchemaOutputResolver;
 import javax.xml.namespace.QName;
 import javax.xml.transform.Result;
 

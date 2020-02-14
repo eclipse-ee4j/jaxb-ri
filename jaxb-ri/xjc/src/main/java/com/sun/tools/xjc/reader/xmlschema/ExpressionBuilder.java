@@ -13,7 +13,7 @@ package com.sun.tools.xjc.reader.xmlschema;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.xml.bind.annotation.XmlAnyElement;
+import jakarta.xml.bind.annotation.XmlAnyElement;
 import javax.xml.namespace.QName;
 
 import com.sun.tools.xjc.reader.gbind.Choice;

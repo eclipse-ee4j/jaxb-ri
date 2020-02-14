@@ -327,7 +327,7 @@ public class ACTask extends Task {
     /**
      * Process a file.
      *
-     * @param name such as "javax/xml/bind/Abc.class"
+     * @param name such as "jakarta/xml/bind/Abc.class"
      */
     private void process(String name, long timestamp) {
         if (!name.endsWith(".class")) {

@@ -22,7 +22,7 @@ import javax.tools.JavaFileObject;
 import javax.tools.OptionChecker;
 import javax.tools.StandardJavaFileManager;
 import javax.tools.ToolProvider;
-import javax.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBContext;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

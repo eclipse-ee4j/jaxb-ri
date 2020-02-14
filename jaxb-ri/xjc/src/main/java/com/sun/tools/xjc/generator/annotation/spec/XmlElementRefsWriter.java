@@ -10,7 +10,7 @@
 
 package com.sun.tools.xjc.generator.annotation.spec;
 
-import javax.xml.bind.annotation.XmlElementRefs;
+import jakarta.xml.bind.annotation.XmlElementRefs;
 import com.sun.codemodel.JAnnotationWriter;
 
 /**

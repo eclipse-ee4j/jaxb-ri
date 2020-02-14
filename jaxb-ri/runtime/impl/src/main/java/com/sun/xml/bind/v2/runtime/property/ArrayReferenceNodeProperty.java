@@ -12,8 +12,8 @@ package com.sun.xml.bind.v2.runtime.property;
 
 import java.io.IOException;
 
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.annotation.DomHandler;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.annotation.DomHandler;
 import javax.xml.stream.XMLStreamException;
 
 import com.sun.xml.bind.v2.ClassFactory;
