@@ -548,13 +548,100 @@
         </profile>
         <profile>
             <id>coverage</id>
+            <activation>
+                <property>
+                    <name>jacoco-build</name>
+                </property>
+            </activation>
+            <properties>
+                <jacoco.report.format>xml</jacoco.report.format>
+                <jacoco.version>0.8.3</jacoco.version>
+                <jacoco.skip>false</jacoco.skip>
+                <jacoco-agent.destfile>${basedir}/target/jacoco/jacoco.exec</jacoco-agent.destfile>
+            </properties>
+            <dependencies>
+                <!-- jacoco library -->
+                <dependency>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>org.jacoco.agent</artifactId>
+                    <version>${jacoco.version}</version>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>oro</groupId>
+                            <artifactId>oro</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>asm</groupId>
+                            <artifactId>asm</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>asm</groupId>
+                            <artifactId>asm-tree</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>log4j</groupId>
+                            <artifactId>log4j</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+                <dependency>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>org.jacoco.agent</artifactId>
+                    <classifier>runtime</classifier>
+                    <version>${jacoco.version}</version>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>oro</groupId>
+                            <artifactId>oro</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>asm</groupId>
+                            <artifactId>asm</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>asm</groupId>
+                            <artifactId>asm-tree</artifactId>
+                        </exclusion>
+                        <exclusion>
+                            <groupId>log4j</groupId>
+                            <artifactId>log4j</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+                <!-- needed for jacoco-instrument ant task to work
+                and to not be included in assemblies/shaded jars -->
+                <dependency>
+                    <groupId>oro</groupId>
+                    <artifactId>oro</artifactId>
+                    <version>2.0.8</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>asm</groupId>
+                    <artifactId>asm</artifactId>
+                    <version>3.3.1</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>asm</groupId>
+                    <artifactId>asm-tree</artifactId>
+                    <version>3.3.1</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                    <version>1.2.17</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
             <build>
                 <pluginManagement>
                     <plugins>
                         <plugin>
                             <groupId>org.jacoco</groupId>
                             <artifactId>jacoco-maven-plugin</artifactId>
-                            <version>0.8.5</version>
+                            <version>${jacoco.version}</version>
                         </plugin>
                     </plugins>
                 </pluginManagement>
