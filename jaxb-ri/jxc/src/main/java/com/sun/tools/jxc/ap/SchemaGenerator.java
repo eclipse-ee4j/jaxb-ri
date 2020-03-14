@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -40,6 +40,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.tools.FileObject;
 
 /**
  * {@link Processor} that implements the schema generator
@@ -93,10 +94,9 @@ public class SchemaGenerator extends AbstractProcessor {
                                 out = new FileOutputStream(file);
                             } else {
                                 // use the default
-                                file = new File(suggestedFileName);
-                                out = processingEnv.getFiler().createResource(StandardLocation.CLASS_OUTPUT, "", suggestedFileName)
-                                        .openOutputStream();
-                                file = file.getAbsoluteFile();
+                                FileObject fo = processingEnv.getFiler().createResource(StandardLocation.CLASS_OUTPUT, "", suggestedFileName);
+                                out = fo.openOutputStream();
+                                file = new File(fo.toUri()).getAbsoluteFile();
                             }
 
                             StreamResult ss = new StreamResult(out);
