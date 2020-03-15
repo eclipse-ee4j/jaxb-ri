@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -38,7 +38,7 @@ import java.util.HashMap;
  *
  * <p>
  * <b>Subject to change without notice</b>.
- * 
+ *
  * @since 2.0 EA1
  * @author
  *     Kohsuke Kawaguchi (kohsuke.kawaguchi@sun.com)
@@ -120,9 +120,9 @@ public abstract class JAXBRIContext extends JAXBContext {
        @Nullable Map<Class,Class> subclassReplacements,
        @Nullable String defaultNamespaceRemap, boolean c14nSupport,
        @Nullable RuntimeAnnotationReader ar,
-       boolean xmlAccessorFactorySupport, 
-       boolean allNillable, 
-       boolean retainPropertyInfo, 
+       boolean xmlAccessorFactorySupport,
+       boolean allNillable,
+       boolean retainPropertyInfo,
        boolean supressAccessorWarnings) throws JAXBException {
         Map<String, Object> properties = new HashMap<String, Object>();
         if (typeRefs != null) properties.put(JAXBRIContext.TYPE_REFERENCES, typeRefs);
@@ -512,7 +512,7 @@ public abstract class JAXBRIContext extends JAXBContext {
 
     /**
      * If true XML security features when parsing XML documents will be disabled.
-     * The default value is false. 
+     * The default value is false.
      *
      * Boolean
      * @since 2.2.6
@@ -527,5 +527,14 @@ public abstract class JAXBRIContext extends JAXBContext {
      * @since 2.3.0
      */
     public static final String BACKUP_WITH_PARENT_NAMESPACE = "com.sun.xml.bind.backupWithParentNamespace";
+
+    /**
+     * The maximum number of errors to report. Use negative value to report all errors.
+     * The default value is 10.
+     *
+     * Boolean
+     * @since 2.3.3
+     */
+    public static final String MAX_ERRORS = "com.sun.xml.bind.maxErrorsCount";
 
 }

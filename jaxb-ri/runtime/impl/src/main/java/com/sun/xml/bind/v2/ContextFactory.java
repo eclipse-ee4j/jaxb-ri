@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -114,6 +114,11 @@ public class ContextFactory {
             throw new JAXBException(Messages.INVALID_TYPE_IN_MAP.format(),e);
         }
 
+        Integer maxErrorsCount = getPropertyValue(properties, JAXBRIContext.MAX_ERRORS, Integer.class);
+        if (maxErrorsCount == null) {
+            maxErrorsCount = 10;
+        }
+
         if(!properties.isEmpty()) {
             throw new JAXBException(Messages.UNSUPPORTED_PROPERTY.format(properties.keySet().iterator().next()));
         }
@@ -132,6 +137,7 @@ public class ContextFactory {
         builder.setImprovedXsiTypeHandling(improvedXsiTypeHandling);
         builder.setDisableSecurityProcessing(disablesecurityProcessing);
         builder.setBackupWithParentNamespace(backupWithParentNamespace);
+        builder.setMaxErrorsCount(maxErrorsCount);
         return builder.build();
     }
 
