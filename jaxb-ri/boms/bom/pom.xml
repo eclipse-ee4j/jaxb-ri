@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2013, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,7 +18,7 @@
     <parent>
         <groupId>org.eclipse.ee4j</groupId>
         <artifactId>project</artifactId>
-        <version>1.0.5</version>
+        <version>1.0.6</version>
         <relativePath/>
     </parent>
 
@@ -31,13 +31,13 @@
     <description>JAXB Bill of Materials (BOM)</description>
 
     <properties>
-        <jaxb-api.version>2.3.2</jaxb-api.version>
+        <jaxb-api.version>2.3.3</jaxb-api.version>
         <jaxb-api-osgi.version>2.3</jaxb-api-osgi.version>
         <istack.version>3.0.10</istack.version>
         <fastinfoset.version>1.2.17</fastinfoset.version>
         <stax-ex.version>1.8.2</stax-ex.version>
 
-        <jakarta.activation.version>1.2.1</jakarta.activation.version>
+        <jakarta.activation.version>1.2.2</jakarta.activation.version>
     </properties>
 
     <dependencyManagement>
