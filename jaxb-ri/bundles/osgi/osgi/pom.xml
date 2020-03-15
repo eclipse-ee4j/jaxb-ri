@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2013, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -201,7 +201,17 @@
                                     <directory>${dep.sources}</directory>
                                     <excludes>
                                         <exclude>**/*.java</exclude>
+                                        <exclude>com/sun/tools/jxc/MessageBundle*.properties</exclude>
+                                        <exclude>com/sun/tools/xjc/MessageBundle*.properties</exclude>
                                     </excludes>
+                                </resource>
+                                <resource>
+                                    <directory>${dep.sources}</directory>
+                                    <includes>
+                                        <include>com/sun/tools/jxc/MessageBundle*.properties</include>
+                                        <include>com/sun/tools/xjc/MessageBundle*.properties</include>
+                                    </includes>
+                                    <filtering>true</filtering>
                                 </resource>
                                 <resource>
                                     <directory>${dep.sources}/com/sun/tools/xjc/runtime</directory>

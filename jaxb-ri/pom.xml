@@ -405,7 +405,6 @@
                             <getRevisionOnlyOnce>true</getRevisionOnlyOnce>
                             <shortRevisionLength>7</shortRevisionLength>
                             <revisionOnScmFailure>unknown</revisionOnScmFailure>
-                            <timestampFormat>{0,date,yyyy-MM-dd'T'HH:mm:ssZ}</timestampFormat>
                         </configuration>
                     </execution>
                 </executions>
