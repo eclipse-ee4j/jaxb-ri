@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,8 +24,10 @@ import java.nio.charset.CharsetEncoder;
  */
 public class EncoderFactory {
 
-    public static CharsetEncoder createEncoder( String encodin ) {
-        Charset cs = Charset.forName(System.getProperty("file.encoding"));
+    public static CharsetEncoder createEncoder( String encoding ) {
+        Charset cs = Charset.forName(encoding == null
+                ? System.getProperty("file.encoding")
+                : encoding);
         CharsetEncoder encoder = cs.newEncoder();
         return encoder;
     }
