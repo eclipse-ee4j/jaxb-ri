@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -227,14 +227,22 @@ public final class JAXBContextImpl extends JAXBRIContext {
     private Set<XmlNs> xmlNsSet = null;
 
     /**
-     * If true, despite the specification, unmarshall child element with parent namespace, if child namespace is not specified. 
+     * If true, despite the specification, unmarshall child element with parent namespace, if child namespace is not specified.
      * The default value is null for System {code}com.sun.xml.bind.backupWithParentNamespace{code} property to be used,
-     * and false is assumed if it's not set either. 
+     * and false is assumed if it's not set either.
      *
      * Boolean
      * @since 2.3.0
      */
     public Boolean backupWithParentNamespace = null;
+
+    /**
+     * The maximum number of errors unmarshall operation reports.  Use negative value to report all errors.
+     * The default value is 10.
+     *
+     * @since 2.3.3
+     */
+    public final int maxErrorsCount;
 
     /**
      * Returns declared XmlNs annotations (from package-level annotation XmlSchema
@@ -246,7 +254,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
     }
 
     private JAXBContextImpl(JAXBContextBuilder builder) throws JAXBException {
-        
+
         this.defaultNsUri = builder.defaultNsUri;
         this.retainPropertyInfo = builder.retainPropertyInfo;
         this.annotationReader = builder.annotationReader;
@@ -259,6 +267,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
         this.improvedXsiTypeHandling = builder.improvedXsiTypeHandling;
         this.disableSecurityProcessing = builder.disableSecurityProcessing;
         this.backupWithParentNamespace = builder.backupWithParentNamespace;
+        this.maxErrorsCount = builder.maxErrorsCount;
 
         Collection<TypeReference> typeRefs = builder.typeRefs;
 
@@ -391,7 +400,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
 
         // no use for them now
         nameBuilder = null;
-        beanInfos = null;        
+        beanInfos = null;
     }
 
     /**
@@ -679,15 +688,15 @@ public final class JAXBContextImpl extends JAXBRIContext {
     public int getNumberOfLocalNames() {
         return nameList.localNames.length;
     }
-    
+
     public int getNumberOfElementNames() {
         return nameList.numberOfElementNames;
     }
-    
+
     public int getNumberOfAttributeNames() {
         return nameList.numberOfAttributeNames;
     }
-    
+
     /**
      * Creates a new identity transformer.
      */
@@ -736,8 +745,8 @@ public final class JAXBContextImpl extends JAXBRIContext {
 
     public UnmarshallerImpl createUnmarshaller() {
         return new UnmarshallerImpl(this,null);
-    }    
-        
+    }
+
     public Validator createValidator() {
         throw new UnsupportedOperationException(Messages.NOT_IMPLEMENTED_IN_2_0.format());
     }
@@ -799,7 +808,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
             public void warning(SAXParseException exception) {
                 w[0] = exception;
             }
-            
+
             public void info(SAXParseException exception) {}
         });
 
@@ -991,7 +1000,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
         Class[] newList = new Class[classes.length+1];
         System.arraycopy(classes,0,newList,0,classes.length);
         newList[classes.length] = clazz;
-        
+
         JAXBContextBuilder builder = new JAXBContextBuilder(this);
         builder.setClasses(newList);
         return builder.build();
@@ -1021,6 +1030,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
         private boolean improvedXsiTypeHandling = true;
         private boolean disableSecurityProcessing = true;
         private Boolean backupWithParentNamespace = null; // null for System property to be used
+        private int maxErrorsCount;
 
         public JAXBContextBuilder() {};
 
@@ -1037,6 +1047,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
             this.allNillable = baseImpl.allNillable;
             this.disableSecurityProcessing = baseImpl.disableSecurityProcessing;
             this.backupWithParentNamespace = baseImpl.backupWithParentNamespace;
+            this.maxErrorsCount = baseImpl.maxErrorsCount;
         }
 
         public JAXBContextBuilder setRetainPropertyInfo(boolean val) {
@@ -1104,12 +1115,17 @@ public final class JAXBContextImpl extends JAXBRIContext {
             return this;
         }
 
+        public JAXBContextBuilder setMaxErrorsCount(int maxErrorsCount) {
+            this.maxErrorsCount = maxErrorsCount;
+            return this;
+        }
+
         public JAXBContextImpl build() throws JAXBException {
 
             // fool-proof
             if (this.defaultNsUri == null) {
                 this.defaultNsUri = "";
-            }   
+            }
 
             if (this.subclassReplacements == null) {
                 this.subclassReplacements = Collections.emptyMap();

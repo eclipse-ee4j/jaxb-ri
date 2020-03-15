@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -46,8 +46,6 @@ import com.sun.xml.bind.v2.runtime.AssociationMap;
 import com.sun.xml.bind.v2.runtime.Coordinator;
 import com.sun.xml.bind.v2.runtime.JAXBContextImpl;
 import com.sun.xml.bind.v2.runtime.JaxBeanInfo;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.Locator;
@@ -174,7 +172,7 @@ public final class UnmarshallingContext extends Coordinator
      *
      * volatile is required to ensure that concurrent threads will see changed value
      */
-    private static volatile int errorsCounter = 10;
+    private static volatile int errorsCounter;
 
     /**
      * State information for each element.
@@ -399,6 +397,7 @@ public final class UnmarshallingContext extends Coordinator
         this.parent = _parent;
         this.assoc = assoc;
         this.root = this.current = new State(null);
+        errorsCounter = _parent.context.maxErrorsCount;
     }
 
     public void reset(InfosetScanner scanner,boolean isInplaceMode, JaxBeanInfo expectedType, IDResolver idResolver) {
@@ -1319,6 +1318,10 @@ public final class UnmarshallingContext extends Coordinator
     public boolean shouldErrorBeReported() throws SAXException {
         if (logger.isLoggable(Level.FINEST))
             return true;
+
+        if (errorsCounter < 0) {
+            return true;
+        }
 
         if (errorsCounter >= 0) {
             --errorsCounter;
