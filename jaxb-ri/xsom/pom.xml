@@ -40,9 +40,9 @@
         <spotbugs.exclude>${project.basedir}/exclude-xsom.xml</spotbugs.exclude>
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>Low</spotbugs.threshold>
-        <spotbugs.version>3.1.12.2</spotbugs.version>
+        <spotbugs.version>4.0.0</spotbugs.version>
 
-        <relaxng.version>2.3.2</relaxng.version>
+        <relaxng.version>2.3.3-b02</relaxng.version>
         <upper.java.level>9</upper.java.level>
         <base.java.level>8</base.java.level>
     </properties>
@@ -77,12 +77,17 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>3.1.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.felix</groupId>
                     <artifactId>maven-bundle-plugin</artifactId>
                     <version>4.2.1</version>
+                    <configuration>
+                        <instructions>
+                            <_noextraheaders>true</_noextraheaders>
+                        </instructions>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -92,14 +97,20 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>3.2.0</version>
+                    <version>3.2.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>3.1.1</version>
+                    <version>3.2.0</version>
                     <configuration>
+                        <archive>
+                            <manifest>
+                                <addDefaultEntries>false</addDefaultEntries>
+                            </manifest>
+                        </archive>
                         <release>11</release>
+                        <notimestamp>true</notimestamp>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -147,7 +158,6 @@
                             ${spotbugs.exclude}
                         </excludeFilterFile>
                         <fork>true</fork>
-                        <jvmArgs>-Xms64m -Xmx256m</jvmArgs>
                     </configuration>
                 </plugin>
             </plugins>
@@ -168,33 +178,6 @@
                             <getRevisionOnlyOnce>true</getRevisionOnlyOnce>
                             <shortRevisionLength>7</shortRevisionLength>
                             <revisionOnScmFailure>false</revisionOnScmFailure>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.5</version>
-                <executions>
-                    <execution>
-                        <id>default-check</id>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                        <configuration>
-                            <rules>
-                                <rule>
-                                    <element>PACKAGE</element>
-                                    <limits>
-                                        <limit>
-                                            <counter>LINE</counter>
-                                            <value>COVEREDRATIO</value>
-                                            <minimum>0.45</minimum>
-                                        </limit>
-                                    </limits>
-                                </rule>
-                            </rules>
                         </configuration>
                     </execution>
                 </executions>
@@ -294,10 +277,11 @@
                                 <archive>
                                     <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
                                     <manifest>
+                                        <addDefaultEntries>false</addDefaultEntries>
                                         <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                                     </manifest>
                                     <manifestEntries>
-                                        <Implementation-Build-Id>${project.version} - ${scmBranch}-${buildNumber}</Implementation-Build-Id>
+                                        <Implementation-Build-Id>${project.version} - ${buildNumber}</Implementation-Build-Id>
                                     </manifestEntries>
                                 </archive>
                             </configuration>
@@ -310,10 +294,11 @@
                 <configuration>
                     <archive>
                         <manifest>
+                            <addDefaultEntries>false</addDefaultEntries>
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                         </manifest>
                         <manifestEntries>
-                            <Implementation-Build-Id>${project.version} - ${scmBranch}-${buildNumber}</Implementation-Build-Id>
+                            <Implementation-Build-Id>${project.version} - ${buildNumber}</Implementation-Build-Id>
                         </manifestEntries>
                     </archive>
                 </configuration>
@@ -328,7 +313,62 @@
             </plugin>
         </plugins>
     </build>
+
     <profiles>
+        <profile>
+            <id>coverage</id>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.jacoco</groupId>
+                            <artifactId>jacoco-maven-plugin</artifactId>
+                            <version>0.8.5</version>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>default-prepare-agent</id>
+                                <goals>
+                                    <goal>prepare-agent</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>default-check</id>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                                <configuration>
+                                    <rules>
+                                        <rule>
+                                            <element>PACKAGE</element>
+                                            <limits>
+                                                <limit>
+                                                    <counter>LINE</counter>
+                                                    <value>COVEREDRATIO</value>
+                                                    <minimum>0.45</minimum>
+                                                </limit>
+                                            </limits>
+                                        </rule>
+                                    </rules>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>default-report</id>
+                                <goals>
+                                    <goal>report</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
         <!--
 
         Sources in src/com/sun/xml/xsom/impl/parser/state are generated; the tool to generate those is in

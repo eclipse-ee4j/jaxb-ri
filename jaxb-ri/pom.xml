@@ -31,7 +31,7 @@
         Open source Implementation of Jakarta XML Binding (formerly JSR-222)
     </description>
 
-    <url>https://javaee.github.io/jaxb-v2/</url>
+    <url>https://eclipse-ee4j.github.io/jaxb-ri</url>
     <scm>
         <connection>scm:git:ssh://git@github.com/eclipse-ee4j/jaxb-ri</connection>
         <developerConnection>scm:git:ssh://git@github.com/eclipse-ee4j/jaxb-ri.git</developerConnection>
@@ -79,7 +79,7 @@
         <spotbugs.exclude/>
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>High</spotbugs.threshold>
-        <spotbugs.version>3.1.12.2</spotbugs.version>
+        <spotbugs.version>4.0.0</spotbugs.version>
 
         <junit.version>4.12</junit.version>
 
@@ -152,12 +152,22 @@
                     <groupId>org.apache.felix</groupId>
                     <artifactId>maven-bundle-plugin</artifactId>
                     <version>4.2.1</version>
+                    <configuration>
+                        <instructions>
+                            <_noextraheaders>true</_noextraheaders>
+                        </instructions>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>3.2.0</version>
                     <configuration>
+                        <archive>
+                            <manifest>
+                                <addDefaultEntries>false</addDefaultEntries>
+                            </manifest>
+                        </archive>
                         <excludes>
                             <exclude>META-INF/jpms.args</exclude>
                         </excludes>
@@ -189,7 +199,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>3.2.0</version>
+                    <version>3.2.1</version>
                     <configuration>
                         <archive>
                             <manifestEntries>
@@ -233,9 +243,15 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>3.1.1</version>
+                    <version>3.2.0</version>
                     <configuration>
+                        <archive>
+                            <manifest>
+                                <addDefaultEntries>false</addDefaultEntries>
+                            </manifest>
+                        </archive>
                         <release>11</release>
+                        <notimestamp>true</notimestamp>
                         <aggregate>false</aggregate>
                         <dependencySourceExcludes>
                             <dependencySourceExclude>com.sun.xml.bind:*</dependencySourceExclude>
@@ -247,7 +263,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>3.1.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.glassfish.copyright</groupId>
@@ -276,7 +292,6 @@
                             ${spotbugs.exclude}
                         </excludeFilterFile>
                         <fork>true</fork>
-                        <jvmArgs>-Xms64m -Xmx256m</jvmArgs>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -442,6 +457,9 @@
                         <id>default-jar</id>
                         <configuration>
                             <archive>
+                                <manifest>
+                                    <addDefaultEntries>false</addDefaultEntries>
+                                </manifest>
                                 <manifestEntries>
                                     <Specification-Title>Jakarta XML Binding</Specification-Title>
                                     <Specification-Version>${jaxb-api.majorVersion}.${jaxb-api.minorVersion}</Specification-Version>
@@ -472,6 +490,13 @@
                         <goals>
                             <goal>jar-no-fork</goal>
                         </goals>
+                        <configuration>
+                            <archive>
+                                <manifest>
+                                    <addDefaultEntries>false</addDefaultEntries>
+                                </manifest>
+                            </archive>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -554,7 +579,7 @@
             </activation>
             <properties>
                 <jacoco.report.format>xml</jacoco.report.format>
-                <jacoco.version>0.8.3</jacoco.version>
+                <jacoco.version>0.8.5</jacoco.version>
                 <jacoco.skip>false</jacoco.skip>
                 <jacoco-agent.destfile>${basedir}/target/jacoco/jacoco.exec</jacoco-agent.destfile>
             </properties>

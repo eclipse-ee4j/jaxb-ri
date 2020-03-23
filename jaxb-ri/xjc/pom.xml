@@ -187,6 +187,7 @@
                             <Multi-Release>true</Multi-Release>
                         </manifestEntries>
                         <manifest>
+                            <addDefaultEntries>false</addDefaultEntries>
                             <mainClass>com.sun.tools.xjc.XJCFacade</mainClass>
                         </manifest>
                     </archive>
