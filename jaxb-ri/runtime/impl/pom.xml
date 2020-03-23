@@ -127,7 +127,7 @@
                     <instructions>
                         <Implementation-Vendor>${vendor.name}</Implementation-Vendor>
                         <Implementation-Vendor-Id>${project.groupId}</Implementation-Vendor-Id>
-                        <Implementation-Build-Id>${project.version} - ${scmBranch}-${buildNumber}</Implementation-Build-Id>
+                        <Implementation-Build-Id>${project.version} - ${buildNumber}</Implementation-Build-Id>
                         <Multi-Release>true</Multi-Release>
                         <Import-Package>
                             javax.activation;version=!,

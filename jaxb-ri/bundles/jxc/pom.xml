@@ -284,6 +284,7 @@
                 <artifactId>maven-source-plugin</artifactId>
                 <configuration>
                     <archive>
+                        <!--<addDefaultEntries>false</addDefaultEntries>-->
                         <manifestEntries>
                             <Multi-Release>true</Multi-Release>
                         </manifestEntries>
