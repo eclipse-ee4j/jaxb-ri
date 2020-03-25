@@ -133,7 +133,7 @@
                     <forkCount>1</forkCount>
                     <reuseForks>true</reuseForks>
                     <argLine>
-                        --add-opens org.glassfish.jaxb.jxc/com.sun.tools.jxc.ap=ALL-UNNAMED
+                        @{argLine} --add-opens org.glassfish.jaxb.jxc/com.sun.tools.jxc.ap=ALL-UNNAMED
                         --add-opens org.glassfish.jaxb.jxc/com.sun.tools.jxc=ALL-UNNAMED
                         --module-path "${module.path}"
                         -Djdk.attach.allowAttachSelf

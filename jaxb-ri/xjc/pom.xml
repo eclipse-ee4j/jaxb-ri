@@ -152,7 +152,7 @@
                     <forkCount>1</forkCount>
                     <reuseForks>true</reuseForks>
                     <argLine>
-                        --add-exports org.glassfish.jaxb.xjc/com.sun.tools.xjc.outline=ALL-UNNAMED
+                        @{argLine} --add-exports org.glassfish.jaxb.xjc/com.sun.tools.xjc.outline=ALL-UNNAMED
                         --add-opens org.glassfish.jaxb.xjc/com.sun.tools.xjc.addon.code_injector=ALL-UNNAMED
                         -Djdk.attach.allowAttachSelf
                     </argLine>
