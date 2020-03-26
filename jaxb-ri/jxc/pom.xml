@@ -34,6 +34,12 @@
 
     <properties>
         <spotbugs.exclude>${project.basedir}/exclude-jxc.xml</spotbugs.exclude>
+        <argLine>
+            --add-opens org.glassfish.jaxb.jxc/com.sun.tools.jxc.ap=ALL-UNNAMED
+            --add-opens org.glassfish.jaxb.jxc/com.sun.tools.jxc=ALL-UNNAMED
+            --module-path "${module.path}"
+            -Djdk.attach.allowAttachSelf
+        </argLine>
     </properties>
 
     <dependencies>
@@ -132,12 +138,6 @@
                     </systemPropertyVariables>
                     <forkCount>1</forkCount>
                     <reuseForks>true</reuseForks>
-                    <argLine>
-                        --add-opens org.glassfish.jaxb.jxc/com.sun.tools.jxc.ap=ALL-UNNAMED
-                        --add-opens org.glassfish.jaxb.jxc/com.sun.tools.jxc=ALL-UNNAMED
-                        --module-path "${module.path}"
-                        -Djdk.attach.allowAttachSelf
-                    </argLine>
                 </configuration>
             </plugin>
             <plugin>
@@ -232,4 +232,24 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>coverage</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/ApNavigatorTest.java</exclude>
+                                <exclude>**/SchemaGeneratorTest.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
