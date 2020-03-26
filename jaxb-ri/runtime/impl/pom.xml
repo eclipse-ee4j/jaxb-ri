@@ -31,6 +31,14 @@
 
     <properties>
         <spotbugs.exclude>${project.basedir}/exclude-runtime.xml</spotbugs.exclude>
+        <argLine>
+            --add-opens org.glassfish.jaxb.runtime/com.sun.xml.bind.v2=java.xml.bind
+            --add-opens org.glassfish.jaxb.runtime/com.sun.xml.bind.v2.schemagen=java.xml.bind
+            --add-opens org.glassfish.jaxb.runtime/com.sun.xml.bind.v2.schemagen.xmlidref=java.xml.bind
+            --add-opens java.base/java.lang=org.glassfish.jaxb.runtime
+            --add-opens java.base/java.lang.reflect=org.glassfish.jaxb.runtime
+            --add-opens org.glassfish.jaxb.runtime/com.sun.xml.bind.v2.runtime.reflect.opt=java.xml.bind
+        </argLine>
     </properties>
 
     <dependencies>
@@ -160,14 +168,6 @@
                     <workingDirectory>target/test-out</workingDirectory>
                     <forkCount>1</forkCount>
                     <reuseForks>true</reuseForks>
-                    <argLine>
-                        @{argLine} --add-opens org.glassfish.jaxb.runtime/com.sun.xml.bind.v2=java.xml.bind
-                        --add-opens org.glassfish.jaxb.runtime/com.sun.xml.bind.v2.schemagen=java.xml.bind
-                        --add-opens org.glassfish.jaxb.runtime/com.sun.xml.bind.v2.schemagen.xmlidref=java.xml.bind
-                        --add-opens java.base/java.lang=org.glassfish.jaxb.runtime
-                        --add-opens java.base/java.lang.reflect=org.glassfish.jaxb.runtime
-                        --add-opens org.glassfish.jaxb.runtime/com.sun.xml.bind.v2.runtime.reflect.opt=java.xml.bind
-                    </argLine>
                 </configuration>
             </plugin>
 
