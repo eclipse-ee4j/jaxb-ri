@@ -284,8 +284,7 @@ public class ACTask extends Task {
      * Visits a jar fil and looks for classes that match the specified pattern.
      */
     private void processJar(File jarfile) {
-        try {
-            JarFile jar = new JarFile(jarfile);
+        try (JarFile jar = new JarFile(jarfile)) {
             for (Enumeration<JarEntry> en = jar.entries(); en.hasMoreElements();) {
                 JarEntry e = en.nextElement();
                 process(e.getName(), e.getTime());
