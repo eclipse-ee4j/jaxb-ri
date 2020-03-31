@@ -383,7 +383,6 @@
                                     *
                                 </Export-Package>
                                 <Import-Package>
-                                    jakarta.activation;version=!,
                                     javax.xml.catalog;resolution:=optional,
                                     *
                                 </Import-Package>

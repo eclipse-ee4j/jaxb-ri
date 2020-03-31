@@ -328,7 +328,6 @@
                                     jakarta.xml.bind.annotation.adapters;version=${jaxb-api-osgi.version},
                                     jakarta.xml.bind.attachment;version=${jaxb-api-osgi.version},
                                     jakarta.xml.bind.helpers;version=${jaxb-api-osgi.version},
-                                    jakarta.activation;version=!,
                                     javax.xml.catalog;resolution:=optional,
                                     com.sun.org.apache.xml.internal.resolver;resolution:=optional,
                                     com.sun.org.apache.xml.internal.resolver.tools;resolution:=optional,
