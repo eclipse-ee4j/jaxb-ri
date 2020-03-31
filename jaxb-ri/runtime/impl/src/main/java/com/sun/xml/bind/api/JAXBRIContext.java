@@ -17,11 +17,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.SchemaOutputResolver;
-import javax.xml.bind.annotation.XmlAttachmentRef;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.SchemaOutputResolver;
+import jakarta.xml.bind.annotation.XmlAttachmentRef;
 import javax.xml.namespace.QName;
 import javax.xml.transform.Result;
 
@@ -173,7 +173,7 @@ public abstract class JAXBRIContext extends JAXBContext {
      * Allows to retrieve the element name based on Class.
      * @param o
      * @return
-     * @throws javax.xml.bind.JAXBException
+     * @throws jakarta.xml.bind.JAXBException
      * @since 2.1.10
      */
     public abstract @Nullable QName getElementName(@NotNull Class o) throws JAXBException;

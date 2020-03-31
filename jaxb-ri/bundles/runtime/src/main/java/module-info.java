@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2019, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -9,7 +9,7 @@
  */
 
 module com.sun.xml.bind {
-    requires transitive java.xml.bind;
+    requires transitive jakarta.xml.bind;
     requires java.compiler;
     requires java.desktop;
     requires java.logging;
@@ -54,5 +54,5 @@ module com.sun.xml.bind {
             com.sun.xml.ws,
             com.sun.tools.ws;
 
-    provides javax.xml.bind.JAXBContextFactory with com.sun.xml.bind.v2.JAXBContextFactory;
+    provides jakarta.xml.bind.JAXBContextFactory with com.sun.xml.bind.v2.JAXBContextFactory;
 }

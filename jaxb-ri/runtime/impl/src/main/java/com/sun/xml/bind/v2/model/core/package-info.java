@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -44,9 +44,9 @@
 @XmlSchema(namespace="http://jaxb.dev.java.net/xjc/model",elementFormDefault=QUALIFIED)
 package com.sun.xml.bind.v2.model.core;
 
-import javax.xml.bind.annotation.XmlSchema;
+import jakarta.xml.bind.annotation.XmlSchema;
 
-import static javax.xml.bind.annotation.XmlNsForm.QUALIFIED;
+import static jakarta.xml.bind.annotation.XmlNsForm.QUALIFIED;
 
 
 

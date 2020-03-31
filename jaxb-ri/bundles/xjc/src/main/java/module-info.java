@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2019, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -21,10 +21,10 @@ module com.sun.tools.xjc {
 
     requires transitive jakarta.activation;
 
-    requires transitive java.xml.bind;
+    requires transitive jakarta.xml.bind;
     requires transitive com.sun.xml.bind;
 
-    opens com.sun.tools.xjc.reader.xmlschema.bindinfo to java.xml.bind;
+    opens com.sun.tools.xjc.reader.xmlschema.bindinfo to jakarta.xml.bind;
 
     exports com.sun.tools.xjc;
     exports com.sun.tools.xjc.api;

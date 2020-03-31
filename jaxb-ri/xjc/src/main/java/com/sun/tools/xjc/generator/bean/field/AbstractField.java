@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,12 +14,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.xml.bind.annotation.W3CDomHandler;
-import javax.xml.bind.annotation.XmlList;
-import javax.xml.bind.annotation.XmlMixed;
-import javax.xml.bind.annotation.XmlNsForm;
-import javax.xml.bind.annotation.XmlValue;
-import javax.xml.bind.annotation.XmlInlineBinaryData;
+import jakarta.xml.bind.annotation.W3CDomHandler;
+import jakarta.xml.bind.annotation.XmlList;
+import jakarta.xml.bind.annotation.XmlMixed;
+import jakarta.xml.bind.annotation.XmlNsForm;
+import jakarta.xml.bind.annotation.XmlValue;
+import jakarta.xml.bind.annotation.XmlInlineBinaryData;
 import javax.xml.namespace.QName;
 
 import com.sun.codemodel.JAnnotatable;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,8 +10,8 @@
 
 package com.sun.tools.xjc.runtime;
 
-import javax.xml.bind.DatatypeConverter;
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.DatatypeConverter;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
  * Serializes {@code boolean} as 0 or 1.

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -41,15 +41,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.MimeType;
-import javax.activation.MimeTypeParseException;
+import jakarta.activation.DataHandler;
+import jakarta.activation.DataSource;
+import jakarta.activation.MimeType;
+import jakarta.activation.MimeTypeParseException;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageWriter;
 import javax.imageio.stream.ImageOutputStream;
-import javax.xml.bind.ValidationEvent;
-import javax.xml.bind.helpers.ValidationEventImpl;
+import jakarta.xml.bind.ValidationEvent;
+import jakarta.xml.bind.helpers.ValidationEventImpl;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -555,7 +555,7 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
                             if (format != null) {
                                 return format(format, cal);
                             }
-                        } catch (javax.xml.bind.MarshalException e) {
+                        } catch (jakarta.xml.bind.MarshalException e) {
                             // see issue 649
                             xs.handleEvent(new ValidationEventImpl(ValidationEvent.WARNING, e.getMessage(),
                                 xs.getCurrentLocation(null) ));
@@ -882,7 +882,7 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
     }
 
 	private static void checkXmlGregorianCalendarFieldRef(QName type, 
-		XMLGregorianCalendar cal)throws javax.xml.bind.MarshalException{
+		XMLGregorianCalendar cal)throws jakarta.xml.bind.MarshalException{
 		StringBuilder buf = new StringBuilder();
 		int bitField = xmlGregorianCalendarFieldRef.get(type);
 		final int l = 0x1;
@@ -930,7 +930,7 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
 			}
 		}
 		if (buf.length() > 0){
-			throw new javax.xml.bind.MarshalException(
+			throw new jakarta.xml.bind.MarshalException(
 			 Messages.XMLGREGORIANCALENDAR_INVALID.format(type.getLocalPart()) 
 			 + buf.toString());
 		}

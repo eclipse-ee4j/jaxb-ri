@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,8 +10,8 @@
 
 package com.sun.xml.bind.v2;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
 import java.util.Map;
 
 /**
@@ -20,7 +20,7 @@ import java.util.Map;
  *
  * Redirects to {@link ContextFactory}, which is not removed due to compatibility reasons.
  */
-public class JAXBContextFactory implements javax.xml.bind.JAXBContextFactory {
+public class JAXBContextFactory implements jakarta.xml.bind.JAXBContextFactory {
 
     /**
      * Creates JAXB context.

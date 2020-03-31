@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,19 +16,19 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import javax.activation.MimeType;
-import javax.xml.bind.DatatypeConverter;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.ValidationEvent;
-import javax.xml.bind.ValidationEventHandler;
-import javax.xml.bind.ValidationEventLocator;
-import javax.xml.bind.annotation.DomHandler;
-import javax.xml.bind.annotation.XmlNs;
-import javax.xml.bind.attachment.AttachmentMarshaller;
-import javax.xml.bind.helpers.NotIdentifiableEventImpl;
-import javax.xml.bind.helpers.ValidationEventImpl;
-import javax.xml.bind.helpers.ValidationEventLocatorImpl;
+import jakarta.activation.MimeType;
+import jakarta.xml.bind.DatatypeConverter;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.ValidationEvent;
+import jakarta.xml.bind.ValidationEventHandler;
+import jakarta.xml.bind.ValidationEventLocator;
+import jakarta.xml.bind.annotation.DomHandler;
+import jakarta.xml.bind.annotation.XmlNs;
+import jakarta.xml.bind.attachment.AttachmentMarshaller;
+import jakarta.xml.bind.helpers.NotIdentifiableEventImpl;
+import jakarta.xml.bind.helpers.ValidationEventImpl;
+import jakarta.xml.bind.helpers.ValidationEventLocatorImpl;
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.transform.Source;

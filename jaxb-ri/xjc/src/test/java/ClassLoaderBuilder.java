@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBContext;
 
 import com.sun.istack.tools.MaskingClassLoader;
 import com.sun.istack.tools.ParallelWorldClassLoader;
@@ -46,7 +46,7 @@ class ClassLoaderBuilder {
             mustang = true;
 
             List mask = new ArrayList(Arrays.asList(maskedPackages));
-            mask.add("javax.xml.bind.");
+            mask.add("jakarta.xml.bind.");
 
             cl = new MaskingClassLoader(cl,mask);
 

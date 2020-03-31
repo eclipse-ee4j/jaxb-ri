@@ -355,7 +355,7 @@
                                     javax.tools,
                                     com.sun.org.apache.xml.internal.resolver,
                                     org.apache.tools.ant,
-                                    javax.activation,
+                                    jakarta.activation,
                                     javax.xml.transform,
                                     javax.xml
                                 </org.osgi.framework.system.packages.extra>
@@ -383,7 +383,7 @@
                                     *
                                 </Export-Package>
                                 <Import-Package>
-                                    javax.activation;version=!,
+                                    jakarta.activation;version=!,
                                     javax.xml.catalog;resolution:=optional,
                                     *
                                 </Import-Package>

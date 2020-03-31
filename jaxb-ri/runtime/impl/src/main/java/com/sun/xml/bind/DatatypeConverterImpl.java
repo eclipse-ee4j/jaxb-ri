@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -21,8 +21,8 @@ import java.util.Map;
 import java.util.TimeZone;
 import java.util.WeakHashMap;
 
-import javax.xml.bind.DatatypeConverter;
-import javax.xml.bind.DatatypeConverterInterface;
+import jakarta.xml.bind.DatatypeConverter;
+import jakarta.xml.bind.DatatypeConverterInterface;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.namespace.NamespaceContext;
@@ -44,7 +44,7 @@ import javax.xml.stream.XMLStreamWriter;
  *
  * @author <ul><li>Ryan Shoemaker, Martin Grebac</li></ul>
  * @since JAXB 1.0
- * @deprecated in JAXB 2.2.4 - use javax.xml.bind.DatatypeConverterImpl instead
+ * @deprecated in JAXB 2.2.4 - use jakarta.xml.bind.DatatypeConverterImpl instead
  * or let us know why you can't
  */
 @Deprecated

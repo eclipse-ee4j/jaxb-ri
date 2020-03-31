@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -22,13 +22,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.annotation.XmlAttachmentRef;
-import javax.xml.bind.annotation.XmlID;
-import javax.xml.bind.annotation.XmlIDREF;
-import javax.xml.bind.annotation.XmlMimeType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.annotation.XmlAttachmentRef;
+import jakarta.xml.bind.annotation.XmlID;
+import jakarta.xml.bind.annotation.XmlIDREF;
+import jakarta.xml.bind.annotation.XmlMimeType;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.xml.namespace.QName;
 
 import com.sun.codemodel.ClassType;
@@ -94,7 +94,7 @@ import com.sun.tools.xjc.model.CReferencePropertyInfo;
 public final class BeanGenerator implements Outline {
 
     /** JAXB module name. JAXB dependency is mandatory in generated Java module. */
-    private static final String JAXB_PACKAGE = "java.xml.bind";
+    private static final String JAXB_PACKAGE = "jakarta.xml.bind";
 
     /** Simplifies class/interface creation and collision detection. */
     private final CodeModelClassFactory codeModelClassFactory;

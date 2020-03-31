@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,14 +10,14 @@
 
 import java.io.File;
 import java.io.FileOutputStream;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
 import cardfile.BusinessCard;
 import cardfile.Address;
-import javax.xml.bind.ValidationEvent;
-import javax.xml.bind.util.ValidationEventCollector;
-import javax.xml.bind.ValidationEventLocator;
+import jakarta.xml.bind.ValidationEvent;
+import jakarta.xml.bind.util.ValidationEventCollector;
+import jakarta.xml.bind.ValidationEventLocator;
 import static javax.xml.XMLConstants.W3C_XML_SCHEMA_NS_URI;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Schema;

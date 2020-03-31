@@ -31,13 +31,12 @@
     <description>JAXB Bill of Materials (BOM)</description>
 
     <properties>
-        <jaxb-api.version>2.3.3</jaxb-api.version>
-        <jaxb-api-osgi.version>2.3</jaxb-api-osgi.version>
-        <istack.version>3.0.11</istack.version>
-        <fastinfoset.version>1.2.18</fastinfoset.version>
-        <stax-ex.version>1.8.3</stax-ex.version>
-
-        <jakarta.activation.version>1.2.2</jakarta.activation.version>
+        <jaxb-api.version>3.0.0-RC2</jaxb-api.version>
+        <jaxb-api-osgi.version>3.0</jaxb-api-osgi.version>
+        <istack.version>4.0.0-M1</istack.version>
+        <fastinfoset.version>2.0.0-M1</fastinfoset.version>
+        <stax-ex.version>2.0.0-M1</stax-ex.version>
+        <jakarta.activation.version>2.0.0-RC2</jakarta.activation.version>
     </properties>
 
     <dependencyManagement>

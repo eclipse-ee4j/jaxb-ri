@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,10 +10,10 @@
 
 package com.sun.xml.bind.api;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.ValidationEventHandler;
-import javax.xml.bind.annotation.XmlAnyElement;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.Unmarshaller;
+import jakarta.xml.bind.ValidationEventHandler;
+import jakarta.xml.bind.annotation.XmlAnyElement;
 
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;

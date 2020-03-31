@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,10 +10,10 @@
 
 package com.sun.tools.xjc.reader.xmlschema.bindinfo;
 
-import javax.xml.bind.DatatypeConverter;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.DatatypeConverter;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 import javax.xml.namespace.QName;
 
 import com.sun.codemodel.JClass;
@@ -206,7 +206,7 @@ public abstract class BIConversion extends AbstractDeclarationImpl {
             JMethod marshal = adapter.method(JMod.PUBLIC, String.class, "marshal");
             $value = marshal.param(bim,"value");
 
-            if(printMethod.startsWith("javax.xml.bind.DatatypeConverter.")) {
+            if(printMethod.startsWith("jakarta.xml.bind.DatatypeConverter.")) {
                 // UGLY: if this conversion is the system-driven conversion,
                 // check for null
                 marshal.body()._if($value.eq(JExpr._null()))._then()._return(JExpr._null());

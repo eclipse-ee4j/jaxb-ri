@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,7 +12,7 @@ package com.sun.xml.bind.v2.runtime.unmarshaller;
 
 import java.net.URL;
 
-import javax.xml.bind.ValidationEventLocator;
+import jakarta.xml.bind.ValidationEventLocator;
 
 import org.xml.sax.Locator;
 import org.w3c.dom.Node;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -338,7 +338,7 @@
             <listitem>
                 <para>
                     <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/608">JAXB-608</link>
-                    - javax.xml.bind.DatatypeConverter.parseBoolean incorrect
+                    - jakarta.xml.bind.DatatypeConverter.parseBoolean incorrect
                 </para>
             </listitem>
             <listitem>
@@ -574,7 +574,7 @@
                 <para>
                     <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/696">JAXB-696</link>
                     - Incorrect implementation/documentation of
-                    javax.xml.bind.annotation.adapters.NormalizedStringAdapter
+                    jakarta.xml.bind.annotation.adapters.NormalizedStringAdapter
                 </para>
             </listitem>
             <listitem>
@@ -634,7 +634,7 @@
             <listitem>
                 <para>
                     <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/824">JAXB-824</link>
-                    - API files in javax.xml.bind need to be updated for references to JLS with editions/hyperlinks
+                    - API files in jakarta.xml.bind need to be updated for references to JLS with editions/hyperlinks
                 </para>
             </listitem>
             <listitem>
@@ -1002,7 +1002,7 @@
             <listitem>
                 <para>
                     Bug fix:
-                    <link xlink:href="http://find.me/id/6483368">#6483368 javax.xml.bind.Binder.marshal() doesn't
+                    <link xlink:href="http://find.me/id/6483368">#6483368 jakarta.xml.bind.Binder.marshal() doesn't
                         throw expected MarshalException
                     </link>
                 </para>
@@ -1011,7 +1011,7 @@
                 <para>
                     Bug fix:
                     <link xlink:href="http://find.me/id/6483953">#6483953
-                        javax.xml.bind.Binder.getJAXBNode(null) doesn't throw documented exception
+                        jakarta.xml.bind.Binder.getJAXBNode(null) doesn't throw documented exception
                     </link>
                 </para>
             </listitem>
@@ -1216,7 +1216,7 @@
             <listitem>
                 <para>
                     Optimized binary data handling enabled by callbacks in
-                    package javax.xml.bind.attachment. Standards supported
+                    package jakarta.xml.bind.attachment. Standards supported
                     include MTOM/XOP and WS-I AP 1.0 ref:swaRef.
                 </para>
             </listitem>
@@ -1249,7 +1249,7 @@
             </listitem>
             <listitem>
                 <para>
-                    Implemented <literal>javax.xml.bind.Binder</literal>
+                    Implemented <literal>jakarta.xml.bind.Binder</literal>
                     support (not 100% done yet)
                 </para>
             </listitem>
@@ -1297,7 +1297,7 @@
             </listitem>
             <listitem>
                 <para>
-                    Addition of <literal>javax.xml.bind.annotation</literal>
+                    Addition of <literal>jakarta.xml.bind.annotation</literal>
                     package for controling the binding from Java to XML
                 </para>
             </listitem>

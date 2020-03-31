@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -310,7 +310,7 @@ public class GeneratorTask extends Task {
     @Override
     public void execute() throws BuildException {
         if ((endorsedJars != null) && (!endorsedJars.isEmpty())) {
-            ClassLoader maskedLoader = new MaskingClassLoader(new AntClassLoader(project, classpath), "javax.xml.bind");
+            ClassLoader maskedLoader = new MaskingClassLoader(new AntClassLoader(project, classpath), "jakarta.xml.bind");
             URL[] jars = new URL[endorsedJars.size()];
             userLoader = new URLClassLoader(endorsedJars.toArray(jars), maskedLoader);
         } else {

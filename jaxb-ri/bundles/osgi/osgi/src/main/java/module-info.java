@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2019, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,7 +10,7 @@
 
 module com.sun.xml.bind.osgi {
 
-    requires transitive java.xml.bind;
+    requires transitive jakarta.xml.bind;
     requires transitive jakarta.activation;
     requires transitive java.xml;
     requires java.compiler;
@@ -111,12 +111,12 @@ module com.sun.xml.bind.osgi {
     exports com.sun.tools.rngdatatype;
     exports com.sun.tools.rngdatatype.helpers;
 
-    opens com.sun.tools.xjc.reader.xmlschema.bindinfo to java.xml.bind;
+    opens com.sun.tools.xjc.reader.xmlschema.bindinfo to jakarta.xml.bind;
 
-    uses javax.xml.bind.JAXBContextFactory;
+    uses jakarta.xml.bind.JAXBContextFactory;
     uses com.sun.tools.xjc.Plugin;
 
-    provides javax.xml.bind.JAXBContextFactory with com.sun.xml.bind.v2.JAXBContextFactory;
+    provides jakarta.xml.bind.JAXBContextFactory with com.sun.xml.bind.v2.JAXBContextFactory;
     provides com.sun.tools.xjc.Plugin with
         com.sun.tools.xjc.addon.accessors.PluginImpl,
         com.sun.tools.xjc.addon.at_generated.PluginImpl,

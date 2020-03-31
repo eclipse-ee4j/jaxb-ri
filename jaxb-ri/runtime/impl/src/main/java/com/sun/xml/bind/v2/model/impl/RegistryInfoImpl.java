@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,7 +13,7 @@ package com.sun.xml.bind.v2.model.impl;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import javax.xml.bind.annotation.XmlElementDecl;
+import jakarta.xml.bind.annotation.XmlElementDecl;
 
 import com.sun.xml.bind.v2.model.annotation.Locatable;
 import com.sun.xml.bind.v2.model.annotation.MethodLocatable;

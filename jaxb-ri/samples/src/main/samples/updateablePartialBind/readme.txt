@@ -1,4 +1,4 @@
-This example illustrates the javax.xml.bind.Binder use cases mentioned in Section 4.8.1 of JAXB 2.0 Specification.
+This example illustrates the jakarta.xml.bind.Binder use cases mentioned in Section 4.8.1 of JAXB 2.0 Specification.
 
 - Updateable Partial Binding
 

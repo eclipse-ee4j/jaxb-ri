@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,7 +10,7 @@
 
 /**
  *  Illustrates the use of
- *  @javax.xml.bind.annotation.XmlType.propOrder() to customize the
+ *  @jakarta.xml.bind.annotation.XmlType.propOrder() to customize the
  *  ordering of properties.
  *
  *  $Id: USAddress.java,v 1.1 2007-12-05 00:49:36 kohsuke Exp $
@@ -18,7 +18,7 @@
  *  Author: Sekhar Vajjhala
  */  
 
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlType;
 
 @XmlType(propOrder={"name", "street", "city", "state",  "zip"})
 public class USAddress {

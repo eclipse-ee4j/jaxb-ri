@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,9 +18,9 @@
 
 package primer;
 
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.annotation.XmlElementDecl;
-import javax.xml.bind.annotation.XmlRegistry;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.annotation.XmlElementDecl;
+import jakarta.xml.bind.annotation.XmlRegistry;
 import javax.xml.namespace.QName;
 
 
@@ -92,7 +92,7 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link javax.xml.bind.JAXBElement }{@code <}{@link PurchaseOrderType }{@code >}}
+     * Create an instance of {@link jakarta.xml.bind.JAXBElement }{@code <}{@link PurchaseOrderType }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "", name = "purchaseOrder")
@@ -101,7 +101,7 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link javax.xml.bind.JAXBElement }{@code <}{@link String }{@code >}}
+     * Create an instance of {@link jakarta.xml.bind.JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "", name = "comment")
