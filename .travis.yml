@@ -21,6 +21,7 @@ cache:
     - $HOME/.m2
 
 install:
+  - curl -o $HOME/.m2/settings.xml https://gist.githubusercontent.com/lukasj/c176740acd96e255a84851277b9d9d14/raw/dca8d8be04acc614f0dd03dbee1891829250d857/jakarta-settings.xml
   - git fetch --unshallow
 
 script:
