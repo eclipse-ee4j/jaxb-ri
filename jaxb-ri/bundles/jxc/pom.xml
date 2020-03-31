@@ -254,10 +254,6 @@
                                     !META-INF.*,
                                     *
                                 </Export-Package>
-                                <Import-Package>
-                                    jakarta.activation;version=!,
-                                    *
-                                </Import-Package>
                             </instructions>
                         </configuration>
                     </execution>

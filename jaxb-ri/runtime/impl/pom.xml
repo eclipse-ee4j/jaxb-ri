@@ -137,10 +137,6 @@
                         <Implementation-Vendor-Id>${project.groupId}</Implementation-Vendor-Id>
                         <Implementation-Build-Id>${project.version} - ${buildNumber}</Implementation-Build-Id>
                         <Multi-Release>true</Multi-Release>
-                        <Import-Package>
-                            jakarta.activation;version=!,
-                            *
-                        </Import-Package>
                     </instructions>
                 </configuration>
                 <executions>
