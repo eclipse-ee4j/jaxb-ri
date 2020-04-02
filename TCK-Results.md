@@ -5,7 +5,7 @@ As required by the
 [Eclipse Foundation Technology Compatibility Kit License](https://www.eclipse.org/legal/tck.php),
 following is a summary of the TCK results for releases of Eclipse Implementation of JAXB.
 
-# 2.3.2 Certification Request
+# 2.3.3 Certification Request
 
 - [x] Organization Name ("Organization") and, if applicable, URL:<br/>
   [Eclipse Foundation](https://www.eclipse.org/)
