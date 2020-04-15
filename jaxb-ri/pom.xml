@@ -63,10 +63,10 @@
     <mailingLists>
         <mailingList>
             <name>Jakarta XML Binding Implementation mailing list</name>
-            <post>jaxb-dev@eclipse.org</post>
-            <subscribe>https://dev.eclipse.org/mailman/listinfo/jaxb-dev</subscribe>
-            <unsubscribe>https://dev.eclipse.org/mailman/listinfo/jaxb-dev</unsubscribe>
-            <archive>https://dev.eclipse.org/mhonarc/lists/jaxb-dev</archive>
+            <post>jaxb-impl-dev@eclipse.org</post>
+            <subscribe>https://accounts.eclipse.org/mailing-list/jaxb-impl-dev</subscribe>
+            <unsubscribe>https://accounts.eclipse.org/mailing-list/jaxb-impl-dev</unsubscribe>
+            <archive>https://accounts.eclipse.org/mailing-list/jaxb-impl-dev</archive>
         </mailingList>
     </mailingLists>
 
