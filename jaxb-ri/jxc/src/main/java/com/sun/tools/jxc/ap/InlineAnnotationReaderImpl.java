@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,10 +24,10 @@ import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.MirroredTypeException;
 import javax.lang.model.type.MirroredTypesException;
 import javax.lang.model.type.TypeMirror;
-import com.sun.xml.bind.v2.model.annotation.AbstractInlineAnnotationReaderImpl;
+import org.glassfish.jaxb.runtime.v2.model.annotation.AbstractInlineAnnotationReaderImpl;
 import com.sun.xml.bind.v2.model.annotation.AnnotationReader;
 import com.sun.xml.bind.v2.model.annotation.Locatable;
-import com.sun.xml.bind.v2.model.annotation.LocatableAnnotation;
+import org.glassfish.jaxb.runtime.v2.model.annotation.LocatableAnnotation;
 
 /**
  * {@link AnnotationReader} implementation that reads annotation inline from Annoation Processing.

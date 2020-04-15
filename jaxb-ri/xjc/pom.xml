@@ -47,12 +47,11 @@
         <dependency>
             <groupId>jakarta.activation</groupId>
             <artifactId>jakarta.activation-api</artifactId>
-            <version>2.0.0-rc1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
-            <artifactId>jaxb-runtime</artifactId>
+            <artifactId>jaxb-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jmockit</groupId>
@@ -62,6 +61,11 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -141,7 +145,11 @@
                         </goals>
                         <configuration>
                             <outputDirectory>${project.build.directory}/xjctask-cp</outputDirectory>
-                            <includeArtifactIds>jakarta.activation,istack-commons-tools,istack-commons-runtime,jaxb-runtime,jakarta.xml.bind-api,codemodel,xsom,relaxng-datatype,rngom</includeArtifactIds>
+                            <includeArtifactIds>
+                                jakarta.activation,istack-commons-tools,istack-commons-runtime,
+                                jaxb-core,jaxb-runtime,jakarta.xml.bind-api,
+                                codemodel,xsom,relaxng-datatype,rngom
+                            </includeArtifactIds>
                         </configuration>
                     </execution>
                 </executions>

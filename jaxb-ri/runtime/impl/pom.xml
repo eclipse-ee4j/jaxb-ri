@@ -32,12 +32,12 @@
     <properties>
         <spotbugs.exclude>${project.basedir}/exclude-runtime.xml</spotbugs.exclude>
         <argLine>
-            --add-opens org.glassfish.jaxb.runtime/com.sun.xml.bind.v2=java.xml.bind
-            --add-opens org.glassfish.jaxb.runtime/com.sun.xml.bind.v2.schemagen=java.xml.bind
-            --add-opens org.glassfish.jaxb.runtime/com.sun.xml.bind.v2.schemagen.xmlidref=java.xml.bind
+            --add-opens org.glassfish.jaxb.runtime/org.glassfish.jaxb.runtime.v2=org.glassfish.jaxb.core
+            --add-opens org.glassfish.jaxb.runtime/org.glassfish.jaxb.runtime.v2.schemagen=org.glassfish.jaxb.core
+            --add-opens org.glassfish.jaxb.runtime/org.glassfish.jaxb.runtime.v2.schemagen.xmlidref=java.xml.bind
             --add-opens java.base/java.lang=org.glassfish.jaxb.runtime
             --add-opens java.base/java.lang.reflect=org.glassfish.jaxb.runtime
-            --add-opens org.glassfish.jaxb.runtime/com.sun.xml.bind.v2.runtime.reflect.opt=java.xml.bind
+            --add-opens org.glassfish.jaxb.runtime/org.glassfish.jaxb.runtime.v2.runtime.reflect.opt=org.glassfish.jaxb.core
         </argLine>
     </properties>
 
@@ -54,11 +54,7 @@
 
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>txw2</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.istack</groupId>
-            <artifactId>istack-commons-runtime</artifactId>
+            <artifactId>jaxb-core</artifactId>
         </dependency>
 
         <dependency>
@@ -178,6 +174,7 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <trimStackTrace>false</trimStackTrace>
                     <systemProperties>
                         <property>
                             <name>java.util.logging.config.file</name>
@@ -185,10 +182,10 @@
                         </property>
                     </systemProperties>
                     <argLine>
-                        --add-opens java.base/java.lang=com.sun.xml.bind
-                        --add-opens org.glassfish.jaxb.runtime/com.sun.xml.bind.v2=jakarta.xml.bind
-                        --add-opens org.glassfish.jaxb.runtime/com.sun.xml.bind.v2.schemagen=jakarta.xml.bind
-                        --add-opens org.glassfish.jaxb.runtime/com.sun.xml.bind.v2.schemagen.xmlidref=jakarta.xml.bind
+                        --add-opens java.base/java.lang=org.glassfish.runtime
+                        --add-opens org.glassfish.jaxb.runtime/org.glassfish.jaxb.runtime.v2=jakarta.xml.bind
+                        --add-opens org.glassfish.jaxb.runtime/org.glassfish.jaxb.runtime.v2.schemagen=jakarta.xml.bind
+                        --add-opens org.glassfish.jaxb.runtime/org.glassfish.jaxb.runtime.v2.schemagen.xmlidref=jakarta.xml.bind
                     </argLine>
                     <includes>
                         <include>**/*TestMultiRelease.java</include>

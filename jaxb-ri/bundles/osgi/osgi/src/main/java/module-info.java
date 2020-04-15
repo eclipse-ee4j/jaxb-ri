@@ -8,6 +8,8 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
+import org.glassfish.jaxb.runtime.v2.JAXBContextFactory;
+
 module com.sun.xml.bind.osgi {
 
     requires transitive jakarta.xml.bind;
@@ -34,14 +36,26 @@ module com.sun.xml.bind.osgi {
     exports com.sun.xml.bind.v2.model.core;
     exports com.sun.xml.bind.v2.model.impl;
     exports com.sun.xml.bind.v2.model.nav;
-    exports com.sun.xml.bind.v2.model.runtime;
     exports com.sun.xml.bind.v2.model.util;
     exports com.sun.xml.bind.v2.runtime;
     exports com.sun.xml.bind.v2.runtime.unmarshaller;
-    exports com.sun.xml.bind.v2.schemagen;
     exports com.sun.xml.bind.v2.schemagen.episode;
-    exports com.sun.xml.bind.v2.schemagen.xmlschema;
     exports com.sun.xml.bind.v2.util;
+
+    exports org.glassfish.jaxb.runtime;
+    exports org.glassfish.jaxb.runtime.api;
+    exports org.glassfish.jaxb.runtime.marshaller;
+    exports org.glassfish.jaxb.runtime.unmarshaller;
+    exports org.glassfish.jaxb.runtime.util;
+    exports org.glassfish.jaxb.runtime.v2;
+    exports org.glassfish.jaxb.runtime.v2.model.annotation;
+    exports org.glassfish.jaxb.runtime.v2.model.impl;
+    exports org.glassfish.jaxb.runtime.v2.model.runtime;
+    exports org.glassfish.jaxb.runtime.v2.runtime;
+    exports org.glassfish.jaxb.runtime.v2.runtime.unmarshaller;
+    exports org.glassfish.jaxb.runtime.v2.schemagen;
+    exports org.glassfish.jaxb.runtime.v2.schemagen.xmlschema;
+    exports org.glassfish.jaxb.runtime.v2.util;
 
     exports com.sun.tools.xjc;
     exports com.sun.tools.xjc.reader;
@@ -116,7 +130,7 @@ module com.sun.xml.bind.osgi {
     uses jakarta.xml.bind.JAXBContextFactory;
     uses com.sun.tools.xjc.Plugin;
 
-    provides jakarta.xml.bind.JAXBContextFactory with com.sun.xml.bind.v2.JAXBContextFactory;
+    provides jakarta.xml.bind.JAXBContextFactory with JAXBContextFactory;
     provides com.sun.tools.xjc.Plugin with
         com.sun.tools.xjc.addon.accessors.PluginImpl,
         com.sun.tools.xjc.addon.at_generated.PluginImpl,

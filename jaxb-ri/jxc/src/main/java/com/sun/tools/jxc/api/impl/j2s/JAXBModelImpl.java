@@ -41,7 +41,7 @@ import com.sun.xml.bind.v2.model.core.NonElement;
 import com.sun.xml.bind.v2.model.core.Ref;
 import com.sun.xml.bind.v2.model.core.TypeInfoSet;
 import com.sun.xml.bind.v2.model.nav.Navigator;
-import com.sun.xml.bind.v2.schemagen.XmlSchemaGenerator;
+import org.glassfish.jaxb.runtime.v2.schemagen.XmlSchemaGenerator;
 import com.sun.xml.txw2.output.ResultFactory;
 
 /**

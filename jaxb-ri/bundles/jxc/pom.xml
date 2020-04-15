@@ -263,7 +263,7 @@
                     <archive>
                         <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
                         <manifestEntries>
-                            <Class-Path>jaxb-impl.jar jaxb-xjc.jar</Class-Path>
+                            <Class-Path>jaxb-core.jar jaxb-impl.jar jaxb-xjc.jar</Class-Path>
                             <Multi-Release>true</Multi-Release>
                         </manifestEntries>
                         <manifest>

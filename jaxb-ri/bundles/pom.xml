@@ -33,6 +33,7 @@
     </properties>
 
     <modules>
+        <module>core</module>
         <module>runtime</module>
         <module>xjc</module>
         <module>jxc</module>
