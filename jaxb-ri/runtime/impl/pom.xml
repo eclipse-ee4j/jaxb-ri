@@ -122,8 +122,6 @@
                                 <compileSourceRoot>${mrjar.sourceDirectory}/${upper.java.level}</compileSourceRoot>
                             </compileSourceRoots>
                             <outputDirectory>${project.build.outputDirectory}/META-INF/versions/${upper.java.level}</outputDirectory>
-                            <source>${upper.java.level}</source>
-                            <target>${upper.java.level}</target>
                         </configuration>
                     </execution>
                 </executions>

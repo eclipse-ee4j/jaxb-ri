@@ -217,8 +217,6 @@
                                 <compileSourceRoot>${dep.sources.mr}/META-INF/versions/9</compileSourceRoot>
                             </compileSourceRoots>
                             <outputDirectory>${project.build.outputDirectory}/META-INF/versions/${upper.java.level}</outputDirectory>
-                            <source>${upper.java.level}</source>
-                            <target>${upper.java.level}</target>
                         </configuration>
                     </execution>
                 </executions>
@@ -239,6 +237,11 @@
                                     !META-INF.*,
                                     *
                                 </Export-Package>
+                                <Import-Package>
+                                    sun.misc;resolution:=optional,
+                                    jdk.internal.misc;resolution:=optional,
+                                    *
+                                </Import-Package>
                             </instructions>
                         </configuration>
                     </execution>
