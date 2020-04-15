@@ -278,8 +278,6 @@
                                 <compileSourceRoot>${dep.sources.mr}/META-INF/versions/9</compileSourceRoot>
                             </compileSourceRoots>
                             <outputDirectory>${project.build.outputDirectory}/META-INF/versions/${upper.java.level}</outputDirectory>
-                            <source>${upper.java.level}</source>
-                            <target>${upper.java.level}</target>
                         </configuration>
                     </execution>
                 </executions>
@@ -337,6 +335,8 @@
                                     org.apache.tools.ant.taskdefs;resolution:=optional,
                                     org.apache.tools.ant.taskdefs.compilers;resolution:=optional,
                                     org.apache.tools.ant.types;resolution:=optional,
+                                    sun.misc;resolution:=optional,
+                                    jdk.internal.misc;resolution:=optional,
                                     *
                                 </Import-Package>
                             </instructions>
