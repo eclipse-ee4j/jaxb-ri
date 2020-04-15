@@ -31,6 +31,29 @@
         Schema as an input.
     </description>
 
+    <licenses>
+        <license>
+            <name>Eclipse Distribution License - v 1.0</name>
+            <url>http://www.eclipse.org/org/documents/edl-v10.php</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <issueManagement>
+        <system>github</system>
+        <url>https://github.com/eclipse-ee4j/jaxb-ri/issues</url>
+    </issueManagement>
+
+    <mailingLists>
+        <mailingList>
+            <name>Jakarta XML Binding Implementation mailing list</name>
+            <post>jaxb-impl-dev@eclipse.org</post>
+            <subscribe>https://accounts.eclipse.org/mailing-list/jaxb-impl-dev</subscribe>
+            <unsubscribe>https://accounts.eclipse.org/mailing-list/jaxb-impl-dev</unsubscribe>
+            <archive>https://accounts.eclipse.org/mailing-list/jaxb-impl-dev</archive>
+        </mailingList>
+    </mailingLists>
+
     <properties>
         <copyright.exclude>tools/config/copyright-exclude</copyright.exclude>
         <copyright.ignoreyear>false</copyright.ignoreyear>
