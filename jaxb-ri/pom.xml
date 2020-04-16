@@ -426,7 +426,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-<!--                <executions>
+                <executions>
                     <execution>
                         <id>base-compile</id>
                         <goals>
@@ -439,7 +439,7 @@
                             </excludes>
                         </configuration>
                     </execution>
-                </executions>-->
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
