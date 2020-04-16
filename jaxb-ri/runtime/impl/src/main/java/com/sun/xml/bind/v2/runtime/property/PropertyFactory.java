@@ -122,6 +122,9 @@ public abstract class PropertyFactory {
 
         RuntimeTypeInfo rti = types.iterator().next();
         if(!(rti instanceof RuntimeNonElement)) return false;
+	
+	//if hasSubClasses it's not a leaf and we can't optimize, see #1135
+        if (rti instanceof ClassInfo && ((ClassInfo) rti).hasSubClasses()) return false;
 
         if(info.id()==ID.IDREF)
             // IDREF is always handled as leaf -- Transducer maps IDREF String back to an object
