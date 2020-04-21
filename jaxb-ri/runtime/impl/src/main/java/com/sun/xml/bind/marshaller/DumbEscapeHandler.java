@@ -42,6 +42,12 @@ public class DumbEscapeHandler implements CharacterEscapeHandler {
             case '>':
                 out.write("&gt;");
                 break;
+            case '\r':
+                out.write("&#13;");
+                break;
+            case '\n':
+                out.write("&#10;");
+                break;
             case '\"':
                 if (isAttVal) {
                     out.write("&quot;");
