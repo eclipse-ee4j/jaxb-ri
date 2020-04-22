@@ -1,7 +1,10 @@
-remote_theme: jakartaee/jekyll-theme-jakarta-ee
+github: [metadata]
 
-title: [JAXB]
-description: [Java XML binding implementation]
+remote_theme: eclipsefdn/jekyll-theme-eclipsefdn
+#theme: jekyll-theme-eclipsefdn # for local use
+
+title: [Eclipse Implementation of Jakarta XML Binding]
+description: [Implementation of Jakarta XML Binding]
 
 links:
   source: https://github.com/eclipse-ee4j/jaxb-ri
