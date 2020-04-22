@@ -8,51 +8,32 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
+import org.glassfish.jaxb.runtime.v2.JAXBContextFactory;
+
 module com.sun.xml.bind {
-    requires transitive jakarta.xml.bind;
     requires java.compiler;
     requires java.desktop;
     requires java.logging;
 
-    requires transitive jakarta.activation;
-    requires transitive java.xml;
+    requires transitive com.sun.xml.bind.core;
 
     requires static com.sun.xml.fastinfoset;
     requires static org.jvnet.staxex;
 
-    exports com.sun.istack;
-    exports com.sun.istack.localization;
-    exports com.sun.istack.logging;
-    exports com.sun.xml.bind;
-    exports com.sun.xml.bind.annotation;
-    exports com.sun.xml.bind.api;
-    exports com.sun.xml.bind.api.impl;
-    exports com.sun.xml.bind.marshaller;
-    exports com.sun.xml.bind.unmarshaller;
-    exports com.sun.xml.bind.util;
-    exports com.sun.xml.bind.v2;
-    exports com.sun.xml.bind.v2.model.annotation;
-    exports com.sun.xml.bind.v2.model.core;
-    exports com.sun.xml.bind.v2.model.impl;
-    exports com.sun.xml.bind.v2.model.nav;
-    exports com.sun.xml.bind.v2.model.runtime;
-    exports com.sun.xml.bind.v2.model.util;
-    exports com.sun.xml.bind.v2.runtime;
-    exports com.sun.xml.bind.v2.runtime.unmarshaller;
-    exports com.sun.xml.bind.v2.schemagen;
-    exports com.sun.xml.bind.v2.schemagen.episode;
-    exports com.sun.xml.bind.v2.schemagen.xmlschema;
-    exports com.sun.xml.bind.v2.util;
+    exports org.glassfish.jaxb.runtime;
+    exports org.glassfish.jaxb.runtime.api;
+    exports org.glassfish.jaxb.runtime.marshaller;
+    exports org.glassfish.jaxb.runtime.unmarshaller;
+    exports org.glassfish.jaxb.runtime.util;
+    exports org.glassfish.jaxb.runtime.v2;
+    exports org.glassfish.jaxb.runtime.v2.model.annotation;
+    exports org.glassfish.jaxb.runtime.v2.model.impl;
+    exports org.glassfish.jaxb.runtime.v2.model.runtime;
+    exports org.glassfish.jaxb.runtime.v2.runtime;
+    exports org.glassfish.jaxb.runtime.v2.runtime.unmarshaller;
+    exports org.glassfish.jaxb.runtime.v2.schemagen;
+    exports org.glassfish.jaxb.runtime.v2.schemagen.xmlschema;
+    exports org.glassfish.jaxb.runtime.v2.util;
 
-    exports com.sun.xml.txw2;
-    exports com.sun.xml.txw2.annotation;
-    exports com.sun.xml.txw2.output;
-
-    opens com.sun.xml.bind.v2.model.nav to
-            com.sun.tools.xjc,
-            com.sun.xml.ws.rt,
-            com.sun.xml.ws,
-            com.sun.tools.ws;
-
-    provides jakarta.xml.bind.JAXBContextFactory with com.sun.xml.bind.v2.JAXBContextFactory;
+    provides jakarta.xml.bind.JAXBContextFactory with JAXBContextFactory;
 }

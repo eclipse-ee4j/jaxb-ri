@@ -559,7 +559,7 @@ public abstract class NamespacePrefixMapper {
                             <entry><emphasis role="bold">Property
                             name:</emphasis></entry>
 
-                            <entry><literal>com.sun.xml.bind.XmlAccessorFactory</literal></entry>
+                            <entry><literal>XmlAccessorFactory</literal></entry>
                         </row>
 
                         <row>
@@ -587,7 +587,7 @@ public abstract class NamespacePrefixMapper {
             <para>In JAXB 2.1, set the property to enable:</para>
 
             <informalexample>
-                <programlisting language="java"><![CDATA[marshaller.setProperty("com.sun.xml.bind.XmlAccessorFactory", true);]]></programlisting>
+                <programlisting language="java"><![CDATA[marshaller.setProperty("XmlAccessorFactory", true);]]></programlisting>
             </informalexample>
         </section>
     </section>

@@ -3,4 +3,4 @@ target/
 **/.settings
 **/.classpath
 **/.project
-**/.iml
+**/*.iml

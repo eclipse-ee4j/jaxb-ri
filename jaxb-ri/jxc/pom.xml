@@ -51,6 +51,11 @@
 
         <dependency>
             <groupId>${project.groupId}</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
             <artifactId>jaxb-xjc</artifactId>
         </dependency>
 
@@ -112,7 +117,12 @@
                         </goals>
                         <configuration>
                             <outputDirectory>${project.build.directory}/schemagen-cp</outputDirectory>
-                            <includeArtifactIds>jakarta.activation,jakarta.xml.bind-api,jaxb-runtime,jaxb-xjc,stax-ex,istack-commons-runtime,istack-commons-tools,dtd-parser,rngom,relaxng-datatype,xsom,codemodel,txw2</includeArtifactIds>
+                            <includeArtifactIds>
+                                jakarta.activation,jakarta.xml.bind-api,
+                                jaxb-core,jaxb-runtime,jaxb-xjc,
+                                stax-ex,istack-commons-runtime,istack-commons-tools,dtd-parser,
+                                rngom,relaxng-datatype,xsom,codemodel,txw2
+                            </includeArtifactIds>
                         </configuration>
                     </execution>
                     <execution>

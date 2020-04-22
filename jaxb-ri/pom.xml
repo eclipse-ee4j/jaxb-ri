@@ -502,6 +502,7 @@
         <module>xsom</module>
         <module>txw</module>
         <module>codemodel</module>
+        <module>core</module>
         <module>runtime</module>
         <module>xjc</module>
         <module>jxc</module>

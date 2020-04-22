@@ -34,7 +34,7 @@ import com.sun.tools.xjc.api.Reference;
 import com.sun.xml.bind.v2.model.core.ErrorHandler;
 import com.sun.xml.bind.v2.model.core.Ref;
 import com.sun.xml.bind.v2.model.core.TypeInfoSet;
-import com.sun.xml.bind.v2.model.impl.ModelBuilder;
+import org.glassfish.jaxb.runtime.v2.model.impl.ModelBuilder;
 import com.sun.xml.bind.v2.runtime.IllegalAnnotationException;
 
 /**

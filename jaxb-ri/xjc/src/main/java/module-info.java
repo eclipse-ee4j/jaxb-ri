@@ -25,7 +25,7 @@ module org.glassfish.jaxb.xjc {
     requires com.sun.tools.rngdatatype;
     requires transitive com.sun.codemodel;
     requires transitive jakarta.xml.bind;
-    requires transitive org.glassfish.jaxb.runtime;
+    requires transitive org.glassfish.jaxb.core;
     requires com.sun.istack.runtime;
     requires com.sun.istack.tools;
     requires transitive com.sun.xml.xsom;

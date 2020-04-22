@@ -23,39 +23,32 @@ module org.glassfish.jaxb.runtime {
     requires transitive jakarta.activation;
     requires transitive java.xml;
 
-    requires transitive com.sun.xml.txw2;
+    requires transitive org.glassfish.jaxb.core;
     requires static com.sun.xml.fastinfoset;
     requires static org.jvnet.staxex;
-    requires transitive com.sun.istack.runtime;
 
-    exports com.sun.xml.bind;
-    exports com.sun.xml.bind.annotation;
-    exports com.sun.xml.bind.api;
-    exports com.sun.xml.bind.api.impl;
-    exports com.sun.xml.bind.marshaller;
-    exports com.sun.xml.bind.unmarshaller;
-    exports com.sun.xml.bind.util;
-    exports com.sun.xml.bind.v2;
-    exports com.sun.xml.bind.v2.model.annotation;
-    exports com.sun.xml.bind.v2.model.core;
-    exports com.sun.xml.bind.v2.model.impl;
-    exports com.sun.xml.bind.v2.model.nav;
-    exports com.sun.xml.bind.v2.model.runtime;
-    exports com.sun.xml.bind.v2.model.util;
-    exports com.sun.xml.bind.v2.runtime;
-    exports com.sun.xml.bind.v2.runtime.unmarshaller;
-    exports com.sun.xml.bind.v2.schemagen;
-    exports com.sun.xml.bind.v2.schemagen.episode;
-    exports com.sun.xml.bind.v2.schemagen.xmlschema;
-    exports com.sun.xml.bind.v2.util;
+    exports org.glassfish.jaxb.runtime;
+    exports org.glassfish.jaxb.runtime.api;
+    exports org.glassfish.jaxb.runtime.marshaller;
+    exports org.glassfish.jaxb.runtime.unmarshaller;
+    exports org.glassfish.jaxb.runtime.util;
+    exports org.glassfish.jaxb.runtime.v2;
+    exports org.glassfish.jaxb.runtime.v2.model.annotation;
+    exports org.glassfish.jaxb.runtime.v2.model.impl;
+    exports org.glassfish.jaxb.runtime.v2.model.runtime;
+    exports org.glassfish.jaxb.runtime.v2.runtime;
+    exports org.glassfish.jaxb.runtime.v2.runtime.unmarshaller;
+    exports org.glassfish.jaxb.runtime.v2.schemagen;
+    exports org.glassfish.jaxb.runtime.v2.schemagen.xmlschema;
+    exports org.glassfish.jaxb.runtime.v2.util;
 
-    opens com.sun.xml.bind.v2.model.nav to org.glassfish.jaxb.xjc;
-    opens com.sun.xml.bind.v2.runtime.reflect.opt to jakarta.xml.bind;
-    opens com.sun.xml.bind.v2.schemagen to jakarta.xml.bind;
-    opens com.sun.xml.bind.v2.schemagen.xmlschema to jakarta.xml.bind;
-    opens com.sun.xml.bind.v2 to jakarta.xml.bind;
+    opens org.glassfish.jaxb.runtime.v2.runtime.reflect.opt to jakarta.xml.bind;
+    opens org.glassfish.jaxb.runtime.v2.schemagen to jakarta.xml.bind;
+    opens org.glassfish.jaxb.runtime.v2.schemagen.xmlschema to jakarta.xml.bind;
+    opens org.glassfish.jaxb.runtime.v2 to jakarta.xml.bind;
 
     uses jakarta.xml.bind.JAXBContextFactory;
 
-    provides jakarta.xml.bind.JAXBContextFactory with com.sun.xml.bind.v2.JAXBContextFactory;
+    provides jakarta.xml.bind.JAXBContextFactory
+            with org.glassfish.jaxb.runtime.v2.JAXBContextFactory;
 }
