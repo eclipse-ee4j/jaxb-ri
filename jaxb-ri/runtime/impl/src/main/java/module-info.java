@@ -8,8 +8,6 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-import org.glassfish.jaxb.runtime.v2.JAXBContextFactory;
-
 /**
  * The XML Binding (JAXB) RI modularization implementation.
  *
@@ -51,5 +49,6 @@ module org.glassfish.jaxb.runtime {
 
     uses jakarta.xml.bind.JAXBContextFactory;
 
-    provides jakarta.xml.bind.JAXBContextFactory with JAXBContextFactory;
+    provides jakarta.xml.bind.JAXBContextFactory
+            with org.glassfish.jaxb.runtime.v2.JAXBContextFactory;
 }

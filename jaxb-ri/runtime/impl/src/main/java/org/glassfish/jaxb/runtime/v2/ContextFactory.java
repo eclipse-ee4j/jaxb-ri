@@ -45,6 +45,7 @@ public class ContextFactory {
      * The API will invoke this method via reflection
      */
     public static JAXBContext createContext(Class[] classes, Map<String,Object> properties ) throws JAXBException {
+        MUtils.open(classes);
         // fool-proof check, and copy the map to make it easier to find unrecognized properties.
         if(properties==null)
             properties = Collections.emptyMap();
@@ -197,6 +198,7 @@ public class ContextFactory {
             Collection<TypeReference> typeRefs, Map<Class,Class> subclassReplacements,
             String defaultNsUri, boolean c14nSupport, RuntimeAnnotationReader ar,
             boolean xmlAccessorFactorySupport, boolean allNillable, boolean retainPropertyInfo, boolean improvedXsiTypeHandling) throws JAXBException {
+        MUtils.open(classes);
 
         JAXBContextImpl.JAXBContextBuilder builder = new JAXBContextImpl.JAXBContextBuilder();
         builder.setClasses(classes);
