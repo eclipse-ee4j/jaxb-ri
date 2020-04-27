@@ -1,1 +1,3 @@
-target/
+_site/
+*.lock
+.jekyll-metadata

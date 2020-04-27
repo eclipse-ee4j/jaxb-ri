@@ -1,0 +1,45 @@
+<!--
+  Copyright (c) 2018 Eclipse Foundation, Inc.
+
+  This program and the accompanying materials are made available under the
+  terms of the Eclipse Public License v. 2.0 which is available at
+  http://www.eclipse.org/legal/epl-2.0.
+
+  Contributors:
+    Christopher Guindon <chris.guindon@eclipse-foundation.org>
+
+  SPDX-License-Identifier: EPL-2.0
+-->
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: "en-US" }}">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link href="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/favicon.ico" rel='icon' type='image/x-icon'/>
+        <!-- Links and stylesheets -->
+        <link rel="stylesheet" href="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/stylesheets/quicksilver.min.css?v1.7">
+        <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
+        <link href="//fonts.googleapis.com/css?family=Libre+Franklin:400,700,300,600,100" rel="stylesheet" type="text/css"/>
+        <title>{{ page.title | default: site.title }}</title>
+        {% include google_tag_manager.html %}
+    </head>
+    <body>
+        {% include header-small.html %}
+        {% include breadcrumbs.html %}
+        <main>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-18 padding-bottom-30">
+                        {{ content }}
+                    </div>
+                    <div class="col-md-6  padding-bottom-30">
+                        {% include sidebar.html %}
+                    </div>
+                </div>
+            </div>
+        </main>
+        {% include footer.html %}
+    </body>
+</html>
