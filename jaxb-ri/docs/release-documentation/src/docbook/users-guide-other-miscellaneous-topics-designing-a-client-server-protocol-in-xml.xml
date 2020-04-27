@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -62,7 +62,7 @@
     <literal>protocol-version='1.0'</literal> attribute.) Once the
     <literal>&lt;conversation&gt;</literal> tag is written, multiple messages can be marshalled
     as a tree into the channel, possibly with a large time lag in between. You
-    can use the JAXB marshaller to produce such message. When the sender wants
+    can use the &binding.spec.name; marshaller to produce such message. When the sender wants
     to disconnect the channel, it can do so by sending the
     <literal>&lt;/conversation&gt;</literal> end tag, followed by the socket
     disconnection.</para>
@@ -73,8 +73,8 @@
     <para>The receiver would use the StAX API and use
     <literal>XMLStreamReader</literal> to read this stream. You'd have to use this
     to process the first <literal>&lt;conversation&gt;</literal> start tag. After that, every
-    time you call a JAXB unmarshaller, you'll get the next message.</para>
+    time you call a &binding.spec.name; unmarshaller, you'll get the next message.</para>
 
     <para>For the concrete code, see the <literal>xml-channel</literal> example in
-    the JAXB RI distribution.</para>
+    the &binding.impl.name; distribution.</para>
 </section>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,10 +27,10 @@
     <para><emphasis>Adding behaviors to the generated code is one area that
     still needs improvement. Your feedback is appreciated.</emphasis></para>
 
-    <para>Suppose if JAXB generated the following classes.</para>
+    <para>Suppose if &binding.impl.name; generated the following classes.</para>
 
     <example>
-        <title>Simple JAXB Generated Code</title>
+        <title>Simple &binding.impl.name; Generated Code</title>
 
         <programlisting language="java"><![CDATA[package org.acme.foo;
 
@@ -50,7 +50,7 @@ class ObjectFactory {
 
     <para>To add a behavior, first write a class that extends from
     <literal>Person</literal>. You also need to extend ObjectFactory to return this
-    new class. Notice that neither classes have any JAXB annotation, and I put
+    new class. Notice that neither classes have any &binding.spec.name; annotation, and I put
     them in a separate package. This is because we'd like
     <literal>PersonEx</literal> class to be used in place of <literal>Person</literal>,
     and we don't want <literal>PersonEx</literal> to be bound to its own XML

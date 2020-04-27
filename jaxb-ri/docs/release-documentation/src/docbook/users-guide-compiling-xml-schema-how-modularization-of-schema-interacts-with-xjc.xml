@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -46,7 +46,7 @@
         complex type and define it into namespace X and Y. In this case, one
         tends to hope that XJC will only give you one <literal>Foo</literal> class
         for this, but unfortunately because it's actually defined in two
-        namespaces, JAXB needs two Java classes to distinguish <literal>X:foo</literal> and
+        namespaces, &binding.spec.name; needs two Java classes to distinguish <literal>X:foo</literal> and
         <literal>Y:foo</literal>, so you'll get multiple copies.</para>
 
         <para>If you find this to be problematic, there are a few ways to work

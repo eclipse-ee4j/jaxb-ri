@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,30 +27,30 @@
     <section xml:id="section-3752096477276927">
         <title>Customizations</title>
 
-        <para>The JAXB RI provides additional customizations that are not
-        defined by the JAXB specification. Note the following:</para>
+        <para>The &binding.impl.name; provides additional customizations that are not
+        defined by the &binding.spec.name; specification. Note the following:</para>
 
         <itemizedlist>
             <listitem>
-                <para>These features may only be used when the JAXB XJC
+                <para>These features may only be used when the &binding.impl.name; XJC
                 binding compiler is run in the <option>-extension</option>
                 mode.</para>
             </listitem>
 
             <listitem>
-                <para>All of the JAXB RI vendor extensions are defined in the
+                <para>All of the &binding.impl.name; vendor extensions are defined in the
                 "<code>http://java.sun.com/xml/ns/jaxb/xjc</code>"
                 namespace.</para>
             </listitem>
 
             <listitem>
                 <para>The namespaces containing extension binding declarations
-                are specified to a JAXB processor by the occurrence of the
+                are specified to a &binding.impl.name; processor by the occurrence of the
                 global attribute <literal>@jaxb:extensionBindingPrefixes</literal>
                 within an instance of <literal>&lt;xs:schema&gt;</literal> element.
                 The value of this attribute is a whitespace-separated list of
                 namespace prefixes. For more information, please refer to
-                section 6.1.1 of the JAXB Specification.</para>
+                section 6.1.1 of the &binding.spec.name; Specification.</para>
             </listitem>
         </itemizedlist>
 
@@ -102,10 +102,10 @@
         <section xml:id="scd">
             <title>SCD Support</title>
 
-            <para>The JAXB RI supports the use of <link
+            <para>The &binding.impl.name; supports the use of <link
             xlink:href="http://www.w3.org/TR/2005/WD-xmlschema-ref-20050329/">schema
             component designator</link> as a means of specifying the
-            customization target (of all standard JAXB customizations as well
+            customization target (of all standard &binding.spec.name; customizations as well
             as vendor extensions explained below.) To use this feature, use
             the <literal>scd</literal> attribute on &lt;bindings&gt; element instead
             of the <literal>schemaLocation</literal> and <literal>node</literal>
@@ -381,15 +381,15 @@ public class Person {
 
             <para>Once again, readers are warned that this is an <emphasis
             role="bold">experimental binding mode</emphasis>, and therefore
-            the binding is subject to change in future versions of the JAXB RI
+            the binding is subject to change in future versions of the &binding.impl.name;
             without notice. Please send feedbacks on this binding to
-            <link xlink:href="https://javaee.groups.io/g/metro">https://javaee.groups.io/g/metro</link></para>
+            <link xlink:href="https://accounts.eclipse.org/mailing-list/jaxb-impl-dev">jaxb-impl-dev@eclipse.org</link></para>
         </section>
 
         <section xml:id="treatrestrictionlikenewtype">
             <title>Alternative Derivation-by-restriction Binding Mode</title>
 
-            <para>Normally, the JAXB specification requires that a
+            <para>Normally, the &binding.spec.name; specification requires that a
             derivation-by-restriction be mapped to an inheritance betwee n two
             Java classes. This is necessary to preserve the type hierarchy,
             but one of the downsides is that the derived class does not really
@@ -466,9 +466,9 @@ public class Person {
             substitutions</title>
 
             <para>In an attempt to make the generated code easier to use, the
-            JAXB specification sometimes choose bindings based on how certain
+            &binding.spec.name; specification sometimes choose bindings based on how certain
             feature is used. One of them is element substitution feature. If
-            no actual element substitution happens in the schema, JAXB assumes
+            no actual element substitution happens in the schema, &binding.spec.name; assumes
             that the element is not used for substitution, and generates code
             that assumes it.</para>
 

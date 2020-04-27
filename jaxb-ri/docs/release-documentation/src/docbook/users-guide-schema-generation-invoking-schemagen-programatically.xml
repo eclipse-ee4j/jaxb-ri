@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -35,7 +35,7 @@
         <para>If the classes you'd like to generate schema from are already
         available as <literal>java.lang.Class</literal> objects (meaning they are
         already loaded and resolved in the current JVM), then the easiest way
-        to generate a schema is to use the JAXB API:</para>
+        to generate a schema is to use the &binding.spec.name; API:</para>
 
         <example>
             <title>Generate schema at runtime</title>
@@ -81,12 +81,12 @@ context.generateSchema(new MySchemaOutputResolver());]]></programlisting>
         downside is that the amount of control you can exercise over them
         would be limited.</para>
 
-        <para>So yet another approach to invoke schemagen is to use JAXB RI's
+        <para>So yet another approach to invoke schemagen is to use &binding.impl.name;'s
         internal interfaces. But be warned that those interfaces are subject
         to change in the future versions, despite our best effort to preserve
-        them. This is the API that the JAX-WS RI uses to generate schema
+        them. This is the API that the &ws.impl.name; uses to generate schema
         inside WSDL when they generate WSDL, so does some other web services
-        toolkits that work with the JAXB RI.</para>
+        toolkits that work with the &binding.impl.name;.</para>
 
         <para>Most of those interfaces are defined and well-documented in
         the com.sun.tools.xjc.api package. You can see how the schemagen

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -66,13 +66,13 @@
 
             <qandaentry>
                 <question>
-                    <para>Are the JAXB runtime API's thread safe?</para>
+                    <para>Are the &binding.spec.name; runtime API's thread safe?</para>
                 </question>
 
                 <answer>
-                    <para>The JAXB Specification currently does not address
+                    <para>The &binding.spec.name; Specification currently does not address
                     the thread safety of any of the runtime classes. In the
-                    case of the Oracle JAXB RI, the
+                    case of the &binding.impl.name;, the
                     <literal>JAXBContext</literal> class <emphasis
                     role="bold">is</emphasis> thread safe, but the
                     <literal>Marshaller</literal>,
@@ -81,7 +81,7 @@
                     role="bold">are not</emphasis> thread safe.</para>
 
                     <para>For example, suppose you have a multi-thread server
-                    application that processes incoming XML documents by JAXB.
+                    application that processes incoming XML documents by &binding.spec.name;.
                     In this case, for the best performance you should have
                     just one instance of <literal>JAXBContext</literal> in
                     your whole application like this:</para>
@@ -108,7 +108,7 @@
 }]]></programlisting>
                     </informalexample>
 
-                    <para>This is the simplest safe way to use the JAXB RI
+                    <para>This is the simplest safe way to use the &binding.impl.name;
                     from multi-threaded applications.</para>
 
                     <para>If you really care about the performance, and/or
@@ -156,7 +156,7 @@
                     </figure>
 
                     <para>With some applications, things get even more
-                    complicated when the JAXB-generated code can be loaded by
+                    complicated when the &binding.spec.name;-generated code can be loaded by
                     either classloader. In this case,
                     <literal>JAXBContext.newInstance("aaa.bbb.ccc")</literal>
                     will work but the JVM ends up loading two copies of the
@@ -173,7 +173,7 @@
                         <programlisting language="java"><![CDATA[JAXBContext.newInstance("aaa.bbb.ccc", this.getClass().getClassLoader());]]></programlisting>
                     </informalexample>
 
-                    <para>In general, if you are writing code that uses JAXB,
+                    <para>In general, if you are writing code that uses &binding.spec.name;,
                     it is always better to explicitly pass in a class loader,
                     so that your code will work no matter where it is
                     deployed.</para>
@@ -183,11 +183,11 @@
             <qandaentry>
                 <question>
                     <para>Which jar files do I need to distribute with my
-                    application that uses the JAXB RI?</para>
+                    application that uses the &binding.impl.name;?</para>
                 </question>
 
                 <answer>
-                    <para>For JAXB 2.2.x:</para>
+                    <para>For &binding.spec.name; 2.3.x:</para>
 
                     <informalexample>
                         <programlisting><![CDATA[
@@ -204,7 +204,7 @@ $JAXB_HOME/mod/jaxb-impl.jar]]></programlisting>
                 </question>
 
                 <answer>
-                    <para>This functionality is not available from JAXB
+                    <para>This functionality is not available from &binding.impl.name;
                     directly, but you can configure an Apache Xerces-J
                     <literal>XMLSerializer</literal> to produce
                     <literal>CDATA</literal> blocks. Please review the <link
@@ -219,7 +219,7 @@ $JAXB_HOME/mod/jaxb-impl.jar]]></programlisting>
                 </question>
 
                 <answer>
-                    <para>In JAXB 2.0, &lt;xs:any/&gt; is handled correctly
+                    <para>In &binding.impl.name;, &lt;xs:any/&gt; is handled correctly
                     without any customization.</para>
 
                     <orderedlist>
@@ -266,7 +266,7 @@ $JAXB_HOME/mod/jaxb-impl.jar]]></programlisting>
 
             <qandaentry>
                 <question>
-                    <para>How do I find out which version of the JAXB RI I'm
+                    <para>How do I find out which version of the &binding.impl.name;/JAXB RI I'm
                     using?</para>
                 </question>
 
@@ -277,7 +277,7 @@ $JAXB_HOME/mod/jaxb-impl.jar]]></programlisting>
                         <programlisting language="cli"><![CDATA[$ java -jar jaxb-xjc.jar -version]]></programlisting>
                     </informalexample>
 
-                    <para>Alternatively, each JAXB jar has version information
+                    <para>Alternatively, each &binding.impl.name;/JAXB RI jar has version information
                     in its <literal>META-INF/MANIFEST.MF</literal>, such as
                     this:</para>
 

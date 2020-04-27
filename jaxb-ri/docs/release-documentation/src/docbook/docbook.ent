@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
 <!--
 
-    Copyright (c) 2010, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2010, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,11 +12,10 @@
 -->
 
 <!ENTITY version "$version">
-<!ENTITY repository "$repository">
+<!ENTITY binding.spec.name "Jakarta XML Binding">
+<!ENTITY binding.spec.version "3.0">
 
-<!ENTITY jaxb.release.spec.version "$release.spec.version">
-<!ENTITY jaxb.release.impl.version "$release.impl.version">
-<!ENTITY jaxb.release.impl.version.suffix "$release.impl.version.suffix">
+<!ENTITY ws.impl.name "Eclipse Implementation of XML Web Services">
 
-<!ENTITY jaxb.product.name.short "JAXB RI">
-<!ENTITY jaxb.product.name "&jaxb.product.name.short; &jaxb.release.impl.version;&jaxb.release.impl.version.suffix;">
+<!ENTITY binding.impl.name "Eclipse Implementation of JAXB">
+<!ENTITY binding.impl.name.full "&binding.impl.name; &version;">

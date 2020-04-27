@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -32,6 +32,6 @@
         <literal>JAXBElement</literal> class) do not support the clone operation.
         There was a suggestion by another user that <link
         xlink:href="http://beanlib.sourceforge.net/">beanlib</link> has been
-        used successfully to clone JAXB objects.</para>
+        used successfully to clone &binding.spec.name; objects.</para>
     </section>
 </section>

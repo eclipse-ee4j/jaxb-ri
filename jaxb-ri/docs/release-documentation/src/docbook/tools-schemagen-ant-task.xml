@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,7 +27,7 @@
     <section>
         <title><command>schemagen</command> Task Overview</title>
 
-        <para>The <literal>jaxb-xjc.jar</literal> file contains the
+        <para>The <literal>jaxb-jxc.jar</literal> file contains the
         <literal>SchemaGenTask.class</literal> file, which allows the schema
         generator to be invoked from the <link
         xlink:href="http://jakarta.apache.org/ant">Ant</link> build tool. To

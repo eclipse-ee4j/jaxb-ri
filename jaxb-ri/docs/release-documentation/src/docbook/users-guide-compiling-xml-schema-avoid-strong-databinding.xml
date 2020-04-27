@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,7 +25,7 @@
     <title>Avoid strong databinding</title>
 
     <para>Under some limited circumstances, a weaker databinding is preferable
-    for various reasons. JAXB does offer a few ways for you to achieve
+    for various reasons. &binding.spec.name; does offer a few ways for you to achieve
     this.</para>
 
     <section xml:id="Avoid_mapping_to_enum">
@@ -33,7 +33,7 @@
 
         <para>The following customization will stop binding a simple type to a
         type-safe enum. This can be convenient when number of constants is too
-        large to be an useful enum (by default, the JAXB spec won't generate
+        large to be an useful enum (by default, the &binding.spec.name; spec won't generate
         enum with more than 256 constants, but even 100 might be too large for
         you.)</para>
 
@@ -134,11 +134,11 @@
 
         <para>This extension can be used to access wildcard content or can be
         used to process a part of a document by using other technologies that
-        require "raw" XML. By default, JAXB generates a <code>getContent()</code> method
+        require "raw" XML. By default, &binding.spec.name; generates a <code>getContent()</code> method
         for accessing wildcard content, but it only supports "lax" handling
         which means that unknown content is discarded. You may find more
         information in 7.12 chapter of <link
-        xlink:href="http://www.jcp.org/en/jsr/detail?id=222">JAXB 2
+        xlink:href="https://jakarta.ee/specifications/xml-binding/">&binding.spec.name; 2
         specification</link>.</para>
     </section>
 </section>

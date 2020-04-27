@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2019 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -28,7 +28,7 @@
     <section xml:id="ResultSet">
         <title>ResultSet</title>
 
-        <para>JAXB (or any other databinding engine, for that matter) is for
+        <para>&binding.spec.name; (or any other databinding engine, for that matter) is for
         binding strongly-typed POJO-like objects to XML, such as
         <literal>AddressBook</literal> class, <literal>PurchaseOrder</literal> class, and
         so on, where you have fields and methods that shape a class.</para>
@@ -39,11 +39,11 @@
         <code>get("Address")</code>. JDBC ResultSet is one of those classes.
         It's one class that represents million different data structures, be
         it a customer table or a product table. Generally speaking, these
-        classes does not allow JAXB to statically determine what the XML
+        classes does not allow &binding.spec.name; to statically determine what the XML
         representation should look like. Instead, you almost always need to
         look at an instance to determine the shape of XML.</para>
 
-        <para>These classes are not really suitable for binding in JAXB. If
+        <para>These classes are not really suitable for binding in &binding.spec.name;. If
         this is the only object that you'd want to write out, then you'd be
         better off using XMLStreamWriter or some such XML infoset writing API.
         There are <link
@@ -54,14 +54,14 @@
         writing code.)</para>
 
         <para>If you are using ResultSet as a part of your object tree that
-        you want to marshal to JAXB, then you can use
+        you want to marshal to &binding.spec.name;, then you can use
         <literal>XmlJavaTypeAdapter</literal>.</para>
     </section>
 
     <section xml:id="HashMap">
         <title>HashMap</title>
 
-        <para>JAXB spec defines a special handling for <literal>Map</literal> when
+        <para>&binding.spec.name; spec defines a special handling for <literal>Map</literal> when
         it's used as a propety of a bean. For example, the following bean
         would produce XMLs like the following:</para>
 
@@ -115,10 +115,10 @@ marshaller.marshal(new JAXBElement(new QName("root"),HashMap.class,m),System.out
 
         <para>This issue has been recorded as <link
         xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/223">#223</link>
-        and the fix needs to happen in later versions of the JAXB spec.</para>
+        and the fix needs to happen in later versions of the &binding.spec.name; spec.</para>
 
         <para>In the mean time, such top-level objects have to be first
-        adapted to a bean that JAXB can process. This has added benefit of
+        adapted to a bean that &binding.spec.name; can process. This has added benefit of
         being able to control XML representation better. The following code
         illustrates how to do this:</para>
 

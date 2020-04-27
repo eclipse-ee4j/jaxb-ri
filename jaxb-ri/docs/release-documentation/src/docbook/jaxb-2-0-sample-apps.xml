@@ -204,7 +204,7 @@
                     <term><literal>samples/cycle-recovery</literal></term>
 
                     <listitem>
-                        <para>JAXB RI's vendor extension
+                        <para>&binding.impl.name;'s vendor extension
                         <literal>CycleRecoverable</literal> provides
                         application a hook to handle cycles in the object
                         graph. Advanced.</para>
@@ -229,7 +229,7 @@
 
                     <listitem>
                         <para>This sample application illustrate some of the
-                        DTD support available in the JAXB RI's extension mode.
+                        DTD support available in the &binding.impl.name;'s extension mode.
                         Please refer to the <xref linkend="jaxb-ri-extensions"
                         xrefstyle="select:title" /> page for more
                         detail.</para>
@@ -241,7 +241,7 @@
 
                     <listitem>
                         <para>This sample application illustrates how W3C XML
-                        Schema substitution groups are supported in JAXB RI's
+                        Schema substitution groups are supported in &binding.impl.name;'s
                         extension mode. Please refer to the <xref
                         linkend="jaxb-ri-extensions"
                         xrefstyle="select:title" /> page for more
@@ -398,7 +398,7 @@
 
                     <listitem>
                         <para>This sample application demonstrates how to use
-                        the new JAXB RI Marshaller property
+                        the new &binding.impl.name; Marshaller property
                         <literal>com.sun.xml.bind.namespacePrefixMapper</literal>
                         to customize the namespace prefixes generated during
                         marshalling.</para>
@@ -505,7 +505,7 @@
                     <listitem>
                         <para>This example demonstrates how to use
                         <literal>&lt;xjc:superClass&gt;</literal> vendor
-                        extensions provided by Sun's JAXB RI, as well as
+                        extensions provided by &binding.impl.name;'s, as well as
                         <literal>&lt;jaxb:serializable&gt;</literal>
                         customization.</para>
                     </listitem>

@@ -25,11 +25,11 @@
          xmlns:m="http://www.w3.org/1998/Math/MathML">
     <title>Overview</title>
 
-    <para>The <trademark>Java</trademark> Architecture for XML Binding (JAXB)
+    <para>&binding.spec.name;
     provides an API and tools that automate the mapping between XML documents
     and Java objects.</para>
 
-    <para>The JAXB framework enables developers to perform the following
+    <para>The &binding.spec.name; framework enables developers to perform the following
     operations:</para>
 
     <itemizedlist>
@@ -49,10 +49,10 @@
         </listitem>
     </itemizedlist>
 
-    <para>JAXB gives Java developers an efficient and standard way of mapping
-    between XML and Java code. Java developers using JAXB are more productive
+    <para>&binding.spec.name; gives Java developers an efficient and standard way of mapping
+    between XML and Java code. Java developers using &binding.spec.name; are more productive
     because they can write less code themselves and do not have to be experts
-    in XML. JAXB makes it easier for developers to extend their applications
+    in XML. &binding.spec.name; makes it easier for developers to extend their applications
     with XML and Web Services technologies.</para>
 
     <section xml:id="documentation">
@@ -97,7 +97,7 @@
             </listitem>
 
             <listitem>
-                <para>JAXB FAQs [<xref linkend="faq"
+                <para>&binding.spec.name; FAQs [<xref linkend="faq"
                 xrefstyle="select:title" />, <link
                 xlink:href="http://java.sun.com/xml/jaxb/faq.html">java.sun.com</link>]</para>
             </listitem>
@@ -109,12 +109,12 @@
 
         <itemizedlist>
             <listitem>
-                <para>2013 Oracle Corporation
+                <para>2013, 2020 Oracle Corporation
                 and/or its affiliates. All rights reserved.</para>
             </listitem>
 
             <listitem>
-                <para>The JAXB RI &jaxb.release.impl.version;&jaxb.release.impl.version.suffix; Release is covered
+                <para>The &binding.impl.name.full; Release is covered
                 under the <link xlink:href="http://www.eclipse.org/org/documents/edl-v10.php">terms
                         of the Eclipse Distribution License v. 1.0
                         </link></para>

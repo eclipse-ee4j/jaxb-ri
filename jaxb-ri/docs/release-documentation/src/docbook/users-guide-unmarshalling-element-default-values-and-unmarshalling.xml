@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -91,7 +91,7 @@ class Foo {
 }
 
 Foo foo = unmarshaller.unmarshal("instance1.xml");
-System.out.println(foo.a);   // "value", because JAXB didn't overwrite the value
+System.out.println(foo.a);   // "value", because Jakarta XML Binding didn't overwrite the value
 
 Foo foo = unmarshaller.unmarshal("instance2.xml");
 System.out.println(foo.a);   // "", because <a> element had 0-length string in it

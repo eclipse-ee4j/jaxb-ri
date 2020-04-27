@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,8 +24,8 @@
          xmlns:m="http://www.w3.org/1998/Math/MathML">
     <title>Dealing with large documents</title>
 
-    <para>JAXB API is designed to make it easy to read the whole XML document
-    into a single tree of JAXB objects. This is the typical use case, but in
+    <para>&binding.spec.name; API is designed to make it easy to read the whole XML document
+    into a single tree of &binding.spec.name; objects. This is the typical use case, but in
     some situations this is not desirable. Perhaps:</para>
 
     <orderedlist>
@@ -64,10 +64,10 @@
         which allows you to process large documents.</para>
 
         <para>See the streaming-unmarshalling example and the
-        partial-unmarshalling example in the JAXB RI distribution for more
+        partial-unmarshalling example in the &binding.impl.name; distribution for more
         about how to do this. The streaming-unmarshalling example has an
         advantage that it can handle chunks at arbitrary nest level, yet it
-        requires you to deal with the push model --- JAXB unmarshaller will
+        requires you to deal with the push model --- &binding.spec.name; unmarshaller will
         "<literal>push</literal>" new chunk to you and you'll need to process them right
         there.</para>
 
@@ -82,7 +82,7 @@
 
         <para>The techniques discussed above can be used to handle this case
         as well, since they let you unmarshal chunks one by one. See the
-        xml-channel example in the JAXB RI distribution for more about how to
+        xml-channel example in the &binding.impl.name; distribution for more about how to
         do this.</para>
     </section>
 
@@ -90,9 +90,9 @@
         <title>Creating virtual infosets</title>
 
         <para>For further advanced cases, one could always run a streaming
-        infoset conversion outside JAXB API and basically curve just the
+        infoset conversion outside &binding.spec.name; API and basically curve just the
         portion of the infoset you want to data-bind, and feed it as a
-        complete infoset into JAXB API. JAXB API accepts XML infoset in many
+        complete infoset into &binding.spec.name; API. &binding.spec.name; API accepts XML infoset in many
         different forms (DOM, SAX, StAX), so there's a fair amount of
         flexibility in choosing the right trade off between the development
         effort in doing this and the runtime performance.</para>

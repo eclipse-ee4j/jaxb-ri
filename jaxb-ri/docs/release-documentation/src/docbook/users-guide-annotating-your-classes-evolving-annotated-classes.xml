@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -26,7 +26,7 @@
     <title>Evolving annotated classes</title>
 
     <para>Here is the basic problem of evolution. You got your CoolApp v1,
-    which contains class Foo that has some JAXB annotations. Now you are
+    which contains class Foo that has some &binding.spec.name; annotations. Now you are
     working towawrd CoolApp v2, and you want to make some changes to Foo. But
     you want to do so in such a way that v1 and v2 can still talk to each
     other.</para>
@@ -49,14 +49,14 @@
     <section xml:id="_Semi_compatible_">
         <title>"<literal>Semi-compatible</literal>"</title>
 
-        <para>JAXB can read XML documents that don't exactly match what's
-        expected. This is the default behavior of the JAXB unmarshaller, yet
+        <para>&binding.spec.name; can read XML documents that don't exactly match what's
+        expected. This is the default behavior of the &binding.spec.name; unmarshaller, yet
         you can change it to a more draconian behavior (TODO: pointer to the
         unmarshalling section.)</para>
 
         <para>When we are talking about evolving classes, it's often
         convenient to leave it in the default behavior, as that would allow
-        JAXB to nicely ignore elements/attributes newly added in v2. So we
+        &binding.spec.name; to nicely ignore elements/attributes newly added in v2. So we
         call it <emphasis>backward semi-compatible</emphasis> if v2 can read
         what v1 wrote in this default unmarshalling mode, and similarly
         <emphasis>forward semi-compatible</emphasis> if v1 can read what v2
@@ -93,7 +93,7 @@
             <listitem>
                 <para>If you change the property name from X to Y, that would
                 be the equivalent of deleting X and adding Y, so it would be
-                backward and forward semi-compatible. What JAXB really cares
+                backward and forward semi-compatible. What &binding.spec.name; really cares
                 is properties' XML names and not Java names, so by using the
                 <literal>name</literal> parameter of <literal>XmlElement</literal>, <literal>XmlAttribute</literal> et al, you can change Java
                 property names without affecting XML, or change XML without

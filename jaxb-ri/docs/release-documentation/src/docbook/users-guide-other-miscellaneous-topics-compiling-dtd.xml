@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,7 +24,7 @@
          xmlns:m="http://www.w3.org/1998/Math/MathML">
     <title>Compiling DTD</title>
 
-    <para>The JAXB RI is shipped with an "experimental" DTD support, which
+    <para>The &binding.impl.name; is shipped with an "experimental" DTD support, which
     let's you compile XML DTDs. It is marked "experimental" not because the
     feature is unstable nor unreliable, but rather because it's not a part of
     the JAXB specification and therefore the level of commitment to
@@ -125,7 +125,7 @@
         <example>
             <title>The dependencies section inside the plugin element can be
             used to specify additional XJC plugins. If you'd like to use more
-            recent version of the JAXB RI, you can specify a dependency to XJC
+            recent version of the &binding.impl.name;, you can specify a dependency to XJC
             here to do so, like this:</title>
 
             <programlisting language="xml"><![CDATA[<dependency>

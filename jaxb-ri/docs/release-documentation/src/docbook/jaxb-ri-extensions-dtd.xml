@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,7 +27,7 @@
     <section xml:id="section-117866877581027">
         <title>DTD</title>
 
-        <para>The JAXB RI is shipped with experimental DTD support, which lets
+        <para>The &binding.impl.name; is shipped with experimental DTD support, which lets
         you compile XML DTDs.</para>
 
         <para>To compile a DTD <literal>test.dtd</literal>, run the XJC
@@ -41,15 +41,15 @@
         can be applied. Similarly, the <command>xjc</command> <link
         xlink:href="http://jakarta.apache.org/ant/">ant</link> task supports
         DTD. The generated code will be no different from what is generated
-        from W3C XML Schema. You'll use the same JAXB API to access the
+        from W3C XML Schema. You'll use the same &binding.spec.name; API to access the
         generated code, and it is portable in the sense that it will run on
-        any JAXB 2.0 implementation.</para>
+        any &binding.spec.name; implementation.</para>
 
         <section xml:id="section-249814783079567">
             <title>Customization</title>
 
             <para>The customization syntax for DTD is roughly based on the
-            ver.0.21 working draft of the JAXB specification, which is
+            ver.0.21 working draft of the &binding.spec.name; specification, which is
             available at <link
             xlink:href="http://xml.coverpages.org/jaxb0530spec.pdf">xml.coverpages.org</link>.
             The deviations from this document are:</para>

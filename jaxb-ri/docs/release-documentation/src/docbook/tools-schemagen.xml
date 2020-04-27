@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -100,8 +100,8 @@ Options:
 
                     <listitem>
                         <para>Generates the "episode file", which is really
-                        just a JAXB customization file (but with vendor
-                        extensions specific to the JAXB RI, as of 2.1.) When
+                        just a &binding.spec.name; customization file (but with vendor
+                        extensions specific to the &binding.impl.name;, as of 2.1.) When
                         people develop additional schemas that depend on what
                         this schemagen invocation produces, they can use this
                         episode file to have their generated code refer to

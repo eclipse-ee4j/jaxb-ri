@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -34,7 +34,7 @@
         cryptic errors such as <literal>rcase-RecurseLax.2: There is not a
         complete functional mapping between the particles.</literal></para>
 
-        <para>The JAXB RI uses the schema correctness checker from the
+        <para>The &binding.impl.name; uses the schema correctness checker from the
         underlying JAXP implementation, which is the JAXP RI in a typical
         setup. The JAXP RI is one of the most conformant schema validators,
         and therefore most likely correct. So the first course of action
@@ -96,7 +96,7 @@ file:/C:/kohsuke/Sun/JAXB/jaxb-unit/schemas/individual/MathML2/presentation/scri
         <para>This is a standard technique in designing a schema. When you
         want to say "in this element, <literal>B</literal> can occur arbitrary
         times, but <literal>C</literal> can occur only up to once", you write
-        this as <literal>B*,(C,B*)?</literal>. This, however, confuses JAXB,
+        this as <literal>B*,(C,B*)?</literal>. This, however, confuses &binding.impl.name;,
         because it tries to bind the first <literal>B</literal> to its own
         property, then <literal>C</literal> to its own property, then the
         second <literal>B</literal> to its own property, and so we end up
@@ -129,7 +129,7 @@ file:/C:/kohsuke/Sun/JAXB/jaxb-unit/schemas/individual/MathML2/presentation/scri
         </example>
 
         <para>Another way to fix this problem is to use the
-        simpler and better binding mode in XJC, which is a JAXB RI
+        simpler and better binding mode in XJC, which is a &binding.impl.name;
         vendor extension.</para>
     </section>
 
@@ -172,7 +172,7 @@ file:/C:/kohsuke/Sun/JAXB/jaxb-unit/schemas/individual/MathML2/presentation/scri
             <title>XPath evaluation of ... results in empty target
             node</title>
 
-            <para>External JAXB customizations are specified by using XPath
+            <para>External &binding.spec.name; customizations are specified by using XPath
             (or using <link
             xlink:href="customization-of-schema-compilation-using-scd-for-customizations">SCD</link>.)
             This works by writing an XPath expression that matches a
