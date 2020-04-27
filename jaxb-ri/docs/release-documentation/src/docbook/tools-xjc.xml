@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,7 +27,7 @@
     <section>
         <title><command>xjc</command> Overview</title>
 
-        <para>JAXB RI also provides an Ant task to run the binding complier -
+        <para>&binding.impl.name; also provides an Ant task to run the binding complier -
         see the instructions for <xref linkend="tools-xjc-ant-task"
         xrefstyle="select:title" />.</para>
     </section>
@@ -166,7 +166,7 @@ Extensions:
                     <listitem>
                         <para>By default, the XJC binding compiler strictly
                         enforces the rules outlined in the Compatibility
-                        chapter of the JAXB Specification. Appendix E.2
+                        chapter of the &binding.spec.name; Specification. Appendix E.2
                         defines a set of W3C XML Schema features that are not
                         completely supported by JAXB v1.0. In some cases, you
                         may be allowed to use them in the "-extension" mode
@@ -473,7 +473,7 @@ xjc schema1.xsd schema2.xsd schema3.xsd -b bindings1.xjb -b bindings2.xjb -b bin
                         so that other schemas that rely on this schema can be
                         compiled later and rely on classes that are generated
                         from this compilation. The generated episode file is
-                        really just a JAXB customization file (but with vendor
+                        really just a &binding.spec.name; customization file (but with vendor
                         extensions.)</para>
                     </listitem>
                 </varlistentry>
@@ -520,9 +520,9 @@ xjc schema1.xsd schema2.xsd schema3.xsd -b bindings1.xjb -b bindings2.xjb -b bin
                     <term><emphasis role="bold">-use-runtime</emphasis></term>
 
                     <listitem>
-                        <para>Since the JAXB 2.0 specification has defined a
+                        <para>Since the &binding.spec.name; specification has defined a
                         portable runtime, it is no longer necessary for the
-                        JAXB RI to generate **/impl/runtime packages.
+                        &binding.impl.name; to generate **/impl/runtime packages.
                         Therefore, this switch is obsolete and has been
                         removed.</para>
                     </listitem>

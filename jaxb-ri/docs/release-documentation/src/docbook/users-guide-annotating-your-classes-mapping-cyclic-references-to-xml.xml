@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -26,13 +26,13 @@
     <title>Mapping cyclic references to XML</title>
 
     <para>Object models designed in Java often have cycles, which prevent
-    straight-forward conversion to XML by JAXB. In fact, when you try to
-    marshal an object tree that contains a cycle, the JAXB marshaller reports
+    straight-forward conversion to XML by &binding.spec.name;. In fact, when you try to
+    marshal an object tree that contains a cycle, the &binding.spec.name; marshaller reports
     an error, pointing out the objects that formed the cycle. This is because
-    JAXB by itself cannot figure out how to cut cycles into a tree.</para>
+    &binding.spec.name; by itself cannot figure out how to cut cycles into a tree.</para>
 
     <para>Thus it is your responsibility to annotate classes and use other
-    means to "tell" JAXB how to handle a cycle. This chapter talks about
+    means to "tell" &binding.spec.name; how to handle a cycle. This chapter talks about
     various techniques to do this.</para>
 
     <section xml:id="Parent_pointers">
@@ -82,7 +82,7 @@ class Employee {
         correctly.</para>
 
         <para>The first technique here is the use of <literal>XmlTransient</literal> on the parent pointer. This tells
-        JAXB that you don't need this parent pointer to be represented
+        &binding.spec.name; that you don't need this parent pointer to be represented
         explicitly in XML, because the fact that <literal>employee</literal> is
         always contained inside <literal>department</literal> implies the
         parent/child relationship. This causes the marshaller to produce the
@@ -92,7 +92,7 @@ class Employee {
 
         <para>That's where the second technique comes in, which is the use of
         the <literal>afterUnmarshal</literal> callback. This method is invoked by
-        the JAXB implementation on each instance when the unmarshalling of a
+        the &binding.spec.name; implementation on each instance when the unmarshalling of a
         <literal>Employee</literal> object completes. Furthermore, the second
         parameter to the method is the parent object, which in this case is a
         <literal>Department</literal> object. So in this example, this sets up the
@@ -173,7 +173,7 @@ class Bar {
     <section xml:id="Use_the_CycleRecoverable_interface">
         <title>Use the CycleRecoverable interface</title>
 
-        <para>Starting 2.1 EA2, the JAXB RI exposes <literal>CycleRecoverable</literal> interface. Applications can
+        <para>Starting 2.1 EA2, the &binding.impl.name; exposes <literal>CycleRecoverable</literal> interface. Applications can
         choose to implement this interface in some of its objects. When a
         cyclic reference is detected during marshalling, and if the object
         that formed a cycle implements this interface, then the method on this
@@ -183,7 +183,7 @@ class Bar {
 
         <para>This technique allows you to cope with a situation where you
         cannot easily determine upfront as to where a cycle might happen. On
-        the other hand, this feature is a JAXB RI feature. Another downside of
+        the other hand, this feature is a &binding.impl.name; feature. Another downside of
         this is that unless you nominate your replacement carefully, you can
         make the marshalling output invalid with respect to the schema, and
         thus you might hit another problem when you try to read it back

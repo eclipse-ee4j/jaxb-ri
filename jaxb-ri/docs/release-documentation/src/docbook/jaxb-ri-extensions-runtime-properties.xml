@@ -27,10 +27,10 @@
     <section xml:id="section-872160760955562">
         <title>Marshaller Properties</title>
 
-        <para>The JAXB RI provides additional Marshaller properties that are
-        not defined by the JAXB specification. These properties allow you to
+        <para>The &binding.impl.name; provides additional Marshaller properties that are
+        not defined by the &binding.spec.name; specification. These properties allow you to
         better control the marshalling process, but they only work with the
-        JAXB RI; they may not work with other JAXB providers.</para>
+        &binding.impl.name;; they may not work with other &binding.spec.name; providers.</para>
 
         <section xml:id="section-151118438382732">
             <title>Index of Marshaller Properties</title>
@@ -93,7 +93,7 @@
                 </tgroup>
             </informaltable>
 
-            <para>The JAXB RI provides a mechanism for users to control
+            <para>The &binding.impl.name; provides a mechanism for users to control
             declarations of namespace URIs and what prefixes they will be
             bound to. This is the general procedure:</para>
 
@@ -416,7 +416,7 @@ public abstract class NamespacePrefixMapper {
                 </tgroup>
             </informaltable>
 
-            <para>By default, the marshaller implementation of the JAXB RI
+            <para>By default, the marshaller implementation of the &binding.impl.name;
             tries to escape characters so they can be safely represented in
             the output encoding (by using Unicode numeric character references
             of the form &amp;#dddd;)</para>
@@ -479,14 +479,14 @@ public abstract class NamespacePrefixMapper {
             </informaltable>
 
             <para>This experimental JAXB RI 1.0.x property has been adopted as
-            a standard in JAXB 2.0. The 2.0 RI will continue to support this
+            a standard in &binding.impl.name;. The &binding.impl.name; will continue to support this
             property, but client code should be using the <link
             xlink:href="api/jakarta/xml/bind/Marshaller.html#JAXB_FRAGMENT">Marshaller.JAXB_FRAGMENT</link>
             property instead. Please refer to the <link
             xlink:href="api/jakarta/xml/bind/Marshaller.html#supportedProps">Marshaller
             javadoc</link> for a complete description of the behavior.</para>
 
-            <para>In JAXB 2.0, calling:</para>
+            <para>In &binding.impl.name;, calling:</para>
 
             <informalexample>
                 <programlisting language="java"><![CDATA[marshaller.setProperty("com.sun.xml.bind.xmlDeclaration", true);]]></programlisting>
@@ -499,7 +499,7 @@ public abstract class NamespacePrefixMapper {
             </informalexample>
 
             <para>JAXB 1.0 generated code and clients will continue to work
-            exactly the same on the JAXB 2.0 runtime as they did on the JAXB
+            exactly the same on the &binding.spec.name; runtime as they did on the JAXB
             1.0 runtime.</para>
 
             <para>Enabling fragment marshalling could be useful if you are
@@ -542,10 +542,10 @@ public abstract class NamespacePrefixMapper {
             only when you are marshalling to <literal>OutputStream</literal>,
             <literal>Writer</literal>, or <literal>StreamResult</literal>. Note that this
             property interacts with the <literal>Marshaller.JAXB_FRAGMENT</literal>
-            property. If that property is untouched or set to false, then JAXB
+            property. If that property is untouched or set to false, then &binding.impl.name;
             would always write its XML preamble, so this property can be only
             used to write PIs, comments, DOCTYPE, etc. On the other hand, if
-            it is set to true, then JAXB will not write its own XML preamble,
+            it is set to true, then &binding.spec.name; will not write its own XML preamble,
             so this property may contain custom XML preamble.</para>
         </section>
 
@@ -584,7 +584,7 @@ public abstract class NamespacePrefixMapper {
             allows the user to control the access to class fields and
             properties.</para>
 
-            <para>In JAXB 2.1, set the property to enable:</para>
+            <para>In &binding.impl.name;, set the property to enable:</para>
 
             <informalexample>
                 <programlisting language="java"><![CDATA[marshaller.setProperty("XmlAccessorFactory", true);]]></programlisting>

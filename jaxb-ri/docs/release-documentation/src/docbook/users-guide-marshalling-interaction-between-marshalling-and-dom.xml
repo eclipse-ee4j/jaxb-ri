@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,7 +25,7 @@
          xmlns:m="http://www.w3.org/1998/Math/MathML">
     <title>Interaction between marshalling and DOM</title>
 
-    <para>Sometimes you may notice that JAXB is producing XML with seemingly
+    <para>Sometimes you may notice that &binding.spec.name; is producing XML with seemingly
     unnecessary namespace declarations. In this section, we'll discuss the
     possible causes and how to resolve this.</para>
 
@@ -43,7 +43,7 @@
         name="foo" type="xs:anyType" /&gt;</literal>.</para>
 
         <para>During unmarshalling, when a subtree of the input XML is
-        converted into XML, JAXB copies all the in-scope namespace bindings
+        converted into XML, &binding.spec.name; copies all the in-scope namespace bindings
         active at that time to the root of the DOM element. So for example,
         given the following Java class and XML, the DOM tree that the
         <literal>child</literal> field will get will look like the following:</para>
@@ -77,15 +77,15 @@ class Foo {
         </example>
 
         <para>Note that the two namespace declarations are copied over, but
-        <literal>c</literal> is not because it's overridden. Also not that JAXB is
+        <literal>c</literal> is not because it's overridden. Also not that &binding.spec.name; is
         not touching the whitespace in document. This copying of namespace
         declarations is necessary to preserve the infoset in the input
         document. For example, if the <literal>&lt;data&gt;</literal> is a QName, its meaning
-        would change if JAXB unmarshaller doesn't copy it.</para>
+        would change if &binding.spec.name; unmarshaller doesn't copy it.</para>
 
         <para>Now, imagine what happens when you marshal this back to XML.
         Despite the fact that in this example neither <literal>b</literal> nor
-        <literal>c</literal> prefixes are in use, JAXB cannot delete them, because
+        <literal>c</literal> prefixes are in use, &binding.spec.name; cannot delete them, because
         it doesn't know if those attributes are significant to the application
         or not. Therefore, this could end up producing XML with "extra
         namespace declarations" like:</para>

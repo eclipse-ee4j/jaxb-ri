@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2010, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2010, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,14 +25,14 @@
          xmlns:ns3="http://www.w3.org/1998/Math/MathML"
          xmlns:ns="http://docbook.org/ns/docbook">
     <info>
-        <title>JAXB Users Guide</title>
+        <title>&binding.impl.name; Users Guide</title>
 
         <abstract>
             <para>This document explains various interesting/complex/tricky
-            aspects of JAXB, based on questions posted on the JAXB
-            users forum and answers I provided. This is an ongoing
+            aspects of &binding.impl.name;, based on questions posted on the old JAXB
+            users forum and answers provided there. This is an ongoing
             work-in-progress. Any <link
-            xlink:href="https://javaee.groups.io/g/metro">feedback</link>
+            xlink:href="https://accounts.eclipse.org/mailing-list/jaxb-impl-dev">feedback</link>
             appreciated.</para>
         </abstract>
     </info>

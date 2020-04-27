@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -59,7 +59,7 @@
         <orderedlist>
             <listitem>
                 <para>You will no longer have to ship
-                <filename>jaxb-api.jar</filename> in your application. This doesn't
+                <filename>jakarta.xml.bind-api.jar</filename> in your application. This doesn't
                 require any change to your code.</para>
             </listitem>
 
@@ -89,7 +89,7 @@
         <orderedlist>
             <listitem>
                 <para>
-                    Place the <filename>jaxb-api.jar</filename> into
+                    Place the <filename>jakarta.xml.bind-api.jar</filename> into
                     <code>$JRE_HOME/lib/endorsed</code>. <emphasis role="bold">Do not put other JAXB jars into the
                     endorsed directory.</emphasis> And put jaxb-impl, jaxb-core to classpath of your application.
                     This essentially makes your JRE to "JRE X + JAXB 2.y". This would
@@ -102,7 +102,7 @@
             <listitem>
                 <para>
                     Use the system property <literal>java.endorsed.dirs</literal> when you launch your application, and
-                    have it point to the directory which contains the <filename>jaxb-api.jar</filename> only.
+                    have it point to the directory which contains the <filename>jakarta.xml.bind-api.jar</filename> only.
                     <emphasis role="bold">The directory must not contain any other jaxb artifacts (like jaxb-impl.jar or
                     jaxb-xjc.jar).</emphasis> This allows you use to use different version of JAXB for different
                     applications.
@@ -112,7 +112,7 @@
         </orderedlist>
 
         <para>No matter which approach you take, make sure not to include jar
-        files other than <filename>jaxb-api.jar</filename>. Doing so, for example
+        files other than <filename>jakarta.xml.bind-api.jar</filename>. Doing so, for example
         including <filename>jaxb-xjc.jar</filename>, may result in classloading
         related errors such as "taskdef A class needed by class
         com.sun.tools.xjc.XJCTask cannot be found:

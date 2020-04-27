@@ -25,7 +25,7 @@
     <title>Mapping interfaces</title>
 
     <para>Because of the difference between the XML type system induced by W3C
-    XML Schema and the Java type system, JAXB cannot bind interfaces out of
+    XML Schema and the Java type system, &binding.spec.name; cannot bind interfaces out of
     the box, but there are a few things you can do.</para>
 
     <section xml:id="Use__XmlRootElement">
@@ -85,7 +85,7 @@ class Lion implements Animal { ... }]]></programlisting>
 
             <listitem>
                 <para>Every reference to interface needs to have the <literal>XmlElementRef</literal> annotation. The
-                <code>type=Object.class</code> portion tells JAXB that the
+                <code>type=Object.class</code> portion tells &binding.spec.name; that the
                 greatest common base type of all implementations would be
                 <literal>java.lang.Object</literal>.</para>
             </listitem>
@@ -316,7 +316,7 @@ class Somewhere {
 </somewhere>]]></programlisting>
         </example>
 
-        <para>This effectively tells JAXB runtime that "even though the field
+        <para>This effectively tells &binding.spec.name; runtime that "even though the field
         is <literal>IFoo</literal>, it's really just <literal>FooImpl</literal>.</para>
 
         <para>In this approach, a reference to an interface has to have
@@ -336,7 +336,7 @@ class Somewhere {
         <title>Hand-write schema</title>
 
         <para>Occasionally the above approaches cause the generated schema to
-        become somewhat ugly, even though it does make the JAXB runtime work
+        become somewhat ugly, even though it does make the &binding.spec.name; runtime work
         correctly. In such case you can choose not to use the generated schema
         and instead manually modify/author schemas tht better match your
         needs.</para>
@@ -353,7 +353,7 @@ class Somewhere {
     </section>
 
     <section xml:id="DOESN_T_WORK__Have_JAXB_generate_interaces_and_swap_different_implementations">
-        <title>DOESN'T WORK: Have JAXB generate interaces and swap different
+        <title>DOESN'T WORK: Have &binding.spec.name; generate interaces and swap different
         implementations</title>
 
         <para>Some
@@ -361,11 +361,11 @@ class Somewhere {
         and see if they can completely replace the generated implementations
         with other implementations. Unfortunately, this does not work.</para>
 
-        <para>Even with the interface/implementation mode, JAXB runtime still
-        requires that the implementation classes have all the JAXB
+        <para>Even with the interface/implementation mode, &binding.spec.name; runtime still
+        requires that the implementation classes have all the &binding.spec.name;
         annotations. So just implementing interfaces is not sufficient. (This
-        mode is mainly added to simplify the migration from JAXB 1.0 to JAXB
-        2.0, and that's a part of the reason why things are done this
+        mode is mainly added to simplify the migration from JAXB 1.0 to &binding.spec.name;,
+        and that's a part of the reason why things are done this
         way.)</para>
     </section>
 </section>

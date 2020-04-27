@@ -23,96 +23,56 @@
          xmlns:ns3="http://www.w3.org/2000/svg"
          xmlns:ns="http://docbook.org/ns/docbook"
          xmlns:m="http://www.w3.org/1998/Math/MathML">
-    <title>Using JAXB on JPMS</title>
+    <title>Using &binding.impl.name; on JPMS</title>
 
-    <para>JavaSE 9 features <link xmlns:xlink="http://openjdk.java.net/projects/jigsaw/spec/">JSR 376 Java Platform Module System</link>.
-        Starting from 2.4.0 JAXB supports JPMS and can be loaded and used from module path.
+    <para>JavaSE 11 features <link xmlns:xlink="http://openjdk.java.net/projects/jigsaw/spec/">JSR 376 Java Platform Module System</link>.
+        Starting from &binding.impl.name.full; supports JPMS and can be loaded and used from module path.
         There are only a few things to be aware of.
     </para>
 
     <section xml:id="Jaxb_pojo_openness">
-        <title>JAXB classes openness</title>
+        <title>&binding.impl.name; classes openness</title>
         <para>
-        JAXB does reflectively access private members of the class, so client application if loaded from module path
-            needs to "open" packages containing jaxb classes to JAXB. There are alternative JAXB implementations,
-            which will have different module names, JAXB requires pojo classes to be open only to API module.
-        <example><title>JPMS module descriptor opening JAXB pojo classes to JAXB API</title>
+        &binding.impl.name; does reflectively access private members of the class, so client application if loaded from module path
+            needs to "open" packages containing jaxb classes to &binding.spec.name;. There are alternative &binding.spec.name; implementations,
+            having different module names, &binding.spec.name; requires pojo classes to be open only to API module.
+        <example><title>JPMS module descriptor opening &binding.spec.name; pojo classes to &binding.spec.name; API</title>
 
             <programlisting language="java"><![CDATA[
                 //JPMS module descriptor
                 module com.example.jaxbclasses {
 
-                //jaxb-api module name
+                //Jakarta XML Binding module name
                 requires jakarta.xml.bind;
 
-                //open jaxb pojo package to make accessing private members possible for JAXB.
+                //open jaxb pojo package to make accessing private members possible for &binding.spec.name;.
                 opens com.example.jaxbclasses.pojos to jakarta.xml.bind;
 
              ]]></programlisting>
         </example>
-        JAXB API will delegate openness to implementation module after resolving it with service discovery mechanism.
+        &binding.spec.name; API will delegate openness to implementation module after resolving it with service discovery mechanism.
         </para>
     </section>
 
     <section xml:id="Command-line-examples">
 
         <para>
-            <example><title>JAXB on JPMS Command line examples</title>
+            <example><title>&binding.impl.name; on JPMS Command line examples</title>
                 <programlisting language="java"><![CDATA[
-                #Both client and JAXB on module path:
+                #Both client and &binding.impl.name; on module path:
                 user@host: java -m com.example.jaxbclasses/com.example.jaxb.Main
-                --module-path jaxbclient.jar:jaxb-api.jar:jaxb-runtime.jar
+                --module-path jaxbclient.jar:jakarta.xml.bind-api.jar:jaxb-impl.jar
 
-                #Both client and JAXB on classpath:
-                java com.example.jaxb.Main -cp jaxbclient.jar:jaxb-api.jar:jaxb-runtime.jar
+                #Both client and &binding.impl.name; on classpath:
+                java com.example.jaxb.Main -cp jaxbclient.jar:jakarta.xml.bind-api.jar:jaxb-impl.jar
 
-                #Client on classpath, JAXB on module path:
-                user@host: java com.example.jaxb.Main -cp jaxbclient.jar --module-path jaxb-api.jar:jaxb-runtime.jar
+                #Client on classpath, &binding.impl.name; on module path:
+                user@host: java com.example.jaxb.Main -cp jaxbclient.jar --module-path jakarta.xml.bind-api.jar:jaxb-impl.jar
                 --add-modules jakarta.xml.bind
 
              ]]></programlisting>
             </example>
-            JAXB API will delegate openness to implementation module after resolving it with service discovery mechanism.
-        </para>
-    </section>
-
-    <section xml:id="Jaxb_api_upgrade">
-        <title>Upgrading JavaSE modules on Java 9 and 10.</title>
-        <para>
-            Prior to Java 11, JavaSE contains JAXB bundled inside JDK. Module <literal>jakarta.xml.bind</literal>
-            contains JAXB API and runtime.
-
-            <itemizedlist>
-                <listitem>
-                    <para>If bundled JavaSE JAXB is used, there is no need
-                        to provide standalone JAXB jars to java runtime.</para>
-                </listitem>
-                <listitem>
-                    <para>If standalone JAXB is used, JavaSE bundled jakarta.xml.bind module should be replaced with
-                    JAXB API.</para>
-                </listitem>
-
-            </itemizedlist>
-
-             Similar to
-            <link xmlns:xlink="https://docs.oracle.com/javase/8/docs/technotes/guides/standards/">endorsed mechanism
-            </link> prior to Java 9, starting from 9 there is an "upgrade module" mechanism which can replace content of JDK module.
-            JavaSE bundled <literal>jakarta.xml.bind</literal> module contains both API and Runtime classes and
-            should be replaced with JAXB API module, which has the same <literal>jakarta.xml.bind</literal> module name.
-
-            <example><title>Upgrading JavaSE jakarta.xml.bind module with JAXB API</title>
-
-                <programlisting language="cli"><![CDATA[
-                    # Replace JavaSE bundled jakarta.xml.bind with standalone API jar
-                    java --upgrade-module-path path/to/jakarta.xml.bind-api.jar ...
-
-             ]]></programlisting>
-            </example>
-            <para>--upgrade-module-path will replace JavaSE jakarta.xml.bind (runtime and API) with jakarta.xml.bind-api.jar contents.</para>
-            <para>Since jakarta.xml.bind module
-                <link xmlns:xlink="http://openjdk.java.net/jeps/320">is removed starting from Java 11, there is no need
-                    to upgrade this module on 11 and later.</link></para>
-
+            &binding.spec.name; API will delegate openness to implementation module after resolving it with service discovery mechanism.
         </para>
     </section>
 </section>

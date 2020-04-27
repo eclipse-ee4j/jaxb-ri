@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -33,10 +33,10 @@
     <section xml:id="Adding_facets_to_datatypes">
         <title>Adding facets to datatypes</title>
 
-        <para>As of JAXB 2.1.4, currently no support for this, although there
+        <para>As of &binding.impl.name.full;, currently no support for this, although there
         has been several discussions in the users alias.</para>
 
-        <para>The JAXB project is currently lacking resources to attack this
+        <para>The &binding.impl.name; project is currently lacking resources to attack this
         problem, and therefore looking for volunteers to work on this project.
         The basic idea would be to define enough annotations to cover the
         basic constraint facets (such as length, enumerations, pattern, etc.)
@@ -44,8 +44,7 @@
         annotations and generate schemas accordingly.</para>
 
         <para>Some users pointed out relevance of this to <link
-        xlink:href="http://jcp.org/en/jsr/detail?id=303">JSR 303: Bean
-        Validation</link>. If you are interested in picking up this task, let
-        us know!</para>
+        xlink:href="https://jakarta.ee/specifications/bean-validation/">Jakarta Bean Validation</link>.
+        If you are interested in picking up this task, let us know!</para>
     </section>
 </section>

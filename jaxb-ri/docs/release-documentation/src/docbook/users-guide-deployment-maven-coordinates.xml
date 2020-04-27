@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2018, 2019 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2018, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,46 +23,47 @@
          xmlns:ns3="http://www.w3.org/2000/svg"
          xmlns:ns="http://docbook.org/ns/docbook"
          xmlns:m="http://www.w3.org/1998/Math/MathML">
-    <title>Using JAXB with Maven</title>
+    <title>Using &binding.impl.name; with Maven</title>
 
 
     <section xml:id="Maven_artifacts">
-        <title>Maven coordinates for JAXB artifacts</title>
+        <title>Maven coordinates for &binding.impl.name; artifacts</title>
         <itemizedlist>
             <listitem>
-                <para><emphasis role="bold">jakarta.xml.bind:jakarta.xml.bind-api:</emphasis> API classes for JAXB.
-                    Required to compile against JAXB.</para>
+                <para><emphasis role="bold">jakarta.xml.bind:jakarta.xml.bind-api:</emphasis> API classes for &binding.spec.name;.
+                    Required to compile against &binding.spec.name;.</para>
             </listitem>
             <listitem>
                 <para><emphasis role="bold">org.glassfish.jaxb:jaxb-runtime:</emphasis> Contains the main runtime used
                     for serialization and deserialization java objects to/from xml.</para>
             </listitem>
             <listitem>
-                <para><emphasis role="bold">org.glassfish.jaxb:jaxb-xjc:</emphasis> Tool to generate JAXB java sources
+                <para><emphasis role="bold">org.glassfish.jaxb:jaxb-xjc:</emphasis> Tool to generate &binding.spec.name; java sources
                     from XML representation.</para>
             </listitem>
             <listitem>
                 <para><emphasis role="bold">org.glassfish.jaxb:jaxb-jxc:</emphasis> Tool to generate XML schema from
-                    JAXB java sources.</para>
+                    &binding.spec.name; java sources.</para>
             </listitem>
         </itemizedlist>
+        <para>In general <literal>com.sun.xml.bind</literal> artifacts are supposed to be used instead.</para>
     </section>
 
     <section xml:id="Fat-jar">
-        <title>JAXB fat-jar bundles</title>
+        <title>JAXB RI bundles</title>
         <itemizedlist>
             <listitem>
-                <para><emphasis role="bold">com.sun.xml.bind:jaxb-impl:</emphasis> JAXB runtime fat jar.</para>
+                <para><emphasis role="bold">com.sun.xml.bind:jaxb-impl:</emphasis> &binding.impl.name; runtime jar.</para>
             </listitem>
             <listitem>
-                <para><emphasis role="bold">com.sun.xml.bind:jaxb-xjc:</emphasis> Class generation tool fat jar.</para>
+                <para><emphasis role="bold">com.sun.xml.bind:jaxb-xjc:</emphasis> Class generation tool jar.</para>
             </listitem>
             <listitem>
-                <para><emphasis role="bold">com.sun.xml.bind:jaxb-jxc:</emphasis> Schema generation tool fat jar.</para>
+                <para><emphasis role="bold">com.sun.xml.bind:jaxb-jxc:</emphasis> Schema generation tool jar.</para>
             </listitem>
         </itemizedlist>
-        <para>In contrast to <literal>org.glassfish.jaxb</literal> artifacts, these jars have all dependency classes included inside. These artifacts does not contain JPMS module descriptors.
-            In Maven projects <literal>org.glassfish.jaxb</literal> artifacts are supposed to be used instead. </para>
+        <para>In contrast to <literal>org.glassfish.jaxb</literal> artifacts, these jars have all dependency classes included inside.
+            </para>
     </section>
 
     <section xml:id="Binary-distribution">
@@ -76,10 +77,11 @@
     </section>
 
     <section xml:id="Api_and_runtime">
-        <title>JAXB API and Runtime</title>
+        <title>&binding.spec.name; API and Runtime</title>
         <para>
-            Minimum requirement to compile is jaxb-api. If a client application is running on an environment where JAXB
-            runtime is provided, <literal>jaxb-api</literal> is all that is needed.
+            Minimum requirement to compile is jakarta.xml.bind-api.jar. If a client application is running on an environment
+            where &binding.spec.name;
+            runtime is provided, <literal>jakarta.xml.bind-api.jar</literal> is all that is needed.
                 <example><title>API only</title>
 
                 <programlisting language="xml"><![CDATA[
@@ -87,14 +89,14 @@
                 <dependency>
                     <groupId>jakarta.xml.bind</groupId>
                     <artifactId>jakarta.xml.bind-api</artifactId>
-                    <version>${jaxb.version}</version>
+                    <version>${jakarta.xml.bind-api.version}</version>
                 </dependency>
              ]]></programlisting>
             </example></para>
 
         <para>
             If client application needs to include the runtime, e.g. running standalone on JavaSE
-            <literal>jaxb-runtime</literal> should be also included.
+            <literal>jaxb-impl</literal> should be also included.
             <example><title>API + Runtime</title>
 
             <programlisting language="xml"><![CDATA[
@@ -102,14 +104,14 @@
                 <dependency>
                     <groupId>jakarta.xml.bind</groupId>
                     <artifactId>jakarta.xml.bind-api</artifactId>
-                    <version>${jaxb.version}</version>
+                    <version>${jakarta.xml.bind-api.version}</version>
                 </dependency>
 
                 <!-- Runtime -->
                 <dependency>
-                    <groupId>org.glassfish.jaxb</groupId>
-                    <artifactId>jaxb-runtime</artifactId>
-                    <version>${jaxb.version}</version>
+                    <groupId>com.sun.xml.bind</groupId>
+                    <artifactId>jaxb-impl</artifactId>
+                    <version>${impl.version}</version>
                 </dependency>
     ]]></programlisting>
         </example></para>
@@ -117,10 +119,10 @@
 
 
     <section xml:id="Jaxb_tooling">
-        <title>Using JAXB tools for java sources and XML schema generation</title>
+        <title>Using &binding.impl.name; tools for java sources and XML schema generation</title>
 
         <para>
-            To generate JAXB classes from schema in Maven project, a community
+            To generate &binding.spec.name; classes from schema in Maven project, a community
             <link xlink:href="https://github.com/highsource/maven-jaxb2-plugin">maven-jaxb2-plugin</link> can be used.
             <example><title>Using maven-jaxb2-plugin</title>
 
@@ -149,19 +151,19 @@
         Alternatively to community plugins, there are tooling artifacts jaxb-xjc and jaxb-jxc,
         which can be used for
         java from XML schema generation and vice versa.
-        <example><title>Using JAXB tooling artifacts</title>
+        <example><title>Using &binding.impl.name; tooling artifacts</title>
 
             <programlisting language="xml"><![CDATA[
             <!-- Tooling dependencies -->
             <dependency>
-                <groupId>org.glassfish.jaxb</groupId>
+                <groupId>com.sun.xml.bind</groupId>
                 <artifactId>jaxb-xjc</artifactId>
-                <version>${jaxb.version}</version>
+                <version>${xjc.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.glassfish.jaxb</groupId>
+                <groupId>com.sun.xml.bind</groupId>
                 <artifactId>jaxb-jxc</artifactId>
-                <version>${jaxb.version}</version>
+                <version>${jxc.version}</version>
             </dependency>
 
             <!-- Invoke tooling API (Java 11) -->
@@ -180,7 +182,7 @@
                                 <argument>--module-path</argument>
                                 <modulepath/>
                                 <argument>-m</argument>
-                                <argument>com.sun.tools.xjc/com.sun.tools.xjc.XJCFacade</argument>
+                                <argument>com.sun.tools.xjc</argument>
                                 <argument>-p</argument>
                                 <argument>com.example</argument>
                                 <argument>-d</argument>
@@ -202,7 +204,7 @@
                                 <argument>--module-path</argument>
                                 <modulepath/>
                                 <argument>-m</argument>
-                                <argument>com.sun.tools.jxc/com.sun.tools.jxc.SchemaGeneratorFacade</argument>
+                                <argument>com.sun.tools.jxc</argument>
                                 <argument>-d</argument>
                                 <argument>${project.build.directory}/generated-sources</argument>
                                 <argument>${project.build.directory}/classes/com/example/Author.java</argument>
