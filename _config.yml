@@ -1,13 +1,18 @@
 github: [metadata]
 
-remote_theme: eclipsefdn/jekyll-theme-eclipsefdn
-#theme: jekyll-theme-eclipsefdn # for local use
+#remote_theme: eclipsefdn/jekyll-theme-eclipsefdn
+theme: jekyll-theme-eclipsefdn # for local use
 
-title: [Eclipse Implementation of Jakarta XML Binding]
+title: [Jakarta XML Binding]
 description: [Implementation of Jakarta XML Binding]
 
 links:
   source: https://github.com/eclipse-ee4j/jaxb-ri
-  javadocs: javadocs/index.html
-  download: https://github.com/eclipse-ee4j/jaxb-ri/releases/tag/2.3.2-RI
-  mailinglist: https://accounts.eclipse.org/mailing-list/jaxb-dev
+  api: https://javadoc.io/doc/jakarta.xml.bind/jakarta.xml.bind-api/2.3.3/overview-summary.html
+  spec: https://jakarta.ee/specifications/xml-binding/
+  guide: https://eclipse-ee4j.github.io/jaxb-ri/2.3.3/docs/
+  javadocsrt: https://javadoc.io/doc/com.sun.xml.bind/jaxb-impl/2.3.3/com.sun.xml.bind/module-summary.html
+  javadocsxjc:  https://javadoc.io/doc/com.sun.xml.bind/jaxb-xjc/2.3.3/com.sun.tools.xjc/module-summary.html
+  javadocsjxc:  https://javadoc.io/doc/com.sun.xml.bind/jaxb-jxc/2.3.3/com.sun.tools.jxc/module-summary.html
+  download: https://repo1.maven.org/maven2/com/sun/xml/bind/jaxb-ri/2.3.3/jaxb-ri-2.3.3.zip
+  mailinglist: https://accounts.eclipse.org/mailing-list/jaxb-impl-dev

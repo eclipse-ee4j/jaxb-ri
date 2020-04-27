@@ -1,0 +1,617 @@
+---
+layout: content
+---
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Eclipse Implementation of JAXB Extensions</title><link rel="stylesheet" type="text/css" href="style/documentation.css"><meta name="generator" content="DocBook XSL Stylesheets V1.79.1"><link rel="home" href="index.html" title="Eclipse Implementation of JAXB Release Documentation"><link rel="up" href="index.html" title="Eclipse Implementation of JAXB Release Documentation"><link rel="prev" href="ch04.html" title="Tools"><link rel="next" href="ch06.html" title="Frequently Asked Questions"><script xmlns:fo="http://www.w3.org/1999/XSL/Format" type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-2105126-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Eclipse Implementation of JAXB Extensions</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch04.html">Prev</a>&nbsp;</td><th width="60%" align="center">&nbsp;</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch06.html">Next</a></td></tr></table><hr></div><small xmlns:fo="http://www.w3.org/1999/XSL/Format" class="small">Links: <a href="index.html">Table of Contents</a> | <a href="release-documentation.html">Single HTML</a> | <a href="release-documentation.pdf">Single PDF</a></small><div lang="en" class="chapter" id="jaxb-ri-extensions"><div class="titlepage"><div><div><h1 class="title">Eclipse Implementation of JAXB Extensions</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="ch05.html#jaxb-ri-extensions-overview">1. Overview</a></span></dt><dt><span class="section"><a href="ch05.html#jaxb-ri-extensions-runtime-properties">2. Runtime Properties</a></span></dt><dd><dl><dt><span class="section"><a href="ch05.html#section-872160760955562">2.1. Marshaller Properties</a></span></dt></dl></dd><dt><span class="section"><a href="ch05.html#jaxb-ri-extensions-xjc-customizations">3. XJC Customizations</a></span></dt><dd><dl><dt><span class="section"><a href="ch05.html#section-3752096477276927">3.1. Customizations</a></span></dt></dl></dd><dt><span class="section"><a href="ch05.html#jaxb-ri-extensions-dtd">4. DTD</a></span></dt><dd><dl><dt><span class="section"><a href="ch05.html#section-117866877581027">4.1. DTD</a></span></dt></dl></dd><dt><span class="section"><a href="ch05.html#jaxb-ri-extensions-develop-plugins">5. Develop Plugins</a></span></dt><dd><dl><dt><span class="section"><a href="ch05.html#section-5151430285858327">5.1. What Can A Plugin Do?</a></span></dt></dl></dd></dl></div><div lang="en" class="section" id="jaxb-ri-extensions-overview"><div class="titlepage"><div><div><h2 class="title" style="clear: both">1.&nbsp;Overview</h2></div></div></div><p>This page contains information about vendor-specific features
+    provided by the Eclipse Implementation of JAXB.</p><div class="variablelist"><dl class="variablelist"><dt><span class="term"><a class="xref" href="ch05.html#jaxb-ri-extensions-runtime-properties" title="2.&nbsp;Runtime Properties">Runtime Properties</a></span></dt><dd><p>This document describes Eclipse Implementation of JAXB specific properties that
+                affect the way that the Jakarta XML Binding runtime library behaves.</p></dd><dt><span class="term"><a class="xref" href="ch05.html#jaxb-ri-extensions-xjc-customizations" title="3.&nbsp;XJC Customizations">XJC Customizations</a></span></dt><dd><p>This document describes additional binding
+                customizations that can be used to control the generated
+                source code.</p></dd><dt><span class="term"><a class="xref" href="ch05.html#jaxb-ri-extensions-dtd" title="4.&nbsp;DTD">DTD</a></span></dt><dd><p>This document describes the Eclipse Implementation of JAXB's experimental
+                support for W3C XML Schema features not currently described in
+                the Jakarta XML Binding Specification as well as support for other schema
+                languages (RELAX NG and DTD).</p></dd></dl></div></div><div lang="en" class="section" id="jaxb-ri-extensions-runtime-properties"><div class="titlepage"><div><div><h2 class="title" style="clear: both">2.&nbsp;Runtime Properties</h2></div></div></div><div class="section" id="section-872160760955562"><div class="titlepage"><div><div><h3 class="title">2.1.&nbsp;Marshaller Properties</h3></div></div></div><p>The Eclipse Implementation of JAXB provides additional Marshaller properties that are
+        not defined by the Jakarta XML Binding specification. These properties allow you to
+        better control the marshalling process, but they only work with the
+        Eclipse Implementation of JAXB; they may not work with other Jakarta XML Binding providers.</p><div class="section" id="section-151118438382732"><div class="titlepage"><div><div><h4 class="title">2.1.1.&nbsp;Index of Marshaller Properties</h4></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><a class="xref" href="ch05.html#prefixmapper" title="2.1.2.&nbsp;Namespace Prefix Mapping">Namespace Prefix Mapping</a></p></li><li class="listitem"><p><a class="xref" href="ch05.html#indent" title="2.1.3.&nbsp;Indentation">Indentation</a></p></li><li class="listitem"><p><a class="xref" href="ch05.html#charescape" title="2.1.4.&nbsp;Character Escaping Control">Character Escaping Control</a></p></li><li class="listitem"><p><a class="xref" href="ch05.html#xmldecl" title="2.1.5.&nbsp;XML Declaration Control">XML Declaration Control</a></p></li><li class="listitem"><p><a class="xref" href="ch05.html#jaxbann" title="2.1.7.&nbsp;Jaxb Annotation Control">Jaxb Annotation Control</a></p></li></ul></div></div><div class="section" id="prefixmapper"><div class="titlepage"><div><div><h4 class="title">2.1.2.&nbsp;Namespace Prefix Mapping</h4></div></div></div><div class="informaltable"><table class="informaltable" border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td><span class="bold"><strong>Property
+                            name:</strong></span></td><td><code class="literal">com.sun.xml.bind.namespacePrefixMapper</code></td></tr><tr><td><span class="bold"><strong>Type:</strong></span></td><td><code class="literal">com.sun.xml.bind.marshaller.NamespacePrefixMapper</code></td></tr><tr><td><span class="bold"><strong>Default
+                            value:</strong></span></td><td><p>null</p></td></tr></tbody></table></div><p>The Eclipse Implementation of JAXB provides a mechanism for users to control
+            declarations of namespace URIs and what prefixes they will be
+            bound to. This is the general procedure:</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>The application developer provides an implementation
+                    of
+                    <code class="literal">com.sun.xml.bind.marshaller.NamespacePrefixMapper</code>.</p></li><li class="listitem"><p>This class is then set on the marshaller via the RI
+                    specific property
+                    <code class="literal">com.sun.xml.bind.namespacePrefixMapper</code>.</p></li><li class="listitem"><p>Each time the marshaller sees a URI, it performs a
+                    callback on the mapper: "What prefix do you want for this
+                    namespace URI?"</p></li><li class="listitem"><p>If the mapper returns something, the marshaller will
+                    try to use it.</p></li></ol></div><p>The
+            <code class="literal">com.sun.xml.bind.marshaller.NamespacePrefixMapper</code>
+            class has the following method that you need to implement:</p><div class="informalexample"><pre class="programlisting"><span class="Comment">/**
+ * Implemented by the user application to determine URI -&gt; prefix
+ * mapping.
+ * 
+ * This is considered as an interface, though it's implemented
+ * as an abstract class to make it easy to add new methods in
+ * a future. 
+ * 
+ * @author
+ *     Kohsuke Kawaguchi (kohsuke.kawaguchi@sun.com)
+ */</span>
+<span class="ReservedWord">public</span> <span class="ReservedWord">abstract</span> <span class="ReservedWord">class</span> NamespacePrefixMapper {
+
+    <span class="ReservedWord">private</span> <span class="ReservedWord">static</span> <span class="ReservedWord">final</span> String[] EMPTY_STRING = <span class="ReservedWord">new</span> String[<span class="Numeric">0</span>];
+
+    <span class="Comment">/**
+     * Returns a preferred prefix for the given namespace URI.
+     * 
+     * This method is intended to be overrided by a derived class.
+     *
+     * &lt;p&gt;
+     * As noted in the return value portion of the javadoc, there
+     * are several cases where the preference cannot be honored.
+     * Specifically, as of JAXB RI 2.0 and onward:
+     *
+     * &lt;ol&gt;
+     * &lt;li&gt;
+     * If the prefix returned is already in use as one of the in-scope
+     * namespace bindings. This is partly necessary for correctness
+     * (so that we don't unexpectedly change the meaning of QNames
+     * bound to {@link String}), partly to simplify the marshaller.
+     * &lt;li&gt;
+     * If the prefix returned is "" yet the current {@link JAXBContext}
+     * includes classes that use the empty namespace URI. This allows
+     * the JAXB RI to reserve the "" prefix for the empty namespace URI,
+     * which is the only possible prefix for the URI.
+     * This restriction is also to simplify the marshaller.
+     * &lt;/ol&gt;
+     *
+     * @param namespaceUri
+     *      The namespace URI for which the prefix needs to be found.
+     *      Never be null. "" is used to denote the default namespace.
+     * @param suggestion
+     *      When the content tree has a suggestion for the prefix
+     *      to the given namespaceUri, that suggestion is passed as a
+     *      parameter. Typicall this value comes from the QName.getPrefix
+     *      to show the preference of the content tree. This parameter
+     *      may be null, and this parameter may represent an already
+     *      occupied prefix. 
+     * @param requirePrefix
+     *      If this method is expected to return non-empty prefix.
+     *      When this flag is true, it means that the given namespace URI
+     *      cannot be set as the default namespace.
+     * 
+     * @return
+     *      null if there's no prefered prefix for the namespace URI.
+     *      In this case, the system will generate a prefix for you.
+     * 
+     *      Otherwise the system will try to use the returned prefix,
+     *      but generally there's no guarantee if the prefix will be
+     *      actually used or not.
+     * 
+     *      return "" to map this namespace URI to the default namespace.
+     *      Again, there's no guarantee that this preference will be
+     *      honored.
+     * 
+     *      If this method returns "" when requirePrefix=true, the return
+     *      value will be ignored and the system will generate one.
+     * 
+     * @since JAXB 1.0.1
+     */</span>
+    <span class="ReservedWord">public</span> <span class="ReservedWord">abstract</span> String getPreferredPrefix(String namespaceUri, String suggestion, <span class="ReservedWord">boolean</span> requirePrefix);
+
+    <span class="Comment">/**
+     * Returns a list of namespace URIs that should be declared
+     * at the root element.
+     *
+     * &lt;p&gt;
+     * By default, the JAXB RI 1.0.x produces namespace declarations only when
+     * they are necessary, only at where they are used. Because of this
+     * lack of look-ahead, sometimes the marshaller produces a lot of
+     * namespace declarations that look redundant to human eyes. For example,
+     * &lt;pre&gt;&lt;xmp&gt;
+     * &lt;?xml version="1.0"?&gt;
+     * &lt;root&gt;
+     *   &lt;ns1:child xmlns:ns1="urn:foo"&gt; ... &lt;/ns1:child&gt;
+     *   &lt;ns2:child xmlns:ns2="urn:foo"&gt; ... &lt;/ns2:child&gt;
+     *   &lt;ns3:child xmlns:ns3="urn:foo"&gt; ... &lt;/ns3:child&gt;
+     *   ...
+     * &lt;/root&gt;
+     * &lt;/xmp&gt;&lt;/pre&gt;
+     *
+     * &lt;p&gt;
+     * The JAXB RI 2.x mostly doesn't exhibit this behavior any more,
+     * as it declares all statically known namespace URIs (those URIs
+     * that are used as element/attribute names in JAXB annotations),
+     * but it may still declare additional namespaces in the middle of
+     * a document, for example when (i) a QName as an attribute/element value
+     * requires a new namespace URI, or (ii) DOM nodes as a portion of an object
+     * tree requires a new namespace URI.
+     *
+     * &lt;p&gt;
+     * If you know in advance that you are going to use a certain set of
+     * namespace URIs, you can override this method and have the marshaller
+     * declare those namespace URIs at the root element.
+     *
+     * &lt;p&gt;
+     * For example, by returning &lt;code&gt;new String[]{"urn:foo"}&lt;/code&gt;,
+     * the marshaller will produce:
+     * &lt;pre&gt;&lt;xmp&gt;
+     * &lt;?xml version="1.0"?&gt;
+     * &lt;root xmlns:ns1="urn:foo"&gt;
+     *   &lt;ns1:child&gt; ... &lt;/ns1:child&gt;
+     *   &lt;ns1:child&gt; ... &lt;/ns1:child&gt;
+     *   &lt;ns1:child&gt; ... &lt;/ns1:child&gt;
+     *   ...
+     * &lt;/root&gt;
+     * &lt;/xmp&gt;&lt;/pre&gt;
+     * &lt;p&gt;
+     * To control prefixes assigned to those namespace URIs, use the
+     * {@link #getPreferredPrefix(String, String, boolean)} method. 
+     * 
+     * @return
+     *      A list of namespace URIs as an array of {@link String}s.
+     *      This method can return a length-zero array but not null.
+     *      None of the array component can be null. To represent
+     *      the empty namespace, use the empty string &lt;code&gt;""&lt;/code&gt;.
+     * 
+     * @since
+     *      JAXB RI 1.0.2 
+     */</span>
+    <span class="ReservedWord">public</span> String[] getPreDeclaredNamespaceUris() {
+        <span class="ReservedWord">return</span> EMPTY_STRING;
+    }
+
+    <span class="Comment">/**
+     * Similar to {@link #getPreDeclaredNamespaceUris()} but allows the
+     * (prefix,nsUri) pairs to be returned.
+     *
+     * &lt;p&gt;
+     * With {@link #getPreDeclaredNamespaceUris()}, applications who wish to control
+     * the prefixes as well as the namespaces needed to implement both
+     * {@link #getPreDeclaredNamespaceUris()} and {@link #getPreferredPrefix(String, String, boolean)}.
+     *
+     * &lt;p&gt;
+     * This version eliminates the needs by returning an array of pairs.
+     *
+     * @return
+     *      always return a non-null (but possibly empty) array. The array stores
+     *      data like (prefix1,nsUri1,prefix2,nsUri2,...) Use an empty string to represent
+     *      the empty namespace URI and the default prefix. Null is not allowed as a value
+     *      in the array.
+     *
+     * @since
+     *      JAXB RI 2.0 beta
+     */</span>
+    <span class="ReservedWord">public</span> String[] getPreDeclaredNamespaceUris2() {
+        <span class="ReservedWord">return</span> EMPTY_STRING;
+    }
+
+    <span class="Comment">/**
+     * Returns a list of (prefix,namespace URI) pairs that represents
+     * namespace bindings available on ancestor elements (that need not be repeated
+     * by the JAXB RI.)
+     *
+     * &lt;p&gt;
+     * Sometimes JAXB is used to marshal an XML document, which will be
+     * used as a subtree of a bigger document. When this happens, it's nice
+     * for a JAXB marshaller to be able to use in-scope namespace bindings
+     * of the larger document and avoid declaring redundant namespace URIs.
+     *
+     * &lt;p&gt;
+     * This is automatically done when you are marshalling to {@link XMLStreamWriter},
+     * {@link XMLEventWriter}, {@link DOMResult}, or {@link Node}, because
+     * those output format allows us to inspect what's currently available
+     * as in-scope namespace binding. However, with other output format,
+     * such as {@link OutputStream}, the JAXB RI cannot do this automatically.
+     * That's when this method comes into play.
+     *
+     * &lt;p&gt;
+     * Namespace bindings returned by this method will be used by the JAXB RI,
+     * but will not be re-declared. They are assumed to be available when you insert
+     * this subtree into a bigger document.
+     *
+     * &lt;p&gt;
+     * It is &lt;b&gt;NOT&lt;/b&gt; OK to return  the same binding, or give
+     * the receiver a conflicting binding information.
+     * It's a responsibility of the caller to make sure that this doesn't happen
+     * even if the ancestor elements look like:
+     * &lt;pre&gt;&lt;xmp&gt;
+     *   &lt;foo:abc xmlns:foo="abc"&gt;
+     *     &lt;foo:abc xmlns:foo="def"&gt;
+     *       &lt;foo:abc xmlns:foo="abc"&gt;
+     *         ... JAXB marshalling into here.
+     *       &lt;/foo:abc&gt;
+     *     &lt;/foo:abc&gt;
+     *   &lt;/foo:abc&gt;
+     * &lt;/xmp&gt;&lt;/pre&gt;
+     *
+     * @return
+     *      always return a non-null (but possibly empty) array. The array stores
+     *      data like (prefix1,nsUri1,prefix2,nsUri2,...) Use an empty string to represent
+     *      the empty namespace URI and the default prefix. Null is not allowed as a value
+     *      in the array.
+     *
+     * @since JAXB RI 2.0 beta
+     */</span>
+    <span class="ReservedWord">public</span> String[] getContextualNamespaceDecls() {
+        <span class="ReservedWord">return</span> EMPTY_STRING;
+    }
+}</pre></div><p>See the <a class="xref" href="ch01.html#jaxb-2-0-sample-apps" title="3.&nbsp;Sample Apps">Sample Apps</a> sample application for a detailed
+            example.</p></div><div class="section" id="indent"><div class="titlepage"><div><div><h4 class="title">2.1.3.&nbsp;Indentation</h4></div></div></div><div class="informaltable"><table class="informaltable" border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td><span class="bold"><strong>Property
+                            name:</strong></span></td><td><code class="literal">com.sun.xml.bind.indentString</code></td></tr><tr><td><span class="bold"><strong>Type:</strong></span></td><td><code class="literal">java.lang.String</code></td></tr><tr><td><span class="bold"><strong>Default
+                            value:</strong></span></td><td><p>" " (four whitespaces)</p></td></tr></tbody></table></div><p>This property controls the string used for the indentation
+            of XML. An element of depth <span class="emphasis"><em>k</em></span> will be
+            indented by printing this string <span class="emphasis"><em>k</em></span> times.
+            Note that the "<code class="literal">jaxb.formatted.output</code>" property
+            needs to be set to "true" for the formatting/indentation of the
+            output to occur. See the API documentation for <a class="link" href="api/jakarta/xml/bind/Marshaller.html" target="_top">
+            <code class="literal">jakarta.xml.bind.Marshaller</code> </a> interface for
+            details of this property.</p></div><div class="section" id="charescape"><div class="titlepage"><div><div><h4 class="title">2.1.4.&nbsp;Character Escaping Control</h4></div></div></div><div class="informaltable"><table class="informaltable" border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td><span class="bold"><strong>Property
+                            name:</strong></span></td><td><code class="literal">com.sun.xml.bind.characterEscapeHandler</code></td></tr><tr><td><span class="bold"><strong>Type:</strong></span></td><td><code class="literal">com.sun.xml.bind.marshaller.CharacterEscapeHandler</code></td></tr><tr><td><span class="bold"><strong>Default
+                            value:</strong></span></td><td><p>null</p></td></tr></tbody></table></div><p>By default, the marshaller implementation of the Eclipse Implementation of JAXB
+            tries to escape characters so they can be safely represented in
+            the output encoding (by using Unicode numeric character references
+            of the form &amp;#dddd;)</p><p>Unfortunately, due to various technical reasons, the default
+            behavior may not meet your expectations. If you need to handle
+            escaping more adroitly than the default manner, you can do so by
+            doing the following:</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>Write a class that implements the
+                    <code class="literal">com.sun.xml.bind.marshaller.CharacterEscapeHandler</code>
+                    interface.</p></li><li class="listitem"><p>Create a new instance of it.</p></li><li class="listitem"><p>Set that instance to the Marshaller by using this
+                    property.</p></li></ol></div><p>See the <a class="xref" href="ch01.html#jaxb-2-0-sample-apps" title="3.&nbsp;Sample Apps">Sample Apps</a> sample application for more
+            details.</p></div><div class="section" id="xmldecl"><div class="titlepage"><div><div><h4 class="title">2.1.5.&nbsp;XML Declaration Control</h4></div></div></div><div class="informaltable"><table class="informaltable" border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td><span class="bold"><strong>Property
+                            name:</strong></span></td><td><code class="literal">com.sun.xml.bind.xmlDeclaration</code></td></tr><tr><td><span class="bold"><strong>Type:</strong></span></td><td><code class="literal">boolean</code></td></tr><tr><td><span class="bold"><strong>Default
+                            value:</strong></span></td><td><p>true</p></td></tr></tbody></table></div><p>This experimental JAXB RI 1.0.x property has been adopted as
+            a standard in Eclipse Implementation of JAXB. The Eclipse Implementation of JAXB will continue to support this
+            property, but client code should be using the <a class="link" href="api/jakarta/xml/bind/Marshaller.html#JAXB_FRAGMENT" target="_top">Marshaller.JAXB_FRAGMENT</a>
+            property instead. Please refer to the <a class="link" href="api/jakarta/xml/bind/Marshaller.html#supportedProps" target="_top">Marshaller
+            javadoc</a> for a complete description of the behavior.</p><p>In Eclipse Implementation of JAXB, calling:</p><div class="informalexample"><pre class="programlisting">marshaller.setProperty(<span class="String">"com.sun.xml.bind.xmlDeclaration"</span>, true);</pre></div><p>is equivalent to calling:</p><div class="informalexample"><pre class="programlisting">marshaller.setProperty(Marshaller.JAXB_FRAGMENT, true);</pre></div><p>JAXB 1.0 generated code and clients will continue to work
+            exactly the same on the Jakarta XML Binding runtime as they did on the JAXB
+            1.0 runtime.</p><p>Enabling fragment marshalling could be useful if you are
+            inserting the output of the XML into another XML.</p></div><div class="section" id="xmlheader"><div class="titlepage"><div><div><h4 class="title">2.1.6.&nbsp;XML Preamble Control</h4></div></div></div><div class="informaltable"><table class="informaltable" border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td><span class="bold"><strong>Property
+                            name:</strong></span></td><td><code class="literal">com.sun.xml.bind.xmlHeaders</code></td></tr><tr><td><span class="bold"><strong>Type:</strong></span></td><td><code class="literal">java.lang.String</code></td></tr><tr><td><span class="bold"><strong>Default
+                            value:</strong></span></td><td><p>null</p></td></tr></tbody></table></div><p>This property allows you to specify an XML preamble
+            (&lt;?xml ...&gt; declaration) and any additional PIs, comments,
+            DOCTYPE declaration that follows it. This property takes effect
+            only when you are marshalling to <code class="literal">OutputStream</code>,
+            <code class="literal">Writer</code>, or <code class="literal">StreamResult</code>. Note that this
+            property interacts with the <code class="literal">Marshaller.JAXB_FRAGMENT</code>
+            property. If that property is untouched or set to false, then Eclipse Implementation of JAXB
+            would always write its XML preamble, so this property can be only
+            used to write PIs, comments, DOCTYPE, etc. On the other hand, if
+            it is set to true, then Jakarta XML Binding will not write its own XML preamble,
+            so this property may contain custom XML preamble.</p></div><div class="section" id="jaxbann"><div class="titlepage"><div><div><h4 class="title">2.1.7.&nbsp;Jaxb Annotation Control</h4></div></div></div><div class="informaltable"><table class="informaltable" border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td><span class="bold"><strong>Property
+                            name:</strong></span></td><td><code class="literal">com.sun.xml.bind.XmlAccessorFactory</code></td></tr><tr><td><span class="bold"><strong>Type:</strong></span></td><td><code class="literal">boolean</code></td></tr><tr><td><span class="bold"><strong>Default
+                            value:</strong></span></td><td><p>false</p></td></tr></tbody></table></div><p>This property provides support for a custom
+            com.sun.xml.bind.v2.runtime.reflect.Accessor implementation.&nbsp; It
+            allows the user to control the access to class fields and
+            properties.</p><p>In Eclipse Implementation of JAXB, set the property to enable:</p><div class="informalexample"><pre class="programlisting">marshaller.setProperty(<span class="String">"com.sun.xml.bind.XmlAccessorFactory"</span>, true);</pre></div></div></div></div><div lang="en" class="section" id="jaxb-ri-extensions-xjc-customizations"><div class="titlepage"><div><div><h2 class="title" style="clear: both">3.&nbsp;XJC Customizations</h2></div></div></div><div class="section" id="section-3752096477276927"><div class="titlepage"><div><div><h3 class="title">3.1.&nbsp;Customizations</h3></div></div></div><p>The Eclipse Implementation of JAXB provides additional customizations that are not
+        defined by the Jakarta XML Binding specification. Note the following:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>These features may only be used when the Eclipse Implementation of JAXB XJC
+                binding compiler is run in the <code class="option">-extension</code>
+                mode.</p></li><li class="listitem"><p>All of the Eclipse Implementation of JAXB vendor extensions are defined in the
+                "<code class="code">http://java.sun.com/xml/ns/jaxb/xjc</code>"
+                namespace.</p></li><li class="listitem"><p>The namespaces containing extension binding declarations
+                are specified to a Eclipse Implementation of JAXB processor by the occurrence of the
+                global attribute <code class="literal">@jaxb:extensionBindingPrefixes</code>
+                within an instance of <code class="literal">&lt;xs:schema&gt;</code> element.
+                The value of this attribute is a whitespace-separated list of
+                namespace prefixes. For more information, please refer to
+                section 6.1.1 of the Jakarta XML Binding Specification.</p></li></ul></div><div class="section" id="section-811903782726232"><div class="titlepage"><div><div><h4 class="title">3.1.1.&nbsp;Index of Customizations</h4></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><a class="xref" href="ch05.html#scd" title="3.1.2.&nbsp;SCD Support">SCD Support</a></p></li><li class="listitem"><p><a class="xref" href="ch05.html#superclass" title="3.1.3.&nbsp;Extending a Common Super Class">Extending a Common Super Class</a> - Extending a Common Super
+                    Class</p></li><li class="listitem"><p><a class="xref" href="ch05.html#superinterface" title="3.1.4.&nbsp;Extending a Common Super Interface">Extending a Common Super Interface</a> - Extending a Common Super
+                    Interface</p></li><li class="listitem"><p><a class="xref" href="ch05.html#javatype" title="3.1.5.&nbsp;Enhanced <jaxb:javaType&gt;">Enhanced &lt;jaxb:javaType&gt;</a>
+                    - Enhanced &lt;jaxb:javaType&gt; customization</p></li><li class="listitem"><p><a class="xref" href="ch05.html#simple" title="3.1.6.&nbsp;Experimental simpler &amp; better binding mode">Experimental simpler &amp; better binding mode</a> -
+                    Experimental simpler &amp; better binding mode</p></li><li class="listitem"><p><a class="xref" href="ch05.html#treatrestrictionlikenewtype" title="3.1.7.&nbsp;Alternative Derivation-by-restriction Binding Mode">Alternative Derivation-by-restriction Binding Mode</a> - Alternative
+                    derivation-by-restriction binding mode</p></li><li class="listitem"><p><a class="xref" href="ch05.html#substitutable" title="3.1.8.&nbsp;Allow separate compilations to perform element substitutions">Allow separate compilations to perform element
+            substitutions</a> - Allow separate compilations
+                    to perform element substitutions</p></li></ul></div></div><div class="section" id="scd"><div class="titlepage"><div><div><h4 class="title">3.1.2.&nbsp;SCD Support</h4></div></div></div><p>The Eclipse Implementation of JAXB supports the use of <a class="link" href="http://www.w3.org/TR/2005/WD-xmlschema-ref-20050329/" target="_top">schema
+            component designator</a> as a means of specifying the
+            customization target (of all standard Jakarta XML Binding customizations as well
+            as vendor extensions explained below.) To use this feature, use
+            the <code class="literal">scd</code> attribute on &lt;bindings&gt; element instead
+            of the <code class="literal">schemaLocation</code> and <code class="literal">node</code>
+            attributes.</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;bindings</span> <span class="Identifier">xmlns:tns</span>=<span class="String">"http://example.com/myns"</span>
+          <span class="Identifier">xmlns</span>=<span class="String">"http://java.sun.com/xml/ns/jaxb"</span> <span class="Identifier">version</span>=<span class="String">"2.1"</span><span class="ReservedWord">&gt;</span>
+    <span class="ReservedWord">&lt;bindings</span>
+            <span class="Identifier">...</span>
+            <span class="red">scd="tns:foo"</span>&gt;
+        <span class="Comment">&lt;!-- this customization applies to the global element declaration --&gt;</span>
+        <span class="Comment">&lt;!-- 'foo' in the http://example.com/myns namespace --&gt;</span>
+        <span class="ReservedWord">&lt;class</span> <span class="Identifier">name</span>=<span class="String">"FooElement"</span><span class="ReservedWord">/&gt;</span>
+    <span class="ReservedWord">&lt;/bindings&gt;</span>
+    <span class="ReservedWord">&lt;bindings</span>
+            <span class="Identifier">...</span>
+            <span class="red">scd="~tns:bar"</span>&gt;
+        <span class="Comment">&lt;!-- this customization applies to the global type declaration --&gt;</span>
+        <span class="Comment">&lt;!-- 'bar' in the http://example.com/myns namespace --&gt;</span>
+        <span class="ReservedWord">&lt;class</span> <span class="Identifier">name</span>=<span class="String">"BarType"</span><span class="ReservedWord">/&gt;</span>
+    <span class="ReservedWord">&lt;/bindings&gt;</span>
+<span class="ReservedWord">&lt;/bindings&gt;</span>  </pre></div><p>Compared to the standard XPath based approach, SCD allows
+            more robust and concise way of identifying a target of a
+            customization. For more about SCD, refer to the scd example. Note
+            that SCD is a W3C working draft, and may change in the
+            future.</p></div><div class="section" id="superclass"><div class="titlepage"><div><div><h4 class="title">3.1.3.&nbsp;Extending a Common Super Class</h4></div></div></div><p>The <code class="literal">&lt;xjc:superClass&gt;</code> customization allows
+            you to specify the fully qualified name of the Java class that is
+            to be used as the super class of all the generated implementation
+            classes. The <code class="literal">&lt;xjc:superClass&gt;</code> customization can
+            only occur within your <code class="literal">&lt;jaxb:globalBindings&gt;</code>
+            customization on the <code class="literal">&lt;xs:schema&gt;</code>
+            element:</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;xs:schema</span> <span class="Identifier">xmlns:xs</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span>
+           <span class="Identifier">xmlns:jaxb</span>=<span class="String">"http://java.sun.com/xml/ns/jaxb"</span>
+           <span class="red">xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+           jaxb:extensionBindingPrefixes="xjc"</span>
+           jaxb:version="2.0"&gt;
+
+    <span class="ReservedWord">&lt;xs:annotation&gt;</span>
+        <span class="ReservedWord">&lt;xs:appinfo&gt;</span>
+            <span class="ReservedWord">&lt;jaxb:globalBindings&gt;</span>
+                <span class="red">&lt;xjc:superClass
+                        name="org.acme.RocketBooster"/&gt;</span>
+            <span class="ReservedWord">&lt;/jaxb:globalBindings&gt;</span>
+        <span class="ReservedWord">&lt;/xs:appinfo&gt;</span>
+    <span class="ReservedWord">&lt;/xs:annotation&gt;</span>
+
+    ...
+
+<span class="ReservedWord">&lt;/xs:schema&gt;</span></pre></div><p>In the sample above, the <code class="literal">&lt;xjc:superClass&gt;</code>
+            customization will cause all of the generated implementation
+            classes to extend the named class,
+            <code class="literal">org.acme.RocketBooster</code>.</p></div><div class="section" id="superinterface"><div class="titlepage"><div><div><h4 class="title">3.1.4.&nbsp;Extending a Common Super Interface</h4></div></div></div><p>The <code class="literal">&lt;xjc:superInterface&gt;</code> customization
+            allows you to specify the fully qualified name of the Java
+            interface that is to be used as the root interface of all the
+            generated interfaces. The <code class="literal">&lt;xjc:superInterface&gt;</code>
+            customization can only occur within your
+            <code class="literal">&lt;jaxb:globalBindings&gt;</code> customization on the
+            <code class="literal">&lt;xs:schema&gt;</code> element:</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;xs:schema</span> <span class="Identifier">xmlns:xs</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span>
+           <span class="Identifier">xmlns:jaxb</span>=<span class="String">"http://java.sun.com/xml/ns/jaxb"</span>
+           <span class="red">xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+           jaxb:extensionBindingPrefixes="xjc"</span>
+           jaxb:version="2.0"&gt;
+
+    <span class="ReservedWord">&lt;xs:annotation&gt;</span>
+        <span class="ReservedWord">&lt;xs:appinfo&gt;</span>
+            <span class="ReservedWord">&lt;jaxb:globalBindings&gt;</span>
+                <span class="red">&lt;xjc:superInterface
+                        name="org.acme.RocketBooster"/&gt;</span>
+            <span class="ReservedWord">&lt;/jaxb:globalBindings&gt;</span>
+        <span class="ReservedWord">&lt;/xs:appinfo&gt;</span>
+    <span class="ReservedWord">&lt;/xs:annotation&gt;</span>
+
+    ...
+
+<span class="ReservedWord">&lt;/xs:schema&gt;</span></pre></div><p>In the sample above, the
+            <code class="literal">&lt;xjc:superInterface&gt;</code> customization will cause
+            all of the generated interfaces to extend the named interface,
+            <code class="literal">org.acme.RocketBooster</code>.</p></div><div class="section" id="javatype"><div class="titlepage"><div><div><h4 class="title">3.1.5.&nbsp;Enhanced &lt;jaxb:javaType&gt;</h4></div></div></div><p>The &lt;xjc:javaType&gt; customization can be used just like
+            the standard &lt;jaxb:javaType&gt; customization, except that it
+            allows you to specify an <code class="literal">XmlAdapter</code>-derived
+            class, instead of parse&amp;print method pair.</p><p>This customization can be used in all the places
+            &lt;jaxb:javaType&gt; is used, but nowhere else:</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;xs:schema</span> <span class="Identifier">xmlns:xs</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span>
+           <span class="Identifier">xmlns:jaxb</span>=<span class="String">"http://java.sun.com/xml/ns/jaxb"</span>
+           <span class="red">xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+           jaxb:extensionBindingPrefixes="xjc"</span>
+           jaxb:version="2.0"&gt;
+
+    ...
+
+    <span class="ReservedWord">&lt;xsd:simpleType</span> <span class="Identifier">name</span>=<span class="String">"LayerRate_T"</span><span class="ReservedWord">&gt;</span>
+        <span class="ReservedWord">&lt;xsd:annotation&gt;</span>
+            <span class="ReservedWord">&lt;xsd:appinfo&gt;</span>
+                <span class="red">&lt;xjc:javaType name="org.acme.foo.LayerRate"
+                              adapter="org.acme.foo.LayerRateAdapter"/&gt;</span>
+            <span class="ReservedWord">&lt;/xsd:appinfo&gt;</span>
+        <span class="ReservedWord">&lt;/xsd:annotation&gt;</span>
+
+        ... gory simple type definition here ...
+
+    <span class="ReservedWord">&lt;/xsd:simpleType&gt;</span>
+<span class="ReservedWord">&lt;/xsd:schema&gt;</span></pre></div><p>In the above example, <code class="literal">LayerRate_T</code> simple type
+            is adapted by <code class="literal">org.acme.foo.LayerRateAdapter</code>, which
+            extends from <code class="literal">XmlAdapter</code>.</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;xs:schema</span> <span class="Identifier">xmlns:xs</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span>
+           <span class="Identifier">xmlns:jaxb</span>=<span class="String">"http://java.sun.com/xml/ns/jaxb"</span>
+           <span class="red">xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+           jaxb:extensionBindingPrefixes="xjc"</span>
+           jaxb:version="2.0"&gt;
+
+    <span class="ReservedWord">&lt;xsd:annotation&gt;</span>
+        <span class="ReservedWord">&lt;xsd:appinfo&gt;</span>
+            <span class="ReservedWord">&lt;jaxb:globalBindings&gt;</span>
+                <span class="red">&lt;xjc:javaType name="org.acme.foo.MyDateType"
+                              xmlType="xsd:dateTime"
+                              adapter="org.acme.foo.MyAdapterImpl"/&gt;</span>
+            <span class="ReservedWord">&lt;/jaxb:globalBindings&gt;</span>
+        <span class="ReservedWord">&lt;/xsd:appinfo&gt;</span>
+    <span class="ReservedWord">&lt;/xsd:annotation&gt;</span>
+
+    ...
+
+<span class="ReservedWord">&lt;/xsd:schema&gt;</span></pre></div><p>In the above example, all the use of
+            <code class="literal">xsd:dateTime</code> type is adapter by
+            <code class="literal">org.acme.foo.MyAdapterImpl</code> to
+            <code class="literal">org.acme.foo.MyDateType</code></p></div><div class="section" id="simple"><div class="titlepage"><div><div><h4 class="title">3.1.6.&nbsp;Experimental simpler &amp; better binding mode</h4></div></div></div><p>This experimental binding mode can be enabled as a part of
+            the global binding. See below:</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;xs:schema</span> <span class="Identifier">xmlns:xs</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span>
+           <span class="Identifier">xmlns:jaxb</span>=<span class="String">"http://java.sun.com/xml/ns/jaxb"</span>
+           <span class="red">xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+           jaxb:extensionBindingPrefixes="xjc"</span>
+           jaxb:version="2.0"&gt;
+
+    <span class="ReservedWord">&lt;xs:annotation&gt;</span>
+        <span class="ReservedWord">&lt;xs:appinfo&gt;</span>
+            <span class="ReservedWord">&lt;jaxb:globalBindings</span> <span class="Identifier">generateValueClass</span>=<span class="String">"false"</span><span class="ReservedWord">&gt;</span>
+                <span class="red">&lt;xjc:simple/&gt;</span>
+            <span class="ReservedWord">&lt;/jaxb:globalBindings&gt;</span>
+        <span class="ReservedWord">&lt;/xs:appinfo&gt;</span>
+    <span class="ReservedWord">&lt;/xs:annotation&gt;</span>
+
+    ...
+
+<span class="ReservedWord">&lt;/xs:schema&gt;</span></pre></div><p>When enabled, XJC produces Java source code that are more
+            concise and easier to use. Improvements include:</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>Some content model definitions, such as
+                    <code class="code">A,B,A</code>, which used to cause an XJC compilation
+                    error and required manual intervention, now compile out of
+                    the box without any customization.</p></li><li class="listitem"><p>Some content model definitions that used to bind to
+                    a non-intuitive Java class now binds to a much better Java
+                    class: </p><div class="informalexample"><pre class="programlisting"><span class="Comment">&lt;!-- schema --&gt;</span>
+<span class="ReservedWord">&lt;xs:complexType</span> <span class="Identifier">name</span>=<span class="String">"foo"</span><span class="ReservedWord">&gt;</span>
+    <span class="ReservedWord">&lt;xs:choice&gt;</span>
+        <span class="ReservedWord">&lt;xs:sequence&gt;</span>
+            <span class="ReservedWord">&lt;xs:element</span> <span class="Identifier">name</span>=<span class="String">"a"</span> <span class="Identifier">type</span>=<span class="String">"xs:int"</span><span class="ReservedWord">/&gt;</span>
+            <span class="ReservedWord">&lt;xs:element</span> <span class="Identifier">name</span>=<span class="String">"b"</span> <span class="Identifier">type</span>=<span class="String">"xs:int"</span><span class="ReservedWord">/&gt;</span>
+        <span class="ReservedWord">&lt;/xs:sequence&gt;</span>
+        <span class="ReservedWord">&lt;xs:sequence&gt;</span>
+            <span class="ReservedWord">&lt;xs:element</span> <span class="Identifier">name</span>=<span class="String">"b"</span> <span class="Identifier">type</span>=<span class="String">"xs:int"</span><span class="ReservedWord">/&gt;</span>
+            <span class="ReservedWord">&lt;xs:element</span> <span class="Identifier">name</span>=<span class="String">"c"</span> <span class="Identifier">type</span>=<span class="String">"xs:int"</span><span class="ReservedWord">/&gt;</span>
+        <span class="ReservedWord">&lt;/xs:sequence&gt;</span>
+    <span class="ReservedWord">&lt;/xs:choice&gt;</span>
+<span class="ReservedWord">&lt;/xs:complexType&gt;</span>
+</pre><pre class="programlisting"><span class="Comment">// before</span>
+<span class="ReservedWord">class</span> Foo {
+    List&lt;JAXBElement&lt;Integer&gt;&gt; content;
+}
+
+<span class="Comment">// in &lt;xjc:simple&gt; binding</span>
+<span class="ReservedWord">class</span> Foo {
+    Integer a;
+    <span class="ReservedWord">int</span> b; <span class="Comment">// notice that b is effectively mandatory, hence primitive</span>
+    Integer c;
+}</pre></div></li><li class="listitem"><p>When repetable elements are bound, the method name
+                    will become plural. </p><div class="informalexample"><pre class="programlisting"><span class="Comment">&lt;!-- schema --&gt;</span>
+<span class="ReservedWord">&lt;xs:complexType</span> <span class="Identifier">name</span>=<span class="String">"person"</span><span class="ReservedWord">&gt;</span>
+    <span class="ReservedWord">&lt;xs:sequence&gt;</span>
+        <span class="ReservedWord">&lt;xs:element</span> <span class="Identifier">name</span>=<span class="String">"child"</span> <span class="Identifier">type</span>=<span class="String">"xs:string"</span>
+                    <span class="Identifier">maxOccurs</span>=<span class="String">"unbounded"</span><span class="ReservedWord">/&gt;</span>
+        <span class="ReservedWord">&lt;xs:element</span> <span class="Identifier">name</span>=<span class="String">"parent"</span> <span class="Identifier">type</span>=<span class="String">"xs:string"</span>
+                    <span class="Identifier">maxOccurs</span>=<span class="String">"unbounded"</span><span class="ReservedWord">/&gt;</span>
+    <span class="ReservedWord">&lt;/xs:sequence&gt;</span>
+<span class="ReservedWord">&lt;/xs:complexType&gt;</span>
+</pre><pre class="programlisting"><span class="Comment">// before</span>
+<span class="ReservedWord">public</span> <span class="ReservedWord">class</span> Person {
+    <span class="ReservedWord">protected</span> List&lt;String&gt; child;
+    <span class="ReservedWord">protected</span> List&lt;String&gt; parent;
+}
+
+<span class="Comment">// in &lt;xjc:simple&gt; binding</span>
+<span class="ReservedWord">public</span> <span class="ReservedWord">class</span> Person {
+    <span class="ReservedWord">protected</span> List&lt;String&gt; children;
+    <span class="ReservedWord">protected</span> List&lt;String&gt; parents;
+}     </pre></div></li></ol></div><p>Once again, readers are warned that this is an <span class="bold"><strong>experimental binding mode</strong></span>, and therefore
+            the binding is subject to change in future versions of the Eclipse Implementation of JAXB
+            without notice. Please send feedbacks on this binding to
+            <a class="link" href="https://accounts.eclipse.org/mailing-list/jaxb-impl-dev" target="_top">jaxb-impl-dev@eclipse.org</a></p></div><div class="section" id="treatrestrictionlikenewtype"><div class="titlepage"><div><div><h4 class="title">3.1.7.&nbsp;Alternative Derivation-by-restriction Binding Mode</h4></div></div></div><p>Normally, the Jakarta XML Binding specification requires that a
+            derivation-by-restriction be mapped to an inheritance betwee n two
+            Java classes. This is necessary to preserve the type hierarchy,
+            but one of the downsides is that the derived class does not really
+            provide easy-to-use properties that reflect the restricted content
+            model.</p><p>This experimental &lt;xjc:treatRestrictionLikeNewType&gt;
+            changes this behavior by not preserving the type inheritance to
+            Java. Instead, it generates two unrelated Java classes, both with
+            proper properties. For example, given the following schema:</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;xs:schema</span> <span class="Identifier">xmlns:xs</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span>
+           <span class="Identifier">xmlns:xjc</span>=<span class="String">"http://java.sun.com/xml/ns/jaxb/xjc"</span>
+           <span class="Identifier">jaxb:extensionBindingPrefixes</span>=<span class="String">"xjc"</span>
+           <span class="Identifier">xmlns:jaxb</span>=<span class="String">"http://java.sun.com/xml/ns/jaxb"</span>
+           <span class="Identifier">jaxb:version</span>=<span class="String">"2.0"</span>
+           <span class="Identifier">elementFormDefault</span>=<span class="String">"qualified"</span><span class="ReservedWord">&gt;</span>
+
+    <span class="ReservedWord">&lt;xs:annotation&gt;</span>
+        <span class="ReservedWord">&lt;xs:appinfo&gt;</span>
+            <span class="ReservedWord">&lt;jaxb:globalBindings&gt;</span>
+                <span class="ReservedWord">&lt;xjc:treatRestrictionLikeNewType/&gt;</span>
+            <span class="ReservedWord">&lt;/jaxb:globalBindings&gt;</span>
+        <span class="ReservedWord">&lt;/xs:appinfo&gt;</span>
+    <span class="ReservedWord">&lt;/xs:annotation&gt;</span>
+
+    <span class="ReservedWord">&lt;xs:complexType</span> <span class="Identifier">name</span>=<span class="String">"DerivedType"</span><span class="ReservedWord">&gt;</span>
+        <span class="ReservedWord">&lt;xs:complexContent&gt;</span>
+            <span class="ReservedWord">&lt;xs:restriction</span> <span class="Identifier">base</span>=<span class="String">"ResponseOptionType"</span><span class="ReservedWord">&gt;</span>
+                <span class="ReservedWord">&lt;xs:sequence&gt;</span>
+                    <span class="ReservedWord">&lt;xs:element</span> <span class="Identifier">name</span>=<span class="String">"foo"</span> <span class="Identifier">type</span>=<span class="String">"xs:string"</span><span class="ReservedWord">/&gt;</span>
+                <span class="ReservedWord">&lt;/xs:sequence&gt;</span>
+            <span class="ReservedWord">&lt;/xs:restriction&gt;</span>
+        <span class="ReservedWord">&lt;/xs:complexContent&gt;</span>
+    <span class="ReservedWord">&lt;/xs:complexType&gt;</span>
+
+    <span class="ReservedWord">&lt;xs:complexType</span> <span class="Identifier">name</span>=<span class="String">"ResponseOptionType"</span><span class="ReservedWord">&gt;</span>
+        <span class="ReservedWord">&lt;xs:sequence&gt;</span>
+            <span class="ReservedWord">&lt;xs:element</span> <span class="Identifier">name</span>=<span class="String">"foo"</span> <span class="Identifier">type</span>=<span class="String">"xs:string"</span>
+                        <span class="Identifier">maxOccurs</span>=<span class="String">"unbounded"</span><span class="ReservedWord">/&gt;</span>
+        <span class="ReservedWord">&lt;/xs:sequence&gt;</span>
+    <span class="ReservedWord">&lt;/xs:complexType&gt;</span>
+
+<span class="ReservedWord">&lt;/xs:schema&gt;</span></pre></div><p>The generated <code class="literal">Derived</code> class will look like this
+            (comment and annotations removed for brevity):</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">public</span> <span class="ReservedWord">class</span> DerivedType {
+    <span class="ReservedWord">protected</span> String foo;
+
+    <span class="ReservedWord">public</span> String getFoo() { <span class="ReservedWord">return</span> foo; }
+    <span class="ReservedWord">public</span> <span class="ReservedWord">void</span> setFoo(String value) { <span class="ReservedWord">this</span>.foo = value; }
+} </pre></div><p>In contrast, without this customization the
+            <code class="literal">Derived</code> class would look like the following:</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">public</span> <span class="ReservedWord">class</span> DerivedType <span class="ReservedWord">extends</span> ResponseOptionType {
+
+    <span class="Comment">// it simply inherits List&lt;String&gt; ResponseOptionType.getFoo()</span>
+
+}</pre></div></div><div class="section" id="substitutable"><div class="titlepage"><div><div><h4 class="title">3.1.8.&nbsp;Allow separate compilations to perform element
+            substitutions</h4></div></div></div><p>In an attempt to make the generated code easier to use, the
+            Jakarta XML Binding specification sometimes choose bindings based on how certain
+            feature is used. One of them is element substitution feature. If
+            no actual element substitution happens in the schema, Jakarta XML Binding assumes
+            that the element is not used for substitution, and generates code
+            that assumes it.</p><p>Most of the time this is fine, but when you expect other
+            "extension" schemas to be compiled later on top of your base
+            schema, and if those extension schemas do element substitutions,
+            this binding causes a problem ( <a class="link" href="https://github.com/eclipse-ee4j/jaxb-ri/issues/289" target="_top">see
+            example</a>.)</p><p>&lt;xjc:substitutable&gt; customization is a work around for
+            this issue. It explicitly tells XJC that a certain element is used
+            for element substitution head, even though no actual substitution
+            might be present in the current compilation. This customization
+            should be attached in the element declaration itself, like
+            this:</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;xs:element</span> <span class="Identifier">name</span>=<span class="String">"Model"</span> <span class="Identifier">type</span>=<span class="String">"Model"</span><span class="ReservedWord">&gt;</span>
+    <span class="ReservedWord">&lt;xs:annotation&gt;</span>
+        <span class="ReservedWord">&lt;xs:appinfo&gt;</span>
+            <span class="ReservedWord">&lt;xjc:substitutable/&gt;</span>
+        <span class="ReservedWord">&lt;/xs:appinfo&gt;</span>
+    <span class="ReservedWord">&lt;/xs:annotation&gt;</span>
+<span class="ReservedWord">&lt;/xs:element&gt;</span></pre></div></div></div></div><div lang="en" class="section" id="jaxb-ri-extensions-dtd"><div class="titlepage"><div><div><h2 class="title" style="clear: both">4.&nbsp;DTD</h2></div></div></div><div class="section" id="section-117866877581027"><div class="titlepage"><div><div><h3 class="title">4.1.&nbsp;DTD</h3></div></div></div><p>The Eclipse Implementation of JAXB is shipped with experimental DTD support, which lets
+        you compile XML DTDs.</p><p>To compile a DTD <code class="literal">test.dtd</code>, run the XJC
+        binding compiler as follows:</p><div class="informalexample"><pre class="programlisting">$ xjc.sh -dtd test.dtd</pre></div><p>All the other command-line options of the XJC binding compiler
+        can be applied. Similarly, the <span class="command"><strong>xjc</strong></span> <a class="link" href="http://jakarta.apache.org/ant/" target="_top">ant</a> task supports
+        DTD. The generated code will be no different from what is generated
+        from W3C XML Schema. You'll use the same Jakarta XML Binding API to access the
+        generated code, and it is portable in the sense that it will run on
+        any Jakarta XML Binding implementation.</p><div class="section" id="section-249814783079567"><div class="titlepage"><div><div><h4 class="title">4.1.1.&nbsp;Customization</h4></div></div></div><p>The customization syntax for DTD is roughly based on the
+            ver.0.21 working draft of the Jakarta XML Binding specification, which is
+            available at <a class="link" href="http://xml.coverpages.org/jaxb0530spec.pdf" target="_top">xml.coverpages.org</a>.
+            The deviations from this document are:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>The <code class="literal">whitespace</code> attribute of the
+                    <code class="literal">conversion</code> element takes "
+                    <code class="literal">preserve</code>", " <code class="literal">replace</code>", and "
+                    <code class="literal">collapse</code>" instead of "
+                    <code class="literal">preserve</code>"," <code class="literal">normalize</code>", and "
+                    <code class="literal">collapse</code>" as specified in the
+                    document.</p></li><li class="listitem"><p>The <code class="literal">interface</code> customization just
+                    generates marker interfaces with no method.</p></li></ul></div></div></div></div><div lang="en" class="section" id="jaxb-ri-extensions-develop-plugins"><div class="titlepage"><div><div><h2 class="title" style="clear: both">5.&nbsp;Develop Plugins</h2></div></div></div><p>This document describes how to write an XJC plugin to extend the
+    code generation of XJC.</p><div class="section" id="section-5151430285858327"><div class="titlepage"><div><div><h3 class="title">5.1.&nbsp;What Can A Plugin Do?</h3></div></div></div><p>An XJC plugin participates in the code generation from a schema.
+        It can define its own customizations that users can use to control it,
+        it can access the code that the Eclipse Implementation of JAXB generates, it can generate
+        additional classes/methods/fields/annotations/comments, and it can
+        also replace some of the pluggability points in the compilation
+        process, such as XML name -&gt; Java name conversion.</p><p>As a show case of what a plugin can do, take a look at plugins hosted at
+        JAXB2-commons.</p><div class="section" id="section-909129508009087"><div class="titlepage"><div><div><h4 class="title">5.1.1.&nbsp;Quick Start</h4></div></div></div><p>To write a plugin, do the following simple steps.</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>Write a class, say, <code class="literal">org.acme.MyPlugin</code>
+                    by extending <code class="literal">com.sun.tools.xjc.Plugin</code>. See
+                    javadoc for how to implement methods.</p></li><li class="listitem"><p>Write the name of your plugin class in a text file
+                    and put it as
+                    <code class="filename">/META-INF/services/com.sun.tools.xjc.Plugin</code>
+                    in your jar file.</p></li></ol></div><p>Users can then use your plugins by declaring an XJC ant task
+            with your jar files.</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;taskdef</span> <span class="Identifier">name</span>=<span class="String">"xjc"</span> <span class="Identifier">classname</span>=<span class="String">"com.sun.tools.xjc.XJCTask"</span><span class="ReservedWord">&gt;</span>
+    <span class="ReservedWord">&lt;classpath&gt;</span>
+        <span class="ReservedWord">&lt;fileset</span> <span class="Identifier">dir</span>=<span class="String">"jaxb-ri/lib"</span> <span class="Identifier">includes</span>=<span class="String">"*.jar"</span><span class="ReservedWord">/&gt;</span>
+        <span class="ReservedWord">&lt;fileset</span> <span class="Identifier">dir</span>=<span class="String">"your-plugin"</span> <span class="Identifier">includes</span>=<span class="String">"*.jar"</span><span class="ReservedWord">/&gt;</span>
+    <span class="ReservedWord">&lt;/classpath&gt;</span>
+<span class="ReservedWord">&lt;/taskdef&gt;</span></pre></div></div><div class="section" id="section-5979897283139746"><div class="titlepage"><div><div><h4 class="title">5.1.2.&nbsp;Resources</h4></div></div></div><p>Although we will do our best to maintain the compatibility
+            of the interfaces, it is still subject to change at this
+            point.</p></div></div></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch04.html">Prev</a>&nbsp;</td><td width="20%" align="center">&nbsp;</td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch06.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Tools&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;Frequently Asked Questions</td></tr></table></div></body></html>
