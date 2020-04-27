@@ -1,7 +1,7 @@
 github: [metadata]
 
-#remote_theme: eclipsefdn/jekyll-theme-eclipsefdn
-theme: jekyll-theme-eclipsefdn # for local use
+remote_theme: eclipsefdn/jekyll-theme-eclipsefdn
+#theme: jekyll-theme-eclipsefdn # for local use
 
 title: [Jakarta XML Binding]
 description: [Implementation of Jakarta XML Binding]
