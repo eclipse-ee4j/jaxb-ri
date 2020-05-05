@@ -194,7 +194,7 @@ public class XMLStreamWriterOutput extends XmlOutputAbstractImpl {
 
     private static Constructor<? extends XmlOutput> initStAXExOutputClass() {
         try {
-            Class c = Class.forName("com.sun.xml.bind.v2.runtime.output.StAXExStreamWriterOutput");
+            Class c = Class.forName("org.glassfish.jaxb.runtime.v2.runtime.output.StAXExStreamWriterOutput");
             return c.getConstructor(STAXEX_WRITER_CLASS);
         } catch (Throwable e) {
             return null;
