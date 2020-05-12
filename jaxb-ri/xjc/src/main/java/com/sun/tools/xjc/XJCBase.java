@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2017, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -154,8 +154,8 @@ public class XJCBase extends MatchingTask {
     /**
      * Files used to determine whether XJC should run or not.
      */
-    private final ArrayList<File> dependsSet = new ArrayList<File>();
-    private final ArrayList<File> producesSet = new ArrayList<File>();
+    private final ArrayList<File> dependsSet = new ArrayList<>();
+    private final ArrayList<File> producesSet = new ArrayList<>();
 
     /**
      * Set to true once the {@code <produces>} element is used.
@@ -599,20 +599,52 @@ public class XJCBase extends MatchingTask {
             loader = loader.getParent();
         }
 
-        String antcp = loader != null
-            //taskedef cp
-            ? ((AntClassLoader) loader).getClasspath()
-            //system classloader, ie. env CLASSPATH=...
-            : System.getProperty("java.class.path");
-        // try to find tools.jar and add it to the cp
-        // so the behaviour on all JDKs is the same
-        // (avoid creating MaskingClassLoader on non-Mac JDKs)
+        Path cp = getCommandline().createClasspath(getProject());
+        if (loader != null) {
+            // fork from within ant
+            cp.append(new Path(getProject(), ((AntClassLoader) loader).getClasspath()));
+        }
+
         File jreHome = new File(System.getProperty("java.home"));
         File toolsJar = new File(jreHome.getParent(), "lib/tools.jar");
         if (toolsJar.exists()) {
-            antcp += File.pathSeparatorChar + toolsJar.getAbsolutePath();
+            // on java se 8
+            Path.PathElement tools = cp.createPathElement();
+            tools.setPath(toolsJar.getAbsolutePath());
         }
-        getCommandline().createClasspath(getProject()).append(new Path(getProject(), antcp));
+
+        Path mvn = getProject().getReference("maven.plugin.classpath");
+        if (mvn != null) {
+            // fork in ant called from maven,
+            // likely through maven-antrun-plugin:run
+            cp.append(mvn);
+        }
+
+        if (getModulepath() != null && getModulepath().size() > 0) {
+            getCommandline().createModulepath(getProject()).add(getModulepath());
+        }
+        if (getUpgrademodulepath() != null && getUpgrademodulepath().size() > 0) {
+            getCommandline().createUpgrademodulepath(getProject()).add(getUpgrademodulepath());
+        }
+        if (getAddmodules() != null && getAddmodules().length() > 0) {
+            getCommandline().createVmArgument().setLine("--add-modules " + getAddmodules());
+        }
+        if (getAddreads() != null && getAddreads().length() > 0) {
+            getCommandline().createVmArgument().setLine("--add-reads " + getAddreads());
+        }
+        if (getAddexports() != null && getAddexports().length() > 0) {
+            getCommandline().createVmArgument().setLine("--add-exports " + getAddexports());
+        }
+        if (getAddopens() != null && getAddopens().length() > 0) {
+            getCommandline().createVmArgument().setLine("--add-opens " + getAddopens());
+        }
+        if (getPatchmodule() != null && getPatchmodule().length() > 0) {
+            getCommandline().createVmArgument().setLine("--patch-module " + getPatchmodule());
+        }
+        if (getLimitmodules() != null && getLimitmodules().length() > 0) {
+            getCommandline().createVmArgument().setLine("--limit-modules " + getLimitmodules());
+        }
+
         getCommandline().setClassname(className);
     }
 
@@ -643,8 +675,8 @@ public class XJCBase extends MatchingTask {
                 setupForkCommand("com.sun.tools.xjc.XJCFacade");
                 int status = run(getCommandline().getCommandline());
                 if (status != 0) {
-                    log("Command invoked: " + "xjc" + getCommandline().toString());
-                    throw new BuildException("xjc" + " failed", getLocation());
+                    log("Command invoked: xjc " + getCommandline().toString());
+                    throw new BuildException("xjc failed", getLocation());
                 }
             } else {
                 if (getCommandline().getVmCommand().size() > 1) {

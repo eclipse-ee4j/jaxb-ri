@@ -184,10 +184,6 @@
                     <version>3.8.1</version>
                     <configuration>
                         <release>${upper.java.level}</release>
-                        <compilerArgs>
-                            <arg>-Xlint:all</arg>
-                            <!--<XDignore.symbol.file/>-->
-                        </compilerArgs>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -427,6 +423,18 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <executions>
+                    <execution>
+                        <id>default-compile</id>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                        <configuration>
+                            <compilerArguments>
+                                <Xlint:all />
+                            <!--<XDignore.symbol.file/>-->
+                            </compilerArguments>
+                        </configuration>
+                    </execution>
                     <execution>
                         <id>base-compile</id>
                         <goals>

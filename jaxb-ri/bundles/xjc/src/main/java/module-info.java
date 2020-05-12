@@ -22,13 +22,13 @@ module com.sun.tools.xjc {
     requires transitive jakarta.activation;
 
     requires transitive jakarta.xml.bind;
-    requires transitive com.sun.xml.bind;
+    requires transitive com.sun.xml.bind.core;
 
     opens com.sun.tools.xjc.reader.xmlschema.bindinfo to jakarta.xml.bind;
 
     exports com.sun.tools.xjc;
     exports com.sun.tools.xjc.api;
-    exports com.sun.tools.xjc.generator.bean to com.sun.xml.bind;
+    exports com.sun.tools.xjc.generator.bean to com.sun.xml.bind.core;
     exports com.sun.tools.xjc.model;
     exports com.sun.tools.xjc.model.nav;
     exports com.sun.tools.xjc.outline;
