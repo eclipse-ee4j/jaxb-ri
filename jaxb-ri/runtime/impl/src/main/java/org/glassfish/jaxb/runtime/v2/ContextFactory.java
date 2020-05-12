@@ -113,6 +113,9 @@ public class ContextFactory {
         Integer maxErrorsCount = getPropertyValue(properties, JAXBRIContext.MAX_ERRORS, Integer.class);
         if (maxErrorsCount == null) {
             maxErrorsCount = 10;
+        } else if (maxErrorsCount < 0) {
+            // negative value means unlimited number of reported errors
+            maxErrorsCount = Integer.MAX_VALUE;
         }
 
         if(!properties.isEmpty()) {
