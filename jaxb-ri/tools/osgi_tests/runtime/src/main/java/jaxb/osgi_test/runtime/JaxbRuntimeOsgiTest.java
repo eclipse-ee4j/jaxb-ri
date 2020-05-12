@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2014, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -34,26 +34,26 @@ public class JaxbRuntimeOsgiTest extends JaxbOsgiTest {
     }
 
     public void testAccessorFactory() {
-        checkClassInBundle("com.sun.xml.bind.AccessorFactory", bundle);
+        checkClassInBundle("org.glassfish.jaxb.runtime.AccessorFactory", bundle);
     }
 
     public void testJaxbRiContext() {
-        checkClassInBundle("com.sun.xml.bind.api.JAXBRIContext", bundle);
+        checkClassInBundle("org.glassfish.jaxb.runtime.api.JAXBRIContext", bundle);
     }
 
     public void testNamespacePrefixMapper() {
-        checkClassInBundle("com.sun.xml.bind.marshaller.NamespacePrefixMapper", bundle);
+        checkClassInBundle("org.glassfish.jaxb.runtime.marshaller.NamespacePrefixMapper", bundle);
     }
 
     public void testPatcher() {
-        checkClassInBundle("com.sun.xml.bind.unmarshaller.Patcher", bundle);
+        checkClassInBundle("org.glassfish.jaxb.runtime.unmarshaller.Patcher", bundle);
     }
 
     public void testAttributesImpl() {
-        checkClassInBundle("com.sun.xml.bind.util.AttributesImpl", bundle);
+        checkClassInBundle("org.glassfish.jaxb.runtime.util.AttributesImpl", bundle);
     }
 
     public void testContextFactory() {
-        checkClassInBundle("com.sun.xml.bind.v2.ContextFactory", bundle);
+        checkClassInBundle("org.glassfish.jaxb.runtime.v2.ContextFactory", bundle);
     }
 }

@@ -323,8 +323,6 @@
                                     org.jvnet.staxex;version=${stax-ex.version},
                                     org.jvnet.staxex.util;version=${stax-ex.version},
                                     com.sun.tools.rngom.*;version=${jaxb.osgiVersion},
-                                    com.sun.xml.bind.external;version=${jaxb.osgiVersion},
-                                    com.sun.xml.bind.external.*;version=${jaxb.osgiVersion}
                                 </Export-Package>
                                 <Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
                                 <Import-Package>

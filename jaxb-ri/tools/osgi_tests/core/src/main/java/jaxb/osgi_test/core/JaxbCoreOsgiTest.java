@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2014, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -35,7 +35,7 @@ public class JaxbCoreOsgiTest extends JaxbOsgiTest {
     }
 
     public void testClassFactory() {
-        checkClassInBundle("com.sun.xml.bind.v2.ClassFactory", bundle);
+        checkClassInBundle("org.glassfish.jaxb.core.v2.ClassFactory", bundle);
     }
 
     public void testBuilder() {

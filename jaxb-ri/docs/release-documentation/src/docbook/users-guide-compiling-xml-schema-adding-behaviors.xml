@@ -107,7 +107,7 @@ context.createMarshaller().marshal(p,System.out);
         <title>Unmarshalling</title>
 
         <programlisting language="java"><![CDATA[Unmarshaller u = context.createUnmarshaller();
-u.setProperty("com.sun.xml.bind.ObjectFactory",new ObjectFactoryEx());
+u.setProperty("org.glassfish.jaxb.ObjectFactory",new ObjectFactoryEx());
 PersonEx p = (PersonEx)u.unmarshal(new StringReader("<person />"));]]></programlisting>
     </example>
 

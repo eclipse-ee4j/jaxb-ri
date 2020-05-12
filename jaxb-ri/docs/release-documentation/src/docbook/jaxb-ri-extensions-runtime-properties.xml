@@ -73,14 +73,14 @@
                             <entry><emphasis role="bold">Property
                             name:</emphasis></entry>
 
-                            <entry><literal>com.sun.xml.bind.namespacePrefixMapper</literal></entry>
+                            <entry><literal>org.glassfish.jaxb.namespacePrefixMapper</literal></entry>
                         </row>
 
                         <row>
                             <entry><emphasis
                             role="bold">Type:</emphasis></entry>
 
-                            <entry><literal>com.sun.xml.bind.marshaller.NamespacePrefixMapper</literal></entry>
+                            <entry><literal>org.glassfish.jaxb.runtime.marshaller.NamespacePrefixMapper</literal></entry>
                         </row>
 
                         <row>
@@ -101,13 +101,13 @@
                 <listitem>
                     <para>The application developer provides an implementation
                     of
-                    <literal>com.sun.xml.bind.marshaller.NamespacePrefixMapper</literal>.</para>
+                    <literal>org.glassfish.jaxb.runtime.marshaller.NamespacePrefixMapper</literal>.</para>
                 </listitem>
 
                 <listitem>
                     <para>This class is then set on the marshaller via the RI
                     specific property
-                    <literal>com.sun.xml.bind.namespacePrefixMapper</literal>.</para>
+                    <literal>org.glassfish.jaxb.namespacePrefixMapper</literal>.</para>
                 </listitem>
 
                 <listitem>
@@ -123,7 +123,7 @@
             </orderedlist>
 
             <para>The
-            <literal>com.sun.xml.bind.marshaller.NamespacePrefixMapper</literal>
+            <literal>org.glassfish.jaxb.runtime.marshaller.NamespacePrefixMapper</literal>
             class has the following method that you need to implement:</para>
 
             <informalexample>
@@ -355,7 +355,7 @@ public abstract class NamespacePrefixMapper {
                             <entry><emphasis role="bold">Property
                             name:</emphasis></entry>
 
-                            <entry><literal>com.sun.xml.bind.indentString</literal></entry>
+                            <entry><literal>org.glassfish.jaxb.indentString</literal></entry>
                         </row>
 
                         <row>
@@ -396,14 +396,14 @@ public abstract class NamespacePrefixMapper {
                             <entry><emphasis role="bold">Property
                             name:</emphasis></entry>
 
-                            <entry><literal>com.sun.xml.bind.characterEscapeHandler</literal></entry>
+                            <entry><literal>org.glassfish.jaxb.characterEscapeHandler</literal></entry>
                         </row>
 
                         <row>
                             <entry><emphasis
                             role="bold">Type:</emphasis></entry>
 
-                            <entry><literal>com.sun.xml.bind.marshaller.CharacterEscapeHandler</literal></entry>
+                            <entry><literal>org.glassfish.jaxb.core.marshaller.CharacterEscapeHandler</literal></entry>
                         </row>
 
                         <row>
@@ -429,7 +429,7 @@ public abstract class NamespacePrefixMapper {
             <orderedlist>
                 <listitem>
                     <para>Write a class that implements the
-                    <literal>com.sun.xml.bind.marshaller.CharacterEscapeHandler</literal>
+                    <literal>org.glassfish.jaxb.core.marshaller.CharacterEscapeHandler</literal>
                     interface.</para>
                 </listitem>
 
@@ -458,7 +458,7 @@ public abstract class NamespacePrefixMapper {
                             <entry><emphasis role="bold">Property
                             name:</emphasis></entry>
 
-                            <entry><literal>com.sun.xml.bind.xmlDeclaration</literal></entry>
+                            <entry><literal>org.glassfish.jaxb.xmlDeclaration</literal></entry>
                         </row>
 
                         <row>
@@ -489,7 +489,7 @@ public abstract class NamespacePrefixMapper {
             <para>In &binding.impl.name;, calling:</para>
 
             <informalexample>
-                <programlisting language="java"><![CDATA[marshaller.setProperty("com.sun.xml.bind.xmlDeclaration", true);]]></programlisting>
+                <programlisting language="java"><![CDATA[marshaller.setProperty("org.glassfish.jaxb.xmlDeclaration", true);]]></programlisting>
             </informalexample>
 
             <para>is equivalent to calling:</para>
@@ -516,7 +516,7 @@ public abstract class NamespacePrefixMapper {
                             <entry><emphasis role="bold">Property
                             name:</emphasis></entry>
 
-                            <entry><literal>com.sun.xml.bind.xmlHeaders</literal></entry>
+                            <entry><literal>org.glassfish.jaxb.xmlHeaders</literal></entry>
                         </row>
 
                         <row>
@@ -580,7 +580,7 @@ public abstract class NamespacePrefixMapper {
             </informaltable>
 
             <para>This property provides support for a custom
-            com.sun.xml.bind.v2.runtime.reflect.Accessor implementation.  It
+            org.glassfish.jaxb.runtime.v2.runtime.reflect.Accessor implementation.  It
             allows the user to control the access to class fields and
             properties.</para>
 

@@ -197,7 +197,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
 
     /**
      * If true, despite the specification, unmarshall child element with parent namespace, if child namespace is not specified.
-     * The default value is null for System {code}com.sun.xml.bind.backupWithParentNamespace{code} property to be used,
+     * The default value is null for System {@code org.glassfish.jaxb.backupWithParentNamespace} property to be used,
      * and false is assumed if it's not set either.
      *
      * Boolean

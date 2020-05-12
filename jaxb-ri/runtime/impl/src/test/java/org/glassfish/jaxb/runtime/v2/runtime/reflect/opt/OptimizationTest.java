@@ -26,7 +26,7 @@ import java.lang.reflect.Modifier;
 
 /**
  * Test flag for disabling optimization
- * com.sun.xml.bind.v2.runtime.reflect.opt.OptimizedAccessorFactory.noOptimization=true/false
+ * org.glassfish.jaxb.runtime.v2.runtime.reflect.opt.OptimizedAccessorFactory.noOptimization=true/false
  *
  * @author Daniel Kec
  */

@@ -171,7 +171,7 @@
                     <listitem>
                         <para>This example shows how you can use the new JAXB
                         RI <literal>Marshaller</literal> property
-                        <literal>com.sun.xml.bind.characterEscapeHandler</literal>
+                        <literal>org.glassfish.jaxb.characterEscapeHandler</literal>
                         to change the default character escaping
                         behavior.</para>
                     </listitem>
@@ -399,7 +399,7 @@
                     <listitem>
                         <para>This sample application demonstrates how to use
                         the new &binding.impl.name; Marshaller property
-                        <literal>com.sun.xml.bind.namespacePrefixMapper</literal>
+                        <literal>org.glassfish.jaxb.namespacePrefixMapper</literal>
                         to customize the namespace prefixes generated during
                         marshalling.</para>
                     </listitem>

@@ -409,7 +409,7 @@ public abstract class JAXBRIContext extends JAXBContext {
      *
      * @since 2.0 EA1
      */
-    public static final String DEFAULT_NAMESPACE_REMAP = "com.sun.xml.bind.defaultNamespaceRemap";
+    public static final String DEFAULT_NAMESPACE_REMAP = "org.glassfish.jaxb.defaultNamespaceRemap";
 
     /**
      * The property that you can specify to {@link JAXBContext#newInstance}
@@ -425,7 +425,7 @@ public abstract class JAXBRIContext extends JAXBContext {
      *
      * @since 2.0 EA1
      */
-    public static final String TYPE_REFERENCES = "com.sun.xml.bind.typeReferences";
+    public static final String TYPE_REFERENCES = "org.glassfish.jaxb.typeReferences";
 
     /**
      * The property that you can specify to {@link JAXBContext#newInstance}
@@ -435,7 +435,7 @@ public abstract class JAXBRIContext extends JAXBContext {
      * Boolean
      * @since 2.0 EA2
      */
-    public static final String CANONICALIZATION_SUPPORT = "com.sun.xml.bind.c14n";
+    public static final String CANONICALIZATION_SUPPORT = "org.glassfish.jaxb.c14n";
 
     /**
      * The property that you can specify to {@link JAXBContext#newInstance}
@@ -445,7 +445,7 @@ public abstract class JAXBRIContext extends JAXBContext {
      * Boolean
      * @since 2.1.3
      */
-    public static final String TREAT_EVERYTHING_NILLABLE = "com.sun.xml.bind.treatEverythingNillable";
+    public static final String TREAT_EVERYTHING_NILLABLE = "org.glassfish.jaxb.treatEverythingNillable";
 
     /**
      * The property that you can specify to {@link JAXBContext#newInstance}
@@ -460,7 +460,7 @@ public abstract class JAXBRIContext extends JAXBContext {
      *
      * @since 2.0 EA2
      */
-    public static final String ENABLE_XOP = "com.sun.xml.bind.XOP";
+    public static final String ENABLE_XOP = "org.glassfish.jaxb.XOP";
 
     /**
      * The property that you can specify to {@link JAXBContext#newInstance}
@@ -471,7 +471,7 @@ public abstract class JAXBRIContext extends JAXBContext {
      *
      * @since 2.1 EA2
      */
-    public static final String SUBCLASS_REPLACEMENTS = "com.sun.xml.bind.subclassReplacements";
+    public static final String SUBCLASS_REPLACEMENTS = "org.glassfish.jaxb.subclassReplacements";
 
     /**
      * The property that you can specify to {@link JAXBContext#newInstance}
@@ -479,7 +479,7 @@ public abstract class JAXBRIContext extends JAXBContext {
      *
      * @since 2.1 EA2
      */
-    public static final String XMLACCESSORFACTORY_SUPPORT = "XmlAccessorFactory";
+    public static final String XMLACCESSORFACTORY_SUPPORT = "org.glassfish.jaxb.XmlAccessorFactory";
 
     /**
      * Retains references to PropertyInfos.
@@ -503,7 +503,7 @@ public abstract class JAXBRIContext extends JAXBContext {
      * Boolean
      * @since 2.2.3
      */
-    public static final String IMPROVED_XSI_TYPE_HANDLING = "com.sun.xml.bind.improvedXsiTypeHandling";
+    public static final String IMPROVED_XSI_TYPE_HANDLING = "org.glassfish.jaxb.improvedXsiTypeHandling";
 
     /**
      * If true XML security features when parsing XML documents will be disabled.
@@ -512,7 +512,7 @@ public abstract class JAXBRIContext extends JAXBContext {
      * Boolean
      * @since 2.2.6
      */
-    public static final String DISABLE_XML_SECURITY  = "com.sun.xml.bind.disableXmlSecurity";
+    public static final String DISABLE_XML_SECURITY  = "org.glassfish.jaxb.disableXmlSecurity";
 
     /**
      * If true and element namespace is not specified, namespace of parent element will be used.
@@ -521,7 +521,7 @@ public abstract class JAXBRIContext extends JAXBContext {
      * Boolean
      * @since 2.3.0
      */
-    public static final String BACKUP_WITH_PARENT_NAMESPACE = "com.sun.xml.bind.backupWithParentNamespace";
+    public static final String BACKUP_WITH_PARENT_NAMESPACE = "org.glassfish.jaxb.backupWithParentNamespace";
 
     /**
      * The maximum number of errors to report. Use negative value to report all errors.
@@ -530,6 +530,6 @@ public abstract class JAXBRIContext extends JAXBContext {
      * Boolean
      * @since 2.3.3
      */
-    public static final String MAX_ERRORS = "com.sun.xml.bind.maxErrorsCount";
+    public static final String MAX_ERRORS = "org.glassfish.jaxb.maxErrorsCount";
 
 }

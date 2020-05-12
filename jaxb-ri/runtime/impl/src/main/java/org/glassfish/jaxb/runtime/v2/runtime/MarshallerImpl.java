@@ -475,7 +475,7 @@ public /*to make unit tests happy*/ final class MarshallerImpl extends AbstractM
         }
         if( XMLDECLARATION.equals(name) ) {
             checkBoolean(name, value);
-            // com.sun.xml.bind.xmlDeclaration is an alias for JAXB_FRAGMENT
+            // org.glassfish.jaxb.xmlDeclaration is an alias for JAXB_FRAGMENT
             // setting it to false is treated the same as setting fragment to true.
             super.setProperty(JAXB_FRAGMENT, !(Boolean)value);
             return;
@@ -580,12 +580,12 @@ public /*to make unit tests happy*/ final class MarshallerImpl extends AbstractM
     }
 
     // features supported
-    protected static final String INDENT_STRING = "com.sun.xml.bind.indentString";
-    protected static final String PREFIX_MAPPER = "com.sun.xml.bind.namespacePrefixMapper";
-    protected static final String ENCODING_HANDLER = "com.sun.xml.bind.characterEscapeHandler";
-    protected static final String ENCODING_HANDLER2 = "com.sun.xml.bind.marshaller.CharacterEscapeHandler";
-    protected static final String XMLDECLARATION = "com.sun.xml.bind.xmlDeclaration";
-    protected static final String XML_HEADERS = "com.sun.xml.bind.xmlHeaders";
+    protected static final String INDENT_STRING = "org.glassfish.jaxb.indentString";
+    protected static final String PREFIX_MAPPER = "org.glassfish.jaxb.namespacePrefixMapper";
+    protected static final String ENCODING_HANDLER = "org.glassfish.jaxb.characterEscapeHandler";
+    protected static final String ENCODING_HANDLER2 = "org.glassfish.jaxb.marshaller.CharacterEscapeHandler";
+    protected static final String XMLDECLARATION = "org.glassfish.jaxb.xmlDeclaration";
+    protected static final String XML_HEADERS = "org.glassfish.jaxb.xmlHeaders";
     protected static final String C14N = JAXBRIContext.CANONICALIZATION_SUPPORT;
-    protected static final String OBJECT_IDENTITY_CYCLE_DETECTION = "com.sun.xml.bind.objectIdentitityCycleDetection";
+    protected static final String OBJECT_IDENTITY_CYCLE_DETECTION = "org.glassfish.jaxb.objectIdentitityCycleDetection";
 }

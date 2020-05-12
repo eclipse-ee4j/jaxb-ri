@@ -12,8 +12,6 @@ import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 
-import com.sun.xml.bind.CycleRecoverable;
-
 public class Main {
     public static void main(String[] args) throws JAXBException {
         // let's create an obvious cycle
