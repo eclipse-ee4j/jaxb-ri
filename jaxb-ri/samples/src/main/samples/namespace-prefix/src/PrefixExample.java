@@ -48,7 +48,7 @@ public class PrefixExample {
         // tell the marshaller to consult your mapper
         // to assign a prefix for a namespace.
         try {
-            marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper",new NamespacePrefixMapperImpl());
+            marshaller.setProperty("org.glassfish.jaxb.namespacePrefixMapper",new NamespacePrefixMapperImpl());
         } catch( PropertyException e ) {
             // if the JAXB provider doesn't recognize the prefix mapper,
             // it will throw this exception. Since being unable to specify

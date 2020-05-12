@@ -51,7 +51,7 @@ public class XmlFactory {
      * Boolean
      * @since 2.2.6
      */
-    private static final String DISABLE_XML_SECURITY  = "com.sun.xml.bind.disableXmlSecurity";
+    private static final String DISABLE_XML_SECURITY  = "org.glassfish.jaxb.disableXmlSecurity";
 
     private static final boolean XML_SECURITY_DISABLED = AccessController.doPrivileged(
             new PrivilegedAction<Boolean>() {

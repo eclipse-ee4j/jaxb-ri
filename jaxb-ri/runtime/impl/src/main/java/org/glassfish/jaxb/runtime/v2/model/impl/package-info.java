@@ -9,6 +9,6 @@
  */
 
 /**
- * Implementation of the com.sun.xml.bind.j2s.model package.
+ * Implementation of the org.glassfish.jaxb.j2s.model package.
  */
 package org.glassfish.jaxb.runtime.v2.model.impl;

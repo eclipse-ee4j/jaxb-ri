@@ -25,8 +25,8 @@ import jakarta.xml.bind.annotation.XmlID;
 import jakarta.xml.bind.annotation.XmlIDREF;
 import jakarta.xml.bind.annotation.XmlRootElement;
 
-import com.sun.xml.bind.IDResolver;
-import com.sun.xml.bind.api.ClassResolver;
+import org.glassfish.jaxb.runtime.IDResolver;
+import org.glassfish.jaxb.runtime.api.ClassResolver;
 
 /**
  * Miniture DI container.
