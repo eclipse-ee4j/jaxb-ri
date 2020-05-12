@@ -46,4 +46,12 @@ module org.glassfish.jaxb.xjc {
 
     uses com.sun.tools.xjc.Plugin;
 
+    provides com.sun.tools.xjc.Plugin with
+            com.sun.tools.xjc.addon.accessors.PluginImpl,
+            com.sun.tools.xjc.addon.at_generated.PluginImpl,
+            com.sun.tools.xjc.addon.code_injector.PluginImpl,
+            com.sun.tools.xjc.addon.episode.PluginImpl,
+            com.sun.tools.xjc.addon.locator.SourceLocationAddOn,
+            com.sun.tools.xjc.addon.sync.SynchronizedMethodAddOn;
+
 }
