@@ -13,7 +13,7 @@ package org.glassfish.jaxb.runtime.v2.runtime.output;
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
 import org.glassfish.jaxb.runtime.marshaller.NamespacePrefixMapper;
-import com.sun.xml.bind.v2.WellKnownNamespace;
+import org.glassfish.jaxb.core.v2.WellKnownNamespace;
 import org.glassfish.jaxb.runtime.v2.runtime.Name;
 import org.glassfish.jaxb.runtime.v2.runtime.NamespaceContext2;
 import org.glassfish.jaxb.runtime.v2.runtime.XMLSerializer;

@@ -10,8 +10,8 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime.output;
 
-import com.sun.xml.bind.marshaller.CharacterEscapeHandler;
-import com.sun.xml.bind.marshaller.NoEscapeHandler;
+import org.glassfish.jaxb.core.marshaller.CharacterEscapeHandler;
+import org.glassfish.jaxb.core.marshaller.NoEscapeHandler;
 import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
 import org.glassfish.jaxb.runtime.v2.runtime.XMLSerializer;
 import org.xml.sax.SAXException;
@@ -171,7 +171,7 @@ public class XMLStreamWriterOutput extends XmlOutputAbstractImpl {
         try {
             if (FI_STAX_WRITER_CLASS == null)
                 return null;
-            Class c = Class.forName("com.sun.xml.bind.v2.runtime.output.FastInfosetStreamWriterOutput");
+            Class c = Class.forName("org.glassfish.jaxb.core.v2.runtime.output.FastInfosetStreamWriterOutput");
             return c.getConstructor(FI_STAX_WRITER_CLASS, JAXBContextImpl.class);
         } catch (Throwable e) {
             return null;

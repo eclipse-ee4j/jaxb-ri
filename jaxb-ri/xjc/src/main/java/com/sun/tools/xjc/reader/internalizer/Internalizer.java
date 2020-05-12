@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -31,8 +31,8 @@ import com.sun.istack.Nullable;
 import com.sun.tools.xjc.ErrorReceiver;
 import com.sun.tools.xjc.reader.Const;
 import com.sun.tools.xjc.util.DOMUtils;
-import com.sun.xml.bind.v2.util.EditDistance;
-import com.sun.xml.bind.v2.util.XmlFactory;
+import org.glassfish.jaxb.core.v2.util.EditDistance;
+import org.glassfish.jaxb.core.v2.util.XmlFactory;
 import com.sun.xml.xsom.SCD;
 import java.io.File;
 import java.io.IOException;

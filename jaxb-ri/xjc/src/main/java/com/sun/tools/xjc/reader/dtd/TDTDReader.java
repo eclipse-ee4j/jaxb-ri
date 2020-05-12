@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -41,7 +41,7 @@ import com.sun.tools.xjc.reader.dtd.bindinfo.BIInterface;
 import com.sun.tools.xjc.reader.dtd.bindinfo.BindInfo;
 import com.sun.tools.xjc.util.CodeModelClassFactory;
 import com.sun.tools.xjc.util.ErrorReceiverFilter;
-import com.sun.xml.bind.api.impl.NameConverter;
+import org.glassfish.jaxb.core.api.impl.NameConverter;
 import com.sun.xml.dtdparser.DTDHandlerBase;
 import com.sun.xml.dtdparser.DTDParser;
 import com.sun.xml.dtdparser.InputEntity;

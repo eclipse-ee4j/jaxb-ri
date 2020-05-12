@@ -10,9 +10,9 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime.property;
 
-import com.sun.xml.bind.v2.model.core.ClassInfo;
-import com.sun.xml.bind.v2.model.core.ID;
-import com.sun.xml.bind.v2.model.core.PropertyKind;
+import org.glassfish.jaxb.core.v2.model.core.ClassInfo;
+import org.glassfish.jaxb.core.v2.model.core.ID;
+import org.glassfish.jaxb.core.v2.model.core.PropertyKind;
 import org.glassfish.jaxb.runtime.v2.model.runtime.*;
 import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
 

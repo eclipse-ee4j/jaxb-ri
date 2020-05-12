@@ -29,9 +29,9 @@ import com.sun.tools.xjc.generator.bean.field.FieldRenderer;
 import com.sun.tools.xjc.model.nav.NClass;
 import com.sun.tools.xjc.model.nav.NType;
 import com.sun.tools.xjc.reader.Ring;
-import com.sun.xml.bind.api.impl.NameConverter;
-import com.sun.xml.bind.v2.model.core.PropertyInfo;
-import com.sun.xml.bind.v2.runtime.RuntimeUtil;
+import org.glassfish.jaxb.core.api.impl.NameConverter;
+import org.glassfish.jaxb.core.v2.model.core.PropertyInfo;
+import org.glassfish.jaxb.core.v2.runtime.RuntimeUtil;
 import com.sun.xml.xsom.XSComponent;
 
 import org.xml.sax.ErrorHandler;

@@ -15,7 +15,7 @@ import jakarta.activation.MimeType;
 import com.sun.codemodel.JExpression;
 import com.sun.tools.xjc.model.nav.NType;
 import com.sun.tools.xjc.outline.Outline;
-import com.sun.xml.bind.v2.model.core.ID;
+import org.glassfish.jaxb.core.v2.model.core.ID;
 import com.sun.xml.xsom.XmlString;
 
 /**

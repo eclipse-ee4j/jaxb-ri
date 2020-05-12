@@ -10,9 +10,9 @@
 
 package org.glassfish.jaxb.runtime.v2.model.impl;
 
-import com.sun.xml.bind.v2.model.core.NonElement;
-import com.sun.xml.bind.v2.model.core.PropertyInfo;
-import com.sun.xml.bind.v2.model.core.TypeRef;
+import org.glassfish.jaxb.core.v2.model.core.NonElement;
+import org.glassfish.jaxb.core.v2.model.core.PropertyInfo;
+import org.glassfish.jaxb.core.v2.model.core.TypeRef;
 
 import javax.xml.namespace.QName;
 

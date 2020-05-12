@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,7 +14,7 @@ import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.JExpr;
 import com.sun.codemodel.JExpression;
 import com.sun.codemodel.JStringLiteral;
-import com.sun.xml.bind.WhiteSpaceProcessor;
+import org.glassfish.jaxb.core.WhiteSpaceProcessor;
 
 /**
  * Generates code that performs the whitespace normalization.

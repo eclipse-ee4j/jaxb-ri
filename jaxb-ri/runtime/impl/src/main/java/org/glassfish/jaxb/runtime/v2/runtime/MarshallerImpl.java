@@ -10,7 +10,7 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime;
 
-import com.sun.xml.bind.marshaller.*;
+import org.glassfish.jaxb.core.marshaller.*;
 import org.glassfish.jaxb.runtime.api.JAXBRIContext;
 import org.glassfish.jaxb.runtime.marshaller.NamespacePrefixMapper;
 import org.glassfish.jaxb.runtime.marshaller.NioEscapeHandler;

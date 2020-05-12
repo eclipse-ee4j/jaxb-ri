@@ -10,7 +10,7 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime.reflect.opt;
 
-import com.sun.xml.bind.v2.runtime.RuntimeUtil;
+import org.glassfish.jaxb.core.v2.runtime.RuntimeUtil;
 import org.glassfish.jaxb.runtime.v2.runtime.reflect.Accessor;
 
 import java.lang.reflect.Field;

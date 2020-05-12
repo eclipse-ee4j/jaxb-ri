@@ -10,7 +10,7 @@
 
 package org.glassfish.jaxb.runtime.v2.model.impl;
 
-import com.sun.xml.bind.v2.model.core.PropertyInfo;
+import org.glassfish.jaxb.core.v2.model.core.PropertyInfo;
 
 /**
  * {@link PropertyInfo} that allows to add additional elements to the collection.

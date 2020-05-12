@@ -29,7 +29,7 @@ final class MUtils {
      * @throws JAXBException if any of a classes package is not open to our module.
      */
     static void open(Class[] classes) throws JAXBException {
-        final Module coreModule = com.sun.xml.bind.v2.ClassFactory.class.getModule();
+        final Module coreModule = org.glassfish.jaxb.core.v2.ClassFactory.class.getModule();
         final Module rtModule = JAXBContextFactory.class.getModule();
 
         if (rtModule == coreModule) {

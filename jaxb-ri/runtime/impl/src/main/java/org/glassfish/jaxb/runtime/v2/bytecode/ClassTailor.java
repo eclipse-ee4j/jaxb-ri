@@ -10,7 +10,7 @@
 
 package org.glassfish.jaxb.runtime.v2.bytecode;
 
-import com.sun.xml.bind.Utils;
+import org.glassfish.jaxb.core.Utils;
 
 import java.io.*;
 import java.util.logging.Level;

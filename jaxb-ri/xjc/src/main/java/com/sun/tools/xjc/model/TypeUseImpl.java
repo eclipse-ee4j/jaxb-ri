@@ -17,8 +17,8 @@ import com.sun.codemodel.JExpr;
 import com.sun.codemodel.JExpression;
 import com.sun.codemodel.JStringLiteral;
 import com.sun.tools.xjc.outline.Outline;
-import com.sun.xml.bind.v2.ClassFactory;
-import com.sun.xml.bind.v2.model.core.ID;
+import org.glassfish.jaxb.core.v2.ClassFactory;
+import org.glassfish.jaxb.core.v2.model.core.ID;
 import com.sun.xml.xsom.XmlString;
 
 

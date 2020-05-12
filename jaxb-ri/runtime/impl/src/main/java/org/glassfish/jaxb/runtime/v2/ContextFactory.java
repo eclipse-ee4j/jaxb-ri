@@ -11,11 +11,11 @@
 package org.glassfish.jaxb.runtime.v2;
 
 import com.sun.istack.FinalArrayList;
-import com.sun.xml.bind.Utils;
+import org.glassfish.jaxb.core.Utils;
 import org.glassfish.jaxb.runtime.api.JAXBRIContext;
 import org.glassfish.jaxb.runtime.api.TypeReference;
 import org.glassfish.jaxb.runtime.v2.model.annotation.RuntimeAnnotationReader;
-import com.sun.xml.bind.v2.Messages;
+import org.glassfish.jaxb.core.v2.Messages;
 import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
 import org.glassfish.jaxb.runtime.v2.util.TypeCast;
 import jakarta.xml.bind.JAXBContext;

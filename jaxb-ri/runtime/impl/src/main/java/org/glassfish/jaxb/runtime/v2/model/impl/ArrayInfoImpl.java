@@ -10,12 +10,12 @@
 
 package org.glassfish.jaxb.runtime.v2.model.impl;
 
-import com.sun.xml.bind.v2.model.annotation.Locatable;
-import com.sun.xml.bind.v2.model.core.ArrayInfo;
-import com.sun.xml.bind.v2.model.core.NonElement;
-import com.sun.xml.bind.v2.model.util.ArrayInfoUtil;
-import com.sun.xml.bind.v2.runtime.IllegalAnnotationException;
-import com.sun.xml.bind.v2.runtime.Location;
+import org.glassfish.jaxb.core.v2.model.annotation.Locatable;
+import org.glassfish.jaxb.core.v2.model.core.ArrayInfo;
+import org.glassfish.jaxb.core.v2.model.core.NonElement;
+import org.glassfish.jaxb.core.v2.model.util.ArrayInfoUtil;
+import org.glassfish.jaxb.core.v2.runtime.IllegalAnnotationException;
+import org.glassfish.jaxb.core.v2.runtime.Location;
 
 import javax.xml.namespace.QName;
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,7 +13,7 @@ package com.sun.tools.xjc.reader.internalizer;
 import java.util.Set;
 
 import com.sun.tools.xjc.reader.Const;
-import com.sun.xml.bind.marshaller.SAX2DOMEx;
+import org.glassfish.jaxb.core.marshaller.SAX2DOMEx;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

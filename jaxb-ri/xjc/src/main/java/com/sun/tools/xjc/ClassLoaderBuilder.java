@@ -91,6 +91,7 @@ class ClassLoaderBuilder {
         "com.sun.relaxng.",
         "com.sun.xml.xsom.",
         "com.sun.xml.bind.",
+        "org.glassfish.jaxb.",
     };
 
     private static String[] toolPackages = new String[]{

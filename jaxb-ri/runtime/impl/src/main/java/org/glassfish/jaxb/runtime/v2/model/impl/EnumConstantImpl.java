@@ -10,8 +10,8 @@
 
 package org.glassfish.jaxb.runtime.v2.model.impl;
 
-import com.sun.xml.bind.v2.model.core.EnumConstant;
-import com.sun.xml.bind.v2.model.core.EnumLeafInfo;
+import org.glassfish.jaxb.core.v2.model.core.EnumConstant;
+import org.glassfish.jaxb.core.v2.model.core.EnumLeafInfo;
 
 /**
  * @author Kohsuke Kawaguchi

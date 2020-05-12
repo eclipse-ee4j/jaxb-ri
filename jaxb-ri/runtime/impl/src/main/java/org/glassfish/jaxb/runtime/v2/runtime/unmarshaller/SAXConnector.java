@@ -10,9 +10,9 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime.unmarshaller;
 
-import com.sun.xml.bind.Utils;
-import com.sun.xml.bind.WhiteSpaceProcessor;
-import com.sun.xml.bind.v2.runtime.unmarshaller.LocatorEx;
+import org.glassfish.jaxb.core.Utils;
+import org.glassfish.jaxb.core.WhiteSpaceProcessor;
+import org.glassfish.jaxb.core.v2.runtime.unmarshaller.LocatorEx;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.UnmarshallerHandler;
 import org.xml.sax.Attributes;

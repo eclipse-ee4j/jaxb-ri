@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,7 +16,7 @@ import java.util.HashSet;
 import com.sun.tools.xjc.util.SubtreeCutter;
 import com.sun.tools.xjc.Options;
 import com.sun.tools.xjc.Plugin;
-import com.sun.xml.bind.v2.util.EditDistance;
+import org.glassfish.jaxb.core.v2.util.EditDistance;
 
 import org.xml.sax.helpers.NamespaceSupport;
 import org.xml.sax.Locator;
@@ -24,7 +24,7 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.SAXException;
 
-import com.sun.xml.bind.v2.WellKnownNamespace;
+import org.glassfish.jaxb.core.v2.WellKnownNamespace;
 
 /**
  * Common code between {@code DTDExtensionBindingChecker} and {@link ExtensionBindingChecker}.

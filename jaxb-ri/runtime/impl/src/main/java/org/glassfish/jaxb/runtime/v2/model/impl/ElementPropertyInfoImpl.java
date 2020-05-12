@@ -11,8 +11,8 @@
 package org.glassfish.jaxb.runtime.v2.model.impl;
 
 import com.sun.istack.FinalArrayList;
-import com.sun.xml.bind.v2.model.core.*;
-import com.sun.xml.bind.v2.runtime.IllegalAnnotationException;
+import org.glassfish.jaxb.core.v2.model.core.*;
+import org.glassfish.jaxb.core.v2.runtime.IllegalAnnotationException;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElements;
 import jakarta.xml.bind.annotation.XmlList;

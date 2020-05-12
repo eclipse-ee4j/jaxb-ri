@@ -11,7 +11,7 @@
 package org.glassfish.jaxb.runtime.v2.runtime;
 
 import com.sun.istack.NotNull;
-import com.sun.xml.bind.marshaller.SAX2DOMEx;
+import org.glassfish.jaxb.core.marshaller.SAX2DOMEx;
 import org.glassfish.jaxb.runtime.api.Bridge;
 import org.glassfish.jaxb.runtime.api.TypeReference;
 import org.glassfish.jaxb.runtime.v2.runtime.output.SAXOutput;

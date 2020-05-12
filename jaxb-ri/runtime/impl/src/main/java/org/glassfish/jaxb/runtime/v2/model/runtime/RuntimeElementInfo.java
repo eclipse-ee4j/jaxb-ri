@@ -10,7 +10,7 @@
 
 package org.glassfish.jaxb.runtime.v2.model.runtime;
 
-import com.sun.xml.bind.v2.model.core.ElementInfo;
+import org.glassfish.jaxb.core.v2.model.core.ElementInfo;
 import jakarta.xml.bind.JAXBElement;
 
 import java.lang.reflect.Type;

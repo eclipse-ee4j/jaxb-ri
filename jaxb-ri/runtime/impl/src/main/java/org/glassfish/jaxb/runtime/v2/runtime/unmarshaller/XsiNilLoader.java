@@ -12,7 +12,7 @@ package org.glassfish.jaxb.runtime.v2.runtime.unmarshaller;
 
 import org.glassfish.jaxb.runtime.DatatypeConverterImpl;
 import org.glassfish.jaxb.runtime.api.AccessorException;
-import com.sun.xml.bind.v2.WellKnownNamespace;
+import org.glassfish.jaxb.core.v2.WellKnownNamespace;
 import org.glassfish.jaxb.runtime.v2.runtime.reflect.Accessor;
 import jakarta.xml.bind.JAXBElement;
 import org.xml.sax.SAXException;

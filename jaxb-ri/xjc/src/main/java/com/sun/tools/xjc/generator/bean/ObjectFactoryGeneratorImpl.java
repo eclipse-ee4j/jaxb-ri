@@ -39,7 +39,7 @@ import com.sun.tools.xjc.model.Model;
 import com.sun.tools.xjc.outline.Aspect;
 import com.sun.tools.xjc.outline.FieldAccessor;
 import com.sun.tools.xjc.outline.FieldOutline;
-import com.sun.xml.bind.v2.TODO;
+import org.glassfish.jaxb.core.v2.TODO;
 
 /**
  * Generates <code>ObjectFactory</code> then wraps it and provides

@@ -10,8 +10,8 @@
 
 package org.glassfish.jaxb.runtime.v2.model.runtime;
 
-import com.sun.xml.bind.v2.model.core.ArrayInfo;
-import com.sun.xml.bind.v2.model.core.TypeInfo;
+import org.glassfish.jaxb.core.v2.model.core.ArrayInfo;
+import org.glassfish.jaxb.core.v2.model.core.TypeInfo;
 
 import java.lang.reflect.Type;
 

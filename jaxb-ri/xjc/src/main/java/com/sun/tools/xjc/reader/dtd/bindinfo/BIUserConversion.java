@@ -35,7 +35,7 @@ import com.sun.tools.xjc.model.CBuiltinLeafInfo;
 import com.sun.tools.xjc.model.TypeUse;
 import com.sun.tools.xjc.model.TypeUseFactory;
 
-import com.sun.xml.bind.v2.util.XmlFactory;
+import org.glassfish.jaxb.core.v2.util.XmlFactory;
 import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 import org.xml.sax.Locator;

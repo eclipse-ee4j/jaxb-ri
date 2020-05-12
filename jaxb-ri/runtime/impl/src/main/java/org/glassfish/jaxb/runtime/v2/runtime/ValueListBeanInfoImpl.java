@@ -11,7 +11,7 @@
 package org.glassfish.jaxb.runtime.v2.runtime;
 
 import com.sun.istack.FinalArrayList;
-import com.sun.xml.bind.WhiteSpaceProcessor;
+import org.glassfish.jaxb.core.WhiteSpaceProcessor;
 import org.glassfish.jaxb.runtime.api.AccessorException;
 import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.Loader;
 import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.UnmarshallingContext;

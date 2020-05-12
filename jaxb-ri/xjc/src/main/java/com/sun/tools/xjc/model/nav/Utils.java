@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,7 +10,7 @@
 
 package com.sun.tools.xjc.model.nav;
 
-import com.sun.xml.bind.v2.model.nav.Navigator;
+import org.glassfish.jaxb.core.v2.model.nav.Navigator;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -39,7 +39,7 @@ final class Utils {
 
     static { // we statically initializing REFLECTION_NAVIGATOR property
         try {
-            final Class refNav = Class.forName("com.sun.xml.bind.v2.model.nav.ReflectionNavigator");
+            final Class refNav = Class.forName("org.glassfish.jaxb.core.v2.model.nav.ReflectionNavigator");
 
             // requires accessClassInPackage privilege
             final Method getInstance = AccessController.doPrivileged(

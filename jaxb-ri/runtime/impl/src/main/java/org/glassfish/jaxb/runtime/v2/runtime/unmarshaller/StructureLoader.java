@@ -10,10 +10,10 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime.unmarshaller;
 
-import com.sun.xml.bind.Utils;
+import org.glassfish.jaxb.core.Utils;
 import org.glassfish.jaxb.runtime.api.AccessorException;
 import org.glassfish.jaxb.runtime.api.JAXBRIContext;
-import com.sun.xml.bind.v2.WellKnownNamespace;
+import org.glassfish.jaxb.core.v2.WellKnownNamespace;
 import org.glassfish.jaxb.runtime.v2.runtime.ClassBeanInfoImpl;
 import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
 import org.glassfish.jaxb.runtime.v2.runtime.JaxBeanInfo;

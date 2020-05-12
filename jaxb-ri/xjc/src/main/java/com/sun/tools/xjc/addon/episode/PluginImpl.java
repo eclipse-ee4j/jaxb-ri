@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,8 +17,8 @@ import com.sun.tools.xjc.outline.ClassOutline;
 import com.sun.tools.xjc.outline.EnumOutline;
 import com.sun.tools.xjc.outline.Outline;
 import com.sun.tools.xjc.reader.Const;
-import com.sun.xml.bind.v2.schemagen.episode.Bindings;
-import com.sun.xml.bind.v2.schemagen.episode.SchemaBindings;
+import org.glassfish.jaxb.core.v2.schemagen.episode.Bindings;
+import org.glassfish.jaxb.core.v2.schemagen.episode.SchemaBindings;
 import com.sun.xml.txw2.TXW;
 import com.sun.xml.txw2.output.StreamSerializer;
 import com.sun.xml.xsom.XSAnnotation;

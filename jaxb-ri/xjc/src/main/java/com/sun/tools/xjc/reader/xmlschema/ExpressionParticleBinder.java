@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,7 +20,7 @@ import com.sun.tools.xjc.reader.gbind.Element;
 import com.sun.tools.xjc.reader.gbind.Expression;
 import com.sun.tools.xjc.reader.gbind.Graph;
 import com.sun.tools.xjc.reader.xmlschema.bindinfo.BIProperty;
-import com.sun.xml.bind.v2.model.core.WildcardMode;
+import org.glassfish.jaxb.core.v2.model.core.WildcardMode;
 import com.sun.xml.xsom.XSParticle;
 
 /**

@@ -10,10 +10,10 @@
 
 package org.glassfish.jaxb.runtime.v2.model.impl;
 
-import com.sun.xml.bind.v2.model.core.MapPropertyInfo;
-import com.sun.xml.bind.v2.model.core.NonElement;
-import com.sun.xml.bind.v2.model.core.PropertyKind;
-import com.sun.xml.bind.v2.model.core.TypeInfo;
+import org.glassfish.jaxb.core.v2.model.core.MapPropertyInfo;
+import org.glassfish.jaxb.core.v2.model.core.NonElement;
+import org.glassfish.jaxb.core.v2.model.core.PropertyKind;
+import org.glassfish.jaxb.core.v2.model.core.TypeInfo;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
 
 import javax.xml.namespace.QName;

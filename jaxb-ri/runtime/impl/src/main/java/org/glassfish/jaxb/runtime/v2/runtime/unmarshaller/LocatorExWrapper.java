@@ -10,7 +10,7 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime.unmarshaller;
 
-import com.sun.xml.bind.v2.runtime.unmarshaller.LocatorEx;
+import org.glassfish.jaxb.core.v2.runtime.unmarshaller.LocatorEx;
 import jakarta.xml.bind.ValidationEventLocator;
 import jakarta.xml.bind.helpers.ValidationEventLocatorImpl;
 import org.xml.sax.Locator;

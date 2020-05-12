@@ -12,9 +12,9 @@ package org.glassfish.jaxb.runtime.v2.runtime;
 
 import com.sun.istack.FinalArrayList;
 import org.glassfish.jaxb.runtime.api.AccessorException;
-import com.sun.xml.bind.v2.ClassFactory;
-import com.sun.xml.bind.v2.WellKnownNamespace;
-import com.sun.xml.bind.v2.model.core.ID;
+import org.glassfish.jaxb.core.v2.ClassFactory;
+import org.glassfish.jaxb.core.v2.WellKnownNamespace;
+import org.glassfish.jaxb.core.v2.model.core.ID;
 import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimeClassInfo;
 import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimePropertyInfo;
 import org.glassfish.jaxb.runtime.v2.runtime.property.AttributeProperty;
@@ -416,7 +416,7 @@ public final class ClassBeanInfoImpl<BeanT> extends JaxBeanInfo<BeanT> implement
 
     private static final AttributeProperty[] EMPTY_PROPERTIES = new AttributeProperty[0];
 
-    private static final Logger logger = com.sun.xml.bind.Utils.getClassLogger();
+    private static final Logger logger = org.glassfish.jaxb.core.Utils.getClassLogger();
 
 }
 

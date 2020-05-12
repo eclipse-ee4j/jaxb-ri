@@ -34,7 +34,7 @@ import com.sun.tools.xjc.reader.xmlschema.bindinfo.BIInlineBinaryData;
 import com.sun.tools.xjc.reader.xmlschema.bindinfo.BIFactoryMethod;
 import com.sun.tools.xjc.reader.xmlschema.BGMBuilder;
 import com.sun.tools.xjc.reader.Ring;
-import com.sun.xml.bind.v2.model.core.ElementInfo;
+import org.glassfish.jaxb.core.v2.model.core.ElementInfo;
 import com.sun.xml.xsom.XSElementDecl;
 import com.sun.xml.xsom.XmlString;
 

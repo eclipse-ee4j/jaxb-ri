@@ -10,7 +10,7 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime;
 
-import com.sun.xml.bind.v2.ClassFactory;
+import org.glassfish.jaxb.core.v2.ClassFactory;
 import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.UnmarshallingContext;
 import jakarta.xml.bind.ValidationEvent;
 import jakarta.xml.bind.ValidationEventHandler;

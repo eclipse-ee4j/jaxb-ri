@@ -10,8 +10,8 @@
 
 package org.glassfish.jaxb.runtime.v2.model.impl;
 
-import com.sun.xml.bind.v2.model.core.Adapter;
-import com.sun.xml.bind.v2.runtime.IllegalAnnotationException;
+import org.glassfish.jaxb.core.v2.model.core.Adapter;
+import org.glassfish.jaxb.core.v2.runtime.IllegalAnnotationException;
 import org.glassfish.jaxb.runtime.v2.runtime.Transducer;
 import org.glassfish.jaxb.runtime.v2.runtime.reflect.Accessor;
 import jakarta.xml.bind.JAXBElement;

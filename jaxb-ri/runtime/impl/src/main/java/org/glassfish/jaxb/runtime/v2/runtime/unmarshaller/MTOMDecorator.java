@@ -10,8 +10,8 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime.unmarshaller;
 
-import com.sun.xml.bind.v2.WellKnownNamespace;
-import com.sun.xml.bind.v2.runtime.unmarshaller.LocatorEx;
+import org.glassfish.jaxb.core.v2.WellKnownNamespace;
+import org.glassfish.jaxb.core.v2.runtime.unmarshaller.LocatorEx;
 import jakarta.activation.DataHandler;
 import jakarta.xml.bind.attachment.AttachmentUnmarshaller;
 import org.xml.sax.SAXException;

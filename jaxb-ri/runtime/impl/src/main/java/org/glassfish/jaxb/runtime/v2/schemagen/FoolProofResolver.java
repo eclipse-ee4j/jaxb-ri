@@ -10,7 +10,7 @@
 
 package org.glassfish.jaxb.runtime.v2.schemagen;
 
-import com.sun.xml.bind.Utils;
+import org.glassfish.jaxb.core.Utils;
 import jakarta.xml.bind.SchemaOutputResolver;
 
 import javax.xml.transform.Result;

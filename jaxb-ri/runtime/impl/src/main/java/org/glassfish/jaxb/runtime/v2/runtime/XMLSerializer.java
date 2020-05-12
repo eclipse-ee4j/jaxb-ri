@@ -15,7 +15,7 @@ import org.glassfish.jaxb.runtime.CycleRecoverable;
 import org.glassfish.jaxb.runtime.marshaller.NamespacePrefixMapper;
 import org.glassfish.jaxb.runtime.api.AccessorException;
 import org.glassfish.jaxb.runtime.util.ValidationEventLocatorExImpl;
-import com.sun.xml.bind.v2.WellKnownNamespace;
+import org.glassfish.jaxb.core.v2.WellKnownNamespace;
 import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimeBuiltinLeafInfo;
 import org.glassfish.jaxb.runtime.v2.runtime.output.MTOMXmlOutput;
 import org.glassfish.jaxb.runtime.v2.runtime.output.NamespaceContextImpl;

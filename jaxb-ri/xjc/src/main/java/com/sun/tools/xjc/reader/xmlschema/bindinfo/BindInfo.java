@@ -32,15 +32,15 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import com.sun.codemodel.JDocComment;
-import com.sun.xml.bind.v2.WellKnownNamespace;
+import org.glassfish.jaxb.core.v2.WellKnownNamespace;
 import com.sun.tools.xjc.SchemaCache;
 import com.sun.tools.xjc.model.CCustomizations;
 import com.sun.tools.xjc.model.CPluginCustomization;
 import com.sun.tools.xjc.model.Model;
 import com.sun.tools.xjc.reader.Ring;
 import com.sun.tools.xjc.reader.xmlschema.BGMBuilder;
-import com.sun.xml.bind.annotation.XmlLocation;
-import com.sun.xml.bind.marshaller.MinimumEscapeHandler;
+import org.glassfish.jaxb.core.annotation.XmlLocation;
+import org.glassfish.jaxb.core.marshaller.MinimumEscapeHandler;
 import com.sun.xml.xsom.XSComponent;
 
 import org.w3c.dom.Element;

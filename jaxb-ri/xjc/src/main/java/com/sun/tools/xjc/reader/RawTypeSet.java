@@ -22,8 +22,8 @@ import com.sun.tools.xjc.model.CReferencePropertyInfo;
 import com.sun.tools.xjc.model.CTypeRef;
 import com.sun.tools.xjc.model.Multiplicity;
 import com.sun.tools.xjc.model.nav.NType;
-import com.sun.xml.bind.v2.model.core.Element;
-import com.sun.xml.bind.v2.model.core.ID;
+import org.glassfish.jaxb.core.v2.model.core.Element;
+import org.glassfish.jaxb.core.v2.model.core.ID;
 import java.math.BigInteger;
 
 /**

@@ -12,13 +12,13 @@ package org.glassfish.jaxb.runtime.v2.runtime.unmarshaller;
 
 import org.glassfish.jaxb.runtime.IDResolver;
 import org.glassfish.jaxb.runtime.api.ClassResolver;
-import com.sun.xml.bind.unmarshaller.DOMScanner;
-import com.sun.xml.bind.unmarshaller.InfosetScanner;
-import com.sun.xml.bind.v2.ClassFactory;
+import org.glassfish.jaxb.core.unmarshaller.DOMScanner;
+import org.glassfish.jaxb.core.unmarshaller.InfosetScanner;
+import org.glassfish.jaxb.core.v2.ClassFactory;
 import org.glassfish.jaxb.runtime.v2.runtime.AssociationMap;
 import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
 import org.glassfish.jaxb.runtime.v2.runtime.JaxBeanInfo;
-import com.sun.xml.bind.v2.util.XmlFactory;
+import org.glassfish.jaxb.core.v2.util.XmlFactory;
 import jakarta.xml.bind.*;
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 import jakarta.xml.bind.attachment.AttachmentUnmarshaller;
@@ -474,7 +474,7 @@ import java.io.InputStream;
         super.setProperty(name, value);
     }
 
-    public static final String FACTORY = "com.sun.xml.bind.ObjectFactory";
+    public static final String FACTORY = "org.glassfish.jaxb.core.ObjectFactory";
 
     @Override
     public void setSchema(Schema schema) {

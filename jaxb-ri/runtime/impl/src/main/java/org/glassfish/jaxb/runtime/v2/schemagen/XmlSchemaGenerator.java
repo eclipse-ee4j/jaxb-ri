@@ -12,17 +12,17 @@ package org.glassfish.jaxb.runtime.v2.schemagen;
 
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
-import com.sun.xml.bind.Utils;
-import com.sun.xml.bind.api.ErrorListener;
+import org.glassfish.jaxb.core.Utils;
+import org.glassfish.jaxb.core.api.ErrorListener;
 import org.glassfish.jaxb.runtime.api.CompositeStructure;
-import com.sun.xml.bind.v2.TODO;
-import com.sun.xml.bind.v2.WellKnownNamespace;
-import com.sun.xml.bind.v2.model.core.*;
+import org.glassfish.jaxb.core.v2.TODO;
+import org.glassfish.jaxb.core.v2.WellKnownNamespace;
+import org.glassfish.jaxb.core.v2.model.core.*;
 import org.glassfish.jaxb.runtime.v2.model.impl.ClassInfoImpl;
-import com.sun.xml.bind.v2.model.core.Element;
-import com.sun.xml.bind.v2.model.nav.Navigator;
+import org.glassfish.jaxb.core.v2.model.core.Element;
+import org.glassfish.jaxb.core.v2.model.nav.Navigator;
 import org.glassfish.jaxb.runtime.v2.runtime.SwaRefAdapter;
-import com.sun.xml.bind.v2.schemagen.episode.Bindings;
+import org.glassfish.jaxb.core.v2.schemagen.episode.Bindings;
 import org.glassfish.jaxb.runtime.v2.util.CollisionCheckStack;
 import org.glassfish.jaxb.runtime.v2.util.StackRecorder;
 import com.sun.xml.txw2.TXW;
@@ -49,7 +49,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static com.sun.xml.bind.v2.WellKnownNamespace.XML_SCHEMA;
+import static org.glassfish.jaxb.core.v2.WellKnownNamespace.XML_SCHEMA;
 import static org.glassfish.jaxb.runtime.v2.schemagen.Util.*;
 
 /**

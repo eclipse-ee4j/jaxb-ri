@@ -10,8 +10,8 @@
 
 package org.glassfish.jaxb.runtime.v2.model.impl;
 
-import com.sun.xml.bind.v2.model.core.PropertyKind;
-import com.sun.xml.bind.v2.model.core.ValuePropertyInfo;
+import org.glassfish.jaxb.core.v2.model.core.PropertyKind;
+import org.glassfish.jaxb.core.v2.model.core.ValuePropertyInfo;
 
 /**
  * @author Kohsuke Kawaguchi

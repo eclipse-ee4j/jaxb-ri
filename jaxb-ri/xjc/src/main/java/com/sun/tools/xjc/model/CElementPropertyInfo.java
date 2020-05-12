@@ -21,9 +21,9 @@ import javax.xml.namespace.QName;
 import com.sun.tools.xjc.model.nav.NClass;
 import com.sun.tools.xjc.model.nav.NType;
 import com.sun.tools.xjc.reader.RawTypeSet;
-import com.sun.xml.bind.v2.model.core.ElementPropertyInfo;
-import com.sun.xml.bind.v2.model.core.ID;
-import com.sun.xml.bind.v2.model.core.PropertyKind;
+import org.glassfish.jaxb.core.v2.model.core.ElementPropertyInfo;
+import org.glassfish.jaxb.core.v2.model.core.ID;
+import org.glassfish.jaxb.core.v2.model.core.PropertyKind;
 import com.sun.xml.xsom.XSComponent;
 
 import org.xml.sax.Locator;

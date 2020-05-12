@@ -16,7 +16,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import javax.xml.namespace.QName;
 
 import com.sun.tools.xjc.reader.Const;
-import com.sun.xml.bind.api.impl.NameConverter;
+import org.glassfish.jaxb.core.api.impl.NameConverter;
 import com.sun.istack.Nullable;
 
 /**

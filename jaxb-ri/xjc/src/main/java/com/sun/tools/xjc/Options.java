@@ -42,7 +42,7 @@ import com.sun.tools.xjc.api.SpecVersion;
 import com.sun.tools.xjc.generator.bean.field.FieldRendererFactory;
 import com.sun.tools.xjc.model.Model;
 import com.sun.tools.xjc.reader.Util;
-import com.sun.xml.bind.api.impl.NameConverter;
+import org.glassfish.jaxb.core.api.impl.NameConverter;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
@@ -153,7 +153,7 @@ public class Options {
         return compatibilityMode == EXTENSION;
     }
 
-    private static final Logger logger = com.sun.xml.bind.Utils.getClassLogger();
+    private static final Logger logger = org.glassfish.jaxb.core.Utils.getClassLogger();
 
     /**
      * Generates output for the specified version of the runtime.

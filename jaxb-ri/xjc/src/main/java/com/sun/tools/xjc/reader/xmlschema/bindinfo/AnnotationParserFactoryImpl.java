@@ -21,7 +21,7 @@ import com.sun.tools.xjc.reader.Const;
 import com.sun.xml.xsom.parser.AnnotationContext;
 import com.sun.xml.xsom.parser.AnnotationParser;
 import com.sun.xml.xsom.parser.AnnotationParserFactory;
-import com.sun.xml.bind.v2.WellKnownNamespace;
+import org.glassfish.jaxb.core.v2.WellKnownNamespace;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;

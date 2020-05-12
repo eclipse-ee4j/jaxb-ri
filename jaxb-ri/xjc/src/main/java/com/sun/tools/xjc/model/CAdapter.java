@@ -21,7 +21,7 @@ import com.sun.tools.xjc.model.nav.NType;
 import com.sun.tools.xjc.model.nav.NavigatorImpl;
 import com.sun.tools.xjc.outline.Aspect;
 import com.sun.tools.xjc.outline.Outline;
-import com.sun.xml.bind.v2.model.core.Adapter;
+import org.glassfish.jaxb.core.v2.model.core.Adapter;
 
 /**
  * Extended {@link Adapter} for use within XJC.

@@ -28,7 +28,7 @@ import jakarta.xml.bind.DatatypeConverter;
 
 import com.sun.codemodel.JJavaName;
 import com.sun.codemodel.util.JavadocEscapeWriter;
-import com.sun.xml.bind.v2.WellKnownNamespace;
+import org.glassfish.jaxb.core.v2.WellKnownNamespace;
 import com.sun.tools.xjc.ErrorReceiver;
 import com.sun.tools.xjc.model.CBuiltinLeafInfo;
 import com.sun.tools.xjc.model.CClassInfo;
@@ -50,9 +50,9 @@ import com.sun.tools.xjc.reader.xmlschema.bindinfo.BindInfo;
 import com.sun.tools.xjc.reader.xmlschema.bindinfo.EnumMemberMode;
 import com.sun.tools.xjc.util.MimeTypeRange;
 
-import static com.sun.xml.bind.v2.WellKnownNamespace.XML_MIME_URI;
+import static org.glassfish.jaxb.core.v2.WellKnownNamespace.XML_MIME_URI;
 
-import com.sun.xml.bind.v2.runtime.SwaRefAdapterMarker;
+import org.glassfish.jaxb.core.v2.runtime.SwaRefAdapterMarker;
 import com.sun.xml.xsom.XSAttributeDecl;
 import com.sun.xml.xsom.XSComplexType;
 import com.sun.xml.xsom.XSComponent;

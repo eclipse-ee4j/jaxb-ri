@@ -11,13 +11,13 @@
 package org.glassfish.jaxb.runtime.v2.model.impl;
 
 import org.glassfish.jaxb.runtime.v2.ContextFactory;
-import com.sun.xml.bind.v2.model.annotation.Locatable;
+import org.glassfish.jaxb.core.v2.model.annotation.Locatable;
 import org.glassfish.jaxb.runtime.v2.model.annotation.MethodLocatable;
-import com.sun.xml.bind.v2.model.core.RegistryInfo;
-import com.sun.xml.bind.v2.model.core.TypeInfo;
-import com.sun.xml.bind.v2.model.nav.Navigator;
-import com.sun.xml.bind.v2.runtime.IllegalAnnotationException;
-import com.sun.xml.bind.v2.runtime.Location;
+import org.glassfish.jaxb.core.v2.model.core.RegistryInfo;
+import org.glassfish.jaxb.core.v2.model.core.TypeInfo;
+import org.glassfish.jaxb.core.v2.model.nav.Navigator;
+import org.glassfish.jaxb.core.v2.runtime.IllegalAnnotationException;
+import org.glassfish.jaxb.core.v2.runtime.Location;
 import jakarta.xml.bind.annotation.XmlElementDecl;
 
 import java.util.LinkedHashSet;

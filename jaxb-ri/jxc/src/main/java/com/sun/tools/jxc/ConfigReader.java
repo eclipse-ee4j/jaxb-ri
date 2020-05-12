@@ -37,7 +37,7 @@ import com.sun.tools.xjc.SchemaCache;
 import com.sun.tools.xjc.api.Reference;
 import com.sun.tools.xjc.util.ForkContentHandler;
 
-import com.sun.xml.bind.v2.util.XmlFactory;
+import org.glassfish.jaxb.core.v2.util.XmlFactory;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;

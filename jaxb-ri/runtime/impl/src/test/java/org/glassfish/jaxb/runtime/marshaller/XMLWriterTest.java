@@ -10,8 +10,8 @@
 
 package org.glassfish.jaxb.runtime.marshaller;
 
-import com.sun.xml.bind.marshaller.DumbEscapeHandler;
-import com.sun.xml.bind.marshaller.XMLWriter;
+import org.glassfish.jaxb.core.marshaller.DumbEscapeHandler;
+import org.glassfish.jaxb.core.marshaller.XMLWriter;
 import junit.framework.TestCase;
 import junit.textui.TestRunner;
 import org.xml.sax.InputSource;

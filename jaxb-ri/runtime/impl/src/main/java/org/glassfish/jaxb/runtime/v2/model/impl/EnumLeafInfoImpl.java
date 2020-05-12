@@ -10,9 +10,9 @@
 
 package org.glassfish.jaxb.runtime.v2.model.impl;
 
-import com.sun.xml.bind.v2.model.annotation.Locatable;
-import com.sun.xml.bind.v2.model.core.*;
-import com.sun.xml.bind.v2.runtime.Location;
+import org.glassfish.jaxb.core.v2.model.annotation.Locatable;
+import org.glassfish.jaxb.core.v2.model.core.*;
+import org.glassfish.jaxb.core.v2.runtime.Location;
 import jakarta.xml.bind.annotation.XmlEnum;
 import jakarta.xml.bind.annotation.XmlEnumValue;
 import jakarta.xml.bind.annotation.XmlRootElement;

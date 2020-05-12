@@ -17,9 +17,9 @@ import javax.xml.transform.Source;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.sax.SAXResult;
 
-import com.sun.xml.bind.marshaller.SAX2DOMEx;
+import org.glassfish.jaxb.core.marshaller.SAX2DOMEx;
 
-import com.sun.xml.bind.v2.util.XmlFactory;
+import org.glassfish.jaxb.core.v2.util.XmlFactory;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

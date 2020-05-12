@@ -11,8 +11,8 @@
 package org.glassfish.jaxb.runtime.v2.runtime.reflect;
 
 import org.glassfish.jaxb.runtime.api.AccessorException;
-import com.sun.xml.bind.v2.ClassFactory;
-import com.sun.xml.bind.v2.model.core.Adapter;
+import org.glassfish.jaxb.core.v2.ClassFactory;
+import org.glassfish.jaxb.core.v2.model.core.Adapter;
 import org.glassfish.jaxb.runtime.v2.runtime.Coordinator;
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 

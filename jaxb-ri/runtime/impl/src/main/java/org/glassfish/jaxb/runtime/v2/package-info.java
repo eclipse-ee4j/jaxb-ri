@@ -31,17 +31,17 @@
  * The followings are the interesting pieces inside the runtime.
  *
  * <dl>
- *  <dt>{@code com.sun.xml.bind.v2.model model}
+ *  <dt>{@code org.glassfish.jaxb.core.v2.model model}
  *  <dd>
  *    This set of classes and interfaces models JAXB-bound types.
  *
- *  <dt>{@link com.sun.xml.bind.v2.runtime XML I/O}
+ *  <dt>{@link org.glassfish.jaxb.core.v2.runtime XML I/O}
  *  <dd>
  *    This set of classes implements the JAXB API and provides the XML I/O functionality.
  * </dl>
  *
  * <p>
- * The classes <b>NOT</b> in the {@link com.sun.xml.bind.v2} package (and its subpackages)
+ * The classes <b>NOT</b> in the {@link org.glassfish.jaxb.core.v2} package (and its subpackages)
  * are also used by old JAXB 1.0 clients.
  *
  * <h2>Models</h2>
