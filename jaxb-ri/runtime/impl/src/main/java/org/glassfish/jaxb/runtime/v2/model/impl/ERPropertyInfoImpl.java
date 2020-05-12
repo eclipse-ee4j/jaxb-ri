@@ -10,7 +10,7 @@
 
 package org.glassfish.jaxb.runtime.v2.model.impl;
 
-import com.sun.xml.bind.v2.runtime.IllegalAnnotationException;
+import org.glassfish.jaxb.core.v2.runtime.IllegalAnnotationException;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
 
 import javax.xml.namespace.QName;

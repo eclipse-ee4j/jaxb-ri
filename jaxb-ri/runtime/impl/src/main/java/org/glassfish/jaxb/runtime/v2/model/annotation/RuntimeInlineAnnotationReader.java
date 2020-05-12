@@ -10,7 +10,7 @@
 
 package org.glassfish.jaxb.runtime.v2.model.annotation;
 
-import com.sun.xml.bind.v2.model.annotation.Locatable;
+import org.glassfish.jaxb.core.v2.model.annotation.Locatable;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * {@link com.sun.xml.bind.v2.model.annotation.AnnotationReader} that uses {@code java.lang.reflect} to
+ * {@link org.glassfish.jaxb.core.v2.model.annotation.AnnotationReader} that uses {@code java.lang.reflect} to
  * read annotations from class files.
  *
  * @author Kohsuke Kawaguchi (kk@kohsuke.org)

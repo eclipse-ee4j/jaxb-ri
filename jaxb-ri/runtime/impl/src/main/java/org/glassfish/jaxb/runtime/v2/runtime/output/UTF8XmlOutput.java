@@ -10,7 +10,7 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime.output;
 
-import com.sun.xml.bind.marshaller.CharacterEscapeHandler;
+import org.glassfish.jaxb.core.marshaller.CharacterEscapeHandler;
 import org.glassfish.jaxb.runtime.DatatypeConverterImpl;
 import org.glassfish.jaxb.runtime.v2.runtime.MarshallerImpl;
 import org.glassfish.jaxb.runtime.v2.runtime.Name;

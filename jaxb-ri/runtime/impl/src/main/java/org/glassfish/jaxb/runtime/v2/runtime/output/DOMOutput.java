@@ -10,7 +10,7 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime.output;
 
-import com.sun.xml.bind.marshaller.SAX2DOMEx;
+import org.glassfish.jaxb.core.marshaller.SAX2DOMEx;
 import org.glassfish.jaxb.runtime.v2.runtime.AssociationMap;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;

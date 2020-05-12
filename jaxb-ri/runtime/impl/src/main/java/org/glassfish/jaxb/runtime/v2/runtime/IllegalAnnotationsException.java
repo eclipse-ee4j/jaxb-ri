@@ -10,8 +10,8 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime;
 
-import com.sun.xml.bind.v2.model.core.ErrorHandler;
-import com.sun.xml.bind.v2.runtime.IllegalAnnotationException;
+import org.glassfish.jaxb.core.v2.model.core.ErrorHandler;
+import org.glassfish.jaxb.core.v2.runtime.IllegalAnnotationException;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 

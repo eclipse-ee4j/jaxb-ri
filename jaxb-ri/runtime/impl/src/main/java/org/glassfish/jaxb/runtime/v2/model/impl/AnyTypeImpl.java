@@ -10,11 +10,11 @@
 
 package org.glassfish.jaxb.runtime.v2.model.impl;
 
-import com.sun.xml.bind.v2.model.annotation.Locatable;
-import com.sun.xml.bind.v2.model.core.NonElement;
-import com.sun.xml.bind.v2.model.core.TypeInfo;
-import com.sun.xml.bind.v2.model.nav.Navigator;
-import com.sun.xml.bind.v2.runtime.Location;
+import org.glassfish.jaxb.core.v2.model.annotation.Locatable;
+import org.glassfish.jaxb.core.v2.model.core.NonElement;
+import org.glassfish.jaxb.core.v2.model.core.TypeInfo;
+import org.glassfish.jaxb.core.v2.model.nav.Navigator;
+import org.glassfish.jaxb.core.v2.runtime.Location;
 import jakarta.xml.bind.annotation.XmlIDREF;
 
 import javax.xml.namespace.QName;

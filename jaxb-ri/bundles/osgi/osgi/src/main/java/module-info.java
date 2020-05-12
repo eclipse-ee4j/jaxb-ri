@@ -8,8 +8,6 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-import org.glassfish.jaxb.runtime.v2.JAXBContextFactory;
-
 module com.sun.xml.bind.osgi {
 
     requires transitive jakarta.xml.bind;
@@ -24,23 +22,23 @@ module com.sun.xml.bind.osgi {
     exports com.sun.istack.localization;
     exports com.sun.istack.logging;
 
-    exports com.sun.xml.bind;
-    exports com.sun.xml.bind.annotation;
-    exports com.sun.xml.bind.api;
-    exports com.sun.xml.bind.api.impl;
-    exports com.sun.xml.bind.marshaller;
-    exports com.sun.xml.bind.unmarshaller;
-    exports com.sun.xml.bind.util;
-    exports com.sun.xml.bind.v2;
-    exports com.sun.xml.bind.v2.model.annotation;
-    exports com.sun.xml.bind.v2.model.core;
-    exports com.sun.xml.bind.v2.model.impl;
-    exports com.sun.xml.bind.v2.model.nav;
-    exports com.sun.xml.bind.v2.model.util;
-    exports com.sun.xml.bind.v2.runtime;
-    exports com.sun.xml.bind.v2.runtime.unmarshaller;
-    exports com.sun.xml.bind.v2.schemagen.episode;
-    exports com.sun.xml.bind.v2.util;
+    exports org.glassfish.jaxb.core;
+    exports org.glassfish.jaxb.core.annotation;
+    exports org.glassfish.jaxb.core.api;
+    exports org.glassfish.jaxb.core.api.impl;
+    exports org.glassfish.jaxb.core.marshaller;
+    exports org.glassfish.jaxb.core.unmarshaller;
+    exports org.glassfish.jaxb.core.util;
+    exports org.glassfish.jaxb.core.v2;
+    exports org.glassfish.jaxb.core.v2.model.annotation;
+    exports org.glassfish.jaxb.core.v2.model.core;
+    exports org.glassfish.jaxb.core.v2.model.impl;
+    exports org.glassfish.jaxb.core.v2.model.nav;
+    exports org.glassfish.jaxb.core.v2.model.util;
+    exports org.glassfish.jaxb.core.v2.runtime;
+    exports org.glassfish.jaxb.core.v2.runtime.unmarshaller;
+    exports org.glassfish.jaxb.core.v2.schemagen.episode;
+    exports org.glassfish.jaxb.core.v2.util;
 
     exports org.glassfish.jaxb.runtime;
     exports org.glassfish.jaxb.runtime.api;
@@ -130,7 +128,8 @@ module com.sun.xml.bind.osgi {
     uses jakarta.xml.bind.JAXBContextFactory;
     uses com.sun.tools.xjc.Plugin;
 
-    provides jakarta.xml.bind.JAXBContextFactory with JAXBContextFactory;
+    provides jakarta.xml.bind.JAXBContextFactory with
+        org.glassfish.jaxb.runtime.v2.JAXBContextFactory;
     provides com.sun.tools.xjc.Plugin with
         com.sun.tools.xjc.addon.accessors.PluginImpl,
         com.sun.tools.xjc.addon.at_generated.PluginImpl,

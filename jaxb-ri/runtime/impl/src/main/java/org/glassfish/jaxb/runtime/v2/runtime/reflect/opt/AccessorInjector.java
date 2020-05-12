@@ -10,7 +10,7 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime.reflect.opt;
 
-import com.sun.xml.bind.Utils;
+import org.glassfish.jaxb.core.Utils;
 import org.glassfish.jaxb.runtime.v2.bytecode.ClassTailor;
 
 import java.io.InputStream;

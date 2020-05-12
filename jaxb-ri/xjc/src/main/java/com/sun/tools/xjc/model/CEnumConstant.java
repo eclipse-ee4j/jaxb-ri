@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,7 +12,7 @@ package com.sun.tools.xjc.model;
 
 import com.sun.tools.xjc.model.nav.NClass;
 import com.sun.tools.xjc.model.nav.NType;
-import com.sun.xml.bind.v2.model.core.EnumConstant;
+import org.glassfish.jaxb.core.v2.model.core.EnumConstant;
 
 import com.sun.xml.xsom.XSComponent;
 import org.xml.sax.Locator;

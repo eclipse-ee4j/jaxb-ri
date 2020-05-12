@@ -26,25 +26,25 @@ module org.glassfish.jaxb.core {
     requires transitive com.sun.xml.txw2;
     requires transitive com.sun.istack.runtime;
 
-    exports com.sun.xml.bind;
-    exports com.sun.xml.bind.annotation;
-    exports com.sun.xml.bind.api;
-    exports com.sun.xml.bind.api.impl;
-    exports com.sun.xml.bind.marshaller;
-    exports com.sun.xml.bind.unmarshaller;
-    exports com.sun.xml.bind.util;
-    exports com.sun.xml.bind.v2;
-    exports com.sun.xml.bind.v2.model.annotation;
-    exports com.sun.xml.bind.v2.model.core;
-    exports com.sun.xml.bind.v2.model.impl;
-    exports com.sun.xml.bind.v2.model.nav;
-    exports com.sun.xml.bind.v2.model.util;
-    exports com.sun.xml.bind.v2.runtime;
-    exports com.sun.xml.bind.v2.runtime.unmarshaller;
-    exports com.sun.xml.bind.v2.schemagen.episode;
-    exports com.sun.xml.bind.v2.util;
+    exports org.glassfish.jaxb.core;
+    exports org.glassfish.jaxb.core.annotation;
+    exports org.glassfish.jaxb.core.api;
+    exports org.glassfish.jaxb.core.api.impl;
+    exports org.glassfish.jaxb.core.marshaller;
+    exports org.glassfish.jaxb.core.unmarshaller;
+    exports org.glassfish.jaxb.core.util;
+    exports org.glassfish.jaxb.core.v2;
+    exports org.glassfish.jaxb.core.v2.model.annotation;
+    exports org.glassfish.jaxb.core.v2.model.core;
+    exports org.glassfish.jaxb.core.v2.model.impl;
+    exports org.glassfish.jaxb.core.v2.model.nav;
+    exports org.glassfish.jaxb.core.v2.model.util;
+    exports org.glassfish.jaxb.core.v2.runtime;
+    exports org.glassfish.jaxb.core.v2.runtime.unmarshaller;
+    exports org.glassfish.jaxb.core.v2.schemagen.episode;
+    exports org.glassfish.jaxb.core.v2.util;
 
-    opens com.sun.xml.bind.v2.model.nav to
+    opens org.glassfish.jaxb.core.v2.model.nav to
             org.glassfish.jaxb.runtime,
             org.glassfish.jaxb.xjc;
 

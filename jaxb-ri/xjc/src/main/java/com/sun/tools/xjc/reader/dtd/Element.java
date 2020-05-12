@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -28,8 +28,8 @@ import com.sun.tools.xjc.model.CValuePropertyInfo;
 import com.sun.tools.xjc.model.TypeUse;
 import com.sun.tools.xjc.reader.dtd.bindinfo.BIConversion;
 import com.sun.tools.xjc.reader.dtd.bindinfo.BIElement;
-import com.sun.xml.bind.v2.model.core.ID;
-import com.sun.xml.bind.v2.model.core.WildcardMode;
+import org.glassfish.jaxb.core.v2.model.core.ID;
+import org.glassfish.jaxb.core.v2.model.core.WildcardMode;
 import com.sun.xml.dtdparser.DTDEventListener;
 
 import org.xml.sax.Locator;

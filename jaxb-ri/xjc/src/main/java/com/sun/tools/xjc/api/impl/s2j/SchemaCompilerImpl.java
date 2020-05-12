@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -37,8 +37,8 @@ import com.sun.tools.xjc.reader.internalizer.DOMForest;
 import com.sun.tools.xjc.reader.internalizer.SCDBasedBindingSet;
 import com.sun.tools.xjc.reader.xmlschema.parser.LSInputSAXWrapper;
 import com.sun.tools.xjc.reader.xmlschema.parser.XMLSchemaInternalizationLogic;
-import com.sun.xml.bind.unmarshaller.DOMScanner;
-import com.sun.xml.bind.v2.util.XmlFactory;
+import org.glassfish.jaxb.core.unmarshaller.DOMScanner;
+import org.glassfish.jaxb.core.v2.util.XmlFactory;
 import com.sun.xml.xsom.XSSchemaSet;
 
 import org.w3c.dom.Element;

@@ -10,7 +10,7 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime.unmarshaller;
 
-import com.sun.xml.bind.WhiteSpaceProcessor;
+import org.glassfish.jaxb.core.WhiteSpaceProcessor;
 import com.sun.xml.fastinfoset.stax.StAXDocumentParser;
 import org.jvnet.fastinfoset.EncodingAlgorithmIndexes;
 import org.xml.sax.SAXException;

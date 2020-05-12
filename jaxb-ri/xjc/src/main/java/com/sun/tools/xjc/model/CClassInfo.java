@@ -35,8 +35,8 @@ import com.sun.tools.xjc.outline.Outline;
 import com.sun.tools.xjc.reader.Ring;
 import com.sun.tools.xjc.reader.xmlschema.BGMBuilder;
 import com.sun.tools.xjc.reader.xmlschema.bindinfo.BIFactoryMethod;
-import com.sun.xml.bind.v2.model.core.ClassInfo;
-import com.sun.xml.bind.v2.model.core.Element;
+import org.glassfish.jaxb.core.v2.model.core.ClassInfo;
+import org.glassfish.jaxb.core.v2.model.core.Element;
 import com.sun.xml.xsom.ForeignAttributes;
 import com.sun.xml.xsom.XSComponent;
 

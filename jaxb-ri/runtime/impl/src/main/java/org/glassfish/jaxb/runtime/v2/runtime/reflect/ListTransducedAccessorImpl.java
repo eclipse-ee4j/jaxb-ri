@@ -10,7 +10,7 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime.reflect;
 
-import com.sun.xml.bind.WhiteSpaceProcessor;
+import org.glassfish.jaxb.core.WhiteSpaceProcessor;
 import org.glassfish.jaxb.runtime.api.AccessorException;
 import org.glassfish.jaxb.runtime.v2.runtime.Transducer;
 import org.glassfish.jaxb.runtime.v2.runtime.XMLSerializer;

@@ -23,8 +23,8 @@ import com.sun.tools.xjc.Options;
 import com.sun.tools.xjc.Plugin;
 import com.sun.tools.xjc.outline.ClassOutline;
 import com.sun.tools.xjc.outline.Outline;
-import com.sun.xml.bind.Locatable;
-import com.sun.xml.bind.annotation.XmlLocation;
+import org.glassfish.jaxb.core.Locatable;
+import org.glassfish.jaxb.core.annotation.XmlLocation;
 
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.Locator;

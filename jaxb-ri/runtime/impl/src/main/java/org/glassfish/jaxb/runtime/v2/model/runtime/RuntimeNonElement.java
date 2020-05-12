@@ -10,7 +10,7 @@
 
 package org.glassfish.jaxb.runtime.v2.model.runtime;
 
-import com.sun.xml.bind.v2.model.core.NonElement;
+import org.glassfish.jaxb.core.v2.model.core.NonElement;
 import org.glassfish.jaxb.runtime.v2.runtime.Transducer;
 
 import java.lang.reflect.Type;

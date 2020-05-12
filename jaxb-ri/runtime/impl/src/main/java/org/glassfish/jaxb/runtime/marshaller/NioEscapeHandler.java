@@ -10,7 +10,7 @@
 
 package org.glassfish.jaxb.runtime.marshaller;
 
-import com.sun.xml.bind.marshaller.CharacterEscapeHandler;
+import org.glassfish.jaxb.core.marshaller.CharacterEscapeHandler;
 
 import java.io.IOException;
 import java.io.Writer;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,7 +16,7 @@ import java.util.Collections;
 import com.sun.codemodel.JCodeModel;
 import com.sun.tools.xjc.reader.Ring;
 import com.sun.tools.xjc.reader.xmlschema.BGMBuilder;
-import com.sun.xml.bind.annotation.XmlLocation;
+import org.glassfish.jaxb.core.annotation.XmlLocation;
 import com.sun.xml.xsom.XSComponent;
 
 import org.xml.sax.Locator;

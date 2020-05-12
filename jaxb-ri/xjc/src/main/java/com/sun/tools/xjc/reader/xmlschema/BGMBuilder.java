@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -41,8 +41,8 @@ import com.sun.tools.xjc.reader.xmlschema.bindinfo.BISerializable;
 import com.sun.tools.xjc.reader.xmlschema.bindinfo.BindInfo;
 import com.sun.tools.xjc.util.CodeModelClassFactory;
 import com.sun.tools.xjc.util.ErrorReceiverFilter;
-import com.sun.xml.bind.api.impl.NameConverter;
-import com.sun.xml.bind.v2.util.XmlFactory;
+import org.glassfish.jaxb.core.api.impl.NameConverter;
+import org.glassfish.jaxb.core.v2.util.XmlFactory;
 import com.sun.xml.xsom.XSAnnotation;
 import com.sun.xml.xsom.XSAttributeUse;
 import com.sun.xml.xsom.XSComponent;

@@ -11,7 +11,7 @@
 package org.glassfish.jaxb.runtime.v2.runtime.output;
 
 import com.sun.istack.FinalArrayList;
-import com.sun.xml.bind.marshaller.CharacterEscapeHandler;
+import org.glassfish.jaxb.core.marshaller.CharacterEscapeHandler;
 import org.glassfish.jaxb.runtime.api.JAXBRIContext;
 import org.glassfish.jaxb.runtime.v2.runtime.Name;
 

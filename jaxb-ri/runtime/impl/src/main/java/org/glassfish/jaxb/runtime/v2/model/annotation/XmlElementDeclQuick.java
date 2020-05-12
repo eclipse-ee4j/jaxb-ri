@@ -10,7 +10,7 @@
 
 package org.glassfish.jaxb.runtime.v2.model.annotation;
 
-import com.sun.xml.bind.v2.model.annotation.Locatable;
+import org.glassfish.jaxb.core.v2.model.annotation.Locatable;
 import jakarta.xml.bind.annotation.XmlElementDecl;
 
 import java.lang.annotation.Annotation;

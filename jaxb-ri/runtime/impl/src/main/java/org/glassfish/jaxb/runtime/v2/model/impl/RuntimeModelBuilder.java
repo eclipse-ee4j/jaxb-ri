@@ -11,17 +11,17 @@
 package org.glassfish.jaxb.runtime.v2.model.impl;
 
 import com.sun.istack.Nullable;
-import com.sun.xml.bind.WhiteSpaceProcessor;
+import org.glassfish.jaxb.core.WhiteSpaceProcessor;
 import org.glassfish.jaxb.runtime.api.AccessorException;
-import com.sun.xml.bind.v2.WellKnownNamespace;
-import com.sun.xml.bind.v2.model.annotation.Locatable;
+import org.glassfish.jaxb.core.v2.WellKnownNamespace;
+import org.glassfish.jaxb.core.v2.model.annotation.Locatable;
 import org.glassfish.jaxb.runtime.v2.model.annotation.RuntimeAnnotationReader;
-import com.sun.xml.bind.v2.model.core.ID;
+import org.glassfish.jaxb.core.v2.model.core.ID;
 import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimeNonElement;
 import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimeNonElementRef;
 import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimePropertyInfo;
 import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimeTypeInfoSet;
-import com.sun.xml.bind.v2.runtime.IllegalAnnotationException;
+import org.glassfish.jaxb.core.v2.runtime.IllegalAnnotationException;
 import org.glassfish.jaxb.runtime.v2.runtime.*;
 import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.UnmarshallingContext;
 import jakarta.activation.MimeType;

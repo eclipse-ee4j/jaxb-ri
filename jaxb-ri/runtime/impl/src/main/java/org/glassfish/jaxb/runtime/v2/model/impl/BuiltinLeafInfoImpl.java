@@ -10,10 +10,10 @@
 
 package org.glassfish.jaxb.runtime.v2.model.impl;
 
-import com.sun.xml.bind.v2.model.core.BuiltinLeafInfo;
-import com.sun.xml.bind.v2.model.core.Element;
-import com.sun.xml.bind.v2.model.core.LeafInfo;
-import com.sun.xml.bind.v2.model.nav.Navigator;
+import org.glassfish.jaxb.core.v2.model.core.BuiltinLeafInfo;
+import org.glassfish.jaxb.core.v2.model.core.Element;
+import org.glassfish.jaxb.core.v2.model.core.LeafInfo;
+import org.glassfish.jaxb.core.v2.model.nav.Navigator;
 
 import javax.xml.namespace.QName;
 import java.util.HashMap;

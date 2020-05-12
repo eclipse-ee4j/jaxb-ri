@@ -11,9 +11,9 @@
 package org.glassfish.jaxb.runtime.v2.runtime.property;
 
 import org.glassfish.jaxb.runtime.api.AccessorException;
-import com.sun.xml.bind.v2.ClassFactory;
-import com.sun.xml.bind.v2.model.core.PropertyKind;
-import com.sun.xml.bind.v2.model.core.WildcardMode;
+import org.glassfish.jaxb.core.v2.ClassFactory;
+import org.glassfish.jaxb.core.v2.model.core.PropertyKind;
+import org.glassfish.jaxb.core.v2.model.core.WildcardMode;
 import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimeElement;
 import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimeReferencePropertyInfo;
 import org.glassfish.jaxb.runtime.v2.runtime.ElementBeanInfoImpl;

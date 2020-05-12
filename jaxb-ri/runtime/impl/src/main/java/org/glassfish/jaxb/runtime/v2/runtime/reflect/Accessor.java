@@ -13,7 +13,7 @@ package org.glassfish.jaxb.runtime.v2.runtime.reflect;
 import com.sun.istack.Nullable;
 import org.glassfish.jaxb.runtime.api.AccessorException;
 import org.glassfish.jaxb.runtime.api.JAXBRIContext;
-import com.sun.xml.bind.v2.model.core.Adapter;
+import org.glassfish.jaxb.core.v2.model.core.Adapter;
 import org.glassfish.jaxb.runtime.v2.model.impl.RuntimeModelBuilder;
 import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
 import org.glassfish.jaxb.runtime.v2.runtime.reflect.opt.OptimizedAccessorFactory;
@@ -193,7 +193,7 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
     public static class FieldReflection<BeanT, ValueT> extends Accessor<BeanT, ValueT> {
         public final Field f;
 
-        private static final Logger logger = com.sun.xml.bind.Utils.getClassLogger();
+        private static final Logger logger = org.glassfish.jaxb.core.Utils.getClassLogger();
 
         public FieldReflection(Field f) {
             this(f, false);
@@ -284,7 +284,7 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
         public final Method getter;
         public final Method setter;
 
-        private static final Logger logger = com.sun.xml.bind.Utils.getClassLogger();
+        private static final Logger logger = org.glassfish.jaxb.core.Utils.getClassLogger();
 
         public GetterSetterReflection(Method getter, Method setter) {
             super(

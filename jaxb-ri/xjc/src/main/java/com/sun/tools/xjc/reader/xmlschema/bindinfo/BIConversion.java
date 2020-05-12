@@ -37,7 +37,7 @@ import com.sun.tools.xjc.reader.Const;
 import com.sun.tools.xjc.reader.Ring;
 import com.sun.tools.xjc.reader.TypeUtil;
 import com.sun.tools.xjc.reader.xmlschema.ClassSelector;
-import com.sun.xml.bind.v2.WellKnownNamespace;
+import org.glassfish.jaxb.core.v2.WellKnownNamespace;
 import com.sun.xml.xsom.XSSimpleType;
 
 import org.xml.sax.Locator;

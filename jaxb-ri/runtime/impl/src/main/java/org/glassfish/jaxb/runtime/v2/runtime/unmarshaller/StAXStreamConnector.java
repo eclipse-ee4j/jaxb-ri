@@ -10,7 +10,7 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime.unmarshaller;
 
-import com.sun.xml.bind.WhiteSpaceProcessor;
+import org.glassfish.jaxb.core.WhiteSpaceProcessor;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
@@ -337,7 +337,7 @@ class StAXStreamConnector extends StAXConnector {
                 return null;
             
             Class c = Class.forName(
-                    "com.sun.xml.bind.v2.runtime.unmarshaller.FastInfosetConnector");                
+                    "org.glassfish.jaxb.core.v2.runtime.unmarshaller.FastInfosetConnector");                
             return c.getConstructor(FI_STAX_READER_CLASS,XmlVisitor.class);
         } catch (Throwable e) {
             return null;
@@ -360,7 +360,7 @@ class StAXStreamConnector extends StAXConnector {
 
     private static Constructor<? extends StAXConnector> initStAXExConnector() {
         try {
-            Class c = Class.forName("com.sun.xml.bind.v2.runtime.unmarshaller.StAXExConnector");
+            Class c = Class.forName("org.glassfish.jaxb.core.v2.runtime.unmarshaller.StAXExConnector");
             return c.getConstructor(STAX_EX_READER_CLASS,XmlVisitor.class);
         } catch (Throwable e) {
             return null;

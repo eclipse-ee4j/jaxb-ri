@@ -35,18 +35,18 @@ import com.sun.codemodel.JExpression;
 import com.sun.codemodel.JType;
 import com.sun.tools.xjc.model.nav.NClass;
 import com.sun.tools.xjc.outline.Aspect;
-import com.sun.xml.bind.v2.model.annotation.Locatable;
-import com.sun.xml.bind.v2.model.core.BuiltinLeafInfo;
-import com.sun.xml.bind.v2.model.core.Element;
-import com.sun.xml.bind.v2.model.core.LeafInfo;
-import com.sun.xml.bind.v2.runtime.Location;
+import org.glassfish.jaxb.core.v2.model.annotation.Locatable;
+import org.glassfish.jaxb.core.v2.model.core.BuiltinLeafInfo;
+import org.glassfish.jaxb.core.v2.model.core.Element;
+import org.glassfish.jaxb.core.v2.model.core.LeafInfo;
+import org.glassfish.jaxb.core.v2.runtime.Location;
 import com.sun.tools.xjc.model.nav.NType;
 import com.sun.tools.xjc.model.nav.NavigatorImpl;
 import com.sun.tools.xjc.outline.Outline;
 import com.sun.tools.xjc.runtime.ZeroOneBooleanAdapter;
 import com.sun.tools.xjc.util.NamespaceContextAdapter;
-import com.sun.xml.bind.v2.WellKnownNamespace;
-import com.sun.xml.bind.v2.model.core.ID;
+import org.glassfish.jaxb.core.v2.WellKnownNamespace;
+import org.glassfish.jaxb.core.v2.model.core.ID;
 import com.sun.xml.xsom.XSComponent;
 import com.sun.xml.xsom.XmlString;
 
@@ -242,7 +242,7 @@ public abstract class CBuiltinLeafInfo implements CNonElement, BuiltinLeafInfo<N
      */
     private static abstract class Builtin extends CBuiltinLeafInfo {
         protected Builtin(Class c, String typeName) {
-            this(c,typeName,com.sun.xml.bind.v2.model.core.ID.NONE);
+            this(c,typeName,org.glassfish.jaxb.core.v2.model.core.ID.NONE);
         }
         protected Builtin(Class c, String typeName, ID id) {
             super(NavigatorImpl.theInstance.ref(c), id, new QName(WellKnownNamespace.XML_SCHEMA,typeName));
@@ -366,7 +366,7 @@ public abstract class CBuiltinLeafInfo implements CNonElement, BuiltinLeafInfo<N
     public static final TypeUse NORMALIZED_STRING =
             STRING.makeAdapted(NormalizedStringAdapter.class,false);
 
-    public static final TypeUse ID = TypeUseFactory.makeID(TOKEN,com.sun.xml.bind.v2.model.core.ID.ID);
+    public static final TypeUse ID = TypeUseFactory.makeID(TOKEN,org.glassfish.jaxb.core.v2.model.core.ID.ID);
 
     /**
      * boolean restricted to 0 or 1.
@@ -380,7 +380,7 @@ public abstract class CBuiltinLeafInfo implements CNonElement, BuiltinLeafInfo<N
      * IDREF is has a whitespace normalization semantics of token, but
      * we don't want {@link XmlJavaTypeAdapter} and {@link XmlIDREF} to interact.
      */
-    public static final TypeUse IDREF = TypeUseFactory.makeID(ANYTYPE,com.sun.xml.bind.v2.model.core.ID.IDREF);
+    public static final TypeUse IDREF = TypeUseFactory.makeID(ANYTYPE,org.glassfish.jaxb.core.v2.model.core.ID.IDREF);
 
     /**
      * For all list of strings, such as NMTOKENS, ENTITIES.

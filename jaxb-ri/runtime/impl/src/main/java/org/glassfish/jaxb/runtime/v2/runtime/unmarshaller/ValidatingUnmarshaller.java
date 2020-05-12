@@ -11,7 +11,7 @@
 package org.glassfish.jaxb.runtime.v2.runtime.unmarshaller;
 
 import org.glassfish.jaxb.runtime.v2.util.FatalAdapter;
-import com.sun.xml.bind.v2.runtime.unmarshaller.LocatorEx;
+import org.glassfish.jaxb.core.v2.runtime.unmarshaller.LocatorEx;
 import org.xml.sax.SAXException;
 
 import javax.xml.namespace.NamespaceContext;

@@ -10,7 +10,7 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime.unmarshaller;
 
-import com.sun.xml.bind.v2.model.core.WildcardMode;
+import org.glassfish.jaxb.core.v2.model.core.WildcardMode;
 import jakarta.xml.bind.annotation.DomHandler;
 import org.xml.sax.SAXException;
 

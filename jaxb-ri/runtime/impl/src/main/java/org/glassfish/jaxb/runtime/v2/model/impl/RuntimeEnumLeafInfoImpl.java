@@ -12,10 +12,10 @@ package org.glassfish.jaxb.runtime.v2.model.impl;
 
 import org.glassfish.jaxb.runtime.api.AccessorException;
 import org.glassfish.jaxb.runtime.v2.model.annotation.FieldLocatable;
-import com.sun.xml.bind.v2.model.annotation.Locatable;
+import org.glassfish.jaxb.core.v2.model.annotation.Locatable;
 import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimeEnumLeafInfo;
 import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimeNonElement;
-import com.sun.xml.bind.v2.runtime.IllegalAnnotationException;
+import org.glassfish.jaxb.core.v2.runtime.IllegalAnnotationException;
 import org.glassfish.jaxb.runtime.v2.runtime.Name;
 import org.glassfish.jaxb.runtime.v2.runtime.Transducer;
 import org.glassfish.jaxb.runtime.v2.runtime.XMLSerializer;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,11 +14,11 @@ import javax.xml.namespace.QName;
 
 import com.sun.codemodel.JType;
 import com.sun.tools.xjc.outline.Aspect;
-import com.sun.xml.bind.v2.model.util.ArrayInfoUtil;
+import org.glassfish.jaxb.core.v2.model.util.ArrayInfoUtil;
 import com.sun.tools.xjc.model.nav.NClass;
 import com.sun.tools.xjc.model.nav.NType;
 import com.sun.tools.xjc.outline.Outline;
-import com.sun.xml.bind.v2.model.core.ArrayInfo;
+import org.glassfish.jaxb.core.v2.model.core.ArrayInfo;
 import com.sun.xml.xsom.XSComponent;
 
 import org.xml.sax.Locator;

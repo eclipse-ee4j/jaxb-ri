@@ -10,10 +10,10 @@
 
 package org.glassfish.jaxb.runtime.v2.model.annotation;
 
-import com.sun.xml.bind.v2.model.annotation.AnnotationReader;
-import com.sun.xml.bind.v2.model.annotation.Locatable;
-import com.sun.xml.bind.v2.model.core.ErrorHandler;
-import com.sun.xml.bind.v2.runtime.IllegalAnnotationException;
+import org.glassfish.jaxb.core.v2.model.annotation.AnnotationReader;
+import org.glassfish.jaxb.core.v2.model.annotation.Locatable;
+import org.glassfish.jaxb.core.v2.model.core.ErrorHandler;
+import org.glassfish.jaxb.core.v2.runtime.IllegalAnnotationException;
 
 import java.lang.annotation.Annotation;
 

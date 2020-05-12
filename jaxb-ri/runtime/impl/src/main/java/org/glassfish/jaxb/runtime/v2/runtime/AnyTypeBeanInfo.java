@@ -10,7 +10,7 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime;
 
-import com.sun.xml.bind.v2.WellKnownNamespace;
+import org.glassfish.jaxb.core.v2.WellKnownNamespace;
 import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimeTypeInfo;
 import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.DomLoader;
 import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.Loader;

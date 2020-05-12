@@ -10,10 +10,10 @@
 
 package org.glassfish.jaxb.runtime.v2.model.impl;
 
-import com.sun.xml.bind.v2.model.annotation.AnnotationReader;
-import com.sun.xml.bind.v2.model.annotation.AnnotationSource;
-import com.sun.xml.bind.v2.model.annotation.Locatable;
-import com.sun.xml.bind.v2.runtime.IllegalAnnotationException;
+import org.glassfish.jaxb.core.v2.model.annotation.AnnotationReader;
+import org.glassfish.jaxb.core.v2.model.annotation.AnnotationSource;
+import org.glassfish.jaxb.core.v2.model.annotation.Locatable;
+import org.glassfish.jaxb.core.v2.runtime.IllegalAnnotationException;
 import jakarta.activation.MimeType;
 import jakarta.activation.MimeTypeParseException;
 import jakarta.xml.bind.annotation.XmlMimeType;

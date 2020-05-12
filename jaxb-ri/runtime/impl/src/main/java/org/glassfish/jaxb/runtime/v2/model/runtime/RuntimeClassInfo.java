@@ -10,8 +10,8 @@
 
 package org.glassfish.jaxb.runtime.v2.model.runtime;
 
-import com.sun.xml.bind.annotation.XmlLocation;
-import com.sun.xml.bind.v2.model.core.ClassInfo;
+import org.glassfish.jaxb.core.annotation.XmlLocation;
+import org.glassfish.jaxb.core.v2.model.core.ClassInfo;
 import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
 import org.glassfish.jaxb.runtime.v2.runtime.reflect.Accessor;
 import org.xml.sax.Locator;

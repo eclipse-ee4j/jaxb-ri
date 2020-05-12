@@ -11,13 +11,13 @@
 package org.glassfish.jaxb.runtime.v2.model.impl;
 
 import com.sun.istack.FinalArrayList;
-import com.sun.xml.bind.annotation.OverrideAnnotationOf;
-import com.sun.xml.bind.v2.model.annotation.Locatable;
+import org.glassfish.jaxb.core.annotation.OverrideAnnotationOf;
+import org.glassfish.jaxb.core.v2.model.annotation.Locatable;
 import org.glassfish.jaxb.runtime.v2.model.annotation.MethodLocatable;
-import com.sun.xml.bind.v2.model.core.*;
-import com.sun.xml.bind.v2.runtime.IllegalAnnotationException;
-import com.sun.xml.bind.v2.runtime.Location;
-import com.sun.xml.bind.v2.util.EditDistance;
+import org.glassfish.jaxb.core.v2.model.core.*;
+import org.glassfish.jaxb.core.v2.runtime.IllegalAnnotationException;
+import org.glassfish.jaxb.core.v2.runtime.Location;
+import org.glassfish.jaxb.core.v2.util.EditDistance;
 import jakarta.xml.bind.annotation.*;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -363,7 +363,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
     }
 
     /**
-     * This hook is used by {@link RuntimeClassInfoImpl} to look for {@link com.sun.xml.bind.annotation.XmlLocation}.
+     * This hook is used by {@link RuntimeClassInfoImpl} to look for {@link org.glassfish.jaxb.core.annotation.XmlLocation}.
      */
     protected void checkFieldXmlLocation(F f) {
     }
@@ -1189,7 +1189,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
     }
 
     /**
-     * Called after all the {@link com.sun.xml.bind.v2.model.core.TypeInfo}s are collected into the {@link #owner}.
+     * Called after all the {@link org.glassfish.jaxb.core.v2.model.core.TypeInfo}s are collected into the {@link #owner}.
      */
     @Override
     /*package*/ void link() {

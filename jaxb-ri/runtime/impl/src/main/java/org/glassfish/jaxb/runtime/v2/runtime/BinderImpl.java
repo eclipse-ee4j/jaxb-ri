@@ -10,7 +10,7 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime;
 
-import com.sun.xml.bind.unmarshaller.InfosetScanner;
+import org.glassfish.jaxb.core.unmarshaller.InfosetScanner;
 import org.glassfish.jaxb.runtime.v2.runtime.output.DOMOutput;
 import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.InterningXmlVisitor;
 import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.SAXConnector;

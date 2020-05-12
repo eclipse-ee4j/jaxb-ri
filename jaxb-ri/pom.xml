@@ -153,6 +153,7 @@
                     <artifactId>maven-bundle-plugin</artifactId>
                     <version>4.2.1</version>
                     <configuration>
+                        <niceManifest>true</niceManifest>
                         <instructions>
                             <_noextraheaders>true</_noextraheaders>
                         </instructions>

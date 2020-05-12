@@ -56,8 +56,8 @@ import com.sun.tools.xjc.outline.FieldOutline;
 import com.sun.tools.xjc.reader.TypeUtil;
 import com.sun.tools.xjc.Options;
 import com.sun.tools.xjc.api.SpecVersion;
-import com.sun.xml.bind.api.impl.NameConverter;
-import com.sun.xml.bind.v2.TODO;
+import org.glassfish.jaxb.core.api.impl.NameConverter;
+import org.glassfish.jaxb.core.v2.TODO;
 
 /**
  * Useful base class for implementing {@link FieldOutline}.

@@ -11,7 +11,7 @@
 package org.glassfish.jaxb.runtime.v2.runtime.unmarshaller;
 
 import org.glassfish.jaxb.runtime.DatatypeConverterImpl;
-import com.sun.xml.bind.v2.WellKnownNamespace;
+import org.glassfish.jaxb.core.v2.WellKnownNamespace;
 import org.glassfish.jaxb.runtime.v2.runtime.ClassBeanInfoImpl;
 import org.glassfish.jaxb.runtime.v2.runtime.JaxBeanInfo;
 import org.glassfish.jaxb.runtime.v2.runtime.reflect.Accessor;

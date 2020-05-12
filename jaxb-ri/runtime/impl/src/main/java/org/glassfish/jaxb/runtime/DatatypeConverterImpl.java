@@ -10,7 +10,7 @@
 
 package org.glassfish.jaxb.runtime;
 
-import com.sun.xml.bind.WhiteSpaceProcessor;
+import org.glassfish.jaxb.core.WhiteSpaceProcessor;
 import jakarta.xml.bind.DatatypeConverter;
 import jakarta.xml.bind.DatatypeConverterInterface;
 

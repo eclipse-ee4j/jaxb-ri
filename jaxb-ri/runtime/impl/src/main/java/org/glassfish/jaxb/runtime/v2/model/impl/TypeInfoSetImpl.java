@@ -10,12 +10,12 @@
 
 package org.glassfish.jaxb.runtime.v2.model.impl;
 
-import com.sun.xml.bind.v2.model.annotation.AnnotationReader;
-import com.sun.xml.bind.v2.model.core.*;
-import com.sun.xml.bind.v2.model.nav.Navigator;
-import com.sun.xml.bind.v2.runtime.IllegalAnnotationException;
-import com.sun.xml.bind.v2.runtime.RuntimeUtil;
-import com.sun.xml.bind.v2.util.FlattenIterator;
+import org.glassfish.jaxb.core.v2.model.annotation.AnnotationReader;
+import org.glassfish.jaxb.core.v2.model.core.*;
+import org.glassfish.jaxb.core.v2.model.nav.Navigator;
+import org.glassfish.jaxb.core.v2.runtime.IllegalAnnotationException;
+import org.glassfish.jaxb.core.v2.runtime.RuntimeUtil;
+import org.glassfish.jaxb.core.v2.util.FlattenIterator;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;

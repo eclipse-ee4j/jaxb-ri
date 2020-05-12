@@ -12,7 +12,7 @@ package org.glassfish.jaxb.runtime.api;
 
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
-import com.sun.xml.bind.api.impl.NameConverter;
+import org.glassfish.jaxb.core.api.impl.NameConverter;
 import org.glassfish.jaxb.runtime.v2.ContextFactory;
 import org.glassfish.jaxb.runtime.v2.model.annotation.RuntimeAnnotationReader;
 import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimeTypeInfoSet;

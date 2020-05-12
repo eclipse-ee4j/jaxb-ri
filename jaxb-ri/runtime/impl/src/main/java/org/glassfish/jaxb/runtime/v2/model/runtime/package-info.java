@@ -9,7 +9,7 @@
  */
 
 /**
- * The specialization of {@link com.sun.xml.bind.v2.model.core} for the runtime.
+ * The specialization of {@link org.glassfish.jaxb.core.v2.model.core} for the runtime.
  *
  * <p>
  * This package offers stronger types and additional methods available at the runtime

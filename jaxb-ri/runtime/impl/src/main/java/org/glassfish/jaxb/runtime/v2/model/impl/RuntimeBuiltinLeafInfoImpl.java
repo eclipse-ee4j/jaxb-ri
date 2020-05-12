@@ -11,12 +11,12 @@
 package org.glassfish.jaxb.runtime.v2.model.impl;
 
 import com.sun.istack.ByteArrayDataSource;
-import com.sun.xml.bind.Utils;
-import com.sun.xml.bind.WhiteSpaceProcessor;
+import org.glassfish.jaxb.core.Utils;
+import org.glassfish.jaxb.core.WhiteSpaceProcessor;
 import org.glassfish.jaxb.runtime.DatatypeConverterImpl;
 import org.glassfish.jaxb.runtime.api.AccessorException;
-import com.sun.xml.bind.v2.TODO;
-import com.sun.xml.bind.v2.WellKnownNamespace;
+import org.glassfish.jaxb.core.v2.TODO;
+import org.glassfish.jaxb.core.v2.WellKnownNamespace;
 import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimeBuiltinLeafInfo;
 import org.glassfish.jaxb.runtime.v2.runtime.Name;
 import org.glassfish.jaxb.runtime.v2.runtime.Transducer;

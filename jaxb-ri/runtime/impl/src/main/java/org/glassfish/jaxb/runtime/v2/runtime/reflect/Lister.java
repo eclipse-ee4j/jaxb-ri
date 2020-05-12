@@ -12,12 +12,12 @@ package org.glassfish.jaxb.runtime.v2.runtime.reflect;
 
 import com.sun.istack.SAXException2;
 import org.glassfish.jaxb.runtime.api.AccessorException;
-import com.sun.xml.bind.v2.ClassFactory;
-import com.sun.xml.bind.v2.TODO;
-import com.sun.xml.bind.v2.model.core.Adapter;
-import com.sun.xml.bind.v2.model.core.ID;
+import org.glassfish.jaxb.core.v2.ClassFactory;
+import org.glassfish.jaxb.core.v2.TODO;
+import org.glassfish.jaxb.core.v2.model.core.Adapter;
+import org.glassfish.jaxb.core.v2.model.core.ID;
 import org.glassfish.jaxb.runtime.v2.runtime.XMLSerializer;
-import com.sun.xml.bind.v2.runtime.unmarshaller.LocatorEx;
+import org.glassfish.jaxb.core.v2.runtime.unmarshaller.LocatorEx;
 import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.Patcher;
 import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.UnmarshallingContext;
 import jakarta.xml.bind.JAXBException;
