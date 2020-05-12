@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -34,7 +34,7 @@ public class SynchronizedMethodAddOn extends Plugin {
     }
 
     public String getUsage() {
-        return "  -Xsync-methods     :  generate accessor methods with the 'synchronized' keyword";
+        return "  -Xsync-methods      :  generate accessor methods with the 'synchronized' keyword";
     }
 
     public int parseArgument(Options opt, String[] args, int i) throws BadCommandLineException, IOException {
