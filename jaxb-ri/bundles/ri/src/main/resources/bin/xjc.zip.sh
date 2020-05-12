@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
 #
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -34,7 +34,6 @@ CLASSPATH=`tr '\n' ':' <<EOF
 $WEBSERVICES_LIB/jaxb/lib/jakarta.xml.bind-api.jar
 $WEBSERVICES_LIB/jaxb/lib/jaxb-core.jar
 $WEBSERVICES_LIB/jaxb/lib/jaxb-xjc.jar
-$WEBSERVICES_LIB/jaxb/lib/jaxb-impl.jar
 EOF`
 
 if [ -n "$JAVA_HOME" ]
@@ -43,5 +42,5 @@ then
 else
     JAVA=java
 fi
- 
+
 $JAVA $XJC_OPTS -cp "$CLASSPATH" com.sun.tools.xjc.Driver "$@"

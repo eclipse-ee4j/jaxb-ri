@@ -36,7 +36,7 @@ goto LAUNCHXJC
 
 :LAUNCHXJC
 rem JXC module path
-set JAXB_PATH=%JAXB_HOME%/mod/jaxb-xjc.jar;%JAXB_HOME%/mod/jakarta.xml.bind-api.jar;%JAXB_HOME%/mod/jaxb-impl.jar;%JAXB_HOME%/mod/jaxb-core.jar;%JAXB_HOME%/mod/jakarta.activation.jar
+set JAXB_PATH=%JAXB_HOME%/mod/jaxb-xjc.jar;%JAXB_HOME%/mod/jakarta.xml.bind-api.jar;%JAXB_HOME%/mod/jaxb-core.jar;%JAXB_HOME%/mod/jakarta.activation.jar
 
 rem store and reset JAVA_TOOL_OPTIONS to avoid additional output from `java --version`
 IF DEFINED JAVA_TOOL_OPTIONS (

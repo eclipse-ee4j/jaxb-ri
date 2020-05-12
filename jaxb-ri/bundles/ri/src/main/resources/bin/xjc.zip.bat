@@ -1,7 +1,7 @@
 @echo off
 
 REM
-REM  Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+REM  Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
 REM
 REM  This program and the accompanying materials are made available under the
 REM  terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -19,7 +19,7 @@ set WEBSERVICES_LIB=%PRG%\..\..\..
 
 REM
 REM
-set CLASSPATH=%WEBSERVICES_LIB%\jaxb2\lib\jakarta.xml.bind-api.jar;%WEBSERVICES_LIB%\jaxb2\lib\jaxb-core.jar;%WEBSERVICES_LIB%\jaxb2\lib\jaxb-xjc.jar;%WEBSERVICES_LIB%\jaxb2\lib\jaxb-impl.jar;%WEBSERVICES_LIB%\jaf\lib\activation.jar;%WEBSERVICES_LIB%\jaxp\lib\jsr173_api.jar;%WEBSERVICES_LIB%\jaxp\lib\resolver.jar
+set CLASSPATH=%WEBSERVICES_LIB%\jaxb2\lib\jakarta.xml.bind-api.jar;%WEBSERVICES_LIB%\jaxb2\lib\jaxb-core.jar;%WEBSERVICES_LIB%\jaxb2\lib\jaxb-xjc.jar;%WEBSERVICES_LIB%\jaf\lib\activation.jar;%WEBSERVICES_LIB%\jaxp\lib\jsr173_api.jar;%WEBSERVICES_LIB%\jaxp\lib\resolver.jar
 
 
 :CHECKJAVAHOME

@@ -51,7 +51,7 @@ class ClassLoaderBuilder {
 
             cl = new MaskingClassLoader(cl,mask);
 
-            URL apiUrl = cl.getResource("javax/xml/bind/JAXBPermission.class");
+            URL apiUrl = cl.getResource("jakarta/xml/bind/JAXBPermission.class");
             if(apiUrl==null)
                 throw new ClassNotFoundException("There's no JAXB 2.2 API in the classpath");
 
@@ -103,5 +103,5 @@ class ClassLoaderBuilder {
     /**
      * Escape hatch in case this class loader hack breaks.
      */
-    public static final boolean noHack = Boolean.getBoolean(XJCFacade.class.getName()+".nohack");
+    public static final boolean noHack = !Boolean.getBoolean(XJCFacade.class.getName()+".nohack");
 }

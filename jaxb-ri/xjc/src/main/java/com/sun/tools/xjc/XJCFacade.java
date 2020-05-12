@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -26,7 +26,7 @@ import java.net.URLClassLoader;
  */
 public class XJCFacade {
 
-    private static final String JDK6_REQUIRED = "XJC requires JDK 6.0 or later. Please download it from http://www.oracle.com/technetwork/java/javase/downloads";
+    private static final String JDK_REQUIRED = "XJC requires Java SE 8 or later. Please download it from http://www.oracle.com/technetwork/java/javase/downloads";
 
     public static void main(String[] args) throws Throwable {
         String v = "2.0";      // by default, we go 2.0
@@ -53,7 +53,7 @@ public class XJCFacade {
                 }
             }
         } catch (UnsupportedClassVersionError e) {
-            System.err.println(JDK6_REQUIRED);
+            System.err.println(JDK_REQUIRED);
         } finally {
             ClassLoader cl = SecureLoader.getContextClassLoader();
             SecureLoader.setContextClassLoader(oldContextCl);
@@ -73,7 +73,7 @@ public class XJCFacade {
                             release.invoke(null, cl);
                         } catch (ClassNotFoundException ex) {
                             //not Sun JDK 6, ignore
-                            System.err.println(JDK6_REQUIRED);
+                            System.err.println(JDK_REQUIRED);
                         }
                     }
                 }
