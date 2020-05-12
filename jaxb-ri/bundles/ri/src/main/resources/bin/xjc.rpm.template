@@ -26,6 +26,6 @@ fi
 #
 # Set CLASSPATH
 #
-CLASSPATH=$JAVA_HOME/lib/tools.jar:$WEBSERVICES_LIB/jaxb-core.jar:$WEBSERVICES_LIB/jaxb-xjc.jar:$WEBSERVICES_LIB/../../lib/activation.jar:$WEBSERVICES_LIB/../../lib/jsr173_api.jar:$WEBSERVICES_LIB/../../../private/share/lib/jsr250-api.jar:$WEBSERVICES_LIB/../../lib/resolver.jar
+CLASSPATH=$JAVA_HOME/lib/tools.jar:$WEBSERVICES_LIB/jaxb-core.jar:$WEBSERVICES_LIB/jaxb-impl.jar:$WEBSERVICES_LIB/jaxb-xjc.jar:$WEBSERVICES_LIB/../../lib/activation.jar:$WEBSERVICES_LIB/../../lib/jsr173_api.jar:$WEBSERVICES_LIB/../../../private/share/lib/jsr250-api.jar:$WEBSERVICES_LIB/../../lib/resolver.jar
  
 $JAVA $XJC_OPTS -cp "$CLASSPATH" com.sun.tools.xjc.Driver "$@"

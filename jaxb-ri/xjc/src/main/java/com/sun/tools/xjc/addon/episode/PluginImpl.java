@@ -71,7 +71,7 @@ public class PluginImpl extends Plugin {
     }
 
     public String getUsage() {
-        return "  -episode <FILE>    :  generate the episode file for separate compilation";
+        return "  -episode <FILE>     :  generate the episode file for separate compilation";
     }
 
     public int parseArgument(Options opt, String[] args, int i) throws BadCommandLineException, IOException {

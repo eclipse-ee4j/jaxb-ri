@@ -58,6 +58,7 @@ fi
 JAXB_PATH=${JAXB_HOME}/mod/jaxb-xjc.jar:\
 ${JAXB_HOME}/mod/jakarta.xml.bind-api.jar:\
 ${JAXB_HOME}/mod/jaxb-core.jar:\
+${JAXB_HOME}/mod/jaxb-impl.jar:\
 ${JAXB_HOME}/mod/jakarta.activation.jar:\
 
 if [ -n "$JAVA_TOOL_OPTIONS" ]

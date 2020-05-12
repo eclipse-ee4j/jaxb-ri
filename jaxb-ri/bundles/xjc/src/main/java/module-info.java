@@ -28,7 +28,7 @@ module com.sun.tools.xjc {
 
     exports com.sun.tools.xjc;
     exports com.sun.tools.xjc.api;
-    exports com.sun.tools.xjc.generator.bean to com.sun.xml.bind.core;
+    exports com.sun.tools.xjc.generator.bean to com.sun.xml.bind.core, com.sun.xml.bind;
     exports com.sun.tools.xjc.model;
     exports com.sun.tools.xjc.model.nav;
     exports com.sun.tools.xjc.outline;
@@ -68,4 +68,12 @@ module com.sun.tools.xjc {
     exports com.sun.tools.rngdatatype.helpers;
 
     uses com.sun.tools.xjc.Plugin;
+
+    provides com.sun.tools.xjc.Plugin with
+            com.sun.tools.xjc.addon.accessors.PluginImpl,
+            com.sun.tools.xjc.addon.at_generated.PluginImpl,
+            com.sun.tools.xjc.addon.code_injector.PluginImpl,
+            com.sun.tools.xjc.addon.episode.PluginImpl,
+            com.sun.tools.xjc.addon.locator.SourceLocationAddOn,
+            com.sun.tools.xjc.addon.sync.SynchronizedMethodAddOn;
 }

@@ -33,6 +33,7 @@ WEBSERVICES_LIB=$PRG/../../..
 CLASSPATH=`tr '\n' ':' <<EOF
 $WEBSERVICES_LIB/jaxb/lib/jakarta.xml.bind-api.jar
 $WEBSERVICES_LIB/jaxb/lib/jaxb-core.jar
+$WEBSERVICES_LIB/jaxb/lib/jaxb-impl.jar
 $WEBSERVICES_LIB/jaxb/lib/jaxb-xjc.jar
 EOF`
 

@@ -42,7 +42,7 @@ public class SourceLocationAddOn extends Plugin {
     }
 
     public String getUsage() {
-        return "  -Xlocator          :  enable source location support for generated code";
+        return "  -Xlocator           :  enable source location support for generated code";
     }
 
     public int parseArgument(Options opt, String[] args, int i) throws BadCommandLineException, IOException {
