@@ -360,7 +360,7 @@ class StAXStreamConnector extends StAXConnector {
 
     private static Constructor<? extends StAXConnector> initStAXExConnector() {
         try {
-            Class c = Class.forName("org.glassfish.jaxb.core.v2.runtime.unmarshaller.StAXExConnector");
+            Class c = Class.forName("org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.StAXExConnector");
             return c.getConstructor(STAX_EX_READER_CLASS,XmlVisitor.class);
         } catch (Throwable e) {
             return null;
