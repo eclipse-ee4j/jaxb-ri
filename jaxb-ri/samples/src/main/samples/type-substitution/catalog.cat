@@ -25,9 +25,7 @@
   conjunction with DTD.
 -->
 
-<!DOCTYPE catalog
-          PUBLIC "-//W3C//DTD XMLSCHEMA 200102//EN"
-                 "s4s/XMLSchema.dtd">
+<!DOCTYPE catalog>
 
     <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog"
          prefer="system">
