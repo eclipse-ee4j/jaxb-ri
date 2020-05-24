@@ -148,7 +148,7 @@ public final class CClassInfo extends AbstractCElement implements ClassInfo<NTyp
     public CClassInfo(Model model,JCodeModel cm, String fullName, Locator location, QName typeName, QName elementName, XSComponent source, CCustomizations customizations) {
         super(model,source,location,customizations);
         this.model = model;
-        int idx = fullName.indexOf('.');
+        int idx = fullName.lastIndexOf('.');
         if(idx<0) {
             this.parent = model.getPackage(cm.rootPackage());
             this.shortName = model.allocator.assignClassName(parent,fullName);
