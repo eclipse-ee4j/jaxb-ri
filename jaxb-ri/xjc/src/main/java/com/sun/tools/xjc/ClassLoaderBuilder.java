@@ -90,7 +90,6 @@ class ClassLoaderBuilder {
         "com.sun.codemodel.",
         "com.sun.relaxng.",
         "com.sun.xml.xsom.",
-        "com.sun.xml.bind.",
         "org.glassfish.jaxb.",
     };
 
