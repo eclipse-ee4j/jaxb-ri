@@ -171,7 +171,7 @@ public class XMLStreamWriterOutput extends XmlOutputAbstractImpl {
         try {
             if (FI_STAX_WRITER_CLASS == null)
                 return null;
-            Class c = Class.forName("org.glassfish.jaxb.core.v2.runtime.output.FastInfosetStreamWriterOutput");
+            Class c = Class.forName("org.glassfish.jaxb.runtime.v2.runtime.output.FastInfosetStreamWriterOutput");
             return c.getConstructor(FI_STAX_WRITER_CLASS, JAXBContextImpl.class);
         } catch (Throwable e) {
             return null;
