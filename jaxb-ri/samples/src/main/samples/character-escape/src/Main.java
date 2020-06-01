@@ -41,7 +41,7 @@ public class Main {
         marshaller.setProperty( "jaxb.encoding", "US-ASCII" );
         marshaller.setProperty( Marshaller.JAXB_FORMATTED_OUTPUT, true );
         marshaller.setProperty(
-          CharacterEscapeHandler.class.getName(),
+          "org.glassfish.jaxb.characterEscapeHandler",
           new CustomCharacterEscapeHandler() );
         
         // check out the console output

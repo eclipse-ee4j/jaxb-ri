@@ -142,9 +142,9 @@
         <section xml:id="section-3999932384958513">
             <title>Building and Running the Sample Apps with Ant</title>
 
-            <para>To run the sample applications, just go into each sample
-            directory, and run <command>ant</command> without any
-            option.</para>
+            <para>To run the sample applications, add jaxb dependencies
+            to classpath at jaxb.home property, and run <command>ant</command>
+            without any option into each sample directory.</para>
 
             <para>A few sample applications do <emphasis>not</emphasis> use
             Ant. For those samples, refer to the included

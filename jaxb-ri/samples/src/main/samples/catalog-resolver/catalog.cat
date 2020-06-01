@@ -1,6 +1,6 @@
---
+<!--
 
-  Copyright (c) 2005, 2018 Oracle and/or its affiliates. All rights reserved.
+  Copyright (c) 2005, 2020 Oracle and/or its affiliates. All rights reserved.
 
   This program and the accompanying materials are made available under the
   terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -8,9 +8,9 @@
 
   SPDX-License-Identifier: BSD-3-Clause
 
---
+-->
 
---
+<!--
   sample catalog file.
   
   double hyphens are used to begin and end a comment section.
@@ -26,8 +26,17 @@
   from public ID to its actual location. This is primarily used in
   conjunction with DTD, but also when XJC resolves <xs:import>s,
   it will pass the namespace URI as the public ID.
---
+-->
 
-SYSTEM "http://www.w3.org/2001/xml.xsd" "xml.xsd"
+<!DOCTYPE catalog
+          PUBLIC "-//W3C//DTD XMLSCHEMA 200102//EN"
+                 "s4s/XMLSchema.dtd">
 
-PUBLIC "-//W3C//DTD XMLSCHEMA 200102//EN" "s4s/XMLSchema.dtd"
+    <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog"
+         prefer="public">
+
+    <system
+           systemId="http://www.w3.org/2001/xml.xsd"
+           uri="xml.xsd" />
+
+</catalog>
