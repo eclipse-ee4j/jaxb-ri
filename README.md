@@ -79,3 +79,4 @@ The release includes the following documentation:
 - [Users Guide](3.0.0/docs/ch03.html)
 - [Tools](3.0.0/docs/ch04.html)
 - [Samples](3.0.0/docs/ch01.html#jaxb-2-0-sample-apps)
+- [Change log](https://github.com/eclipse-ee4j/jaxb-ri/releases/tag/3.0.0-M4-RI)
