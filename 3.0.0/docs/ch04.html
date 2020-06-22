@@ -1,0 +1,454 @@
+---
+layout: content
+---
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Tools</title><link rel="stylesheet" type="text/css" href="style/documentation.css"><meta name="generator" content="DocBook XSL Stylesheets V1.79.1"><link rel="home" href="index.html" title="Eclipse Implementation of JAXB Release Documentation"><link rel="up" href="index.html" title="Eclipse Implementation of JAXB Release Documentation"><link rel="prev" href="ch03.html" title="Eclipse Implementation of JAXB Users Guide"><link rel="next" href="ch05.html" title="Eclipse Implementation of JAXB Extensions"><script xmlns:fo="http://www.w3.org/1999/XSL/Format" type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-2105126-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Tools</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch03.html">Prev</a>&nbsp;</td><th width="60%" align="center">&nbsp;</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch05.html">Next</a></td></tr></table><hr></div><small xmlns:fo="http://www.w3.org/1999/XSL/Format" class="small">Links: <a href="index.html">Table of Contents</a> | <a href="release-documentation.html">Single HTML</a> | <a href="release-documentation.pdf">Single PDF</a></small><div lang="en" class="chapter" id="tools"><div class="titlepage"><div><div><h1 class="title">Tools</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="ch04.html#tools-xjc">1. XJC</a></span></dt><dd><dl><dt><span class="section"><a href="ch04.html#d0e4680">1.1. <span class="command"><strong>xjc</strong></span> Overview</a></span></dt><dt><span class="section"><a href="ch04.html#section-7316528525821393">1.2. Launching <span class="command"><strong>xjc</strong></span></a></span></dt><dt><span class="section"><a href="ch04.html#d0e4747">1.3. <span class="command"><strong>xjc</strong></span> Syntax</a></span></dt><dt><span class="section"><a href="ch04.html#restrictions">1.4. Compiler Restrictions</a></span></dt><dt><span class="section"><a href="ch04.html#xjcresources">1.5. Generated Resource Files</a></span></dt></dl></dd><dt><span class="section"><a href="ch04.html#tools-xjc-ant-task">2. XJC Ant Task</a></span></dt><dd><dl><dt><span class="section"><a href="ch04.html#d0e5116">2.1. <span class="command"><strong>xjc</strong></span> Task Overview</a></span></dt><dt><span class="section"><a href="ch04.html#section-356252324237826">2.2. <span class="command"><strong>xjc</strong></span> Task Attributes</a></span></dt><dt><span class="section"><a href="ch04.html#section-837075444051632">2.3. Generated Resource Files</a></span></dt><dt><span class="section"><a href="ch04.html#section-767416326934949">2.4. Up-to-date Check</a></span></dt><dt><span class="section"><a href="ch04.html#section-31739621133682">2.5. Schema Language Support</a></span></dt><dt><span class="section"><a href="ch04.html#section-607840891098334">2.6. <span class="command"><strong>xjc</strong></span> Examples</a></span></dt></dl></dd><dt><span class="section"><a href="ch04.html#tools-schemagen">3. SchemaGen</a></span></dt><dd><dl><dt><span class="section"><a href="ch04.html#d0e5674">3.1. <span class="command"><strong>schemagen</strong></span> Overview</a></span></dt><dt><span class="section"><a href="ch04.html#section-182504251480881">3.2. Launching <span class="command"><strong>schemagen</strong></span></a></span></dt><dt><span class="section"><a href="ch04.html#d0e5719">3.3. <span class="command"><strong>schemagen</strong></span> Syntax</a></span></dt><dt><span class="section"><a href="ch04.html#section-906211973953818">3.4. Generated Resource Files</a></span></dt></dl></dd><dt><span class="section"><a href="ch04.html#tools-schemagen-ant-task">4. SchemaGen Ant Task</a></span></dt><dd><dl><dt><span class="section"><a href="ch04.html#d0e5757">4.1. <span class="command"><strong>schemagen</strong></span> Task Overview</a></span></dt><dt><span class="section"><a href="ch04.html#section-417846742205862">4.2. <span class="command"><strong>schemagen</strong></span> Task Attributes</a></span></dt><dt><span class="section"><a href="ch04.html#section-9298229576523986">4.3. <span class="command"><strong>schemagen</strong></span> Examples</a></span></dt></dl></dd><dt><span class="section"><a href="ch04.html#tools-3rd-party-tools">5. 3rd Party Tools</a></span></dt><dd><dl><dt><span class="section"><a href="ch04.html#section-954928396024079">5.1. Maven JAXB Plugin</a></span></dt><dt><span class="section"><a href="ch04.html#section-2642114715432213">5.2. XJC Plugins</a></span></dt><dt><span class="section"><a href="ch04.html#section-926973453240119">5.3. RDBMS Persistence</a></span></dt></dl></dd></dl></div><div lang="en" class="section" id="tools-xjc"><div class="titlepage"><div><div><h2 class="title" style="clear: both">1.&nbsp;XJC</h2></div></div></div><div class="section" id="d0e4680"><div class="titlepage"><div><div><h3 class="title">1.1.&nbsp;<span class="command"><strong>xjc</strong></span> Overview</h3></div></div></div><p>Eclipse Implementation of JAXB also provides an Ant task to run the binding complier -
+        see the instructions for <a class="xref" href="ch04.html#tools-xjc-ant-task" title="2.&nbsp;XJC Ant Task">XJC Ant Task</a>.</p></div><div class="section" id="section-7316528525821393"><div class="titlepage"><div><div><h3 class="title">1.2.&nbsp;Launching <span class="command"><strong>xjc</strong></span></h3></div></div></div><p>The binding compiler can be launched using the appropriate
+        <code class="literal">xjc</code> shell script in the <code class="literal">bin</code>
+        directory for your platform.</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><span class="bold"><strong>Solaris/Linux</strong></span></p><pre class="programlisting">% /path/to/jaxb/bin/xjc.sh -help</pre></li><li class="listitem"><p><span class="bold"><strong>Windows</strong></span></p><pre class="programlisting">&gt; c:\path\to\jaxb\bin\xjc.bat -help</pre></li></ul></div><div class="section" id="section-445618689309685"><div class="titlepage"><div><div><h4 class="title">1.2.1.&nbsp;Execute the <code class="filename">jaxb-xjc.jar</code> JAR
+            File</h4></div></div></div><p>If all else fails, you should be able to execute the
+            <code class="literal">jaxb-xjc.jar</code> file:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><span class="bold"><strong>Solaris/Linux</strong></span></p><pre class="programlisting">% java -jar $JAXB_HOME/lib/jaxb-xjc.jar -help</pre></li><li class="listitem"><p><span class="bold"><strong>Windows</strong></span></p><pre class="programlisting">&gt; java -jar %JAXB_HOME%\lib\jaxb-xjc.jar -help</pre></li></ul></div><p>This is equivalent of running <span class="command"><strong>xjc.sh</strong></span> or
+            <span class="command"><strong>xjc.bat</strong></span>, and it allows you to set the JVM
+            parameters.</p></div></div><div class="section" id="d0e4747"><div class="titlepage"><div><div><h3 class="title">1.3.&nbsp;<span class="command"><strong>xjc</strong></span> Syntax</h3></div></div></div><div class="cmdsynopsis"><p id="d0e4752"><code class="command">xjc</code>   [OPTION]...  &lt;schema file/URL/dir/jar&gt; [<code class="option">-b</code> &lt;binding&gt;...]</p></div><div class="informalexample"><pre class="programlisting">Usage: xjc [-options ...] &lt;schema file/URL/dir/jar&gt; ... [-b &lt;bindinfo&gt;] ...
+If dir is specified, all schema files in it will be compiled.
+If jar is specified, /META-INF/sun-jaxb.episode binding file will be compiled.
+Options:
+  -nv                :  do not perform strict validation of the input schema(s)
+  -extension         :  allow vendor extensions - do not strictly follow the
+                        Compatibility Rules and App E.2 from the JAXB Spec
+  -b &lt;file/dir&gt;      :  specify external bindings files (each &lt;file&gt; must have its own -b)
+                        If a directory is given, **/*.xjb is searched
+  -d &lt;dir&gt;           :  generated files will go into this directory
+  -p &lt;pkg&gt;           :  specifies the target package
+  -httpproxy &lt;proxy&gt; :  set HTTP/HTTPS proxy. Format is [user[:password]@]proxyHost:proxyPort
+  -httpproxyfile &lt;f&gt; :  Works like -httpproxy but takes the argument in a file to protect password 
+  -classpath &lt;arg&gt;   :  specify where to find user class files
+  -catalog &lt;file&gt;    :  specify catalog files to resolve external entity references
+                        support TR9401, XCatalog, and OASIS XML Catalog format.
+  -readOnly          :  generated files will be in read-only mode
+  -npa               :  suppress generation of package level annotations (**/package-info.java)
+  -no-header         :  suppress generation of a file header with timestamp
+  -target (2.0|2.1)  :  behave like XJC 2.0 or 2.1 and generate code that doesn't use any 2.2 features.
+  -encoding &lt;encoding&gt; :  specify character encoding for generated source files
+  -enableIntrospection :  enable correct generation of Boolean getters/setters to enable Bean Introspection apis 
+  -disableXmlSecurity  :  disables XML security features when parsing XML documents 
+  -contentForWildcard  :  generates content property for types with multiple xs:any derived elements 
+  -xmlschema         :  treat input as W3C XML Schema (default)
+  -relaxng           :  treat input as RELAX NG (experimental,unsupported)
+  -relaxng-compact   :  treat input as RELAX NG compact syntax (experimental,unsupported)
+  -dtd               :  treat input as XML DTD (experimental,unsupported)
+  -wsdl              :  treat input as WSDL and compile schemas inside it (experimental,unsupported)
+  -verbose           :  be extra verbose
+  -quiet             :  suppress compiler output
+  -help              :  display this help message
+  -version           :  display version information
+  -fullversion       :  display full version information
+
+Extensions:
+  -Xinject-code      :  inject specified Java code fragments into the generated code
+  -Xlocator          :  enable source location support for generated code
+  -Xsync-methods     :  generate accessor methods with the 'synchronized' keyword
+  -mark-generated    :  mark the generated code as @javax.annotation.Generated
+  -episode           :  generate the episode file for separate compilation
+  -Xpropertyaccessors :  Use XmlAccessType PROPERTY instead of FIELD for generated classes</pre></div><div class="section" id="switches"><div class="titlepage"><div><div><h4 class="title">1.3.1.&nbsp;Summary of Command Line Options</h4></div></div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><span class="bold"><strong>-nv</strong></span></span></dt><dd><p>By default, the XJC binding compiler performs
+                        strict validation of the source schema before
+                        processing it. Use this option to disable strict
+                        schema validation. This does not mean that the binding
+                        compiler will not perform any validation, it simply
+                        means that it will perform less-strict
+                        validation.</p></dd><dt><span class="term"><span class="bold"><strong>-extension</strong></span></span></dt><dd><p>By default, the XJC binding compiler strictly
+                        enforces the rules outlined in the Compatibility
+                        chapter of the Jakarta XML Binding Specification. Appendix E.2
+                        defines a set of W3C XML Schema features that are not
+                        completely supported by JAXB v1.0. In some cases, you
+                        may be allowed to use them in the "-extension" mode
+                        enabled by this switch. In the default (strict) mode,
+                        you are also limited to using only the binding
+                        customizations defined in the specification. By using
+                        the "-extension" switch, you will be allowed to use
+                        the <a class="xref" href="ch05.html#jaxb-ri-extensions-overview" title="1.&nbsp;Overview">Overview</a>.</p></dd><dt><span class="term"><span class="bold"><strong>-b
+                    &lt;file&gt;</strong></span></span></dt><dd><p>Specify one or more external binding files to
+                        process. (Each binding file must have it's own <code class="option">-b</code> switch.) The syntax of the external
+                        binding files is extremely flexible. You may have a
+                        single binding file that contains customizations for
+                        multiple schemas or you can break the customizations
+                        into multiple bindings files: </p><div class="informalexample"><pre class="programlisting">xjc schema1.xsd schema2.xsd schema3.xsd -b bindings123.xjb
+xjc schema1.xsd schema2.xsd schema3.xsd -b bindings1.xjb -b bindings2.xjb -b bindings3.xjb</pre></div><p> In addition,
+                        the ordering of the schema files and binding files on
+                        the command line does not matter.</p></dd><dt><span class="term"><span class="bold"><strong>-d
+                    &lt;dir&gt;</strong></span></span></dt><dd><p>By default, the XJC binding compiler will
+                        generate the Java content classes in the current
+                        directory. Use this option to specify an alternate
+                        output directory. The output directory must already
+                        exist, the XJC binding compiler will not create it for
+                        you.</p></dd><dt><span class="term"><span class="bold"><strong>-encoding
+                    &lt;encoding&gt;</strong></span></span></dt><dd><p>Set the encoding name for generated sources,
+                        such as EUC-JP or UTF-8. If <code class="option">-encoding</code> is
+                        not specified, the platform default encoding is
+                        used.</p></dd><dt><span class="term"><span class="bold"><strong>-p
+                    &lt;pkg&gt;</strong></span></span></dt><dd><p>Specifying a target package via this
+                        command-line option overrides any binding
+                        customization for package name and the default package
+                        name algorithm defined in the specification.</p></dd><dt><span class="term"><span class="bold"><strong>-httpproxy
+                    &lt;proxy&gt;</strong></span></span></dt><dd><p>Specify the HTTP/HTTPS proxy. The format is
+                        [user[:password]@]proxyHost[:proxyPort]. The old <code class="option">-host</code> and <code class="option">-port</code> are still
+                        supported by the RI for backwards compatibility, but
+                        they have been deprecated.</p></dd><dt><span class="term"><span class="bold"><strong>-httpproxyfile
+                    &lt;f&gt;</strong></span></span></dt><dd><p>Same as the <code class="code">-httpproxy
+                        &lt;proxy&gt;</code> option, but it takes the
+                        &lt;proxy&gt; parameter in a file, so that you can
+                        protect the password (passing a password in the
+                        argument list is not safe.)</p></dd><dt><span class="term"><span class="bold"><strong>-classpath
+                    &lt;arg&gt;</strong></span></span></dt><dd><p>Specify where to find client application class
+                        files used by the <code class="literal">&lt;jxb:javaType&gt;</code>
+                        and <code class="literal">&lt;xjc:superClass&gt;</code>
+                        customizations.</p></dd><dt><span class="term"><span class="bold"><strong>-catalog
+                    &lt;file&gt;</strong></span></span></dt><dd><p>Specify catalog files to resolve external entity
+                        references. Supports TR9401, XCatalog, and OASIS XML
+                        Catalog format. Please read the <a class="link" href="catalog.html" target="_top">XML Entity and URI
+                        Resolvers</a> document or the
+                        <code class="literal">catalog-resolver</code> sample
+                        application.</p></dd><dt><span class="term"><span class="bold"><strong>-readOnly</strong></span></span></dt><dd><p>By default, the XJC binding compiler does not
+                        write-protect the Java source files it generates. Use
+                        this option to force the XJC binding compiler to mark
+                        the generated Java sources read-only.</p></dd><dt><span class="term"><span class="bold"><strong>-npa</strong></span></span></dt><dd><p>Supress the generation of package level
+                        annotations into **/package-info.java. Using this
+                        switch causes the generated code to internalize those
+                        annotations into the other generated classes.</p></dd><dt><span class="term"><span class="bold"><strong>-no-header</strong></span></span></dt><dd><p>Supress the generation of a file header comment
+                        that includes some note and timestamp. Using this
+                        makes the generated code more
+                        <code class="literal">diff</code>-friendly.</p></dd><dt><span class="term"><span class="bold"><strong>-target (2.0|2.1)</strong></span></span></dt><dd><p>Avoid generating code that relies on any JAXB
+                        2.1|2.2 features. This will allow the generated code to
+                        run with JAXB 2.0 runtime (such as JavaSE 6.)</p></dd><dt><span class="term"><span class="bold"><strong>-xmlschema</strong></span></span></dt><dd><p>treat input schemas as W3C XML Schema (default).
+                        If you do not specify this switch, your input schemas
+                        will be treated as W3C XML Schema.</p></dd><dt><span class="term"><span class="bold"><strong>-relaxng</strong></span></span></dt><dd><p>Treat input schemas as RELAX NG (experimental,
+                        unsupported). Support for RELAX NG schemas is provided
+                        as a <a class="xref" href="ch05.html#jaxb-ri-extensions-overview" title="1.&nbsp;Overview">Overview</a>.</p></dd><dt><span class="term"><span class="bold"><strong>-relaxng-compact</strong></span></span></dt><dd><p>Treat input schemas as RELAX NG compact
+                        syntax(experimental, unsupported). Support for RELAX
+                        NG schemas is provided as a <a class="xref" href="ch05.html#jaxb-ri-extensions-overview" title="1.&nbsp;Overview">Overview</a>.</p></dd><dt><span class="term"><span class="bold"><strong>-dtd</strong></span></span></dt><dd><p>Treat input schemas as XML DTD (experimental,
+                        unsupported). Support for RELAX NG schemas is provided
+                        as a <a class="xref" href="ch05.html#jaxb-ri-extensions-overview" title="1.&nbsp;Overview">Overview</a>.</p></dd><dt><span class="term"><span class="bold"><strong>-wsdl</strong></span></span></dt><dd><p>Treat input as WSDL and compile schemas inside
+                        it (experimental,unsupported).</p></dd><dt><span class="term"><span class="bold"><strong>-quiet</strong></span></span></dt><dd><p>Suppress compiler output, such as progress
+                        information and warnings..</p></dd><dt><span class="term"><span class="bold"><strong>-verbose</strong></span></span></dt><dd><p>Be extra verbose, such as printing informational
+                        messages or displaying stack traces upon some
+                        errors..</p></dd><dt><span class="term"><span class="bold"><strong>-help</strong></span></span></dt><dd><p>Display a brief summary of the compiler
+                        switches.</p></dd><dt><span class="term"><span class="bold"><strong>-version</strong></span></span></dt><dd><p>Display the compiler version information.</p></dd><dt><span class="term"><span class="bold"><strong>&lt;schema
+                    file/URL/dir&gt;</strong></span></span></dt><dd><p>Specify one or more schema files to compile. If
+                        you specify a directory, then xjc will scan it for all
+                        schema files and compile them.</p></dd><dt><span class="term"><span class="bold"><strong>-Xlocator</strong></span></span></dt><dd><p>This feature causes the generated code to expose
+                        SAX Locator information about the source XML in the
+                        Java bean instances after unmarshalling.</p></dd><dt><span class="term"><span class="bold"><strong>-Xsync-methods</strong></span></span></dt><dd><p>This feature causes all of the generated method
+                        signatures to include the synchronized keyword.</p></dd><dt><span class="term"><span class="bold"><strong>-mark-generated</strong></span></span></dt><dd><p>This feature causes all of the generated code to
+                        have <a class="link" href="http://docs.oracle.com/javaee/5/api/javax/annotation/Generated.html" target="_top">
+                        <code class="literal">@Generated</code> </a> annotation.</p></dd><dt><span class="term"><span class="bold"><strong>-episode
+                    &lt;FILE&gt;</strong></span></span></dt><dd><p>Generate an episode file from this compilation,
+                        so that other schemas that rely on this schema can be
+                        compiled later and rely on classes that are generated
+                        from this compilation. The generated episode file is
+                        really just a Jakarta XML Binding customization file (but with vendor
+                        extensions.)</p></dd><dt><span class="term"><span class="bold"><strong>-Xinject-code</strong></span></span></dt><dd></dd><dt><span class="term"><span class="bold"><strong>-Xpropertyaccessors&gt;</strong></span></span></dt><dd><p>Annotate the <code class="literal">@XmlAccessorType</code>
+                        of generated classes with XmlAccessType PROPERTY
+                        instead of FIELD</p></dd></dl></div></div><div class="section" id="section-3919972974137325"><div class="titlepage"><div><div><h4 class="title">1.3.2.&nbsp;Summary of Deprecated and Removed Command Line
+            Options</h4></div></div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term"><span class="bold"><strong>-host &amp;
+                    -port</strong></span></span></dt><dd><p>These options have been deprecated and replaced
+                        with the <span class="bold"><strong>-httpproxy</strong></span>
+                        option. For backwards compatibility, we will continue
+                        to support these options, but they will no longer be
+                        documented and may be removed from future
+                        releases.</p></dd><dt><span class="term"><span class="bold"><strong>-use-runtime</strong></span></span></dt><dd><p>Since the Jakarta XML Binding specification has defined a
+                        portable runtime, it is no longer necessary for the
+                        Eclipse Implementation of JAXB to generate **/impl/runtime packages.
+                        Therefore, this switch is obsolete and has been
+                        removed.</p></dd></dl></div></div></div><div class="section" id="restrictions"><div class="titlepage"><div><div><h3 class="title">1.4.&nbsp;Compiler Restrictions</h3></div></div></div><p>In general, it is safest to compile all related schemas as a
+        single unit with the same binding compiler switches.</p><p>Please keep the following list of restrictions in mind when
+        running xjc. Most of these issues only apply when compiling multiple
+        schemas with multiple invocations of xjc.</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>To compile multiple schemas at the same time, keep the
+                following precedence rules for the target Java package name in
+                mind: </p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>The <code class="option">-p</code> command line option
+                            takes the highest precedence.</p></li><li class="listitem"><p><code class="literal">&lt;jaxb:package&gt;</code>
+                            customization</p></li><li class="listitem"><p>If <code class="literal">targetNamespace</code> is declared,
+                            apply <code class="literal">targetNamespace</code> -&gt; Java
+                            package name algorithm defined in the
+                            specification.</p></li><li class="listitem"><p>If no <code class="literal">targetNamespace</code> is
+                            declared, use a hardcoded package named
+                            "generated".</p></li></ol></div></li><li class="listitem"><p>It is not legal to have more than one &lt;
+                <code class="literal">jaxb:schemaBindings</code>&gt; per namespace, so it is
+                impossible to have two schemas in the same target namespace
+                compiled into different Java packages.</p></li><li class="listitem"><p>All schemas being compiled into the same Java package
+                must be submitted to the XJC binding compiler at the same time
+                - they cannot be compiled independently and work as
+                expected.</p></li><li class="listitem"><p>Element substitution groups spread across multiple
+                schema files must be compiled at the same time.</p></li></ul></div></div><div class="section" id="xjcresources"><div class="titlepage"><div><div><h3 class="title">1.5.&nbsp;Generated Resource Files</h3></div></div></div><p>XJC produces a set of packages containing Java source files and
+        also <code class="literal">jaxb.properties</code> files, depending on the binding
+        options you used for compilation. When generated,
+        <code class="literal">jaxb.properties</code> files must be kept with the compiled
+        source code and made available on the runtime classpath of your client
+        applications:</p></div></div><div lang="en" class="section" id="tools-xjc-ant-task"><div class="titlepage"><div><div><h2 class="title" style="clear: both">2.&nbsp;XJC Ant Task</h2></div></div></div><div class="section" id="d0e5116"><div class="titlepage"><div><div><h3 class="title">2.1.&nbsp;<span class="command"><strong>xjc</strong></span> Task Overview</h3></div></div></div><p>The <code class="literal">jaxb-xjc.jar</code> file contains the
+        <code class="literal">XJCTask.class</code> file, which allows the XJC binding
+        compiler to be invoked from the <a class="link" href="http://jakarta.apache.org/ant" target="_top">Ant</a> build tool. To
+        use <code class="literal">XJCTask</code>, include the following statement in
+        your <code class="literal">build.xml</code> file:</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;taskdef</span> <span class="Identifier">name</span>=<span class="String">"xjc"</span> <span class="Identifier">classname</span>=<span class="String">"com.sun.tools.xjc.XJCTask"</span><span class="ReservedWord">&gt;</span>
+    <span class="ReservedWord">&lt;classpath&gt;</span>
+        <span class="ReservedWord">&lt;fileset</span> <span class="Identifier">dir</span>=<span class="String">"path/to/jaxb/lib"</span> <span class="Identifier">includes</span>=<span class="String">"*.jar"</span><span class="ReservedWord">/&gt;</span>
+    <span class="ReservedWord">&lt;/classpath&gt;</span>
+<span class="ReservedWord">&lt;/taskdef&gt;</span></pre></div><p>This maps <code class="literal">XJCTask</code> to an Ant task named
+        <code class="literal">xjc</code>. For detailed examples of using this task,
+        refer to any of the <code class="literal">build.xml</code> files used by the <a class="xref" href="ch01.html#jaxb-2-0-sample-apps" title="3.&nbsp;Sample Apps">Sample Apps</a>.</p></div><div class="section" id="section-356252324237826"><div class="titlepage"><div><div><h3 class="title">2.2.&nbsp;<span class="command"><strong>xjc</strong></span> Task Attributes</h3></div></div></div><div class="section" id="section-304063270056995"><div class="titlepage"><div><div><h4 class="title">2.2.1.&nbsp;Environment Variables</h4></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><a class="link" href="http://wiki.apache.org/ant/TheElementsOfAntStyle" target="_top">ANT_OPTS</a>
+                    - command-line arguments that should be passed to the JVM.
+                    For example, you can define system properties or set the
+                    maximum Java heap size here.</p></li></ul></div></div><div class="section" id="section-5746285947518106"><div class="titlepage"><div><div><h4 class="title">2.2.2.&nbsp;Parameter Attributes</h4></div></div></div><p><code class="literal">xjc</code> supports the following parameter
+            attributes.</p><div class="informaltable"><table class="informaltable" border="1"><colgroup><col width="33%"><col width="33%"><col width="34%"></colgroup><thead><tr><th><span class="bold"><strong>Attribute</strong></span></th><th><span class="bold"><strong>Description</strong></span></th><th><span class="bold"><strong>Required</strong></span></th></tr></thead><tbody><tr><td><p><code class="literal">schema</code></p></td><td><p>A schema file to be compiled. A file
+                            name (can be relative to the build script base
+                            directory), or an URL.</p></td><td><p>This or nested &lt;
+                            <code class="literal">schema</code>&gt; elements are
+                            required.</p></td></tr><tr><td><p><code class="literal">binding</code></p></td><td><p>An external binding file that will be
+                            applied to the schema file.</p></td><td><p>No</p></td></tr><tr><td><p><code class="literal">package</code></p></td><td><p>If specified, generated code will be
+                            placed under this Java package. This option is
+                            equivalent to the "-p" command-line
+                            switch.</p></td><td><p>No</p></td></tr><tr><td><p><code class="literal">destdir</code></p></td><td><p>Generated code will be written under
+                            this directory. If you specify
+                            <code class="literal">destdir="abc/def"</code> and
+                            <code class="literal">package="org.acme"</code>, then files
+                            are generated to
+                            <code class="literal">abc/def/org/acme</code>.</p></td><td><p>Yes</p></td></tr><tr><td><p><code class="literal">encoding</code></p></td><td><p>Set the encoding name for generated
+                            sources, such as EUC-JP or UTF-8. If it is not
+                            specified, the platform default encoding is
+                            used.</p></td><td><p>No</p></td></tr><tr><td><p><code class="literal">readonly</code></p></td><td><p>Generate Java source files in the
+                            read-only mode if <code class="literal">true</code> is
+                            specified. <code class="literal">false</code> by
+                            default.</p></td><td><p>No</p></td></tr><tr><td><p><code class="literal">header</code></p></td><td><p>Generate a header in each generated
+                            file indicating that this file is generated by such
+                            and such version of Eclipse Implementation of JAXB when.
+                            <code class="literal">true</code> by default.</p></td><td><p>No</p></td></tr><tr><td><p><code class="literal">extension</code></p></td><td><p>If set to <code class="literal">true</code>, the XJC
+                            binding compiler will run in the extension mode.
+                            Otherwise, it will run in the strict conformance
+                            mode. Equivalent of the "
+                            <code class="literal">-extension</code>" command line switch.
+                            The default is
+                            <code class="literal">false</code>.</p></td><td><p>No</p></td></tr><tr><td><p><code class="literal">catalog</code></p></td><td><p>Specify the catalog file to resolve
+                            external entity references. Support TR9401,
+                            XCatalog, and OASIS XML Catalog format. See the
+                            catalog-resolver sample for details.</p></td><td><p>No</p></td></tr><tr><td><p><code class="literal">removeOldOutput</code></p></td><td><p>Used in pair with nested
+                            <code class="literal">&lt;produces&gt;</code> elements. When
+                            this attribute is specified as " <code class="literal">yes</code>",
+                            the files pointed to by the
+                            <code class="literal">&lt;produces&gt;</code> elements will be
+                            all deleted before the XJC binding compiler
+                            recompiles the source files. See the up-to-date
+                            check section for details.</p></td><td><p>No</p></td></tr><tr><td><p><code class="literal">target</code></p></td><td><p>Specifies the runtime environment in
+                            which the generated code is supposed to run. Expects 2.0 or 2.1 values.
+                            This allows more up-to-date versions of XJC to be used for
+                            developing applications that run on earlier JAXB
+                            versions.</p></td><td><p>No, defaults to "2.2"</p></td></tr><tr><td><p><code class="literal">language</code></p></td><td><p>Specifies the schema language to
+                            compile. Supported values are "WSDL", "XMLSCHEMA",
+                            and "WSDL." Case insensitive.</p></td><td><p>No, defaults to
+                            "XMLSCHEMA"</p></td></tr></tbody></table></div></div><div class="section" id="section-123752426076382"><div class="titlepage"><div><div><h4 class="title">2.2.3.&nbsp;Nested Elements</h4></div></div></div><p><code class="literal">xjc</code> supports the following nested element
+            parameters.</p><div class="section" id="section-7446361014928902"><div class="titlepage"><div><div><h5 class="title">2.2.3.1.&nbsp;<code class="literal">schema</code></h5></div></div></div><p>To compile more than one schema at the same time, use a
+                nested <code class="literal">&lt;schema&gt;</code> element, which has
+                the same syntax as <a class="link" href="http://ant.apache.org/manual/Types/fileset.html" target="_top">
+                <code class="literal">&lt;fileset&gt;</code> </a>.</p></div><div class="section" id="section-354179298981749"><div class="titlepage"><div><div><h5 class="title">2.2.3.2.&nbsp;<code class="literal">binding</code></h5></div></div></div><p>To specify more than one external binding file at the
+                same time, use a nested <code class="literal">&lt;binding&gt;</code>
+                element, which has the same syntax as <a class="link" href="http://ant.apache.org/manual/Types/fileset.html" target="_top">
+                <code class="literal">&lt;fileset&gt;</code> </a>.</p></div><div class="section" id="section-583580759538928"><div class="titlepage"><div><div><h5 class="title">2.2.3.3.&nbsp;<code class="literal">classpath</code></h5></div></div></div><p>To specify locations of the user-defined classes
+                necessary during the compilation (such as an user-defined type
+                that is used through a <code class="literal">&lt;javaType&gt;</code>
+                customization), use nested
+                <code class="literal">&lt;classpath&gt;</code> elements. For the syntax,
+                see <a class="link" href="http://jakarta.apache.org/ant/manual/using.html#path" target="_top">"path-like
+                structure"</a> .</p></div><div class="section" id="section-5197406266536"><div class="titlepage"><div><div><h5 class="title">2.2.3.4.&nbsp;<code class="literal">arg</code></h5></div></div></div><p>Additional command line arguments passed to the XJC. For
+                details about the syntax, see <a class="link" href="http://ant.apache.org/manual/using.html#arg" target="_top">the
+                relevant section</a> in the Ant manual. This nested element
+                can be used to specify various options not natively supported
+                in the <span class="command"><strong>xjc</strong></span> Ant task. For example, currently there
+                is no native support for the following <span class="command"><strong>xjc</strong></span>
+                command-line options:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><code class="option">-nv</code></p></li><li class="listitem"><p><code class="option">-use-runtime</code></p></li><li class="listitem"><p><code class="option">-schema</code></p></li><li class="listitem"><p><code class="option">-dtd</code></p></li><li class="listitem"><p><code class="option">-relaxng</code></p></li><li class="listitem"><p><code class="option">-Xlocator</code></p></li><li class="listitem"><p><code class="option">-Xsync-methods</code></p></li></ul></div><p>To use any of these features from the
+                <code class="literal">&lt;xjc&gt;</code> Ant task, you must specify the
+                appropriate nested &lt; <code class="literal">arg</code>&gt; elements.</p></div><div class="section" id="section-348709288221071"><div class="titlepage"><div><div><h5 class="title">2.2.3.5.&nbsp;<code class="literal">depends</code></h5></div></div></div><p>Files specified with this nested element will be taken
+                into account when the XJC task does the up-to-date check. See
+                the up-to-date check section for details. For the syntax, see
+                <a class="link" href="http://ant.apache.org/manual/Types/fileset.html" target="_top">
+                <code class="literal">&lt;fileset&gt;</code> </a>.</p></div><div class="section" id="section-061536175632223"><div class="titlepage"><div><div><h5 class="title">2.2.3.6.&nbsp;<code class="literal">produces</code></h5></div></div></div><p>Files specified with this nested element will be taken
+                into account when the XJC task does the up-to-date check. See
+                the up-to-date check section for details. For the syntax, see
+                <a class="link" href="http://ant.apache.org/manual/Types/fileset.html" target="_top">
+                <code class="literal">&lt;fileset&gt;</code> </a>.</p></div><div class="section" id="section-6395468661397454"><div class="titlepage"><div><div><h5 class="title">2.2.3.7.&nbsp;<code class="literal">xmlcatalog</code></h5></div></div></div><p>The <a class="link" href="http://ant.apache.org/manual/Types/xmlcatalog.html" target="_top">xmlcatalog</a>
+                element is used to resolve entities when parsing schema
+                documents.</p></div></div></div><div class="section" id="section-837075444051632"><div class="titlepage"><div><div><h3 class="title">2.3.&nbsp;Generated Resource Files</h3></div></div></div><p>Please see the <a class="xref" href="ch04.html#xjcresources" title="1.5.&nbsp;Generated Resource Files">Generated Resource Files</a> for more detail.</p></div><div class="section" id="section-767416326934949"><div class="titlepage"><div><div><h3 class="title">2.4.&nbsp;Up-to-date Check</h3></div></div></div><p>By default, the XJC binding compiler always compiles the inputs.
+        However, with a little additional setting, it can compare timestamps
+        of the input files and output files and skip compilation if the files
+        are up-to-date.</p><p>Ideally, the program should be able to find out all the inputs
+        and outputs and compare their timestamps, but this is difficult and
+        time-consuming. So you have to tell the task input files and output
+        files manually by using nested <code class="literal">&lt;depends&gt;</code> and
+        <code class="literal">&lt;produces&gt;</code> elements. Basically, the XJC
+        binding compiler compares the timestamps specified by the
+        <code class="literal">&lt;depends&gt;</code> elements against those of the
+        <code class="literal">&lt;produces&gt;</code> set. If any one of the "depends"
+        file has a more recent timestamp than some of the files in the
+        "produces" set, it will compile the inputs. Otherwise it will skip the
+        compilation.</p><p>This will allow you to say, for example "if any of the
+        <code class="literal">.xsd</code> files in this directory are newer than the
+        <code class="literal">.java</code> files in that directory, recompile the
+        schema".</p><p>Files specified as the schema files and binding files are
+        automatically added to the "depends" set as well, but if those schemas
+        are including/importing other schemas, you have to use a nested
+        <code class="literal">&lt;depends&gt;</code> elements. No files are added to the
+        <code class="literal">&lt;produces&gt;</code> set, so you have to add all of
+        them manually.</p><p>A change in a schema or an external binding file often results
+        in a Java file that stops being generated. To avoid such an "orphan"
+        file, it is often desirable to isolate all the generated code into a
+        particular package and delete it before compiling a schema. This can
+        be done by using the <code class="literal">removeOldOutput</code> attribute.
+        This option allows you to remove all the files that match the
+        "produces" filesets before a compilation. <span class="emphasis"><em>Be careful when
+        you use this option so that you don't delete important
+        files</em></span>.</p></div><div class="section" id="section-31739621133682"><div class="titlepage"><div><div><h3 class="title">2.5.&nbsp;Schema Language Support</h3></div></div></div><p>This release of the Eclipse Implementation of JAXB includes experimental support for
+        RELAX NG, DTD, and WSDL. To compile anything other than W3C XML Schema
+        from the <span class="command"><strong>xjc</strong></span> Ant task, you must use the nested &lt;
+        <code class="literal">arg</code>&gt; element to specify the appropriate command line
+        switch, such as <code class="option">-dtd</code>, <code class="option">-relaxng</code>, or <code class="option">-wsdl</code>. Otherwise, your input schemas will be treated as
+        W3C XML Schema and the binding compiler will fail.</p></div><div class="section" id="section-607840891098334"><div class="titlepage"><div><div><h3 class="title">2.6.&nbsp;<span class="command"><strong>xjc</strong></span> Examples</h3></div></div></div><p>Compile <code class="literal">myschema.xsd</code> and place the generated
+        files under <span class="package">src/org/acme/foo</span>:</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;xjc</span> <span class="Identifier">schema</span>=<span class="String">"src/myschema.xsd"</span> <span class="Identifier">destdir</span>=<span class="String">"src"</span> <span class="Identifier">package</span>=<span class="String">"org.acme.foo"</span><span class="ReservedWord">/&gt;</span></pre></div><p>Compile all XML Schema files in the <code class="literal">src</code>
+        directory and place the generated files under the appropriate packages
+        in the <code class="literal">src</code> directory:</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;xjc</span> <span class="Identifier">destdir</span>=<span class="String">"src"</span><span class="ReservedWord">&gt;</span>
+    <span class="ReservedWord">&lt;schema</span> <span class="Identifier">dir</span>=<span class="String">"src"</span> <span class="Identifier">includes</span>=<span class="String">"*.xsd"</span><span class="ReservedWord">/&gt;</span>
+<span class="ReservedWord">&lt;/xjc&gt;</span></pre></div><p>Compile all XML Schema files in the <code class="literal">src</code>
+        directory together with binding files in the same directory and places
+        the generated files under the appropriate packages in the
+        <code class="literal">src</code> directory. This example assumes that binding
+        files contain package customizations. This example doesn't search
+        subdirectories of the <code class="literal">src</code> directory to look for
+        schema files.</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;xjc</span> <span class="Identifier">destdir</span>=<span class="String">"src"</span><span class="ReservedWord">&gt;</span>
+    <span class="ReservedWord">&lt;schema</span> <span class="Identifier">dir</span>=<span class="String">"src"</span> <span class="Identifier">includes</span>=<span class="String">"*.xsd"</span><span class="ReservedWord">/&gt;</span>
+    <span class="ReservedWord">&lt;binding</span> <span class="Identifier">dir</span>=<span class="String">"src"</span> <span class="Identifier">includes</span>=<span class="String">"*.xjb"</span><span class="ReservedWord">/&gt;</span>
+<span class="ReservedWord">&lt;/xjc&gt;</span></pre></div><p>Compile <code class="literal">abc.xsd</code> with an up-to-date check.
+        Compilation only happens when <code class="literal">abc.xsd</code> is newer than
+        any of the files in the <code class="literal">src/org/acme/foo</code> directory
+        (and its <code class="literal">impl</code> subdirectory). Files in these two
+        directories will be wiped away before a compilation, so
+        <span class="emphasis"><em>don't add your own code in those directories</em></span>.
+        Note that the additional <code class="literal">mkdir</code> task is necessary
+        because Ant's fileset requires the directory specified by the
+        <code class="literal">dir</code> attribute to exist.</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;mkdir</span> <span class="Identifier">dir</span>=<span class="String">"src/org/acme/foo"</span><span class="ReservedWord">/&gt;</span>
+<span class="ReservedWord">&lt;xjc</span> <span class="Identifier">destdir</span>=<span class="String">"src"</span> <span class="Identifier">schema</span>=<span class="String">"abc.xsd"</span> <span class="Identifier">removeOldOutput</span>=<span class="String">"yes"</span>
+     <span class="Identifier">package</span>=<span class="String">"org.acme.foo"</span><span class="ReservedWord">&gt;</span>
+    <span class="ReservedWord">&lt;produces</span> <span class="Identifier">dir</span>=<span class="String">"src/org/acme/foo"</span> <span class="Identifier">includes</span>=<span class="String">"* impl/*"</span><span class="ReservedWord">/&gt;</span>
+<span class="ReservedWord">&lt;/xjc&gt;</span></pre></div><p>More complicated example of up-to-date check. In this example,
+        we assume that you have a large set of schema documents that reference
+        each other, with DTDs that describe the schema documents. An explicit
+        &lt;depends&gt; is necessary so that when you update one of the DTDs,
+        XJC will recompile your schema. But &lt;depends&gt; don't have to
+        re-specify all the schema files, because you've already done that via
+        &lt;schema&gt;.</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;mkdir</span> <span class="Identifier">dir</span>=<span class="String">"src/org/acme/foo"</span><span class="ReservedWord">/&gt;</span>
+<span class="ReservedWord">&lt;xjc</span> <span class="Identifier">destdir</span>=<span class="String">"src"</span> <span class="Identifier">removeOldOutput</span>=<span class="String">"yes"</span>
+     <span class="Identifier">package</span>=<span class="String">"org.acme.foo"</span><span class="ReservedWord">&gt;</span>
+    <span class="ReservedWord">&lt;schema</span> <span class="Identifier">dir</span>=<span class="String">"schema"</span> <span class="Identifier">includes</span>=<span class="String">"*.xsd"</span><span class="ReservedWord">/&gt;</span>
+    <span class="ReservedWord">&lt;depends</span> <span class="Identifier">dir</span>=<span class="String">"schema"</span> <span class="Identifier">includes</span>=<span class="String">"*.dtd"</span><span class="ReservedWord">/&gt;</span>
+    <span class="ReservedWord">&lt;produces</span> <span class="Identifier">dir</span>=<span class="String">"build/generated-src/org/acme/foo"</span>
+              <span class="Identifier">includes</span>=<span class="String">"**/*"</span><span class="ReservedWord">/&gt;</span>
+<span class="ReservedWord">&lt;/xjc&gt;</span></pre></div><p>Compile all XML Schema files in the <code class="literal">src</code>
+        directory and subdirectories, excluding files named
+        <code class="literal">debug.xsd</code>, and place the generated files under the
+        appropriate packages in the <code class="literal">src</code> directory. This
+        example also specifies the <code class="option">-nv</code> option, which disables
+        the strict schema correctness checking:</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;xjc</span> <span class="Identifier">destdir</span>=<span class="String">"src"</span><span class="ReservedWord">&gt;</span>
+    <span class="ReservedWord">&lt;schema</span> <span class="Identifier">dir</span>=<span class="String">"src"</span> <span class="Identifier">includes</span>=<span class="String">"**/*.xsd"</span>
+            <span class="Identifier">excludes</span>=<span class="String">"**/debug.xsd"</span><span class="ReservedWord">/&gt;</span>
+    <span class="ReservedWord">&lt;arg</span> <span class="Identifier">value</span>=<span class="String">"-nv"</span><span class="ReservedWord">/&gt;</span>
+<span class="ReservedWord">&lt;/xjc&gt;</span></pre></div><p>If you depend on a proxy server to resolve the location of
+        imported or included schemas (as you might if you're behind a
+        firewall), you need to make the hostname and port number accessible to
+        the JVM hosting <code class="literal">ant</code>. Do this by setting the
+        environment variable <code class="literal">ANT_OPTS</code> to a string
+        containing the appropriate <code class="literal">java</code> options. For
+        example, from DOS:</p><div class="informalexample"><pre class="programlisting">&gt; set ANT_OPTS=-Dhttp.proxyHost=webcache.east
+&gt; set ANT_OPTS=%ANT_OPTS% -Dhttp.proxyPort=8080
+&gt; ant</pre></div></div></div><div lang="en" class="section" id="tools-schemagen"><div class="titlepage"><div><div><h2 class="title" style="clear: both">3.&nbsp;SchemaGen</h2></div></div></div><div class="section" id="d0e5674"><div class="titlepage"><div><div><h3 class="title">3.1.&nbsp;<span class="command"><strong>schemagen</strong></span> Overview</h3></div></div></div><p>The current schema generator can process either Java source
+        files or class files.</p><p>We also provide an Ant task to run the schema generator - see
+        the instructions for <a class="xref" href="ch04.html#tools-schemagen-ant-task" title="4.&nbsp;SchemaGen Ant Task">SchemaGen Ant Task</a>.</p></div><div class="section" id="section-182504251480881"><div class="titlepage"><div><div><h3 class="title">3.2.&nbsp;Launching <span class="command"><strong>schemagen</strong></span></h3></div></div></div><p>The schema generator can be launched using the appropriate
+        <code class="literal">schemagen</code> shell script in the
+        <code class="literal">bin</code> directory for your platform.</p><p>If your java sources/classes reference other classes, they must
+        be accessable on your system CLASSPATH environment variable, or they
+        need to be given to the tool by using the <code class="option">-classpath</code>/
+        <code class="option">-cp</code> options. Otherwise you will see errors when
+        generating your schema.</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><span class="bold"><strong>Solaris/Linux</strong></span></p><pre class="programlisting">% path/to/jaxb/bin/schemagen.sh Foo.java Bar.java ...
+Note: Writing schema1.xsd</pre></li><li class="listitem"><p><span class="bold"><strong>Windows</strong></span></p><pre class="programlisting">&gt; path\to\jaxb\bin\schemagen.bat Foo.java Bar.java ...
+Note: Writing schema1.xsd</pre></li></ul></div></div><div class="section" id="d0e5719"><div class="titlepage"><div><div><h3 class="title">3.3.&nbsp;<span class="command"><strong>schemagen</strong></span> Syntax</h3></div></div></div><div class="cmdsynopsis"><p id="d0e5724"><code class="command">schemagen</code>   [OPTION]...  &lt;java files&gt;</p></div><div class="informalexample"><pre class="programlisting">Usage: schemagen [-options ...] &lt;java files&gt; 
+
+Options: 
+    -d &lt;path&gt;         :  Specify where to place processor and javac generated class files 
+    -cp &lt;path&gt;        :  Specify where to find user specified files  
+    -classpath &lt;path&gt; :  Specify where to find user specified files  
+    -episode &lt;file&gt;   :  generate episode file for separate compilation
+    -version          :  display version information
+    -help             :  Display this usage message</pre></div><div class="section" id="switches-1"><div class="titlepage"><div><div><h4 class="title">3.3.1.&nbsp;Summary of Command Line Options</h4></div></div></div><div class="variablelist"><dl class="variablelist"><dt><span class="term" id="episode"><span class="bold"><strong>-episode</strong></span></span></dt><dd><p>Generates the "episode file", which is really
+                        just a Jakarta XML Binding customization file (but with vendor
+                        extensions specific to the Eclipse Implementation of JAXB, as of 2.1.) When
+                        people develop additional schemas that depend on what
+                        this schemagen invocation produces, they can use this
+                        episode file to have their generated code refer to
+                        your classes.</p></dd></dl></div></div></div><div class="section" id="section-906211973953818"><div class="titlepage"><div><div><h3 class="title">3.4.&nbsp;Generated Resource Files</h3></div></div></div><p>The current schema generator simply creates a schema file for
+        each namespace referenced in your Java classes. There is no way to
+        control the name of the generated schema files at this time. Use <a class="xref" href="ch04.html#tools-schemagen-ant-task" title="4.&nbsp;SchemaGen Ant Task">SchemaGen Ant Task</a> for
+        that purpose.</p></div></div><div lang="en" class="section" id="tools-schemagen-ant-task"><div class="titlepage"><div><div><h2 class="title" style="clear: both">4.&nbsp;SchemaGen Ant Task</h2></div></div></div><div class="section" id="d0e5757"><div class="titlepage"><div><div><h3 class="title">4.1.&nbsp;<span class="command"><strong>schemagen</strong></span> Task Overview</h3></div></div></div><p>The <code class="literal">jaxb-jxc.jar</code> file contains the
+        <code class="literal">SchemaGenTask.class</code> file, which allows the schema
+        generator to be invoked from the <a class="link" href="http://jakarta.apache.org/ant" target="_top">Ant</a> build tool. To
+        use <code class="literal">SchemaGenTask</code>, include the following statement
+        in your <code class="literal">build.xml</code> file:</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;taskdef</span> <span class="Identifier">name</span>=<span class="String">"schemagen"</span>
+         <span class="Identifier">classname</span>=<span class="String">"com.sun.tools.jxc.SchemaGenTask"</span><span class="ReservedWord">&gt;</span>
+    <span class="ReservedWord">&lt;classpath&gt;</span>
+        <span class="ReservedWord">&lt;fileset</span> <span class="Identifier">dir</span>=<span class="String">"path/to/jaxb/lib"</span> <span class="Identifier">includes</span>=<span class="String">"*.jar"</span><span class="ReservedWord">/&gt;</span>
+    <span class="ReservedWord">&lt;/classpath&gt;</span>
+<span class="ReservedWord">&lt;/taskdef&gt;</span></pre></div><p>This maps <code class="literal">SchemaGenTask</code> to an Ant task named
+        <code class="literal">schemagen</code>. For detailed examples of using this
+        task, refer to the <code class="literal">build.xml</code> files used by the java to
+        schema <a class="xref" href="ch01.html#jaxb-2-0-sample-apps" title="3.&nbsp;Sample Apps">Sample Apps</a>.</p></div><div class="section" id="section-417846742205862"><div class="titlepage"><div><div><h3 class="title">4.2.&nbsp;<span class="command"><strong>schemagen</strong></span> Task Attributes</h3></div></div></div><div class="section" id="section-077165761436022"><div class="titlepage"><div><div><h4 class="title">4.2.1.&nbsp;Environment Variables</h4></div></div></div><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><a class="link" href="http://wiki.apache.org/ant/TheElementsOfAntStyle" target="_top">ANT_OPTS</a>
+                    - command-line arguments that should be passed to the JVM.
+                    For example, you can define system properties or set the
+                    maximum Java heap size here.</p></li></ul></div></div><div class="section" id="section-914482811856355"><div class="titlepage"><div><div><h4 class="title">4.2.2.&nbsp;Parameter Attributes</h4></div></div></div><p><code class="literal">schemagen</code> supports most of the attributes
+            defined by <a class="link" href="http://ant.apache.org/manual/CoreTasks/javac.html" target="_top">the
+            javac task</a>, plus the following parameter attributes.</p><div class="informaltable"><table class="informaltable" border="1"><colgroup><col width="33%"><col width="33%"><col width="34%"></colgroup><thead><tr><th><span class="bold"><strong>Attribute</strong></span></th><th><span class="bold"><strong>Description</strong></span></th><th><span class="bold"><strong>Required</strong></span></th></tr></thead><tbody><tr><td><p><code class="literal">destdir</code></p></td><td><p>Base directory to place the generated
+                            schema files</p></td><td><p>No</p></td></tr><tr><td><p><code class="literal">classpath</code></p></td><td><p>Works just like the nested
+                            &lt;classpath&gt; element</p></td><td><p>No</p></td></tr><tr><td><p><code class="literal">episode</code></p></td><td><p>If specified, generate an episode file
+                            in the specified name. For more about the episode
+                            file, see <a class="xref" href="ch04.html#episode"><span class="bold"><strong>-episode</strong></span></a>.</p></td><td><p>No</p></td></tr></tbody></table></div></div><div class="section" id="section-107210544982149"><div class="titlepage"><div><div><h4 class="title">4.2.3.&nbsp;Nested Elements</h4></div></div></div><p><code class="literal">xjc</code> supports all the nested elements
+            defined by <a class="link" href="http://ant.apache.org/manual/CoreTasks/javac.html" target="_top">the
+            javac task</a>, the following nested element parameters.</p><div class="section" id="section-1989087498722346"><div class="titlepage"><div><div><h5 class="title">4.2.3.1.&nbsp;<code class="literal">schema</code></h5></div></div></div><p>Control the file name of the generated schema. This
+                element takes a mandatory <code class="literal">namespace</code> attribute and
+                a mandaotry <code class="literal">file</code> attribute. When this element is
+                present, the schema document generated for the specified
+                namespace will be placed in the specified file name.</p><p>The file name is interpreted as relative to the destdir
+                attribute. In the absence of the destdir attribute, file names
+                are relative to the project base directory. This element can
+                be specified multiple times.</p></div><div class="section" id="section-652997891191299"><div class="titlepage"><div><div><h5 class="title">4.2.3.2.&nbsp;<code class="literal">classpath</code></h5></div></div></div><p>A <a class="link" href="http://ant.apache.org/manual/using.html#path" target="_top">path-like
+                structure</a> that represents the classpath. If your Java
+                sources/classes depend on other libraries, they need to be
+                available in the classpath.</p></div></div></div><div class="section" id="section-9298229576523986"><div class="titlepage"><div><div><h3 class="title">4.3.&nbsp;<span class="command"><strong>schemagen</strong></span> Examples</h3></div></div></div><p>Generate schema files from source files in the <code class="literal">src</code>
+        dir and place them in the <code class="filename">build/schemas</code> directory.</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;schemagen</span> <span class="Identifier">srcdir</span>=<span class="String">"src"</span> <span class="Identifier">destdir</span>=<span class="String">"build/schemas"</span><span class="ReservedWord">&gt;</span></pre></div><p>Compile a portion of the source tree.</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;schemagen</span> <span class="Identifier">destdir</span>=<span class="String">"build/schemas"</span><span class="ReservedWord">&gt;</span>
+    <span class="ReservedWord">&lt;src</span> <span class="Identifier">path</span>=<span class="String">"src"</span><span class="ReservedWord">/&gt;</span>
+    <span class="ReservedWord">&lt;exclude</span> <span class="Identifier">name</span>=<span class="String">"Main.java"</span><span class="ReservedWord">/&gt;</span>
+<span class="ReservedWord">&lt;/schemagen&gt;</span></pre></div><p>Set schema file names.</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;schemagen</span> <span class="Identifier">srcdir</span>=<span class="String">"src"</span> <span class="Identifier">destdir</span>=<span class="String">"build/schemas"</span><span class="ReservedWord">&gt;</span>
+    <span class="ReservedWord">&lt;schema</span> <span class="Identifier">namespace</span>=<span class="String">"http://myschema.acme.org/common"</span>
+            <span class="Identifier">file</span>=<span class="String">"myschema-common.xsd"</span><span class="ReservedWord">/&gt;</span>
+    <span class="ReservedWord">&lt;schema</span> <span class="Identifier">namespace</span>=<span class="String">"http://myschema.acme.org/onion"</span>
+            <span class="Identifier">file</span>=<span class="String">"myschema-onion.xsd"</span><span class="ReservedWord">/&gt;</span>
+<span class="ReservedWord">&lt;/schemagen&gt;</span></pre></div></div></div><div lang="en" class="section" id="tools-3rd-party-tools"><div class="titlepage"><div><div><h2 class="title" style="clear: both">5.&nbsp;3rd Party Tools</h2></div></div></div><div class="section" id="section-954928396024079"><div class="titlepage"><div><div><h3 class="title">5.1.&nbsp;Maven JAXB Plugin</h3></div></div></div><p>If you are using Maven, JAXB
+    jars are available in 
+    <a class="link" href="https://maven.java.net/content/repositories/releases/" target="_top">the java.net maven
+    repository</a>. This repository is synced with maven central, so usually you find all JAXB releases in maven central after ~ 1 day after java.net release.</p></div><div class="section" id="section-2642114715432213"><div class="titlepage"><div><div><h3 class="title">5.2.&nbsp;XJC Plugins</h3></div></div></div><p>Various people in the community have developed plugins for
+    XJC that you can use today. These plugins allow you to
+    enhance/alter the code generation of XJC in many different
+    ways.</p></div><div class="section" id="section-926973453240119"><div class="titlepage"><div><div><h3 class="title">5.3.&nbsp;RDBMS Persistence</h3></div></div></div><p>Lexi has developed the 
+    <a class="link" href="http://confluence.highsource.org/display/HJ3/Home" target="_top">HyperJAXB3
+    project</a> for RDBMS persistence support for the Eclipse Implementation of JAXB. </p></div></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch03.html">Prev</a>&nbsp;</td><td width="20%" align="center">&nbsp;</td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch05.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Eclipse Implementation of JAXB Users Guide&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;Eclipse Implementation of JAXB Extensions</td></tr></table></div></body></html>
