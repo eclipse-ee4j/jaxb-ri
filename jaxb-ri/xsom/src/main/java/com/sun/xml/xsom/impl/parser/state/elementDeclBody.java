@@ -1109,9 +1109,9 @@ class elementDeclBody extends NGCCHandler {
 
       private ElementDecl makeResult() {
         if(finalValue==null)
-          finalValue = new Integer($runtime.finalDefault);
+          finalValue = Integer.valueOf($runtime.finalDefault);
         if(blockValue==null)
-          blockValue = new Integer($runtime.blockDefault);
+          blockValue = Integer.valueOf($runtime.blockDefault);
 
         if(!formSpecified)
           form = $runtime.elementFormDefault;

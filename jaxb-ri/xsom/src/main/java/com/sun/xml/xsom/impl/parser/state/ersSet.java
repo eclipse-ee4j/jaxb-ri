@@ -153,7 +153,7 @@ class ersSet extends NGCCHandler {
 
     
       private Integer makeResult() {
-        if(v==null)     return new Integer($runtime.blockDefault);
+        if(v==null)     return Integer.valueOf($runtime.blockDefault);
         
         if(v.indexOf("#all")!=-1)
             return new Integer(
@@ -165,7 +165,7 @@ class ersSet extends NGCCHandler {
         if(v.indexOf("restriction")!=-1)    r|=XSType.RESTRICTION;
         if(v.indexOf("substitution")!=-1)   r|=XSType.SUBSTITUTION;
         
-        return new Integer(r);
+        return Integer.valueOf(r);
       }
     
 }
