@@ -153,17 +153,17 @@ class erSet extends NGCCHandler {
 
     
       private Integer makeResult() {
-        if(v==null)     return new Integer($runtime.finalDefault);
+        if(v==null)     return Integer.valueOf($runtime.finalDefault);
         
         if(v.indexOf("#all")!=-1)
-            return new Integer(XSType.EXTENSION|XSType.RESTRICTION);
+            return Integer.valueOf(XSType.EXTENSION|XSType.RESTRICTION);
         
         int r = 0;
         
         if(v.indexOf("extension")!=-1)      r|=XSType.EXTENSION;
         if(v.indexOf("restriction")!=-1)    r|=XSType.RESTRICTION;
         
-        return new Integer(r);
+        return Integer.valueOf(r);
       }
     
 }
