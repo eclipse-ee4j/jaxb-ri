@@ -79,9 +79,9 @@
         <spotbugs.exclude/>
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>High</spotbugs.threshold>
-        <spotbugs.version>4.0.0</spotbugs.version>
+        <spotbugs.version>4.0.4</spotbugs.version>
 
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13</junit.version>
 
         <module.path>${project.build.directory}/mods</module.path>
         <!-- This will work ONLY if mvn is run from root folder. In case of runing from submodules - fail :( -->
@@ -89,6 +89,8 @@
         <felix.junit4osgi>1.0.0</felix.junit4osgi>
         <felix.osgi.core>6.0.0</felix.osgi.core>
         <jmockit.version>1.34</jmockit.version>
+        <resolver.version>20050927</resolver.version>
+        <compiler.version>2.4.0</compiler.version>
         <mrjar.sourceDirectory>${project.basedir}/src/main/java-mr</mrjar.sourceDirectory>
         <base.java.level>8</base.java.level>
         <upper.java.level>9</upper.java.level>
@@ -118,7 +120,7 @@
                 com.sun.org.apache.xml.internal.resolver.tools.CatalogResolver) -->
                 <groupId>com.sun.org.apache.xml.internal</groupId>
                 <artifactId>resolver</artifactId>
-                <version>20050927</version>
+                <version>${resolver.version}</version>
             </dependency>
 
             <!-- CQ #20807 -->
@@ -126,7 +128,7 @@
             <dependency>
                 <groupId>org.checkerframework</groupId>
                 <artifactId>compiler</artifactId>
-                <version>2.4.0</version>
+                <version>${compiler.version}</version>
             </dependency>
 
         </dependencies>
@@ -151,7 +153,7 @@
                 <plugin>
                     <groupId>org.apache.felix</groupId>
                     <artifactId>maven-bundle-plugin</artifactId>
-                    <version>4.2.1</version>
+                    <version>5.1.1</version>
                     <configuration>
                         <niceManifest>true</niceManifest>
                         <instructions>
@@ -190,7 +192,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.0.0-M4</version>
+                    <version>3.0.0-M5</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -217,7 +219,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-assembly-plugin</artifactId>
-                    <version>3.2.0</version>
+                    <version>3.3.0</version>
                     <configuration>
                         <archive>
                             <manifestEntries>
@@ -259,7 +261,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>3.1.0</version>
+                    <version>3.2.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.glassfish.copyright</groupId>
@@ -328,7 +330,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-failsafe-plugin</artifactId>
-                    <version>3.0.0-M4</version>
+                    <version>3.0.0-M5</version>
                 </plugin>
             </plugins>
         </pluginManagement>
