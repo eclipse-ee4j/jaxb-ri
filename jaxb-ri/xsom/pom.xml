@@ -63,9 +63,10 @@
         <spotbugs.exclude>${project.basedir}/exclude-xsom.xml</spotbugs.exclude>
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>Low</spotbugs.threshold>
-        <spotbugs.version>4.0.0</spotbugs.version>
+        <spotbugs.version>4.0.4</spotbugs.version>
 
-        <relaxng.version>3.0.0-M1</relaxng.version>
+        <relaxng.version>3.0.0-SNAPSHOT</relaxng.version>
+        <junit.version>4.13</junit.version>
         <upper.java.level>9</upper.java.level>
         <base.java.level>8</base.java.level>
     </properties>
@@ -79,7 +80,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -100,12 +101,12 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>3.1.0</version>
+                    <version>3.2.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.felix</groupId>
                     <artifactId>maven-bundle-plugin</artifactId>
-                    <version>4.2.1</version>
+                    <version>5.1.1</version>
                     <configuration>
                         <instructions>
                             <_noextraheaders>true</_noextraheaders>
@@ -144,7 +145,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.0.0-M4</version>
+                    <version>3.0.0-M5</version>
                     <configuration>
                         <argLine>${proxyArgLine}</argLine>
                     </configuration>

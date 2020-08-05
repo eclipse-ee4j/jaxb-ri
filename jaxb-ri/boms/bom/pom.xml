@@ -31,12 +31,12 @@
     <description>JAXB Bill of Materials (BOM)</description>
 
     <properties>
-        <jaxb-api.version>3.0.0-RC3</jaxb-api.version>
+        <xml.bind-api.version>3.0.0</xml.bind-api.version>
         <jaxb-api-osgi.version>3.0</jaxb-api-osgi.version>
-        <istack.version>4.0.0-M3</istack.version>
-        <fastinfoset.version>2.0.0-M2</fastinfoset.version>
-        <stax-ex.version>2.0.0-M2</stax-ex.version>
-        <jakarta.activation.version>2.0.0-RC3</jakarta.activation.version>
+        <istack.version>4.0.0</istack.version>
+        <fastinfoset.version>2.0.0</fastinfoset.version>
+        <stax-ex.version>2.0.0</stax-ex.version>
+        <activation.version>2.0.0</activation.version>
     </properties>
 
     <dependencyManagement>
@@ -97,7 +97,7 @@
             <dependency> <!--JAXB-API-->
                 <groupId>jakarta.xml.bind</groupId>
                 <artifactId>jakarta.xml.bind-api</artifactId>
-                <version>${jaxb-api.version}</version>
+                <version>${xml.bind-api.version}</version>
                 <classifier>sources</classifier>
             </dependency>
             <dependency>
@@ -171,13 +171,7 @@
             <dependency> <!--JAXB-API-->
                 <groupId>jakarta.xml.bind</groupId>
                 <artifactId>jakarta.xml.bind-api</artifactId>
-                <exclusions>
-                    <exclusion>
-                        <groupId>jakarta.activation</groupId>
-                        <artifactId>jakarta.activation-api</artifactId>
-                    </exclusion>
-                </exclusions>
-                <version>${jaxb-api.version}</version>
+                <version>${xml.bind-api.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.sun.istack</groupId>
@@ -197,12 +191,12 @@
             <dependency>
                 <groupId>jakarta.activation</groupId>
                 <artifactId>jakarta.activation-api</artifactId>
-                <version>${jakarta.activation.version}</version>
+                <version>${activation.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.sun.activation</groupId>
                 <artifactId>jakarta.activation</artifactId>
-                <version>${jakarta.activation.version}</version>
+                <version>${activation.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
