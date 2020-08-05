@@ -251,7 +251,7 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
     public void onEnterElementConsumed(
             String uri, String localName, String qname,Attributes atts) throws SAXException {
         attStack.push(currentAtts=new AttributesImpl(atts));
-        nsEffectiveStack.push( new Integer(nsEffectivePtr) );
+        nsEffectiveStack.push( Integer.valueOf(nsEffectivePtr) );
         nsEffectivePtr = namespaces.size();
     }
 
