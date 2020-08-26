@@ -1,7 +1,7 @@
 <?xml version="1.0" standalone="yes"?>
 <!--
 
-    Copyright (c) 2004, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2004, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -22,7 +22,7 @@
     <pathelement path="src" />
     <pathelement path="classes" />
     <pathelement path="schemas" />
-    <fileset dir="${jaxb.home}" includes="lib/*.jar" />
+    <fileset dir="${jaxb.home}" includes="mod/*.jar" />
   </path>
   <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
     <classpath refid="classpath" />

@@ -193,7 +193,7 @@ file:/C:/kohsuke/Sun/JAXB/jaxb-unit/schemas/individual/MathML2/presentation/scri
                 <formalpara>
                     <title><filename>test.xjb</filename></title>
 
-                    <para><programlisting language="xml"><![CDATA[<bindings version="2.0" xmlns="http://java.sun.com/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                    <para><programlisting language="xml"><![CDATA[<bindings version="3.0" xmlns="https://jakarta.ee/xml/ns/jaxb" xmlns:xs="http://www.w3.org/2001/XMLSchema">
     <bindings schemaLocation="test.xsd">
         <bindings node="//xs:complexType[@name='foo']">
             <classname="Bar"/>

@@ -21,7 +21,7 @@
   xmlns:xjc="&XJCURI;"
   xmlns:p="post-processor-to-build-schema-for-validation"
   
-  ns="http://java.sun.com/xml/ns/jaxb"
+  ns="https://jakarta.ee/xml/ns/jaxb"
   
   cc:runtime-type="com.sun.tools.xjc.reader.xmlschema.bindinfo.NGCCRuntimeEx"
   cc:package="com.sun.tools.xjc.reader.xmlschema.bindinfo.parser"

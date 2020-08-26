@@ -22,7 +22,7 @@
     <pathelement path="src" />
     <pathelement path="classes" />
     <pathelement path="schemas" />
-    <fileset dir="${jaxb.home}" includes="lib/*.jar" />
+    <fileset dir="${jaxb.home}" includes="mod/*.jar" />
   </path>
   <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
     <classpath refid="classpath" />
