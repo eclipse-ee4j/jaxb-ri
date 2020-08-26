@@ -25,8 +25,7 @@ public final class Utils {
      */
     public static Logger getClassLogger() {
         try {
-            StackTraceElement[] trace = new Exception().getStackTrace();
-            return Logger.getLogger(trace[1].getClassName());
+            return Logger.getLogger(StackHelper.getCallerClassName());
         } catch( SecurityException e) {
             return Logger.getLogger("org.glassfish.jaxb.core"); // use the default
         }
