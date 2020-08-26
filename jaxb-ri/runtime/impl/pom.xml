@@ -120,6 +120,10 @@
                         <Implementation-Vendor-Id>${project.groupId}</Implementation-Vendor-Id>
                         <Implementation-Build-Id>${project.version} - ${buildNumber}</Implementation-Build-Id>
                         <Multi-Release>true</Multi-Release>
+                        <Export-Package>
+                            !META-INF.*,
+                            *
+                        </Export-Package>
                     </instructions>
                 </configuration>
                 <executions>
