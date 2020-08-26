@@ -130,7 +130,6 @@
                                     javax.xml.namespace,
                                     javax.xml.transform.stream,
                                     org.xml.sax,
-                                    javax.activation,
                                     javax.xml
                                 </org.osgi.framework.system.packages.extra>
                             </configuration>

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -22,13 +22,13 @@ import org.apache.tools.ant.BuildException;
  */
 public class XJCTask extends ProtectedTask {
 
-    private String source = "2.0";
+    private String source = "3.0";
 
     /**
      * The version of the compiler to run
      */
     public void setSource(String version) {
-        if (version.equals("2.0")) {
+        if ("3.0".equals(version)) {
             this.source = version;
             return;
         }
@@ -37,7 +37,7 @@ public class XJCTask extends ProtectedTask {
 
 
     protected ClassLoader createClassLoader() throws ClassNotFoundException, IOException {
-        return ClassLoaderBuilder.createProtectiveClassLoader(SecureLoader.getClassClassLoader(XJCTask.class), source);
+        return SecureLoader.getClassClassLoader(XJCTask.class);
     }
 
     protected String getCoreClassName() {

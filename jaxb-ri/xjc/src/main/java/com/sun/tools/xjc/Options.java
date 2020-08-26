@@ -162,11 +162,6 @@ public class Options {
 
 
     public Options() {
-        try {
-            Class.forName("jakarta.xml.bind.JAXBPermission");
-        } catch (ClassNotFoundException cnfe) {
-            target = SpecVersion.V2_1;
-        }
     }
 
     /**
@@ -863,7 +858,7 @@ public class Options {
         if (schemaLanguage == null)
             schemaLanguage = guessSchemaLanguage();
 
-//        if(target==SpecVersion.V2_2 && !isExtensionMode())
+//        if(target==SpecVersion.V3_0 && !isExtensionMode())
 //            throw new BadCommandLineException(
 //                "Currently 2.2 is still not finalized yet, so using it requires the -extension switch." +
 //                "NOTE THAT 2.2 SPEC MAY CHANGE BEFORE IT BECOMES FINAL.");

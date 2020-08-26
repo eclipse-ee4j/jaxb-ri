@@ -55,7 +55,6 @@ import com.sun.tools.xjc.outline.FieldAccessor;
 import com.sun.tools.xjc.outline.FieldOutline;
 import com.sun.tools.xjc.reader.TypeUtil;
 import com.sun.tools.xjc.Options;
-import com.sun.tools.xjc.api.SpecVersion;
 import org.glassfish.jaxb.core.api.impl.NameConverter;
 import org.glassfish.jaxb.core.v2.TODO;
 
@@ -158,7 +157,6 @@ abstract class AbstractField implements FieldOutline {
             refw.name(e.getElementName().getLocalPart())
                 .namespace(e.getElementName().getNamespaceURI())
                 .type(e.getType().toType(outline.parent(),IMPLEMENTATION));
-            if(getOptions().target.isLaterThan(SpecVersion.V2_2))
                 refw.required(rp.isRequired());
         } else
         if(elements.size()>1) {
@@ -168,7 +166,6 @@ abstract class AbstractField implements FieldOutline {
                 refw.name(e.getElementName().getLocalPart())
                     .namespace(e.getElementName().getNamespaceURI())
                     .type(e.getType().toType(outline.parent(),IMPLEMENTATION));
-                if(getOptions().target.isLaterThan(SpecVersion.V2_2))
                     refw.required(rp.isRequired());
             }
         }

@@ -45,7 +45,7 @@
     <example>
         <title>External package customization</title>
 
-        <programlisting language="xml"><![CDATA[<bindings xmlns="http://java.sun.com/xml/ns/jaxb" version="2.1">
+        <programlisting language="xml"><![CDATA[<bindings xmlns="https://jakarta.ee/xml/ns/jaxb" version="3.0">
   <bindings schemaLocation="../path/to/my.xsd">
     <schemaBindings>
       <package name="org.acme.foo"/>
@@ -76,8 +76,8 @@
 
             <programlisting language="xml"><![CDATA[<schema xmlns="http://www.w3.org/2001/XMLSchema"
   targetNamespace="http://www.w3.org/2001/XMLSchema"
-  xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
-  jaxb:version="2.0">
+  xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
+  jaxb:version="3.0">
   <annotation><appinfo>
     <jaxb:schemaBindings>
       <jaxb:package name="org.acme.foo"/>

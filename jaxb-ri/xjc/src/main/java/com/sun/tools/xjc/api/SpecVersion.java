@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,7 +16,7 @@ package com.sun.tools.xjc.api;
  * @author Kohsuke Kawaguchi
  */
 public enum SpecVersion {
-    V2_0, V2_1, V2_2;
+    V3_0;
 
     /**
      * Returns true if this version is equal or later than the given one.
@@ -26,17 +26,14 @@ public enum SpecVersion {
     }
 
     /**
-     * Parses "2.0", "2.1", and "2.2" into the {@link SpecVersion} object.
+     * Parses "3.0" into the {@link SpecVersion} object.
      *
      * @return null for parsing failure.
      */
     public static SpecVersion parse(String token) {
-        if(token.equals("2.0"))
-            return V2_0;
-        if(token.equals("2.1"))
-            return V2_1;
-        if(token.equals("2.2"))
-            return V2_2;
+        if("3.0".equals(token)) {
+            return V3_0;
+        }
         return null;
     }
 
@@ -45,16 +42,12 @@ public enum SpecVersion {
      */
     public String getVersion(){
         switch(this){
-            case V2_0:
-                return "2.0";
-            case V2_1:
-                return "2.1";
-            case V2_2:
-                return "2.2";
+            case V3_0:
+                return "3.0";
             default:
                 return null;
         }
     }
 
-    public static final SpecVersion LATEST = V2_2;
+    public static final SpecVersion LATEST = V3_0;
 }
