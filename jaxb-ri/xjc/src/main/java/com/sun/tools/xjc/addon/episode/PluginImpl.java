@@ -143,7 +143,7 @@ public class PluginImpl extends Plugin {
                 bindings._namespace(Const.JAXB_NSURI,"jaxb");
             else
                 bindings._namespace(Const.JAXB_NSURI,"");
-            bindings.version("2.1");
+            bindings.version("3.0");
             bindings._comment("\n\n"+opt.getPrologComment()+"\n  ");
 
             // generate listing per schema
