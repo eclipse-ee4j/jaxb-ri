@@ -103,7 +103,7 @@
 
         <para>You may find information about the normative binding schema
             defined in the &binding.spec.name; Specification at<link
-                    xlink:href="http://java.sun.com/xml/ns/jaxb">http://java.sun.com/xml/ns/jaxb</link>.
+                    xlink:href="https://jakarta.ee/xml/ns/jaxb">https://jakarta.ee/xml/ns/jaxb</link>.
         </para>
     </section>
 

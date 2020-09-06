@@ -33,7 +33,7 @@
     <example>
         <title>External customization example</title>
 
-        <programlisting language="xml"><![CDATA[<bindings xmlns="http://java.sun.com/xml/ns/jaxb" version="2.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        <programlisting language="xml"><![CDATA[<bindings xmlns="https://jakarta.ee/xml/ns/jaxb" version="3.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <bindings schemaLocation="../path/to/my.xsd" node="/xs:schema/xs:complexType[@name='foo']">
     <class name="FooType"/>
   </bindings>
@@ -72,7 +72,7 @@
     <example>
         <title>External customization by SCD</title>
 
-        <programlisting language="xml"><![CDATA[<bindings xmlns="http://java.sun.com/xml/ns/jaxb" version="2.1" xmlns:tns="http://my.namespace/">
+        <programlisting language="xml"><![CDATA[<bindings xmlns="https://jakarta.ee/xml/ns/jaxb" version="3.0" xmlns:tns="http://my.namespace/">
   <bindings scd="/type::tns:foo">
     <class name="FooType"/>
   </bindings>

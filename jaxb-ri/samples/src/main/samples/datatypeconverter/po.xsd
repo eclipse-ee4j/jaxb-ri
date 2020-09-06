@@ -11,8 +11,8 @@
 -->
 
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-            xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
-            jxb:version="2.0">
+            xmlns:jxb="https://jakarta.ee/xml/ns/jaxb"
+            jxb:version="3.0">
   <xsd:annotation>
     <xsd:documentation>
       jxb:globalBindings element documentation:
