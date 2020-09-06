@@ -51,7 +51,7 @@
     <example>
         <title>Customization to use Calendar for x<literal>s:date</literal></title>
 
-        <programlisting language="xml"><![CDATA[<bindings xmlns="http://java.sun.com/xml/ns/jaxb" version="2.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        <programlisting language="xml"><![CDATA[<bindings xmlns="https://jakarta.ee/xml/ns/jaxb" version="3.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <globalBindings>
     <javaType name="java.util.Calendar" xmlType="xs:date"
       parseMethod="jakarta.xml.bind.DatatypeConverter.parseDate"
@@ -88,7 +88,7 @@ public class DateAdapter {
     <example>
         <title>Customization to use Date for x<literal>s:date</literal></title>
 
-        <programlisting language="xml"><![CDATA[<bindings xmlns="http://java.sun.com/xml/ns/jaxb" version="2.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+        <programlisting language="xml"><![CDATA[<bindings xmlns="https://jakarta.ee/xml/ns/jaxb" version="3.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <globalBindings>
     <javaType name="java.util.Date" xmlType="xs:date"
       parseMethod="org.acme.foo.DateAadpter.parseDate"

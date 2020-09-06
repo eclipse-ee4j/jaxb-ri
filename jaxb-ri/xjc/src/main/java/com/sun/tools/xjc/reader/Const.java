@@ -27,7 +27,7 @@ public class Const {
     
     /** JAXB customization URI. */
     public final static String JAXB_NSURI =
-        "http://java.sun.com/xml/ns/jaxb";
+        "https://jakarta.ee/xml/ns/jaxb";
     
     /** XJC vendor extension namespace URI. */
     public final static String XJC_EXTENSION_URI =

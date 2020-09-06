@@ -29,7 +29,7 @@ public class XJCFacade {
     private static final String JDK_REQUIRED = "XJC requires Java SE 8 or later. Please download it from http://www.oracle.com/technetwork/java/javase/downloads";
 
     public static void main(String[] args) throws Throwable {
-        String v = "2.0";      // by default, we go 2.0
+        String v = "3.0";      // by default, we go 3.0
 
         for (int i = 0; i < args.length; i++) {
             if (args[i].equals("-source")) {
@@ -41,7 +41,7 @@ public class XJCFacade {
 
         ClassLoader oldContextCl = SecureLoader.getContextClassLoader();
         try {
-            ClassLoader cl = ClassLoaderBuilder.createProtectiveClassLoader(SecureLoader.getClassClassLoader(XJCFacade.class), v);
+            ClassLoader cl = SecureLoader.getClassClassLoader(XJCFacade.class);
             SecureLoader.setContextClassLoader(cl);
             Class<?> driver = cl.loadClass("com.sun.tools.xjc.Driver");
             Method mainMethod = driver.getDeclaredMethod("main", new Class[]{String[].class});
@@ -84,6 +84,6 @@ public class XJCFacade {
 
     public static String parseVersion(String version) {
         // no other versions supported as of now
-        return "2.0";
+        return "3.0";
     }
 }

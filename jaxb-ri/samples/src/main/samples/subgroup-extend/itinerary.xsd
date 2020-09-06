@@ -1,6 +1,6 @@
 <!--
 
-    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,8 +13,8 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
             targetNamespace="http://example.org"
             xmlns:e="http://example.org"
-            xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
-            jxb:version="2.0">
+            xmlns:jxb="https://jakarta.ee/xml/ns/jaxb"
+            jxb:version="3.0">
   <xsd:annotation>
     <xsd:appinfo>
       <jxb:globalBindings generateIsSetMethod="true"/>

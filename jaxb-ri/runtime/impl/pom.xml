@@ -34,7 +34,6 @@
         <argLine>
             --add-opens org.glassfish.jaxb.runtime/org.glassfish.jaxb.runtime.v2=org.glassfish.jaxb.core
             --add-opens org.glassfish.jaxb.runtime/org.glassfish.jaxb.runtime.v2.schemagen=org.glassfish.jaxb.core
-            --add-opens org.glassfish.jaxb.runtime/org.glassfish.jaxb.runtime.v2.schemagen.xmlidref=java.xml.bind
             --add-opens java.base/java.lang=org.glassfish.jaxb.runtime
             --add-opens java.base/java.lang.reflect=org.glassfish.jaxb.runtime
             --add-opens org.glassfish.jaxb.runtime/org.glassfish.jaxb.runtime.v2.runtime.reflect.opt=org.glassfish.jaxb.core
@@ -120,6 +119,10 @@
                         <Implementation-Vendor-Id>${project.groupId}</Implementation-Vendor-Id>
                         <Implementation-Build-Id>${project.version} - ${buildNumber}</Implementation-Build-Id>
                         <Multi-Release>true</Multi-Release>
+                        <Export-Package>
+                            !META-INF.*,
+                            *
+                        </Export-Package>
                     </instructions>
                 </configuration>
                 <executions>
@@ -174,7 +177,6 @@
                         --add-opens java.base/java.lang=org.glassfish.runtime
                         --add-opens org.glassfish.jaxb.runtime/org.glassfish.jaxb.runtime.v2=jakarta.xml.bind
                         --add-opens org.glassfish.jaxb.runtime/org.glassfish.jaxb.runtime.v2.schemagen=jakarta.xml.bind
-                        --add-opens org.glassfish.jaxb.runtime/org.glassfish.jaxb.runtime.v2.schemagen.xmlidref=jakarta.xml.bind
                     </argLine>
                     <includes>
                         <include>**/*TestMultiRelease.java</include>

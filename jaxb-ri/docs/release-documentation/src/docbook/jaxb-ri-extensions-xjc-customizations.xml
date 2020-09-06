@@ -113,7 +113,7 @@
 
             <informalexample>
                 <programlisting language="xml"><![CDATA[<bindings xmlns:tns="http://example.com/myns"
-          xmlns="http://java.sun.com/xml/ns/jaxb" version="2.1">
+          xmlns="https://jakarta.ee/xml/ns/jaxb" version="3.0">
     <bindings
             ...
             ]]><emphasis role="red">scd="tns:foo"</emphasis><![CDATA[>
@@ -151,10 +151,10 @@
 
             <informalexample>
                 <programlisting language="xml"><![CDATA[<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+           xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
            ]]><emphasis role="red">xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
            jaxb:extensionBindingPrefixes="xjc"</emphasis><![CDATA[
-           jaxb:version="2.0">
+           jaxb:version="3.0">
 
     <xs:annotation>
         <xs:appinfo>
@@ -189,10 +189,10 @@
 
             <informalexample>
                 <programlisting language="xml"><![CDATA[<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+           xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
            ]]><emphasis role="red">xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
            jaxb:extensionBindingPrefixes="xjc"</emphasis><![CDATA[
-           jaxb:version="2.0">
+           jaxb:version="3.0">
 
     <xs:annotation>
         <xs:appinfo>
@@ -227,10 +227,10 @@
 
             <informalexample>
                 <programlisting language="xml"><![CDATA[<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+           xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
            ]]><emphasis role="red">xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
            jaxb:extensionBindingPrefixes="xjc"</emphasis><![CDATA[
-           jaxb:version="2.0">
+           jaxb:version="3.0">
 
     ...
 
@@ -254,10 +254,10 @@
 
             <informalexample>
                 <programlisting language="xml"><![CDATA[<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+           xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
            ]]><emphasis role="red">xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
            jaxb:extensionBindingPrefixes="xjc"</emphasis><![CDATA[
-           jaxb:version="2.0">
+           jaxb:version="3.0">
 
     <xsd:annotation>
         <xsd:appinfo>
@@ -288,10 +288,10 @@
 
             <informalexample>
                 <programlisting language="xml"><![CDATA[<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+           xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
            ]]><emphasis role="red">xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
            jaxb:extensionBindingPrefixes="xjc"</emphasis><![CDATA[
-           jaxb:version="2.0">
+           jaxb:version="3.0">
 
     <xs:annotation>
         <xs:appinfo>
@@ -405,8 +405,8 @@ public class Person {
                 <programlisting language="xml"><![CDATA[<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
            xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
            jaxb:extensionBindingPrefixes="xjc"
-           xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
-           jaxb:version="2.0"
+           xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
+           jaxb:version="3.0"
            elementFormDefault="qualified">
 
     <xs:annotation>
