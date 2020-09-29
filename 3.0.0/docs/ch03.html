@@ -109,7 +109,7 @@ file:/C:/kohsuke/Sun/JAXB/jaxb-unit/schemas/individual/MathML2/presentation/scri
             particular element in the schema document. For example, given the
             following schema and binding file:</p><div class="example" id="d0e2192"><p class="title"><b>Example&nbsp;4.&nbsp;Schema and external binding file</b></p><div class="example-contents"><p><b><code class="filename">test.xsd</code>.&nbsp;</b></p><pre class="programlisting"><span class="ReservedWord">&lt;xs:schema</span> <span class="Identifier">xmlns:xs</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span><span class="ReservedWord">&gt;</span>
     <span class="ReservedWord">&lt;xs:complexTypename="foo"/&gt;</span>
-<span class="ReservedWord">&lt;/xs:schema&gt;</span></pre><p><b><code class="filename">test.xjb</code>.&nbsp;</b></p><pre class="programlisting"><span class="ReservedWord">&lt;bindings</span> <span class="Identifier">version</span>=<span class="String">"2.0"</span> <span class="Identifier">xmlns</span>=<span class="String">"http://java.sun.com/xml/ns/jaxb"</span> <span class="Identifier">xmlns:xs</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span><span class="ReservedWord">&gt;</span>
+<span class="ReservedWord">&lt;/xs:schema&gt;</span></pre><p><b><code class="filename">test.xjb</code>.&nbsp;</b></p><pre class="programlisting"><span class="ReservedWord">&lt;bindings</span> <span class="Identifier">version</span>=<span class="String">"3.0"</span> <span class="Identifier">xmlns</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxb"</span> <span class="Identifier">xmlns:xs</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span><span class="ReservedWord">&gt;</span>
     <span class="ReservedWord">&lt;bindings</span> <span class="Identifier">schemaLocation</span>=<span class="String">"test.xsd"</span><span class="ReservedWord">&gt;</span>
         <span class="ReservedWord">&lt;bindings</span> <span class="Identifier">node</span>=<span class="String">"//xs:complexType[@name='foo']"</span><span class="ReservedWord">&gt;</span>
             <span class="ReservedWord">&lt;classname="Bar"/&gt;</span>
@@ -373,8 +373,8 @@ PersonEx p = (PersonEx)u.unmarshal(<span class="ReservedWord">new</span> StringR
                 (<code class="literal">&lt;xs:choice&gt;</code>,<code class="literal">&lt;xs:all&gt;</code>,<code class="literal">&lt;xs:sequence&gt;</code>)</p></li><li class="listitem"><p>Model group declarations (<code class="literal">&lt;xs:group&gt;</code>)</p></li><li class="listitem"><p>Particles</p></li><li class="listitem"><p>Element declarations (<code class="literal">&lt;xs:element&gt;</code>)</p></li></ul></div><p>In the following example, a wildcard is mapped to a DOM node.
         Each element that matches to the wildcard will be turned into a DOM
         tree.</p><div class="example" id="d0e2741"><p class="title"><b>Example&nbsp;24.&nbsp;Dom Customization example</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;xs:schema</span> <span class="Identifier">xmlns:xs</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span>
-               <span class="Identifier">xmlns:jaxb</span>=<span class="String">"http://java.sun.com/xml/ns/jaxb"</span>
-               <span class="Identifier">jaxb:version</span>=<span class="String">"2.0"</span><span class="ReservedWord">&gt;</span>
+               <span class="Identifier">xmlns:jaxb</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxb"</span>
+               <span class="Identifier">jaxb:version</span>=<span class="String">"3.0"</span><span class="ReservedWord">&gt;</span>
 
         <span class="ReservedWord">&lt;xs:element&gt;</span>
            <span class="ReservedWord">&lt;xs:complexType&gt;</span>
@@ -406,7 +406,7 @@ PersonEx p = (PersonEx)u.unmarshal(<span class="ReservedWord">new</span> StringR
     <span class="ReservedWord">&lt;/jaxb:schemaBindings&gt;</span></pre></div></div><br class="example-break"><p>You can do this as an internal customization (in which case you put
     this in <code class="literal">&lt;xs:annotation&gt;</code><code class="literal">&lt;xs:appinfo&gt;</code> under place it right under
     the <code class="literal">&lt;xs:schema&gt;</code> element), or do this as an external customization,
-    like this:</p><div class="example" id="d0e2797"><p class="title"><b>Example&nbsp;26.&nbsp;External package customization</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;bindings</span> <span class="Identifier">xmlns</span>=<span class="String">"http://java.sun.com/xml/ns/jaxb"</span> <span class="Identifier">version</span>=<span class="String">"2.1"</span><span class="ReservedWord">&gt;</span>
+    like this:</p><div class="example" id="d0e2797"><p class="title"><b>Example&nbsp;26.&nbsp;External package customization</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;bindings</span> <span class="Identifier">xmlns</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxb"</span> <span class="Identifier">version</span>=<span class="String">"3.0"</span><span class="ReservedWord">&gt;</span>
   <span class="ReservedWord">&lt;bindings</span> <span class="Identifier">schemaLocation</span>=<span class="String">"../path/to/my.xsd"</span><span class="ReservedWord">&gt;</span>
     <span class="ReservedWord">&lt;schemaBindings&gt;</span>
       <span class="ReservedWord">&lt;package</span> <span class="Identifier">name</span>=<span class="String">"org.acme.foo"</span><span class="ReservedWord">/&gt;</span>
@@ -422,8 +422,8 @@ PersonEx p = (PersonEx)u.unmarshal(<span class="ReservedWord">new</span> StringR
         rename this by simply saving the following text in an .xsd file and
         submitting it to XJC along with the other schemas you have:</p><div class="example" id="d0e2817"><p class="title"><b>Example&nbsp;27.&nbsp;Schemalet to get rid of org.w3._2001.xmlschema</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;schema</span> <span class="Identifier">xmlns</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span>
   <span class="Identifier">targetNamespace</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span>
-  <span class="Identifier">xmlns:jaxb</span>=<span class="String">"http://java.sun.com/xml/ns/jaxb"</span>
-  <span class="Identifier">jaxb:version</span>=<span class="String">"2.0"</span><span class="ReservedWord">&gt;</span>
+  <span class="Identifier">xmlns:jaxb</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxb"</span>
+  <span class="Identifier">jaxb:version</span>=<span class="String">"3.0"</span><span class="ReservedWord">&gt;</span>
   <span class="ReservedWord">&lt;annotation&gt;</span><span class="ReservedWord">&lt;appinfo&gt;</span>
     <span class="ReservedWord">&lt;jaxb:schemaBindings&gt;</span>
       <span class="ReservedWord">&lt;jaxb:package</span> <span class="Identifier">name</span>=<span class="String">"org.acme.foo"</span><span class="ReservedWord">/&gt;</span>
@@ -435,7 +435,7 @@ PersonEx p = (PersonEx)u.unmarshal(<span class="ReservedWord">new</span> StringR
         Schema".</p></div></div><div lang="en" class="section" id="customization-of-schema-compilation-using-scd-for-customizations"><div class="titlepage"><div><div><h3 class="title">2.2.&nbsp;Using SCD for customizations</h3></div></div></div><p>When using an external customization file, the Jakarta XML Binding spec requires
     that you use XPath as a means to specify what your customization is
     attached to. For example, if you want to change the class name generated
-    from a complex type, you'd write something like:</p><div class="example" id="d0e2830"><p class="title"><b>Example&nbsp;28.&nbsp;External customization example</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;bindings</span> <span class="Identifier">xmlns</span>=<span class="String">"http://java.sun.com/xml/ns/jaxb"</span> <span class="Identifier">version</span>=<span class="String">"2.0"</span> <span class="Identifier">xmlns:xs</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span><span class="ReservedWord">&gt;</span>
+    from a complex type, you'd write something like:</p><div class="example" id="d0e2830"><p class="title"><b>Example&nbsp;28.&nbsp;External customization example</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;bindings</span> <span class="Identifier">xmlns</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxb"</span> <span class="Identifier">version</span>=<span class="String">"3.0"</span> <span class="Identifier">xmlns:xs</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span><span class="ReservedWord">&gt;</span>
   <span class="ReservedWord">&lt;bindings</span> <span class="Identifier">schemaLocation</span>=<span class="String">"../path/to/my.xsd"</span> <span class="Identifier">node</span>=<span class="String">"/xs:schema/xs:complexType[@name='foo']"</span><span class="ReservedWord">&gt;</span>
     <span class="ReservedWord">&lt;class</span> <span class="Identifier">name</span>=<span class="String">"FooType"</span><span class="ReservedWord">/&gt;</span>
   <span class="ReservedWord">&lt;/bindings&gt;</span>
@@ -457,7 +457,7 @@ PersonEx p = (PersonEx)u.unmarshal(<span class="ReservedWord">new</span> StringR
     whereas XPath is designed to refer to XML infoset items like elements and
     attributes, SCD is designed to refer to schema components like element
     declarations or complex types.</p><p>With SCD, the above binding can be written more concisely as
-    follows:</p><div class="example" id="d0e2854"><p class="title"><b>Example&nbsp;29.&nbsp;External customization by SCD</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;bindings</span> <span class="Identifier">xmlns</span>=<span class="String">"http://java.sun.com/xml/ns/jaxb"</span> <span class="Identifier">version</span>=<span class="String">"2.1"</span> <span class="Identifier">xmlns:tns</span>=<span class="String">"http://my.namespace/"</span><span class="ReservedWord">&gt;</span>
+    follows:</p><div class="example" id="d0e2854"><p class="title"><b>Example&nbsp;29.&nbsp;External customization by SCD</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;bindings</span> <span class="Identifier">xmlns</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxb"</span> <span class="Identifier">version</span>=<span class="String">"3.0"</span> <span class="Identifier">xmlns:tns</span>=<span class="String">"http://my.namespace/"</span><span class="ReservedWord">&gt;</span>
   <span class="ReservedWord">&lt;bindings</span> <span class="Identifier">scd</span>=<span class="String">"/type::tns:foo"</span><span class="ReservedWord">&gt;</span>
     <span class="ReservedWord">&lt;class</span> <span class="Identifier">name</span>=<span class="String">"FooType"</span><span class="ReservedWord">/&gt;</span>
   <span class="ReservedWord">&lt;/bindings&gt;</span>
@@ -484,7 +484,7 @@ PersonEx p = (PersonEx)u.unmarshal(<span class="ReservedWord">new</span> StringR
     this. When using external customization file, the Jakarta XML Binding spec requires you
     to use XPath as a means to specify what your customization is attached to.
     For example, if you want to change the class name generated from a complex
-    type, you'd use the following customization:</p><div class="example" id="d0e2907"><p class="title"><b>Example&nbsp;30.&nbsp;Customization to use Calendar for x<code class="literal">s:date</code></b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;bindings</span> <span class="Identifier">xmlns</span>=<span class="String">"http://java.sun.com/xml/ns/jaxb"</span> <span class="Identifier">version</span>=<span class="String">"2.0"</span> <span class="Identifier">xmlns:xs</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span><span class="ReservedWord">&gt;</span>
+    type, you'd use the following customization:</p><div class="example" id="d0e2907"><p class="title"><b>Example&nbsp;30.&nbsp;Customization to use Calendar for x<code class="literal">s:date</code></b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;bindings</span> <span class="Identifier">xmlns</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxb"</span> <span class="Identifier">version</span>=<span class="String">"3.0"</span> <span class="Identifier">xmlns:xs</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span><span class="ReservedWord">&gt;</span>
   <span class="ReservedWord">&lt;globalBindings&gt;</span>
     <span class="ReservedWord">&lt;javaType</span> <span class="Identifier">name</span>=<span class="String">"java.util.Calendar"</span> <span class="Identifier">xmlType</span>=<span class="String">"xs:date"</span>
       <span class="Identifier">parseMethod</span>=<span class="String">"jakarta.xml.bind.DatatypeConverter.parseDate"</span>
@@ -503,7 +503,7 @@ PersonEx p = (PersonEx)u.unmarshal(<span class="ReservedWord">new</span> StringR
     cal.setTime(dt);
     <span class="ReservedWord">return</span> DatatypeConverter.printDate(cal);
   }
-}</pre></div></div><br class="example-break"><p>... then your binding file will be the following:</p><div class="example" id="d0e2928"><p class="title"><b>Example&nbsp;32.&nbsp;Customization to use Date for x<code class="literal">s:date</code></b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;bindings</span> <span class="Identifier">xmlns</span>=<span class="String">"http://java.sun.com/xml/ns/jaxb"</span> <span class="Identifier">version</span>=<span class="String">"2.0"</span> <span class="Identifier">xmlns:xs</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span><span class="ReservedWord">&gt;</span>
+}</pre></div></div><br class="example-break"><p>... then your binding file will be the following:</p><div class="example" id="d0e2928"><p class="title"><b>Example&nbsp;32.&nbsp;Customization to use Date for x<code class="literal">s:date</code></b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;bindings</span> <span class="Identifier">xmlns</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxb"</span> <span class="Identifier">version</span>=<span class="String">"3.0"</span> <span class="Identifier">xmlns:xs</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span><span class="ReservedWord">&gt;</span>
   <span class="ReservedWord">&lt;globalBindings&gt;</span>
     <span class="ReservedWord">&lt;javaType</span> <span class="Identifier">name</span>=<span class="String">"java.util.Date"</span> <span class="Identifier">xmlType</span>=<span class="String">"xs:date"</span>
       <span class="Identifier">parseMethod</span>=<span class="String">"org.acme.foo.DateAadpter.parseDate"</span>
@@ -1359,7 +1359,7 @@ context.generateSchema(<span class="ReservedWord">new</span> MySchemaOutputResol
         implementaion of SchemaGenerator class.</p></div></div><div lang="en" class="section" id="schema-generation-generating-schema-that-you-want"><div class="titlepage"><div><div><h3 class="title">6.2.&nbsp;Generating Schema that you want</h3></div></div></div><p>This section discusses how you can change the generated XML schema.
     For changes that also affect the infoset (such as changing elements to
     attributes, namespaces, etc.), refer to a different section "XML
-    layout and in-memory data layout".</p><div class="section" id="Adding_facets_to_datatypes"><div class="titlepage"><div><div><h4 class="title">6.2.1.&nbsp;Adding facets to datatypes</h4></div></div></div><p>As of Eclipse Implementation of JAXB 3.0.0-M4, currently no support for this, although there
+    layout and in-memory data layout".</p><div class="section" id="Adding_facets_to_datatypes"><div class="titlepage"><div><div><h4 class="title">6.2.1.&nbsp;Adding facets to datatypes</h4></div></div></div><p>As of Eclipse Implementation of JAXB 3.0.0-M5, currently no support for this, although there
         has been several discussions in the users alias.</p><p>The Eclipse Implementation of JAXB project is currently lacking resources to attack this
         problem, and therefore looking for volunteers to work on this project.
         The basic idea would be to define enough annotations to cover the
@@ -1490,7 +1490,7 @@ context.generateSchema(<span class="ReservedWord">new</span> MySchemaOutputResol
 </pre></div></div><p><br class="example-break">
     See also <a class="link" href="ch03.html#schema-generation-invoking-schemagen-programatically" title="6.1.&nbsp;Invoking schemagen programatically">xml schema compiler usage</a>.</p><p>Where are schemagen and xjc command line scripts available in JavaSE prior to 11?
         These are included only in the <a class="link" href="ch03.html#Maven_artifacts" title="7.1.1.&nbsp;Maven coordinates for Eclipse Implementation of JAXB artifacts">zip distribution.</a></p></div></div><div lang="en" class="section" id="deployment-jaxb-on-jpms"><div class="titlepage"><div><div><h3 class="title">7.2.&nbsp;Using Eclipse Implementation of JAXB on JPMS</h3></div></div></div><p>JavaSE 11 features JSR 376 Java Platform Module System.
-        Starting from Eclipse Implementation of JAXB 3.0.0-M4 supports JPMS and can be loaded and used from module path.
+        Starting from Eclipse Implementation of JAXB 3.0.0-M5 supports JPMS and can be loaded and used from module path.
         There are only a few things to be aware of.
     </p><div class="section" id="Jaxb_pojo_openness"><div class="titlepage"><div><div><h4 class="title">7.2.1.&nbsp;Eclipse Implementation of JAXB classes openness</h4></div></div></div><p>
         Eclipse Implementation of JAXB does reflectively access private members of the class, so client application if loaded from module path

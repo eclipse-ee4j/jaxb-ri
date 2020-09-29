@@ -52,14 +52,14 @@ The release includes the following documentation:
 # <a name="Download_Jakarta_Milestone"></a>Download Latest Jakarta XML Binding Milestone Release
 
 The latest milestone of Eclipse Implementation of JAXB is available for
-[download](https://repo1.maven.org/maven2/com/sun/xml/bind/jaxb-ri/3.0.0-M4/jaxb-ri-3.0.0-M4.zip)
+[download](https://repo1.maven.org/maven2/com/sun/xml/bind/jaxb-ri/3.0.0-M5/jaxb-ri-3.0.0-M5.zip)
 as well as for consumption through maven.
 ```
         <dependencies>
             <dependency>
                 <groupId>jakarta.xml.bind</groupId>
                 <artifactId>jakarta.xml.bind-api</artifactId>
-                <version>3.0.0-RC3</version>
+                <version>3.0.0</version>
             </dependency>
         </dependencies>
 
@@ -67,7 +67,7 @@ as well as for consumption through maven.
             <dependency>
                 <groupId>com.sun.xml.bind</groupId>
                 <artifactId>jaxb-impl</artifactId>
-                <version>3.0.0-M4</version>
+                <version>3.0.0-M5</version>
                 <scope>runtime</scope>
             </dependency>
         </dependencies>
@@ -79,4 +79,4 @@ The release includes the following documentation:
 - [Users Guide](3.0.0/docs/ch03.html)
 - [Tools](3.0.0/docs/ch04.html)
 - [Samples](3.0.0/docs/ch01.html#jaxb-2-0-sample-apps)
-- [Change log](https://github.com/eclipse-ee4j/jaxb-ri/releases/tag/3.0.0-M4-RI)
+- [Change log](https://github.com/eclipse-ee4j/jaxb-ri/releases/tag/3.0.0-M5-RI)

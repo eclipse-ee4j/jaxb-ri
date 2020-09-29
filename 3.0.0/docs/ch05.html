@@ -319,7 +319,7 @@ layout: content
             the <code class="literal">scd</code> attribute on &lt;bindings&gt; element instead
             of the <code class="literal">schemaLocation</code> and <code class="literal">node</code>
             attributes.</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;bindings</span> <span class="Identifier">xmlns:tns</span>=<span class="String">"http://example.com/myns"</span>
-          <span class="Identifier">xmlns</span>=<span class="String">"http://java.sun.com/xml/ns/jaxb"</span> <span class="Identifier">version</span>=<span class="String">"2.1"</span><span class="ReservedWord">&gt;</span>
+          <span class="Identifier">xmlns</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxb"</span> <span class="Identifier">version</span>=<span class="String">"3.0"</span><span class="ReservedWord">&gt;</span>
     <span class="ReservedWord">&lt;bindings</span>
             <span class="Identifier">...</span>
             <span class="red">scd="tns:foo"</span>&gt;
@@ -345,10 +345,10 @@ layout: content
             only occur within your <code class="literal">&lt;jaxb:globalBindings&gt;</code>
             customization on the <code class="literal">&lt;xs:schema&gt;</code>
             element:</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;xs:schema</span> <span class="Identifier">xmlns:xs</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span>
-           <span class="Identifier">xmlns:jaxb</span>=<span class="String">"http://java.sun.com/xml/ns/jaxb"</span>
+           <span class="Identifier">xmlns:jaxb</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxb"</span>
            <span class="red">xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
            jaxb:extensionBindingPrefixes="xjc"</span>
-           jaxb:version="2.0"&gt;
+           jaxb:version="3.0"&gt;
 
     <span class="ReservedWord">&lt;xs:annotation&gt;</span>
         <span class="ReservedWord">&lt;xs:appinfo&gt;</span>
@@ -371,10 +371,10 @@ layout: content
             customization can only occur within your
             <code class="literal">&lt;jaxb:globalBindings&gt;</code> customization on the
             <code class="literal">&lt;xs:schema&gt;</code> element:</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;xs:schema</span> <span class="Identifier">xmlns:xs</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span>
-           <span class="Identifier">xmlns:jaxb</span>=<span class="String">"http://java.sun.com/xml/ns/jaxb"</span>
+           <span class="Identifier">xmlns:jaxb</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxb"</span>
            <span class="red">xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
            jaxb:extensionBindingPrefixes="xjc"</span>
-           jaxb:version="2.0"&gt;
+           jaxb:version="3.0"&gt;
 
     <span class="ReservedWord">&lt;xs:annotation&gt;</span>
         <span class="ReservedWord">&lt;xs:appinfo&gt;</span>
@@ -395,10 +395,10 @@ layout: content
             allows you to specify an <code class="literal">XmlAdapter</code>-derived
             class, instead of parse&amp;print method pair.</p><p>This customization can be used in all the places
             &lt;jaxb:javaType&gt; is used, but nowhere else:</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;xs:schema</span> <span class="Identifier">xmlns:xs</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span>
-           <span class="Identifier">xmlns:jaxb</span>=<span class="String">"http://java.sun.com/xml/ns/jaxb"</span>
+           <span class="Identifier">xmlns:jaxb</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxb"</span>
            <span class="red">xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
            jaxb:extensionBindingPrefixes="xjc"</span>
-           jaxb:version="2.0"&gt;
+           jaxb:version="3.0"&gt;
 
     ...
 
@@ -416,10 +416,10 @@ layout: content
 <span class="ReservedWord">&lt;/xsd:schema&gt;</span></pre></div><p>In the above example, <code class="literal">LayerRate_T</code> simple type
             is adapted by <code class="literal">org.acme.foo.LayerRateAdapter</code>, which
             extends from <code class="literal">XmlAdapter</code>.</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;xs:schema</span> <span class="Identifier">xmlns:xs</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span>
-           <span class="Identifier">xmlns:jaxb</span>=<span class="String">"http://java.sun.com/xml/ns/jaxb"</span>
+           <span class="Identifier">xmlns:jaxb</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxb"</span>
            <span class="red">xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
            jaxb:extensionBindingPrefixes="xjc"</span>
-           jaxb:version="2.0"&gt;
+           jaxb:version="3.0"&gt;
 
     <span class="ReservedWord">&lt;xsd:annotation&gt;</span>
         <span class="ReservedWord">&lt;xsd:appinfo&gt;</span>
@@ -438,10 +438,10 @@ layout: content
             <code class="literal">org.acme.foo.MyAdapterImpl</code> to
             <code class="literal">org.acme.foo.MyDateType</code></p></div><div class="section" id="simple"><div class="titlepage"><div><div><h4 class="title">3.1.6.&nbsp;Experimental simpler &amp; better binding mode</h4></div></div></div><p>This experimental binding mode can be enabled as a part of
             the global binding. See below:</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;xs:schema</span> <span class="Identifier">xmlns:xs</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span>
-           <span class="Identifier">xmlns:jaxb</span>=<span class="String">"http://java.sun.com/xml/ns/jaxb"</span>
+           <span class="Identifier">xmlns:jaxb</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxb"</span>
            <span class="red">xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
            jaxb:extensionBindingPrefixes="xjc"</span>
-           jaxb:version="2.0"&gt;
+           jaxb:version="3.0"&gt;
 
     <span class="ReservedWord">&lt;xs:annotation&gt;</span>
         <span class="ReservedWord">&lt;xs:appinfo&gt;</span>
@@ -516,8 +516,8 @@ layout: content
             proper properties. For example, given the following schema:</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">&lt;xs:schema</span> <span class="Identifier">xmlns:xs</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span>
            <span class="Identifier">xmlns:xjc</span>=<span class="String">"http://java.sun.com/xml/ns/jaxb/xjc"</span>
            <span class="Identifier">jaxb:extensionBindingPrefixes</span>=<span class="String">"xjc"</span>
-           <span class="Identifier">xmlns:jaxb</span>=<span class="String">"http://java.sun.com/xml/ns/jaxb"</span>
-           <span class="Identifier">jaxb:version</span>=<span class="String">"2.0"</span>
+           <span class="Identifier">xmlns:jaxb</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxb"</span>
+           <span class="Identifier">jaxb:version</span>=<span class="String">"3.0"</span>
            <span class="Identifier">elementFormDefault</span>=<span class="String">"qualified"</span><span class="ReservedWord">&gt;</span>
 
     <span class="ReservedWord">&lt;xs:annotation&gt;</span>
