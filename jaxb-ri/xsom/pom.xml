@@ -66,7 +66,7 @@
         <spotbugs.version>4.0.4</spotbugs.version>
 
         <relaxng.version>3.0.0-SNAPSHOT</relaxng.version>
-        <junit.version>4.13</junit.version>
+        <junit.version>4.13.1</junit.version>
         <upper.java.level>9</upper.java.level>
         <base.java.level>8</base.java.level>
     </properties>
