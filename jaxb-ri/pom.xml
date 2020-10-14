@@ -79,7 +79,7 @@
         <spotbugs.exclude/>
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>High</spotbugs.threshold>
-        <spotbugs.version>4.0.4</spotbugs.version>
+        <spotbugs.version>4.1.3</spotbugs.version>
 
         <junit.version>4.13.1</junit.version>
 
@@ -313,17 +313,17 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-antrun-plugin</artifactId>
-                    <version>1.8</version>
+                    <version>3.0.0</version>
                     <dependencies>
                         <dependency>
                             <groupId>org.apache.ant</groupId>
                             <artifactId>ant</artifactId>
-                            <version>1.10.7</version>
+                            <version>${ant.version}</version>
                         </dependency>
                         <dependency>
                             <groupId>org.apache.ant</groupId>
                             <artifactId>ant-junit</artifactId>
-                            <version>1.10.7</version>
+                            <version>${ant.version}</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -587,7 +587,7 @@
                         <plugin>
                             <groupId>org.jacoco</groupId>
                             <artifactId>jacoco-maven-plugin</artifactId>
-                            <version>0.8.5</version>
+                            <version>0.8.6</version>
                         </plugin>
                     </plugins>
                 </pluginManagement>
