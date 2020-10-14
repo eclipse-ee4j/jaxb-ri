@@ -63,7 +63,7 @@
         <spotbugs.exclude>${project.basedir}/exclude-xsom.xml</spotbugs.exclude>
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>Low</spotbugs.threshold>
-        <spotbugs.version>4.0.4</spotbugs.version>
+        <spotbugs.version>4.1.3</spotbugs.version>
 
         <relaxng.version>3.0.0-SNAPSHOT</relaxng.version>
         <junit.version>4.13.1</junit.version>
@@ -347,7 +347,7 @@
                         <plugin>
                             <groupId>org.jacoco</groupId>
                             <artifactId>jacoco-maven-plugin</artifactId>
-                            <version>0.8.5</version>
+                            <version>0.8.6</version>
                         </plugin>
                     </plugins>
                 </pluginManagement>

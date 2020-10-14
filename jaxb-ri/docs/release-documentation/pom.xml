@@ -38,7 +38,7 @@
                 <executions>
                     <execution>
                         <configuration>
-                            <tasks>
+                            <target>
                                 <echo message="Preparing char entities"/>
                                 <mkdir dir="${src.dir}"/>
                                 <copy todir="${src.dir}">
@@ -50,7 +50,7 @@
                                 <replace file="${src.dir}/docbook.ent" token="$release.spec.version" value="${release.spec.version}"/>
                                 <replace file="${src.dir}/docbook.ent" token="$release.impl.version.suffix" value="${release.impl.version.suffix}"/>
                                 <replace file="${src.dir}/docbook.ent" token="$release.impl.version" value="${release.impl.version}"/>
-                            </tasks>
+                            </target>
                         </configuration>
                         <id>process-entities</id>
                         <phase>package</phase>
