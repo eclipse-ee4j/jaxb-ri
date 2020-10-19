@@ -509,8 +509,8 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
                 "Unexpected {0} appears at line {1} column {2}",
                 new Object[]{
                         token,
-                        new Integer(getLocator().getLineNumber()),
-                        new Integer(getLocator().getColumnNumber()) }),
+                        Integer.valueOf(getLocator().getLineNumber()),
+                        Integer.valueOf(getLocator().getColumnNumber()) }),
                 getLocator());
     }
 
