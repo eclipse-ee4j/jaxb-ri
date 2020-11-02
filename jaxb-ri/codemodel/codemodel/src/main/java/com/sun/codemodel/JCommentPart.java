@@ -112,34 +112,11 @@ public class JCommentPart extends ArrayList<Object> {
      * Escapes the appearance of the comment terminator.
      */
     private String escape(String s) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            switch (c) {
-                case '<':
-                    sb.append("&lt;");
-                    break;
-                case '>':
-                    sb.append("&gt;");
-                    break;
-                case '@':
-                    sb.append("&#064;");
-                    break;
-                case '&':
-                    sb.append("&amp;");
-                    break;
-                case '*':
-                    sb.append(c);
-                    if (s.charAt(i+1) == '/') {
-                        sb.append("<!---->");
-                        sb.append('/');
-                        i++;
-                    }
-                    break;
-                default:
-                    sb.append(c);
-            }
+        while(true) {
+            int idx = s.indexOf("*/");
+            if(idx <0)   return s;
+
+            s = s.substring(0,idx+1)+"<!---->"+s.substring(idx+1);
         }
-        return sb.toString();
     }
 }
