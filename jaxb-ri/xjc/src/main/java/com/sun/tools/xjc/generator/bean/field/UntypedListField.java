@@ -107,7 +107,7 @@ public class UntypedListField extends AbstractListField {
             "<p>\n" +
             "This accessor method returns a reference to the live list,\n" +
             "not a snapshot. Therefore any modification you make to the\n" +
-            "returned list will be present inside the JAXB object.\n" +
+            "returned list will be present inside the Jakarta XML Binding object.\n" +
             "This is why there is not a <CODE>set</CODE> method for the " +pname+ " property.\n" +
             "\n"+
             "<p>\n" +
