@@ -23,6 +23,7 @@ import javax.xml.stream.XMLStreamReader;
 import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.writer.SingleStreamCodeWriter;
 import com.sun.tools.xjc.ConsoleErrorReporter;
+import java.io.IOException;
 import org.glassfish.jaxb.core.v2.WellKnownNamespace;
 
 import org.glassfish.jaxb.core.v2.util.XmlFactory;
@@ -160,6 +161,14 @@ public class Driver {
             }
 
             System.out.println();
+        }
+    }
+
+    public static void dumpCode(JCodeModel model) {
+        try {
+            model.build(new SingleStreamCodeWriter(System.out));
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
         }
     }
 }
