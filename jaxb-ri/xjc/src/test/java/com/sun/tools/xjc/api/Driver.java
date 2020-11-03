@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,6 +24,7 @@ import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.writer.SingleStreamCodeWriter;
 import com.sun.tools.xjc.ConsoleErrorReporter;
 import com.sun.xml.bind.v2.WellKnownNamespace;
+import java.io.IOException;
 
 import com.sun.xml.bind.v2.util.XmlFactory;
 import org.w3c.dom.Document;
@@ -160,6 +161,14 @@ public class Driver {
             }
 
             System.out.println();
+        }
+    }
+
+    public static void dumpCode(JCodeModel model) {
+        try {
+            model.build(new SingleStreamCodeWriter(System.out));
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
         }
     }
 }
