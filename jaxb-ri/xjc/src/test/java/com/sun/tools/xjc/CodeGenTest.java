@@ -32,7 +32,7 @@ import org.xml.sax.InputSource;
  */
 public class CodeGenTest extends TestCase {
 
-    public void testGh1460() throws Throwable {
+    public void testGh1460_Gh1064() throws Throwable {
         SchemaCompiler sc = XJC.createSchemaCompiler();
         sc.forcePackageName("ghbugs.b1460");
         sc.parseSchema(getInputSource("/schemas/ghbugs.xsd"));
@@ -41,7 +41,16 @@ public class CodeGenTest extends TestCase {
         String method = toString(code._getClass("ghbugs.b1460.Gh1460Type").getMethod("setBinaryAttr", new JType[]{code.parseType("byte[][]")}));
 //        com.sun.tools.xjc.api.Driver.dumpCode(code);
 //        System.out.println(method);
+
+        // wrong initialization of multi-dim array
+        // https://github.com/eclipse-ee4j/jaxb-ri/issues/1460
         assertTrue(method, method.contains("new byte[len][]"));
+
+        // null check in setter
+        // https://github.com/eclipse-ee4j/jaxb-ri/issues/1064
+        assertTrue(method, method.contains("if (values == null) {"));
+        assertTrue(method, method.contains("this.binaryAttr = null;"));
+        assertTrue(method, method.contains("return ;"));
     }
 
     private InputSource getInputSource(String systemId) throws FileNotFoundException, URISyntaxException {
