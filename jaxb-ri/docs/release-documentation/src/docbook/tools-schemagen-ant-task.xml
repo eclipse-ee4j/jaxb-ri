@@ -30,7 +30,7 @@
         <para>The <literal>jaxb-jxc.jar</literal> file contains the
         <literal>SchemaGenTask.class</literal> file, which allows the schema
         generator to be invoked from the <link
-        xlink:href="http://jakarta.apache.org/ant">Ant</link> build tool. To
+        xlink:href="http://ant.apache.org">Ant</link> build tool. To
         use <literal>SchemaGenTask</literal>, include the following statement
         in your <literal>build.xml</literal> file:</para>
 
@@ -72,7 +72,7 @@
 
             <para><literal>schemagen</literal> supports most of the attributes
             defined by <link
-            xlink:href="http://ant.apache.org/manual/CoreTasks/javac.html">the
+            xlink:href="http://ant.apache.org/manual/Tasks/javac.html">the
             javac task</link>, plus the following parameter attributes.</para>
 
             <informaltable frame="all">
@@ -129,7 +129,7 @@
 
             <para><literal>xjc</literal> supports all the nested elements
             defined by <link
-            xlink:href="http://ant.apache.org/manual/CoreTasks/javac.html">the
+            xlink:href="http://ant.apache.org/manual/Tasks/javac.html">the
             javac task</link>, the following nested element parameters.</para>
 
             <section xml:id="section-1989087498722346">

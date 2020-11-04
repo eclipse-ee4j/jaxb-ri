@@ -174,7 +174,7 @@ file:/C:/kohsuke/Sun/JAXB/jaxb-unit/schemas/individual/MathML2/presentation/scri
 
             <para>External &binding.spec.name; customizations are specified by using XPath
             (or using <link
-            xlink:href="customization-of-schema-compilation-using-scd-for-customizations">SCD</link>.)
+            linkend="customization-of-schema-compilation-using-scd-for-customizations">SCD</link>.)
             This works by writing an XPath expression that matches a
             particular element in the schema document. For example, given the
             following schema and binding file:</para>

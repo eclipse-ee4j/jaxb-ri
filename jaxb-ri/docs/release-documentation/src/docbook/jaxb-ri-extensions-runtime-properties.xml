@@ -481,9 +481,9 @@ public abstract class NamespacePrefixMapper {
             <para>This experimental JAXB RI 1.0.x property has been adopted as
             a standard in &binding.impl.name;. The &binding.impl.name; will continue to support this
             property, but client code should be using the <link
-            xlink:href="api/jakarta/xml/bind/Marshaller.html#JAXB_FRAGMENT">Marshaller.JAXB_FRAGMENT</link>
+            xlink:href="https://jakarta.ee/specifications/xml-binding/3.0/apidocs/jakarta.xml.bind/jakarta/xml/bind/Marshaller.html#JAXB_FRAGMENT">Marshaller.JAXB_FRAGMENT</link>
             property instead. Please refer to the <link
-            xlink:href="api/jakarta/xml/bind/Marshaller.html#supportedProps">Marshaller
+            xlink:href="https://jakarta.ee/specifications/xml-binding/3.0/apidocs/jakarta.xml.bind/jakarta/xml/bind/Marshaller.html#supportedProps">Marshaller
             javadoc</link> for a complete description of the behavior.</para>
 
             <para>In &binding.impl.name;, calling:</para>
