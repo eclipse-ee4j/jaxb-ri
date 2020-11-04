@@ -39,7 +39,7 @@
 
         <para>All the other command-line options of the XJC binding compiler
         can be applied. Similarly, the <command>xjc</command> <link
-        xlink:href="http://jakarta.apache.org/ant/">ant</link> task supports
+        xlink:href="http://ant.apache.org/">ant</link> task supports
         DTD. The generated code will be no different from what is generated
         from W3C XML Schema. You'll use the same &binding.spec.name; API to access the
         generated code, and it is portable in the sense that it will run on

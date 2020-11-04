@@ -30,7 +30,7 @@
         <para>The <literal>jaxb-xjc.jar</literal> file contains the
         <literal>XJCTask.class</literal> file, which allows the XJC binding
         compiler to be invoked from the <link
-        xlink:href="http://jakarta.apache.org/ant">Ant</link> build tool. To
+        xlink:href="http://ant.apache.org/">Ant</link> build tool. To
         use <literal>XJCTask</literal>, include the following statement in
         your <literal>build.xml</literal> file:</para>
 
@@ -267,7 +267,7 @@
                 customization), use nested
                 <literal>&lt;classpath&gt;</literal> elements. For the syntax,
                 see <link
-                xlink:href="http://jakarta.apache.org/ant/manual/using.html#path">"path-like
+                xlink:href="http://ant.apache.org//manual/using.html#path">"path-like
                 structure"</link> .</para>
             </section>
 
