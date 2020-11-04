@@ -424,7 +424,7 @@ public final class JPackage implements JDeclaration, JGenerable, JClassContainer
         }
 
         // write package annotations
-        if(annotations!=null || jdoc!=null) {
+        if ((annotations!=null && !annotations.isEmpty()) || jdoc != null) {
             JFormatter f = createJavaSourceFileWriter(src,"package-info");
 
             if (jdoc != null)
@@ -457,7 +457,7 @@ public final class JPackage implements JDeclaration, JGenerable, JClassContainer
             r++;
         }
 
-        if(annotations!=null || jdoc!=null) {
+        if ((annotations!=null && !annotations.isEmpty()) || jdoc != null) {
             r++;
         }
 
