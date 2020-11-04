@@ -40,6 +40,7 @@
             --add-exports org.glassfish.jaxb.xjc/com.sun.tools.xjc.outline=ALL-UNNAMED
             --add-exports org.glassfish.jaxb.xjc/com.sun.tools.xjc.generator.bean=ALL-UNNAMED
             --add-opens org.glassfish.jaxb.xjc/com.sun.tools.xjc.addon.code_injector=ALL-UNNAMED
+            --add-opens org.glassfish.jaxb.xjc/com.sun.tools.xjc.reader.xmlschema.bindinfo=org.glassfish.jaxb.core
             --add-opens org.glassfish.jaxb.core/org.glassfish.jaxb.core.v2.model.nav=ALL-UNNAMED
             -Djdk.attach.allowAttachSelf
         </argLine>
