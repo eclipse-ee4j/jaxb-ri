@@ -156,8 +156,7 @@ class ersSet extends NGCCHandler {
         if(v==null)     return Integer.valueOf($runtime.blockDefault);
         
         if(v.indexOf("#all")!=-1)
-            return new Integer(
-              XSType.EXTENSION|XSType.RESTRICTION|XSType.SUBSTITUTION);
+            return Integer.valueOf(XSType.EXTENSION|XSType.RESTRICTION|XSType.SUBSTITUTION);
         
         int r = 0;
         
