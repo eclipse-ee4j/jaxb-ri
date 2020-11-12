@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -139,6 +139,10 @@ final class ArrayField extends AbstractListField {
         $getLength.body()._return(acc.ref(true).ref("length"));
 
         // [RESULT] void setX(ET[] values) {
+        //     if (values == null) {
+        //         <ref> = null;
+        //         return;
+        //     }
         //     int len = values.length;
         //     for( int i=0; i<len; i++ )
         //         <ref>[i] = values[i];
@@ -149,12 +153,17 @@ final class ArrayField extends AbstractListField {
 
         writer.javadoc().append(prop.javadoc);
         $value = writer.addParameter(exposedType.array(),"values");
+
+        $setAll.body()._if( $value.eq(JExpr._null()) )._then()
+            .assign((JAssignmentTarget) acc.ref(true), JExpr._null())
+             ._return();
+
         JVar $len = $setAll.body().decl(codeModel.INT,"len", $value.ref("length"));
 
         $setAll.body().assign(
                 (JAssignmentTarget) acc.ref(true),
                 castToImplTypeArray(JExpr.newArray(
-                    codeModel.ref(exposedType.erasure().fullName()),
+                    implType,
                     $len)));
 
         JForLoop _for = $setAll.body()._for();

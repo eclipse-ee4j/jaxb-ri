@@ -281,7 +281,7 @@ xjc schema1.xsd schema2.xsd schema3.xsd -b bindings1.xjb -b bindings2.xjb -b bin
                         <para>Specify catalog files to resolve external entity
                         references. Supports TR9401, XCatalog, and OASIS XML
                         Catalog format. Please read the <link
-                        xlink:href="catalog.html">XML Entity and URI
+                        xlink:href="http://xml.apache.org/commons/components/resolver/resolver-article.html">XML Entity and URI
                         Resolvers</link> document or the
                         <literal>catalog-resolver</literal> sample
                         application.</para>
