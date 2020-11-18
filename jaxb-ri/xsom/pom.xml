@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 
-    Copyright (c) 2010, 2020 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2010, 2021 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -65,7 +65,7 @@
         <spotbugs.threshold>Low</spotbugs.threshold>
         <spotbugs.version>4.0.0</spotbugs.version>
 
-        <relaxng.version>2.3.3-b02</relaxng.version>
+        <relaxng.version>${project.version}</relaxng.version>
         <upper.java.level>9</upper.java.level>
         <base.java.level>8</base.java.level>
     </properties>
