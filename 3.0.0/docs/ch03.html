@@ -32,7 +32,7 @@ layout: content
         <code class="option">-nv</code> option in XJC. When you do this, keep in mind
         that you are possibly feeding "garbage" in, so you may see XJC choke
         with some random exception.</p></div><div class="section" id="Property__fooBarZot__is_already_defined"><div class="titlepage"><div><div><h4 class="title">1.1.2.&nbsp;Property 'fooBarZot' is already defined</h4></div></div></div><p>One of the typical errors you'll see when compiling a complex
-        schema is:</p><div class="example" id="d0e2094"><p class="title"><b>Example&nbsp;1.&nbsp;Multiple property definitions error</b></p><div class="example-contents"><pre class="programlisting">parsing a schema...
+        schema is:</p><div class="example" id="d0e2091"><p class="title"><b>Example&nbsp;1.&nbsp;Multiple property definitions error</b></p><div class="example-contents"><pre class="programlisting">parsing a schema...
 [ERROR] Property "MiOrMoOrMn" is already defined.
   line 132 of
 file:/C:/kohsuke/Sun/JAXB/jaxb-unit/schemas/individual/MathML2/presentation/scripts.xsd
@@ -42,7 +42,7 @@ file:/C:/kohsuke/Sun/JAXB/jaxb-unit/schemas/individual/MathML2/presentation/scri
 file:/C:/kohsuke/Sun/JAXB/jaxb-unit/schemas/individual/MathML2/presentation/scripts.xsd</pre></div></div><br class="example-break"><p>This is an actual example of the offending part of a schema,
         taken from MathML. If you go to line 132 of
         <code class="filename">scripts.xsd</code>, you'll see that it has a somewhat
-        complicated content model definition:</p><div class="example" id="d0e2104"><p class="title"><b>Example&nbsp;2.&nbsp;Multiple property definitions in MathML</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;xs:group</span> <span class="Identifier">name</span>=<span class="String">"mmultiscripts.content"</span><span class="ReservedWord">&gt;</span>
+        complicated content model definition:</p><div class="example" id="d0e2101"><p class="title"><b>Example&nbsp;2.&nbsp;Multiple property definitions in MathML</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;xs:group</span> <span class="Identifier">name</span>=<span class="String">"mmultiscripts.content"</span><span class="ReservedWord">&gt;</span>
     <span class="ReservedWord">&lt;xs:sequence&gt;</span>
         <span class="ReservedWord">&lt;xs:group</span> <span class="Identifier">ref</span>=<span class="String">"Presentation-expr.class"</span><span class="ReservedWord">/&gt;</span>
         <span class="ReservedWord">&lt;xs:sequence</span> <span class="Identifier">minOccurs</span>=<span class="String">"0"</span> <span class="Identifier">maxOccurs</span>=<span class="String">"unbounded"</span><span class="ReservedWord">&gt;</span>      <span class="Comment">&lt;!-- line 132 --&gt;</span>
@@ -73,7 +73,7 @@ file:/C:/kohsuke/Sun/JAXB/jaxb-unit/schemas/individual/MathML2/presentation/scri
         the document. You can do this by putting the same
         <code class="literal">&lt;jaxb:property&gt;</code> customization on the whole
         "<code class="literal">mmultiscripts.content</code>" model group, like this (or
-        you can do it externally with XPath):</p><div class="example" id="d0e2145"><p class="title"><b>Example&nbsp;3.&nbsp;How to fix the problem?</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;xs:groupname="mmultiscripts.content"&gt;</span>
+        you can do it externally with XPath):</p><div class="example" id="d0e2142"><p class="title"><b>Example&nbsp;3.&nbsp;How to fix the problem?</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;xs:groupname="mmultiscripts.content"&gt;</span>
 <span class="ReservedWord">&lt;xs:annotation&gt;</span>
     <span class="ReservedWord">&lt;xs:appinfo&gt;</span>
         <span class="ReservedWord">&lt;jaxb:propertyname="content"/&gt;</span>
@@ -104,10 +104,10 @@ file:/C:/kohsuke/Sun/JAXB/jaxb-unit/schemas/individual/MathML2/presentation/scri
         customization doesn't affect the <code class="literal">ObjectFactory</code> method
         name by itself.</p></div><div class="section" id="Customization_errors"><div class="titlepage"><div><div><h4 class="title">1.1.4.&nbsp;Customization errors</h4></div></div></div><div class="section" id="XPath_evaluation_of_____results_in_empty_target_node"><div class="titlepage"><div><div><h5 class="title">1.1.4.1.&nbsp;XPath evaluation of ... results in empty target
             node</h5></div></div></div><p>External Jakarta XML Binding customizations are specified by using XPath
-            (or using <a class="link" href="customization-of-schema-compilation-using-scd-for-customizations" target="_top">SCD</a>.)
+            (or using <a class="link" href="ch03.html#customization-of-schema-compilation-using-scd-for-customizations" title="2.2.&nbsp;Using SCD for customizations">SCD</a>.)
             This works by writing an XPath expression that matches a
             particular element in the schema document. For example, given the
-            following schema and binding file:</p><div class="example" id="d0e2192"><p class="title"><b>Example&nbsp;4.&nbsp;Schema and external binding file</b></p><div class="example-contents"><p><b><code class="filename">test.xsd</code>.&nbsp;</b></p><pre class="programlisting"><span class="ReservedWord">&lt;xs:schema</span> <span class="Identifier">xmlns:xs</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span><span class="ReservedWord">&gt;</span>
+            following schema and binding file:</p><div class="example" id="d0e2189"><p class="title"><b>Example&nbsp;4.&nbsp;Schema and external binding file</b></p><div class="example-contents"><p><b><code class="filename">test.xsd</code>.&nbsp;</b></p><pre class="programlisting"><span class="ReservedWord">&lt;xs:schema</span> <span class="Identifier">xmlns:xs</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span><span class="ReservedWord">&gt;</span>
     <span class="ReservedWord">&lt;xs:complexTypename="foo"/&gt;</span>
 <span class="ReservedWord">&lt;/xs:schema&gt;</span></pre><p><b><code class="filename">test.xjb</code>.&nbsp;</b></p><pre class="programlisting"><span class="ReservedWord">&lt;bindings</span> <span class="Identifier">version</span>=<span class="String">"3.0"</span> <span class="Identifier">xmlns</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxb"</span> <span class="Identifier">xmlns:xs</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span><span class="ReservedWord">&gt;</span>
     <span class="ReservedWord">&lt;bindings</span> <span class="Identifier">schemaLocation</span>=<span class="String">"test.xsd"</span><span class="ReservedWord">&gt;</span>
@@ -122,7 +122,7 @@ file:/C:/kohsuke/Sun/JAXB/jaxb-unit/schemas/individual/MathML2/presentation/scri
             "XPath evaluation of ... results in empty target node"
             problem.</p><p>Common causes of this problem include typos, incorrect
             namespace URI declarations, and misunderstanding of XPath.</p></div></div></div><div lang="en" class="section" id="compiling-xml-schema-fixing-broken-references-in-schema"><div class="titlepage"><div><div><h3 class="title">1.2.&nbsp;Fixing broken references in schema</h3></div></div></div><p>Sometimes a schema may refer to another schema document without
-    indicating where the schema file can be found, like this:</p><div class="example" id="d0e2224"><p class="title"><b>Example&nbsp;5.&nbsp;Schema reference without location</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;xs:import</span> <span class="Identifier">namespace</span>=<span class="String">"http://www.w3.org/1999/xlink"</span><span class="ReservedWord"> /&gt;</span></pre></div></div><br class="example-break"><p>In other cases, a schema may refer to another schema on the network,
+    indicating where the schema file can be found, like this:</p><div class="example" id="d0e2221"><p class="title"><b>Example&nbsp;5.&nbsp;Schema reference without location</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;xs:import</span> <span class="Identifier">namespace</span>=<span class="String">"http://www.w3.org/1999/xlink"</span><span class="ReservedWord"> /&gt;</span></pre></div></div><br class="example-break"><p>In other cases, a schema may refer to another schema on the network,
     which often slows down your compilation process and makes it unreliable.
     Yet in some other cases, a schema may reference another schema in relative
     path, and that may not match your directory structure.</p><p>XJC bundles a <a class="link" href="http://xml.apache.org/commons/components/resolver/resolver-article.html" target="_top">catalog
@@ -134,7 +134,7 @@ file:/C:/kohsuke/Sun/JAXB/jaxb-unit/schemas/individual/MathML2/presentation/scri
         easiest one is a line based <code class="filename">*.cat</code> format. Other than
         comments and empty lines, the file mainly consists of two kinds of
         declarations, <code class="literal">SYSTEM</code>, and
-        <code class="literal">PUBLIC</code>.</p><div class="example" id="d0e2250"><p class="title"><b>Example&nbsp;6.&nbsp;<code class="filename">sample-catalog.cat</code></b></p><div class="example-contents"><pre class="programlisting">--
+        <code class="literal">PUBLIC</code>.</p><div class="example" id="d0e2247"><p class="title"><b>Example&nbsp;6.&nbsp;<code class="filename">sample-catalog.cat</code></b></p><div class="example-contents"><pre class="programlisting">--
   sample catalog file.
 
   double hyphens are used to begin and end a comment section.
@@ -156,7 +156,7 @@ PUBLIC "-//W3C//DTD XMLSCHEMA 200102//EN" "s4s/XMLSchema.dtd"</pre></div></div><
         <span class="emphasis"><em>REFERENCE</em></span> portion must be absolute, and when XJC
         finds a reference in schema, it will first convert that to the
         absolute path before checking the catalog. So what this means is that
-        if your schema is written like this:</p><div class="example" id="d0e2285"><p class="title"><b>Example&nbsp;7.&nbsp;Schema reference by relative path</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;xs:import</span> <span class="Identifier">namespace</span>=<span class="String">"http://www.w3.org/1999/xlink"</span> <span class="Identifier">schemaLocation</span>=<span class="String">"xlink.xsd"</span><span class="ReservedWord"> /&gt;</span></pre></div></div><br class="example-break"><p>Then your catalog entry would have to look like this:</p><div class="example" id="d0e2292"><p class="title"><b>Example&nbsp;8.&nbsp;xlink.cat</b></p><div class="example-contents"><pre class="programlisting">-- this doesn't work because xlink.xsd will be turned into absolute path --
+        if your schema is written like this:</p><div class="example" id="d0e2282"><p class="title"><b>Example&nbsp;7.&nbsp;Schema reference by relative path</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;xs:import</span> <span class="Identifier">namespace</span>=<span class="String">"http://www.w3.org/1999/xlink"</span> <span class="Identifier">schemaLocation</span>=<span class="String">"xlink.xsd"</span><span class="ReservedWord"> /&gt;</span></pre></div></div><br class="example-break"><p>Then your catalog entry would have to look like this:</p><div class="example" id="d0e2289"><p class="title"><b>Example&nbsp;8.&nbsp;xlink.cat</b></p><div class="example-contents"><pre class="programlisting">-- this doesn't work because xlink.xsd will be turned into absolute path --
 SYSTEM "xlink.xsd" "http://www.w3.org/2001/xlink.xsd"
 
 -- this will work, assuming that the above schema is in /path/to/my/test.xsd --
@@ -166,8 +166,8 @@ SYSTEM "/path/to/my/xlink.xsd" "http://www.w3.org/2001/xlink.xsd"</pre></div></d
         <span class="emphasis"><em>ACTUAL-LOCATION</em></span>".</p><p>The "<code class="literal">PUBLICID</code>" version is used to resolve DTDs and entities in
         DTDs. But this type of entry is also used to resolve <code class="literal">&lt;xs:import&gt;</code>
         statements. XJC will match the value of the namespace attribute and
-        see if there's any matching entry. So given a schema like this:</p><div class="example" id="d0e2322"><p class="title"><b>Example&nbsp;9.&nbsp;Schema import</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;xs:import</span> <span class="Identifier">namespace</span>=<span class="String">"http://www.w3.org/1999/xlink"</span> <span class="Identifier">schemaLocation</span>=<span class="String">"xlink.xsd"</span><span class="ReservedWord"> /&gt;</span>
-<span class="ReservedWord">&lt;xs:import</span> <span class="Identifier">namespace</span>=<span class="String">"http://www.w3.org/1998/Math/MathML"</span><span class="ReservedWord"> /&gt;</span></pre></div></div><br class="example-break"><p>The following catalog entries will match them.</p><div class="example" id="d0e2329"><p class="title"><b>Example&nbsp;10.&nbsp;by-publicid.cat</b></p><div class="example-contents"><pre class="programlisting">PUBLIC "http://www.w3.org/1999/xlink" "http://www.w3.org/2001/xlink.xsd"
+        see if there's any matching entry. So given a schema like this:</p><div class="example" id="d0e2319"><p class="title"><b>Example&nbsp;9.&nbsp;Schema import</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;xs:import</span> <span class="Identifier">namespace</span>=<span class="String">"http://www.w3.org/1999/xlink"</span> <span class="Identifier">schemaLocation</span>=<span class="String">"xlink.xsd"</span><span class="ReservedWord"> /&gt;</span>
+<span class="ReservedWord">&lt;xs:import</span> <span class="Identifier">namespace</span>=<span class="String">"http://www.w3.org/1998/Math/MathML"</span><span class="ReservedWord"> /&gt;</span></pre></div></div><br class="example-break"><p>The following catalog entries will match them.</p><div class="example" id="d0e2326"><p class="title"><b>Example&nbsp;10.&nbsp;by-publicid.cat</b></p><div class="example-contents"><pre class="programlisting">PUBLIC "http://www.w3.org/1999/xlink" "http://www.w3.org/2001/xlink.xsd"
 PUBLIC "http://www.w3.org/1998/Math/MathML" "/path/to/my/mathml.xsd"</pre></div></div><br class="example-break"><p>As you can see, XJC will check the PUBLIC entries regardless of
         whether <code class="literal">&lt;xs:import&gt;</code> has the schemaLocation attribute or not. As
         with the case with the SYSTEM entry, the ACTUAL-LOCATION part can be
@@ -193,14 +193,14 @@ PUBLIC "http://www.w3.org/1998/Math/MathML" "/path/to/my/mathml.xsd"</pre></div>
                     command line option to Ant/Maven.</p></dd></dl></div><p>If you are otherwise invoking XJC programmatically, you can set
         the above system property before invoking XJC.</p></div></div><div lang="en" class="section" id="compiling-xml-schema-mapping-of-xs-any"><div class="titlepage"><div><div><h3 class="title">1.3.&nbsp;Mapping of <code class="literal">&lt;xs:any /&gt;</code></h3></div></div></div><p>XJC binds <code class="literal">&lt;xs:any /&gt;</code> in the following ways:</p><div class="section" id="processContents__skip_"><div class="titlepage"><div><div><h4 class="title">1.3.1.&nbsp;<code class="literal">processContents="skip"</code></h4></div></div></div><p><code class="literal">&lt;xs:any /&gt;</code> with <code class="code">processContents=skip</code> means
         any well-formed XML elements can be placed. Therefore, XJC binds this
-        to DOM <code class="literal">Element</code> interface.</p><div class="example" id="d0e2434"><p class="title"><b>Example&nbsp;11.&nbsp;Any/Skip schema</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;xs:element</span> <span class="Identifier">name</span>=<span class="String">"person"</span><span class="ReservedWord">&gt;</span>
+        to DOM <code class="literal">Element</code> interface.</p><div class="example" id="d0e2431"><p class="title"><b>Example&nbsp;11.&nbsp;Any/Skip schema</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;xs:element</span> <span class="Identifier">name</span>=<span class="String">"person"</span><span class="ReservedWord">&gt;</span>
   <span class="ReservedWord">&lt;xs:complexType&gt;</span>
     <span class="ReservedWord">&lt;xs:sequence&gt;</span>
       <span class="ReservedWord">&lt;xs:element</span> <span class="Identifier">name</span>=<span class="String">"name"</span> <span class="Identifier">type</span>=<span class="String">"xs:string"</span><span class="ReservedWord"> /&gt;</span>
       <span class="ReservedWord">&lt;xs:any</span> <span class="Identifier">processContents</span>=<span class="String">"skip"</span> <span class="Identifier">maxOccurs</span>=<span class="String">"unbounded"</span> <span class="Identifier">minOccurs</span>=<span class="String">"0"</span><span class="ReservedWord"> /&gt;</span>
     <span class="ReservedWord">&lt;/xs:sequence&gt;</span>
   <span class="ReservedWord">&lt;/xs:complexType&gt;</span>
-<span class="ReservedWord">&lt;/xs:element&gt;</span></pre></div></div><br class="example-break"><div class="example" id="d0e2439"><p class="title"><b>Example&nbsp;12.&nbsp;Any/Skip binding</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">import</span> org.w3c.dom.Element;
+<span class="ReservedWord">&lt;/xs:element&gt;</span></pre></div></div><br class="example-break"><div class="example" id="d0e2436"><p class="title"><b>Example&nbsp;12.&nbsp;Any/Skip binding</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">import</span> org.w3c.dom.Element;
 
 <span class="Annotation">@XmlRootElement</span>
 <span class="ReservedWord">class</span> Person {
@@ -215,14 +215,14 @@ PUBLIC "http://www.w3.org/1998/Math/MathML" "/path/to/my/mathml.xsd"</pre></div>
         corresponding schema definitions. This mode is not what people
         typically expect as "<code class="literal">wildcard</code>", but this is the default. The following
         shows this binding. (<code class="code">lax=true</code> is unintuitive, but it's
-        not an error in this document):</p><div class="example" id="d0e2464"><p class="title"><b>Example&nbsp;13.&nbsp;Any/Strict schema</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;xs:element</span> <span class="Identifier">name</span>=<span class="String">"person"</span><span class="ReservedWord">&gt;</span>
+        not an error in this document):</p><div class="example" id="d0e2461"><p class="title"><b>Example&nbsp;13.&nbsp;Any/Strict schema</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;xs:element</span> <span class="Identifier">name</span>=<span class="String">"person"</span><span class="ReservedWord">&gt;</span>
   <span class="ReservedWord">&lt;xs:complexType&gt;</span>
     <span class="ReservedWord">&lt;xs:sequence&gt;</span>
       <span class="ReservedWord">&lt;xs:element</span> <span class="Identifier">name</span>=<span class="String">"name"</span> <span class="Identifier">type</span>=<span class="String">"xs:string"</span><span class="ReservedWord"> /&gt;</span>
       <span class="ReservedWord">&lt;xs:any</span> <span class="Identifier">maxOccurs</span>=<span class="String">"unbounded"</span> <span class="Identifier">minOccurs</span>=<span class="String">"0"</span><span class="ReservedWord"> /&gt;</span>
     <span class="ReservedWord">&lt;/xs:sequence&gt;</span>
   <span class="ReservedWord">&lt;/xs:complexType&gt;</span>
-<span class="ReservedWord">&lt;/xs:element&gt;</span></pre></div></div><br class="example-break"><div class="example" id="d0e2469"><p class="title"><b>Example&nbsp;14.&nbsp;Any/Strict binding</b></p><div class="example-contents"><pre class="programlisting"><span class="Annotation">@XmlRootElement</span>
+<span class="ReservedWord">&lt;/xs:element&gt;</span></pre></div></div><br class="example-break"><div class="example" id="d0e2466"><p class="title"><b>Example&nbsp;14.&nbsp;Any/Strict binding</b></p><div class="example-contents"><pre class="programlisting"><span class="Annotation">@XmlRootElement</span>
 <span class="ReservedWord">class</span> Person {
   <span class="ReservedWord">public</span> String getName();
   <span class="ReservedWord">public</span> <span class="ReservedWord">void</span> setName(String);
@@ -266,7 +266,7 @@ PUBLIC "http://www.w3.org/1998/Math/MathML" "/path/to/my/mathml.xsd"</pre></div>
                 transformation doesn't affect XML instance documents.</p></li><li class="listitem"><p>Perhaps there can be a plugin that eases the pain of
                 this, such as by defining common interfaces among
                 copies.</p></li></ol></div></div></div><div lang="en" class="section" id="compiling-xml-schema-adding-behaviors"><div class="titlepage"><div><div><h3 class="title">1.6.&nbsp;Adding behaviors</h3></div></div></div><p><span class="emphasis"><em>Adding behaviors to the generated code is one area that
-    still needs improvement. Your feedback is appreciated.</em></span></p><p>Suppose if Eclipse Implementation of JAXB generated the following classes.</p><div class="example" id="d0e2561"><p class="title"><b>Example&nbsp;15.&nbsp;Simple Eclipse Implementation of JAXB Generated Code</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">package</span> org.acme.foo;
+    still needs improvement. Your feedback is appreciated.</em></span></p><p>Suppose if Eclipse Implementation of JAXB generated the following classes.</p><div class="example" id="d0e2558"><p class="title"><b>Example&nbsp;15.&nbsp;Simple Eclipse Implementation of JAXB Generated Code</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">package</span> org.acme.foo;
 
 <span class="Annotation">@XmlRootElement</span>
 <span class="ReservedWord">class</span> Person {
@@ -285,7 +285,7 @@ PUBLIC "http://www.w3.org/1998/Math/MathML" "/path/to/my/mathml.xsd"</pre></div>
     them in a separate package. This is because we'd like
     <code class="literal">PersonEx</code> class to be used in place of <code class="literal">Person</code>,
     and we don't want <code class="literal">PersonEx</code> to be bound to its own XML
-    type.</p><div class="example" id="d0e2580"><p class="title"><b>Example&nbsp;16.&nbsp;Extended Person class</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">package</span> org.acme.foo.impl;
+    type.</p><div class="example" id="d0e2577"><p class="title"><b>Example&nbsp;16.&nbsp;Extended Person class</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">package</span> org.acme.foo.impl;
 
 <span class="ReservedWord">class</span> PersonEx <span class="ReservedWord">extends</span> Person {
   <span class="Annotation">@Override</span>
@@ -302,20 +302,20 @@ PUBLIC "http://www.w3.org/1998/Math/MathML" "/path/to/my/mathml.xsd"</pre></div>
     <span class="ReservedWord">return</span> <span class="ReservedWord">new</span> PersonEx();
   }
 }</pre></div></div><br class="example-break"><p>At runtime, you can create <code class="literal">JAXBContext</code> normally, like
-    this.</p><div class="example" id="d0e2590"><p class="title"><b>Example&nbsp;17.&nbsp;Creating JAXBContext</b></p><div class="example-contents"><pre class="programlisting">JAXBContext context = JAXBContext.newInstance(ObjectFactory.<span class="ReservedWord">class</span>);
+    this.</p><div class="example" id="d0e2587"><p class="title"><b>Example&nbsp;17.&nbsp;Creating JAXBContext</b></p><div class="example-contents"><pre class="programlisting">JAXBContext context = JAXBContext.newInstance(ObjectFactory.<span class="ReservedWord">class</span>);
 <span class="Comment">// or JAXBContext.newInstance("org.acme.foo");</span></pre></div></div><br class="example-break"><p><code class="literal">PersonEx</code> can be marshalled out just like
-    <code class="literal">Person</code>:</p><div class="example" id="d0e2602"><p class="title"><b>Example&nbsp;18.&nbsp;Marshalling</b></p><div class="example-contents"><pre class="programlisting">Person p = <span class="ReservedWord">new</span> PersonEx();
+    <code class="literal">Person</code>:</p><div class="example" id="d0e2599"><p class="title"><b>Example&nbsp;18.&nbsp;Marshalling</b></p><div class="example-contents"><pre class="programlisting">Person p = <span class="ReservedWord">new</span> PersonEx();
 context.createMarshaller().marshal(p,System.out);
 <span class="Comment">// this will produce &lt;person /&gt;</span></pre></div></div><br class="example-break"><p>To unmarshal XML documents into <code class="literal">PersonEx</code>, you'll need
     to configure the unmarshaller to use your <code class="literal">ObjectFactoryEx</code> as
-    the factory, like this:</p><div class="example" id="d0e2615"><p class="title"><b>Example&nbsp;19.&nbsp;Unmarshalling</b></p><div class="example-contents"><pre class="programlisting">Unmarshaller u = context.createUnmarshaller();
+    the factory, like this:</p><div class="example" id="d0e2612"><p class="title"><b>Example&nbsp;19.&nbsp;Unmarshalling</b></p><div class="example-contents"><pre class="programlisting">Unmarshaller u = context.createUnmarshaller();
 u.setProperty(<span class="String">"org.glassfish.jaxb.ObjectFactory"</span>,<span class="ReservedWord">new</span> ObjectFactoryEx());
 PersonEx p = (PersonEx)u.unmarshal(<span class="ReservedWord">new</span> StringReader(<span class="String">"&lt;person /&gt;"</span>));</pre></div></div><br class="example-break"><p>If you have multiple packages and thus multiple
     <code class="literal">ObjectFactory</code>s, you can pass in an array of them (<code class="code">new
     Object[]{new OFEx1(),new OFEx2(),...}</code>.)</p><div class="section" id="Inserting_your_class_in_the_middle"><div class="titlepage"><div><div><h4 class="title">1.6.1.&nbsp;Inserting your class in the middle</h4></div></div></div><p>If you have a type hierarchy and would like to insert your class
         in the middle, you can use the combination of <code class="literal">XmlTransient</code>
         and <code class="literal">@implClass</code> of <code class="literal">&lt;class&gt;</code>
-        customization. See the following example:</p><div class="example" id="d0e2642"><p class="title"><b>Example&nbsp;20.&nbsp;Hierarchy of types and <code class="literal">&lt;jaxb:class implClass&gt;</code></b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;xs:schema</span> <span class="Identifier">...&gt;</span>
+        customization. See the following example:</p><div class="example" id="d0e2639"><p class="title"><b>Example&nbsp;20.&nbsp;Hierarchy of types and <code class="literal">&lt;jaxb:class implClass&gt;</code></b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;xs:schema</span> <span class="Identifier">...&gt;</span>
   <span class="Identifier">&lt;xs:complexType</span> <span class="Identifier">name</span>=<span class="String">"vehicle"</span><span class="ReservedWord">&gt;</span>
     <span class="ReservedWord">&lt;xs:annotation&gt;</span><span class="ReservedWord">&lt;xs:appinfo&gt;</span>
       <span class="ReservedWord">&lt;jaxb:class</span> <span class="Identifier">implClass</span>=<span class="String">"MyVehicle"</span><span class="ReservedWord"> /&gt;</span>
@@ -333,7 +333,7 @@ PersonEx p = (PersonEx)u.unmarshal(<span class="ReservedWord">new</span> StringR
       <span class="ReservedWord">&lt;xs:extension</span> <span class="Identifier">base</span>=<span class="String">"vehicle"</span><span class="ReservedWord"> /&gt;</span>
     <span class="ReservedWord">&lt;/xs:complexContent&gt;</span>
   <span class="ReservedWord">&lt;/xs:complexType&gt;</span>
-<span class="ReservedWord">&lt;/xs:schema&gt;</span></pre></div></div><br class="example-break"><div class="example" id="d0e2649"><p class="title"><b>Example&nbsp;21.&nbsp;This creates a class hierarchy like the following (among
+<span class="ReservedWord">&lt;/xs:schema&gt;</span></pre></div></div><br class="example-break"><div class="example" id="d0e2646"><p class="title"><b>Example&nbsp;21.&nbsp;This creates a class hierarchy like the following (among
             the generated Java code):</b></p><div class="example-contents"><pre class="programlisting">            Vehicle
                ^
                |
@@ -349,7 +349,7 @@ PersonEx p = (PersonEx)u.unmarshal(<span class="ReservedWord">new</span> StringR
         type-safe enum. This can be convenient when number of constants is too
         large to be an useful enum (by default, the Jakarta XML Binding spec won't generate
         enum with more than 256 constants, but even 100 might be too large for
-        you.)</p><div class="example" id="d0e2676"><p class="title"><b>Example&nbsp;22.&nbsp;Avoid mapping one simple type</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;xs:simpleType</span> <span class="Identifier">name</span>=<span class="String">"foo"</span><span class="ReservedWord">&gt;</span>
+        you.)</p><div class="example" id="d0e2673"><p class="title"><b>Example&nbsp;22.&nbsp;Avoid mapping one simple type</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;xs:simpleType</span> <span class="Identifier">name</span>=<span class="String">"foo"</span><span class="ReservedWord">&gt;</span>
   <span class="ReservedWord">&lt;xs:annotation&gt;</span><span class="ReservedWord">&lt;xs:appinfo&gt;</span>
     <span class="ReservedWord">&lt;jaxb:typesafeEnumClass</span> <span class="Identifier">map</span>=<span class="String">"false"</span><span class="ReservedWord"> /&gt;</span>
   <span class="ReservedWord">&lt;/xs:appinfo&gt;</span><span class="ReservedWord">&lt;/xs:annotation&gt;</span>
@@ -361,7 +361,7 @@ PersonEx p = (PersonEx)u.unmarshal(<span class="ReservedWord">new</span> StringR
 <span class="ReservedWord">&lt;/xs:simpleType&gt;</span></pre></div></div><br class="example-break"><p>To disable such type-safe enum binding altogether for the entire
         schema, use a global binding setting like this (this is actually
         telling XJC not to generate enums if a simple type has more than 0
-        constants --- the net effect is no enum generation):</p><div class="example" id="d0e2683"><p class="title"><b>Example&nbsp;23.&nbsp;Avoid generating enums at all</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;xs:schema</span> <span class="Identifier">...&gt;</span>
+        constants --- the net effect is no enum generation):</p><div class="example" id="d0e2680"><p class="title"><b>Example&nbsp;23.&nbsp;Avoid generating enums at all</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;xs:schema</span> <span class="Identifier">...&gt;</span>
   <span class="Identifier">&lt;xs:annotation&gt;&lt;xs:appinfo&gt;</span>
     <span class="Identifier">&lt;jaxb:globalBindings</span> <span class="Identifier">typesafeEnumMaxMembers</span>=<span class="String">"0"</span><span class="ReservedWord"> /&gt;</span>
   <span class="ReservedWord">&lt;/xs:appinfo&gt;</span><span class="ReservedWord">&lt;/xs:annotation&gt;</span>
@@ -372,7 +372,7 @@ PersonEx p = (PersonEx)u.unmarshal(<span class="ReservedWord">new</span> StringR
                 <code class="literal">&lt;xs:simpleType&gt;</code>)</p></li><li class="listitem"><p>Model groups
                 (<code class="literal">&lt;xs:choice&gt;</code>,<code class="literal">&lt;xs:all&gt;</code>,<code class="literal">&lt;xs:sequence&gt;</code>)</p></li><li class="listitem"><p>Model group declarations (<code class="literal">&lt;xs:group&gt;</code>)</p></li><li class="listitem"><p>Particles</p></li><li class="listitem"><p>Element declarations (<code class="literal">&lt;xs:element&gt;</code>)</p></li></ul></div><p>In the following example, a wildcard is mapped to a DOM node.
         Each element that matches to the wildcard will be turned into a DOM
-        tree.</p><div class="example" id="d0e2741"><p class="title"><b>Example&nbsp;24.&nbsp;Dom Customization example</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;xs:schema</span> <span class="Identifier">xmlns:xs</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span>
+        tree.</p><div class="example" id="d0e2738"><p class="title"><b>Example&nbsp;24.&nbsp;Dom Customization example</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;xs:schema</span> <span class="Identifier">xmlns:xs</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span>
                <span class="Identifier">xmlns:jaxb</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxb"</span>
                <span class="Identifier">jaxb:version</span>=<span class="String">"3.0"</span><span class="ReservedWord">&gt;</span>
 
@@ -401,12 +401,12 @@ PersonEx p = (PersonEx)u.unmarshal(<span class="ReservedWord">new</span> StringR
         There was a suggestion by another user that <a class="link" href="http://beanlib.sourceforge.net/" target="_top">beanlib</a> has been
         used successfully to clone Jakarta XML Binding objects.</p></div></div></div><div lang="en" class="section" id="customization-of-schema-compilation"><div class="titlepage"><div><div><h2 class="title" style="clear: both">2.&nbsp;Customization of Schema Compilation</h2></div></div></div><div lang="en" class="section" id="customization-of-schema-compilation-customizing-java-packages"><div class="titlepage"><div><div><h3 class="title">2.1.&nbsp;Customizing Java packages</h3></div></div></div><p>The Jakarta XML Binding specification provides a <code class="literal">&lt;jaxb:schemaBindings&gt;</code>
     customization so that you can control which namespace goes to which
-    package. See the example below:</p><div class="example" id="d0e2782"><p class="title"><b>Example&nbsp;25.&nbsp;package customization</b></p><div class="example-contents"><pre class="programlisting">    <span class="ReservedWord">&lt;jaxb:schemaBindings&gt;</span>
+    package. See the example below:</p><div class="example" id="d0e2779"><p class="title"><b>Example&nbsp;25.&nbsp;package customization</b></p><div class="example-contents"><pre class="programlisting">    <span class="ReservedWord">&lt;jaxb:schemaBindings&gt;</span>
       <span class="ReservedWord">&lt;jaxb:package</span> <span class="Identifier">name</span>=<span class="String">"org.acme.foo"</span><span class="ReservedWord">/&gt;</span>
     <span class="ReservedWord">&lt;/jaxb:schemaBindings&gt;</span></pre></div></div><br class="example-break"><p>You can do this as an internal customization (in which case you put
     this in <code class="literal">&lt;xs:annotation&gt;</code><code class="literal">&lt;xs:appinfo&gt;</code> under place it right under
     the <code class="literal">&lt;xs:schema&gt;</code> element), or do this as an external customization,
-    like this:</p><div class="example" id="d0e2797"><p class="title"><b>Example&nbsp;26.&nbsp;External package customization</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;bindings</span> <span class="Identifier">xmlns</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxb"</span> <span class="Identifier">version</span>=<span class="String">"3.0"</span><span class="ReservedWord">&gt;</span>
+    like this:</p><div class="example" id="d0e2794"><p class="title"><b>Example&nbsp;26.&nbsp;External package customization</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;bindings</span> <span class="Identifier">xmlns</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxb"</span> <span class="Identifier">version</span>=<span class="String">"3.0"</span><span class="ReservedWord">&gt;</span>
   <span class="ReservedWord">&lt;bindings</span> <span class="Identifier">schemaLocation</span>=<span class="String">"../path/to/my.xsd"</span><span class="ReservedWord">&gt;</span>
     <span class="ReservedWord">&lt;schemaBindings&gt;</span>
       <span class="ReservedWord">&lt;package</span> <span class="Identifier">name</span>=<span class="String">"org.acme.foo"</span><span class="ReservedWord">/&gt;</span>
@@ -420,7 +420,7 @@ PersonEx p = (PersonEx)u.unmarshal(<span class="ReservedWord">new</span> StringR
         the XML Schema built-in namespace of
         <code class="code">http://www.w3.org/2001/XMLSchema</code>.</p><p>Since this package name is most often problematic, you can
         rename this by simply saving the following text in an .xsd file and
-        submitting it to XJC along with the other schemas you have:</p><div class="example" id="d0e2817"><p class="title"><b>Example&nbsp;27.&nbsp;Schemalet to get rid of org.w3._2001.xmlschema</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;schema</span> <span class="Identifier">xmlns</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span>
+        submitting it to XJC along with the other schemas you have:</p><div class="example" id="d0e2814"><p class="title"><b>Example&nbsp;27.&nbsp;Schemalet to get rid of org.w3._2001.xmlschema</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;schema</span> <span class="Identifier">xmlns</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span>
   <span class="Identifier">targetNamespace</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span>
   <span class="Identifier">xmlns:jaxb</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxb"</span>
   <span class="Identifier">jaxb:version</span>=<span class="String">"3.0"</span><span class="ReservedWord">&gt;</span>
@@ -435,7 +435,7 @@ PersonEx p = (PersonEx)u.unmarshal(<span class="ReservedWord">new</span> StringR
         Schema".</p></div></div><div lang="en" class="section" id="customization-of-schema-compilation-using-scd-for-customizations"><div class="titlepage"><div><div><h3 class="title">2.2.&nbsp;Using SCD for customizations</h3></div></div></div><p>When using an external customization file, the Jakarta XML Binding spec requires
     that you use XPath as a means to specify what your customization is
     attached to. For example, if you want to change the class name generated
-    from a complex type, you'd write something like:</p><div class="example" id="d0e2830"><p class="title"><b>Example&nbsp;28.&nbsp;External customization example</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;bindings</span> <span class="Identifier">xmlns</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxb"</span> <span class="Identifier">version</span>=<span class="String">"3.0"</span> <span class="Identifier">xmlns:xs</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span><span class="ReservedWord">&gt;</span>
+    from a complex type, you'd write something like:</p><div class="example" id="d0e2827"><p class="title"><b>Example&nbsp;28.&nbsp;External customization example</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;bindings</span> <span class="Identifier">xmlns</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxb"</span> <span class="Identifier">version</span>=<span class="String">"3.0"</span> <span class="Identifier">xmlns:xs</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span><span class="ReservedWord">&gt;</span>
   <span class="ReservedWord">&lt;bindings</span> <span class="Identifier">schemaLocation</span>=<span class="String">"../path/to/my.xsd"</span> <span class="Identifier">node</span>=<span class="String">"/xs:schema/xs:complexType[@name='foo']"</span><span class="ReservedWord">&gt;</span>
     <span class="ReservedWord">&lt;class</span> <span class="Identifier">name</span>=<span class="String">"FooType"</span><span class="ReservedWord">/&gt;</span>
   <span class="ReservedWord">&lt;/bindings&gt;</span>
@@ -457,7 +457,7 @@ PersonEx p = (PersonEx)u.unmarshal(<span class="ReservedWord">new</span> StringR
     whereas XPath is designed to refer to XML infoset items like elements and
     attributes, SCD is designed to refer to schema components like element
     declarations or complex types.</p><p>With SCD, the above binding can be written more concisely as
-    follows:</p><div class="example" id="d0e2854"><p class="title"><b>Example&nbsp;29.&nbsp;External customization by SCD</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;bindings</span> <span class="Identifier">xmlns</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxb"</span> <span class="Identifier">version</span>=<span class="String">"3.0"</span> <span class="Identifier">xmlns:tns</span>=<span class="String">"http://my.namespace/"</span><span class="ReservedWord">&gt;</span>
+    follows:</p><div class="example" id="d0e2851"><p class="title"><b>Example&nbsp;29.&nbsp;External customization by SCD</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;bindings</span> <span class="Identifier">xmlns</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxb"</span> <span class="Identifier">version</span>=<span class="String">"3.0"</span> <span class="Identifier">xmlns:tns</span>=<span class="String">"http://my.namespace/"</span><span class="ReservedWord">&gt;</span>
   <span class="ReservedWord">&lt;bindings</span> <span class="Identifier">scd</span>=<span class="String">"/type::tns:foo"</span><span class="ReservedWord">&gt;</span>
     <span class="ReservedWord">&lt;class</span> <span class="Identifier">name</span>=<span class="String">"FooType"</span><span class="ReservedWord">/&gt;</span>
   <span class="ReservedWord">&lt;/bindings&gt;</span>
@@ -484,7 +484,7 @@ PersonEx p = (PersonEx)u.unmarshal(<span class="ReservedWord">new</span> StringR
     this. When using external customization file, the Jakarta XML Binding spec requires you
     to use XPath as a means to specify what your customization is attached to.
     For example, if you want to change the class name generated from a complex
-    type, you'd use the following customization:</p><div class="example" id="d0e2907"><p class="title"><b>Example&nbsp;30.&nbsp;Customization to use Calendar for x<code class="literal">s:date</code></b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;bindings</span> <span class="Identifier">xmlns</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxb"</span> <span class="Identifier">version</span>=<span class="String">"3.0"</span> <span class="Identifier">xmlns:xs</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span><span class="ReservedWord">&gt;</span>
+    type, you'd use the following customization:</p><div class="example" id="d0e2904"><p class="title"><b>Example&nbsp;30.&nbsp;Customization to use Calendar for x<code class="literal">s:date</code></b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;bindings</span> <span class="Identifier">xmlns</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxb"</span> <span class="Identifier">version</span>=<span class="String">"3.0"</span> <span class="Identifier">xmlns:xs</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span><span class="ReservedWord">&gt;</span>
   <span class="ReservedWord">&lt;globalBindings&gt;</span>
     <span class="ReservedWord">&lt;javaType</span> <span class="Identifier">name</span>=<span class="String">"java.util.Calendar"</span> <span class="Identifier">xmlType</span>=<span class="String">"xs:date"</span>
       <span class="Identifier">parseMethod</span>=<span class="String">"jakarta.xml.bind.DatatypeConverter.parseDate"</span>
@@ -493,7 +493,7 @@ PersonEx p = (PersonEx)u.unmarshal(<span class="ReservedWord">new</span> StringR
   <span class="ReservedWord">&lt;/globalBindings&gt;</span>
 <span class="ReservedWord">&lt;/bindings&gt;</span></pre></div></div><br class="example-break"><p>Save this in a file and specify this to Eclipse Implementation of JAXB with the "-b"
     option.</p><p>To use the <code class="literal">Date</code> class, you'll need to do a bit more
-    work. First, put the following class into your source tree:</p><div class="example" id="d0e2921"><p class="title"><b>Example&nbsp;31.&nbsp;Adapter for Date</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">package</span> org.acme.foo;
+    work. First, put the following class into your source tree:</p><div class="example" id="d0e2918"><p class="title"><b>Example&nbsp;31.&nbsp;Adapter for Date</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">package</span> org.acme.foo;
 <span class="ReservedWord">public</span> <span class="ReservedWord">class</span> DateAdapter {
   <span class="ReservedWord">public</span> <span class="ReservedWord">static</span> Date parseDate(String s) {
     <span class="ReservedWord">return</span> DatatypeConverter.parseDate(s).getTime();
@@ -503,7 +503,7 @@ PersonEx p = (PersonEx)u.unmarshal(<span class="ReservedWord">new</span> StringR
     cal.setTime(dt);
     <span class="ReservedWord">return</span> DatatypeConverter.printDate(cal);
   }
-}</pre></div></div><br class="example-break"><p>... then your binding file will be the following:</p><div class="example" id="d0e2928"><p class="title"><b>Example&nbsp;32.&nbsp;Customization to use Date for x<code class="literal">s:date</code></b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;bindings</span> <span class="Identifier">xmlns</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxb"</span> <span class="Identifier">version</span>=<span class="String">"3.0"</span> <span class="Identifier">xmlns:xs</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span><span class="ReservedWord">&gt;</span>
+}</pre></div></div><br class="example-break"><p>... then your binding file will be the following:</p><div class="example" id="d0e2925"><p class="title"><b>Example&nbsp;32.&nbsp;Customization to use Date for x<code class="literal">s:date</code></b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;bindings</span> <span class="Identifier">xmlns</span>=<span class="String">"https://jakarta.ee/xml/ns/jaxb"</span> <span class="Identifier">version</span>=<span class="String">"3.0"</span> <span class="Identifier">xmlns:xs</span>=<span class="String">"http://www.w3.org/2001/XMLSchema"</span><span class="ReservedWord">&gt;</span>
   <span class="ReservedWord">&lt;globalBindings&gt;</span>
     <span class="ReservedWord">&lt;javaType</span> <span class="Identifier">name</span>=<span class="String">"java.util.Date"</span> <span class="Identifier">xmlType</span>=<span class="String">"xs:date"</span>
       <span class="Identifier">parseMethod</span>=<span class="String">"org.acme.foo.DateAadpter.parseDate"</span>
@@ -532,10 +532,10 @@ PersonEx p = (PersonEx)u.unmarshal(<span class="ReservedWord">new</span> StringR
         you want to marshal to Jakarta XML Binding, then you can use
         <code class="literal">XmlJavaTypeAdapter</code>.</p></div><div class="section" id="HashMap"><div class="titlepage"><div><div><h4 class="title">3.1.2.&nbsp;HashMap</h4></div></div></div><p>Jakarta XML Binding spec defines a special handling for <code class="literal">Map</code> when
         it's used as a propety of a bean. For example, the following bean
-        would produce XMLs like the following:</p><div class="example" id="d0e2980"><p class="title"><b>Example&nbsp;33.&nbsp;Bean with Map</b></p><div class="example-contents"><pre class="programlisting"><span class="Annotation">@XmlRootElement</span>
+        would produce XMLs like the following:</p><div class="example" id="d0e2977"><p class="title"><b>Example&nbsp;33.&nbsp;Bean with Map</b></p><div class="example-contents"><pre class="programlisting"><span class="Annotation">@XmlRootElement</span>
 <span class="ReservedWord">class</span> Foo {
   <span class="ReservedWord">public</span> HashMap&lt;String,Integer&gt; map;
-}</pre></div></div><br class="example-break"><div class="example" id="d0e2985"><p class="title"><b>Example&nbsp;34.&nbsp;XML representation</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;foo&gt;</span>
+}</pre></div></div><br class="example-break"><div class="example" id="d0e2982"><p class="title"><b>Example&nbsp;34.&nbsp;XML representation</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;foo&gt;</span>
   <span class="ReservedWord">&lt;map&gt;</span>
     <span class="ReservedWord">&lt;entry&gt;</span>
       <span class="ReservedWord">&lt;key&gt;</span>a<span class="ReservedWord">&lt;/key&gt;</span>
@@ -552,13 +552,13 @@ PersonEx p = (PersonEx)u.unmarshal(<span class="ReservedWord">new</span> StringR
         such case, <code class="literal">HashMap</code> will be treated as a Java bean, and
         when you look at <code class="literal">HashMap</code> as a bean it defines no
         getter/setter property pair, so the following code would produce the
-        following XML:</p><div class="example" id="d0e3004"><p class="title"><b>Example&nbsp;35.&nbsp;Bean with Map</b></p><div class="example-contents"><pre class="programlisting">m = <span class="ReservedWord">new</span> HashMap();
+        following XML:</p><div class="example" id="d0e3001"><p class="title"><b>Example&nbsp;35.&nbsp;Bean with Map</b></p><div class="example-contents"><pre class="programlisting">m = <span class="ReservedWord">new</span> HashMap();
 m.put(<span class="String">"abc"</span>,<span class="Numeric">1</span>);
-marshaller.marshal(<span class="ReservedWord">new</span> JAXBElement(<span class="ReservedWord">new</span> QName(<span class="String">"root"</span>),HashMap.<span class="ReservedWord">class</span>,m),System.out);</pre></div></div><br class="example-break"><div class="example" id="d0e3009"><p class="title"><b>Example&nbsp;36.&nbsp;XML representation</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;root /&gt;</span></pre></div></div><br class="example-break"><p>This issue has been recorded as <a class="link" href="https://github.com/eclipse-ee4j/jaxb-ri/issues/223" target="_top">#223</a>
+marshaller.marshal(<span class="ReservedWord">new</span> JAXBElement(<span class="ReservedWord">new</span> QName(<span class="String">"root"</span>),HashMap.<span class="ReservedWord">class</span>,m),System.out);</pre></div></div><br class="example-break"><div class="example" id="d0e3006"><p class="title"><b>Example&nbsp;36.&nbsp;XML representation</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;root /&gt;</span></pre></div></div><br class="example-break"><p>This issue has been recorded as <a class="link" href="https://github.com/eclipse-ee4j/jaxb-ri/issues/223" target="_top">#223</a>
         and the fix needs to happen in later versions of the Jakarta XML Binding spec.</p><p>In the mean time, such top-level objects have to be first
         adapted to a bean that Jakarta XML Binding can process. This has added benefit of
         being able to control XML representation better. The following code
-        illustrates how to do this:</p><div class="example" id="d0e3021"><p class="title"><b>Example&nbsp;37.&nbsp;Adapting HashMap</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">public</span> <span class="ReservedWord">class</span> MyHashMapType {
+        illustrates how to do this:</p><div class="example" id="d0e3018"><p class="title"><b>Example&nbsp;37.&nbsp;Adapting HashMap</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">public</span> <span class="ReservedWord">class</span> MyHashMapType {
     <span class="ReservedWord">public</span> List&lt;MyHashMapEntryType&gt; entry = <span class="ReservedWord">new</span> ArrayList&lt;MyHashMapEntryType&gt;();
     <span class="ReservedWord">public</span> MyHashMapType(Map&lt;String,Integer&gt; map) {
         <span class="ReservedWord">for</span>( Map.Entry&lt;String,Integer&gt; e : map.entrySet() )
@@ -588,7 +588,7 @@ marshaller.marshal(<span class="ReservedWord">new</span> JAXBElement(<span class
         instance document.</p></div></div><div lang="en" class="section" id="annotating-your-classes-mapping-interfaces"><div class="titlepage"><div><div><h3 class="title">3.2.&nbsp;Mapping interfaces</h3></div></div></div><p>Because of the difference between the XML type system induced by W3C
     XML Schema and the Java type system, Jakarta XML Binding cannot bind interfaces out of
     the box, but there are a few things you can do.</p><div class="section" id="Use__XmlRootElement"><div class="titlepage"><div><div><h4 class="title">3.2.1.&nbsp;Use <code class="literal">@XmlRootElement</code></h4></div></div></div><p>When your interface is implemented by a large number of
-        sub-classes, consider using <code class="literal">XmlRootElement</code> annotation like this:</p><div class="example" id="d0e3053"><p class="title"><b>Example&nbsp;38.&nbsp;XmlRootElement for open-ended interfaces</b></p><div class="example-contents"><pre class="programlisting"><span class="Annotation">@XmlRootElement</span>
+        sub-classes, consider using <code class="literal">XmlRootElement</code> annotation like this:</p><div class="example" id="d0e3050"><p class="title"><b>Example&nbsp;38.&nbsp;XmlRootElement for open-ended interfaces</b></p><div class="example-contents"><pre class="programlisting"><span class="Annotation">@XmlRootElement</span>
 <span class="ReservedWord">class</span> Zoo {
   <span class="Annotation">@XmlAnyElement</span>
   <span class="ReservedWord">public</span> List&lt;Animal&gt; animals;
@@ -604,7 +604,7 @@ marshaller.marshal(<span class="ReservedWord">new</span> JAXBElement(<span class
 <span class="ReservedWord">class</span> Dog <span class="ReservedWord">implements</span> Animal { ... }
 
 <span class="Annotation">@XmlRootElement</span>
-<span class="ReservedWord">class</span> Lion <span class="ReservedWord">implements</span> Animal { ... }</pre></div></div><br class="example-break"><p>This will produce XML documents like this:</p><div class="example" id="d0e3060"><p class="title"><b>Example&nbsp;39.&nbsp;XML for XmlRootElement</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;zoo&gt;</span>
+<span class="ReservedWord">class</span> Lion <span class="ReservedWord">implements</span> Animal { ... }</pre></div></div><br class="example-break"><p>This will produce XML documents like this:</p><div class="example" id="d0e3057"><p class="title"><b>Example&nbsp;39.&nbsp;XML for XmlRootElement</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;zoo&gt;</span>
     <span class="ReservedWord">&lt;lion&gt;</span> ... <span class="ReservedWord">&lt;/lion&gt;</span>
     <span class="ReservedWord">&lt;dog&gt;</span> ... <span class="ReservedWord">&lt;/dog&gt;</span>
 <span class="ReservedWord">&lt;/zoo&gt;</span></pre></div></div><br class="example-break"><p>The key characteristics of this approach is:</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>Implementations are open-ended; anyone can implement
@@ -616,7 +616,7 @@ marshaller.marshal(<span class="ReservedWord">new</span> JAXBElement(<span class
                 <code class="code">type=Object.class</code> portion tells Jakarta XML Binding that the
                 greatest common base type of all implementations would be
                 <code class="literal">java.lang.Object</code>.</p></li></ol></div><p><code class="literal">@XmlElementWrapper</code> is often useful with this,
-        as it allows you need to group them. Such as:</p><div class="example" id="d0e3093"><p class="title"><b>Example&nbsp;40.&nbsp;XmlRootElement for open-ended interfaces</b></p><div class="example-contents"><pre class="programlisting"><span class="Annotation">@XmlRootElement</span>
+        as it allows you need to group them. Such as:</p><div class="example" id="d0e3090"><p class="title"><b>Example&nbsp;40.&nbsp;XmlRootElement for open-ended interfaces</b></p><div class="example-contents"><pre class="programlisting"><span class="Annotation">@XmlRootElement</span>
 <span class="ReservedWord">class</span> Zoo {
   <span class="Annotation">@XmlElementWrapper</span>
   <span class="Annotation">@XmlAnyElement</span>
@@ -624,7 +624,7 @@ marshaller.marshal(<span class="ReservedWord">new</span> JAXBElement(<span class
   <span class="Annotation">@XmlElementWrapper</span>
   <span class="Annotation">@XmlAnyElement</span>
   <span class="ReservedWord">public</span> List&lt;Animal&gt; resting;
-}</pre></div></div><br class="example-break"><div class="example" id="d0e3098"><p class="title"><b>Example&nbsp;41.&nbsp;Effect of XmlElementWrapper</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;zoo&gt;</span>
+}</pre></div></div><br class="example-break"><div class="example" id="d0e3095"><p class="title"><b>Example&nbsp;41.&nbsp;Effect of XmlElementWrapper</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;zoo&gt;</span>
     <span class="ReservedWord">&lt;onExhibit&gt;</span>
         <span class="ReservedWord">&lt;lion&gt;</span> ... <span class="ReservedWord">&lt;/lion&gt;</span>
         <span class="ReservedWord">&lt;dog&gt;</span> ... <span class="ReservedWord">&lt;/dog&gt;</span>
@@ -635,7 +635,7 @@ marshaller.marshal(<span class="ReservedWord">new</span> JAXBElement(<span class
     <span class="ReservedWord">&lt;/resting&gt;</span>
 <span class="ReservedWord">&lt;/zoo&gt;</span></pre></div></div><br class="example-break"></div><div class="section" id="Use__XmlJavaTypeAdapter"><div class="titlepage"><div><div><h4 class="title">3.2.2.&nbsp;Use <code class="literal">@XmlJavaTypeAdapter</code></h4></div></div></div><p>When you use interfaces just to hide your implementation classes
         from exposure, and when there's 1-to-1 (or close to 1-on-1)
-        relationship between a class and an interface, <code class="literal">XmlJavaTypeAdapter</code> can be used like below.</p><div class="example" id="d0e3113"><p class="title"><b>Example&nbsp;42.&nbsp;XmlJavaTypeAdapter for interfaces</b></p><div class="example-contents"><pre class="programlisting"><span class="Annotation">@XmlJavaTypeAdapter(FooImpl.Adapter.class)</span>
+        relationship between a class and an interface, <code class="literal">XmlJavaTypeAdapter</code> can be used like below.</p><div class="example" id="d0e3110"><p class="title"><b>Example&nbsp;42.&nbsp;XmlJavaTypeAdapter for interfaces</b></p><div class="example-contents"><pre class="programlisting"><span class="Annotation">@XmlJavaTypeAdapter(FooImpl.Adapter.class)</span>
 <span class="ReservedWord">interface</span> IFoo {
   ...
 }
@@ -656,7 +656,7 @@ marshaller.marshal(<span class="ReservedWord">new</span> JAXBElement(<span class
 <span class="ReservedWord">class</span> Somewhere {
   <span class="ReservedWord">public</span> IFoo lhs;
   <span class="ReservedWord">public</span> IFoo rhs;
-}</pre></div></div><br class="example-break"><div class="example" id="d0e3118"><p class="title"><b>Example&nbsp;43.&nbsp;XML of XmlJavaTypeAdapter</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;somewhere&gt;</span>
+}</pre></div></div><br class="example-break"><div class="example" id="d0e3115"><p class="title"><b>Example&nbsp;43.&nbsp;XML of XmlJavaTypeAdapter</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;somewhere&gt;</span>
   <span class="ReservedWord">&lt;lhs</span> <span class="Identifier">name</span>=<span class="String">"..."</span><span class="ReservedWord">&gt;</span>
     <span class="ReservedWord">&lt;x&gt;</span>5<span class="ReservedWord">&lt;/x&gt;</span>
   <span class="ReservedWord">&lt;/lhs&gt;</span>
@@ -667,7 +667,7 @@ marshaller.marshal(<span class="ReservedWord">new</span> JAXBElement(<span class
                 through an adapter, although changing an adapter code will
                 allow you to support multiple implementations.</p></li><li class="listitem"><p>There's no need of any annotation in where interfaces
                 are used.</p></li></ol></div><p>A variation of this technique is when you have a few
-        implementations for interface, not just one.</p><div class="example" id="d0e3134"><p class="title"><b>Example&nbsp;44.&nbsp;XmlJavaTypeAdapter for interfaces with multiple
+        implementations for interface, not just one.</p><div class="example" id="d0e3131"><p class="title"><b>Example&nbsp;44.&nbsp;XmlJavaTypeAdapter for interfaces with multiple
             implementations</b></p><div class="example-contents"><pre class="programlisting"><span class="Annotation">@XmlJavaTypeAdapter(AbstractFooImpl.Adapter.class)</span>
 <span class="ReservedWord">interface</span> IFoo {
   ...
@@ -694,7 +694,7 @@ marshaller.marshal(<span class="ReservedWord">new</span> JAXBElement(<span class
 <span class="ReservedWord">class</span> Somewhere {
   <span class="ReservedWord">public</span> IFoo lhs;
   <span class="ReservedWord">public</span> IFoo rhs;
-}</pre></div></div><br class="example-break"><div class="example" id="d0e3139"><p class="title"><b>Example&nbsp;45.&nbsp;XML of XmlJavaTypeAdapter with multiple
+}</pre></div></div><br class="example-break"><div class="example" id="d0e3136"><p class="title"><b>Example&nbsp;45.&nbsp;XML of XmlJavaTypeAdapter with multiple
             implementations</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;somewhere&gt;</span>
   <span class="ReservedWord">&lt;lhs</span> <span class="Identifier">xsi:type</span>=<span class="String">"someFooImpl"</span> <span class="Identifier">name</span>=<span class="String">"..."</span><span class="ReservedWord">&gt;</span>
   <span class="ReservedWord">&lt;/lhs&gt;</span>
@@ -703,7 +703,7 @@ marshaller.marshal(<span class="ReservedWord">new</span> JAXBElement(<span class
         <code class="literal">AnotherFooImpl</code> must be submitted to
         <code class="literal">JAXBContext.newInstance</code> one way or the other.</p><p>To take this example a bit further, you can use
         <code class="literal">Object</code> instead of <code class="literal">AbstractFooImpl</code>. The
-        following example illustarates this:</p><div class="example" id="d0e3163"><p class="title"><b>Example&nbsp;46.&nbsp;XmlJavaTypeAdapter for interfaces with multiple
+        following example illustarates this:</p><div class="example" id="d0e3160"><p class="title"><b>Example&nbsp;46.&nbsp;XmlJavaTypeAdapter for interfaces with multiple
             implementations</b></p><div class="example-contents"><pre class="programlisting"><span class="Annotation">@XmlJavaTypeAdapter(AnyTypeAdapter.class)</span>
 <span class="ReservedWord">interface</span> IFoo {
   ...
@@ -721,7 +721,7 @@ marshaller.marshal(<span class="ReservedWord">new</span> JAXBElement(<span class
 <span class="ReservedWord">class</span> Somewhere {
   <span class="ReservedWord">public</span> IFoo lhs;
   <span class="ReservedWord">public</span> IFoo rhs;
-}</pre></div></div><br class="example-break"><div class="example" id="d0e3168"><p class="title"><b>Example&nbsp;47.&nbsp;Corresponding schema</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;xs:complexType</span> <span class="Identifier">name</span>=<span class="String">"somewhere"</span><span class="ReservedWord">&gt;</span>
+}</pre></div></div><br class="example-break"><div class="example" id="d0e3165"><p class="title"><b>Example&nbsp;47.&nbsp;Corresponding schema</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;xs:complexType</span> <span class="Identifier">name</span>=<span class="String">"somewhere"</span><span class="ReservedWord">&gt;</span>
   <span class="ReservedWord">&lt;xs:sequence&gt;</span>
     <span class="ReservedWord">&lt;xs:element</span> <span class="Identifier">name</span>=<span class="String">"lhs"</span> <span class="Identifier">type</span>=<span class="String">"xs:anyType"</span> <span class="Identifier">minOccurs</span>=<span class="String">"0"</span><span class="ReservedWord">/&gt;</span>
     <span class="ReservedWord">&lt;xs:element</span> <span class="Identifier">name</span>=<span class="String">"rhs"</span> <span class="Identifier">type</span>=<span class="String">"xs:anyType"</span> <span class="Identifier">minOccurs</span>=<span class="String">"0"</span><span class="ReservedWord">/&gt;</span>
@@ -734,7 +734,7 @@ marshaller.marshal(<span class="ReservedWord">new</span> JAXBElement(<span class
         defines this adapter. So you won't have to write this adapter in your
         code.</p></div><div class="section" id="Use__XmlElement"><div class="titlepage"><div><div><h4 class="title">3.2.3.&nbsp;Use <code class="literal">@XmlElement</code></h4></div></div></div><p>If the use of interface is very little and there's 1-to-1 (or
         close to) relationship between interfaces and implementations, then
-        you might find <code class="literal">XmlElement</code> to be the least amount of work.</p><div class="example" id="d0e3191"><p class="title"><b>Example&nbsp;48.&nbsp;XmlElement for interfaces</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">interface</span> IFoo {
+        you might find <code class="literal">XmlElement</code> to be the least amount of work.</p><div class="example" id="d0e3188"><p class="title"><b>Example&nbsp;48.&nbsp;XmlElement for interfaces</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">interface</span> IFoo {
   ...
 }
 <span class="ReservedWord">class</span> FooImpl <span class="ReservedWord">implements</span> IFoo {
@@ -744,7 +744,7 @@ marshaller.marshal(<span class="ReservedWord">new</span> JAXBElement(<span class
 <span class="ReservedWord">class</span> Somewhere {
   <span class="Annotation">@XmlElement(type=FooImpl.class)</span>
   <span class="ReservedWord">public</span> IFoo lhs;
-}</pre></div></div><br class="example-break"><div class="example" id="d0e3196"><p class="title"><b>Example&nbsp;49.&nbsp;XML of XmlElement</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;somewhere&gt;</span>
+}</pre></div></div><br class="example-break"><div class="example" id="d0e3193"><p class="title"><b>Example&nbsp;49.&nbsp;XML of XmlElement</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;somewhere&gt;</span>
   <span class="ReservedWord">&lt;lhs&gt;</span> ... <span class="ReservedWord">&lt;/lhs&gt;</span>
 <span class="ReservedWord">&lt;/somewhere&gt;</span></pre></div></div><br class="example-break"><p>This effectively tells Jakarta XML Binding runtime that "even though the field
         is <code class="literal">IFoo</code>, it's really just <code class="literal">FooImpl</code>.</p><p>In this approach, a reference to an interface has to have
@@ -806,7 +806,7 @@ marshaller.marshal(<span class="ReservedWord">new</span> JAXBElement(<span class
                 <code class="literal">name</code> parameter of <code class="literal">XmlElement</code>, <code class="literal">XmlAttribute</code> et al, you can change Java
                 property names without affecting XML, or change XML without
                 affecting Java properties. These are backward and forward
-                semi-compatible. See below:</p></li><li class="listitem"><div class="example" id="d0e3315"><p class="title"><b>Example&nbsp;50.&nbsp;Changing Java without affecting XML</b></p><div class="example-contents"><pre class="programlisting"><span class="Comment">// BEFORE</span>
+                semi-compatible. See below:</p></li><li class="listitem"><div class="example" id="d0e3312"><p class="title"><b>Example&nbsp;50.&nbsp;Changing Java without affecting XML</b></p><div class="example-contents"><pre class="programlisting"><span class="Comment">// BEFORE</span>
 <span class="ReservedWord">public</span> <span class="ReservedWord">class</span> Foo {
     <span class="ReservedWord">public</span> String abc;
 }
@@ -814,7 +814,7 @@ marshaller.marshal(<span class="ReservedWord">new</span> JAXBElement(<span class
 <span class="ReservedWord">public</span> <span class="ReservedWord">class</span> Foo {
     <span class="Annotation">@XmlElement(name="abc")</span>
     <span class="ReservedWord">public</span> String def;
-}</pre></div></div><br class="example-break"><div class="example" id="d0e3320"><p class="title"><b>Example&nbsp;51.&nbsp;Changing XML without affecting Java</b></p><div class="example-contents"><pre class="programlisting"><span class="Comment">// BEFORE</span>
+}</pre></div></div><br class="example-break"><div class="example" id="d0e3317"><p class="title"><b>Example&nbsp;51.&nbsp;Changing XML without affecting Java</b></p><div class="example-contents"><pre class="programlisting"><span class="Comment">// BEFORE</span>
 <span class="ReservedWord">public</span> <span class="ReservedWord">class</span> Foo {
     <span class="ReservedWord">public</span> String abc;
 }
@@ -831,14 +831,14 @@ marshaller.marshal(<span class="ReservedWord">new</span> JAXBElement(<span class
                 so changing <code class="literal">int</code> to <code class="literal">String</code> would be a
                 backward compatible and forward semi-compatible change. <code class="literal">XmlJavaTypeAdapter</code> allows you to make
                 changes to Java without affecting XML (or vice versa.)</p></li></ol></div></div><div class="section" id="Changing_class_names"><div class="titlepage"><div><div><h4 class="title">3.3.5.&nbsp;Changing class names</h4></div></div></div><p><code class="literal">XmlType</code> and <code class="literal">XmlRootElement</code> allows you to change a class name
-        without affecting XML.</p><div class="example" id="d0e3359"><p class="title"><b>Example&nbsp;52.&nbsp;Changing class name without affecting XML (1)</b></p><div class="example-contents"><pre class="programlisting"><span class="Comment">// BEFORE</span>
+        without affecting XML.</p><div class="example" id="d0e3356"><p class="title"><b>Example&nbsp;52.&nbsp;Changing class name without affecting XML (1)</b></p><div class="example-contents"><pre class="programlisting"><span class="Comment">// BEFORE</span>
 <span class="Annotation">@XmlRootElement</span>
 <span class="ReservedWord">public</span> <span class="ReservedWord">class</span> Foo { ... }
 
 <span class="Comment">// AFTER: no XML change</span>
 <span class="Annotation">@XmlRootElement(name="foo")</span>
 <span class="Annotation">@XmlType(name="foo")</span>
-<span class="ReservedWord">public</span> <span class="ReservedWord">class</span> Bar { ... }</pre></div></div><br class="example-break"><div class="example" id="d0e3364"><p class="title"><b>Example&nbsp;53.&nbsp;Changing class name without affecting XML (2)</b></p><div class="example-contents"><pre class="programlisting"><span class="Comment">// BEFORE</span>
+<span class="ReservedWord">public</span> <span class="ReservedWord">class</span> Bar { ... }</pre></div></div><br class="example-break"><div class="example" id="d0e3361"><p class="title"><b>Example&nbsp;53.&nbsp;Changing class name without affecting XML (2)</b></p><div class="example-contents"><pre class="programlisting"><span class="Comment">// BEFORE</span>
 <span class="ReservedWord">public</span> <span class="ReservedWord">class</span> Foo { ... }
 
 <span class="Comment">// AFTER: no XML change</span>
@@ -857,7 +857,7 @@ XML
         then the <code class="literal">XmlJavaTypeAdapter</code> annotation is used to tell
         Jakarta XML Binding where and what adapters kick in.</p><p>(TODO: more info about XmlJavaTypeAdapter needed)</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>adapting a class</p></li><li class="listitem"><p>adapting a property</p></li><li class="listitem"><p>adapting an external class</p></li><li class="listitem"><p>adapting a collection and its effect</p></li><li class="listitem"><p>adapting and using interfaces</p></li></ol></div></div><div class="section" id="Using_XmlJavaTypeAdapter_for_element_attribute_values"><div class="titlepage"><div><div><h4 class="title">3.4.2.&nbsp;Using XmlJavaTypeAdapter for element/attribute values</h4></div></div></div><p>One of the common use cases of <code class="literal">XmlJavaTypeAdapter</code> is to map a "value object" to
         a string in XML. The following example illustrates how to do this, by
-        using <code class="literal">java.awt.Color</code> as an example.</p><div class="example" id="d0e3432"><p class="title"><b>Example&nbsp;54.&nbsp;Mapping Color to #RRGGBB</b></p><div class="example-contents"><pre class="programlisting"><span class="Annotation">@XmlRootElement</span>
+        using <code class="literal">java.awt.Color</code> as an example.</p><div class="example" id="d0e3429"><p class="title"><b>Example&nbsp;54.&nbsp;Mapping Color to #RRGGBB</b></p><div class="example-contents"><pre class="programlisting"><span class="Annotation">@XmlRootElement</span>
 <span class="ReservedWord">class</span> Box {
   <span class="Annotation">@XmlJavaTypeAdapter(ColorAdapter.class)</span>
   <span class="Annotation">@XmlElement</span>
@@ -871,13 +871,13 @@ XML
   <span class="ReservedWord">public</span> String marshal(Color c) {
     <span class="ReservedWord">return</span> <span class="String">"#"</span>+Integer.toHexString(c.getRGB());
   }
-}</pre></div></div><br class="example-break"><p>This maps to the following XML representation:</p><div class="example" id="d0e3439"><p class="title"><b>Example&nbsp;55.&nbsp;Box instance</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;box&gt;</span>
+}</pre></div></div><br class="example-break"><p>This maps to the following XML representation:</p><div class="example" id="d0e3436"><p class="title"><b>Example&nbsp;55.&nbsp;Box instance</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;box&gt;</span>
   <span class="ReservedWord">&lt;fill&gt;</span>#112233<span class="ReservedWord">&lt;/fill&gt;</span>
 <span class="ReservedWord">&lt;/box&gt;</span></pre></div></div><br class="example-break"><p>Since <code class="literal">XmlJavaTypeAdapter</code> is on a field, this adapter
         only kicks in for this particular field. If you have many
         <code class="literal">Color</code> fields and would like them all to use the same
-        adapter, you can move the annotation to a package:</p><div class="example" id="d0e3452"><p class="title"><b>Example&nbsp;56.&nbsp;package-info.java</b></p><div class="example-contents"><pre class="programlisting"><span class="Annotation">@XmlJavaTypeAdapter(type=Color.class,value=ColorAdapter.class)</span>
-<span class="ReservedWord">package</span> foo;</pre></div></div><br class="example-break"><div class="example" id="d0e3457"><p class="title"><b>Example&nbsp;57.&nbsp;Box.java</b></p><div class="example-contents"><pre class="programlisting"><span class="Annotation">@XmlRootElement</span>
+        adapter, you can move the annotation to a package:</p><div class="example" id="d0e3449"><p class="title"><b>Example&nbsp;56.&nbsp;package-info.java</b></p><div class="example-contents"><pre class="programlisting"><span class="Annotation">@XmlJavaTypeAdapter(type=Color.class,value=ColorAdapter.class)</span>
+<span class="ReservedWord">package</span> foo;</pre></div></div><br class="example-break"><div class="example" id="d0e3454"><p class="title"><b>Example&nbsp;57.&nbsp;Box.java</b></p><div class="example-contents"><pre class="programlisting"><span class="Annotation">@XmlRootElement</span>
 <span class="ReservedWord">class</span> Box {
   <span class="Annotation">@XmlElement</span> Color fill;
   <span class="Annotation">@XmlElement</span> Color border;
@@ -885,7 +885,7 @@ XML
         <code class="literal">foo</code> package to use the same specified adapter.</p><p>Also see the <code class="literal">DatatypeConverter</code> class that defines a
         series of basic conversion routines that you may find useful.</p></div><div class="section" id="Pair_property"><div class="titlepage"><div><div><h4 class="title">3.4.3.&nbsp;Pair property</h4></div></div></div><p>Another useful technique is to define two properties, one for
         Jakarta XML Binding and the other for your application. See the following
-        example:</p><div class="example" id="d0e3477"><p class="title"><b>Example&nbsp;58.&nbsp;Pair property sample</b></p><div class="example-contents"><pre class="programlisting"><span class="Annotation">@XmlRootElement</span>
+        example:</p><div class="example" id="d0e3474"><p class="title"><b>Example&nbsp;58.&nbsp;Pair property sample</b></p><div class="example-contents"><pre class="programlisting"><span class="Annotation">@XmlRootElement</span>
 <span class="ReservedWord">class</span> Person {
   <span class="ReservedWord">private</span> <span class="ReservedWord">int</span> age;
 
@@ -920,7 +920,7 @@ XML
     means to "tell" Jakarta XML Binding how to handle a cycle. This chapter talks about
     various techniques to do this.</p><div class="section" id="Parent_pointers"><div class="titlepage"><div><div><h4 class="title">3.5.1.&nbsp;Parent pointers</h4></div></div></div><p>One of the very common forms of cycle is a parent pointer. The
         following example illustrates a typical parent pointer, and how this
-        can be turned into "natural" XML:</p><div class="example" id="d0e3509"><p class="title"><b>Example&nbsp;59.&nbsp;Classes with parent pointer</b></p><div class="example-contents"><pre class="programlisting"><span class="Annotation">@XmlRootElement</span>
+        can be turned into "natural" XML:</p><div class="example" id="d0e3506"><p class="title"><b>Example&nbsp;59.&nbsp;Classes with parent pointer</b></p><div class="example-contents"><pre class="programlisting"><span class="Annotation">@XmlRootElement</span>
 <span class="ReservedWord">class</span> Department {
   <span class="Annotation">@XmlAttribute</span>
   String name;
@@ -937,7 +937,7 @@ XML
   <span class="ReservedWord">public</span> <span class="ReservedWord">void</span> afterUnmarshal(Unmarshaller u, Object parent) {
     <span class="ReservedWord">this</span>.department = (Department)parent;
   }
-}</pre></div></div><br class="example-break"><p>This will produce the following XML:</p><div class="example" id="d0e3516"><p class="title"><b>Example&nbsp;60.&nbsp;XML view of department</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;department</span> <span class="Identifier">name</span>=<span class="String">"accounting"</span><span class="ReservedWord">&gt;</span>
+}</pre></div></div><br class="example-break"><p>This will produce the following XML:</p><div class="example" id="d0e3513"><p class="title"><b>Example&nbsp;60.&nbsp;XML view of department</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;department</span> <span class="Identifier">name</span>=<span class="String">"accounting"</span><span class="ReservedWord">&gt;</span>
   <span class="ReservedWord">&lt;employee</span> <span class="Identifier">name</span>=<span class="String">"Joe Chin"</span><span class="ReservedWord"> /&gt;</span>
   <span class="ReservedWord">&lt;employee</span> <span class="Identifier">name</span>=<span class="String">"Adam Smith"</span><span class="ReservedWord"> /&gt;</span>
   ...
@@ -973,7 +973,7 @@ XML
 <span class="ReservedWord">class</span> Bar {
   <span class="Comment">// you don't have to make it an attribute, but that's more common</span>
   <span class="Annotation">@XmlAttribute</span> <span class="Annotation">@XmlID</span> String id;
-}</pre></div><div class="example" id="d0e3580"><p class="title"><b>Example&nbsp;61.&nbsp;Schema for above</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;xs:complexType</span> <span class="Identifier">name</span>=<span class="String">"foo"</span><span class="ReservedWord">&gt;</span>
+}</pre></div><div class="example" id="d0e3577"><p class="title"><b>Example&nbsp;61.&nbsp;Schema for above</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;xs:complexType</span> <span class="Identifier">name</span>=<span class="String">"foo"</span><span class="ReservedWord">&gt;</span>
   <span class="ReservedWord">&lt;xs:sequence/&gt;</span>
   <span class="ReservedWord">&lt;xs:attribute</span> <span class="Identifier">name</span>=<span class="String">"bar"</span> <span class="Identifier">type</span>=<span class="String">"xs:IDREF"</span><span class="ReservedWord">/&gt;</span>
   <span class="ReservedWord">&lt;/xs:sequence&gt;</span>
@@ -981,7 +981,7 @@ XML
 <span class="ReservedWord">&lt;xs:complexType</span> <span class="Identifier">name</span>=<span class="String">"bar"</span><span class="ReservedWord">&gt;</span>
   <span class="ReservedWord">&lt;xs:sequence/&gt;</span>
   <span class="ReservedWord">&lt;xs:attribute</span> <span class="Identifier">name</span>=<span class="String">"id"</span> <span class="Identifier">type</span>=<span class="String">"xs:ID"</span><span class="ReservedWord">/&gt;</span>
-<span class="ReservedWord">&lt;/xs:complexType&gt;</span></pre></div></div><br class="example-break"><div class="example" id="d0e3585"><p class="title"><b>Example&nbsp;62.&nbsp;A sample instance</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;root&gt;</span>
+<span class="ReservedWord">&lt;/xs:complexType&gt;</span></pre></div></div><br class="example-break"><div class="example" id="d0e3582"><p class="title"><b>Example&nbsp;62.&nbsp;A sample instance</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;root&gt;</span>
   <span class="ReservedWord">&lt;foo</span> <span class="Identifier">bar</span>=<span class="String">"x"</span><span class="ReservedWord">/&gt;</span>
   <span class="ReservedWord">&lt;foo</span> <span class="Identifier">bar</span>=<span class="String">"y"</span><span class="ReservedWord">/&gt;</span>
   <span class="ReservedWord">&lt;bar</span> <span class="Identifier">id</span>=<span class="String">"x"</span><span class="ReservedWord">/&gt;</span>
@@ -1016,18 +1016,18 @@ XML
 }
 
 Unmarshaller u = ...;
-Foo foo = (Foo)u.unmarshal(<span class="ReservedWord">new</span> File(<span class="String">"foo.xml"</span>));</pre></div><div class="example" id="d0e3633"><p class="title"><b>Example&nbsp;63.&nbsp;foo.xml</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;foo</span> <span class="Identifier">name</span>=<span class="String">"something"</span><span class="ReservedWord">&gt;</span>
+Foo foo = (Foo)u.unmarshal(<span class="ReservedWord">new</span> File(<span class="String">"foo.xml"</span>));</pre></div><div class="example" id="d0e3630"><p class="title"><b>Example&nbsp;63.&nbsp;foo.xml</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;foo</span> <span class="Identifier">name</span>=<span class="String">"something"</span><span class="ReservedWord">&gt;</span>
   <span class="ReservedWord">&lt;content&gt;</span>abc<span class="ReservedWord">&lt;/content&gt;</span>
 <span class="ReservedWord">&lt;/foo&gt;</span></pre></div></div><br class="example-break"><p>However, sometimes you may need to unmarshal an instance of a type
     that does not have an <code class="literal">XmlRootElement</code>. For example, you might dynamically
     find out at the runtime that a certain element has a certain type. For
     example, the following document illustrates an XML instance where the
     content of <code class="literal">&lt;someOtherTagName&gt;</code> element is represented by the
-    <code class="literal">Foo</code> class.</p><div class="example" id="d0e3649"><p class="title"><b>Example&nbsp;64.&nbsp;foo2.xml</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;someOtherTagName</span> <span class="Identifier">name</span>=<span class="String">"something"</span><span class="ReservedWord">&gt;</span>
+    <code class="literal">Foo</code> class.</p><div class="example" id="d0e3646"><p class="title"><b>Example&nbsp;64.&nbsp;foo2.xml</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;someOtherTagName</span> <span class="Identifier">name</span>=<span class="String">"something"</span><span class="ReservedWord">&gt;</span>
   <span class="ReservedWord">&lt;content&gt;</span>abc<span class="ReservedWord">&lt;/content&gt;</span>
 <span class="ReservedWord">&lt;/someOtherTagName&gt;</span></pre></div></div><br class="example-break"><p>To unmarshal this into a <code class="literal">Foo</code> class, use the version of
     the <code class="literal">unmarshal</code> method that takes the 'expectedType' argument,
-    as follows:</p><div class="example" id="d0e3662"><p class="title"><b>Example&nbsp;65.&nbsp;Unmarshalling into a known type</b></p><div class="example-contents"><pre class="programlisting">Unmarshaller u = ...;
+    as follows:</p><div class="example" id="d0e3659"><p class="title"><b>Example&nbsp;65.&nbsp;Unmarshalling into a known type</b></p><div class="example-contents"><pre class="programlisting">Unmarshaller u = ...;
 JAXBElement&lt;Foo&gt; root = u.unmarshal(<span class="ReservedWord">new</span> StreamSource(<span class="ReservedWord">new</span> File(<span class="String">"foo.xml"</span>)),Foo.<span class="ReservedWord">class</span>);
 Foo foo = root.getValue();</pre></div></div><br class="example-break"><p>To reduce the number of the <code class="literal">unmarshal</code> methods, this
     two-argument version is not defined for every single-argument version. So
@@ -1046,7 +1046,7 @@ Foo foo = root.getValue();</pre></div></div><br class="example-break"><p>To redu
         sometimes ends up masking a problem.</p><p>Also, try to install <code class="literal">ValidationEventHandler</code> on the
         unmarshaller. When a portion of a document is skipped, the
         unmarshaller notifies a <code class="literal">ValidationEventHandler</code>, so it
-        allows you to see what's going on.</p><div class="example" id="d0e3714"><p class="title"><b>Example&nbsp;66.&nbsp;Installing ValidationEventHandler</b></p><div class="example-contents"><pre class="programlisting">Unmarshaller u = ...;
+        allows you to see what's going on.</p><div class="example" id="d0e3711"><p class="title"><b>Example&nbsp;66.&nbsp;Installing ValidationEventHandler</b></p><div class="example-contents"><pre class="programlisting">Unmarshaller u = ...;
 <span class="Comment">// this implementation is a part of the API and convenient for trouble-shooting,</span>
 <span class="Comment">// as it prints out errors to System.out</span>
 u.setEventHandler(<span class="ReservedWord">new</span> jakarta.xml.bind.helpers.DefaultValidationEventHandler());
@@ -1082,11 +1082,11 @@ u.unmarshal(<span class="ReservedWord">new</span> File(<span class="String">"foo
     the document you are reading is missing the element, then the unmarshaller
     does <span class="emphasis"><em>not</em></span> fill the field with the default value.
     Instead, the unmarshaller fills in the field when the element is present
-    but the content is missing. See below:</p><div class="example" id="d0e3772"><p class="title"><b>Example&nbsp;67.&nbsp;XML instance 1</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;foo /&gt;</span></pre></div></div><br class="example-break"><div class="example" id="d0e3777"><p class="title"><b>Example&nbsp;68.&nbsp;XML instance 2</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;foo&gt;</span>
+    but the content is missing. See below:</p><div class="example" id="d0e3769"><p class="title"><b>Example&nbsp;67.&nbsp;XML instance 1</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;foo /&gt;</span></pre></div></div><br class="example-break"><div class="example" id="d0e3774"><p class="title"><b>Example&nbsp;68.&nbsp;XML instance 2</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;foo&gt;</span>
   <span class="ReservedWord">&lt;a/&gt;</span>  <span class="Comment">&lt;!-- or &lt;a&gt;&lt;/a&gt; --&gt;</span>
-<span class="ReservedWord">&lt;/foo&gt;</span></pre></div></div><br class="example-break"><div class="example" id="d0e3782"><p class="title"><b>Example&nbsp;69.&nbsp;XML instance 3</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;foo&gt;</span>
+<span class="ReservedWord">&lt;/foo&gt;</span></pre></div></div><br class="example-break"><div class="example" id="d0e3779"><p class="title"><b>Example&nbsp;69.&nbsp;XML instance 3</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;foo&gt;</span>
   <span class="ReservedWord">&lt;a&gt;</span>abc<span class="ReservedWord">&lt;/a&gt;</span>
-<span class="ReservedWord">&lt;/foo&gt;</span></pre></div></div><br class="example-break"><div class="example" id="d0e3787"><p class="title"><b>Example&nbsp;70.&nbsp;Element defaults and XML</b></p><div class="example-contents"><pre class="programlisting"><span class="Annotation">@XmlRootElement</span>
+<span class="ReservedWord">&lt;/foo&gt;</span></pre></div></div><br class="example-break"><div class="example" id="d0e3784"><p class="title"><b>Example&nbsp;70.&nbsp;Element defaults and XML</b></p><div class="example-contents"><pre class="programlisting"><span class="Annotation">@XmlRootElement</span>
 <span class="ReservedWord">class</span> Foo {
   <span class="Annotation">@XmlElement(defaultValue="value")</span> <span class="ReservedWord">public</span> String a=null;
 }
@@ -1101,7 +1101,7 @@ Foo foo = unmarshaller.unmarshal(<span class="String">"instance3.xml"</span>);
 System.out.println(foo.a);   <span class="Comment">// "abc". Read from the instance.</span></pre></div></div><br class="example-break"><p>This is consistent with the XML Schema spec, where it essentially
     states that the element defaults do not kick in when the element is
     absent, so unfortunately we can't change this behavior.</p><p>Depending on your expectation, using a field initializer may achieve
-    what you are looking for. See below:</p><div class="example" id="d0e3796"><p class="title"><b>Example&nbsp;71.&nbsp;Possible changes by using field initializer</b></p><div class="example-contents"><pre class="programlisting"><span class="Annotation">@XmlRootElement</span>
+    what you are looking for. See below:</p><div class="example" id="d0e3793"><p class="title"><b>Example&nbsp;71.&nbsp;Possible changes by using field initializer</b></p><div class="example-contents"><pre class="programlisting"><span class="Annotation">@XmlRootElement</span>
 <span class="ReservedWord">class</span> Foo {
   <span class="Annotation">@XmlElement</span> <span class="ReservedWord">public</span> String a=<span class="String">"value"</span>;
 }
@@ -1156,17 +1156,17 @@ System.out.println(foo.a);   <span class="Comment">// "abc". Read from the insta
     work, people often get confused about its behavior. This section describes
     how this works.</p><p>When a class has an element property with the default value, and if
     a value is null, then the marshaller will not produce the corresponding
-    element in XML:</p><div class="example" id="d0e3881"><p class="title"><b>Example&nbsp;72.&nbsp;Element defaults and XML</b></p><div class="example-contents"><pre class="programlisting"><span class="Annotation">@XmlRootElement</span>
+    element in XML:</p><div class="example" id="d0e3878"><p class="title"><b>Example&nbsp;72.&nbsp;Element defaults and XML</b></p><div class="example-contents"><pre class="programlisting"><span class="Annotation">@XmlRootElement</span>
 <span class="ReservedWord">class</span> Foo {
   <span class="Annotation">@XmlElement(defaultValue="value")</span> <span class="ReservedWord">public</span> String a=null;
 }
 
-marshaller.marshal(<span class="ReservedWord">new</span> Foo(),System.out);</pre></div></div><br class="example-break"><div class="example" id="d0e3886"><p class="title"><b>Example&nbsp;73.&nbsp;Marshalling output from above</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;foo /&gt;</span></pre></div></div><br class="example-break"><p>This is consistent with the XML Schema spec, where it essentially
+marshaller.marshal(<span class="ReservedWord">new</span> Foo(),System.out);</pre></div></div><br class="example-break"><div class="example" id="d0e3883"><p class="title"><b>Example&nbsp;73.&nbsp;Marshalling output from above</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;foo /&gt;</span></pre></div></div><br class="example-break"><p>This is consistent with the XML Schema spec, where it essentially
     states that the element defaults do not kick in when the element is
     absent. Attribute default values do not have this problem, so if you can
     change the schema, changing it to an attribute is usually a better idea.
     Alternatively, depending on your expectation, setting the field to a
-    default value in Java may achieve what you are looking for.</p><div class="example" id="d0e3893"><p class="title"><b>Example&nbsp;74.&nbsp;Possible changes</b></p><div class="example-contents"><pre class="programlisting"><span class="Annotation">@XmlRootElement</span>
+    default value in Java may achieve what you are looking for.</p><div class="example" id="d0e3890"><p class="title"><b>Example&nbsp;74.&nbsp;Possible changes</b></p><div class="example-contents"><pre class="programlisting"><span class="Annotation">@XmlRootElement</span>
 <span class="ReservedWord">class</span> Foo {
   <span class="Annotation">@XmlElement</span> <span class="ReservedWord">public</span> String a=<span class="String">"value"</span>;
 }
@@ -1176,19 +1176,19 @@ marshaller.marshal(<span class="ReservedWord">new</span> Foo(),System.out);</pre
 }
 
 marshaller.marshal(<span class="ReservedWord">new</span> Foo(),System.out);
-marshaller.marshal(<span class="ReservedWord">new</span> Bar(),System.out);</pre></div></div><br class="example-break"><div class="example" id="d0e3898"><p class="title"><b>Example&nbsp;75.&nbsp;Marshalling output from above</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;foo&gt;</span>
+marshaller.marshal(<span class="ReservedWord">new</span> Bar(),System.out);</pre></div></div><br class="example-break"><div class="example" id="d0e3895"><p class="title"><b>Example&nbsp;75.&nbsp;Marshalling output from above</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;foo&gt;</span>
     <span class="ReservedWord">&lt;a&gt;</span>value<span class="ReservedWord">&lt;/a&gt;</span>
 <span class="ReservedWord">&lt;/foo&gt;</span>
 
 <span class="ReservedWord">&lt;bar/&gt;</span></pre></div></div><br class="example-break"><p>Also, see <a class="xref" href="ch03.html#unmarshalling-element-default-values-and-unmarshalling" title="4.3.&nbsp;Element default values and unmarshalling">Element default values and unmarshalling</a>.</p></div><div lang="en" class="section" id="marshalling-different-ways-of-marshalling"><div class="titlepage"><div><div><h3 class="title">5.3.&nbsp;Different ways of marshalling</h3></div></div></div><div class="section" id="Different_output_media"><div class="titlepage"><div><div><h4 class="title">5.3.1.&nbsp;Different output media</h4></div></div></div><p>The most basic notion of the marshalling is to take a Jakarta XML Binding-bound
         object that has <code class="literal">@XmlRootElement</code>, and write it out as a
-        whole XML document. So perhaps you have a class like this:</p><div class="example" id="d0e3919"><p class="title"><b>Example&nbsp;76.&nbsp;Jakarta XML Binding POJO</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">class</span> Point {
+        whole XML document. So perhaps you have a class like this:</p><div class="example" id="d0e3916"><p class="title"><b>Example&nbsp;76.&nbsp;Jakarta XML Binding POJO</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">class</span> Point {
   <span class="Annotation">@XmlElement</span>
   <span class="ReservedWord">public</span> <span class="ReservedWord">int</span> x;
   <span class="Annotation">@XmlElement</span>
   <span class="ReservedWord">public</span> <span class="ReservedWord">int</span> y;
   Point(...) { ... }
-}</pre></div></div><br class="example-break"><p>Then you can do:</p><div class="example" id="d0e3926"><p class="title"><b>Example&nbsp;77.&nbsp;Plain marshalling</b></p><div class="example-contents"><pre class="programlisting">marshaller.marshal( <span class="ReservedWord">new</span> Point(<span class="Numeric">1</span>,<span class="Numeric">3</span>), System.out );
+}</pre></div></div><br class="example-break"><p>Then you can do:</p><div class="example" id="d0e3923"><p class="title"><b>Example&nbsp;77.&nbsp;Plain marshalling</b></p><div class="example-contents"><pre class="programlisting">marshaller.marshal( <span class="ReservedWord">new</span> Point(<span class="Numeric">1</span>,<span class="Numeric">3</span>), System.out );
 marshaller.marshal( <span class="ReservedWord">new</span> Point(<span class="Numeric">1</span>,<span class="Numeric">3</span>), <span class="ReservedWord">new</span> File(<span class="String">"out.xml"</span>) );</pre></div></div><br class="example-break"><p>.. and so on. There're seven <code class="literal">Marshaller.marshal</code>
         methods that takes different output media as the second parameter. If
         you are writing to a file, a socket, or memory, then you should use
@@ -1203,7 +1203,7 @@ marshaller.marshal( <span class="ReservedWord">new</span> Point(<span class="Num
         UTF-8, it's best to use the <code class="literal">JAXB_ENCODING</code> property and
         then write to <code class="literal">OutputStream</code>, as it escapes characters to
         things like <code class="literal">&amp;#x1824;</code> correctly.</p><p>The next medium we support is W3C DOM. This is bit unintuitive,
-        but you'll do it like this:</p><div class="example" id="d0e3961"><p class="title"><b>Example&nbsp;78.&nbsp;Marshal to DOM</b></p><div class="example-contents"><pre class="programlisting">DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        but you'll do it like this:</p><div class="example" id="d0e3958"><p class="title"><b>Example&nbsp;78.&nbsp;Marshal to DOM</b></p><div class="example-contents"><pre class="programlisting">DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 dbf.setNamespaceAware(true);
 Document doc = dbf.newDocumentBuilder().newDocument();
 
@@ -1221,7 +1221,7 @@ marshaller.marshal( <span class="ReservedWord">new</span> Point(<span class="Num
         the behaviors of the marshaller so that it works better in this
         situation.</p><p>If you are writing to an <code class="literal">OutputStream</code> or
         <code class="literal">Writer</code> and generally sending it to someone else, you can
-        do something like this:</p><div class="example" id="d0e3989"><p class="title"><b>Example&nbsp;79.&nbsp;Marshalling into a subtree</b></p><div class="example-contents"><pre class="programlisting">System.out.println(<span class="String">"&lt;envelope&gt;"</span>);
+        do something like this:</p><div class="example" id="d0e3986"><p class="title"><b>Example&nbsp;79.&nbsp;Marshalling into a subtree</b></p><div class="example-contents"><pre class="programlisting">System.out.println(<span class="String">"&lt;envelope&gt;"</span>);
 marshaller.marshal( object, System.out );
 System.out.println(<span class="String">"&lt;/envelope&gt;"</span>);</pre></div></div><br class="example-break"><p>Like I mentioned, this is probably the fastest, even though
         <code class="literal">println</code> isn't very pretty. <code class="literal">JAXB_FRAGMENT</code>
@@ -1242,7 +1242,7 @@ System.out.println(<span class="String">"&lt;/envelope&gt;"</span>);</pre></div>
         programming experience, and it goes beyond the scope of this
         entry.</p></div><div class="section" id="Marshalling_a_non_element"><div class="titlepage"><div><div><h4 class="title">5.3.3.&nbsp;Marshalling a non-element</h4></div></div></div><p>Another common use case is where you have an object that doesn't
         have <code class="literal">@XmlRootElement</code> on it. Jakarta XML Binding allows you to marshal it
-        like this:</p><div class="example" id="d0e4034"><p class="title"><b>Example&nbsp;80.&nbsp;Marshalling a non-element</b></p><div class="example-contents"><pre class="programlisting">marshaller.marshal( <span class="ReservedWord">new</span> JAXBElement(
+        like this:</p><div class="example" id="d0e4031"><p class="title"><b>Example&nbsp;80.&nbsp;Marshalling a non-element</b></p><div class="example-contents"><pre class="programlisting">marshaller.marshal( <span class="ReservedWord">new</span> JAXBElement(
   <span class="ReservedWord">new</span> QName(<span class="String">""</span>,<span class="String">"rootTag"</span>),Point.<span class="ReservedWord">class</span>,<span class="ReservedWord">new</span> Point(...)));</pre></div></div><br class="example-break"><p>This puts the <code class="literal">&lt;rootTag&gt;</code> element as the root element,
         followed by the contents of the object, then <code class="literal">&lt;/rootTag&gt;</code>. You can
         actually use it with a class that has <code class="literal">@XmlRootElement</code>,
@@ -1262,7 +1262,7 @@ System.out.println(<span class="String">"&lt;/envelope&gt;"</span>);</pre></div>
         support, Jakarta XML Binding objects can be easily marshalled into other XML APIs
         that are not mentioned here. For example, <a class="link" href="http://www.dom4j.org/" target="_top">dom4j</a> has
         <code class="literal">DocumentResult</code> that extends <code class="literal">Result</code>, so you
-        can do:</p><div class="example" id="d0e4108"><p class="title"><b>Example&nbsp;81.&nbsp;Marshalling to dom4j</b></p><div class="example-contents"><pre class="programlisting">DocumentResult dr = <span class="ReservedWord">new</span> DocumentResult();
+        can do:</p><div class="example" id="d0e4105"><p class="title"><b>Example&nbsp;81.&nbsp;Marshalling to dom4j</b></p><div class="example-contents"><pre class="programlisting">DocumentResult dr = <span class="ReservedWord">new</span> DocumentResult();
 marshaller.marshal( object, dr );
 o = dr.getDocument();</pre></div></div><br class="example-break"><p>Similar mechanism is available for JDOM and XOM. This conversion
         is much more efficient than first marshalling to
@@ -1272,7 +1272,7 @@ o = dr.getDocument();</pre></div></div><br class="example-break"><p>Similar mech
         which wraps a marshaller and allows a Jakarta XML Binding object to be used as a
         "source" of XML. Many XML APIs take <code class="literal">Source</code> as an input,
         and now Jakarta XML Binding object can be passed to them directly.</p><p>For example, you can marshal a Jakarta XML Binding object and unmarshal it into
-        another JAXBContext like this:</p><div class="example" id="d0e4131"><p class="title"><b>Example&nbsp;82.&nbsp;Loading into a different JAXBContext</b></p><div class="example-contents"><pre class="programlisting">JAXBContext context1 = ... ;
+        another JAXBContext like this:</p><div class="example" id="d0e4128"><p class="title"><b>Example&nbsp;82.&nbsp;Loading into a different JAXBContext</b></p><div class="example-contents"><pre class="programlisting">JAXBContext context1 = ... ;
 JAXBContext context2 = ... ;
 
 context1.createUnmarshaller().unmarshal( <span class="ReservedWord">new</span> JAXBSource(context2,object) );</pre></div></div><br class="example-break"><p>This amounts to looking at the same XML by using different
@@ -1289,15 +1289,15 @@ context1.createUnmarshaller().unmarshal( <span class="ReservedWord">new</span> J
         converted into XML, Jakarta XML Binding copies all the in-scope namespace bindings
         active at that time to the root of the DOM element. So for example,
         given the following Java class and XML, the DOM tree that the
-        <code class="literal">child</code> field will get will look like the following:</p><div class="example" id="d0e4171"><p class="title"><b>Example&nbsp;83.&nbsp;Bean with wildcard</b></p><div class="example-contents"><pre class="programlisting"><span class="Annotation">@XmlRootElement</span>
+        <code class="literal">child</code> field will get will look like the following:</p><div class="example" id="d0e4168"><p class="title"><b>Example&nbsp;83.&nbsp;Bean with wildcard</b></p><div class="example-contents"><pre class="programlisting"><span class="Annotation">@XmlRootElement</span>
 <span class="ReservedWord">class</span> Foo {
   <span class="Annotation">@XmlAnyElement</span>
   <span class="ReservedWord">public</span> Element child;
-}</pre></div></div><br class="example-break"><div class="example" id="d0e4176"><p class="title"><b>Example&nbsp;84.&nbsp;Instance with subtree matching wildcard</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;foo</span> <span class="Identifier">xmlns:a</span>=<span class="String">"a"</span> <span class="Identifier">xmlns:b</span>=<span class="String">"b"</span> <span class="Identifier">xmlns:c</span>=<span class="String">"c"</span><span class="ReservedWord">&gt;</span>
+}</pre></div></div><br class="example-break"><div class="example" id="d0e4173"><p class="title"><b>Example&nbsp;84.&nbsp;Instance with subtree matching wildcard</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;foo</span> <span class="Identifier">xmlns:a</span>=<span class="String">"a"</span> <span class="Identifier">xmlns:b</span>=<span class="String">"b"</span> <span class="Identifier">xmlns:c</span>=<span class="String">"c"</span><span class="ReservedWord">&gt;</span>
   <span class="ReservedWord">&lt;subtree</span> <span class="Identifier">xmlns:c</span>=<span class="String">"cc"</span><span class="ReservedWord">&gt;</span>
     <span class="ReservedWord">&lt;data&gt;</span>a:xyz<span class="ReservedWord">&lt;/data&gt;</span>
   <span class="ReservedWord">&lt;/subtree&gt;</span>
-<span class="ReservedWord">&lt;/foo&gt;</span></pre></div></div><br class="example-break"><div class="example" id="d0e4181"><p class="title"><b>Example&nbsp;85.&nbsp;DOM tree to be stored in Foo.child</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;subtree</span> <span class="Identifier">xmlns:a</span>=<span class="String">"a"</span> <span class="Identifier">xmlns:b</span>=<span class="String">"b"</span> <span class="Identifier">xmlns:c</span>=<span class="String">"cc"</span><span class="ReservedWord">&gt;</span>
+<span class="ReservedWord">&lt;/foo&gt;</span></pre></div></div><br class="example-break"><div class="example" id="d0e4178"><p class="title"><b>Example&nbsp;85.&nbsp;DOM tree to be stored in Foo.child</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;subtree</span> <span class="Identifier">xmlns:a</span>=<span class="String">"a"</span> <span class="Identifier">xmlns:b</span>=<span class="String">"b"</span> <span class="Identifier">xmlns:c</span>=<span class="String">"cc"</span><span class="ReservedWord">&gt;</span>
     <span class="ReservedWord">&lt;data&gt;</span>a:xyz<span class="ReservedWord">&lt;/data&gt;</span>
   <span class="ReservedWord">&lt;/subtree&gt;</span></pre></div></div><br class="example-break"><p>Note that the two namespace declarations are copied over, but
         <code class="literal">c</code> is not because it's overridden. Also not that Jakarta XML Binding is
@@ -1309,7 +1309,7 @@ context1.createUnmarshaller().unmarshal( <span class="ReservedWord">new</span> J
         <code class="literal">c</code> prefixes are in use, Jakarta XML Binding cannot delete them, because
         it doesn't know if those attributes are significant to the application
         or not. Therefore, this could end up producing XML with "extra
-        namespace declarations" like:</p><div class="example" id="d0e4202"><p class="title"><b>Example&nbsp;86.&nbsp;DOM tree to be stored in Foo.child</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;foo&gt;</span>
+        namespace declarations" like:</p><div class="example" id="d0e4199"><p class="title"><b>Example&nbsp;86.&nbsp;DOM tree to be stored in Foo.child</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;foo&gt;</span>
   <span class="ReservedWord">&lt;subtree</span> <span class="Identifier">xmlns:a</span>=<span class="String">"a"</span> <span class="Identifier">xmlns:b</span>=<span class="String">"b"</span> <span class="Identifier">xmlns:c</span>=<span class="String">"cc"</span><span class="ReservedWord">&gt;</span>
     <span class="ReservedWord">&lt;data&gt;</span>a:xyz<span class="ReservedWord">&lt;/data&gt;</span>
   <span class="ReservedWord">&lt;/subtree&gt;</span>
@@ -1328,7 +1328,7 @@ context1.createUnmarshaller().unmarshal( <span class="ReservedWord">new</span> J
     your program.</p><div class="section" id="At_runtime"><div class="titlepage"><div><div><h4 class="title">6.1.1.&nbsp;At runtime</h4></div></div></div><p>If the classes you'd like to generate schema from are already
         available as <code class="literal">java.lang.Class</code> objects (meaning they are
         already loaded and resolved in the current JVM), then the easiest way
-        to generate a schema is to use the Jakarta XML Binding API:</p><div class="example" id="d0e4249"><p class="title"><b>Example&nbsp;87.&nbsp;Generate schema at runtime</b></p><div class="example-contents"><pre class="programlisting">File baseDir = <span class="ReservedWord">new</span> File(<span class="String">"."</span>);
+        to generate a schema is to use the Jakarta XML Binding API:</p><div class="example" id="d0e4246"><p class="title"><b>Example&nbsp;87.&nbsp;Generate schema at runtime</b></p><div class="example-contents"><pre class="programlisting">File baseDir = <span class="ReservedWord">new</span> File(<span class="String">"."</span>);
 
 <span class="ReservedWord">class</span> MySchemaOutputResolver <span class="ReservedWord">extends</span> SchemaOutputResolver {
     <span class="ReservedWord">public</span> Result createOutput( String namespaceUri, String suggestedFileName ) <span class="ReservedWord">throws</span> IOException {
@@ -1359,7 +1359,7 @@ context.generateSchema(<span class="ReservedWord">new</span> MySchemaOutputResol
         implementaion of SchemaGenerator class.</p></div></div><div lang="en" class="section" id="schema-generation-generating-schema-that-you-want"><div class="titlepage"><div><div><h3 class="title">6.2.&nbsp;Generating Schema that you want</h3></div></div></div><p>This section discusses how you can change the generated XML schema.
     For changes that also affect the infoset (such as changing elements to
     attributes, namespaces, etc.), refer to a different section "XML
-    layout and in-memory data layout".</p><div class="section" id="Adding_facets_to_datatypes"><div class="titlepage"><div><div><h4 class="title">6.2.1.&nbsp;Adding facets to datatypes</h4></div></div></div><p>As of Eclipse Implementation of JAXB 3.0.0-M5, currently no support for this, although there
+    layout and in-memory data layout".</p><div class="section" id="Adding_facets_to_datatypes"><div class="titlepage"><div><div><h4 class="title">6.2.1.&nbsp;Adding facets to datatypes</h4></div></div></div><p>As of Eclipse Implementation of JAXB 3.0.0, currently no support for this, although there
         has been several discussions in the users alias.</p><p>The Eclipse Implementation of JAXB project is currently lacking resources to attack this
         problem, and therefore looking for volunteers to work on this project.
         The basic idea would be to define enough annotations to cover the
@@ -1376,7 +1376,7 @@ context.generateSchema(<span class="ReservedWord">new</span> MySchemaOutputResol
             Minimum requirement to compile is jakarta.xml.bind-api.jar. If a client application is running on an environment
             where Jakarta XML Binding
             runtime is provided, <code class="literal">jakarta.xml.bind-api.jar</code> is all that is needed.
-                </p><div class="example" id="d0e4378"><p class="title"><b>Example&nbsp;88.&nbsp;API only</b></p><div class="example-contents"><pre class="programlisting">
+                </p><div class="example" id="d0e4375"><p class="title"><b>Example&nbsp;88.&nbsp;API only</b></p><div class="example-contents"><pre class="programlisting">
                 <span class="Comment">&lt;!-- API --&gt;</span>
                 <span class="ReservedWord">&lt;dependency&gt;</span>
                     <span class="ReservedWord">&lt;groupId&gt;</span>jakarta.xml.bind<span class="ReservedWord">&lt;/groupId&gt;</span>
@@ -1386,7 +1386,7 @@ context.generateSchema(<span class="ReservedWord">new</span> MySchemaOutputResol
              </pre></div></div><p><br class="example-break"></p><p>
             If client application needs to include the runtime, e.g. running standalone on JavaSE
             <code class="literal">jaxb-impl</code> should be also included.
-            </p><div class="example" id="d0e4388"><p class="title"><b>Example&nbsp;89.&nbsp;API + Runtime</b></p><div class="example-contents"><pre class="programlisting">
+            </p><div class="example" id="d0e4385"><p class="title"><b>Example&nbsp;89.&nbsp;API + Runtime</b></p><div class="example-contents"><pre class="programlisting">
                 <span class="Comment">&lt;!-- API --&gt;</span>
                 <span class="ReservedWord">&lt;dependency&gt;</span>
                     <span class="ReservedWord">&lt;groupId&gt;</span>jakarta.xml.bind<span class="ReservedWord">&lt;/groupId&gt;</span>
@@ -1403,7 +1403,7 @@ context.generateSchema(<span class="ReservedWord">new</span> MySchemaOutputResol
     </pre></div></div><p><br class="example-break"></p></div><div class="section" id="Jaxb_tooling"><div class="titlepage"><div><div><h4 class="title">7.1.5.&nbsp;Using Eclipse Implementation of JAXB tools for java sources and XML schema generation</h4></div></div></div><p>
             To generate Jakarta XML Binding classes from schema in Maven project, a community
             <a class="link" href="https://github.com/highsource/maven-jaxb2-plugin" target="_top">maven-jaxb2-plugin</a> can be used.
-            </p><div class="example" id="d0e4401"><p class="title"><b>Example&nbsp;90.&nbsp;Using maven-jaxb2-plugin</b></p><div class="example-contents"><pre class="programlisting">
+            </p><div class="example" id="d0e4398"><p class="title"><b>Example&nbsp;90.&nbsp;Using maven-jaxb2-plugin</b></p><div class="example-contents"><pre class="programlisting">
                 <span class="ReservedWord">&lt;build&gt;</span>
                     <span class="ReservedWord">&lt;plugins&gt;</span>
                         <span class="ReservedWord">&lt;plugin&gt;</span>
@@ -1425,7 +1425,7 @@ context.generateSchema(<span class="ReservedWord">new</span> MySchemaOutputResol
         Alternatively to community plugins, there are tooling artifacts jaxb-xjc and jaxb-jxc,
         which can be used for
         java from XML schema generation and vice versa.
-        </p><div class="example" id="d0e4412"><p class="title"><b>Example&nbsp;91.&nbsp;Using Eclipse Implementation of JAXB tooling artifacts</b></p><div class="example-contents"><pre class="programlisting">
+        </p><div class="example" id="d0e4409"><p class="title"><b>Example&nbsp;91.&nbsp;Using Eclipse Implementation of JAXB tooling artifacts</b></p><div class="example-contents"><pre class="programlisting">
             <span class="Comment">&lt;!-- Tooling dependencies --&gt;</span>
             <span class="ReservedWord">&lt;dependency&gt;</span>
                 <span class="ReservedWord">&lt;groupId&gt;</span>com.sun.xml.bind<span class="ReservedWord">&lt;/groupId&gt;</span>
@@ -1490,13 +1490,13 @@ context.generateSchema(<span class="ReservedWord">new</span> MySchemaOutputResol
 </pre></div></div><p><br class="example-break">
     See also <a class="link" href="ch03.html#schema-generation-invoking-schemagen-programatically" title="6.1.&nbsp;Invoking schemagen programatically">xml schema compiler usage</a>.</p><p>Where are schemagen and xjc command line scripts available in JavaSE prior to 11?
         These are included only in the <a class="link" href="ch03.html#Maven_artifacts" title="7.1.1.&nbsp;Maven coordinates for Eclipse Implementation of JAXB artifacts">zip distribution.</a></p></div></div><div lang="en" class="section" id="deployment-jaxb-on-jpms"><div class="titlepage"><div><div><h3 class="title">7.2.&nbsp;Using Eclipse Implementation of JAXB on JPMS</h3></div></div></div><p>JavaSE 11 features JSR 376 Java Platform Module System.
-        Starting from Eclipse Implementation of JAXB 3.0.0-M5 supports JPMS and can be loaded and used from module path.
+        Starting from Eclipse Implementation of JAXB 3.0.0 supports JPMS and can be loaded and used from module path.
         There are only a few things to be aware of.
     </p><div class="section" id="Jaxb_pojo_openness"><div class="titlepage"><div><div><h4 class="title">7.2.1.&nbsp;Eclipse Implementation of JAXB classes openness</h4></div></div></div><p>
         Eclipse Implementation of JAXB does reflectively access private members of the class, so client application if loaded from module path
             needs to "open" packages containing jaxb classes to Jakarta XML Binding. There are alternative Jakarta XML Binding implementations,
             having different module names, Jakarta XML Binding requires pojo classes to be open only to API module.
-        </p><div class="example" id="d0e4439"><p class="title"><b>Example&nbsp;92.&nbsp;JPMS module descriptor opening Jakarta XML Binding pojo classes to Jakarta XML Binding API</b></p><div class="example-contents"><pre class="programlisting">
+        </p><div class="example" id="d0e4436"><p class="title"><b>Example&nbsp;92.&nbsp;JPMS module descriptor opening Jakarta XML Binding pojo classes to Jakarta XML Binding API</b></p><div class="example-contents"><pre class="programlisting">
                 <span class="Comment">//JPMS module descriptor</span>
                 module com.example.jaxbclasses {
 
@@ -1509,7 +1509,7 @@ context.generateSchema(<span class="ReservedWord">new</span> MySchemaOutputResol
              </pre></div></div><p><br class="example-break">
         Jakarta XML Binding API will delegate openness to implementation module after resolving it with service discovery mechanism.
         </p></div><div class="section" id="Command-line-examples"><div class="titlepage"></div><p>
-            </p><div class="example" id="d0e4448"><p class="title"><b>Example&nbsp;93.&nbsp;Eclipse Implementation of JAXB on JPMS Command line examples</b></p><div class="example-contents"><pre class="programlisting">
+            </p><div class="example" id="d0e4445"><p class="title"><b>Example&nbsp;93.&nbsp;Eclipse Implementation of JAXB on JPMS Command line examples</b></p><div class="example-contents"><pre class="programlisting">
                 #Both client and &amp;binding.impl.name; on module path:
                 user<span class="Annotation">@host:</span> java -m com.example.jaxbclasses/com.example.jaxb.Main
                 --module-path jaxbclient.jar:jakarta.xml.bind-api.jar:jaxb-impl.jar
@@ -1532,24 +1532,24 @@ context.generateSchema(<span class="ReservedWord">new</span> MySchemaOutputResol
     </p><div class="informaltable"><table class="informaltable" border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>
                         <p>JDK6 first release - JDK6 u3</p>
                     </td><td>
-                        <a class="link" href="/2.0.3/" target="_top">JAXB RI 2.0.3</a>
+                        JAXB RI 2.0.3
                     </td></tr><tr><td>
                         <p>JDK6 u4</p>
                     </td><td>
-                        <a class="link" href="/2.1.3/" target="_top">JAXB RI 2.1.3</a>
+                        JAXB RI 2.1.3
                     </td></tr><tr><td>
                         <p>JDK6 u14</p>
                     </td><td>
-                        <a class="link" href="/2.1.10/" target="_top">JAXB RI 2.1.10</a>
+                        JAXB RI 2.1.10
                     </td></tr><tr><td>
                         <p>JDK7 first release</p>
                     </td><td>
-                        <a class="link" href="/2.2.4-1/" target="_top">JAXB RI 2.2.4-1</a>
+                        JAXB RI 2.2.4-1
                     </td></tr><tr><td><p>JDK8 first release</p></td><td>JAXB RI 2.2.8 (b130911.1802)</td></tr><tr><td><p>JDK9 first release</p></td><td>JAXB RI 2.3.0 (b170531.0717)</td></tr></tbody></table></div></div></div><div lang="en" class="section" id="other-miscellaneous-topics"><div class="titlepage"><div><div><h2 class="title" style="clear: both">8.&nbsp;Other Miscellaneous Topics</h2></div></div></div><div lang="en" class="section" id="other-miscellaneous-topics-performance-and-thread-safety"><div class="titlepage"><div><div><h3 class="title">8.1.&nbsp;Performance and thread-safety</h3></div></div></div><p>The JAXBContext class is thread safe, but the Marshaller,
     Unmarshaller, and Validator classes are not thread safe.</p><p>For example, suppose you have a multi-thread server application that
     processes incoming XML documents by Jakarta XML Binding. In this case, for the best
     performance you should have just one instance of JAXBContext in your whole
-    application like this:</p><div class="example" id="d0e4535"><p class="title"><b>Example&nbsp;94.&nbsp;Singleton JAXBContext</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">class</span> MyServlet <span class="ReservedWord">extends</span> HttpServlet {
+    application like this:</p><div class="example" id="d0e4520"><p class="title"><b>Example&nbsp;94.&nbsp;Singleton JAXBContext</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">class</span> MyServlet <span class="ReservedWord">extends</span> HttpServlet {
     <span class="ReservedWord">static</span> <span class="ReservedWord">final</span> JAXBContext context = initContext();
 
     <span class="ReservedWord">private</span> <span class="ReservedWord">static</span> JAXBContext initContext() {
@@ -1557,7 +1557,7 @@ context.generateSchema(<span class="ReservedWord">new</span> MySchemaOutputResol
     }
 }</pre></div></div><br class="example-break"><p>And each time you need to unmarshal/marshal/validate a document.
     Just create a new Unmarshaller/Marshaller/Validator from this context,
-    like this:</p><div class="example" id="d0e4542"><p class="title"><b>Example&nbsp;95.&nbsp;Thread local Unmarshaller</b></p><div class="example-contents"><pre class="programlisting">    <span class="ReservedWord">public</span> <span class="ReservedWord">void</span> doGet( HttpServletRequest req, HttpServletResponse ) {
+    like this:</p><div class="example" id="d0e4527"><p class="title"><b>Example&nbsp;95.&nbsp;Thread local Unmarshaller</b></p><div class="example-contents"><pre class="programlisting">    <span class="ReservedWord">public</span> <span class="ReservedWord">void</span> doGet( HttpServletRequest req, HttpServletResponse ) {
         Unmarshaller u = context.createUnmarshaller();
         u.unmarshal(...);
     }</pre></div></div><br class="example-break"><p>This is the simplest safe way to use the Eclipse Implementation of JAXB from multi-threaded
@@ -1570,7 +1570,7 @@ context.generateSchema(<span class="ReservedWord">new</span> MySchemaOutputResol
     let's you compile XML DTDs. It is marked "experimental" not because the
     feature is unstable nor unreliable, but rather because it's not a part of
     the JAXB specification and therefore the level of commitment to
-    compatibility is lower.</p><div class="example" id="d0e4557"><p class="title"><b>Example&nbsp;96.&nbsp;To compile a DTD, run the XJC binding compiler as
+    compatibility is lower.</p><div class="example" id="d0e4542"><p class="title"><b>Example&nbsp;96.&nbsp;To compile a DTD, run the XJC binding compiler as
         follows:</b></p><div class="example-contents"><pre class="programlisting">$ xjc.sh -dtd test.dtd</pre></div></div><br class="example-break"><p>All the other command-line options of the XJC binding compiler can
     be applied. Similarly, the XJC ant task supports DTD. The generated code
     will be no different from what is generated from W3C XML Schema. You'll
@@ -1591,7 +1591,7 @@ context.generateSchema(<span class="ReservedWord">new</span> MySchemaOutputResol
                 <code class="literal">collapse</code>" instead of " <code class="literal">preserve</code>", "
                 <code class="literal">normalize</code>", and " <code class="literal">collapse</code>" as
                 specified in the document.</p></li><li class="listitem"><p>The <code class="literal">interface</code> customization just generates
-                marker interfaces with no method.</p></li></ul></div></div><div class="section" id="Compiling_DTD_from_Maven2"><div class="titlepage"><div><div><h4 class="title">8.2.2.&nbsp;Compiling DTD from Maven2</h4></div></div></div><div class="example" id="d0e4614"><p class="title"><b>Example&nbsp;97.&nbsp;The following POM snippest describes how to invoke XJC to
+                marker interfaces with no method.</p></li></ul></div></div><div class="section" id="Compiling_DTD_from_Maven2"><div class="titlepage"><div><div><h4 class="title">8.2.2.&nbsp;Compiling DTD from Maven2</h4></div></div></div><div class="example" id="d0e4599"><p class="title"><b>Example&nbsp;97.&nbsp;The following POM snippest describes how to invoke XJC to
             compile DTD from a Maven 2 project:</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;plugin&gt;</span>
   <span class="ReservedWord">&lt;groupId&gt;</span>org.jvnet.jaxb2.maven2<span class="ReservedWord">&lt;/groupId&gt;</span>
   <span class="ReservedWord">&lt;artifactId&gt;</span>maven-jaxb2-plugin<span class="ReservedWord">&lt;/artifactId&gt;</span>
@@ -1625,7 +1625,7 @@ context.generateSchema(<span class="ReservedWord">new</span> MySchemaOutputResol
       <span class="ReservedWord">&lt;version&gt;</span>1.0<span class="ReservedWord">&lt;/version&gt;</span>
     <span class="ReservedWord">&lt;/dependency&gt;</span>
   <span class="ReservedWord">&lt;/dependencies&gt;</span>
-<span class="ReservedWord">&lt;/plugin&gt;</span></pre></div></div><br class="example-break"><div class="example" id="d0e4619"><p class="title"><b>Example&nbsp;98.&nbsp;The dependencies section inside the plugin element can be
+<span class="ReservedWord">&lt;/plugin&gt;</span></pre></div></div><br class="example-break"><div class="example" id="d0e4604"><p class="title"><b>Example&nbsp;98.&nbsp;The dependencies section inside the plugin element can be
             used to specify additional XJC plugins. If you'd like to use more
             recent version of the Eclipse Implementation of JAXB, you can specify a dependency to XJC
             here to do so, like this:</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;dependency&gt;</span>
@@ -1639,7 +1639,7 @@ context.generateSchema(<span class="ReservedWord">new</span> MySchemaOutputResol
     of the stream (because a parser needs to handle documents like
     <code class="literal">&lt;root/&gt;&lt;!-- post root comment --&gt;</code>). As a result,
     a naive attempt to keep one <code class="literal">OutputStream</code> open and marshal
-    objects multiple times fails.</p><div class="example" id="d0e4638"><p class="title"><b>Example&nbsp;99.&nbsp;One easy way to work around this limitation is to design your
+    objects multiple times fails.</p><div class="example" id="d0e4623"><p class="title"><b>Example&nbsp;99.&nbsp;One easy way to work around this limitation is to design your
         protocol so that the data on the wire will look like the
         following:</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;conversation&gt;</span>
   <span class="Comment">&lt;!-- message 1 --&gt;</span>
