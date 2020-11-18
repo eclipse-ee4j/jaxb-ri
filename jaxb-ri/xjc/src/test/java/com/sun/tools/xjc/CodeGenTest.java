@@ -57,7 +57,7 @@ public class CodeGenTest extends TestCase {
         URL url = CodeGenTest.class.getResource(systemId);
         File f = new File(url.toURI());
         InputSource is = new InputSource(new FileInputStream(f));
-        is.setSystemId(f.getAbsolutePath());
+        is.setSystemId(f.toURI().toString());
         return is;
     }
 
