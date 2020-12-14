@@ -146,7 +146,7 @@
                             <includeArtifactIds>
                                 jakarta.activation,istack-commons-tools,istack-commons-runtime,
                                 jaxb-core,jaxb-runtime,jakarta.xml.bind-api,
-                                codemodel,xsom,relaxng-datatype,rngom
+                                codemodel,xsom,relaxng-datatype,rngom,txw2
                             </includeArtifactIds>
                         </configuration>
                     </execution>

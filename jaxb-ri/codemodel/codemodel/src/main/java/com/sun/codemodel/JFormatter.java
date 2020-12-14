@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -26,6 +26,11 @@ import java.util.List;
  * formatting for PrintWriter.
  */
 public final class JFormatter {
+
+    /**
+     * Specify the target version (3.0 or 2.3). Version 2.3 will generate javax.xml.bind package names.
+     */
+    public static final String XML_TARGET_VERSION_PROP = "xml.bind.target.version";
     /** all classes and ids encountered during the collection mode **/
     /** map from short type name to ReferenceList (list of JClass and ids sharing that name) **/
     private HashMap<String,ReferenceList> collectedReferences;
@@ -250,7 +255,7 @@ public final class JFormatter {
                 if(type.outer()!=null)
                     t(type.outer()).p('.').p(type.name());
                 else
-                    p(type.fullName()); // collision was detected, so generate FQCN
+                    p(LazyPackageConverter.renamePackage(type.fullName())); // collision was detected, so generate FQCN
             }
             break;
         case COLLECTING:
@@ -411,8 +416,7 @@ public final class JFormatter {
                 if (clazz instanceof JNarrowedClass) {
                     clazz = clazz.erasure();
                 }
-                
-                p("import").p(clazz.fullName()).p(';').nl();
+                p("import").p(LazyPackageConverter.renamePackage(clazz.fullName())).p(';').nl();
             }
         }
         nl();
@@ -536,5 +540,23 @@ public final class JFormatter {
         public boolean isId() {
             return id && classes.size() == 0;
         }
+    }
+
+    private static final class LazyPackageConverter {
+
+        // Loads the property the first time this class is used.
+        private static final String VERSION = System.getProperty(XML_TARGET_VERSION_PROP);
+        private static final String JAVAX = "javax.xml.bind";
+        private static final String JAKARTA = "jakarta.xml.bind";
+
+        private static String renamePackage(String fullClassName) {
+            if ("2.3".equals(VERSION)) {
+                if (fullClassName.startsWith(JAKARTA)) {
+                    return fullClassName.replaceFirst(JAKARTA, JAVAX);
+                }
+            }
+            return fullClassName;
+        }
+
     }
 }
