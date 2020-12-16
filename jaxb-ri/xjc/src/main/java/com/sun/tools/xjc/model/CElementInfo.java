@@ -12,7 +12,7 @@ package com.sun.tools.xjc.model;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -242,7 +242,7 @@ public final class CElementInfo extends AbstractCElement
         this.substitutionHead = substitutionHead;
 
         if(substitutionHead.substitutionMembers==null)
-            substitutionHead.substitutionMembers = new HashSet<CElementInfo>();
+            substitutionHead.substitutionMembers = new LinkedHashSet<>();
         substitutionHead.substitutionMembers.add(this);
     }
 
