@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,7 +18,10 @@ import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 import com.sun.codemodel.CodeWriter;
 import com.sun.codemodel.JCodeModel;
@@ -212,7 +215,7 @@ public class Driver {
      *      will be sent to the specified PrintStream.
      */
     public static int run(String[] args, @NotNull final XJCListener listener) throws BadCommandLineException {
-
+        LinkedList<String> argsExtended = new LinkedList<>(Arrays.asList(args));
         // recognize those special options before we start parsing options.
         for (String arg : args) {
             if (arg.equals("-version")) {
@@ -223,7 +226,11 @@ public class Driver {
                 listener.message(Messages.format(Messages.FULLVERSION));
                 return -1;
             }
+            if (arg.equals("-target")) {
+                argsExtended.add(0, "-generateJavax");
+            }
         }
+        args = argsExtended.toArray(new String[0]);
 
         final OptionsEx opt = new OptionsEx();
         opt.setSchemaLanguage(Language.XMLSCHEMA);  // disable auto-guessing

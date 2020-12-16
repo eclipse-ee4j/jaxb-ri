@@ -52,6 +52,7 @@ module org.glassfish.jaxb.xjc {
             com.sun.tools.xjc.addon.code_injector.PluginImpl,
             com.sun.tools.xjc.addon.episode.PluginImpl,
             com.sun.tools.xjc.addon.locator.SourceLocationAddOn,
-            com.sun.tools.xjc.addon.sync.SynchronizedMethodAddOn;
+            com.sun.tools.xjc.addon.sync.SynchronizedMethodAddOn,
+            com.sun.tools.xjc.addon.javax.PluginImpl;
 
 }

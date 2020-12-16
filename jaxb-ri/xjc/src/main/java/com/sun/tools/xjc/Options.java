@@ -32,7 +32,6 @@ import java.util.ServiceLoader;
 import java.util.Set;
 
 import com.sun.codemodel.CodeWriter;
-import com.sun.codemodel.JFormatter;
 import com.sun.codemodel.JPackage;
 import com.sun.codemodel.JResourceFile;
 import com.sun.codemodel.writer.FileCodeWriter;
@@ -607,8 +606,6 @@ public class Options {
             target = SpecVersion.parse(token);
             if (target == null)
                 throw new BadCommandLineException(Messages.format(Messages.ILLEGAL_TARGET_VERSION, token));
-            // If target is specified a system property is set
-            System.setProperty(JFormatter.XML_TARGET_VERSION_PROP, target.getVersion());
             return 2;
         }
         if (args[i].equals("-httpproxyfile")) {
