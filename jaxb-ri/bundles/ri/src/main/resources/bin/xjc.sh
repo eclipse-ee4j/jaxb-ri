@@ -36,7 +36,6 @@ then
     JAXB_HOME=`dirname "$PRG"`/..
 
     # make it fully qualified
-    cd "$saveddir"
     JAXB_HOME=`cd "$JAXB_HOME" && pwd`
 
     cd "$saveddir"
