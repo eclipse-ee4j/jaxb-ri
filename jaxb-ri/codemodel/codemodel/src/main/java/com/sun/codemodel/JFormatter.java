@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -555,11 +555,15 @@ public final class JFormatter {
         });
         private static final String JAVAX = "javax.xml.bind";
         private static final String JAKARTA = "jakarta.xml.bind";
+        private static final String JAXB_CORE = "org.glassfish.jaxb.core";
+        private static final String BIND = "com.sun.xml.bind";
 
         private static String renamePackage(String fullClassName) {
             if (CONVERT_JAVAX) {
                 if (fullClassName.startsWith(JAKARTA)) {
                     return fullClassName.replaceFirst(JAKARTA, JAVAX);
+                } else if (fullClassName.startsWith(JAXB_CORE)) {
+                    return fullClassName.replaceFirst(JAXB_CORE, BIND);
                 }
             }
             return fullClassName;
