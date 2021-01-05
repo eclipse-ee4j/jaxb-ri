@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -608,7 +608,7 @@ public class Options {
             if (target == null)
                 throw new BadCommandLineException(Messages.format(Messages.ILLEGAL_TARGET_VERSION, token));
             // If target is specified a system property is set
-            System.setProperty(JFormatter.XML_TARGET_VERSION_PROP, target.getVersion());
+            setXmlConversionProp(target);
             return 2;
         }
         if (args[i].equals("-httpproxyfile")) {
@@ -715,6 +715,32 @@ public class Options {
         }
 
         return 0;   // unrecognized
+    }
+
+    private boolean setXmlConversionProp(SpecVersion target) {
+        boolean isJavax = isJavax();
+        if (!isJavax && target.ordinal() < SpecVersion.V3_0.ordinal()) {
+            logger.warning("Jakarta does not support version 2.x version ");
+            AccessController.doPrivileged(new PrivilegedAction<Void>() {
+                @Override
+                public Void run() {
+                    System.setProperty(JFormatter.XML_CONVERSION_PROP, Boolean.TRUE.toString());
+                    return null;
+                }
+            });
+        } else if (isJavax && target.ordinal() >= SpecVersion.V3_0.ordinal()) {
+            logger.warning("Javax does not support version 3.x version ");
+        }
+        return true;
+    }
+
+    private boolean isJavax() {
+        try {
+            Class.forName("javax.xml.bind.annotation.XmlType");
+            return true;
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
     }
 
     private void parseProxy(String text) throws BadCommandLineException {

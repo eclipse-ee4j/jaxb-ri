@@ -12,6 +12,8 @@ package com.sun.codemodel;
 
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -28,9 +30,9 @@ import java.util.List;
 public final class JFormatter {
 
     /**
-     * Specify the target version (3.0 or 2.3). Version 2.3 will generate javax.xml.bind package names.
+     * Specify the conversion to javax.xml.bind packages when target version is lower than 3.0.
      */
-    public static final String XML_TARGET_VERSION_PROP = "xml.bind.target.version";
+    public static final String XML_CONVERSION_PROP = "javax.xml.bind.conversion";
     /** all classes and ids encountered during the collection mode **/
     /** map from short type name to ReferenceList (list of JClass and ids sharing that name) **/
     private HashMap<String,ReferenceList> collectedReferences;
@@ -545,14 +547,19 @@ public final class JFormatter {
     private static final class LazyPackageConverter {
 
         // Loads the property the first time this class is used.
-        private static final String VERSION = System.getProperty(XML_TARGET_VERSION_PROP);
+        private static final Boolean CONVERT_JAVAX = AccessController.doPrivileged(new PrivilegedAction<Boolean>() {
+            @Override
+            public Boolean run() {
+                return Boolean.getBoolean(XML_CONVERSION_PROP);
+            }
+        });
         private static final String JAVAX = "javax.xml.bind";
         private static final String JAKARTA = "jakarta.xml.bind";
         private static final String JAXB_CORE = "org.glassfish.jaxb.core";
         private static final String BIND = "com.sun.xml.bind";
 
         private static String renamePackage(String fullClassName) {
-            if ("2.3".equals(VERSION)) {
+            if (CONVERT_JAVAX) {
                 if (fullClassName.startsWith(JAKARTA)) {
                     return fullClassName.replaceFirst(JAKARTA, JAVAX);
                 } else if (fullClassName.startsWith(JAXB_CORE)) {
