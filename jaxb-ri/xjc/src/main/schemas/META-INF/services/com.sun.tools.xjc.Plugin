@@ -4,4 +4,3 @@ com.sun.tools.xjc.addon.sync.SynchronizedMethodAddOn
 com.sun.tools.xjc.addon.at_generated.PluginImpl
 com.sun.tools.xjc.addon.episode.PluginImpl
 com.sun.tools.xjc.addon.accessors.PluginImpl
-com.sun.tools.xjc.addon.javax.PluginImpl
