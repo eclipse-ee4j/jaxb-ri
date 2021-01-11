@@ -12,8 +12,6 @@ package com.sun.codemodel;
 
 import java.io.PrintWriter;
 import java.io.Writer;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -21,6 +19,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 
 /**
@@ -73,6 +73,8 @@ public final class JFormatter {
      * Stream associated with this JFormatter
      */
     private final PrintWriter pw;
+    
+    private final Map<String, String> classNameReplacer;
 
     /**
      * Creates a JFormatter.
@@ -82,13 +84,17 @@ public final class JFormatter {
      *
      * @param space
      *        Incremental indentation string, similar to tab value.
+     *
+     * @param classNameReplacer
+     *        Class names to replace.
      */
-    public JFormatter(PrintWriter s, String space) {
+    public JFormatter(PrintWriter s, String space, Map<String, String> classNameReplacer) {
         pw = s;
         indentSpace = space;
         collectedReferences = new HashMap<String,ReferenceList>();
         //ids = new HashSet<String>();
         importedClasses = new HashSet<JClass>();
+        this.classNameReplacer = classNameReplacer;
     }
 
     /**
@@ -96,7 +102,15 @@ public final class JFormatter {
      * four spaces.
      */
     public JFormatter(PrintWriter s) {
-        this(s, "    ");
+        this(s, "    ", null);
+    }
+
+    /**
+     * Creates a formatter with default incremental indentations of
+     * four spaces and replaces the class names in classNameReplacer.
+     */
+    public JFormatter(PrintWriter s, Map<String, String> classNameReplacer) {
+        this(s, "    ", classNameReplacer);
     }
 
     /**
@@ -254,10 +268,11 @@ public final class JFormatter {
             if(importedClasses.contains(type)) {
                 p(type.name()); // FQCN imported or not necessary, so generate short name
             } else {
-                if(type.outer()!=null)
+                if(type.outer()!=null) {
                     t(type.outer()).p('.').p(type.name());
-                else
-                    p(LazyPackageConverter.renamePackage(type.fullName())); // collision was detected, so generate FQCN
+                } else { 
+                    p(renameClassName(type.fullName())); // collision was detected, so generate FQCN
+                }
             }
             break;
         case COLLECTING:
@@ -272,6 +287,17 @@ public final class JFormatter {
             break;
         }
         return this;
+    }
+
+    private String renameClassName(String fullName) {
+        if (classNameReplacer != null) {
+            for (Entry<String, String> pair : classNameReplacer.entrySet()) {
+                if (fullName.startsWith(pair.getKey())) {
+                    return fullName.replaceFirst(pair.getKey(), pair.getValue());
+                }
+            }
+        } 
+        return fullName;
     }
 
     /**
@@ -418,7 +444,7 @@ public final class JFormatter {
                 if (clazz instanceof JNarrowedClass) {
                     clazz = clazz.erasure();
                 }
-                p("import").p(LazyPackageConverter.renamePackage(clazz.fullName())).p(';').nl();
+                p("import").p(renameClassName(clazz.fullName())).p(';').nl();
             }
         }
         nl();
@@ -544,30 +570,4 @@ public final class JFormatter {
         }
     }
 
-    private static final class LazyPackageConverter {
-
-        // Loads the property the first time this class is used.
-        private static final Boolean CONVERT_JAVAX = AccessController.doPrivileged(new PrivilegedAction<Boolean>() {
-            @Override
-            public Boolean run() {
-                return Boolean.getBoolean(XML_CONVERSION_PROP);
-            }
-        });
-        private static final String JAVAX = "javax.xml.bind";
-        private static final String JAKARTA = "jakarta.xml.bind";
-        private static final String JAXB_CORE = "org.glassfish.jaxb.core";
-        private static final String BIND = "com.sun.xml.bind";
-
-        private static String renamePackage(String fullClassName) {
-            if (CONVERT_JAVAX) {
-                if (fullClassName.startsWith(JAKARTA)) {
-                    return fullClassName.replaceFirst(JAKARTA, JAVAX);
-                } else if (fullClassName.startsWith(JAXB_CORE)) {
-                    return fullClassName.replaceFirst(JAXB_CORE, BIND);
-                }
-            }
-            return fullClassName;
-        }
-
-    }
 }

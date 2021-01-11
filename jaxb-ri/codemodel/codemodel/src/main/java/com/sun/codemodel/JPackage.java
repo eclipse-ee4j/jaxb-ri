@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -518,6 +518,6 @@ public final class JPackage implements JDeclaration, JGenerable, JClassContainer
 
     private JFormatter createJavaSourceFileWriter(CodeWriter src, String className) throws IOException {
         Writer bw = new BufferedWriter(src.openSource(this,className+".java"));
-        return new JFormatter(new PrintWriter(bw));
+        return new JFormatter(new PrintWriter(bw), owner.classNameReplacer());
     }
 }
