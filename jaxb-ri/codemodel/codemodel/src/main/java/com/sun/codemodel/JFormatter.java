@@ -15,6 +15,7 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -29,10 +30,6 @@ import java.util.Map.Entry;
  */
 public final class JFormatter {
 
-    /**
-     * Specify the conversion to javax.xml.bind packages when target version is lower than 3.0.
-     */
-    public static final String XML_CONVERSION_PROP = "javax.xml.bind.conversion";
     /** all classes and ids encountered during the collection mode **/
     /** map from short type name to ReferenceList (list of JClass and ids sharing that name) **/
     private HashMap<String,ReferenceList> collectedReferences;
@@ -84,6 +81,19 @@ public final class JFormatter {
      *
      * @param space
      *        Incremental indentation string, similar to tab value.
+     */
+    public JFormatter(PrintWriter s, String space) {
+        this(s, space, Collections.emptyMap());
+    }
+
+    /**
+     * Creates a JFormatter.
+     *
+     * @param s
+     *        PrintWriter to JFormatter to use.
+     *
+     * @param space
+     *        Incremental indentation string, similar to tab value.
      *
      * @param classNameReplacer
      *        Class names to replace.
@@ -102,7 +112,7 @@ public final class JFormatter {
      * four spaces.
      */
     public JFormatter(PrintWriter s) {
-        this(s, "    ", null);
+        this(s, "    ", Collections.emptyMap());
     }
 
     /**
@@ -290,13 +300,11 @@ public final class JFormatter {
     }
 
     private String renameClassName(String fullName) {
-        if (classNameReplacer != null) {
-            for (Entry<String, String> pair : classNameReplacer.entrySet()) {
-                if (fullName.startsWith(pair.getKey())) {
-                    return fullName.replaceFirst(pair.getKey(), pair.getValue());
-                }
+        for (Entry<String, String> pair : classNameReplacer.entrySet()) {
+            if (fullName.startsWith(pair.getKey())) {
+                return fullName.replaceFirst(pair.getKey(), pair.getValue());
             }
-        } 
+        }
         return fullName;
     }
 

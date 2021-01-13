@@ -231,10 +231,8 @@ public class Driver {
         JCodeModel codeModel = new JCodeModel();
         try {
             opt.parseArguments(args);
-            if (!opt.classNameReplacer.isEmpty()) {
-                for (Entry<String, String> pair : opt.classNameReplacer.entrySet()) {
-                    codeModel.addClassNameReplacer(pair.getKey(), pair.getValue());
-                }
+            for (Entry<String, String> pair : opt.classNameReplacer.entrySet()) {
+                codeModel.addClassNameReplacer(pair.getKey(), pair.getValue());
             }
         } catch (WeAreDone e) {
             if (opt.proxyAuth != null) {

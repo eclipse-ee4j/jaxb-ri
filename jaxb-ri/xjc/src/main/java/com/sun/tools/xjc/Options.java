@@ -615,8 +615,7 @@ public class Options {
             target = SpecVersion.parse(token);
             if (target == null)
                 throw new BadCommandLineException(Messages.format(Messages.ILLEGAL_TARGET_VERSION, token));
-            // If target is specified a system property is set
-            setXmlConversionProp(target);
+            addClassNameReplacers(target);
             return 2;
         }
         if (args[i].equals("-httpproxyfile")) {
@@ -725,7 +724,7 @@ public class Options {
         return 0;   // unrecognized
     }
 
-    private boolean setXmlConversionProp(SpecVersion target) {
+    private boolean addClassNameReplacers(SpecVersion target) {
         boolean isJavax = isJavax();
         if (!isJavax && target.ordinal() < SpecVersion.V3_0.ordinal()) {
             logger.warning("Jakarta does not support version 2.x version ");
