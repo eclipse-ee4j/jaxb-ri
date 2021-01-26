@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,18 +18,27 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.nio.charset.Charset;
+import java.nio.charset.IllegalCharsetNameException;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.sun.codemodel.CodeWriter;
 import com.sun.codemodel.JPackage;
@@ -42,15 +51,8 @@ import com.sun.tools.xjc.api.SpecVersion;
 import com.sun.tools.xjc.generator.bean.field.FieldRendererFactory;
 import com.sun.tools.xjc.model.Model;
 import com.sun.tools.xjc.reader.Util;
-import org.glassfish.jaxb.core.api.impl.NameConverter;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.nio.charset.Charset;
-import java.nio.charset.IllegalCharsetNameException;
-import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+import org.glassfish.jaxb.core.api.impl.NameConverter;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 
@@ -148,6 +150,13 @@ public class Options {
      * or {@code EXTENSION}.
      */
     public int compatibilityMode = STRICT;
+
+    private static final String JAVAX = "javax.xml.bind";
+    private static final String JAKARTA = "jakarta.xml.bind";
+    private static final String JAXB_CORE = "org.glassfish.jaxb.core";
+    private static final String BIND = "com.sun.xml.bind";
+    
+    public final Map<String, String> classNameReplacer = new HashMap<>();
 
     public boolean isExtensionMode() {
         return compatibilityMode == EXTENSION;
@@ -606,6 +615,7 @@ public class Options {
             target = SpecVersion.parse(token);
             if (target == null)
                 throw new BadCommandLineException(Messages.format(Messages.ILLEGAL_TARGET_VERSION, token));
+            addClassNameReplacers(target);
             return 2;
         }
         if (args[i].equals("-httpproxyfile")) {
@@ -712,6 +722,27 @@ public class Options {
         }
 
         return 0;   // unrecognized
+    }
+
+    private boolean addClassNameReplacers(SpecVersion target) {
+        boolean isJavax = isJavax();
+        if (!isJavax && target.ordinal() < SpecVersion.V3_0.ordinal()) {
+            logger.warning("Jakarta does not support version 2.x version ");
+            classNameReplacer.put(JAKARTA, JAVAX);
+            classNameReplacer.put(JAXB_CORE, BIND);
+        } else if (isJavax && target.ordinal() >= SpecVersion.V3_0.ordinal()) {
+            logger.warning("Javax does not support version 3.x version ");
+        }
+        return true;
+    }
+
+    private boolean isJavax() {
+        try {
+            Class.forName("javax.xml.bind.annotation.XmlType");
+            return true;
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
     }
 
     private void parseProxy(String text) throws BadCommandLineException {

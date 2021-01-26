@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -72,7 +72,8 @@ public final class JCodeModel {
     /** All JReferencedClasses are pooled here. */
     private final HashMap<Class<?>,JReferencedClass> refClasses = new HashMap<>();
 
-    
+    private final Map<String, String> classNameReplacer = new HashMap<>();
+
     /** Obtains a reference to the special "null" type. */
     public final JNullType NULL = new JNullType(this);
     // primitive types 
@@ -91,7 +92,7 @@ public final class JCodeModel {
      * as a collision.
      */
     protected static final boolean isCaseSensitiveFileSystem = getFileSystemCaseSensitivity();
-    
+
     private static boolean getFileSystemCaseSensitivity() {
         try {
             // let the system property override, in case the user really
@@ -347,7 +348,23 @@ public final class JCodeModel {
         return r;
     }
 
-	
+    /**
+     * Specify class names or packages to be replaced when the model is dumped into files.
+     * @param c1 the regular expression to which class name or package will be replaced.
+     * @param c2 the string to be substituted for the first match.
+     */
+    public void addClassNameReplacer(String c1, String c2) {
+        classNameReplacer.put(c1, c2);
+    }
+
+    /**
+     * Gives an unmodifiable copy of classNameReplacer
+     * @return classNameReplacer
+     */
+    public Map<String, String> classNameReplacer() {
+        return Collections.unmodifiableMap(classNameReplacer);
+    }
+
     /**
      * Obtains a reference to an existing class from its Class object.
      *

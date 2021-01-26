@@ -16,7 +16,13 @@ package com.sun.tools.xjc.api;
  * @author Kohsuke Kawaguchi
  */
 public enum SpecVersion {
-    V3_0;
+    V2_3("2.3"), V3_0("3.0");
+
+    private final String version;
+
+    private SpecVersion(String version) {
+        this.version = version;
+    }
 
     /**
      * Returns true if this version is equal or later than the given one.
@@ -31,8 +37,10 @@ public enum SpecVersion {
      * @return null for parsing failure.
      */
     public static SpecVersion parse(String token) {
-        if("3.0".equals(token)) {
-            return V3_0;
+        for (SpecVersion version : SpecVersion.values()) {
+            if (version.getVersion().equals(token)) {
+                return version;
+            }
         }
         return null;
     }
@@ -41,12 +49,7 @@ public enum SpecVersion {
      * Gives the String representation of the {@link SpecVersion}
      */
     public String getVersion(){
-        switch(this){
-            case V3_0:
-                return "3.0";
-            default:
-                return null;
-        }
+        return version;
     }
 
     public static final SpecVersion LATEST = V3_0;

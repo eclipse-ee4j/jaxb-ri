@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,10 +15,13 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 
 /**
@@ -26,6 +29,7 @@ import java.util.List;
  * formatting for PrintWriter.
  */
 public final class JFormatter {
+
     /** all classes and ids encountered during the collection mode **/
     /** map from short type name to ReferenceList (list of JClass and ids sharing that name) **/
     private HashMap<String,ReferenceList> collectedReferences;
@@ -66,6 +70,8 @@ public final class JFormatter {
      * Stream associated with this JFormatter
      */
     private final PrintWriter pw;
+    
+    private final Map<String, String> classNameReplacer;
 
     /**
      * Creates a JFormatter.
@@ -77,11 +83,28 @@ public final class JFormatter {
      *        Incremental indentation string, similar to tab value.
      */
     public JFormatter(PrintWriter s, String space) {
+        this(s, space, Collections.emptyMap());
+    }
+
+    /**
+     * Creates a JFormatter.
+     *
+     * @param s
+     *        PrintWriter to JFormatter to use.
+     *
+     * @param space
+     *        Incremental indentation string, similar to tab value.
+     *
+     * @param classNameReplacer
+     *        Class names to replace.
+     */
+    public JFormatter(PrintWriter s, String space, Map<String, String> classNameReplacer) {
         pw = s;
         indentSpace = space;
         collectedReferences = new HashMap<String,ReferenceList>();
         //ids = new HashSet<String>();
         importedClasses = new HashSet<JClass>();
+        this.classNameReplacer = classNameReplacer;
     }
 
     /**
@@ -89,7 +112,15 @@ public final class JFormatter {
      * four spaces.
      */
     public JFormatter(PrintWriter s) {
-        this(s, "    ");
+        this(s, "    ", Collections.emptyMap());
+    }
+
+    /**
+     * Creates a formatter with default incremental indentations of
+     * four spaces and replaces the class names in classNameReplacer.
+     */
+    public JFormatter(PrintWriter s, Map<String, String> classNameReplacer) {
+        this(s, "    ", classNameReplacer);
     }
 
     /**
@@ -247,10 +278,11 @@ public final class JFormatter {
             if(importedClasses.contains(type)) {
                 p(type.name()); // FQCN imported or not necessary, so generate short name
             } else {
-                if(type.outer()!=null)
+                if(type.outer()!=null) {
                     t(type.outer()).p('.').p(type.name());
-                else
-                    p(type.fullName()); // collision was detected, so generate FQCN
+                } else { 
+                    p(renameClassName(type.fullName())); // collision was detected, so generate FQCN
+                }
             }
             break;
         case COLLECTING:
@@ -265,6 +297,15 @@ public final class JFormatter {
             break;
         }
         return this;
+    }
+
+    private String renameClassName(String fullName) {
+        for (Entry<String, String> pair : classNameReplacer.entrySet()) {
+            if (fullName.startsWith(pair.getKey())) {
+                return fullName.replaceFirst(pair.getKey(), pair.getValue());
+            }
+        }
+        return fullName;
     }
 
     /**
@@ -411,8 +452,7 @@ public final class JFormatter {
                 if (clazz instanceof JNarrowedClass) {
                     clazz = clazz.erasure();
                 }
-                
-                p("import").p(clazz.fullName()).p(';').nl();
+                p("import").p(renameClassName(clazz.fullName())).p(';').nl();
             }
         }
         nl();
@@ -537,4 +577,5 @@ public final class JFormatter {
             return id && classes.size() == 0;
         }
     }
+
 }

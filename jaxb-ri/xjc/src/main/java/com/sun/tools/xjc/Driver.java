@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -19,6 +19,7 @@ import java.io.PrintStream;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.Iterator;
+import java.util.Map.Entry;
 
 import com.sun.codemodel.CodeWriter;
 import com.sun.codemodel.JCodeModel;
@@ -227,8 +228,12 @@ public class Driver {
 
         final OptionsEx opt = new OptionsEx();
         opt.setSchemaLanguage(Language.XMLSCHEMA);  // disable auto-guessing
+        JCodeModel codeModel = new JCodeModel();
         try {
             opt.parseArguments(args);
+            for (Entry<String, String> pair : opt.classNameReplacer.entrySet()) {
+                codeModel.addClassNameReplacer(pair.getKey(), pair.getValue());
+            }
         } catch (WeAreDone e) {
             if (opt.proxyAuth != null) {
                 DefaultAuthenticator.reset();
@@ -284,7 +289,7 @@ public class Driver {
 
             if( opt.mode==Mode.FOREST ) {
                 // dump DOM forest and quit
-                ModelLoader loader  = new ModelLoader( opt, new JCodeModel(), receiver );
+                ModelLoader loader  = new ModelLoader( opt, codeModel, receiver );
                 try {
                     DOMForest forest = loader.buildDOMForest(new XMLSchemaInternalizationLogic());
                     forest.dump(System.out);
@@ -300,7 +305,7 @@ public class Driver {
 
             if( opt.mode==Mode.GBIND ) {
                 try {
-                    XSSchemaSet xss = new ModelLoader(opt, new JCodeModel(), receiver).loadXMLSchema();
+                    XSSchemaSet xss = new ModelLoader(opt, codeModel, receiver).loadXMLSchema();
                     Iterator<XSComplexType> it = xss.iterateComplexTypes();
                     while (it.hasNext()) {
                         XSComplexType ct =  it.next();
@@ -321,7 +326,7 @@ public class Driver {
                 return -1;
             }
             
-            Model model = ModelLoader.load( opt, new JCodeModel(), receiver );
+            Model model = ModelLoader.load( opt, codeModel, receiver );
 
             if (model == null) {
                 listener.message(Messages.format(Messages.PARSE_FAILED));
