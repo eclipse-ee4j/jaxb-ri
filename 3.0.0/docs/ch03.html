@@ -1401,14 +1401,38 @@ context.generateSchema(<span class="ReservedWord">new</span> MySchemaOutputResol
                     <span class="ReservedWord">&lt;version&gt;</span>${impl.version}<span class="ReservedWord">&lt;/version&gt;</span>
                 <span class="ReservedWord">&lt;/dependency&gt;</span>
     </pre></div></div><p><br class="example-break"></p></div><div class="section" id="Jaxb_tooling"><div class="titlepage"><div><div><h4 class="title">7.1.5.&nbsp;Using Eclipse Implementation of JAXB tools for java sources and XML schema generation</h4></div></div></div><p>
-            To generate Jakarta XML Binding classes from schema in Maven project, a community
-            <a class="link" href="https://github.com/highsource/maven-jaxb2-plugin" target="_top">maven-jaxb2-plugin</a> can be used.
-            </p><div class="example" id="d0e4398"><p class="title"><b>Example&nbsp;90.&nbsp;Using maven-jaxb2-plugin</b></p><div class="example-contents"><pre class="programlisting">
+            To generate Jakarta XML Binding classes from schema in Maven project, there are two community options.
+            <ul>
+              <li>A Maven plugin originating from MojoHaus which has been updated for JAXB 3 by Evolved Binary:
+                  <a class="link" href="https://github.com/evolvedbinary/mojohaus-jaxb-maven-plugin" target="_top">MojoHaus jaxb-maven-plugin</a>.</li>
+              <li>A Maven plugin originating from java.net which has been updated for JAXB 3 by Evolved Binary:
+                  <a class="link" href="https://github.com/evolvedbinary/jvnet-jaxb-maven-plugin" target="_top">jvnet jaxb-maven-plugin</a>.</li>
+            </ul></p>
+            <div class="example" id="d0e4398"><p class="title"><b>Example&nbsp;90.&nbsp;Using MojoHaus jaxb-maven-plugin</b></p><div class="example-contents"><pre class="programlisting">
                 <span class="ReservedWord">&lt;build&gt;</span>
                     <span class="ReservedWord">&lt;plugins&gt;</span>
                         <span class="ReservedWord">&lt;plugin&gt;</span>
-                            <span class="ReservedWord">&lt;groupId&gt;</span>org.jvnet.jaxb2.maven2<span class="ReservedWord">&lt;/groupId&gt;</span>
-                            <span class="ReservedWord">&lt;artifactId&gt;</span>maven-jaxb2-plugin<span class="ReservedWord">&lt;/artifactId&gt;</span>
+                            <span class="ReservedWord">&lt;groupId&gt;</span>com.evolvedbinary.maven.mojohaus<span class="ReservedWord">&lt;/groupId&gt;</span>
+                            <span class="ReservedWord">&lt;artifactId&gt;</span>jaxb-maven-plugin<span class="ReservedWord">&lt;/artifactId&gt;</span>
+                            <span class="ReservedWord">&lt;executions&gt;</span>
+                                <span class="ReservedWord">&lt;execution&gt;</span>
+                                    <span class="ReservedWord">&lt;id&gt;</span>schemagen<span class="ReservedWord">&lt;/id&gt;</span>
+                                    <span class="ReservedWord">&lt;goals&gt;</span>
+                                        <span class="ReservedWord">&lt;goal&gt;</span>schemagen<span class="ReservedWord">&lt;/goal&gt;</span>
+                                    <span class="ReservedWord">&lt;/goals&gt;</span>
+                                <span class="ReservedWord">&lt;/execution&gt;</span>
+                            <span class="ReservedWord">&lt;/executions&gt;</span>
+                        <span class="ReservedWord">&lt;/plugin&gt;</span>
+                    <span class="ReservedWord">&lt;/plugins&gt;</span>
+                <span class="ReservedWord">&lt;/build&gt;</span>
+    </pre></div></div><p><br class="example-break">
+            See the <a class="link" href="https://evolvedbinary.github.io/mojohaus-jaxb-maven-plugin/" target="_top">jaxb-maven-plugin documentation</a> for configuration details.</p>
+<div class="example" id="d0e4398"><p class="title"><b>Example&nbsp;90.&nbsp;Using jvnet jaxb-maven-plugin</b></p><div class="example-contents"><pre class="programlisting">
+                <span class="ReservedWord">&lt;build&gt;</span>
+                    <span class="ReservedWord">&lt;plugins&gt;</span>
+                        <span class="ReservedWord">&lt;plugin&gt;</span>
+                            <span class="ReservedWord">&lt;groupId&gt;</span>com.evolvedbinary.maven.jvnet<span class="ReservedWord">&lt;/groupId&gt;</span>
+                            <span class="ReservedWord">&lt;artifactId&gt;</span>jaxb-maven-plugin<span class="ReservedWord">&lt;/artifactId&gt;</span>
                             <span class="ReservedWord">&lt;executions&gt;</span>
                                 <span class="ReservedWord">&lt;execution&gt;</span>
                                     <span class="ReservedWord">&lt;id&gt;</span>generate<span class="ReservedWord">&lt;/id&gt;</span>
@@ -1421,8 +1445,8 @@ context.generateSchema(<span class="ReservedWord">new</span> MySchemaOutputResol
                     <span class="ReservedWord">&lt;/plugins&gt;</span>
                 <span class="ReservedWord">&lt;/build&gt;</span>
     </pre></div></div><p><br class="example-break">
-            See the <a class="link" href="https://github.com/highsource/maven-jaxb2-plugin" target="_top">maven-jaxb2-plugin documentation</a> for configuration details.</p><p>
-        Alternatively to community plugins, there are tooling artifacts jaxb-xjc and jaxb-jxc,
+            See the <a class="link" href="https://evolvedbinary.github.io/jvnet-jaxb-maven-plugin/" target="_top">jaxb-maven-plugin documentation</a> for configuration details.</p>
+        <p>Alternatively to community plugins, there are tooling artifacts jaxb-xjc and jaxb-jxc,
         which can be used for
         java from XML schema generation and vice versa.
         </p><div class="example" id="d0e4409"><p class="title"><b>Example&nbsp;91.&nbsp;Using Eclipse Implementation of JAXB tooling artifacts</b></p><div class="example-contents"><pre class="programlisting">
