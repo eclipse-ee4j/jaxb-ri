@@ -175,7 +175,7 @@ public class NGCCRuntimeEx extends NGCCRuntime implements PatcherManager {
                 baseUri=documentSystemId;
 
             EntityResolver er = parser.getEntityResolver();
-            String systemId = "";
+            String systemId = null;
 
             if (relativeUri!=null) {
                 if (isAbsolute(relativeUri)) {
@@ -188,7 +188,7 @@ public class NGCCRuntimeEx extends NGCCRuntime implements PatcherManager {
             }
 
             if (er!=null) {
-                InputSource is = er.resolveEntity(namespaceURI,systemId);
+                InputSource is = er.resolveEntity(namespaceURI,systemId == null ? "" : systemId);
                 if (is == null) {
                     try {
                         String normalizedSystemId = URI.create(systemId).normalize().toASCIIString();
