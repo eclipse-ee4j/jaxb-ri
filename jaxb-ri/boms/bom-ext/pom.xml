@@ -34,7 +34,7 @@
 
     <properties>
         <codemodel.version>${project.version}</codemodel.version>
-        <dtd-parser.version>1.4.3</dtd-parser.version>
+        <dtd-parser.version>1.4.4</dtd-parser.version>
         <relaxng.version>${project.version}</relaxng.version>
         <xsom.version>${project.version}</xsom.version>
         <ant.version>1.10.9</ant.version>
