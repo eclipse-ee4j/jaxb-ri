@@ -38,4 +38,5 @@ public class MapNamespaceContext implements NamespaceContext {
     public Iterator getPrefixes(String namespaceURI) {
         throw new UnsupportedOperationException();
     }
+
 }

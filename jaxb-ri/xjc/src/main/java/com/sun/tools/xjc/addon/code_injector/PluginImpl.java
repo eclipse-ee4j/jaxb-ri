@@ -32,6 +32,7 @@ import org.xml.sax.ErrorHandler;
  * @author Kohsuke Kawaguchi
  */
 public class PluginImpl extends Plugin {
+
     public String getOptionName() {
         return "Xinject-code";
     }

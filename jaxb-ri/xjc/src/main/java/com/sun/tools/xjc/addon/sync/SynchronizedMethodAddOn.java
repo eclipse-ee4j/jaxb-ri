@@ -23,7 +23,7 @@ import org.xml.sax.ErrorHandler;
 
 /**
  * Generates synchronized methods.
- * 
+ *
  * @author
  *     Kohsuke Kawaguchi (kohsuke.kawaguchi@sun.com)
  */
@@ -45,10 +45,10 @@ public class SynchronizedMethodAddOn extends Plugin {
 
         for( ClassOutline co : model.getClasses() )
             augument(co);
-        
+
         return true;
     }
-    
+
     /**
      * Adds "synchoronized" to all the methods.
      */

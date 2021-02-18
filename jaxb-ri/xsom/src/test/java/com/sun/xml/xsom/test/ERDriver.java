@@ -23,6 +23,7 @@ import java.io.IOException;
  * @author Kohsuke Kawaguchi
  */
 public class ERDriver {
+
     public static void main(String[] args) throws Exception {
         XSOMParser p = new XSOMParser();
         p.setEntityResolver(new EntityResolverImpl());

@@ -16,6 +16,7 @@ import java.util.logging.Logger;
  * @author Kohsuke Kawaguchi
  */
 public final class Utils {
+
     private Utils() {}   // no instanciation
 
     /**

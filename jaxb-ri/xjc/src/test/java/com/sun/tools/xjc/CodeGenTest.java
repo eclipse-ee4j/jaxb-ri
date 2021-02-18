@@ -70,4 +70,5 @@ public class CodeGenTest extends TestCase {
         generable.declare(formatter);
         return stringWriter.toString();
     }
+
 }

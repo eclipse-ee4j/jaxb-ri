@@ -19,6 +19,7 @@ import org.xml.sax.SAXException;
  * @author Kohsuke Kawaguchi
  */
 public abstract class AbstractXSOMTest extends TestCase {
+
     /**
      * Loads a schema set from XSDs in the resource.
      */

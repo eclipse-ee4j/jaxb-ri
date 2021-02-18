@@ -76,4 +76,5 @@ module com.sun.tools.xjc {
             com.sun.tools.xjc.addon.episode.PluginImpl,
             com.sun.tools.xjc.addon.locator.SourceLocationAddOn,
             com.sun.tools.xjc.addon.sync.SynchronizedMethodAddOn;
+
 }

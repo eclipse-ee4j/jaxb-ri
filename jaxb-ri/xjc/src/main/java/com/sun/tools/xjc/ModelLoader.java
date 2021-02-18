@@ -369,9 +369,9 @@ public final class ModelLoader {
     /**
      * Potentially problematic - make sure the parser instance passed is initialized
      * with proper security feature.
-     * 
+     *
      * @param parser
-     * @return 
+     * @return
      */
     public XSOMParser createXSOMParser(XMLParser parser) {
         // set up other parameters to XSOMParser

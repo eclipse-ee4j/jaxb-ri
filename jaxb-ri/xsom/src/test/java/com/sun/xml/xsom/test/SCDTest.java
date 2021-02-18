@@ -19,6 +19,7 @@ import java.util.Collection;
  * @author Kohsuke Kawaguchi
  */
 public class SCDTest extends AbstractXSOMTest {
+
     /**
      * Taken from spec examples in section 4.2.16
      */

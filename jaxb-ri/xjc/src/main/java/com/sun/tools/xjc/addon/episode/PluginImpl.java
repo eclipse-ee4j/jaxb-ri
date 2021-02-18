@@ -315,17 +315,17 @@ public class PluginImpl extends Plugin {
             outlineType.bindingsBuilder.build(this, bindings);
         }
     }
-    
+
     private final static class PerSchemaOutlineAdaptors {
-    	
+
     	private final List<OutlineAdaptor> outlineAdaptors = new ArrayList<OutlineAdaptor>();
-    	
+
     	private final Set<String> packageNames = new HashSet<String>();
 
         private void add(OutlineAdaptor outlineAdaptor) {
             this.outlineAdaptors.add(outlineAdaptor);
             this.packageNames.add(outlineAdaptor.packageName);
     	}
-    	
+
     }
 }

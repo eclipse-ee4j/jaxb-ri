@@ -13,7 +13,7 @@ package com.sun.xml.bind;
 import junit.framework.TestCase;
 
 public class UtilsTest extends TestCase {
-    
+
     public void testGetClassLogger() {
         assertEquals(UtilsTest.class.getName(), Utils.getClassLogger().getName());
     }

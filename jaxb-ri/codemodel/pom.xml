@@ -1,6 +1,6 @@
 <!--
 
-    Copyright (c) 2010, 2020 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2010, 2021 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -59,7 +59,7 @@
         <spotbugs.exclude/>
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>High</spotbugs.threshold>
-        <spotbugs.version>4.0.0</spotbugs.version>
+        <spotbugs.version>4.2.0</spotbugs.version>
 
         <upper.java.level>9</upper.java.level>
         <base.java.level>8</base.java.level>
@@ -91,7 +91,7 @@
                 <plugin>
                     <groupId>org.apache.felix</groupId>
                     <artifactId>maven-bundle-plugin</artifactId>
-                    <version>4.2.1</version>
+                    <version>5.1.1</version>
                     <configuration>
                         <instructions>
                             <_noextraheaders>true</_noextraheaders>
@@ -135,7 +135,7 @@
                 <plugin>
                     <groupId>org.glassfish.copyright</groupId>
                     <artifactId>glassfish-copyright-maven-plugin</artifactId>
-                    <version>2.3</version>
+                    <version>2.4</version>
                     <configuration>
                         <templateFile>${copyright.template}</templateFile>
                         <excludeFile>${copyright.exclude}</excludeFile>
@@ -145,6 +145,7 @@
                         <update>${copyright.update}</update>
                         <!-- check that year is correct -->
                         <ignoreYear>${copyright.ignoreyear}</ignoreYear>
+                        <quiet>false</quiet>
                     </configuration>
                 </plugin>
                 <plugin>

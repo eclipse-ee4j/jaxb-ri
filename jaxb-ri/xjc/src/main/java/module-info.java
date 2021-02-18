@@ -55,3 +55,4 @@ module org.glassfish.jaxb.xjc {
             com.sun.tools.xjc.addon.sync.SynchronizedMethodAddOn;
 
 }
+

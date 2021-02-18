@@ -11,27 +11,27 @@
 -->
 
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:my="tns" targetNamespace="tns" elementFormDefault="qualified">
-  <xs:complexType name="articleType">
-    <xs:sequence>
-      <xs:element ref="my:section"/>
-      <xs:element name="appendix" type="my:sectionType"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:element name="foo-bar" />
-
-  <xs:element name="chapter">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="my:title" minOccurs="0" maxOccurs="unbounded"/>
-        <xs:any namespace="##other" minOccurs="0" maxOccurs="unbounded"/>
-      </xs:sequence>
-      <xs:attribute name="name" type="xs:string"/>
-      <xs:anyAttribute namespace="##other" />
+    <xs:complexType name="articleType">
+        <xs:sequence>
+            <xs:element ref="my:section"/>
+            <xs:element name="appendix" type="my:sectionType"/>
+        </xs:sequence>
     </xs:complexType>
-  </xs:element>
 
-  <xs:element name="title" type="xs:string" />
-  <xs:element name="section" type="xs:string" />
-  <xs:complexType name="sectionType" />
+    <xs:element name="foo-bar" />
+
+    <xs:element name="chapter">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="my:title" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:any namespace="##other" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string"/>
+            <xs:anyAttribute namespace="##other" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="title" type="xs:string" />
+    <xs:element name="section" type="xs:string" />
+    <xs:complexType name="sectionType" />
 </xs:schema>

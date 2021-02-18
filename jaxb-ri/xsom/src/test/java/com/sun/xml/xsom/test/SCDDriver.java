@@ -27,6 +27,7 @@ import java.util.Collection;
  * @author Kohsuke Kawaguchi
  */
 public class SCDDriver {
+
     public static void main(String[] args) throws Exception {
         XSOMParser p = new XSOMParser();
 

@@ -13,7 +13,7 @@
 
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="unqualified" attributeFormDefault="unqualified"
             xmlns:tns="https://gh.com/bugs" targetNamespace="https://gh.com/bugs"
-            xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb" jaxb:version="3.0">
+            xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="2.0">
     <xsd:annotation>
         <xsd:appinfo>
             <jaxb:globalBindings collectionType="indexed"/>

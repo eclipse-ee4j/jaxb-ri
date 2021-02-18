@@ -103,5 +103,4 @@ public class XSOMParserTest extends TestCase {
         XSSchemaSet result = instance.getResult();
     }
 
-
 }
