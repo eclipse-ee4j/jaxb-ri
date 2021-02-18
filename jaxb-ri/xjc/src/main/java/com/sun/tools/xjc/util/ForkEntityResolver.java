@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -31,9 +31,10 @@ public class ForkEntityResolver implements EntityResolver {
     }
 
     public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
-        InputSource is = lhs.resolveEntity(publicId, systemId);
+        String sId = systemId == null ? "" : systemId;
+        InputSource is = lhs.resolveEntity(publicId, sId);
         if(is!=null)
             return is;
-        return rhs.resolveEntity(publicId,systemId);
+        return rhs.resolveEntity(publicId, sId);
     }
 }

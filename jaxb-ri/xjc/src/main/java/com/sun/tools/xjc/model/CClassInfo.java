@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -148,7 +148,7 @@ public final class CClassInfo extends AbstractCElement implements ClassInfo<NTyp
     public CClassInfo(Model model,JCodeModel cm, String fullName, Locator location, QName typeName, QName elementName, XSComponent source, CCustomizations customizations) {
         super(model,source,location,customizations);
         this.model = model;
-        int idx = fullName.indexOf('.');
+        int idx = fullName.lastIndexOf('.');
         if(idx<0) {
             this.parent = model.getPackage(cm.rootPackage());
             this.shortName = model.allocator.assignClassName(parent,fullName);

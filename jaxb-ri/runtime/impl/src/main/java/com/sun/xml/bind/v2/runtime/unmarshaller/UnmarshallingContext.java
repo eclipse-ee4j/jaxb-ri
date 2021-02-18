@@ -1319,10 +1319,6 @@ public final class UnmarshallingContext extends Coordinator
         if (logger.isLoggable(Level.FINEST))
             return true;
 
-        if (errorsCounter < 0) {
-            return true;
-        }
-
         if (errorsCounter >= 0) {
             --errorsCounter;
             if (errorsCounter == 0) // it's possible to miss this because of concurrency. If required add synchronization here

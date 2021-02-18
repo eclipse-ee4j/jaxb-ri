@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 
-    Copyright (c) 2010, 2020 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2010, 2021 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,13 +23,36 @@
 
     <groupId>org.glassfish.jaxb</groupId>
     <artifactId>xsom</artifactId>
-    <version>2.4.0-SNAPSHOT</version>
+    <version>2.3.4-SNAPSHOT</version>
 
     <name>XSOM</name>
     <description>XML Schema Object Model (XSOM) is a Java library that allows applications to easily parse XML Schema
         documents and inspect information in them. It is expected to be useful for applications that need to take XML
         Schema as an input.
     </description>
+
+    <licenses>
+        <license>
+            <name>Eclipse Distribution License - v 1.0</name>
+            <url>http://www.eclipse.org/org/documents/edl-v10.php</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <issueManagement>
+        <system>github</system>
+        <url>https://github.com/eclipse-ee4j/jaxb-ri/issues</url>
+    </issueManagement>
+
+    <mailingLists>
+        <mailingList>
+            <name>Jakarta XML Binding Implementation mailing list</name>
+            <post>jaxb-impl-dev@eclipse.org</post>
+            <subscribe>https://accounts.eclipse.org/mailing-list/jaxb-impl-dev</subscribe>
+            <unsubscribe>https://accounts.eclipse.org/mailing-list/jaxb-impl-dev</unsubscribe>
+            <archive>https://accounts.eclipse.org/mailing-list/jaxb-impl-dev</archive>
+        </mailingList>
+    </mailingLists>
 
     <properties>
         <copyright.exclude>tools/config/copyright-exclude</copyright.exclude>
@@ -40,9 +63,9 @@
         <spotbugs.exclude>${project.basedir}/exclude-xsom.xml</spotbugs.exclude>
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>Low</spotbugs.threshold>
-        <spotbugs.version>4.0.0</spotbugs.version>
+        <spotbugs.version>4.2.0</spotbugs.version>
 
-        <relaxng.version>2.3.3-b02</relaxng.version>
+        <relaxng.version>${project.version}</relaxng.version>
         <upper.java.level>9</upper.java.level>
         <base.java.level>8</base.java.level>
     </properties>
@@ -56,7 +79,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -77,12 +100,12 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>3.1.0</version>
+                    <version>3.2.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.felix</groupId>
                     <artifactId>maven-bundle-plugin</artifactId>
-                    <version>4.2.1</version>
+                    <version>5.1.1</version>
                     <configuration>
                         <instructions>
                             <_noextraheaders>true</_noextraheaders>
@@ -121,7 +144,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.0.0-M4</version>
+                    <version>3.0.0-M5</version>
                     <configuration>
                         <argLine>${proxyArgLine}</argLine>
                     </configuration>
@@ -134,7 +157,7 @@
                 <plugin>
                     <groupId>org.glassfish.copyright</groupId>
                     <artifactId>glassfish-copyright-maven-plugin</artifactId>
-                    <version>2.3</version>
+                    <version>2.4</version>
                     <configuration>
                         <templateFile>${copyright.template}</templateFile>
                         <excludeFile>${copyright.exclude}</excludeFile>
@@ -144,6 +167,7 @@
                         <update>${copyright.update}</update>
                         <!-- check that year is correct -->
                         <ignoreYear>${copyright.ignoreyear}</ignoreYear>
+                        <quiet>false</quiet>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -323,7 +347,7 @@
                         <plugin>
                             <groupId>org.jacoco</groupId>
                             <artifactId>jacoco-maven-plugin</artifactId>
-                            <version>0.8.5</version>
+                            <version>0.8.6</version>
                         </plugin>
                     </plugins>
                 </pluginManagement>

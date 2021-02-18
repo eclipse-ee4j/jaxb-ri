@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,6 +18,7 @@ import java.util.List;
 
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
@@ -41,34 +42,42 @@ public final class InlineAnnotationReaderImpl extends AbstractInlineAnnotationRe
 
     private InlineAnnotationReaderImpl() {}
 
+    @Override
     public <A extends Annotation> A getClassAnnotation(Class<A> a, TypeElement clazz, Locatable srcPos) {
         return LocatableAnnotation.create(clazz.getAnnotation(a),srcPos);
     }
 
+    @Override
     public <A extends Annotation> A getFieldAnnotation(Class<A> a, VariableElement f, Locatable srcPos) {
         return LocatableAnnotation.create(f.getAnnotation(a),srcPos);
     }
 
+    @Override
     public boolean hasFieldAnnotation(Class<? extends Annotation> annotationType, VariableElement f) {
         return f.getAnnotation(annotationType)!=null;
     }
 
+    @Override
     public boolean hasClassAnnotation(TypeElement clazz, Class<? extends Annotation> annotationType) {
         return clazz.getAnnotation(annotationType)!=null;
     }
 
+    @Override
     public Annotation[] getAllFieldAnnotations(VariableElement field, Locatable srcPos) {
         return getAllAnnotations(field,srcPos);
     }
 
+    @Override
     public <A extends Annotation> A getMethodAnnotation(Class<A> a, ExecutableElement method, Locatable srcPos) {
         return LocatableAnnotation.create(method.getAnnotation(a),srcPos);
     }
 
+    @Override
     public boolean hasMethodAnnotation(Class<? extends Annotation> a, ExecutableElement method) {
         return method.getAnnotation(a)!=null;
     }
 
+    @Override
     public Annotation[] getAllMethodAnnotations(ExecutableElement method, Locatable srcPos) {
         return getAllAnnotations(method,srcPos);
     }
@@ -95,16 +104,23 @@ public final class InlineAnnotationReaderImpl extends AbstractInlineAnnotationRe
         return r.toArray(new Annotation[r.size()]);
     }
 
+    @Override
     public <A extends Annotation> A getMethodParameterAnnotation(Class<A> a, ExecutableElement m, int paramIndex, Locatable srcPos) {
         VariableElement[] params = m.getParameters().toArray(new VariableElement[m.getParameters().size()]);
         return LocatableAnnotation.create(
             params[paramIndex].getAnnotation(a), srcPos );
     }
 
+    @Override
     public <A extends Annotation> A getPackageAnnotation(Class<A> a, TypeElement clazz, Locatable srcPos) {
-        return LocatableAnnotation.create(clazz.getEnclosingElement().getAnnotation(a), srcPos);
+        Element el = clazz;
+        do {
+            el = el.getEnclosingElement();
+        } while (el.getKind() != ElementKind.PACKAGE);
+        return LocatableAnnotation.create(el.getAnnotation(a), srcPos);
     }
 
+    @Override
     public TypeMirror getClassValue(Annotation a, String name) {
         try {
             a.annotationType().getMethod(name).invoke(a);
@@ -124,6 +140,7 @@ public final class InlineAnnotationReaderImpl extends AbstractInlineAnnotationRe
         }
     }
 
+    @Override
     public TypeMirror[] getClassArrayValue(Annotation a, String name) {
         try {
             a.annotationType().getMethod(name).invoke(a);
@@ -154,6 +171,7 @@ public final class InlineAnnotationReaderImpl extends AbstractInlineAnnotationRe
         }
     }
 
+    @Override
     protected String fullName(ExecutableElement m) {
         return ((TypeElement) m.getEnclosingElement()).getQualifiedName().toString()+'#'+m.getSimpleName();
     }

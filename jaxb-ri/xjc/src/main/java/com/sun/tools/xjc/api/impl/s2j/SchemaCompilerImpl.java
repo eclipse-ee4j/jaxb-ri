@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -212,7 +212,7 @@ public final class SchemaCompilerImpl extends ErrorReceiver implements SchemaCom
                         try {
                             // XSOM passes the namespace URI to the publicID parameter.
                             // we do the same here .
-                            InputSource is = opts.entityResolver.resolveEntity(namespaceURI, systemId);
+                            InputSource is = opts.entityResolver.resolveEntity(namespaceURI, systemId == null ? "" : systemId);
                             if (is == null) return null;
                             return new LSInputSAXWrapper(is);
                         } catch (SAXException e) {

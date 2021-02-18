@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,7 +12,7 @@ package com.sun.tools.xjc.model;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -242,7 +242,7 @@ public final class CElementInfo extends AbstractCElement
         this.substitutionHead = substitutionHead;
 
         if(substitutionHead.substitutionMembers==null)
-            substitutionHead.substitutionMembers = new HashSet<CElementInfo>();
+            substitutionHead.substitutionMembers = new LinkedHashSet<>();
         substitutionHead.substitutionMembers.add(this);
     }
 

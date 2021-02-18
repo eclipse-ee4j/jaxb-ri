@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -7,6 +7,8 @@
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
+
+package com.sun.xml.xsom.test;
 
 import com.sun.xml.xsom.SCD;
 import com.sun.xml.xsom.XSComponent;
@@ -25,6 +27,7 @@ import java.util.Collection;
  * @author Kohsuke Kawaguchi
  */
 public class SCDDriver {
+
     public static void main(String[] args) throws Exception {
         XSOMParser p = new XSOMParser();
 

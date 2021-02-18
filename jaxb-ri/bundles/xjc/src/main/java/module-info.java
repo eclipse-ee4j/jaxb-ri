@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2019, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -68,4 +68,13 @@ module com.sun.tools.xjc {
     exports com.sun.tools.rngdatatype.helpers;
 
     uses com.sun.tools.xjc.Plugin;
+
+    provides com.sun.tools.xjc.Plugin with
+            com.sun.tools.xjc.addon.accessors.PluginImpl,
+            com.sun.tools.xjc.addon.at_generated.PluginImpl,
+            com.sun.tools.xjc.addon.code_injector.PluginImpl,
+            com.sun.tools.xjc.addon.episode.PluginImpl,
+            com.sun.tools.xjc.addon.locator.SourceLocationAddOn,
+            com.sun.tools.xjc.addon.sync.SynchronizedMethodAddOn;
+
 }

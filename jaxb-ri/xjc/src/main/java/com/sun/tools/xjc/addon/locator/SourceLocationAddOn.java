@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -31,7 +31,7 @@ import org.xml.sax.Locator;
 
 /**
  * Generates JAXB objects that implement {@link Locatable}.
- * 
+ *
  * @author
  *     Kohsuke Kawaguchi (kohsuke.kawaguchi@sun.com)
  */
@@ -42,7 +42,7 @@ public class SourceLocationAddOn extends Plugin {
     }
 
     public String getUsage() {
-        return "  -Xlocator          :  enable source location support for generated code";
+        return "  -Xlocator           :  enable source location support for generated code";
     }
 
     public int parseArgument(Options opt, String[] args, int i) throws BadCommandLineException, IOException {
@@ -55,7 +55,7 @@ public class SourceLocationAddOn extends Plugin {
         Outline outline,
         Options opt,
         ErrorHandler errorHandler ) {
-        
+
         for( ClassOutline ci : outline.getClasses() ) {
             JDefinedClass impl = ci.implClass;
             if (ci.getSuperClass() == null) {
@@ -66,13 +66,13 @@ public class SourceLocationAddOn extends Plugin {
                 impl._implements(Locatable.class);
 
                 impl.method(JMod.PUBLIC, Locator.class, "sourceLocation").body()._return($loc);
-                
+
                 JMethod setter = impl.method(JMod.PUBLIC, Void.TYPE, "setSourceLocation");
                 JVar $newLoc = setter.param(Locator.class, "newLocator");
                 setter.body().assign($loc, $newLoc);
             }
         }
-        
+
         return true;
     }
 }

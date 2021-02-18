@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -29,7 +29,7 @@ import com.sun.tools.xjc.model.CPropertyInfo;
 /**
  * Realizes a property as an "indexed property"
  * as specified in the JAXB spec.
- * 
+ *
  * <p>
  * We will generate the following set of methods:
  * <pre>
@@ -38,21 +38,21 @@ import com.sun.tools.xjc.model.CPropertyInfo;
  * void setX(T[] values);
  * void setX( int idx, T value );
  * </pre>
- * 
+ *
  * We still use List as our back storage.
  * This renderer also handles boxing/unboxing if
  * T is a boxed type.
- * 
+ *
  * @author
  *     Kohsuke Kawaguchi (kohsuke.kawaguchi@sun.com)
  */
 final class ArrayField extends AbstractListField {
-    
+
     class Accessor extends AbstractListField.Accessor {
         protected Accessor( JExpression $target ) {
             super($target);
         }
-        
+
         public void toRawValue(JBlock block, JVar $var) {
             block.assign($var,$target.invoke($getAll));
         }
@@ -60,23 +60,23 @@ final class ArrayField extends AbstractListField {
         public void fromRawValue(JBlock block, String uniqueName, JExpression $var) {
             block.invoke($target,$setAll).arg($var);
         }
-        
+
         @Override
         public JExpression hasSetValue() {
             return field.ne(JExpr._null()).cand(field.ref("length").gt(JExpr.lit(0)));
         }
-        
+
     }
-    
+
     private JMethod $setAll;
-    
+
     private JMethod $getAll;
-    
+
     ArrayField(ClassOutlineImpl context, CPropertyInfo prop) {
         super(context,prop,false);
         generateArray();
     }
-    
+
     protected final void generateArray() {
         field = outline.implClass.field( JMod.PROTECTED, getCoreListType(), prop.getName(false) );
         annotate(field);
@@ -84,9 +84,9 @@ final class ArrayField extends AbstractListField {
         // generate the rest of accessors
         generateAccessors();
     }
-    
+
     public void generateAccessors() {
-        
+
         MethodWriter writer = outline.createMethodWriter();
         Accessor acc = create(JExpr._this());
         JVar $idx,$value; JBlock body;
@@ -139,6 +139,10 @@ final class ArrayField extends AbstractListField {
         $getLength.body()._return(acc.ref(true).ref("length"));
 
         // [RESULT] void setX(ET[] values) {
+        //     if (values == null) {
+        //         <ref> = null;
+        //         return;
+        //     }
         //     int len = values.length;
         //     for( int i=0; i<len; i++ )
         //         <ref>[i] = values[i];
@@ -149,12 +153,17 @@ final class ArrayField extends AbstractListField {
 
         writer.javadoc().append(prop.javadoc);
         $value = writer.addParameter(exposedType.array(),"values");
+
+        $setAll.body()._if( $value.eq(JExpr._null()) )._then()
+            .assign((JAssignmentTarget) acc.ref(true), JExpr._null())
+             ._return();
+
         JVar $len = $setAll.body().decl(codeModel.INT,"len", $value.ref("length"));
 
         $setAll.body().assign(
                 (JAssignmentTarget) acc.ref(true),
                 castToImplTypeArray(JExpr.newArray(
-                    codeModel.ref(exposedType.erasure().fullName()),
+                    implType,
                     $len)));
 
         JForLoop _for = $setAll.body()._for();
@@ -184,9 +193,9 @@ final class ArrayField extends AbstractListField {
         writer.javadoc().addParam($value)
             .append("allowed object is\n")
             .append(returnTypes);
-            
+
     }
-    
+
     @Override
     public JType getRawType() {
         return exposedType.array();
@@ -195,7 +204,7 @@ final class ArrayField extends AbstractListField {
     protected JClass getCoreListType() {
         return exposedType.array();
     }
-    
+
     public Accessor create(JExpression targetObject) {
         return new Accessor(targetObject);
     }

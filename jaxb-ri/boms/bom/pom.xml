@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2013, 2020 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2013, 2021 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,7 +24,7 @@
 
     <groupId>org.glassfish.jaxb</groupId>
     <artifactId>jaxb-bom</artifactId>
-    <version>2.4.0-SNAPSHOT</version>
+    <version>2.3.4-SNAPSHOT</version>
 
     <packaging>pom</packaging>
     <name>JAXB BOM</name>
@@ -33,7 +33,7 @@
     <properties>
         <jaxb-api.version>2.3.3</jaxb-api.version>
         <jaxb-api-osgi.version>2.3</jaxb-api-osgi.version>
-        <istack.version>3.0.11</istack.version>
+        <istack.version>3.0.12</istack.version>
         <fastinfoset.version>1.2.18</fastinfoset.version>
         <stax-ex.version>1.8.3</stax-ex.version>
 
