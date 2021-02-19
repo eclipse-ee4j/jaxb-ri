@@ -48,5 +48,4 @@ module com.sun.xml.bind.core {
             com.sun.xml.ws,
             com.sun.tools.ws;
 
-//    uses jakarta.xml.bind.JAXBContextFactory with org.glassfish.jaxb.core.v2.JAXBContextFactory;
 }

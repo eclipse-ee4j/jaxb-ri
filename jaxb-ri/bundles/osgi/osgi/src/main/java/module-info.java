@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2019, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -123,13 +123,14 @@ module com.sun.xml.bind.osgi {
     exports com.sun.tools.rngdatatype;
     exports com.sun.tools.rngdatatype.helpers;
 
+    opens org.glassfish.jaxb.runtime.v2.runtime.reflect.opt to jakarta.xml.bind;
+    opens org.glassfish.jaxb.runtime.v2.schemagen to jakarta.xml.bind;
+    opens org.glassfish.jaxb.runtime.v2.schemagen.xmlschema to jakarta.xml.bind;
+    opens org.glassfish.jaxb.runtime.v2 to jakarta.xml.bind;
     opens com.sun.tools.xjc.reader.xmlschema.bindinfo to jakarta.xml.bind;
 
-    uses jakarta.xml.bind.JAXBContextFactory;
     uses com.sun.tools.xjc.Plugin;
 
-    provides jakarta.xml.bind.JAXBContextFactory with
-        org.glassfish.jaxb.runtime.v2.JAXBContextFactory;
     provides com.sun.tools.xjc.Plugin with
         com.sun.tools.xjc.addon.accessors.PluginImpl,
         com.sun.tools.xjc.addon.at_generated.PluginImpl,
