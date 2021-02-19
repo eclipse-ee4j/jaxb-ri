@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2017, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,8 +10,6 @@
 
 /**
  * The XML Binding (JAXB) RI modularization implementation.
- *
- * @uses javax.xml.bind.JAXBContextFactory
  *
  */
 module org.glassfish.jaxb.runtime {
@@ -49,9 +47,17 @@ module org.glassfish.jaxb.runtime {
     exports com.sun.xml.bind.v2.schemagen.xmlschema;
     exports com.sun.xml.bind.v2.util;
 
+    opens com.sun.xml.bind.v2.runtime.reflect.opt to java.xml.bind;
+    opens com.sun.xml.bind.v2.schemagen to java.xml.bind;
+    opens com.sun.xml.bind.v2.schemagen.xmlschema to java.xml.bind;
+
+    // The API is going to load us via reflection if no other implementation is found sooner.
+    // Note that it is NOT mandatory for the javax.xml.bind.JAXBContext
+    // implementation to implement that interface (v2.ContextFactory does not do that),
+    // so we cannot use provides javax.xml.bind.JAXBContext with v2.ContextFactory here
+    // and we have to rely on accessibility of our META-INF/services/javax.xml.bind.JAXBContext
+    // resource by the API
+    opens com.sun.xml.bind.v2 to java.xml.bind;
+
     opens com.sun.xml.bind.v2.model.nav to org.glassfish.jaxb.xjc;
-
-    uses javax.xml.bind.JAXBContextFactory;
-
-    provides javax.xml.bind.JAXBContextFactory with com.sun.xml.bind.v2.JAXBContextFactory;
 }
