@@ -50,6 +50,4 @@ module org.glassfish.jaxb.core {
             com.sun.xml.ws.rt,
             com.sun.tools.ws.wscompile;
 
-    uses jakarta.xml.bind.JAXBContextFactory;
-
 }

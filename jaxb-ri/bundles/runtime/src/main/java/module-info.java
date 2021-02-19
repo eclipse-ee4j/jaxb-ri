@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2019, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -7,8 +7,6 @@
  *
  * SPDX-License-Identifier: BSD-3-Clause
  */
-
-import org.glassfish.jaxb.runtime.v2.JAXBContextFactory;
 
 module com.sun.xml.bind {
     requires java.compiler;
@@ -35,5 +33,9 @@ module com.sun.xml.bind {
     exports org.glassfish.jaxb.runtime.v2.schemagen.xmlschema;
     exports org.glassfish.jaxb.runtime.v2.util;
 
-    provides jakarta.xml.bind.JAXBContextFactory with JAXBContextFactory;
+    opens org.glassfish.jaxb.runtime.v2.runtime.reflect.opt to jakarta.xml.bind;
+    opens org.glassfish.jaxb.runtime.v2.schemagen to jakarta.xml.bind;
+    opens org.glassfish.jaxb.runtime.v2.schemagen.xmlschema to jakarta.xml.bind;
+    opens org.glassfish.jaxb.runtime.v2 to jakarta.xml.bind;
+
 }
