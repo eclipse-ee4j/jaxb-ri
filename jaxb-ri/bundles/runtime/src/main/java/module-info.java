@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2019, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -54,5 +54,9 @@ module com.sun.xml.bind {
             com.sun.xml.ws,
             com.sun.tools.ws;
 
-    provides javax.xml.bind.JAXBContextFactory with com.sun.xml.bind.v2.JAXBContextFactory;
+    opens com.sun.xml.bind.v2.runtime.reflect.opt to java.xml.bind;
+    opens com.sun.xml.bind.v2.schemagen to java.xml.bind;
+    opens com.sun.xml.bind.v2.schemagen.xmlschema to java.xml.bind;
+    opens com.sun.xml.bind.v2 to java.xml.bind;
+
 }

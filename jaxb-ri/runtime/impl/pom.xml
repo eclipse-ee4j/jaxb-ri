@@ -139,6 +139,8 @@
                         <Multi-Release>true</Multi-Release>
                         <Import-Package>
                             javax.activation;version=!,
+                            sun.misc;resolution:=optional,
+                            jdk.internal.misc;resolution:=optional,
                             *
                         </Import-Package>
                         <Export-Package>
