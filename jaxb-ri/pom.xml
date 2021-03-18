@@ -18,13 +18,13 @@
     <parent>
         <groupId>com.sun.xml.bind</groupId>
         <artifactId>jaxb-bom-ext</artifactId>
-        <version>2.3.4</version>
+        <version>2.3.5-SNAPSHOT</version>
         <relativePath>boms/bom-ext/pom.xml</relativePath>
     </parent>
 
     <groupId>com.sun.xml.bind.mvn</groupId>
     <artifactId>jaxb-parent</artifactId>
-    <version>2.3.4</version>
+    <version>2.3.5-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Jakarta XML Binding Implementation</name>
     <description>

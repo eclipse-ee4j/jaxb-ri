@@ -18,7 +18,7 @@
     <parent>
         <groupId>com.sun.xml.bind.mvn</groupId>
         <artifactId>jaxb-parent</artifactId>
-        <version>2.3.4</version>
+        <version>2.3.5-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 

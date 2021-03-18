@@ -23,7 +23,7 @@
 
     <groupId>org.glassfish.jaxb</groupId>
     <artifactId>xsom</artifactId>
-    <version>2.3.4</version>
+    <version>2.3.5-SNAPSHOT</version>
 
     <name>XSOM</name>
     <description>XML Schema Object Model (XSOM) is a Java library that allows applications to easily parse XML Schema
