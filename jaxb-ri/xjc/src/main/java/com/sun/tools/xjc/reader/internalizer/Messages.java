@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -66,5 +66,7 @@ class Messages
         "ERR_GENERAL_SCHEMA_CORRECTNESS_ERROR";
     static final String DOMFOREST_INPUTSOURCE_IOEXCEPTION = // arg:2
         "DOMFOREST_INPUTSOURCE_IOEXCEPTION";
+    static final String DOMFOREST_CATALOG_INVALID_ENTRY = // arg:2
+        "DOMFOREST_CATALOG_INVALID_ENTRY";
 
 }

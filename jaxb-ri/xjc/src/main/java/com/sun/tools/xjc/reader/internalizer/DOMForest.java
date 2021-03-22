@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -43,6 +43,10 @@ import javax.xml.validation.SchemaFactory;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 import static org.glassfish.jaxb.core.v2.util.XmlFactory.allowExternalAccess;
@@ -263,11 +267,26 @@ public final class DOMForest {
         InputSource is=null;
         
         // allow entity resolver to find the actual byte stream.
-        if( entityResolver!=null )
+        if( entityResolver!=null ) {
             is = entityResolver.resolveEntity(null,systemId);
-        if( is==null )
+        }
+        if (is == null) {
             is = new InputSource(systemId);
-        
+        } else {
+            try {
+                URI uri = new URI(is.getSystemId());
+                if ("file".equals(uri.getScheme())) {
+                    if (!Files.exists(Paths.get(uri))) {
+                        //resolved file does not exist, warn and let's continue with original systemId
+                        errorReceiver.warning(null, Messages.format(
+                                Messages.DOMFOREST_CATALOG_INVALID_ENTRY, is.getSystemId(), systemId));
+                        is = new InputSource(systemId);
+                    }
+                }
+            } catch (URISyntaxException ex) {
+                //ignore, let it be handled by parser as is
+            }
+        }
         // but we still use the original system Id as the key.
         return parse( systemId, is, root );
     }
