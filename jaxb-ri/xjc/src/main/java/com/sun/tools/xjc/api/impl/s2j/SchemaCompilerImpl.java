@@ -40,6 +40,8 @@ import com.sun.tools.xjc.reader.xmlschema.parser.XMLSchemaInternalizationLogic;
 import org.glassfish.jaxb.core.unmarshaller.DOMScanner;
 import org.glassfish.jaxb.core.v2.util.XmlFactory;
 import com.sun.xml.xsom.XSSchemaSet;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.ls.LSInput;
@@ -213,8 +215,7 @@ public final class SchemaCompilerImpl extends ErrorReceiver implements SchemaCom
                             // XSOM passes the namespace URI to the publicID parameter.
                             // we do the same here .
                             InputSource is = opts.entityResolver.resolveEntity(namespaceURI, systemId == null ? "" : systemId);
-                            if (is == null) return null;
-                            return new LSInputSAXWrapper(is);
+                            return isExists(is) ? new LSInputSAXWrapper(is) : null;
                         } catch (SAXException e) {
                             // TODO: is this sufficient?
                             return null;
@@ -290,6 +291,21 @@ public final class SchemaCompilerImpl extends ErrorReceiver implements SchemaCom
         hadError = true;
         if(errorListener!=null)
             errorListener.fatalError(exception);
+    }
+
+    private static boolean isExists(InputSource is) {
+        if (is == null) {
+            return false;
+        }
+        try {
+            URI uri = new URI(is.getSystemId());
+            if ("file".equals(uri.getScheme())) {
+                return Files.exists(Paths.get(uri));
+            }
+        } catch (URISyntaxException ex) {
+            //ignore, let it be handled by parser as is
+        }
+        return true;
     }
 
     /**
