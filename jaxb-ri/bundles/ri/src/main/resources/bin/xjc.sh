@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
 #
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -82,5 +82,5 @@ then
   exec "${JAVA}" -cp "${JAXB_PATH}" ${XJC_OPTS} com.sun.tools.xjc.XJCFacade "$@"
 else
   #module path
-  exec "${JAVA}" --module-path "${JAXB_PATH}" ${XJC_OPTS} -m com.sun.tools.xjc "$@"
+  exec "${JAVA}" --module-path "${JAXB_PATH}" --add-modules com.sun.xml.bind ${XJC_OPTS} -m com.sun.tools.xjc "$@"
 fi

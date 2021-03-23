@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
 #
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -105,5 +105,5 @@ then
   exec "${JAVA}" ${SCHEMAGEN_OPTS} -cp "${LOCALPATH}" com.sun.tools.jxc.SchemaGeneratorFacade "$@"
 else
   #module path
-  exec "${JAVA}" ${SCHEMAGEN_OPTS} --module-path "${LOCALPATH}" -m com.sun.tools.jxc "$@"
+  exec "${JAVA}" ${SCHEMAGEN_OPTS} --module-path "${LOCALPATH}" --add-modules com.sun.xml.bind -m com.sun.tools.jxc "$@"
 fi

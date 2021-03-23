@@ -1,7 +1,7 @@
 @echo off
 
 REM
-REM  Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+REM  Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
 REM
 REM  This program and the accompanying materials are made available under the
 REM  terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -87,7 +87,7 @@ goto END
 
 :JDK11_OR_GREATER
 rem module path only
-%JAVA% %SCHEMAGEN_OPTS% --module-path %LOCALCLASSPATH% -m com.sun.tools.jxc %*
+%JAVA% %SCHEMAGEN_OPTS% --module-path %LOCALCLASSPATH% --add-modules com.sun.xml.bind -m com.sun.tools.jxc %*
 goto END
 
 :END

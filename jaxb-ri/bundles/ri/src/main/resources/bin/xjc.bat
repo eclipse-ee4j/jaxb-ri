@@ -1,7 +1,7 @@
 @echo off
 
 REM
-REM  Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+REM  Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
 REM
 REM  This program and the accompanying materials are made available under the
 REM  terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -70,7 +70,7 @@ GOTO END
 
 :JDK11_OR_GREATER
 rem module path
-%JAVA% --module-path %JAXB_PATH% %XJC_OPTS% -m com.sun.tools.xjc %*
+%JAVA% --module-path %JAXB_PATH% --add-modules com.sun.xml.bind %XJC_OPTS% -m com.sun.tools.xjc %*
 GOTO END
 
 :END
