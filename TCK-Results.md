@@ -20,7 +20,7 @@ following is a summary of the TCK results for releases of Eclipse Implementation
 - [x] Any Additional Specification Certification Requirements:<br/>
   None
 - [x] Java runtime used to run the implementation:<br/>
-  Oracle JDK 1.8.0_251, Oracle JDK 11.0.10
+  Oracle JDK 1.8.0_191, Oracle JDK 11.0.7
 - [x] Summary of the information for the certification environment, operating system, cloud, ...:<br/>
   Linux
 - [x] By checking this box I acknowledge that the Organization I represent accepts the terms of the [EFTL](https://www.eclipse.org/legal/tck.php).
