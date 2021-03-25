@@ -28,7 +28,7 @@ import static org.glassfish.jaxb.runtime.v2.bytecode.ClassTailor.toVMTypeName;
 public abstract class OptimizedAccessorFactory {
     private OptimizedAccessorFactory() {} // no instanciation please
 
-    public static final boolean noOptimization = Boolean.getBoolean(OptimizedAccessorFactory.class.getName()+".noOptimization");
+    public static final boolean noOptimization = Boolean.parseBoolean(System.getProperty(OptimizedAccessorFactory.class.getName()+".noOptimization", "true"));
 
     private static final Logger logger = Logger.getLogger(OptimizedAccessorFactory.class.getName());
 
