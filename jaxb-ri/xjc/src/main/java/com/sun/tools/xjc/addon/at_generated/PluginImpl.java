@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -9,9 +9,6 @@
  */
 
 package com.sun.tools.xjc.addon.at_generated;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import com.sun.codemodel.JAnnotatable;
 import com.sun.codemodel.JAnnotationUse;
@@ -27,11 +24,13 @@ import com.sun.tools.xjc.outline.EnumOutline;
 import com.sun.tools.xjc.outline.Outline;
 import com.sun.tools.xjc.outline.PackageOutline;
 import java.io.IOException;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 import org.xml.sax.ErrorHandler;
 
 /**
- * {@link Plugin} that marks the generated code by using JSR-250's '@Generated'.
+ * {@link Plugin} that marks the generated code by using '@Generated'.
  *
  * @author Kohsuke Kawaguchi
  * @author Lukas Jungmann
@@ -121,12 +120,8 @@ public class PluginImpl extends Plugin {
      */
     private String getISO8601Date() {
         if(date==null) {
-            StringBuffer tstamp = new StringBuffer();
-            tstamp.append((new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ssZ")).format(new Date()));
-            // hack to get ISO 8601 style timezone - is there a better way that doesn't require
-            // a bunch of timezone offset calculations?
-            tstamp.insert(tstamp.length()-2, ':');
-            date = tstamp.toString();
+            ZonedDateTime zdt = ZonedDateTime.now().withNano(0);
+            date = zdt.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
         }
         return date;
     }
