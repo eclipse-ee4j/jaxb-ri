@@ -187,6 +187,9 @@ public abstract class OptimizedAccessorFactory {
             logger.log(Level.INFO,"failed to load an optimized Accessor",e);
         } catch (SecurityException e) {
             logger.log(Level.INFO,"failed to load an optimized Accessor",e);
+        } catch (ClassCastException e) {
+            logger.log(Level.FINE,"failed to cast optimized Accessor " +
+                    "created by repackaged jaxb "+opt,e);
         }
         return null;
     }
