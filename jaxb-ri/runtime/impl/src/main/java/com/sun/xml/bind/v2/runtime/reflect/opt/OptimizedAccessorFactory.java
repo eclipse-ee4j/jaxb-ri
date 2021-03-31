@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -187,6 +187,9 @@ public abstract class OptimizedAccessorFactory {
             logger.log(Level.INFO,"failed to load an optimized Accessor",e);
         } catch (SecurityException e) {
             logger.log(Level.INFO,"failed to load an optimized Accessor",e);
+        } catch (ClassCastException e) {
+            logger.log(Level.FINE,"failed to cast optimized Accessor " +
+                    "created by repackaged jaxb "+opt,e);
         }
         return null;
     }

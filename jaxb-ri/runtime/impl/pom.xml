@@ -173,7 +173,7 @@
                 <configuration>
                     <workingDirectory>target/test-out</workingDirectory>
                     <forkCount>1</forkCount>
-                    <reuseForks>true</reuseForks>
+                    <reuseForks>false</reuseForks>
                 </configuration>
             </plugin>
 
