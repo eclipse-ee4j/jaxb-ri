@@ -178,7 +178,7 @@ class Internalizer {
                         result.put(bindings, new ArrayList<>());
                     result.get(bindings).add(forest.get(systemId).getDocumentElement());
 
-                    Element[] children = DOMUtils.getChildElements(bindings, Const.JAXB_NSURI, "bindings");
+                    Element[] children = DOMUtils.getChildElements(bindings, Const.getJaxbNsUri(), "bindings");
                     for (Element value : children)
                         buildTargetNodeMap(value, forest.get(systemId).getDocumentElement(), inheritedSCD, result, scdResult);
                 }
@@ -329,7 +329,7 @@ class Internalizer {
 
         
         // look for child <jaxb:bindings> and process them recursively
-        Element[] children = DOMUtils.getChildElements( bindings, Const.JAXB_NSURI, "bindings" );
+        Element[] children = DOMUtils.getChildElements( bindings, Const.getJaxbNsUri(), "bindings" );
         for (Element value : children)
             if(!multiple || targetMultiple == null)
                 buildTargetNodeMap(value, target, inheritedSCD, result, scdResult);
@@ -472,7 +472,7 @@ class Internalizer {
     private void declExtensionNamespace(Element decl, Element target) {
         // if this comes from external namespaces, add the namespace to
         // @extensionBindingPrefixes.
-        if( !Const.JAXB_NSURI.equals(decl.getNamespaceURI()) )
+        if( !Const.getJaxbNsUri().equals(decl.getNamespaceURI()) )
             declareExtensionNamespace( target, decl.getNamespaceURI() );
         
         NodeList lst = decl.getChildNodes();
@@ -494,12 +494,12 @@ class Internalizer {
     private void declareExtensionNamespace( Element target, String nsUri ) {
         // look for the attribute
         Element root = target.getOwnerDocument().getDocumentElement();
-        Attr att = root.getAttributeNodeNS(Const.JAXB_NSURI,EXTENSION_PREFIXES);
+        Attr att = root.getAttributeNodeNS(Const.getJaxbNsUri(),EXTENSION_PREFIXES);
         if( att==null ) {
-            String jaxbPrefix = allocatePrefix(root,Const.JAXB_NSURI);
+            String jaxbPrefix = allocatePrefix(root,Const.getJaxbNsUri());
             // no such attribute. Create one.
             att = target.getOwnerDocument().createAttributeNS(
-                Const.JAXB_NSURI,jaxbPrefix+':'+EXTENSION_PREFIXES);
+                Const.getJaxbNsUri(),jaxbPrefix+':'+EXTENSION_PREFIXES);
             root.setAttributeNodeNS(att);
         }
         

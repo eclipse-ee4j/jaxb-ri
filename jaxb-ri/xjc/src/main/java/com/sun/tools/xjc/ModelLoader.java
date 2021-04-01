@@ -273,7 +273,7 @@ public final class ModelLoader {
             Element root = dom.getDocumentElement();
             // TODO: it somehow doesn't feel right to do a validation in the Driver class.
             // think about moving it to somewhere else.
-            if (!fixNull(root.getNamespaceURI()).equals(Const.JAXB_NSURI)
+            if (!fixNull(root.getNamespaceURI()).equals(Const.getJaxbNsUri())
                     || !root.getLocalName().equals("bindings"))
                 errorReceiver.error(new SAXParseException(Messages.format(Messages.ERR_NOT_A_BINDING_FILE,
                         root.getNamespaceURI(),
@@ -413,7 +413,7 @@ public final class ModelLoader {
     private static final class SpeculationChecker extends XMLFilterImpl {
         @Override
         public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-            if(localName.equals("bindings") && uri.equals(Const.JAXB_NSURI))
+            if(localName.equals("bindings") && uri.equals(Const.getJaxbNsUri()))
                 throw new SpeculationFailure();
             super.startElement(uri,localName,qName,attributes);
         }
@@ -476,7 +476,7 @@ public final class ModelLoader {
         for (String systemId : forest.getRootDocuments()) {
             errorReceiver.pollAbort();
             Document dom = forest.get(systemId);
-            if (!dom.getDocumentElement().getNamespaceURI().equals(Const.JAXB_NSURI)) {
+            if (!dom.getDocumentElement().getNamespaceURI().equals(Const.getJaxbNsUri())) {
                 reader.parse(systemId);
             }
         }

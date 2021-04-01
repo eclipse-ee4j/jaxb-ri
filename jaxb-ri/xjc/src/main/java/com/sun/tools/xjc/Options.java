@@ -50,6 +50,7 @@ import com.sun.tools.xjc.api.ClassNameAllocator;
 import com.sun.tools.xjc.api.SpecVersion;
 import com.sun.tools.xjc.generator.bean.field.FieldRendererFactory;
 import com.sun.tools.xjc.model.Model;
+import com.sun.tools.xjc.reader.Const;
 import com.sun.tools.xjc.reader.Util;
 
 import org.glassfish.jaxb.core.api.impl.NameConverter;
@@ -605,6 +606,7 @@ public class Options {
         }
         if (args[i].equals("-extension")) {
             compatibilityMode = EXTENSION;
+            Const.useOldNamespace(true);
             return 1;
         }
         if (args[i].equals("-target")) {

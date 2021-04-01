@@ -139,7 +139,7 @@ public class CustomizationContextChecker extends XMLFilterImpl {
     public void startElement(String namespaceURI, String localName, String qName, Attributes atts) throws SAXException {
         QName newElement = new QName(namespaceURI,localName);
         
-        if( newElement.getNamespaceURI().equals(Const.JAXB_NSURI)
+        if(  newElement.getNamespaceURI().equals(Const.getJaxbNsUri())
          && XMLConstants.W3C_XML_SCHEMA_NS_URI.equals(top().getNamespaceURI()) ) {
             // we hit a JAXB customization. the stack top should be
             // <xs:appinfo>

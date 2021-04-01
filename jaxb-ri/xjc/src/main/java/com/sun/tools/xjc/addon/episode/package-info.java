@@ -8,7 +8,7 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-@XmlNamespace(Const.JAXB_NSURI)
+@XmlNamespace(Const.JAKARTA_JAXB_NSURI)
 package com.sun.tools.xjc.addon.episode;
 
 import com.sun.xml.txw2.annotation.XmlNamespace;

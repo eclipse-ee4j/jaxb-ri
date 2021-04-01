@@ -770,7 +770,7 @@ public final class BIProperty extends AbstractDeclarationImpl {
     
     /** Name of this declaration. */
     public static final QName NAME = new QName(
-        Const.JAXB_NSURI, "property" );
+        Const.getJaxbNsUri(), "property" );
 
     public BIConversion getConv() {
         if(baseType!=null)

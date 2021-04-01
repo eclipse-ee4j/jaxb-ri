@@ -25,10 +25,18 @@ public class Const {
     public final static String XMLNS_URI =
         "http://www.w3.org/2000/xmlns/";
     
-    /** JAXB customization URI. */
-    public final static String JAXB_NSURI =
-        "https://jakarta.ee/xml/ns/jaxb";
-    
+    /** Default JAXB customization URI. */
+    private static String JAXB_NSURI =
+            "https://jakarta.ee/xml/ns/jaxb";
+
+    /** JAXB customization URI old namespace. */
+    public final static String JAVAX_JAXB_NSURI =
+            "https://java.sun.com/xml/ns/jaxb";
+
+    /** JAXB customization URI old namespace. */
+    public final static String JAKARTA_JAXB_NSURI =
+            "https://jakarta.ee/xml/ns/jaxb";
+
     /** XJC vendor extension namespace URI. */
     public final static String XJC_EXTENSION_URI =
         "http://java.sun.com/xml/ns/jaxb/xjc";
@@ -47,5 +55,23 @@ public class Const {
      * @see <a href="http://www.w3.org/TR/xml-media-types/">http://www.w3.org/TR/xml-media-types/</a>
      */
     public static final String EXPECTED_CONTENT_TYPES = "expectedContentTypes";
+
+    /**
+     * Allow user to use old jaxb NS URI with latest jaxb.
+     *
+     * @param useJavax Answer the question, do you want to use old namespace ?
+     */
+    public static void useOldNamespace(boolean useJavax) {
+        JAXB_NSURI = useJavax ? JAVAX_JAXB_NSURI : JAKARTA_JAXB_NSURI;
+    }
+
+    /**
+     * Get the Jaxb NS URI as a String.
+     *
+     * @return Jaxb NS URI as a String.
+     */
+    public static String getJaxbNsUri() {
+        return JAXB_NSURI;
+    }
 }
 

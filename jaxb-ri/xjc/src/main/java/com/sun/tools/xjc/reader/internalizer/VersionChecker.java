@@ -78,8 +78,8 @@ public class VersionChecker extends XMLFilterImpl {
             seenRoot = true;
             rootTagStart = new LocatorImpl(locator);
 
-            version = atts.getValue(Const.JAXB_NSURI,"version");
-            if( namespaceURI.equals(Const.JAXB_NSURI) ) {
+            version = atts.getValue(Const.getJaxbNsUri(),"version");
+            if( namespaceURI.equals(Const.getJaxbNsUri()) ) {
                 String version2 = atts.getValue("","version");
                 if( version!=null && version2!=null ) {
                     // we have both @version and @jaxb:version. error.
@@ -93,7 +93,7 @@ public class VersionChecker extends XMLFilterImpl {
 
         }
 
-        if( Const.JAXB_NSURI.equals(namespaceURI) )
+        if( Const.getJaxbNsUri().equals(namespaceURI) )
             seenBindings = true;
     }
 
@@ -122,6 +122,6 @@ public class VersionChecker extends XMLFilterImpl {
         this.locator = locator;
     }
 
-    private static final Set<String> VERSIONS = new HashSet<>(Arrays.asList("3.0"));
+    private static final Set<String> VERSIONS = new HashSet<>(Arrays.asList("3.0", "2.0"));
 
 }

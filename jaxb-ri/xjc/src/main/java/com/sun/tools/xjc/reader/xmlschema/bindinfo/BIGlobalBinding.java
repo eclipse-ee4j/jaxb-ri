@@ -439,7 +439,7 @@ public final class BIGlobalBinding extends AbstractDeclarationImpl {
     @Override
     public QName getName() { return NAME; }
     public static final QName NAME = new QName(
-        Const.JAXB_NSURI, "globalBindings" );
+        Const.getJaxbNsUri(), "globalBindings" );
 
 
     /**

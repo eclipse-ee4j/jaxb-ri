@@ -81,7 +81,7 @@ public abstract class BIConversion extends AbstractDeclarationImpl {
     
     /** Name of the conversion declaration. */
     public static final QName NAME = new QName(
-        Const.JAXB_NSURI, "conversion" );
+        Const.getJaxbNsUri(), "conversion" );
 
     /**
      * Implementation that returns a statically-determined constant {@link TypeUse}.
@@ -299,7 +299,7 @@ public abstract class BIConversion extends AbstractDeclarationImpl {
 
         /** Name of the conversion declaration. */
         public static final QName NAME = new QName(
-            Const.JAXB_NSURI, "javaType" );
+            Const.getJaxbNsUri(), "javaType" );
     }
 
     @XmlRootElement(name="javaType",namespace=Const.XJC_EXTENSION_URI)

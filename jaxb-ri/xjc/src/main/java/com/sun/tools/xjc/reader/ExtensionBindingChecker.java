@@ -58,7 +58,7 @@ public final class ExtensionBindingChecker extends AbstractExtensionBindingCheck
     private boolean needsToBePruned( String uri ) {
         if( uri.equals(schemaLanguage) )
             return false;
-        if( uri.equals(Const.JAXB_NSURI) )
+        if( uri.equals(Const.getJaxbNsUri()) )
             return false;
         if( enabledExtensions.contains(uri) )
             return false;
@@ -82,7 +82,7 @@ public final class ExtensionBindingChecker extends AbstractExtensionBindingCheck
         throws SAXException {
         
         if(!isCutting()) {
-            String v = atts.getValue(Const.JAXB_NSURI,"extensionBindingPrefixes");
+            String v = atts.getValue(Const.getJaxbNsUri(),"extensionBindingPrefixes");
             if(v!=null) {
                 if(count!=0)
                     // the binding attribute is allowed only at the root level.

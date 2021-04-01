@@ -47,5 +47,5 @@ public class BIFactoryMethod extends AbstractDeclarationImpl {
     public final QName getName() { return NAME; }
 
     /** Name of the declaration. */
-    public static final QName NAME = new QName(Const.JAXB_NSURI,"factoryMethod");
+    public static final QName NAME = new QName(Const.getJaxbNsUri(),"factoryMethod");
 }

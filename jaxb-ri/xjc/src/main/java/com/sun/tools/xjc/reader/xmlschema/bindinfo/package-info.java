@@ -14,7 +14,7 @@
  * XML syntax into this representation, and the other parts of XJC will use
  * this object model.
  */
-@XmlSchema(elementFormDefault = QUALIFIED, namespace=Const.JAXB_NSURI)
+@XmlSchema(elementFormDefault = QUALIFIED, namespace=Const.JAKARTA_JAXB_NSURI)
 package com.sun.tools.xjc.reader.xmlschema.bindinfo;
 
 import jakarta.xml.bind.annotation.XmlSchema;

@@ -41,7 +41,7 @@ final class DTDExtensionBindingChecker extends AbstractExtensionBindingChecker {
     private boolean needsToBePruned( String uri ) {
         if( uri.equals(schemaLanguage) )
             return false;
-        if( uri.equals(Const.JAXB_NSURI) )
+        if( uri.equals(Const.getJaxbNsUri()) )
             return false;
         if( uri.equals(Const.XJC_EXTENSION_URI) )
             return false;

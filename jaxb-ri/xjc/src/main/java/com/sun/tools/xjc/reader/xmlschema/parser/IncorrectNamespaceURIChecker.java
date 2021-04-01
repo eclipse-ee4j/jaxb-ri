@@ -69,7 +69,7 @@ public class IncorrectNamespaceURIChecker extends XMLFilterImpl {
     public void endDocument() throws SAXException {
         if( isJAXBPrefixUsed && !isCustomizationUsed ) {
             SAXParseException e = new SAXParseException(
-                Messages.format(Messages.WARN_INCORRECT_URI, Const.JAXB_NSURI),
+                Messages.format(Messages.WARN_INCORRECT_URI, Const.getJaxbNsUri()),
                 locator );
             errorHandler.warning(e);
         }
@@ -82,7 +82,7 @@ public class IncorrectNamespaceURIChecker extends XMLFilterImpl {
         if (XMLConstants.XML_NS_URI.equals(uri)) return; //xml prefix shall not be declared based on jdk api javadoc
         if( prefix.equals("jaxb") )
             isJAXBPrefixUsed = true;
-        if( uri.equals(Const.JAXB_NSURI) )
+        if( uri.equals(Const.getJaxbNsUri()) )
             isCustomizationUsed = true;
         
         super.startPrefixMapping(prefix, uri);
@@ -104,7 +104,7 @@ public class IncorrectNamespaceURIChecker extends XMLFilterImpl {
         // 
         // but better safe than sorry.
         
-        if( namespaceURI.equals(Const.JAXB_NSURI) )
+        if( namespaceURI.equals(Const.getJaxbNsUri()) )
             isCustomizationUsed = true;
     }
 
