@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,7 +12,9 @@ package com.sun.tools.xjc.generator.bean.field;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.W3CDomHandler;
 import javax.xml.bind.annotation.XmlList;
@@ -50,6 +52,9 @@ import com.sun.tools.xjc.model.CValuePropertyInfo;
 import com.sun.tools.xjc.model.nav.NClass;
 import com.sun.tools.xjc.outline.Aspect;
 import static com.sun.tools.xjc.outline.Aspect.IMPLEMENTATION;
+import static java.util.Comparator.comparing;
+import static java.util.stream.Collectors.toList;
+
 import com.sun.tools.xjc.outline.ClassOutline;
 import com.sun.tools.xjc.outline.FieldAccessor;
 import com.sun.tools.xjc.outline.FieldOutline;
@@ -453,8 +458,11 @@ abstract class AbstractField implements FieldOutline {
      */
     protected final List<Object> listPossibleTypes( CPropertyInfo prop ) {
         List<Object> r = new ArrayList<Object>();
-        for( CTypeInfo tt : prop.ref() ) {
-            JType t = tt.getType().toType(outline.parent(),Aspect.EXPOSED);
+        List<JType> refs = prop.ref().stream()
+                .map(tt -> tt.toType(outline.parent(), Aspect.EXPOSED))
+                .sorted(comparing(JType::fullName))
+                .collect(toList());
+        for( JType t : refs ) {
             if( t.isPrimitive() || t.isArray() )
                 r.add(t.fullName());
             else {
