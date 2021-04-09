@@ -12,6 +12,10 @@ package com.sun.tools.xjc.reader;
 
 import org.glassfish.jaxb.core.v2.WellKnownNamespace;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 
 /**
  * Useful constant values.
@@ -24,10 +28,6 @@ public class Const {
     /** XML namespace URI. */
     public final static String XMLNS_URI =
         "http://www.w3.org/2000/xmlns/";
-    
-    /** Default JAXB customization URI. */
-    private static String JAXB_NSURI =
-            "https://jakarta.ee/xml/ns/jaxb";
 
     /** JAXB customization URI old namespace. */
     public final static String JAVAX_JAXB_NSURI =
@@ -56,22 +56,11 @@ public class Const {
      */
     public static final String EXPECTED_CONTENT_TYPES = "expectedContentTypes";
 
-    /**
-     * Allow user to use old jaxb NS URI with latest jaxb.
-     *
-     * @param useJavax Answer the question, do you want to use old namespace ?
-     */
-    public static void useOldNamespace(boolean useJavax) {
-        JAXB_NSURI = useJavax ? JAVAX_JAXB_NSURI : JAKARTA_JAXB_NSURI;
+    public static void useOldNameSpace() {
+        JAXB_NS_URI.add(JAVAX_JAXB_NSURI);
     }
 
-    /**
-     * Get the Jaxb NS URI as a String.
-     *
-     * @return Jaxb NS URI as a String.
-     */
-    public static String getJaxbNsUri() {
-        return JAXB_NSURI;
-    }
+    /** Set of valid Jaxb NS URI used during parsing */
+    public static final Set<String> JAXB_NS_URI = new HashSet<>(Collections.singleton(JAKARTA_JAXB_NSURI));
 }
 

@@ -48,5 +48,5 @@ public class BIEnumMember extends AbstractDeclarationImpl {
 
     /** Name of this declaration. */
     public static final QName NAME = new QName(
-        Const.getJaxbNsUri(), "typesafeEnumMember" );
+        Const.JAKARTA_JAXB_NSURI, "typesafeEnumMember" );
 }

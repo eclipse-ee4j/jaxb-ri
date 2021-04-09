@@ -68,7 +68,7 @@ class DOMBuilder extends SAX2DOMEx {
         locatorTable.storeStartLocation( e, locator );
         
         // check if this element is an outer-most <jaxb:bindings>
-        if( Const.getJaxbNsUri().equals(e.getNamespaceURI())
+        if(Const.JAXB_NS_URI.contains(e.getNamespaceURI())
         &&  "bindings".equals(e.getLocalName()) ) {
             
             // if this is the root node (meaning that this file is an

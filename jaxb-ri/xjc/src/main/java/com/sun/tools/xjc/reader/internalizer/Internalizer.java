@@ -178,7 +178,7 @@ class Internalizer {
                         result.put(bindings, new ArrayList<>());
                     result.get(bindings).add(forest.get(systemId).getDocumentElement());
 
-                    Element[] children = DOMUtils.getChildElements(bindings, Const.getJaxbNsUri(), "bindings");
+                    Element[] children = DOMUtils.getChildElements(bindings, Const.JAXB_NS_URI, "bindings");
                     for (Element value : children)
                         buildTargetNodeMap(value, forest.get(systemId).getDocumentElement(), inheritedSCD, result, scdResult);
                 }
@@ -329,7 +329,7 @@ class Internalizer {
 
         
         // look for child <jaxb:bindings> and process them recursively
-        Element[] children = DOMUtils.getChildElements( bindings, Const.getJaxbNsUri(), "bindings" );
+        Element[] children = DOMUtils.getChildElements( bindings, Const.JAXB_NS_URI, "bindings" );
         for (Element value : children)
             if(!multiple || targetMultiple == null)
                 buildTargetNodeMap(value, target, inheritedSCD, result, scdResult);
@@ -472,7 +472,7 @@ class Internalizer {
     private void declExtensionNamespace(Element decl, Element target) {
         // if this comes from external namespaces, add the namespace to
         // @extensionBindingPrefixes.
-        if( !Const.getJaxbNsUri().equals(decl.getNamespaceURI()) )
+        if( !Const.JAXB_NS_URI.contains(decl.getNamespaceURI()) )
             declareExtensionNamespace( target, decl.getNamespaceURI() );
         
         NodeList lst = decl.getChildNodes();
@@ -494,12 +494,15 @@ class Internalizer {
     private void declareExtensionNamespace( Element target, String nsUri ) {
         // look for the attribute
         Element root = target.getOwnerDocument().getDocumentElement();
-        Attr att = root.getAttributeNodeNS(Const.getJaxbNsUri(),EXTENSION_PREFIXES);
+        Attr att = null;
+        for (String nsuri : Const.JAXB_NS_URI) {
+            att = root.getAttributeNodeNS(nsuri,EXTENSION_PREFIXES);
+        }
         if( att==null ) {
-            String jaxbPrefix = allocatePrefix(root,Const.getJaxbNsUri());
+            String jaxbPrefix = allocatePrefix(root,Const.JAXB_NS_URI);
             // no such attribute. Create one.
             att = target.getOwnerDocument().createAttributeNS(
-                Const.getJaxbNsUri(),jaxbPrefix+':'+EXTENSION_PREFIXES);
+                Const.JAKARTA_JAXB_NSURI,jaxbPrefix+':'+EXTENSION_PREFIXES);
             root.setAttributeNodeNS(att);
         }
         
@@ -516,7 +519,7 @@ class Internalizer {
      * Note that this method doesn't use the default namespace
      * even if it can.
      */
-    private String allocatePrefix( Element e, String nsUri ) {
+    private String allocatePrefix( Element e, Set<String> nsUri ) {
         // look for existing namespaces.
         NamedNodeMap atts = e.getAttributes();
         for( int i=0; i<atts.getLength(); i++ ) {
@@ -524,7 +527,7 @@ class Internalizer {
             if( Const.XMLNS_URI.equals(a.getNamespaceURI()) ) {
                 if( a.getName().indexOf(':')==-1 )  continue;
                 
-                if( a.getValue().equals(nsUri) )
+                if(nsUri.contains(a.getValue()))
                     return a.getLocalName();    // found one
             }
         }
@@ -534,7 +537,38 @@ class Internalizer {
             String prefix = "p"+(int)(Math.random()*1000000)+'_';
             if(e.getAttributeNodeNS(Const.XMLNS_URI,prefix)!=null)
                 continue;   // this prefix is already allocated.
-            
+            //TODO : fix iterator, how to define which one should be picked ?
+            e.setAttributeNS(Const.XMLNS_URI,"xmlns:"+prefix, nsUri.iterator().next());
+            return prefix;
+        }
+    }
+
+    /**
+     * Declares a new prefix on the given element and associates it
+     * with the specified namespace URI.
+     * <p>
+     * Note that this method doesn't use the default namespace
+     * even if it can.
+     */
+    private String allocatePrefix( Element e, String nsUri ) {
+        // look for existing namespaces.
+        NamedNodeMap atts = e.getAttributes();
+        for( int i=0; i<atts.getLength(); i++ ) {
+            Attr a = (Attr)atts.item(i);
+            if( Const.XMLNS_URI.equals(a.getNamespaceURI()) ) {
+                if( a.getName().indexOf(':')==-1 )  continue;
+
+                if(nsUri.equals(a.getValue()))
+                    return a.getLocalName();    // found one
+            }
+        }
+
+        // none found. allocate new.
+        while(true) {
+            String prefix = "p"+(int)(Math.random()*1000000)+'_';
+            if(e.getAttributeNodeNS(Const.XMLNS_URI,prefix)!=null)
+                continue;   // this prefix is already allocated.
+            //TODO : fix iterator, how to define which one should we choose ?
             e.setAttributeNS(Const.XMLNS_URI,"xmlns:"+prefix,nsUri);
             return prefix;
         }

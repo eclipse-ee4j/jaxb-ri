@@ -83,7 +83,7 @@ public class AnnotationParserFactoryImpl implements AnnotationParserFactory {
                     @Override
                     public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
                         super.startElement(uri, localName, qName, atts);
-                        if((uri.equals(Const.getJaxbNsUri()) || uri.equals(Const.XJC_EXTENSION_URI))
+                        if((Const.JAXB_NS_URI.contains(uri) || uri.equals(Const.XJC_EXTENSION_URI))
                         && getSideHandler()==null) {
                             // set up validator
                             if(validator==null)

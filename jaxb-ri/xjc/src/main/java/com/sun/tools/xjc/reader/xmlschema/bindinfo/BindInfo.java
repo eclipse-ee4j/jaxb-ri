@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.sun.tools.xjc.reader.Const;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
@@ -285,7 +286,8 @@ public final class BindInfo implements Iterable<BIDeclaration> {
             if(d instanceof BIXPluginCustomization) {
                 BIXPluginCustomization pc = (BIXPluginCustomization) d;
                 pc.markAsAcknowledged();
-                if(!Ring.get(Model.class).options.pluginURIs.contains(pc.getName().getNamespaceURI()))
+                if(!Ring.get(Model.class).options.pluginURIs.contains(pc.getName().getNamespaceURI()) ||
+                        Const.JAXB_NS_URI.contains(pc.getName().getNamespaceURI()))
                     continue;   // this isn't a plugin customization
                 if(r==null)
                     r = new CCustomizations();

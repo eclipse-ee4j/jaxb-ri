@@ -144,9 +144,9 @@ public class PluginImpl extends Plugin {
             episodeFileOutputStream = new FileOutputStream(episodeFile);
             Bindings bindings = TXW.create(Bindings.class, new StreamSerializer(episodeFileOutputStream, "UTF-8"));
             if(hasComponentInNoNamespace) // otherwise jaxb binding NS should be the default namespace
-                bindings._namespace(Const.getJaxbNsUri(),"jaxb");
+                bindings._namespace(Const.JAKARTA_JAXB_NSURI,"jaxb");
             else
-                bindings._namespace(Const.getJaxbNsUri(),"");
+                bindings._namespace(Const.JAKARTA_JAXB_NSURI,"");
             bindings.version("3.0");
             bindings._comment("\n\n"+opt.getPrologComment()+"\n  ");
 

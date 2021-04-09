@@ -10,12 +10,7 @@
 
 package com.sun.tools.xjc.reader.internalizer;
 
-import java.util.Set;
-import java.util.HashSet;
-import java.util.Arrays;
-
 import com.sun.tools.xjc.reader.Const;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.EntityResolver;
@@ -26,6 +21,10 @@ import org.xml.sax.SAXParseException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.LocatorImpl;
 import org.xml.sax.helpers.XMLFilterImpl;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Checks the jaxb:version attribute on a XML Schema document.
@@ -78,8 +77,10 @@ public class VersionChecker extends XMLFilterImpl {
             seenRoot = true;
             rootTagStart = new LocatorImpl(locator);
 
-            version = atts.getValue(Const.getJaxbNsUri(),"version");
-            if( namespaceURI.equals(Const.getJaxbNsUri()) ) {
+            for (String uri : Const.JAXB_NS_URI) {
+                version = atts.getValue(uri,"version");
+            }
+            if (Const.JAXB_NS_URI.contains(namespaceURI)) {
                 String version2 = atts.getValue("","version");
                 if( version!=null && version2!=null ) {
                     // we have both @version and @jaxb:version. error.
@@ -93,7 +94,7 @@ public class VersionChecker extends XMLFilterImpl {
 
         }
 
-        if( Const.getJaxbNsUri().equals(namespaceURI) )
+        if (Const.JAXB_NS_URI.contains(namespaceURI))
             seenBindings = true;
     }
 

@@ -606,7 +606,7 @@ public class Options {
         }
         if (args[i].equals("-extension")) {
             compatibilityMode = EXTENSION;
-            Const.useOldNamespace(true);
+            Const.useOldNameSpace();
             return 1;
         }
         if (args[i].equals("-target")) {
