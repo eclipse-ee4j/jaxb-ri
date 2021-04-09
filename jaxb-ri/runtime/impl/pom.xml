@@ -72,120 +72,12 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>add-mr-resource</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>add-resource</goal>
-                        </goals>
-                        <configuration>
-                            <resources>
-                                <resource>
-                                    <directory>${mrjar.sourceDirectory}</directory>
-                                    <targetPath>META-INF/versions</targetPath>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>default-compile-mr</id>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                        <configuration>
-                            <compileSourceRoots>
-                                <compileSourceRoot>${mrjar.sourceDirectory}/${upper.java.level}</compileSourceRoot>
-                            </compileSourceRoots>
-                            <outputDirectory>${project.build.outputDirectory}/META-INF/versions/${upper.java.level}</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <configuration>
-                    <instructions>
-                        <Implementation-Vendor>${vendor.name}</Implementation-Vendor>
-                        <Implementation-Vendor-Id>${project.groupId}</Implementation-Vendor-Id>
-                        <Implementation-Build-Id>${project.version} - ${buildNumber}</Implementation-Build-Id>
-                        <Multi-Release>true</Multi-Release>
-                        <Export-Package>
-                            !META-INF.*,
-                            *
-                        </Export-Package>
-                        <Import-Package>
-                            sun.misc;resolution:=optional,
-                            jdk.internal.misc;resolution:=optional,
-                            *
-                        </Import-Package>
-                    </instructions>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>bundle-manifest</id>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>manifest</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
-                    </archive>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <workingDirectory>target/test-out</workingDirectory>
                     <forkCount>1</forkCount>
                     <reuseForks>true</reuseForks>
-                </configuration>
-            </plugin>
-
-            <!-- Run tests on multi-release jar -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <trimStackTrace>false</trimStackTrace>
-                    <systemProperties>
-                        <property>
-                            <name>java.util.logging.config.file</name>
-                            <value>logging.properties</value>
-                        </property>
-                    </systemProperties>
-                    <argLine>
-                        --add-opens java.base/java.lang=org.glassfish.runtime
-                        --add-opens org.glassfish.jaxb.runtime/org.glassfish.jaxb.runtime.v2=jakarta.xml.bind
-                        --add-opens org.glassfish.jaxb.runtime/org.glassfish.jaxb.runtime.v2.schemagen=jakarta.xml.bind
-                    </argLine>
-                    <includes>
-                        <include>**/*TestMultiRelease.java</include>
-                    </includes>
                 </configuration>
             </plugin>
         </plugins>

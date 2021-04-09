@@ -22,7 +22,6 @@ import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 
-
 /**
  * Responsible for converting a Java object to a lexical representation
  * and vice versa.
@@ -36,14 +35,6 @@ import java.io.IOException;
  * @author Kohsuke Kawaguchi (kk@kohsuke.org)
  */
 public interface Transducer<ValueT> {
-
-    /**
-     * If this {@link Transducer} is the default transducer for the <code>ValueT</code>,
-     * this method returns true.
-     *
-     * Used exclusively by {@link OptimizedTransducedAccessorFactory#get(RuntimePropertyInfo)}
-     */
-    boolean isDefault();
 
     /**
      * If true, this {@link Transducer} doesn't declare any namespace,
