@@ -13,6 +13,7 @@ package com.sun.tools.xjc.reader.internalizer;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -23,7 +24,6 @@ import java.text.ParseException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
 
 import com.sun.istack.SAXParseException2;
 import com.sun.istack.NotNull;
@@ -499,14 +499,14 @@ class Internalizer {
             att = root.getAttributeNodeNS(nsuri,EXTENSION_PREFIXES);
         }
         if( att==null ) {
-            String jaxbPrefix = allocatePrefix(root,Const.JAXB_NS_URI);
+            String jaxbPrefix = allocatePrefix(root,Const.JAXB_NS_URI, nsUri);
             // no such attribute. Create one.
             att = target.getOwnerDocument().createAttributeNS(
                 Const.JAKARTA_JAXB_NSURI,jaxbPrefix+':'+EXTENSION_PREFIXES);
             root.setAttributeNodeNS(att);
         }
         
-        String prefix = allocatePrefix(root,nsUri);
+        String prefix = allocatePrefix(root, Collections.emptySet(), nsUri);
         if( att.getValue().indexOf(prefix)==-1 )
             // avoid redeclaring the same namespace twice.
             att.setValue( att.getValue()+' '+prefix);
@@ -519,38 +519,7 @@ class Internalizer {
      * Note that this method doesn't use the default namespace
      * even if it can.
      */
-    private String allocatePrefix( Element e, Set<String> nsUri ) {
-        // look for existing namespaces.
-        NamedNodeMap atts = e.getAttributes();
-        for( int i=0; i<atts.getLength(); i++ ) {
-            Attr a = (Attr)atts.item(i);
-            if( Const.XMLNS_URI.equals(a.getNamespaceURI()) ) {
-                if( a.getName().indexOf(':')==-1 )  continue;
-                
-                if(nsUri.contains(a.getValue()))
-                    return a.getLocalName();    // found one
-            }
-        }
-        
-        // none found. allocate new.
-        while(true) {
-            String prefix = "p"+(int)(Math.random()*1000000)+'_';
-            if(e.getAttributeNodeNS(Const.XMLNS_URI,prefix)!=null)
-                continue;   // this prefix is already allocated.
-            //TODO : fix iterator, how to define which one should be picked ?
-            e.setAttributeNS(Const.XMLNS_URI,"xmlns:"+prefix, nsUri.iterator().next());
-            return prefix;
-        }
-    }
-
-    /**
-     * Declares a new prefix on the given element and associates it
-     * with the specified namespace URI.
-     * <p>
-     * Note that this method doesn't use the default namespace
-     * even if it can.
-     */
-    private String allocatePrefix( Element e, String nsUri ) {
+    private String allocatePrefix( Element e, Set<String> setNsUri, String nsUri ) {
         // look for existing namespaces.
         NamedNodeMap atts = e.getAttributes();
         for( int i=0; i<atts.getLength(); i++ ) {
@@ -558,8 +527,12 @@ class Internalizer {
             if( Const.XMLNS_URI.equals(a.getNamespaceURI()) ) {
                 if( a.getName().indexOf(':')==-1 )  continue;
 
-                if(nsUri.equals(a.getValue()))
+                if(!setNsUri.isEmpty() && setNsUri.contains(a.getValue())) {
                     return a.getLocalName();    // found one
+                }
+                if (setNsUri.isEmpty() && nsUri.equals(a.getValue())) {
+                    return a.getLocalName();    // found one
+                }
             }
         }
 
@@ -568,12 +541,10 @@ class Internalizer {
             String prefix = "p"+(int)(Math.random()*1000000)+'_';
             if(e.getAttributeNodeNS(Const.XMLNS_URI,prefix)!=null)
                 continue;   // this prefix is already allocated.
-            //TODO : fix iterator, how to define which one should we choose ?
-            e.setAttributeNS(Const.XMLNS_URI,"xmlns:"+prefix,nsUri);
+            e.setAttributeNS(Const.XMLNS_URI,"xmlns:"+prefix, nsUri);
             return prefix;
         }
     }
-    
     
     /**
      * Copies location information attached to the "src" node to the "dst" node.
