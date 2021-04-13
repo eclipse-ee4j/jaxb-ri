@@ -12,8 +12,7 @@ package org.glassfish.jaxb.runtime.v2.runtime;
 
 import com.sun.istack.NotNull;
 import org.glassfish.jaxb.runtime.api.AccessorException;
-import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimePropertyInfo;
-import org.glassfish.jaxb.runtime.v2.runtime.reflect.opt.OptimizedTransducedAccessorFactory;
+
 import jakarta.xml.bind.annotation.XmlValue;
 import org.xml.sax.SAXException;
 

@@ -16,7 +16,6 @@ import org.glassfish.jaxb.runtime.api.JAXBRIContext;
 import org.glassfish.jaxb.core.v2.model.core.Adapter;
 import org.glassfish.jaxb.runtime.v2.model.impl.RuntimeModelBuilder;
 import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
-import org.glassfish.jaxb.runtime.v2.runtime.reflect.opt.OptimizedAccessorFactory;
 import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.Loader;
 import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.Receiver;
 import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.UnmarshallingContext;

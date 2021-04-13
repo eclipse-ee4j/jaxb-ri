@@ -23,7 +23,6 @@ import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
 import org.glassfish.jaxb.runtime.v2.runtime.Name;
 import org.glassfish.jaxb.runtime.v2.runtime.Transducer;
 import org.glassfish.jaxb.runtime.v2.runtime.XMLSerializer;
-import org.glassfish.jaxb.runtime.v2.runtime.reflect.opt.OptimizedTransducedAccessorFactory;
 import org.glassfish.jaxb.core.v2.runtime.unmarshaller.LocatorEx;
 import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.Patcher;
 import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.UnmarshallingContext;
