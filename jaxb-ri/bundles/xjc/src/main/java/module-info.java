@@ -39,6 +39,7 @@ module com.sun.tools.xjc {
     exports com.sun.xml.xsom;
     exports com.sun.xml.xsom.util;
     exports com.sun.xml.xsom.visitor;
+    exports com.sun.xml.xsom.impl.parser;
     exports com.sun.xml.xsom.impl.util;
     exports com.sun.xml.xsom.parser;
 
