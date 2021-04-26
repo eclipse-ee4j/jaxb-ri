@@ -113,10 +113,6 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
         return false;
     }
 
-    public final boolean isDefault() {
-        return true;
-    }
-
     public void declareNamespace(T o, XMLSerializer w) throws AccessorException {
     }
 

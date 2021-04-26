@@ -20,10 +20,8 @@ import javax.xml.stream.XMLStreamException;
 import com.sun.istack.NotNull;
 import com.sun.xml.bind.api.AccessorException;
 import com.sun.xml.bind.v2.model.runtime.RuntimePropertyInfo;
-import com.sun.xml.bind.v2.runtime.reflect.opt.OptimizedTransducedAccessorFactory;
 
 import org.xml.sax.SAXException;
-
 
 /**
  * Responsible for converting a Java object to a lexical representation
@@ -38,14 +36,6 @@ import org.xml.sax.SAXException;
  * @author Kohsuke Kawaguchi (kk@kohsuke.org)
  */
 public interface Transducer<ValueT> {
-
-    /**
-     * If this {@link Transducer} is the default transducer for the <code>ValueT</code>,
-     * this method returns true.
-     *
-     * Used exclusively by {@link OptimizedTransducedAccessorFactory#get(RuntimePropertyInfo)}
-     */
-    boolean isDefault();
 
     /**
      * If true, this {@link Transducer} doesn't declare any namespace,

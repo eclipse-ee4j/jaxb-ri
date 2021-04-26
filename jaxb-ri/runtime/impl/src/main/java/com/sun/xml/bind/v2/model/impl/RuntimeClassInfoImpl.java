@@ -332,10 +332,6 @@ class RuntimeClassInfoImpl extends ClassInfoImpl<Type,Class,Field,Method>
             return xacc.useNamespace();
         }
 
-        public boolean isDefault() {
-            return false;
-        }
-
         public void declareNamespace(BeanT bean, XMLSerializer w) throws AccessorException {
             try {
                 xacc.declareNamespace(bean,w);
