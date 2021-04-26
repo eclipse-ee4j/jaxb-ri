@@ -1,9 +1,5 @@
 /*
-<<<<<<< HEAD:jaxb-ri/runtime/impl/src/main/java/org/glassfish/jaxb/runtime/v2/runtime/FilterTransducer.java
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
-=======
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
->>>>>>> parent of 263e92e (Revert optimization removal (#1352)):jaxb-ri/runtime/impl/src/main/java/com/sun/xml/bind/v2/runtime/FilterTransducer.java
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -34,30 +30,37 @@ public abstract class FilterTransducer<T> implements Transducer<T> {
         this.core = core;
     }
 
+    @Override
     public boolean useNamespace() {
         return core.useNamespace();
     }
 
+    @Override
     public void declareNamespace(T o, XMLSerializer w) throws AccessorException {
         core.declareNamespace(o, w);
     }
 
+    @Override
     public @NotNull CharSequence print(@NotNull T o) throws AccessorException {
         return core.print(o);
     }
 
+    @Override
     public T parse(CharSequence lexical) throws AccessorException, SAXException {
         return core.parse(lexical);
     }
 
+    @Override
     public void writeText(XMLSerializer w, T o, String fieldName) throws IOException, SAXException, XMLStreamException, AccessorException {
         core.writeText(w, o, fieldName);
     }
 
+    @Override
     public void writeLeafElement(XMLSerializer w, Name tagName, T o, String fieldName) throws IOException, SAXException, XMLStreamException, AccessorException {
         core.writeLeafElement(w,tagName,o,fieldName);
     }
 
+    @Override
     public QName getTypeName(T instance) {
         return null;
     }
