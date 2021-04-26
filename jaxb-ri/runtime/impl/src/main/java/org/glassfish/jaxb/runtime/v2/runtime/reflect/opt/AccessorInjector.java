@@ -14,7 +14,6 @@ import org.glassfish.jaxb.core.Utils;
 import org.glassfish.jaxb.runtime.v2.bytecode.ClassTailor;
 
 import java.io.InputStream;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -30,41 +29,6 @@ class AccessorInjector {
     static {
         if(noOptimize)
             logger.info("The optimized code generation is disabled");
-    }
-
-    /**
-     * Loads the optimized class and returns it.
-     *
-     * @return null
-     *      if it fails for some reason.
-     */
-    public static Class<?> prepare(
-            Class beanClass, String templateClassName, String newClassName, String... replacements ) {
-
-        if(noOptimize)
-            return null;
-
-        try {
-            ClassLoader cl = SecureLoader.getClassClassLoader(beanClass);
-            if(cl==null)    return null;    // how do I inject classes to this "null" class loader? for now, back off.
-
-            Class c = Injector.find(cl,newClassName);
-            if (c==null) {
-                byte[] image = tailor(templateClassName,newClassName,replacements);
-                if (image==null) {
-                    return null;
-                }
-                c = Injector.inject(cl,newClassName,image);
-                if (c == null) {
-                    Injector.find(cl, newClassName);
-                }
-            }
-            return c;
-        } catch(SecurityException e) {
-            // we don't have enough permission to do this
-            logger.log(Level.INFO,"Unable to create an optimized TransducedAccessor ",e);
-            return null;
-        }
     }
 
     /**

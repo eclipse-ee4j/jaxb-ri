@@ -16,7 +16,6 @@ import org.glassfish.jaxb.runtime.api.JAXBRIContext;
 import org.glassfish.jaxb.core.v2.model.core.Adapter;
 import org.glassfish.jaxb.runtime.v2.model.impl.RuntimeModelBuilder;
 import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
-import org.glassfish.jaxb.runtime.v2.runtime.reflect.opt.OptimizedAccessorFactory;
 import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.Loader;
 import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.Receiver;
 import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.UnmarshallingContext;
@@ -242,14 +241,6 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
 
         @Override
         public Accessor<BeanT, ValueT> optimize(JAXBContextImpl context) {
-            if (context != null && context.fastBoot) {
-                // let's not waste time on doing this for the sake of faster boot.
-                return this;
-            }
-            Accessor<BeanT, ValueT> acc = OptimizedAccessorFactory.get(f);
-            if (acc != null) {
-                return acc;
-            }
             return this;
         }
     }
@@ -356,20 +347,6 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
 
         @Override
         public Accessor<BeanT, ValueT> optimize(JAXBContextImpl context) {
-            if (getter == null || setter == null) {
-                // if we aren't complete, OptimizedAccessor won't always work
-                return this;
-            }
-            if (context != null && context.fastBoot) {
-                // let's not waste time on doing this for the sake of faster boot.
-                return this;
-            }
-
-            Accessor<BeanT, ValueT> acc = OptimizedAccessorFactory.get(getter, setter);
-            if (acc != null) {
-                return acc;
-            }
-
             return this;
         }
     }

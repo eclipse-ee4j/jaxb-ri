@@ -157,37 +157,6 @@
                     <reuseForks>true</reuseForks>
                 </configuration>
             </plugin>
-
-            <!-- Run tests on multi-release jar -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <trimStackTrace>false</trimStackTrace>
-                    <systemProperties>
-                        <property>
-                            <name>java.util.logging.config.file</name>
-                            <value>logging.properties</value>
-                        </property>
-                    </systemProperties>
-                    <argLine>
-                        --add-opens java.base/java.lang=org.glassfish.runtime
-                        --add-opens org.glassfish.jaxb.runtime/org.glassfish.jaxb.runtime.v2=jakarta.xml.bind
-                        --add-opens org.glassfish.jaxb.runtime/org.glassfish.jaxb.runtime.v2.schemagen=jakarta.xml.bind
-                    </argLine>
-                    <includes>
-                        <include>**/*TestMultiRelease.java</include>
-                    </includes>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 </project>

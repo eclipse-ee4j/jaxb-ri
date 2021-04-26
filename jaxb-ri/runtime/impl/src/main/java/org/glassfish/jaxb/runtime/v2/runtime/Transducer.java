@@ -12,8 +12,7 @@ package org.glassfish.jaxb.runtime.v2.runtime;
 
 import com.sun.istack.NotNull;
 import org.glassfish.jaxb.runtime.api.AccessorException;
-import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimePropertyInfo;
-import org.glassfish.jaxb.runtime.v2.runtime.reflect.opt.OptimizedTransducedAccessorFactory;
+
 import jakarta.xml.bind.annotation.XmlValue;
 import org.xml.sax.SAXException;
 
@@ -21,7 +20,6 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
-
 
 /**
  * Responsible for converting a Java object to a lexical representation
@@ -36,14 +34,6 @@ import java.io.IOException;
  * @author Kohsuke Kawaguchi (kk@kohsuke.org)
  */
 public interface Transducer<ValueT> {
-
-    /**
-     * If this {@link Transducer} is the default transducer for the <code>ValueT</code>,
-     * this method returns true.
-     *
-     * Used exclusively by {@link OptimizedTransducedAccessorFactory#get(RuntimePropertyInfo)}
-     */
-    boolean isDefault();
 
     /**
      * If true, this {@link Transducer} doesn't declare any namespace,
