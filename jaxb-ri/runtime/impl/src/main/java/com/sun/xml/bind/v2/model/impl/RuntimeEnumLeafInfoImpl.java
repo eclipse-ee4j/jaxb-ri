@@ -95,10 +95,6 @@ final class RuntimeEnumLeafInfoImpl<T extends Enum<T>,B> extends EnumLeafInfoImp
         return new QName[]{getTypeName()};
     }
 
-    public boolean isDefault() {
-        return false;
-    }
-
     @Override
     public Class getClazz() {
         return clazz;

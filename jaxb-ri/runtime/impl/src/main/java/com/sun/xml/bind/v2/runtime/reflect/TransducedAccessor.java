@@ -26,14 +26,13 @@ import com.sun.xml.bind.v2.model.core.ID;
 import com.sun.xml.bind.v2.model.impl.RuntimeModelBuilder;
 import com.sun.xml.bind.v2.model.runtime.RuntimeNonElementRef;
 import com.sun.xml.bind.v2.model.runtime.RuntimePropertyInfo;
+import com.sun.xml.bind.v2.runtime.JAXBContextImpl;
 import com.sun.xml.bind.v2.runtime.Name;
 import com.sun.xml.bind.v2.runtime.Transducer;
 import com.sun.xml.bind.v2.runtime.XMLSerializer;
-import com.sun.xml.bind.v2.runtime.JAXBContextImpl;
-import com.sun.xml.bind.v2.runtime.reflect.opt.OptimizedTransducedAccessorFactory;
+import com.sun.xml.bind.v2.runtime.unmarshaller.LocatorEx;
 import com.sun.xml.bind.v2.runtime.unmarshaller.Patcher;
 import com.sun.xml.bind.v2.runtime.unmarshaller.UnmarshallingContext;
-import com.sun.xml.bind.v2.runtime.unmarshaller.LocatorEx;
 
 import org.xml.sax.SAXException;
 
@@ -133,13 +132,6 @@ public abstract class TransducedAccessor<BeanT> {
 
         if(prop.id()==ID.IDREF)
             return new IDREFTransducedAccessorImpl(prop.getAccessor());
-
-        if (xducer.isDefault() && context != null && !context.fastBoot) {
-            TransducedAccessor xa = OptimizedTransducedAccessorFactory.get(prop);
-            if (xa != null) {
-                return xa;
-            }
-        }
 
         if(xducer.useNamespace())
             return new CompositeContextDependentTransducedAccessorImpl( context, xducer, prop.getAccessor() );
