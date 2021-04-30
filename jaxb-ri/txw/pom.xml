@@ -26,6 +26,7 @@
     <packaging>pom</packaging>
     <name>JAXB TXW parent</name>
     <description>JAXB TXW parent module. Contains sources for TXW component.</description>
+    <url>https://eclipse-ee4j.github.io/jaxb-ri/</url>
 
     <modules>
         <module>compiler</module>

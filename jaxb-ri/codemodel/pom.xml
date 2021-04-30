@@ -26,6 +26,7 @@
     <packaging>pom</packaging>
     <name>Codemodel</name>
     <description>Java source code generation library</description>
+    <url>https://eclipse-ee4j.github.io/jaxb-ri/</url>
 
     <licenses>
         <license>

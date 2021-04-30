@@ -31,6 +31,7 @@
         JAXB schema generator.The *tool* to generate XML schema based on java classes.
         <!--todo: finish me-->
     </description>
+    <url>https://eclipse-ee4j.github.io/jaxb-ri/</url>
 
     <properties>
         <spotbugs.exclude>${project.basedir}/exclude-jxc.xml</spotbugs.exclude>

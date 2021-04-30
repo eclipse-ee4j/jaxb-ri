@@ -28,6 +28,7 @@
     <packaging>jar</packaging>
     <name>Old JAXB Core</name>
     <description>Old JAXB Core module. Contains sources required by XJC, JXC and Runtime modules with dependencies.</description>
+    <url>https://eclipse-ee4j.github.io/jaxb-ri/</url>
 
     <dependencies>
 

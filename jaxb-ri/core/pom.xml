@@ -28,6 +28,7 @@
     <packaging>jar</packaging>
     <name>JAXB Core</name>
     <description>JAXB Core module. Contains sources required by XJC, JXC and Runtime modules.</description>
+    <url>https://eclipse-ee4j.github.io/jaxb-ri/</url>
 
     <properties>
         <findbugs.exclude>${project.basedir}/exclude-core.xml</findbugs.exclude>

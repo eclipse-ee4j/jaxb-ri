@@ -31,6 +31,7 @@
         JAXB Bill of Materials (BOM) with all dependencies.
         If you are not sure - DON'T USE THIS BOM. Use com.sun.xml.bind:jaxb-bom instead.
     </description>
+    <url>https://eclipse-ee4j.github.io/jaxb-ri/</url>
 
     <properties>
         <codemodel.version>${project.version}</codemodel.version>
