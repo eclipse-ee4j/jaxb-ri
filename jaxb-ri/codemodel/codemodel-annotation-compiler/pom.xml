@@ -23,6 +23,7 @@
     <artifactId>codemodel-annotation-compiler</artifactId>
     <name>Codemodel Annotation Compiler</name>
     <description>The annotation compiler ant task for the CodeModel java source code generation library</description>
+    <url>https://eclipse-ee4j.github.io/jaxb-ri/</url>
 
     <dependencies>
         <dependency>

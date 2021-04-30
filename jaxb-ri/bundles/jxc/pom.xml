@@ -30,6 +30,7 @@
     <description>
         Old JAXB schema generator.The *tool* to generate XML schema based on java classes.
     </description>
+    <url>https://eclipse-ee4j.github.io/jaxb-ri/</url>
 
     <dependencies>
         <dependency>

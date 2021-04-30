@@ -24,6 +24,7 @@
     <artifactId>codemodel</artifactId>
     <name>Codemodel Core</name>
     <description>The core functionality of the CodeModel java source code generation library</description>
+    <url>https://eclipse-ee4j.github.io/jaxb-ri/</url>
 
     <properties>
         <spotbugs.exclude>${project.basedir}/exclude-codemodel.xml</spotbugs.exclude>

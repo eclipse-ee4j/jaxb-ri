@@ -27,6 +27,7 @@
     <packaging>pom</packaging>
     <name>JAXB samples</name>
     <description>JAXB samples module. Contains sources for JAXB samples generation</description>
+    <url>https://eclipse-ee4j.github.io/jaxb-ri/</url>
 
     <build>
         <plugins>

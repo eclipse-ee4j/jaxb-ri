@@ -25,6 +25,7 @@
     <artifactId>jaxb-www</artifactId>
     <packaging>pom</packaging>
     <name>JAXB WWW Help files</name>
+    <url>https://eclipse-ee4j.github.io/jaxb-ri/</url>
 
     <build>
         <plugins>

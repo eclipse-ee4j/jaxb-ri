@@ -30,6 +30,7 @@
         documents and inspect information in them. It is expected to be useful for applications that need to take XML
         Schema as an input.
     </description>
+    <url>https://eclipse-ee4j.github.io/jaxb-ri/</url>
 
     <licenses>
         <license>

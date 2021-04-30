@@ -29,6 +29,7 @@
     <packaging>pom</packaging>
     <name>JAXB BOM</name>
     <description>JAXB Bill of Materials (BOM)</description>
+    <url>https://eclipse-ee4j.github.io/jaxb-ri/</url>
 
     <properties>
         <jaxb-api.version>2.3.3</jaxb-api.version>
