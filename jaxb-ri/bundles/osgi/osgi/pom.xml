@@ -28,6 +28,7 @@
     <packaging>jar</packaging>
     <name>JAXB OSGI</name>
     <description>JAXB OSGI bundle</description>
+    <url>https://eclipse-ee4j.github.io/jaxb-ri/</url>
 
     <dependencies>
         <dependency>

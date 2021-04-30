@@ -27,6 +27,7 @@
         Tests for JAXB RI OSGi bundles.
         They should be in separate module because of dependency-hell of osgi and extra-osgi modules.
     </description>
+    <url>https://eclipse-ee4j.github.io/jaxb-ri/</url>
 
     <dependencies>
         <dependency>

@@ -26,6 +26,7 @@
     <artifactId>osgi-test-runtime</artifactId>
     <packaging>jar</packaging>
     <name>osgi-test-runtime</name>
+    <url>https://eclipse-ee4j.github.io/jaxb-ri/</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

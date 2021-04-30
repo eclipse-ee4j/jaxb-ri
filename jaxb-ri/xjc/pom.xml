@@ -32,6 +32,7 @@
         In other words: the *tool* to generate java classes for the given xml representation.
         <!--todo: finish me-->
     </description>
+    <url>https://eclipse-ee4j.github.io/jaxb-ri/</url>
 
     <properties>
         <spotbugs.threshold>Low</spotbugs.threshold>

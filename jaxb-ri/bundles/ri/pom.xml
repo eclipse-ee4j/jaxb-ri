@@ -28,6 +28,7 @@
     <packaging>pom</packaging>
     <name>JAXB RI</name>
     <description>JAXB RI standalone zipped bundle</description>
+    <url>https://eclipse-ee4j.github.io/jaxb-ri/</url>
 
     <dependencies>
         <dependency>

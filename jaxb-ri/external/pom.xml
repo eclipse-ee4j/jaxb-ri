@@ -28,6 +28,7 @@
     <version>2.3.4-SNAPSHOT</version>
     <name>JAXB External parent</name>
     <description>JAXB External parent module. Contains sources for external components.</description>
+    <url>https://eclipse-ee4j.github.io/jaxb-ri/</url>
 
     <licenses>
         <license>
