@@ -29,5 +29,6 @@
     <packaging>jar</packaging>
     <name>RelaxNG Datatype</name>
     <description>RelaxNG Datatype library.</description>
+    <url>https://eclipse-ee4j.github.io/jaxb-ri/</url>
 
 </project>

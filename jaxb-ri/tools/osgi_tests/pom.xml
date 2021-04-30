@@ -27,6 +27,7 @@
     <packaging>pom</packaging>
     <name>Parent for osgi testing modules.</name>
     <description>Modules generate jars used for testing valid osgi manifests</description>
+    <url>https://eclipse-ee4j.github.io/jaxb-ri/</url>
 
     <properties>
         <spotbugs.skip>true</spotbugs.skip>

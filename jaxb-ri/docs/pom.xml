@@ -27,6 +27,7 @@
     <packaging>pom</packaging>
     <name>JAXB Documentation parent</name>
     <description>JAXB Documentation parent.</description>
+    <url>https://eclipse-ee4j.github.io/jaxb-ri/</url>
 
     <modules>
         <module>release-documentation</module>
