@@ -40,7 +40,7 @@ import javax.lang.model.type.TypeVisitor;
 import javax.lang.model.type.WildcardType;
 import javax.lang.model.util.ElementFilter;
 import javax.lang.model.util.Elements;
-import javax.lang.model.util.SimpleTypeVisitor6;
+import javax.lang.model.util.SimpleTypeVisitor8;
 import javax.lang.model.util.Types;
 
 /**
@@ -448,7 +448,7 @@ public final class ApNavigator implements Navigator<TypeMirror, TypeElement, Var
     /**
      * Implements {@link #getBaseClass}.
      */
-    private final SimpleTypeVisitor6<TypeMirror, TypeElement> baseClassFinder = new SimpleTypeVisitor6<TypeMirror, TypeElement>() {
+    private final SimpleTypeVisitor8<TypeMirror, TypeElement> baseClassFinder = new SimpleTypeVisitor8<TypeMirror, TypeElement>() {
         @Override
         public TypeMirror visitDeclared(DeclaredType t, TypeElement sup) {
             if (t.asElement().equals(sup))
