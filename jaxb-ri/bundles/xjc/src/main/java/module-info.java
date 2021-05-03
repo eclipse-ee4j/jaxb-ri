@@ -28,12 +28,13 @@ module com.sun.tools.xjc {
 
     exports com.sun.tools.xjc;
     exports com.sun.tools.xjc.api;
-    exports com.sun.tools.xjc.generator.bean to com.sun.xml.bind.core, com.sun.xml.bind;
+    exports com.sun.tools.xjc.generator.bean;
     exports com.sun.tools.xjc.model;
     exports com.sun.tools.xjc.model.nav;
     exports com.sun.tools.xjc.outline;
     exports com.sun.tools.xjc.reader;
     exports com.sun.tools.xjc.reader.internalizer;
+    exports com.sun.tools.xjc.reader.xmlschema.bindinfo;
     exports com.sun.tools.xjc.util;
 
     exports com.sun.xml.xsom;
