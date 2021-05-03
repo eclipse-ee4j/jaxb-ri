@@ -142,7 +142,7 @@ public class BindInfo
 
         String v = DOMUtil.getAttribute(serial,"uid");
         if(v==null) v="1";
-        return new Long(v);
+        return Long.valueOf(v);
     }
     
     /** Gets the xjc:superClass customization if it's turned on. */

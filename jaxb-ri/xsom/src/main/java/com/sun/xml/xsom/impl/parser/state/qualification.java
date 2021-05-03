@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -57,7 +57,7 @@ class qualification extends NGCCHandler {
         switch($_ngcc_current_state) {
         case 0:
             {
-                revertToParentFromEnterElement(new Boolean(text.trim().equals("qualified")), super._cookie, $__uri, $__local, $__qname, $attrs);
+                revertToParentFromEnterElement(Boolean.valueOf(text.trim().equals("qualified")), super._cookie, $__uri, $__local, $__qname, $attrs);
             }
             break;
         default:
@@ -76,7 +76,7 @@ class qualification extends NGCCHandler {
         switch($_ngcc_current_state) {
         case 0:
             {
-                revertToParentFromLeaveElement(new Boolean(text.trim().equals("qualified")), super._cookie, $__uri, $__local, $__qname);
+                revertToParentFromLeaveElement(Boolean.valueOf(text.trim().equals("qualified")), super._cookie, $__uri, $__local, $__qname);
             }
             break;
         default:
@@ -95,7 +95,7 @@ class qualification extends NGCCHandler {
         switch($_ngcc_current_state) {
         case 0:
             {
-                revertToParentFromEnterAttribute(new Boolean(text.trim().equals("qualified")), super._cookie, $__uri, $__local, $__qname);
+                revertToParentFromEnterAttribute(Boolean.valueOf(text.trim().equals("qualified")), super._cookie, $__uri, $__local, $__qname);
             }
             break;
         default:
@@ -114,7 +114,7 @@ class qualification extends NGCCHandler {
         switch($_ngcc_current_state) {
         case 0:
             {
-                revertToParentFromLeaveAttribute(new Boolean(text.trim().equals("qualified")), super._cookie, $__uri, $__local, $__qname);
+                revertToParentFromLeaveAttribute(Boolean.valueOf(text.trim().equals("qualified")), super._cookie, $__uri, $__local, $__qname);
             }
             break;
         default:
@@ -130,7 +130,7 @@ class qualification extends NGCCHandler {
         switch($_ngcc_current_state) {
         case 0:
             {
-                revertToParentFromText(new Boolean(text.trim().equals("qualified")), super._cookie, $value);
+                revertToParentFromText(Boolean.valueOf(text.trim().equals("qualified")), super._cookie, $value);
             }
             break;
         case 1:

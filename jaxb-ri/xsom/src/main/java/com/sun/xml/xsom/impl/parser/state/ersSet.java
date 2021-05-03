@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -153,11 +153,10 @@ class ersSet extends NGCCHandler {
 
     
       private Integer makeResult() {
-        if(v==null)     return new Integer($runtime.blockDefault);
+        if(v==null)     return Integer.valueOf($runtime.blockDefault);
         
         if(v.indexOf("#all")!=-1)
-            return new Integer(
-              XSType.EXTENSION|XSType.RESTRICTION|XSType.SUBSTITUTION);
+            return Integer.valueOf(XSType.EXTENSION|XSType.RESTRICTION|XSType.SUBSTITUTION);
         
         int r = 0;
         
@@ -165,7 +164,7 @@ class ersSet extends NGCCHandler {
         if(v.indexOf("restriction")!=-1)    r|=XSType.RESTRICTION;
         if(v.indexOf("substitution")!=-1)   r|=XSType.SUBSTITUTION;
         
-        return new Integer(r);
+        return Integer.valueOf(r);
       }
     
 }
