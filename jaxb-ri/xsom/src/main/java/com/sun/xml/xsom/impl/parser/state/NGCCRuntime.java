@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -252,7 +252,7 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
     public void onEnterElementConsumed(
             String uri, String localName, String qname,Attributes atts) throws SAXException {
         attStack.push(currentAtts=new AttributesImpl(atts));
-        nsEffectiveStack.push( new Integer(nsEffectivePtr) );
+        nsEffectiveStack.push( Integer.valueOf(nsEffectivePtr) );
         nsEffectivePtr = namespaces.size();
     }
 
@@ -510,8 +510,8 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
                 "Unexpected {0} appears at line {1} column {2}",
                 new Object[]{
                         token,
-                        new Integer(getLocator().getLineNumber()),
-                        new Integer(getLocator().getColumnNumber()) }),
+                        Integer.valueOf(getLocator().getLineNumber()),
+                        Integer.valueOf(getLocator().getColumnNumber()) }),
                 getLocator());
     }
 
