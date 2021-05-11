@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -30,6 +30,7 @@ public class UnicodeEscapeWriter extends FilterWriter {
         super(next);
     }
 
+    @Override
     public final void write(int ch) throws IOException {
         if(!requireEscaping(ch))  out.write(ch);
         else {
@@ -55,19 +56,23 @@ public class UnicodeEscapeWriter extends FilterWriter {
         return false;
     }
     
+    @Override
     public final void write(char[] buf, int off, int len) throws IOException {
         for( int i=0; i<len; i++ )
             write(buf[off+i]);
     }
 
+    @Override
     public final void write(char[] buf) throws IOException {
         write(buf,0,buf.length);
     }
 
+    @Override
     public final void write(String buf, int off, int len) throws IOException {
         write( buf.toCharArray(), off, len );
     }
     
+    @Override
     public final void write(String buf) throws IOException {
         write( buf.toCharArray(), 0, buf.length() );
     }

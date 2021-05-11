@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -40,7 +40,7 @@ public final class JInvocation extends JExpressionImpl implements JStatement {
     /**
      * List of argument expressions for this method invocation
      */
-    private List<JExpression> args = new ArrayList<JExpression>();
+    private List<JExpression> args = new ArrayList<>();
 
     /**
      * If isConstructor==true, this field keeps the type to be created.
@@ -134,6 +134,7 @@ public final class JInvocation extends JExpressionImpl implements JStatement {
 		return args.toArray(new JExpression[args.size()]);
 	}
 
+    @Override
     public void generate(JFormatter f) {
         if (isConstructor && type.isArray()) {
             // [RESULT] new T[]{arg1,arg2,arg3,...};
@@ -164,6 +165,7 @@ public final class JInvocation extends JExpressionImpl implements JStatement {
         }
     }
 
+    @Override
     public void state(JFormatter f) {
         f.g(this).p(';').nl();
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -32,46 +32,57 @@ final class JArrayClass extends JClass {
     }
     
     
+    @Override
     public String name() {
         return componentType.name()+"[]";
     }
     
+    @Override
     public String fullName() {
         return componentType.fullName()+"[]";
     }
 
+    @Override
     public String binaryName() {
         return componentType.binaryName()+"[]";
     }
 
+    @Override
     public void generate(JFormatter f) {
         f.g(componentType).p("[]");
     }
 
+    @Override
     public JPackage _package() {
         return owner().rootPackage();
     }
 
+    @Override
     public JClass _extends() {
         return owner().ref(Object.class);
     }
 
+    @Override
     public Iterator<JClass> _implements() {
         return Collections.<JClass>emptyList().iterator();
     }
 
+    @Override
     public boolean isInterface() {
         return false;
     }
 
+    @Override
     public boolean isAbstract() {
         return false;
     }
 
+    @Override
     public JType elementType() {
         return componentType;
     }
 
+    @Override
     public boolean isArray() {
         return true;
     }
@@ -81,6 +92,7 @@ final class JArrayClass extends JClass {
     // Equality is based on value
     //
 
+    @Override
     public boolean equals(Object obj) {
         if(!(obj instanceof JArrayClass))   return false;
         
@@ -90,10 +102,12 @@ final class JArrayClass extends JClass {
         return false;
     }
 
+    @Override
     public int hashCode() {
         return componentType.hashCode();
     }
 
+    @Override
     protected JClass substituteParams(JTypeVar[] variables, List<JClass> bindings) {
         if( componentType.isPrimitive() )
             return this;

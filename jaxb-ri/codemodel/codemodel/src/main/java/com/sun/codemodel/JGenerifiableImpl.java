@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -26,6 +26,7 @@ abstract class JGenerifiableImpl implements JGenerifiable, JDeclaration {
     
     protected abstract JCodeModel owner();
     
+    @Override
     public void declare( JFormatter f ) {
         if(typeVariables!=null) {
             f.p('<');
@@ -38,22 +39,26 @@ abstract class JGenerifiableImpl implements JGenerifiable, JDeclaration {
     }
 
 
+    @Override
     public JTypeVar generify(String name) {
         JTypeVar v = new JTypeVar(owner(),name);
         if(typeVariables==null)
-            typeVariables = new ArrayList<JTypeVar>(3);
+            typeVariables = new ArrayList<>(3);
         typeVariables.add(v);
         return v;
     }
 
+    @Override
     public JTypeVar generify(String name, Class<?> bound) {
         return generify(name,owner().ref(bound));
     }
 
+    @Override
     public JTypeVar generify(String name, JClass bound) {
         return generify(name).bound(bound);
     }
     
+    @Override
     public JTypeVar[] typeParams() {
         if(typeVariables==null)
             return JTypeVar.EMPTY_ARRAY;

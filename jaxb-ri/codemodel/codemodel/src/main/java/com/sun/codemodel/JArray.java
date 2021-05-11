@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -28,7 +28,7 @@ public final class JArray extends JExpressionImpl {
      */
     public JArray add(JExpression e) {
         if (exprs == null)
-            exprs = new ArrayList<JExpression>();
+            exprs = new ArrayList<>();
         exprs.add(e);
         return this;
     }
@@ -38,6 +38,7 @@ public final class JArray extends JExpressionImpl {
         this.size = size;
     }
 
+    @Override
     public void generate(JFormatter f) {
         
         // generally we produce new T[x], but when T is an array type (T=T'[])

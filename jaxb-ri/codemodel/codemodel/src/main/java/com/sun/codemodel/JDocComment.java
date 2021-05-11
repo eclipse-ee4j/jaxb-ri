@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -28,13 +28,13 @@ public class JDocComment extends JCommentPart implements JGenerable {
 	private static final long serialVersionUID = 1L;
 
 	/** list of @param tags */
-    private final Map<String,JCommentPart> atParams = new HashMap<String,JCommentPart>();
+    private final Map<String,JCommentPart> atParams = new HashMap<>();
     
     /** list of xdoclets */
-    private final Map<String,Map<String,String>> atXdoclets = new HashMap<String,Map<String,String>>();
+    private final Map<String,Map<String,String>> atXdoclets = new HashMap<>();
     
     /** list of @throws tags */
-    private final Map<JClass,JCommentPart> atThrows = new HashMap<JClass,JCommentPart>();
+    private final Map<JClass,JCommentPart> atThrows = new HashMap<>();
     
     /**
      * The @return tag part.
@@ -51,6 +51,7 @@ public class JDocComment extends JCommentPart implements JGenerable {
         this.owner = owner;
     }
 
+        @Override
     public JDocComment append(Object o) {
         add(o);
         return this;
@@ -115,7 +116,7 @@ public class JDocComment extends JCommentPart implements JGenerable {
     public Map<String,String> addXdoclet(String name) {
         Map<String,String> p = atXdoclets.get(name);
         if(p==null)
-            atXdoclets.put(name,p=new HashMap<String,String>());
+            atXdoclets.put(name,p=new HashMap<>());
         return p;
     }
 
@@ -125,7 +126,7 @@ public class JDocComment extends JCommentPart implements JGenerable {
     public Map<String,String> addXdoclet(String name, Map<String,String> attributes) {
         Map<String,String> p = atXdoclets.get(name);
         if(p==null)
-            atXdoclets.put(name,p=new HashMap<String,String>());
+            atXdoclets.put(name,p=new HashMap<>());
         p.putAll(attributes);
         return p;
     }
@@ -136,11 +137,12 @@ public class JDocComment extends JCommentPart implements JGenerable {
     public Map<String,String> addXdoclet(String name, String attribute, String value) {
         Map<String,String> p = atXdoclets.get(name);
         if(p==null)
-            atXdoclets.put(name,p=new HashMap<String,String>());
+            atXdoclets.put(name,p=new HashMap<>());
         p.put(attribute, value);
         return p;
     }
 
+        @Override
     public void generate(JFormatter f) {
         // I realized that we can't use StringTokenizer because
         // this will recognize multiple \n as one token.

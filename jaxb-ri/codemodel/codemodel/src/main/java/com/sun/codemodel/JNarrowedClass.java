@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -47,18 +47,19 @@ class JNarrowedClass extends JClass {
 
     @Override
     public JClass narrow( JClass clazz ) {
-        List<JClass> newArgs = new ArrayList<JClass>(args);
+        List<JClass> newArgs = new ArrayList<>(args);
         newArgs.add(clazz);
         return new JNarrowedClass(basis,newArgs);
     }
 
     @Override
     public JClass narrow( JClass... clazz ) {
-        List<JClass> newArgs = new ArrayList<JClass>(args);
+        List<JClass> newArgs = new ArrayList<>(args);
         newArgs.addAll(Arrays.asList(clazz));
         return new JNarrowedClass(basis,newArgs);
     }
 
+    @Override
     public String name() {
         StringBuilder buf = new StringBuilder();
         buf.append(basis.name());
@@ -75,6 +76,7 @@ class JNarrowedClass extends JClass {
         return buf.toString();
     }
     
+    @Override
     public String fullName() {
         StringBuilder buf = new StringBuilder();
         buf.append(basis.fullName());
@@ -128,25 +130,31 @@ class JNarrowedClass extends JClass {
         f.p("{@code >}");
     }
 
+    @Override
     public JPackage _package() {
         return basis._package();
     }
 
+    @Override
     public JClass _extends() {
         JClass base = basis._extends();
         if(base==null)  return base;
         return base.substituteParams(basis.typeParams(),args);
     }
 
+    @Override
     public Iterator<JClass> _implements() {
         return new Iterator<JClass>() {
             private final Iterator<JClass> core = basis._implements();
+            @Override
             public void remove() {
                 core.remove();
             }
+            @Override
             public JClass next() {
                 return core.next().substituteParams(basis.typeParams(),args);
             }
+            @Override
             public boolean hasNext() {
                 return core.hasNext();
             }
@@ -158,10 +166,12 @@ class JNarrowedClass extends JClass {
         return basis;
     }
 
+    @Override
     public boolean isInterface() {
         return basis.isInterface();
     }
 
+    @Override
     public boolean isAbstract() {
         return basis.isAbstract();
     }
@@ -187,11 +197,12 @@ class JNarrowedClass extends JClass {
         return fullName().hashCode();
     }
 
+    @Override
     protected JClass substituteParams(JTypeVar[] variables, List<JClass> bindings) {
         JClass b = basis.substituteParams(variables,bindings);
         boolean different = b!=basis;
         
-        List<JClass> clazz = new ArrayList<JClass>(args.size());
+        List<JClass> clazz = new ArrayList<>(args.size());
         for( int i=0; i<clazz.size(); i++ ) {
             JClass c = args.get(i).substituteParams(variables,bindings);
             clazz.set(i,c);

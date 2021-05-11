@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -29,7 +29,7 @@ public final class JBlock implements JGenerable, JStatement {
      * Declarations and statements contained in this block.
      * Either {@link JStatement} or {@link JDeclaration}.
      */
-    private final List<Object> content = new ArrayList<Object>();
+    private final List<Object> content = new ArrayList<>();
 
     /**
      * Whether or not this block must be braced and indented
@@ -390,6 +390,7 @@ public final class JBlock implements JGenerable, JStatement {
      */
     public JStatement directStatement(final String source) {
         JStatement s = new JStatement() {
+            @Override
             public void state(JFormatter f) {
                 f.p(source).nl();
             }
@@ -398,6 +399,7 @@ public final class JBlock implements JGenerable, JStatement {
         return s;
     }
 
+    @Override
     public void generate(JFormatter f) {
         if (bracesRequired)
             f.p('{').nl();
@@ -430,6 +432,7 @@ public final class JBlock implements JGenerable, JStatement {
         return insert(new JForEach( varType, name, collection));
 
     }
+    @Override
     public void state(JFormatter f) {
         f.g(this);
         if (bracesRequired)

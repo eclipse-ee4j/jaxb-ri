@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,7 +27,7 @@ public final class JSwitch implements JStatement {
     /**
      * vector of JCases.
      */
-    private List<JCase> cases = new ArrayList<JCase>();
+    private List<JCase> cases = new ArrayList<>();
     
     /**
      * a single default case
@@ -59,6 +59,7 @@ public final class JSwitch implements JStatement {
         return defaultCase;
     }
     
+    @Override
     public void state(JFormatter f) {
         if (JOp.hasTopOp(test)) {
             f.p("switch ").g(test).p(" {").nl();

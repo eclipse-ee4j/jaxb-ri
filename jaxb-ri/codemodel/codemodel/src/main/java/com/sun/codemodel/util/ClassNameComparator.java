@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,6 +23,7 @@ import com.sun.codemodel.JClass;
 public class ClassNameComparator implements Comparator<JClass> {
     private ClassNameComparator() {}
     
+    @Override
     public int compare(JClass l, JClass r) {
         return l.fullName().compareTo(r.fullName());
     }

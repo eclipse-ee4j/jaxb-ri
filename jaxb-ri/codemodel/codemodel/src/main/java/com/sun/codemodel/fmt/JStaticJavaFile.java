@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -74,10 +74,12 @@ public final class JStaticJavaFile extends JResourceFile {
         return clazz;
     }
 
+    @Override
     protected boolean isResource() {
         return false;
     }
 
+    @Override
     protected  void build(OutputStream os) throws IOException {
         int lineNumber=1;
         try (
@@ -107,6 +109,7 @@ public final class JStaticJavaFile extends JResourceFile {
     private LineFilter createLineFilter() {
         // this filter replaces the package declaration.
         LineFilter f = new LineFilter() {
+            @Override
             public String process(String line) {
                 if(!line.startsWith("package ")) return line;
 
@@ -154,6 +157,7 @@ public final class JStaticJavaFile extends JResourceFile {
             this.first=first;
             this.second=second;
         }
+        @Override
         public String process(String line) throws ParseException {
             line = first.process(line);
             if(line==null)  return null;
@@ -172,10 +176,12 @@ public final class JStaticJavaFile extends JResourceFile {
             typeParams = new JTypeVar[0];
         }
 
+        @Override
         public String name() {
             return className;
         }
 
+        @Override
         public String fullName() {
             if(pkg.isUnnamed())
                 return className;
@@ -183,30 +189,37 @@ public final class JStaticJavaFile extends JResourceFile {
                 return pkg.name()+'.'+className;
         }
 
+        @Override
         public JPackage _package() {
             return pkg;
         }
 
+        @Override
         public JClass _extends() {
             throw new UnsupportedOperationException();
         }
 
+        @Override
         public Iterator<JClass> _implements() {
             throw new UnsupportedOperationException();
         }
 
+        @Override
         public boolean isInterface() {
             throw new UnsupportedOperationException();
         }
 
+        @Override
         public boolean isAbstract() {
             throw new UnsupportedOperationException();
         }
 
+        @Override
         public JTypeVar[] typeParams() {
             return typeParams;
         }
 
+        @Override
         protected JClass substituteParams(JTypeVar[] variables, List<JClass> bindings) {
             return this;
         }

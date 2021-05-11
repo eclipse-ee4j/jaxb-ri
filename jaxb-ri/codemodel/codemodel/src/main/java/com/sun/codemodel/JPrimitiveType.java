@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -33,21 +33,26 @@ public final class JPrimitiveType extends JType {
         this.wrapperClass = owner.ref(wrapper);
     }
 
+    @Override
     public JCodeModel owner() { return owner; }
 
+    @Override
     public String fullName() {
         return typeName;
     }
         
+    @Override
     public String name() {
         return fullName();
     }
 
+    @Override
     public boolean isPrimitive() {
         return true;
     }
 
     private JClass arrayClass;
+    @Override
     public JClass array() {
         if(arrayClass==null)
             arrayClass = new JArrayClass(owner,this);
@@ -59,6 +64,7 @@ public final class JPrimitiveType extends JType {
      * For example, this method returns a reference to java.lang.Integer
      * if this object represents int.
      */
+    @Override
     public JClass boxify() {
         return wrapperClass;
     }
@@ -69,6 +75,7 @@ public final class JPrimitiveType extends JType {
      * return {@code this}.
      */
     @Deprecated
+    @Override
     public JType unboxify() {
         return this;
     }
@@ -104,6 +111,7 @@ public final class JPrimitiveType extends JType {
         return exp.invoke(typeName+"Value");
     }
 
+    @Override
     public void generate(JFormatter f) {
         f.p(typeName);
     }

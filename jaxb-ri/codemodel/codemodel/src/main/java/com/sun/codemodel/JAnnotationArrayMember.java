@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -28,7 +28,7 @@ import java.util.Collections;
  *     Bhakti Mehta (bhakti.mehta@sun.com)
  */
 public final class JAnnotationArrayMember extends JAnnotationValue implements JAnnotatable {
-    private final List<JAnnotationValue> values = new ArrayList<JAnnotationValue>();
+    private final List<JAnnotationValue> values = new ArrayList<>();
     private final JCodeModel owner;
 
     JAnnotationArrayMember(JCodeModel owner) {
@@ -160,13 +160,8 @@ public final class JAnnotationArrayMember extends JAnnotationValue implements JA
      *         the same method multiple times
      */
     public JAnnotationArrayMember param(final Enum<?> value) {
-        JAnnotationValue annotationValue = new JAnnotationValue() {
-            public void generate(JFormatter f) {
-                f.t(owner.ref(value.getDeclaringClass())).p('.').p(value.name());
-            }
-        };
-        values.add(annotationValue);
-        return this;
+        JClass ref = owner.ref(value.getClass());
+        return param(new JEnumConstant(ref, value.name()));
     }
 
     /**
@@ -177,7 +172,7 @@ public final class JAnnotationArrayMember extends JAnnotationValue implements JA
      *         the same method multiple times
      */
     public JAnnotationArrayMember param(final JEnumConstant value) {
-        JAnnotationValue annotationValue = new JAnnotationStringValue(value);
+        JAnnotationValue annotationValue = new JAnnotationClassValue(value);
         values.add(annotationValue);
         return this;
     }
@@ -203,20 +198,14 @@ public final class JAnnotationArrayMember extends JAnnotationValue implements JA
      *         the same method multiple times
      */
     public JAnnotationArrayMember param(final Class<?> value){
-       JAnnotationValue annotationValue = new JAnnotationStringValue(
-    		   new JExpressionImpl() {
-      			 public void generate(JFormatter f) {
-      				 f.p(value.getName().replace('$', '.'));
-      				 f.p(".class");
-      			}
-      		 });
-       values.add(annotationValue);
+       JClass ref = owner.ref(value);
+       values.add(new JAnnotationClassValue(ref));
        return this;
    }
 
     public JAnnotationArrayMember param(JType type){
         JClass clazz = type.boxify();
-        JAnnotationValue annotationValue = new JAnnotationStringValue ( clazz.dotclass() );
+        JAnnotationValue annotationValue = new JAnnotationClassValue(clazz);
         values.add(annotationValue);
         return this;
     }
@@ -224,6 +213,7 @@ public final class JAnnotationArrayMember extends JAnnotationValue implements JA
     /**
      * Adds a new annotation to the array.
      */
+    @Override
     public JAnnotationUse annotate(Class<? extends Annotation> clazz){
         return annotate(owner.ref(clazz));
     }
@@ -231,6 +221,7 @@ public final class JAnnotationArrayMember extends JAnnotationValue implements JA
     /**
      * Adds a new annotation to the array.
      */
+    @Override
     public JAnnotationUse annotate(JClass clazz){
         JAnnotationUse a = new JAnnotationUse(clazz);
         values.add(a);
@@ -238,10 +229,12 @@ public final class JAnnotationArrayMember extends JAnnotationValue implements JA
     }
 
 
+    @Override
     public boolean removeAnnotation(JAnnotationUse annotation) {
         return this.values.remove(annotation);
     }
 
+    @Override
     public <W extends JAnnotationWriter> W annotate2(Class<W> clazz) {
         return TypedAnnotationWriter.create(clazz,this);
     }
@@ -250,10 +243,15 @@ public final class JAnnotationArrayMember extends JAnnotationValue implements JA
      * {@link JAnnotatable#annotations()}
      */
     @SuppressWarnings("unchecked")
-	public Collection<JAnnotationUse> annotations() {
+    @Override
+    public Collection<JAnnotationUse> annotations() {
         // this invocation is invalid if the caller isn't adding annotations into an array
         // so this potentially type-unsafe conversion would be justified.
         return Collections.<JAnnotationUse>unmodifiableList((List)values);
+    }
+
+    public Collection<JAnnotationValue> annotations2() {
+        return Collections.unmodifiableList(values);
     }
 
     /**
@@ -274,6 +272,7 @@ public final class JAnnotationArrayMember extends JAnnotationValue implements JA
         return this;
     }
 
+    @Override
     public void generate(JFormatter f) {
         f.p('{').nl().i();
 

@@ -101,9 +101,9 @@ public final class JFormatter {
     public JFormatter(PrintWriter s, String space, Map<String, String> classNameReplacer) {
         pw = s;
         indentSpace = space;
-        collectedReferences = new HashMap<String,ReferenceList>();
+        collectedReferences = new HashMap<>();
         //ids = new HashSet<String>();
-        importedClasses = new HashSet<JClass>();
+        importedClasses = new HashSet<>();
         this.classNameReplacer = classNameReplacer;
     }
 
@@ -513,7 +513,7 @@ public final class JFormatter {
      * @author Ryan.Shoemaker@Sun.COM
      */
     final class ReferenceList {
-        private final ArrayList<JClass> classes = new ArrayList<JClass>();
+        private final ArrayList<JClass> classes = new ArrayList<>();
 
         /** true if this name is used as an identifier (like a variable name.) **/
         private boolean id;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -29,20 +29,28 @@ public final class JNullType extends JClass {
         super(_owner);
     }
 
+    @Override
     public String name() { return "null"; }
+    @Override
     public String fullName() { return "null"; }
 
+    @Override
     public JPackage _package() { return owner()._package(""); }
 
+    @Override
     public JClass _extends() { return null; }
 
+    @Override
     public Iterator<JClass> _implements() {
         return Collections.<JClass>emptyList().iterator();
     }
 
+    @Override
     public boolean isInterface() { return false; }
+    @Override
     public boolean isAbstract() { return false; }
 
+    @Override
     protected JClass substituteParams(JTypeVar[] variables, List<JClass> bindings) {
         return this;
     }

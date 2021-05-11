@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -43,15 +43,18 @@ public class OutputStreamCodeWriter extends CodeWriter {
 		this.encoding = encoding;
 	}
 
+        @Override
 	public OutputStream openBinary(JPackage pkg, String fileName)
 			throws IOException {
 		return new FilterOutputStream(out) {
+                @Override
 			public void close() {
 				// don't let this stream close
 			}
 		};
 	}
 
+        @Override
 	public void close() throws IOException {
 		out.close();
 	}

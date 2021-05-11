@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -19,7 +19,6 @@ package com.sun.codemodel;
 public class JStringLiteral extends JExpressionImpl {
 
     public final String str;
-    
 
     JStringLiteral(String what) {
         this.str = what;
@@ -27,7 +26,14 @@ public class JStringLiteral extends JExpressionImpl {
     }
    
     
+    @Override
     public void generate(JFormatter f) {
-    	f.p(JExpr.quotify('"', str));
+        f.p(JExpr.quotify('"', str));
     }
+
+    @Override
+    public String toString() {
+        return str;
+    }
+
 }
