@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -43,13 +43,16 @@ public final class JArrayCompRef extends JExpressionImpl implements JAssignmentT
         this.index = index;
     }
 
+    @Override
     public void generate(JFormatter f) {
         f.g(array).p('[').g(index).p(']');
     }
 
+    @Override
     public JExpression assign(JExpression rhs) {
 		return JExpr.assign(this,rhs);
     }
+    @Override
     public JExpression assignPlus(JExpression rhs) {
 		return JExpr.assignPlus(this,rhs);
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -140,9 +140,10 @@ public class JVar extends JExpressionImpl implements JDeclaration, JAssignmentTa
      * @param clazz
      *          The annotation class to annotate the field with
      */
+    @Override
     public JAnnotationUse annotate(JClass clazz){
         if(annotations==null)
-           annotations = new ArrayList<JAnnotationUse>();
+           annotations = new ArrayList<>();
         JAnnotationUse a = new JAnnotationUse(clazz);
         annotations.add(a);
         return a;
@@ -154,21 +155,25 @@ public class JVar extends JExpressionImpl implements JDeclaration, JAssignmentTa
      * @param clazz
      *          The annotation class to annotate the field with
      */
+    @Override
     public JAnnotationUse annotate(Class <? extends Annotation> clazz){
         return annotate(type.owner().ref(clazz));
     }
 
+    @Override
     public <W extends JAnnotationWriter> W annotate2(Class<W> clazz) {
         return TypedAnnotationWriter.create(clazz,this);
     }
 
+    @Override
     public boolean removeAnnotation(JAnnotationUse annotation) {
         return this.annotations.remove(annotation);
     }
 
+    @Override
     public Collection<JAnnotationUse> annotations() {
         if (annotations == null)
-            annotations = new ArrayList<JAnnotationUse>();
+            annotations = new ArrayList<>();
         return Collections.unmodifiableList(annotations);
     }
 
@@ -186,18 +191,22 @@ public class JVar extends JExpressionImpl implements JDeclaration, JAssignmentTa
             f.p('=').g(init);
     }
 
+    @Override
     public void declare(JFormatter f) {
         f.b(this).p(';').nl();
     }
 
+    @Override
     public void generate(JFormatter f) {
         f.id(name);
     }
 
 	
+    @Override
     public JExpression assign(JExpression rhs) {
 		return JExpr.assign(this,rhs);
     }
+    @Override
     public JExpression assignPlus(JExpression rhs) {
 		return JExpr.assignPlus(this,rhs);
     }

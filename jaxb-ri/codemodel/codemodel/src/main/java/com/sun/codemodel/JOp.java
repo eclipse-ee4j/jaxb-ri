@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -48,6 +48,7 @@ abstract public class JOp {
             opFirst = false;
         }
 
+        @Override
         public void generate(JFormatter f) {
             if (opFirst)
                 f.p('(').p(op).g(e).p(')');
@@ -80,6 +81,7 @@ abstract public class JOp {
             super(e, op);
         }
 
+        @Override
         public void generate(JFormatter f) {
             if (opFirst)
                 f.p(op).g(e);
@@ -112,6 +114,7 @@ abstract public class JOp {
             this.right = right;
         }
 
+        @Override
         public void generate(JFormatter f) {
             f.p('(').g(left).p(op).g(right).p(')');
         }
@@ -225,6 +228,7 @@ abstract public class JOp {
             this.e3 = e3;
         }
 
+        @Override
         public void generate(JFormatter f) {
             f.p('(').g(e1).p(op1).g(e2).p(op2).g(e3).p(')');
         }

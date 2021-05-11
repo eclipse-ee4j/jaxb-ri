@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -40,6 +40,7 @@ public class JavadocEscapeWriter extends FilterWriter {
         super(next);
     }
 
+    @Override
     public void write(int ch) throws IOException {
         if(ch=='<')
             out.write("&lt;");
@@ -53,19 +54,23 @@ public class JavadocEscapeWriter extends FilterWriter {
             out.write(ch);
     }
 
+    @Override
     public void write(char[] buf, int off, int len) throws IOException {
         for( int i=0; i<len; i++ )
             write(buf[off+i]);
     }
 
+    @Override
     public void write(char[] buf) throws IOException {
         write(buf,0,buf.length);
     }
 
+    @Override
     public void write(String buf, int off, int len) throws IOException {
         write( buf.toCharArray(), off, len );
     }
 
+    @Override
     public void write(String buf) throws IOException {
         write( buf.toCharArray(), 0, buf.length() );
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -120,6 +120,7 @@ public class JMods implements JGenerable {
         mods = (mods & ~bit) | (newValue ? bit : 0);
     }
 
+    @Override
     public void generate(JFormatter f) {
         if ((mods & JMod.PUBLIC) != 0)        f.p("public");
         if ((mods & JMod.PROTECTED) != 0)     f.p("protected");

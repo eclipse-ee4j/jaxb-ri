@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -37,14 +37,17 @@ final class JTypeWildcard extends JClass {
         this.bound = bound;
     }
 
+    @Override
     public String name() {
         return "? extends "+bound.name();
     }
 
+    @Override
     public String fullName() {
         return "? extends "+bound.fullName();
     }
 
+    @Override
     public JPackage _package() {
         return null;
     }
@@ -55,6 +58,7 @@ final class JTypeWildcard extends JClass {
      * <p>
      * If no bound is given, this method returns {@link Object}.
      */
+    @Override
     public JClass _extends() {
         if(bound!=null)
             return bound;
@@ -65,18 +69,22 @@ final class JTypeWildcard extends JClass {
     /**
      * Returns the interface bounds of this variable.
      */
+    @Override
     public Iterator<JClass> _implements() {
         return bound._implements();
     }
 
+    @Override
     public boolean isInterface() {
         return false;
     }
 
+    @Override
     public boolean isAbstract() {
         return false;
     }
 
+    @Override
     protected JClass substituteParams(JTypeVar[] variables, List<JClass> bindings) {
         JClass nb = bound.substituteParams(variables,bindings);
         if(nb==bound)
@@ -85,6 +93,7 @@ final class JTypeWildcard extends JClass {
             return new JTypeWildcard(nb);
     }
 
+    @Override
     public void generate(JFormatter f) {
         if(bound._extends()==null)
             f.p("?");   // instead of "? extends Object"

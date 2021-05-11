@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -71,6 +71,7 @@ public abstract class JExpr {
 
     public static JExpression dotclass(final JClass cl) {
         return new JExpressionImpl() {
+                @Override
                 public void generate(JFormatter f) {
                     JClass c;
                     if(cl instanceof JNarrowedClass)
@@ -266,6 +267,7 @@ public abstract class JExpr {
      */
     public static JExpression direct( final String source ) {
         return new JExpressionImpl(){
+            @Override
             public void generate( JFormatter f ) {
                     f.p('(').p(source).p(')');
             }

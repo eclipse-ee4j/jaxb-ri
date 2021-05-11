@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -31,14 +31,17 @@ public final class JTypeVar extends JClass implements JDeclaration {
         this.name = _name;
     }
     
+    @Override
     public String name() {
         return name;
     }
 
+    @Override
     public String fullName() {
         return name;
     }
 
+    @Override
     public JPackage _package() {
         return null;
     }
@@ -56,11 +59,19 @@ public final class JTypeVar extends JClass implements JDeclaration {
     }
 
     /**
+     * @return bound of this variable
+     */
+    public JClass bound() {
+        return bound;
+    }
+
+    /**
      * Returns the class bound of this variable.
      * 
      * <p>
      * If no bound is given, this method returns {@link Object}.
      */
+    @Override
     public JClass _extends() {
         if(bound!=null)
             return bound;
@@ -71,14 +82,17 @@ public final class JTypeVar extends JClass implements JDeclaration {
     /**
      * Returns the interface bounds of this variable.
      */
+    @Override
     public Iterator<JClass> _implements() {
         return bound._implements();
     }
 
+    @Override
     public boolean isInterface() {
         return false;
     }
 
+    @Override
     public boolean isAbstract() {
         return false;
     }
@@ -86,6 +100,7 @@ public final class JTypeVar extends JClass implements JDeclaration {
     /**
      * Prints out the declaration of the variable.
      */
+    @Override
     public void declare(JFormatter f) {
         f.id(name);
         if(bound!=null)
@@ -93,6 +108,7 @@ public final class JTypeVar extends JClass implements JDeclaration {
     }
 
 
+    @Override
     protected JClass substituteParams(JTypeVar[] variables, List<JClass> bindings) {
         for(int i=0;i<variables.length;i++)
             if(variables[i]==this)
@@ -100,6 +116,7 @@ public final class JTypeVar extends JClass implements JDeclaration {
         return this;
     }
 
+    @Override
     public void generate(JFormatter f) {
         f.id(name);
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -21,7 +21,7 @@ import java.util.List;
 public class JTryBlock implements JStatement {
 
     private JBlock body = new JBlock();
-    private List<JCatchBlock> catches = new ArrayList<JCatchBlock>();
+    private List<JCatchBlock> catches = new ArrayList<>();
     private JBlock _finally = null;
 
     JTryBlock() {
@@ -42,6 +42,7 @@ public class JTryBlock implements JStatement {
         return _finally;
     }
 
+    @Override
     public void state(JFormatter f) {
         f.p("try").g(body);
         for (JCatchBlock cb : catches)

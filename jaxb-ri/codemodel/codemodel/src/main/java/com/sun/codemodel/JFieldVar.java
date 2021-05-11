@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -60,12 +60,14 @@ public class JFieldVar extends JVar implements JDocCommentable {
      *
      * @return JDocComment containing javadocs for this class
      */
+    @Override
     public JDocComment javadoc() {
         if( jdoc == null ) 
             jdoc = new JDocComment(owner.owner());
         return jdoc;
     }
 
+    @Override
     public void declare(JFormatter f) {
         if( jdoc != null )
             f.g( jdoc );

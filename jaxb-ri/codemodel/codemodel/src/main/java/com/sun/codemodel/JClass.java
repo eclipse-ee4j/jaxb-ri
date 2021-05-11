@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,8 +24,8 @@ import java.util.List;
  * To be exact, this object represents an "use" of a reference type,
  * not necessarily a declaration of it, which is modeled as {@link JDefinedClass}.
  */
-public abstract class JClass extends JType
-{
+public abstract class JClass extends JType {
+
     protected JClass( JCodeModel _owner ) {
         this._owner = _owner;
     }
@@ -38,6 +38,7 @@ public abstract class JClass extends JType
      *	For example, this method returns "String" for
      *  {@code java.lang.String}.
      */
+    @Override
     abstract public String name();
 	
 	/**
@@ -56,6 +57,7 @@ public abstract class JClass extends JType
 	
     private final JCodeModel _owner;
     /** Gets the JCodeModel object to which this object belongs. */
+    @Override
     public final JCodeModel owner() { return _owner; }
     
     /**
@@ -122,13 +124,16 @@ public abstract class JClass extends JType
      * return {@code this}.
      */
     @Deprecated
+    @Override
     public JClass boxify() { return this; }
 
+    @Override
     public JType unboxify() {
         JPrimitiveType pt = getPrimitiveType();
         return pt==null ? (JType)this : pt;
     }
 
+    @Override
     public JClass erasure() {
         return this;
     }
@@ -216,6 +221,7 @@ public abstract class JClass extends JType
 
 
     private JClass arrayClass;
+    @Override
     public JClass array() {
         if(arrayClass==null)
             arrayClass = new JArrayClass(owner(),this);
@@ -260,7 +266,7 @@ public abstract class JClass extends JType
     }
 
     public JClass narrow( List<? extends JClass> clazz ) {
-        return new JNarrowedClass(this,new ArrayList<JClass>(clazz));
+        return new JNarrowedClass(this,new ArrayList<>(clazz));
     }
 
     /**
@@ -300,6 +306,7 @@ public abstract class JClass extends JType
      */
     protected abstract JClass substituteParams( JTypeVar[] variables, List<JClass> bindings );
     
+    @Override
     public String toString() {
         return this.getClass().getName() + '(' + name() + ')';
     }
@@ -329,6 +336,7 @@ public abstract class JClass extends JType
         return new JFieldRef(this, field);
     }
 
+    @Override
     public void generate(JFormatter f) {
         f.t(this);
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -54,15 +54,18 @@ class TypedAnnotationWriter<A extends Annotation,W extends JAnnotationWriter<A>>
         this.use = use;
     }
 
+    @Override
     public JAnnotationUse getAnnotationUse() {
         return use;
     }
 
+    @Override
     public Class<A> getAnnotationType() {
         return annotation;
     }
 
     @SuppressWarnings("unchecked")
+    @Override
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
         if(method.getDeclaringClass()==JAnnotationWriter.class) {
@@ -141,7 +144,7 @@ class TypedAnnotationWriter<A extends Annotation,W extends JAnnotationWriter<A>>
     @SuppressWarnings("unchecked")
 	private Object addArrayValue(Object proxy,String name, Class itemType, Class expectedReturnType, Object arg) {
         if(arrays==null)
-            arrays = new HashMap<String,JAnnotationArrayMember>();
+            arrays = new HashMap<>();
         JAnnotationArrayMember m = arrays.get(name);
         if(m==null) {
             m = use.paramArray(name);

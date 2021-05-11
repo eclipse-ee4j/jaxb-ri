@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -31,10 +31,12 @@ public class JAssignment extends JExpressionImpl implements JStatement {
         this.op = op;
     }
 
+    @Override
     public void generate(JFormatter f) {
         f.g(lhs).p(op + '=').g(rhs);
     }
 
+    @Override
     public void state(JFormatter f) {
         f.g(this).p(';').nl();
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,9 +20,9 @@ import java.util.List;
 
 public class JForLoop implements JStatement {
     
-    private List<Object> inits = new ArrayList<Object>();
+    private List<Object> inits = new ArrayList<>();
     private JExpression test = null;
-    private List<JExpression> updates = new ArrayList<JExpression>();
+    private List<JExpression> updates = new ArrayList<>();
     private JBlock body = null;
     
     public JVar init(int mods, JType type, String var, JExpression e) {
@@ -52,6 +52,7 @@ public class JForLoop implements JStatement {
         return body;
     }
     
+    @Override
     public void state(JFormatter f) {
         f.p("for (");
         boolean first = true;

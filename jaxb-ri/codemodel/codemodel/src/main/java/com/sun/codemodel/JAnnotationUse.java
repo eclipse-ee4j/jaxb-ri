@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -58,8 +58,9 @@ public final class JAnnotationUse extends JAnnotationValue {
     private void addValue(String name, JAnnotationValue annotationValue) {
         // Use ordered map to keep the code generation the same on any JVM.
         // Lazily created.
-        if(memberValues==null)
-            memberValues = new LinkedHashMap<String, JAnnotationValue>();
+        if(memberValues==null) {
+            memberValues = new LinkedHashMap<>();
+        }
         memberValues.put(name,annotationValue);
     }
 
@@ -252,12 +253,8 @@ public final class JAnnotationUse extends JAnnotationValue {
      *
      */
     public JAnnotationUse param(String name, final Enum<?> value) {
-        addValue(name, new JAnnotationValue() {
-                    public void generate(JFormatter f) {
-                        f.t(owner().ref(value.getDeclaringClass())).p('.').p(value.name());
-                    }
-                });
-        return this;
+        JClass ref = owner().ref(value.getClass());
+        return param(name, new JEnumConstant(ref, value.name()));
     }
 
     /**
@@ -273,7 +270,7 @@ public final class JAnnotationUse extends JAnnotationValue {
      *
      */
     public JAnnotationUse param(String name, JEnumConstant value){
-        addValue(name, new JAnnotationStringValue(value));
+        addValue(name, new JAnnotationClassValue(value));
         return this;
     }
 
@@ -297,14 +294,8 @@ public final class JAnnotationUse extends JAnnotationValue {
       *
       *
       */
-     public JAnnotationUse param(String name, final Class<?> value){
-         addValue(name, new JAnnotationStringValue(
-        		 new JExpressionImpl() {
-        			 public void generate(JFormatter f) {
-        				 f.p(value.getName().replace('$', '.'));
-        				 f.p(".class");
-        			}
-        		 }));
+    public JAnnotationUse param(String name, final Class<?> value) {
+        addValue(name, new JAnnotationClassValue(owner().ref(value)));
          return this;
     }
 
@@ -319,7 +310,7 @@ public final class JAnnotationUse extends JAnnotationValue {
      */
     public JAnnotationUse param(String name, JType type){
         JClass c = type.boxify();
-        addValue(name, new JAnnotationStringValue ( c.dotclass() ));
+        addValue(name, new JAnnotationClassValue(c));
         return this;
     }
 
@@ -388,6 +379,7 @@ public final class JAnnotationUse extends JAnnotationValue {
          return annotationUse;
     }
 
+    @Override
     public void generate(JFormatter f) {
         f.p('@').g(clazz);
         if(memberValues!=null) {

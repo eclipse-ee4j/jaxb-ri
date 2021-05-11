@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -48,10 +48,10 @@ public class JDefinedClass
     private JClass superClass;
 
     /** List of interfaces that this class implements */
-    private final Set<JClass> interfaces = new TreeSet<JClass>();
+    private final Set<JClass> interfaces = new TreeSet<>();
 
     /** Fields keyed by their names. */
-    /*package*/ final Map<String,JFieldVar> fields = new LinkedHashMap<String,JFieldVar>();
+    /*package*/ final Map<String,JFieldVar> fields = new LinkedHashMap<>();
 
     /** Static initializer, if this class has one */
     private JBlock init = null;
@@ -63,10 +63,10 @@ public class JDefinedClass
     private JDocComment jdoc = null;
 
     /** Set of constructors for this class, if any */
-    private final List<JMethod> constructors = new ArrayList<JMethod>();
+    private final List<JMethod> constructors = new ArrayList<>();
 
     /** Set of methods that are members of this class */
-    private final List<JMethod> methods = new ArrayList<JMethod>();
+    private final List<JMethod> methods = new ArrayList<>();
 
     /**
      * Nested classes as a map from name to JDefinedClass.
@@ -125,7 +125,7 @@ public class JDefinedClass
      * In Java, enum constant order is actually significant,
      * because of order ID they get. So let's preserve the order.
      */
-    private final Map<String,JEnumConstant> enumConstantsByName = new LinkedHashMap<String,JEnumConstant>();
+    private final Map<String,JEnumConstant> enumConstantsByName = new LinkedHashMap<>();
 
     /**
      * Annotations on this variable. Lazily created.
@@ -137,6 +137,7 @@ public class JDefinedClass
      * Helper class to implement {@link JGenerifiable}.
      */
     private final JGenerifiableImpl generifiable = new JGenerifiableImpl() {
+        @Override
         protected JCodeModel owner() {
             return JDefinedClass.this.owner();
         }
@@ -258,6 +259,7 @@ public class JDefinedClass
     /**
      * Returns the class extended by this class.
      */
+    @Override
     public JClass _extends() {
         if(superClass==null)
             superClass = owner().ref(Object.class);
@@ -285,6 +287,7 @@ public class JDefinedClass
      * Returns an iterator that walks the nested classes defined in this
      * class.
      */
+    @Override
     public Iterator<JClass> _implements() {
         return interfaces.iterator();
     }
@@ -298,6 +301,7 @@ public class JDefinedClass
      *
      * @return Name of this class
      */
+    @Override
     public String name() {
         return name;
     }
@@ -322,8 +326,18 @@ public class JDefinedClass
     }
 
     /**
+     * Returns set of enum constants keyed by names.
+     *
+     * @return Set of enum constants keyed by names
+     */
+    public Map<String, JEnumConstant> enumConstants() {
+        return Collections.unmodifiableMap(enumConstantsByName);
+    }
+
+    /**
      * Gets the fully qualified name of this class.
      */
+    @Override
     public String fullName() {
         if (outer instanceof JDefinedClass)
             return ((JDefinedClass) outer).fullName() + '.' + name();
@@ -343,10 +357,12 @@ public class JDefinedClass
             return fullName();
     }
 
+    @Override
     public boolean isInterface() {
         return this.classType==ClassType.INTERFACE;
     }
 
+    @Override
     public boolean isAbstract() {
         return mods.isAbstract();
     }
@@ -422,6 +438,7 @@ public class JDefinedClass
      *      When the specified class/interface was already created.
      
      */
+    @Override
     public JDefinedClass _annotationTypeDeclaration(String name) throws JClassAlreadyExistsException {
     	return _class (JMod.PUBLIC,name,ClassType.ANNOTATION_TYPE_DECL);
     }
@@ -436,6 +453,7 @@ public class JDefinedClass
      *      When the specified class/interface was already created.
      
      */
+    @Override
     public JDefinedClass _enum (String name) throws JClassAlreadyExistsException {
     	return _class (JMod.PUBLIC,name,ClassType.ENUM);
     }
@@ -601,12 +619,15 @@ public class JDefinedClass
         return null;
     }
 
+    @Override
     public boolean isClass() {
         return true;
     }
+    @Override
     public boolean isPackage() {
         return false;
     }
+    @Override
     public JPackage getPackage() { return parentContainer().getPackage(); }
 
     /**
@@ -620,6 +641,7 @@ public class JDefinedClass
      *
      * @return Newly generated class
      */
+    @Override
     public JDefinedClass _class(int mods, String name)
         throws JClassAlreadyExistsException {
         return _class(mods, name, ClassType.CLASS);
@@ -631,10 +653,12 @@ public class JDefinedClass
      * @deprecated
      */
     @Deprecated
+    @Override
     public JDefinedClass _class(int mods, String name, boolean isInterface) throws JClassAlreadyExistsException {
     	return _class(mods,name,isInterface?ClassType.INTERFACE:ClassType.CLASS);
     }
 
+    @Override
     public JDefinedClass _class(int mods, String name, ClassType classTypeVal)
         throws JClassAlreadyExistsException {
 
@@ -657,6 +681,7 @@ public class JDefinedClass
     /**
      * Add a new public nested class to this class.
      */
+    @Override
     public JDefinedClass _class(String name)
         throws JClassAlreadyExistsException {
         return _class(JMod.PUBLIC, name);
@@ -673,6 +698,7 @@ public class JDefinedClass
      *
      * @return Newly generated interface
      */
+    @Override
     public JDefinedClass _interface(int mods, String name)
         throws JClassAlreadyExistsException {
         return _class(mods, name, ClassType.INTERFACE);
@@ -681,6 +707,7 @@ public class JDefinedClass
     /**
      * Adds a public interface to this package.
      */
+    @Override
     public JDefinedClass _interface(String name)
         throws JClassAlreadyExistsException {
         return _interface(JMod.PUBLIC, name);
@@ -692,6 +719,7 @@ public class JDefinedClass
      *
      * @return JDocComment containing javadocs for this class
      */
+    @Override
     public JDocComment javadoc() {
         if (jdoc == null)
             jdoc = new JDocComment(owner());
@@ -718,6 +746,7 @@ public class JDefinedClass
      * Returns an iterator that walks the nested classes defined in this
      * class.
      */
+    @Override
     public final Iterator<JDefinedClass> classes() {
         if(classes==null)
             return Collections.<JDefinedClass>emptyList().iterator();
@@ -727,7 +756,7 @@ public class JDefinedClass
 
     private Map<String,JDefinedClass> getClasses() {
         if(classes==null)
-            classes = new TreeMap<String,JDefinedClass>();
+            classes = new TreeMap<>();
         return classes;
     }
 
@@ -750,6 +779,7 @@ public class JDefinedClass
             return null;
     }
 
+    @Override
     public void declare(JFormatter f) {
         if (jdoc != null)
             f.nl().g(jdoc);
@@ -826,23 +856,28 @@ public class JDefinedClass
             directBlock += string;
     }
 
+    @Override
     public final JPackage _package() {
         JClassContainer p = outer;
-        while (!(p instanceof JPackage))
+        while (p != null && !(p instanceof JPackage))
             p = p.parentContainer();
         return (JPackage) p;
     }
 
+    @Override
     public final JClassContainer parentContainer() {
         return outer;
     }
 
+    @Override
     public JTypeVar generify(String name) {
         return generifiable.generify(name);
     }
+    @Override
     public JTypeVar generify(String name, Class<?> bound) {
         return generifiable.generify(name, bound);
     }
+    @Override
     public JTypeVar generify(String name, JClass bound) {
         return generifiable.generify(name, bound);
     }
@@ -851,6 +886,7 @@ public class JDefinedClass
         return generifiable.typeParams();
     }
 
+    @Override
     protected JClass substituteParams(
         JTypeVar[] variables,
         List<JClass> bindings) {
@@ -861,6 +897,7 @@ public class JDefinedClass
      * @param clazz
      *          The annotation class to annotate the class with
      */
+    @Override
     public JAnnotationUse annotate(Class <? extends Annotation> clazz){
         return annotate(owner().ref(clazz));
     }
@@ -869,18 +906,21 @@ public class JDefinedClass
       * @param clazz
       *          The annotation class to annotate the class with
       */
+    @Override
      public JAnnotationUse annotate(JClass clazz){
         if(annotations==null)
-           annotations = new ArrayList<JAnnotationUse>();
+           annotations = new ArrayList<>();
         JAnnotationUse a = new JAnnotationUse(clazz);
         annotations.add(a);
         return a;
     }
 
+    @Override
     public <W extends JAnnotationWriter> W annotate2(Class<W> clazz) {
         return TypedAnnotationWriter.create(clazz,this);
     }
 
+    @Override
     public boolean removeAnnotation(JAnnotationUse annotation) {
         return this.annotations.remove(annotation);
     }
@@ -888,9 +928,10 @@ public class JDefinedClass
     /**
      * {@link JAnnotatable#annotations()}
      */
+    @Override
     public Collection<JAnnotationUse> annotations() {
         if (annotations == null)
-            annotations = new ArrayList<JAnnotationUse>();
+            annotations = new ArrayList<>();
         return Collections.unmodifiableCollection(annotations);
     }
 
@@ -901,5 +942,9 @@ public class JDefinedClass
      */
     public JMods mods() {
         return mods;
+    }
+
+    public JClass superClass() {
+        return superClass;
     }
 }
