@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2020, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -28,6 +28,9 @@ final class StackHelper {
      */
     static String getCallerClassName() {
        StackTraceElement[] trace = new Exception().getStackTrace();
-       return trace[2].getClassName();
+       if (2 < trace.length) {
+           return trace[2].getClassName();
+       }
+       return "org.glassfish.jaxb.core"; // use the default
     }
 }
