@@ -27,7 +27,10 @@ final class StackHelper {
      *                           prevents stack introspection
      */
     static String getCallerClassName() {
-       StackTraceElement[] trace = new Exception().getStackTrace();
-       return trace[2].getClassName();
+        StackTraceElement[] trace = new Exception().getStackTrace();
+        if (2 < trace.length) {
+            return trace[2].getClassName();
+        }
+        return "com.sun.xml.bind"; // Use the default
     }
 }
