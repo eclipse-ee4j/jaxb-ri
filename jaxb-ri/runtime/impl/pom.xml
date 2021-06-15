@@ -148,6 +148,7 @@
                             !META-INF.*,
                             *
                         </Export-Package>
+                        <DynamicImport-Package>*</DynamicImport-Package>
                     </instructions>
                 </configuration>
                 <executions>

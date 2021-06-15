@@ -343,6 +343,7 @@
                                     jdk.internal.misc;resolution:=optional,
                                     *
                                 </Import-Package>
+                                <DynamicImport-Package>*</DynamicImport-Package>
                             </instructions>
                         </configuration>
                     </execution>
