@@ -18,8 +18,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.sun.codemodel.writer.FileCodeWriter;
 import com.sun.codemodel.writer.ProgressCodeWriter;
@@ -459,7 +461,95 @@ public final class JCodeModel {
         }
 
         // existing class
-        return new TypeNameParser(name).parseTypeName();
+//        return new TypeNameParser(name).parseTypeName();
+        return new TreeParser().parseTypeName(name);
+    }
+
+    private class TreeParser {
+
+        private Node buildTree(String str) {
+            StringBuilder content = new StringBuilder();
+            Node root = new Node(null);
+            root.value = str;
+            Node current = root;
+            for (int i = 0; i < str.length(); i++) {
+                char c = str.charAt(i);
+                if (c == '<') {
+                    Node child = new Node(current);
+                    current.value = content.toString();
+                    current.childs.add(child);
+                    current = child;
+                    content = new StringBuilder();
+                } else if (c == '>') {
+                    if (current.value == null) {
+                        current.value = content.toString();
+                    }
+                    current = current.parent;
+                    content = new StringBuilder();
+                } else if (c == ',') {
+                    if (current.value == null) {
+                        current.value = content.toString();
+                    }
+                    Node brother = new Node(current.parent);
+                    brother.parent.childs.add(brother);
+                    current = brother;
+                    content = new StringBuilder();
+                } else {
+                    content.append(c);
+                }
+            }
+            return root;
+        }
+
+        private void postOrderCreateJClass(Node node) throws ClassNotFoundException {
+            if (node != null) {
+                for (Node child : node.childs) {
+                    postOrderCreateJClass(child);
+                }
+                node.jClass =  new TypeNameParser(node.value).parseTypeName();
+                if (!node.childs.isEmpty()) {
+                    List<JClass> args = node.childs.stream().map(n -> n.jClass).collect(Collectors.toList());
+                    JClass[] argsA = args.toArray(new JClass[args.size()]);
+                    JClass clazz = node.jClass.narrow(argsA);
+                    node.jClass = clazz;
+                }
+            }
+        }
+
+        private JClass parseTypeName(String str) throws ClassNotFoundException {
+            Node root = buildTree(str);
+            postOrderCreateJClass(root);
+            return root.jClass;
+        }
+    }
+
+    private static class Node {
+        private String value;
+        private JClass jClass;
+        private final Node parent;
+        private final List<Node> childs = new LinkedList<>();
+
+        public Node(Node parent) {
+            this.parent = parent;
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder builder = new StringBuilder(value.toString());
+            boolean hasChilds = !childs.isEmpty();
+            if (hasChilds) {
+                builder.append("<");
+            }
+            for (Node child : childs) {
+                builder.append(child.toString()).append(",");
+            }
+            if (hasChilds) {
+                // Remove last comma
+                builder.deleteCharAt(builder.length() - 1);
+                builder.append(">");
+            }
+            return builder.toString();
+        }
     }
 
     private final class TypeNameParser {
