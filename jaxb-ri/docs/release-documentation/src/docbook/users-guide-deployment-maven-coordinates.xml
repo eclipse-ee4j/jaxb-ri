@@ -122,16 +122,50 @@
         <title>Using &binding.impl.name; tools for java sources and XML schema generation</title>
 
         <para>
-            To generate &binding.spec.name; classes from schema in Maven project, a community
-            <link xlink:href="https://github.com/highsource/maven-jaxb2-plugin">maven-jaxb2-plugin</link> can be used.
-            <example><title>Using maven-jaxb2-plugin</title>
+            To generate &binding.spec.name; classes from schema in Maven project, there are two community plugins
+            available:
+            <itemizedlist>
+                <listitem>
+                    <para>A Maven plugin originating from MojoHaus which has been updated for JAXB 3 by Evolved Binary:
+                        <link xlink:href="https://github.com/evolvedbinary/mojohaus-jaxb-maven-plugin">MojoHaus jaxb-maven-plugin</link>
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>A Maven plugin originating from java.net which has been updated for JAXB 3 by Evolved Binary:
+                        <link xlink:href="https://github.com/evolvedbinary/jvnet-jaxb-maven-plugin">jvnet jaxb-maven-plugin</link>
+                    </para>
+                </listitem>
+            </itemizedlist>
+            <example><title>Using MojoHaus jaxb-maven-plugin</title>
 
                 <programlisting language="xml"><![CDATA[
                 <build>
                     <plugins>
                         <plugin>
-                            <groupId>org.jvnet.jaxb2.maven2</groupId>
-                            <artifactId>maven-jaxb2-plugin</artifactId>
+                            <groupId>com.evolvedbinary.maven.mojohaus</groupId>
+                            <artifactId>jaxb-maven-plugin</artifactId>
+                            <executions>
+                                <execution>
+                                    <id>schemagen</id>
+                                    <goals>
+                                        <goal>schemagen</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                        </plugin>
+                    </plugins>
+                </build>
+    ]]></programlisting>
+            </example>
+            See the <link xlink:href="https://evolvedbinary.github.io/mojohaus-jaxb-maven-plugin/">MojoHaus jaxb-maven-plugin documentation</link> for configuration details.
+
+        <example><title>Using jvnet jaxb-maven-plugin</title>
+            <programlisting language="xml"><![CDATA[
+                <build>
+                    <plugins>
+                        <plugin>
+                            <groupId>com.evolvedbinary.maven.jvnet</groupId>
+                            <artifactId>jaxb-maven-plugin</artifactId>
                             <executions>
                                 <execution>
                                     <id>generate</id>
@@ -144,8 +178,8 @@
                     </plugins>
                 </build>
     ]]></programlisting>
-            </example>
-            See the <link xlink:href="https://github.com/highsource/maven-jaxb2-plugin">maven-jaxb2-plugin documentation</link> for configuration details.</para>
+        </example>
+        See the <link xlink:href="https://github.com/evolvedbinary/jvnet-jaxb-maven-plugin">jvnet jaxb-maven-plugin documentation</link> for configuration details.</para>
 
     <para>
         Alternatively to community plugins, there are tooling artifacts jaxb-xjc and jaxb-jxc,
