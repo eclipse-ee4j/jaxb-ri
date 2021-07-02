@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -57,6 +57,8 @@ public class IncorrectNamespaceURIChecker extends XMLFilterImpl {
     private ErrorHandler errorHandler;
     
     private Locator locator = null;
+
+    private String nsUriParsed = "NS URI not found";
     
     /** Sets to true once we see the jaxb prefix in use. */
     private boolean isJAXBPrefixUsed = false;
@@ -67,7 +69,7 @@ public class IncorrectNamespaceURIChecker extends XMLFilterImpl {
     public void endDocument() throws SAXException {
         if( isJAXBPrefixUsed && !isCustomizationUsed ) {
             SAXParseException e = new SAXParseException(
-                Messages.format(Messages.WARN_INCORRECT_URI, Const.JAXB_NSURI),
+                Messages.format(Messages.WARN_INCORRECT_URI, nsUriParsed),
                 locator );
             errorHandler.warning(e);
         }
@@ -80,9 +82,11 @@ public class IncorrectNamespaceURIChecker extends XMLFilterImpl {
         if (WellKnownNamespace.XML_NAMESPACE_URI.equals(uri)) return; //xml prefix shall not be declared based on jdk api javadoc
         if( prefix.equals("jaxb") )
             isJAXBPrefixUsed = true;
-        if( uri.equals(Const.JAXB_NSURI) )
+        if (Const.JAXB_NS_URI.contains(uri)) {
             isCustomizationUsed = true;
-        
+        }
+        nsUriParsed = uri;
+
         super.startPrefixMapping(prefix, uri);
     }
 
@@ -102,7 +106,7 @@ public class IncorrectNamespaceURIChecker extends XMLFilterImpl {
         // 
         // but better safe than sorry.
         
-        if( namespaceURI.equals(Const.JAXB_NSURI) )
+        if (Const.JAXB_NS_URI.contains(namespaceURI))
             isCustomizationUsed = true;
     }
 

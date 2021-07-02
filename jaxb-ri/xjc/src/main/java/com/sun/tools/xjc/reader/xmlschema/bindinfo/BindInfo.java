@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.sun.tools.xjc.reader.Const;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
@@ -279,7 +280,8 @@ public final class BindInfo implements Iterable<BIDeclaration> {
             if(d instanceof BIXPluginCustomization) {
                 BIXPluginCustomization pc = (BIXPluginCustomization) d;
                 pc.markAsAcknowledged();
-                if(!Ring.get(Model.class).options.pluginURIs.contains(pc.getName().getNamespaceURI()))
+                if(!Ring.get(Model.class).options.pluginURIs.contains(pc.getName().getNamespaceURI()) ||
+                        Const.JAXB_NS_URI.contains(pc.getName().getNamespaceURI()))
                     continue;   // this isn't a plugin customization
                 if(r==null)
                     r = new CCustomizations();
@@ -336,8 +338,13 @@ public final class BindInfo implements Iterable<BIDeclaration> {
     }
 
     /**
-     * Lazily parsed schema for the binding file.
+     * Lazily parsed schema for the jakarta binding file.
      */
-    public static final SchemaCache bindingFileSchema = new SchemaCache("binding.xsd", BindInfo.class, true);
+    public static final SchemaCache jakartaBindingFileSchema = new SchemaCache("jakarta_binding.xsd", BindInfo.class, true);
+
+    /**
+     * Lazily parsed schema for the old binding file.
+     */
+    public static final SchemaCache oldBindingFileSchema = new SchemaCache("old_binding.xsd", BindInfo.class, true);
 }
 

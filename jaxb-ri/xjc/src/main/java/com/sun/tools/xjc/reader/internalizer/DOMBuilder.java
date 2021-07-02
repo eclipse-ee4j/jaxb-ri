@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -66,7 +66,7 @@ class DOMBuilder extends SAX2DOMEx {
         locatorTable.storeStartLocation( e, locator );
         
         // check if this element is an outer-most <jaxb:bindings>
-        if( Const.JAXB_NSURI.equals(e.getNamespaceURI())
+        if(Const.JAXB_NS_URI.contains(e.getNamespaceURI())
         &&  "bindings".equals(e.getLocalName()) ) {
             
             // if this is the root node (meaning that this file is an

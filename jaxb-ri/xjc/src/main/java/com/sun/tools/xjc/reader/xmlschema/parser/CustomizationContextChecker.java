@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -137,8 +137,8 @@ public class CustomizationContextChecker extends XMLFilterImpl {
     public void startElement(String namespaceURI, String localName, String qName, Attributes atts) throws SAXException {
         QName newElement = new QName(namespaceURI,localName);
         
-        if( newElement.getNamespaceURI().equals(Const.JAXB_NSURI)
-         && top().getNamespaceURI().equals(WellKnownNamespace.XML_SCHEMA) ) {
+        if(Const.JAXB_NS_URI.contains(newElement.getNamespaceURI())
+         && top().getNamespaceURI().equals(WellKnownNamespace.XML_SCHEMA)) {
             // we hit a JAXB customization. the stack top should be
             // <xs:appinfo>
             if( elementNames.size()>=3 ) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -58,7 +58,7 @@ public final class ExtensionBindingChecker extends AbstractExtensionBindingCheck
     private boolean needsToBePruned( String uri ) {
         if( uri.equals(schemaLanguage) )
             return false;
-        if( uri.equals(Const.JAXB_NSURI) )
+        if (Const.JAXB_NS_URI.contains(uri))
             return false;
         if( enabledExtensions.contains(uri) )
             return false;
@@ -82,7 +82,14 @@ public final class ExtensionBindingChecker extends AbstractExtensionBindingCheck
         throws SAXException {
         
         if(!isCutting()) {
-            String v = atts.getValue(Const.JAXB_NSURI,"extensionBindingPrefixes");
+            String v  = null;
+            for (String jaxbNsUri : Const.JAXB_NS_URI) {
+                v = atts.getValue(jaxbNsUri,"extensionBindingPrefixes");
+                if (v != null) {
+                    break;
+                }
+            }
+
             if(v!=null) {
                 if(count!=0)
                     // the binding attribute is allowed only at the root level.

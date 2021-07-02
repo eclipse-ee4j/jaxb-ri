@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -81,11 +81,13 @@ public class AnnotationParserFactoryImpl implements AnnotationParserFactory {
                     @Override
                     public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
                         super.startElement(uri, localName, qName, atts);
-                        if((uri.equals(Const.JAXB_NSURI) || uri.equals(Const.XJC_EXTENSION_URI))
+                        if((Const.JAXB_NS_URI.contains(uri) || uri.equals(Const.XJC_EXTENSION_URI))
                         && getSideHandler()==null) {
                             // set up validator
                             if(validator==null)
-                                validator = BindInfo.bindingFileSchema.newValidator();
+                                validator = Const.JAKARTA_JAXB_NSURI.equals(uri) ?
+                                        BindInfo.jakartaBindingFileSchema.newValidator() :
+                                        BindInfo.oldBindingFileSchema.newValidator();
                             validator.setErrorHandler(errorHandler);
                             startForking(uri,localName,qName,atts,new ValidatorProtecter(validator));
                         }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,6 +13,7 @@ package com.sun.tools.xjc.reader.internalizer;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -23,7 +24,6 @@ import java.text.ParseException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
 
 import com.sun.istack.SAXParseException2;
 import com.sun.istack.NotNull;
@@ -178,7 +178,7 @@ class Internalizer {
                         result.put(bindings, new ArrayList<Node>());
                     result.get(bindings).add(forest.get(systemId).getDocumentElement());
 
-                    Element[] children = DOMUtils.getChildElements(bindings, Const.JAXB_NSURI, "bindings");
+                    Element[] children = DOMUtils.getChildElements(bindings, Const.JAXB_NS_URI, "bindings");
                     for (Element value : children)
                         buildTargetNodeMap(value, forest.get(systemId).getDocumentElement(), inheritedSCD, result, scdResult);
                 }
@@ -329,7 +329,7 @@ class Internalizer {
 
         
         // look for child <jaxb:bindings> and process them recursively
-        Element[] children = DOMUtils.getChildElements( bindings, Const.JAXB_NSURI, "bindings" );
+        Element[] children = DOMUtils.getChildElements( bindings, Const.JAXB_NS_URI, "bindings" );
         for (Element value : children)
             if(!multiple || targetMultiple == null)
                 buildTargetNodeMap(value, target, inheritedSCD, result, scdResult);
@@ -472,7 +472,7 @@ class Internalizer {
     private void declExtensionNamespace(Element decl, Element target) {
         // if this comes from external namespaces, add the namespace to
         // @extensionBindingPrefixes.
-        if( !Const.JAXB_NSURI.equals(decl.getNamespaceURI()) )
+        if( !Const.JAXB_NS_URI.contains(decl.getNamespaceURI()) )
             declareExtensionNamespace( target, decl.getNamespaceURI() );
         
         NodeList lst = decl.getChildNodes();
@@ -494,16 +494,19 @@ class Internalizer {
     private void declareExtensionNamespace( Element target, String nsUri ) {
         // look for the attribute
         Element root = target.getOwnerDocument().getDocumentElement();
-        Attr att = root.getAttributeNodeNS(Const.JAXB_NSURI,EXTENSION_PREFIXES);
+        Attr att = null;
+        for (String nsuri : Const.JAXB_NS_URI) {
+            att = root.getAttributeNodeNS(nsuri,EXTENSION_PREFIXES);
+        }
         if( att==null ) {
-            String jaxbPrefix = allocatePrefix(root,Const.JAXB_NSURI);
+            String jaxbPrefix = allocatePrefix(root,Const.JAXB_NS_URI, nsUri);
             // no such attribute. Create one.
             att = target.getOwnerDocument().createAttributeNS(
-                Const.JAXB_NSURI,jaxbPrefix+':'+EXTENSION_PREFIXES);
+                Const.JAKARTA_JAXB_NSURI,jaxbPrefix+':'+EXTENSION_PREFIXES);
             root.setAttributeNodeNS(att);
         }
         
-        String prefix = allocatePrefix(root,nsUri);
+        String prefix = allocatePrefix(root, Collections.emptySet(), nsUri);
         if( att.getValue().indexOf(prefix)==-1 )
             // avoid redeclaring the same namespace twice.
             att.setValue( att.getValue()+' '+prefix);
@@ -516,30 +519,32 @@ class Internalizer {
      * Note that this method doesn't use the default namespace
      * even if it can.
      */
-    private String allocatePrefix( Element e, String nsUri ) {
+    private String allocatePrefix( Element e, Set<String> setNsUri, String nsUri ) {
         // look for existing namespaces.
         NamedNodeMap atts = e.getAttributes();
         for( int i=0; i<atts.getLength(); i++ ) {
             Attr a = (Attr)atts.item(i);
             if( Const.XMLNS_URI.equals(a.getNamespaceURI()) ) {
                 if( a.getName().indexOf(':')==-1 )  continue;
-                
-                if( a.getValue().equals(nsUri) )
+
+                if(!setNsUri.isEmpty() && setNsUri.contains(a.getValue())) {
                     return a.getLocalName();    // found one
+                }
+                if (setNsUri.isEmpty() && nsUri.equals(a.getValue())) {
+                    return a.getLocalName();    // found one
+                }
             }
         }
-        
+
         // none found. allocate new.
         while(true) {
             String prefix = "p"+(int)(Math.random()*1000000)+'_';
             if(e.getAttributeNodeNS(Const.XMLNS_URI,prefix)!=null)
                 continue;   // this prefix is already allocated.
-            
-            e.setAttributeNS(Const.XMLNS_URI,"xmlns:"+prefix,nsUri);
+            e.setAttributeNS(Const.XMLNS_URI,"xmlns:"+prefix, nsUri);
             return prefix;
         }
     }
-    
     
     /**
      * Copies location information attached to the "src" node to the "dst" node.

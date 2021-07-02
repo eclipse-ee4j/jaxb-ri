@@ -10,6 +10,7 @@
 
 package com.sun.tools.xjc;
 
+import com.sun.tools.xjc.reader.Const;
 import org.apache.tools.ant.taskdefs.MatchingTask;
 import java.io.File;
 import java.io.IOException;
@@ -421,10 +422,13 @@ public class XJCBase extends MatchingTask {
      */
     public void setExtension(boolean flg) {
         extension = flg;
-        if (flg)
+        if (flg) {
             this.options.compatibilityMode = Options.EXTENSION;
-        else
+            Const.useOldNameSpace();
+        }
+        else {
             this.options.compatibilityMode = Options.STRICT;
+        }
     }
 
     public boolean getExtension() {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -31,6 +31,7 @@ import com.sun.tools.xjc.Plugin;
 import com.sun.tools.xjc.generator.bean.field.FieldRendererFactory;
 import com.sun.tools.xjc.model.CClassInfoParent;
 import com.sun.tools.xjc.model.Model;
+import com.sun.tools.xjc.reader.Const;
 import com.sun.tools.xjc.reader.ModelChecker;
 import com.sun.tools.xjc.reader.Ring;
 import com.sun.tools.xjc.reader.xmlschema.bindinfo.BIDeclaration;
@@ -298,8 +299,12 @@ public class BGMBuilder extends BindingComponent {
 
         BindInfo bi = getBindInfo(schema);
         for( BIDeclaration bid : bi ) {
-            if( bid.getName()==BISchemaBinding.NAME )
+            if (Const.JAXB_NS_URI.contains(bid.getName().getNamespaceURI())
+                    && bid.getName().getLocalPart().equals(BISchemaBinding.NAME.getLocalPart())) {
                 locations.add( bid.getLocation() );
+            } else if (bid.getName()==BISchemaBinding.NAME) {
+                locations.add( bid.getLocation() );
+            }
         }
         if(locations.size()<=1)    return; // OK
 

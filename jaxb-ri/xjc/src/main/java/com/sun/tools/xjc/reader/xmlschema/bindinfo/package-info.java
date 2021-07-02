@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,7 +14,7 @@
  * XML syntax into this representation, and the other parts of XJC will use
  * this object model.
  */
-@XmlSchema(elementFormDefault = QUALIFIED, namespace=Const.JAXB_NSURI)
+@XmlSchema(elementFormDefault = QUALIFIED, namespace=Const.JAKARTA_JAXB_NSURI)
 package com.sun.tools.xjc.reader.xmlschema.bindinfo;
 
 import jakarta.xml.bind.annotation.XmlSchema;

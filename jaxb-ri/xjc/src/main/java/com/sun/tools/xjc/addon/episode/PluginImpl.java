@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -140,9 +140,9 @@ public class PluginImpl extends Plugin {
             episodeFileOutputStream = new FileOutputStream(episodeFile);
             Bindings bindings = TXW.create(Bindings.class, new StreamSerializer(episodeFileOutputStream, "UTF-8"));
             if(hasComponentInNoNamespace) // otherwise jaxb binding NS should be the default namespace
-                bindings._namespace(Const.JAXB_NSURI,"jaxb");
+                bindings._namespace(Const.JAKARTA_JAXB_NSURI,"jaxb");
             else
-                bindings._namespace(Const.JAXB_NSURI,"");
+                bindings._namespace(Const.JAKARTA_JAXB_NSURI,"");
             bindings.version("3.0");
             bindings._comment("\n\n"+opt.getPrologComment()+"\n  ");
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -78,7 +78,7 @@ public abstract class BIConversion extends AbstractDeclarationImpl {
     
     /** Name of the conversion declaration. */
     public static final QName NAME = new QName(
-        Const.JAXB_NSURI, "conversion" );
+        Const.JAKARTA_JAXB_NSURI, "conversion" );
 
     /**
      * Implementation that returns a statically-determined constant {@link TypeUse}.
@@ -293,7 +293,7 @@ public abstract class BIConversion extends AbstractDeclarationImpl {
 
         /** Name of the conversion declaration. */
         public static final QName NAME = new QName(
-            Const.JAXB_NSURI, "javaType" );
+            Const.JAKARTA_JAXB_NSURI, "javaType" );
     }
 
     @XmlRootElement(name="javaType",namespace=Const.XJC_EXTENSION_URI)

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,6 +17,7 @@
 package com.sun.tools.xjc.util;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 import javax.xml.namespace.QName;
 
@@ -49,14 +50,14 @@ public class DOMUtils {
     }
     
     /** Gets the child elements of the given name. */
-    public static Element[] getChildElements(Element parent, String nsUri, String localPart ) {
+    public static Element[] getChildElements(Element parent, Set<String> nsUri, String localPart ) {
         ArrayList a = new ArrayList();
         NodeList children = parent.getChildNodes();
         for( int i=0; i<children.getLength(); i++ ) {
             Node item = children.item(i);
             if(!(item instanceof Element ))     continue;
             
-            if(nsUri.equals(item.getNamespaceURI())
+            if(nsUri.contains(item.getNamespaceURI())
             && localPart.equals(item.getLocalName()) )
                 a.add(item);
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -112,6 +112,6 @@ public final class BIClass extends AbstractDeclarationImpl {
     }
 
     /** Name of this declaration. */
-    public static final QName NAME = new QName( Const.JAXB_NSURI, "class" );
+    public static final QName NAME = new QName( Const.JAKARTA_JAXB_NSURI, "class" );
 }
 

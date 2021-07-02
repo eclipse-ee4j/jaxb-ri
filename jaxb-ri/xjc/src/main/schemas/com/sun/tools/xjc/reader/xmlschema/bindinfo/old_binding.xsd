@@ -12,15 +12,15 @@
 -->
 
 <!-- THIS IS A GENERATED FILE. DO NOT MODIFY. -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="https://jakarta.ee/xml/ns/jaxb" xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb" xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://java.sun.com/xml/ns/jaxb" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc">
   <xs:annotation>
     <xs:documentation>
       JAXB customization schema
     </xs:documentation>
   </xs:annotation>
   
-  <xs:import namespace="http://java.sun.com/xml/ns/jaxb/xjc" schemaLocation="xjc.xsd"/>
-  <xs:import namespace="http://www.w3.org/2001/XMLSchema" schemaLocation="xs.xsd"/>
+  <xs:import namespace="http://java.sun.com/xml/ns/jaxb/xjc" schemaLocation="jakarta_xjc.xsd"/>
+  <xs:import namespace="http://www.w3.org/2001/XMLSchema" schemaLocation="jakarta_xs.xsd"/>
   <xs:element name="bindings">
     <xs:complexType>
       <xs:sequence>
