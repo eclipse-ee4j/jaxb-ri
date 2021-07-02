@@ -12,8 +12,8 @@
 -->
 
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.w3.org/2001/XMLSchema" xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb" xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc">
-  <xs:import namespace="https://jakarta.ee/xml/ns/jaxb" schemaLocation="binding.xsd"/>
-  <xs:import namespace="http://java.sun.com/xml/ns/jaxb/xjc" schemaLocation="xjc.xsd"/>
+  <xs:import namespace="https://jakarta.ee/xml/ns/jaxb" schemaLocation="jakarta_binding.xsd"/>
+  <xs:import namespace="http://java.sun.com/xml/ns/jaxb/xjc" schemaLocation="jakarta_xjc.xsd"/>
   <xs:element name="annotation">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">

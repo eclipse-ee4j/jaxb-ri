@@ -24,14 +24,16 @@ import java.util.Set;
  *     Kohsuke Kawaguchi (kohsuke.kawaguchi@sun.com)
  */
 public class Const {
-    
+
+    public static boolean usingOldNameSpace = false;
+
     /** XML namespace URI. */
     public final static String XMLNS_URI =
         "http://www.w3.org/2000/xmlns/";
 
     /** JAXB customization URI old namespace. */
     public final static String JAVAX_JAXB_NSURI =
-            "https://java.sun.com/xml/ns/jaxb";
+            "http://java.sun.com/xml/ns/jaxb";
 
     /** JAXB customization URI old namespace. */
     public final static String JAKARTA_JAXB_NSURI =
@@ -40,7 +42,7 @@ public class Const {
     /** XJC vendor extension namespace URI. */
     public final static String XJC_EXTENSION_URI =
         "http://java.sun.com/xml/ns/jaxb/xjc";
-    
+
     /** RELAX NG namespace URI. */
     public static final String RELAXNG_URI =
         "http://relaxng.org/ns/structure/1.0";
@@ -58,6 +60,7 @@ public class Const {
 
     public static void useOldNameSpace() {
         JAXB_NS_URI.add(JAVAX_JAXB_NSURI);
+        usingOldNameSpace = true;
     }
 
     /** Set of valid Jaxb NS URI used during parsing */

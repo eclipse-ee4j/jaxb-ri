@@ -204,7 +204,7 @@ public final class SCDBasedBindingSet {
             this.errorReceiver = errorReceiver;
             Unmarshaller u =  BindInfo.getCustomizationUnmarshaller();
             this.unmarshaller = u.getUnmarshallerHandler();
-            ValidatorHandler v = BindInfo.bindingFileSchema.newValidator();
+            ValidatorHandler v = BindInfo.jakartaBindingFileSchema.newValidator();
             v.setErrorHandler(errorReceiver);
             loader = new ForkContentHandler(v,unmarshaller);
 

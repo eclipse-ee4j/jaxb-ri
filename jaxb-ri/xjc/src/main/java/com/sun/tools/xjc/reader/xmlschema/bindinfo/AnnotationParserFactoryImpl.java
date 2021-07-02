@@ -87,7 +87,9 @@ public class AnnotationParserFactoryImpl implements AnnotationParserFactory {
                         && getSideHandler()==null) {
                             // set up validator
                             if(validator==null)
-                                validator = BindInfo.bindingFileSchema.newValidator();
+                                validator = Const.JAKARTA_JAXB_NSURI.equals(uri) ?
+                                        BindInfo.jakartaBindingFileSchema.newValidator() :
+                                        BindInfo.oldBindingFileSchema.newValidator();
                             validator.setErrorHandler(errorHandler);
                             startForking(uri,localName,qName,atts,new ValidatorProtecter(validator));
                         }

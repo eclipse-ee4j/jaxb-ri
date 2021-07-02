@@ -111,6 +111,9 @@ public class VersionChecker extends XMLFilterImpl {
 
         // if present, the value must be 3.0
         if( version!=null && !VERSIONS.contains(version) ) {
+            if (Const.usingOldNameSpace && OLD_VERSIONS.contains(version)) {
+                return;
+            }
             SAXParseException e = new SAXParseException(
                 Messages.format(Messages.ERR_INCORRECT_VERSION),rootTagStart);
             getErrorHandler().error(e);
@@ -124,5 +127,6 @@ public class VersionChecker extends XMLFilterImpl {
     }
 
     private static final Set<String> VERSIONS = new HashSet<>(Arrays.asList("3.0", "2.0"));
+    private static final Set<String> OLD_VERSIONS = new HashSet<String>(Arrays.asList("1.0", "2.0", "2.1"));
 
 }

@@ -344,8 +344,13 @@ public final class BindInfo implements Iterable<BIDeclaration> {
     }
 
     /**
-     * Lazily parsed schema for the binding file.
+     * Lazily parsed schema for the jakarta binding file.
      */
-    public static final SchemaCache bindingFileSchema = new SchemaCache("binding.xsd", BindInfo.class, true);
+    public static final SchemaCache jakartaBindingFileSchema = new SchemaCache("jakarta_binding.xsd", BindInfo.class, true);
+
+    /**
+     * Lazily parsed schema for the old binding file.
+     */
+    public static final SchemaCache oldBindingFileSchema = new SchemaCache("old_binding.xsd", BindInfo.class, true);
 }
 
