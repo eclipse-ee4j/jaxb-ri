@@ -916,7 +916,7 @@ public class JDefinedClass
     }
 
     @Override
-    public <W extends JAnnotationWriter> W annotate2(Class<W> clazz) {
+    public <W extends JAnnotationWriter<? extends Annotation>> W annotate2(Class<W> clazz) {
         return TypedAnnotationWriter.create(clazz,this);
     }
 

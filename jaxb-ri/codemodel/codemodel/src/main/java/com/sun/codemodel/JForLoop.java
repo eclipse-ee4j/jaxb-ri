@@ -24,7 +24,9 @@ public class JForLoop implements JStatement {
     private JExpression test = null;
     private List<JExpression> updates = new ArrayList<>();
     private JBlock body = null;
-    
+
+    protected JForLoop() {}
+
     public JVar init(int mods, JType type, String var, JExpression e) {
         JVar v = new JVar(JMods.forVar(mods), type, var, e);
         inits.add(v);

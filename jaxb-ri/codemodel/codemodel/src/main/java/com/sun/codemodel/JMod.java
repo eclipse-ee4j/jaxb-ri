@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,6 +15,10 @@ package com.sun.codemodel;
  * Modifier constants.
  */
 public final class JMod {
+
+    private JMod() {
+    }
+
     public final static int NONE         = 0x000;
     public final static int PUBLIC       = 0x001;
     public final static int PROTECTED    = 0x002;
