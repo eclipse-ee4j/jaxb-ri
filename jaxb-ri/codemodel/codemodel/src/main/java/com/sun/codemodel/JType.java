@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,6 +18,8 @@ package com.sun.codemodel;
  * a reference type ({@link JClass}).
  */
 public abstract class JType implements JGenerable, Comparable<JType> {
+
+    protected JType() {}
 
     /**
      * Obtains a reference to the primitive type object from a type name.
