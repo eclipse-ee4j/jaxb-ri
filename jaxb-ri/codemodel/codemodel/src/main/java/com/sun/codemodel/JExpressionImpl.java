@@ -14,6 +14,10 @@ package com.sun.codemodel;
  * Provides default implementations for {@link JExpression}.
  */
 public abstract class JExpressionImpl implements JExpression {
+
+    protected JExpressionImpl() {
+    }
+
     //
     //
     // from JOp

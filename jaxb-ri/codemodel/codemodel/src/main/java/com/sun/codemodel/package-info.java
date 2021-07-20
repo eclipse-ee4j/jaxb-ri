@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -63,7 +63,7 @@
  * better performance wise, here's the findings.
  *
  * <p>
- * {@link List}s {@link Map}s, and other collections take up
+ * {@link java.util.List}s {@link java.util.Map}s, and other collections take up
  * a lot of space. Allocating those things lazily is generally
  * a good idea.
  *
@@ -75,6 +75,3 @@
  *
  */
 package com.sun.codemodel;
-
-import java.util.List;
-import java.util.Map;

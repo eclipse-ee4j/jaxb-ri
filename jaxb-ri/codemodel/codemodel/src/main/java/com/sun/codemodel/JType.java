@@ -19,6 +19,8 @@ package com.sun.codemodel;
  */
 public abstract class JType implements JGenerable, Comparable<JType> {
 
+    protected JType() {}
+
     /**
      * Obtains a reference to the primitive type object from a type name.
      */
