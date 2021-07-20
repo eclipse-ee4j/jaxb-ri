@@ -32,12 +32,12 @@
     <url>https://eclipse-ee4j.github.io/jaxb-ri/</url>
 
     <properties>
-        <xml.bind-api.version>3.0.1</xml.bind-api.version>
+        <xml.bind-api.version>4.0.0-SNAPSHOT</xml.bind-api.version>
         <jaxb-api-osgi.version>3.0</jaxb-api-osgi.version>
-        <istack.version>4.0.1</istack.version>
+        <istack.version>4.0.2-SNAPSHOT</istack.version>
         <fastinfoset.version>2.0.0</fastinfoset.version>
-        <stax-ex.version>2.0.1</stax-ex.version>
-        <activation.version>2.0.1</activation.version>
+        <stax-ex.version>2.0.2-SNAPSHOT</stax-ex.version>
+        <activation.version>2.0.2-SNAPSHOT</activation.version>
     </properties>
 
     <dependencyManagement>
@@ -230,7 +230,7 @@
             </dependency>
             <dependency>
                 <groupId>com.sun.activation</groupId>
-                <artifactId>jakarta.activation</artifactId>
+                <artifactId>sun-activation-registry</artifactId>
                 <version>${activation.version}</version>
             </dependency>
         </dependencies>

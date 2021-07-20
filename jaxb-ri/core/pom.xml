@@ -40,8 +40,13 @@
             <artifactId>jakarta.xml.bind-api</artifactId>
         </dependency>
         <dependency>
+            <groupId>jakarta.activation</groupId>
+            <artifactId>jakarta.activation-api</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.sun.activation</groupId>
-            <artifactId>jakarta.activation</artifactId>
+            <artifactId>sun-activation-registry</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>

@@ -499,7 +499,6 @@ import java.io.InputStream;
     /**
      * @deprecated since 2.0
      */
-    @Override
     public boolean isValidating() {
         throw new UnsupportedOperationException();
     }
@@ -507,13 +506,12 @@ import java.io.InputStream;
     /**
      * @deprecated since 2.0
      */
-    @Override
     public void setValidating(boolean validating) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public <A extends XmlAdapter> void setAdapter(Class<A> type, A adapter) {
+    public <A extends XmlAdapter<?, ?>> void setAdapter(Class<A> type, A adapter) {
         if (type==null) {
             throw new IllegalArgumentException();
         }
@@ -521,7 +519,7 @@ import java.io.InputStream;
     }
 
     @Override
-    public <A extends XmlAdapter> A getAdapter(Class<A> type) {
+    public <A extends XmlAdapter<?, ?>> A getAdapter(Class<A> type) {
         if(type==null) {
             throw new IllegalArgumentException();
         }

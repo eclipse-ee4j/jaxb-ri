@@ -42,11 +42,6 @@
     </properties>
 
     <dependencies>
-         <dependency>
-            <groupId>com.sun.activation</groupId>
-            <artifactId>jakarta.activation</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>jaxb-core</artifactId>

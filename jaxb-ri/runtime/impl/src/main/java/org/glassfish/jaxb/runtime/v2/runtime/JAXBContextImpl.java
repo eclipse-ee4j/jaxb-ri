@@ -716,9 +716,9 @@ public final class JAXBContextImpl extends JAXBRIContext {
         return new UnmarshallerImpl(this,null);
     }
 
-    public Validator createValidator() {
-        throw new UnsupportedOperationException(Messages.NOT_IMPLEMENTED_IN_2_0.format());
-    }
+//    public Validator createValidator() {
+//        throw new UnsupportedOperationException(Messages.NOT_IMPLEMENTED_IN_2_0.format());
+//    }
 
     @Override
     public JAXBIntrospector createJAXBIntrospector() {
