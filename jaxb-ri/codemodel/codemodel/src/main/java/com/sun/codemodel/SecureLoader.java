@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -22,22 +22,24 @@ class SecureLoader {
         if (System.getSecurityManager() == null) {
             return Thread.currentThread().getContextClassLoader();
         } else {
-            return (ClassLoader) java.security.AccessController.doPrivileged(
-                    new java.security.PrivilegedAction() {
-                        public java.lang.Object run() {
+            return java.security.AccessController.doPrivileged(
+                    new java.security.PrivilegedAction<ClassLoader>() {
+                        @Override
+                        public ClassLoader run() {
                             return Thread.currentThread().getContextClassLoader();
                         }
                     });
         }
     }
 
-    static ClassLoader getClassClassLoader(final Class c) {
+    static ClassLoader getClassClassLoader(final Class<?> c) {
         if (System.getSecurityManager() == null) {
             return c.getClassLoader();
         } else {
-            return (ClassLoader) java.security.AccessController.doPrivileged(
-                    new java.security.PrivilegedAction() {
-                        public java.lang.Object run() {
+            return java.security.AccessController.doPrivileged(
+                    new java.security.PrivilegedAction<ClassLoader>() {
+                        @Override
+                        public ClassLoader run() {
                             return c.getClassLoader();
                         }
                     });
@@ -48,9 +50,10 @@ class SecureLoader {
         if (System.getSecurityManager() == null) {
             return ClassLoader.getSystemClassLoader();
         } else {
-            return (ClassLoader) java.security.AccessController.doPrivileged(
-                    new java.security.PrivilegedAction() {
-                        public java.lang.Object run() {
+            return java.security.AccessController.doPrivileged(
+                    new java.security.PrivilegedAction<ClassLoader>() {
+                        @Override
+                        public ClassLoader run() {
                             return ClassLoader.getSystemClassLoader();
                         }
                     });
@@ -62,8 +65,9 @@ class SecureLoader {
             Thread.currentThread().setContextClassLoader(cl);
         } else {
             java.security.AccessController.doPrivileged(
-                    new java.security.PrivilegedAction() {
-                        public java.lang.Object run() {
+                    new java.security.PrivilegedAction<Void>() {
+                        @Override
+                        public Void run() {
                             Thread.currentThread().setContextClassLoader(cl);
                             return null;
                         }

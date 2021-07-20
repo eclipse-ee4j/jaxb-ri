@@ -59,9 +59,9 @@ public class ACTask extends Task {
      */
     private final Path classpath;
 
-    private final List<URL> endorsedJars = new ArrayList<URL>();
+    private final List<URL> endorsedJars = new ArrayList<>();
 
-    private final List<Classes> patterns = new ArrayList<Classes>();
+    private final List<Classes> patterns = new ArrayList<>();
 
     /**
      * Used during the build to load annotation classes.
@@ -303,6 +303,7 @@ public class ACTask extends Task {
     private void processDir(File dir, String prefix) {
         // look for class files
         String[] classes = dir.list(new FilenameFilter() {
+            @Override
             public boolean accept(File dir, String name) {
                 return name.endsWith(".class");
             }
@@ -314,6 +315,7 @@ public class ACTask extends Task {
 
         // look for subdirectories
         File[] subdirs = dir.listFiles(new FileFilter() {
+            @Override
             public boolean accept(File path) {
                 return path.isDirectory();
             }

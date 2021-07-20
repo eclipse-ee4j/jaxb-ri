@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,7 +24,9 @@ public class JForLoop implements JStatement {
     private JExpression test = null;
     private List<JExpression> updates = new ArrayList<JExpression>();
     private JBlock body = null;
-    
+
+    protected JForLoop() {}
+
     public JVar init(int mods, JType type, String var, JExpression e) {
         JVar v = new JVar(JMods.forVar(mods), type, var, e);
         inits.add(v);

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -158,7 +158,8 @@ public class JVar extends JExpressionImpl implements JDeclaration, JAssignmentTa
         return annotate(type.owner().ref(clazz));
     }
 
-    public <W extends JAnnotationWriter> W annotate2(Class<W> clazz) {
+    @Override
+    public <W extends JAnnotationWriter<? extends Annotation>> W annotate2(Class<W> clazz) {
         return TypedAnnotationWriter.create(clazz,this);
     }
 
