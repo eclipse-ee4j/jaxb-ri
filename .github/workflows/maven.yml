@@ -10,7 +10,7 @@
 # SPDX-License-Identifier: EPL-2.0 OR BSD-3-Clause
 #
 
-name: JAXB stax-ex
+name: JAXB RI
 
 on: [push, pull_request]
 
