@@ -19,7 +19,7 @@
         <groupId>org.glassfish.jaxb</groupId>
         <artifactId>jaxb-bom</artifactId>
         <relativePath>../bom/pom.xml</relativePath>
-        <version>3.0.2</version>
+        <version>3.0.3-SNAPSHOT</version>
     </parent>
 
     <groupId>com.sun.xml.bind</groupId>
