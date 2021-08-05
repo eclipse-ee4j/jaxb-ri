@@ -499,6 +499,7 @@ import java.io.InputStream;
     /**
      * @deprecated since 2.0
      */
+    @Deprecated
     public boolean isValidating() {
         throw new UnsupportedOperationException();
     }
@@ -506,6 +507,7 @@ import java.io.InputStream;
     /**
      * @deprecated since 2.0
      */
+    @Deprecated
     public void setValidating(boolean validating) {
         throw new UnsupportedOperationException();
     }

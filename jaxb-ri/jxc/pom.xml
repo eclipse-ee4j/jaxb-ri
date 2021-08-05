@@ -113,7 +113,7 @@
                         <configuration>
                             <outputDirectory>${project.build.directory}/schemagen-cp</outputDirectory>
                             <includeArtifactIds>
-                                jakarta.activation-api,jakarta.xml.bind-api,
+                                jakarta.activation-api,angus-activation,jakarta.xml.bind-api,
                                 jaxb-core,jaxb-runtime,jaxb-xjc,
                                 stax-ex,istack-commons-runtime,istack-commons-tools,dtd-parser,
                                 rngom,relaxng-datatype,xsom,codemodel,txw2

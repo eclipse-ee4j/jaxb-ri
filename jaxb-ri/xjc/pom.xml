@@ -145,7 +145,7 @@
                         <configuration>
                             <outputDirectory>${project.build.directory}/xjctask-cp</outputDirectory>
                             <includeArtifactIds>
-                                jakarta.activation-api,istack-commons-tools,istack-commons-runtime,
+                                jakarta.activation-api,angus-activation,istack-commons-tools,istack-commons-runtime,
                                 jaxb-core,jaxb-runtime,jakarta.xml.bind-api,
                                 codemodel,xsom,relaxng-datatype,rngom,txw2
                             </includeArtifactIds>
