@@ -524,14 +524,14 @@ public /*to make unit tests happy*/ final class MarshallerImpl extends AbstractM
     }
 
     @Override
-    public <A extends XmlAdapter> void setAdapter(Class<A> type, A adapter) {
+    public <A extends XmlAdapter<?, ?>> void setAdapter(Class<A> type, A adapter) {
         if(type==null)
             throw new IllegalArgumentException();
         serializer.putAdapter(type,adapter);
     }
 
     @Override
-    public <A extends XmlAdapter> A getAdapter(Class<A> type) {
+    public <A extends XmlAdapter<?, ?>> A getAdapter(Class<A> type) {
         if(type==null)
             throw new IllegalArgumentException();
         if(serializer.containsAdapter(type))

@@ -20,7 +20,6 @@ enum Messages {
     ILLEGAL_PARAMETER, // 2 args
     UNABLE_TO_FIND_CONVERSION_METHOD, // 3 args
     MISSING_ID, // 1 arg
-    NOT_IMPLEMENTED_IN_2_0,
     UNRECOGNIZED_ELEMENT_NAME,
     TYPE_MISMATCH, // 3 args
     MISSING_OBJECT, // 1 arg
