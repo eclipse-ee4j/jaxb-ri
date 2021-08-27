@@ -48,6 +48,7 @@ final class RuntimeElementInfoImpl extends ElementInfoImpl<Type,Class,Field,Meth
     }
 
     class RuntimePropertyImpl extends PropertyImpl implements RuntimeElementPropertyInfo, RuntimeTypeRef {
+        @Override
         public Accessor getAccessor() {
             if(adapterType==null)
                 return Accessor.JAXB_ELEMENT_VALUE;
@@ -56,35 +57,43 @@ final class RuntimeElementInfoImpl extends ElementInfoImpl<Type,Class,Field,Meth
                         (Class)getAdapter().defaultType,(Class)adapterType);
         }
 
+        @Override
         public Type getRawType() {
             return Collection.class;
         }
 
+        @Override
         public Type getIndividualType() {
              return getContentType().getType();
         }
 
 
+        @Override
         public boolean elementOnlyContent() {
             return false;   // this method doesn't make sense here
         }
 
+        @Override
         public List<? extends RuntimeTypeRef> getTypes() {
             return Collections.singletonList(this);
         }
 
+        @Override
         public List<? extends RuntimeNonElement> ref() {
             return (List<? extends RuntimeNonElement>)super.ref();
         }
 
+        @Override
         public RuntimeNonElement getTarget() {
             return (RuntimeNonElement)super.getTarget();
         }
 
+        @Override
         public RuntimePropertyInfo getSource() {
             return this;
         }
 
+        @Override
         public Transducer getTransducer() {
             return RuntimeModelBuilder.createTransducer(this);
         }
@@ -95,19 +104,23 @@ final class RuntimeElementInfoImpl extends ElementInfoImpl<Type,Class,Field,Meth
      */
     private final Class<? extends XmlAdapter> adapterType;
 
+    @Override
     public RuntimeElementPropertyInfo getProperty() {
         return (RuntimeElementPropertyInfo)super.getProperty();
     }
 
+    @Override
     public Class<? extends JAXBElement> getType() {
         //noinspection unchecked
         return (Class<? extends JAXBElement>) Utils.REFLECTION_NAVIGATOR.erasure(super.getType());
     }
 
+    @Override
     public RuntimeClassInfo getScope() {
         return (RuntimeClassInfo)super.getScope();
     }
 
+    @Override
     public RuntimeNonElement getContentType() {
         return (RuntimeNonElement)super.getContentType();
     }

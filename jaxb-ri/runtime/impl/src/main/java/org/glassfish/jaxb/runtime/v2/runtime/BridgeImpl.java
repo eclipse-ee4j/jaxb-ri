@@ -57,11 +57,13 @@ final class BridgeImpl<T> extends InternalBridge<T> {
         this.typeRef = typeRef;
     }
 
+    @Override
     public void marshal(Marshaller _m, T t, XMLStreamWriter output) throws JAXBException {
         MarshallerImpl m = (MarshallerImpl)_m;
         m.write(tagName,bi,t, XMLStreamWriterOutput.create(output,context, m.getEscapeHandler()),new StAXPostInitAction(output,m.serializer));
     }
 
+    @Override
     public void marshal(Marshaller _m, T t, OutputStream output, NamespaceContext nsContext) throws JAXBException {
         MarshallerImpl m = (MarshallerImpl)_m;
 
@@ -72,45 +74,54 @@ final class BridgeImpl<T> extends InternalBridge<T> {
         m.write(tagName,bi,t,m.createWriter(output),pia);
     }
 
+    @Override
     public void marshal(Marshaller _m, T t, Node output) throws JAXBException {
         MarshallerImpl m = (MarshallerImpl)_m;
         m.write(tagName,bi,t,new SAXOutput(new SAX2DOMEx(output)),new DomPostInitAction(output,m.serializer));
     }
 
+    @Override
     public void marshal(Marshaller _m, T t, ContentHandler contentHandler) throws JAXBException {
         MarshallerImpl m = (MarshallerImpl)_m;
         m.write(tagName,bi,t,new SAXOutput(contentHandler),null);
     }
 
+    @Override
     public void marshal(Marshaller _m, T t, Result result) throws JAXBException {
         MarshallerImpl m = (MarshallerImpl)_m;
         m.write(tagName,bi,t, m.createXmlOutput(result),m.createPostInitAction(result));
     }
 
-    public @NotNull T unmarshal(Unmarshaller _u, XMLStreamReader in) throws JAXBException {
+    public @NotNull@Override
+ T unmarshal(Unmarshaller _u, XMLStreamReader in) throws JAXBException {
         UnmarshallerImpl u = (UnmarshallerImpl)_u;
         return ((JAXBElement<T>)u.unmarshal0(in,bi)).getValue();
     }
 
-    public @NotNull T unmarshal(Unmarshaller _u, Source in) throws JAXBException {
+    public @NotNull@Override
+ T unmarshal(Unmarshaller _u, Source in) throws JAXBException {
         UnmarshallerImpl u = (UnmarshallerImpl)_u;
         return ((JAXBElement<T>)u.unmarshal0(in,bi)).getValue();
     }
 
-    public @NotNull T unmarshal(Unmarshaller _u, InputStream in) throws JAXBException {
+    public @NotNull@Override
+ T unmarshal(Unmarshaller _u, InputStream in) throws JAXBException {
         UnmarshallerImpl u = (UnmarshallerImpl)_u;
         return ((JAXBElement<T>)u.unmarshal0(in,bi)).getValue();
     }
 
-    public @NotNull T unmarshal(Unmarshaller _u, Node n) throws JAXBException {
+    public @NotNull@Override
+ T unmarshal(Unmarshaller _u, Node n) throws JAXBException {
         UnmarshallerImpl u = (UnmarshallerImpl)_u;
         return ((JAXBElement<T>)u.unmarshal0(n,bi)).getValue();
     }
 
+    @Override
     public TypeReference getTypeReference() {
         return typeRef;
     }
 
+    @Override
     public void marshal(T value, XMLSerializer out) throws IOException, SAXException, XMLStreamException {
         out.startElement(tagName,null);
         if(value==null) {

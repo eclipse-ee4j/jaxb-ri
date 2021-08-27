@@ -32,31 +32,38 @@ final class PrimitiveArrayListerBoolean<BeanT> extends Lister<BeanT,boolean[],Bo
         Lister.primitiveArrayListers.put(Boolean.TYPE,new PrimitiveArrayListerBoolean());
     }
 
+    @Override
     public ListIterator<Boolean> iterator(final boolean[] objects, XMLSerializer context) {
         return new ListIterator<Boolean>() {
             int idx=0;
+            @Override
             public boolean hasNext() {
                 return idx<objects.length;
             }
 
+            @Override
             public Boolean next() {
                 return objects[idx++];
             }
         };
     }
 
+    @Override
     public BooleanArrayPack startPacking(BeanT current, Accessor<BeanT, boolean[]> acc) {
         return new BooleanArrayPack();
     }
 
+    @Override
     public void addToPack(BooleanArrayPack objects, Boolean o) {
         objects.add(o);
     }
 
+    @Override
     public void endPacking( BooleanArrayPack pack, BeanT bean, Accessor<BeanT,boolean[]> acc ) throws AccessorException {
         acc.set(bean,pack.build());
     }
 
+    @Override
     public void reset(BeanT o,Accessor<BeanT,boolean[]> acc) throws AccessorException {
         acc.set(o,new boolean[0]);
     }

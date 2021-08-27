@@ -42,8 +42,7 @@ import org.xml.sax.helpers.NamespaceSupport;
  * @author <ul><li>Kohsuke Kawaguchi, Sun Microsystems, Inc.</li></ul>
  * @since JAXB 1.0
  */
-public class DOMScanner implements LocatorEx,InfosetScanner/*<Node> --- but can't do this to protect 1.0 clients, or can I? */
-{
+public class DOMScanner implements LocatorEx,InfosetScanner<Node> {
     
     /** reference to the current node being scanned - used for determining
      *  location info for validation events */
@@ -68,7 +67,8 @@ public class DOMScanner implements LocatorEx,InfosetScanner/*<Node> --- but can'
         this.locator = loc;
     }
 
-    public void scan(Object node) throws SAXException {
+    @Override
+    public void scan(Node node) throws SAXException {
         if( node instanceof Document ) {
             scan( (Document)node );
         } else {
@@ -89,15 +89,15 @@ public class DOMScanner implements LocatorEx,InfosetScanner/*<Node> --- but can'
         NamespaceSupport nss = new NamespaceSupport();
         buildNamespaceSupport( nss, e.getParentNode() );
         
-        for( Enumeration en = nss.getPrefixes(); en.hasMoreElements(); ) {
-            String prefix = (String)en.nextElement();
+        for( Enumeration<String> en = nss.getPrefixes(); en.hasMoreElements(); ) {
+            String prefix = en.nextElement();
             receiver.startPrefixMapping( prefix, nss.getURI(prefix) );
         }
         
         visit(e);
         
-        for( Enumeration en = nss.getPrefixes(); en.hasMoreElements(); ) {
-            String prefix = (String)en.nextElement();
+        for( Enumeration<String> en = nss.getPrefixes(); en.hasMoreElements(); ) {
+            String prefix = en.nextElement();
             receiver.endPrefixMapping( prefix );
         }
         
@@ -113,6 +113,7 @@ public class DOMScanner implements LocatorEx,InfosetScanner/*<Node> --- but can'
      * @deprecated in JAXB 2.0
      *      Use {@link #scan(Element)}
      */
+    @Deprecated
     public void parse( Element e, ContentHandler handler ) throws SAXException {
         // it might be better to set receiver at the constructor.
         receiver = handler;
@@ -134,6 +135,7 @@ public class DOMScanner implements LocatorEx,InfosetScanner/*<Node> --- but can'
      * @deprecated in JAXB 2.0
      *      Use {@link #scan(Element)}
      */
+    @Deprecated
     public void parseWithContext( Element e, ContentHandler handler ) throws SAXException {
         setContentHandler(handler);
         scan(e);
@@ -272,29 +274,38 @@ public class DOMScanner implements LocatorEx,InfosetScanner/*<Node> --- but can'
         return currentNode;
     }
 
-    public Object getCurrentElement() {
+    @Override
+    public Node getCurrentElement() {
         return currentNode;
     }
 
+    @Override
     public LocatorEx getLocator() {
         return this;
     }
 
+    @Override
     public void setContentHandler(ContentHandler handler) {
         this.receiver = handler;
     }
 
+    @Override
     public ContentHandler getContentHandler() {
         return this.receiver;
     }
 
 
     // LocatorEx implementation
+    @Override
     public String getPublicId() { return null; }
+    @Override
     public String getSystemId() { return null; }
+    @Override
     public int getLineNumber() { return -1; }
+    @Override
     public int getColumnNumber() { return -1; }
 
+    @Override
     public ValidationEventLocator getLocation() {
         return new ValidationEventLocatorImpl(getCurrentLocation());
     }

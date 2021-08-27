@@ -27,10 +27,12 @@ public class MethodAccessor_Integer extends Accessor {
         super(Integer.class);
     }
 
+    @Override
     public Object get(Object bean) {
         return ((Bean)bean).get_int();
     }
 
+    @Override
     public void set(Object bean, Object value) {
         ((Bean)bean).set_int( value==null ? Const.default_value_int : (Integer)value );
     }

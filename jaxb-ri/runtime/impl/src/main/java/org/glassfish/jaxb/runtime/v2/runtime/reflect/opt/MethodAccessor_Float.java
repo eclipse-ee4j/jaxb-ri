@@ -27,10 +27,12 @@ public class MethodAccessor_Float extends Accessor {
         super(Float.class);
     }
 
+    @Override
     public Object get(Object bean) {
         return ((Bean)bean).get_float();
     }
 
+    @Override
     public void set(Object bean, Object value) {
         ((Bean)bean).set_float( value==null ? Const.default_value_float : (Float)value );
     }

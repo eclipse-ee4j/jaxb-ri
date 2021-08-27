@@ -48,9 +48,11 @@ public final class ClassFactory {
     private static final ThreadLocal<Map<Class, WeakReference<Constructor>>> tls = new ThreadLocal<Map<Class,WeakReference<Constructor>>>() {
         @Override
         public Map<Class,WeakReference<Constructor>> initialValue() {
-            return new WeakHashMap<Class,WeakReference<Constructor>>();
+            return new WeakHashMap<>();
         }
     };
+
+    private ClassFactory() {}
 
     public static void cleanCache() {
         if (tls != null) {
@@ -96,7 +98,7 @@ public final class ClassFactory {
                 }
             }
 
-            m.put(clazz,new WeakReference<Constructor>(cons));
+            m.put(clazz,new WeakReference<>(cons));
         }
 
         return cons.newInstance(emptyObject);

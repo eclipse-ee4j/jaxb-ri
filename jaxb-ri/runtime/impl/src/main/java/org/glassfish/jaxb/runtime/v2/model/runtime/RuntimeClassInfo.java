@@ -26,10 +26,13 @@ import java.util.Map;
  * @author Kohsuke Kawaguchi (kk@kohsuke.org)
  */
 public interface RuntimeClassInfo extends ClassInfo<Type,Class>, RuntimeNonElement {
+    @Override
     RuntimeClassInfo getBaseClass();
 
     // refined to return RuntimePropertyInfo
+    @Override
     List<? extends RuntimePropertyInfo> getProperties();
+    @Override
     RuntimePropertyInfo getProperty(String name);
 
     Method getFactoryMethod();

@@ -62,7 +62,7 @@ public final class Ref<T,C> {
                T type, XmlJavaTypeAdapter xjta, XmlList xl ) {
         Adapter<T,C> adapter=null;
         if(xjta!=null) {
-            adapter = new Adapter<T,C>(xjta,reader,nav);
+            adapter = new Adapter<>(xjta,reader,nav);
             type = adapter.defaultType;
         }
 

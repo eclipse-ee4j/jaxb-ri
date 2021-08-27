@@ -32,31 +32,38 @@ final class PrimitiveArrayListerCharacter<BeanT> extends Lister<BeanT,char[],Cha
         primitiveArrayListers.put(Character.TYPE,new PrimitiveArrayListerCharacter());
     }
 
+    @Override
     public ListIterator<Character> iterator(final char[] objects, XMLSerializer context) {
         return new ListIterator<Character>() {
             int idx=0;
+            @Override
             public boolean hasNext() {
                 return idx<objects.length;
             }
 
+            @Override
             public Character next() {
                 return objects[idx++];
             }
         };
     }
 
+    @Override
     public CharacterArrayPack startPacking(BeanT current, Accessor<BeanT, char[]> acc) {
         return new CharacterArrayPack();
     }
 
+    @Override
     public void addToPack(CharacterArrayPack objects, Character o) {
         objects.add(o);
     }
 
+    @Override
     public void endPacking( CharacterArrayPack pack, BeanT bean, Accessor<BeanT,char[]> acc ) throws AccessorException {
         acc.set(bean,pack.build());
     }
 
+    @Override
     public void reset(BeanT o,Accessor<BeanT,char[]> acc) throws AccessorException {
         acc.set(o,new char[0]);
     }

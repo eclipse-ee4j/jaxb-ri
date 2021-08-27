@@ -58,7 +58,7 @@ public class ModelBuilder<T,C,F,M> implements ModelBuilderI<T,C,F,M> {
     /**
      * Used to detect collisions among global type names.
      */
-    private final Map<QName,TypeInfo> typeNames = new HashMap<QName,TypeInfo>();
+    private final Map<QName,TypeInfo> typeNames = new HashMap<>();
 
     /**
      * JAXB doesn't want to use namespaces unless we are told to, but WS-I BP
@@ -80,7 +80,7 @@ public class ModelBuilder<T,C,F,M> implements ModelBuilderI<T,C,F,M> {
      * Packages whose registries are already added.
      */
     /*package*/ final Map<String,RegistryInfoImpl<T,C,F,M>> registries
-            = new HashMap<String,RegistryInfoImpl<T,C,F,M>>();
+            = new HashMap<>();
 
     private final Map<C,C> subclassReplacements;
 
@@ -97,6 +97,7 @@ public class ModelBuilder<T,C,F,M> implements ModelBuilderI<T,C,F,M> {
     public boolean hasSwaRef;
 
     private final ErrorHandler proxyErrorHandler = new ErrorHandler() {
+        @Override
         public void error(IllegalAnnotationException e) {
             reportError(e);
         }
@@ -169,7 +170,7 @@ public class ModelBuilder<T,C,F,M> implements ModelBuilderI<T,C,F,M> {
     }
 
     protected TypeInfoSetImpl<T,C,F,M> createTypeInfoSet() {
-        return new TypeInfoSetImpl<T,C,F,M>(nav,reader,BuiltinLeafInfoImpl.createLeaves(nav));
+        return new TypeInfoSetImpl<>(nav,reader,BuiltinLeafInfoImpl.createLeaves(nav));
     }
 
     /**
@@ -209,7 +210,7 @@ public class ModelBuilder<T,C,F,M> implements ModelBuilderI<T,C,F,M> {
             if(reader.hasClassAnnotation(clazz,XmlTransient.class) || isReplaced) {
                 // handle it as if the base class was specified
                 r = getClassInfo( nav.getSuperClass(clazz), searchForSuperClass,
-                        new ClassLocatable<C>(upstream,clazz,nav) );
+                        new ClassLocatable<>(upstream,clazz,nav) );
             } else {
                 ClassInfoImpl<T,C,F,M> ci = createClassInfo(clazz,upstream);
                 typeInfoSet.add(ci);
@@ -349,20 +350,20 @@ public class ModelBuilder<T,C,F,M> implements ModelBuilderI<T,C,F,M> {
 
 
     protected EnumLeafInfoImpl<T,C,F,M> createEnumLeafInfo(C clazz,Locatable upstream) {
-        return new EnumLeafInfoImpl<T,C,F,M>(this,upstream,clazz,nav.use(clazz));
+        return new EnumLeafInfoImpl<>(this,upstream,clazz,nav.use(clazz));
     }
 
     protected ClassInfoImpl<T,C,F,M> createClassInfo(C clazz, Locatable upstream ) {
-        return new ClassInfoImpl<T,C,F,M>(this,upstream,clazz);
+        return new ClassInfoImpl<>(this,upstream,clazz);
     }
 
     protected ElementInfoImpl<T,C,F,M> createElementInfo(
         RegistryInfoImpl<T,C,F,M> registryInfo, M m) throws IllegalAnnotationException {
-        return new ElementInfoImpl<T,C,F,M>(this,registryInfo,m);
+        return new ElementInfoImpl<>(this,registryInfo,m);
     }
 
     protected ArrayInfoImpl<T,C,F,M> createArrayInfo(Locatable upstream, T arrayType) {
-        return new ArrayInfoImpl<T, C, F, M>(this,upstream,arrayType);
+        return new ArrayInfoImpl<>(this,upstream,arrayType);
     }
 
 
@@ -371,7 +372,7 @@ public class ModelBuilder<T,C,F,M> implements ModelBuilderI<T,C,F,M> {
      * in it.
      */
     public RegistryInfo<T,C> addRegistry(C registryClass, Locatable upstream ) {
-        return new RegistryInfoImpl<T,C,F,M>(this,upstream,registryClass);
+        return new RegistryInfoImpl<>(this,upstream,registryClass);
     }
 
     /**

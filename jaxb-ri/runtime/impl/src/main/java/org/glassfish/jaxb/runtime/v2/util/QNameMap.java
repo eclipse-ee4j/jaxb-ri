@@ -201,7 +201,7 @@ public final class QNameMap<V> {
      */
     private void addEntry(int hash, String nsUri, String localName, V value, int bucketIndex) {
         Entry<V> e = table[bucketIndex];
-        table[bucketIndex] = new Entry<V>(hash, nsUri, localName, value, e);
+        table[bucketIndex] = new Entry<>(hash, nsUri, localName, value, e);
         if (size++ >= threshold)
             resize(2 * table.length);
     }
@@ -263,7 +263,7 @@ public final class QNameMap<V> {
     }
 
     public Collection<QName> keySet() {
-        Set<QName> r = new HashSet<QName>();
+        Set<QName> r = new HashSet<>();
         for (Entry<V> e : entrySet()) {
             r.add(e.createQName());
         }
@@ -285,6 +285,7 @@ public final class QNameMap<V> {
             index = i;
         }
 
+        @Override
         public boolean hasNext() {
             return next != null;
         }
@@ -304,6 +305,7 @@ public final class QNameMap<V> {
             return e;
         }
 
+        @Override
         public void remove() {
             throw new UnsupportedOperationException();
         }
@@ -402,11 +404,13 @@ public final class QNameMap<V> {
     }
 
     private class EntryIterator extends HashIterator<Entry<V>> {
+        @Override
         public Entry<V> next() {
             return nextEntry();
         }
     }
     private class EntrySet extends AbstractSet<Entry<V>> {
+        @Override
         public Iterator<Entry<V>> iterator() {
             return newEntryIterator();
         }
@@ -422,6 +426,7 @@ public final class QNameMap<V> {
         public boolean remove(Object o) {
             throw new UnsupportedOperationException();
         }
+        @Override
         public int size() {
             return size;
         }

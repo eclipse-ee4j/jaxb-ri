@@ -34,34 +34,42 @@ final class XmlSchemaQuick
         this.core = core;
     }
 
+    @Override
     protected Annotation getAnnotation() {
         return core;
     }
 
+    @Override
     protected Quick newInstance(Locatable upstream, Annotation core) {
         return new XmlSchemaQuick(upstream, ((XmlSchema) core));
     }
 
+    @Override
     public Class<XmlSchema> annotationType() {
         return XmlSchema.class;
     }
 
+    @Override
     public String location() {
         return core.location();
     }
 
+    @Override
     public String namespace() {
         return core.namespace();
     }
 
+    @Override
     public XmlNs[] xmlns() {
         return core.xmlns();
     }
 
+    @Override
     public XmlNsForm elementFormDefault() {
         return core.elementFormDefault();
     }
 
+    @Override
     public XmlNsForm attributeFormDefault() {
         return core.attributeFormDefault();
     }

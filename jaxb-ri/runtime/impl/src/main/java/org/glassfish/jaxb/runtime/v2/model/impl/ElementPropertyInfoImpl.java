@@ -39,10 +39,12 @@ class ElementPropertyInfoImpl<TypeT,ClassDeclT,FieldT,MethodT>
     private List<TypeRefImpl<TypeT,ClassDeclT>> types;
 
     private final List<TypeInfo<TypeT,ClassDeclT>> ref = new AbstractList<TypeInfo<TypeT,ClassDeclT>>() {
+        @Override
         public TypeInfo<TypeT,ClassDeclT> get(int index) {
             return getTypes().get(index).getTarget();
         }
 
+        @Override
         public int size() {
             return getTypes().size();
         }
@@ -68,9 +70,10 @@ class ElementPropertyInfoImpl<TypeT,ClassDeclT,FieldT,MethodT>
 
     }
 
+    @Override
     public List<? extends TypeRefImpl<TypeT,ClassDeclT>> getTypes() {
         if(types==null) {
-            types = new FinalArrayList<TypeRefImpl<TypeT,ClassDeclT>>();
+            types = new FinalArrayList<>();
             XmlElement[] ann=null;
 
             XmlElement xe = seed.readAnnotation(XmlElement.class);
@@ -128,27 +131,32 @@ class ElementPropertyInfoImpl<TypeT,ClassDeclT,FieldT,MethodT>
      * Used by {@link PropertyInfoImpl} to create new instances of {@link TypeRef}
      */
     protected TypeRefImpl<TypeT,ClassDeclT> createTypeRef(QName name,TypeT type,boolean isNillable,String defaultValue) {
-        return new TypeRefImpl<TypeT,ClassDeclT>(this,name,type,isNillable,defaultValue);
+        return new TypeRefImpl<>(this,name,type,isNillable,defaultValue);
     }
 
+    @Override
     public boolean isValueList() {
         return isValueList;
     }
 
+    @Override
     public boolean isRequired() {
         if(isRequired==null)
             getTypes(); // compute the value
         return isRequired;
     }
 
+    @Override
     public List<? extends TypeInfo<TypeT,ClassDeclT>> ref() {
         return ref;
     }
 
+    @Override
     public final PropertyKind kind() {
         return PropertyKind.ELEMENT;
     }
 
+    @Override
     protected void link() {
         super.link();
         for (TypeRefImpl<TypeT, ClassDeclT> ref : getTypes() ) {

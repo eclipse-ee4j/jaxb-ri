@@ -55,18 +55,22 @@ public class ArrayInfoImpl<TypeT,ClassDeclT,FieldT,MethodT>
         this.typeName = ArrayInfoUtil.calcArrayTypeName(n);
     }
 
+    @Override
     public NonElement<TypeT, ClassDeclT> getItemType() {
         return itemType;
     }
 
+    @Override
     public QName getTypeName() {
         return typeName;
     }
 
+    @Override
     public boolean isSimpleType() {
         return false;
     }
 
+    @Override
     public TypeT getType() {
         return arrayType;
     }
@@ -77,13 +81,17 @@ public class ArrayInfoImpl<TypeT,ClassDeclT,FieldT,MethodT>
      * @deprecated
      *      why are you calling a method whose return value is always known?
      */
+    @Override
+    @Deprecated
     public final boolean canBeReferencedByIDREF() {
         return false;
     }
 
+    @Override
     public Location getLocation() {
         return this;
     }
+    @Override
     public String toString() {
         return nav().getTypeName(arrayType);
     }

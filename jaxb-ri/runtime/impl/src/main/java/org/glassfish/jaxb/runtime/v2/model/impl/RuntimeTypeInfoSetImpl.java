@@ -36,42 +36,52 @@ final class RuntimeTypeInfoSetImpl extends TypeInfoSetImpl<Type,Class,Field,Meth
         return RuntimeAnyTypeImpl.theInstance;
     }
 
+    @Override
     public RuntimeNonElement getTypeInfo( Type type ) {
         return (RuntimeNonElement)super.getTypeInfo(type);
     }
 
+    @Override
     public RuntimeNonElement getAnyTypeInfo() {
         return (RuntimeNonElement)super.getAnyTypeInfo();
     }
 
+    @Override
     public RuntimeNonElement getClassInfo(Class clazz) {
         return (RuntimeNonElement)super.getClassInfo(clazz);
     }
 
+    @Override
     public Map<Class,RuntimeClassInfoImpl> beans() {
         return (Map<Class,RuntimeClassInfoImpl>)super.beans();
     }
 
+    @Override
     public Map<Type,RuntimeBuiltinLeafInfoImpl<?>> builtins() {
         return (Map<Type,RuntimeBuiltinLeafInfoImpl<?>>)super.builtins();
     }
 
+    @Override
     public Map<Class,RuntimeEnumLeafInfoImpl<?,?>> enums() {
         return (Map<Class,RuntimeEnumLeafInfoImpl<?,?>>)super.enums();
     }
 
+    @Override
     public Map<Class,RuntimeArrayInfoImpl> arrays() {
         return (Map<Class,RuntimeArrayInfoImpl>)super.arrays();
     }
 
+    @Override
     public RuntimeElementInfoImpl getElementInfo(Class scope,QName name) {
         return (RuntimeElementInfoImpl)super.getElementInfo(scope,name);
     }
 
+    @Override
     public Map<QName,RuntimeElementInfoImpl> getElementMappings(Class scope) {
         return (Map<QName,RuntimeElementInfoImpl>)super.getElementMappings(scope);
     }
 
+    @Override
     public Iterable<RuntimeElementInfoImpl> getAllElements() {
         return (Iterable<RuntimeElementInfoImpl>)super.getAllElements();
     }

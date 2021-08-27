@@ -27,10 +27,12 @@ public class MethodAccessor_Short extends Accessor {
         super(Short.class);
     }
 
+    @Override
     public Object get(Object bean) {
         return ((Bean)bean).get_short();
     }
 
+    @Override
     public void set(Object bean, Object value) {
         ((Bean)bean).set_short( value==null ? Const.default_value_short : (Short)value );
     }

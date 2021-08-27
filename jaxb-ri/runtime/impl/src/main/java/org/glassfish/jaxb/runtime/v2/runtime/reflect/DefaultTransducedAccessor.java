@@ -31,12 +31,15 @@ import java.io.IOException;
  */
 public abstract class DefaultTransducedAccessor<T> extends TransducedAccessor<T> {
 
+    @Override
     public abstract String print(T o) throws AccessorException, SAXException;
 
+    @Override
     public void writeLeafElement(XMLSerializer w, Name tagName, T o, String fieldName) throws SAXException, AccessorException, IOException, XMLStreamException {
         w.leafElement(tagName,print(o),fieldName);
     }
 
+    @Override
     public void writeText(XMLSerializer w, T o, String fieldName) throws AccessorException, SAXException, IOException, XMLStreamException {
         w.text(print(o),fieldName);
     }

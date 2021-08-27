@@ -16,6 +16,13 @@ package org.glassfish.jaxb.core.v2;
  * @author Kohsuke Kawaguchi (kk@kohsuke.org)
  */
 public abstract class TODO {
+
+    /**
+     * Default constructor.
+     */
+    public TODO() {
+    }
+
     /**
      * When this method is called,
      * that means we need to check the spec and corrects

@@ -84,7 +84,7 @@ abstract class PropertyInfoImpl<T,C,F,M>
         XmlJavaTypeAdapter xjta = getApplicableAdapter(t);
         if(xjta!=null) {
             isCollection = false;
-            adapter = new Adapter<T,C>(xjta,reader(),nav());
+            adapter = new Adapter<>(xjta,reader(),nav());
         } else {
             // check if the adapter is applicable to the individual item in the property
 
@@ -97,7 +97,7 @@ abstract class PropertyInfoImpl<T,C,F,M>
                 XmlAttachmentRef xsa = seed.readAnnotation(XmlAttachmentRef.class);
                 if(xsa!=null) {
                     parent.builder.hasSwaRef = true;
-                    adapter = new Adapter<T,C>(nav().asDecl(SwaRefAdapter.class),nav());
+                    adapter = new Adapter<>(nav().asDecl(SwaRefAdapter.class),nav());
                 } else {
                     adapter = null;
 
@@ -114,7 +114,7 @@ abstract class PropertyInfoImpl<T,C,F,M>
                     }
                 }
             } else {
-                adapter = new Adapter<T,C>(xjta,reader(),nav());
+                adapter = new Adapter<>(xjta,reader(),nav());
             }
         }
 
@@ -124,6 +124,7 @@ abstract class PropertyInfoImpl<T,C,F,M>
     }
 
 
+    @Override
     public ClassInfoImpl<T,C,F,M> parent() {
         return parent;
     }
@@ -157,6 +158,7 @@ abstract class PropertyInfoImpl<T,C,F,M>
         }
     }
 
+    @Override
     public final String getName() {
         return seed.getName();
     }
@@ -212,15 +214,18 @@ abstract class PropertyInfoImpl<T,C,F,M>
      * This is the default implementation of the getAdapter method
      * defined on many of the {@link PropertyInfo}-derived classes.
      */
+    @Override
     public Adapter<T,C> getAdapter() {
         return adapter;
     }
 
 
+    @Override
     public final String displayName() {
         return nav().getClassName(parent.getClazz())+'#'+getName();
     }
 
+    @Override
     public final ID id() {
         return id;
     }
@@ -241,18 +246,22 @@ abstract class PropertyInfoImpl<T,C,F,M>
         }
     }
 
+    @Override
     public final MimeType getExpectedMimeType() {
         return expectedMimeType;
     }
 
+    @Override
     public final boolean inlineBinaryData() {
         return inlineBinary;
     }
 
+    @Override
     public final QName getSchemaType() {
         return schemaType;
     }
 
+    @Override
     public final boolean isCollection() {
         return isCollection;
     }
@@ -278,10 +287,12 @@ abstract class PropertyInfoImpl<T,C,F,M>
      * A {@link PropertyInfoImpl} is always referenced by its enclosing class,
      * so return that as the upstream.
      */
+    @Override
     public Locatable getUpstream() {
         return parent;
     }
 
+    @Override
     public Location getLocation() {
         return seed.getLocation();
     }
@@ -345,14 +356,17 @@ abstract class PropertyInfoImpl<T,C,F,M>
         return new QName(uri.intern(),local.intern());
     }
 
+    @Override
     public int compareTo(PropertyInfoImpl that) {
         return this.getName().compareTo(that.getName());
     }
 
+    @Override
     public final <A extends Annotation> A readAnnotation(Class<A> annotationType) {
         return seed.readAnnotation(annotationType);
     }
 
+    @Override
     public final boolean hasAnnotation(Class<? extends Annotation> annotationType) {
         return seed.hasAnnotation(annotationType);
     }

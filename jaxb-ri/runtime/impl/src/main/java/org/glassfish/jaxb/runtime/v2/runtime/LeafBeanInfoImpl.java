@@ -70,26 +70,32 @@ final class LeafBeanInfoImpl<BeanT> extends JaxBeanInfo<BeanT> {
         return super.getTypeName(instance);
     }
 
+    @Override
     public final String getElementNamespaceURI(BeanT t) {
         return tagName.nsUri;
     }
 
+    @Override
     public final String getElementLocalName(BeanT t) {
         return tagName.localName;
     }
 
+    @Override
     public BeanT createInstance(UnmarshallingContext context) {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public final boolean reset(BeanT bean, UnmarshallingContext context) {
         return false;
     }
 
+    @Override
     public final String getId(BeanT bean, XMLSerializer target) {
         return null;
     }
 
+    @Override
     public final void serializeBody(BeanT bean, XMLSerializer w) throws SAXException, IOException, XMLStreamException {
         // most of the times leaves are printed as leaf element/attribute property,
         // so this code is only used for example when you have multiple XmlElement on a property
@@ -101,10 +107,12 @@ final class LeafBeanInfoImpl<BeanT> extends JaxBeanInfo<BeanT> {
         }
     }
 
+    @Override
     public final void serializeAttributes(BeanT bean, XMLSerializer target) {
         // noop
     }
 
+    @Override
     public final void serializeRoot(BeanT bean, XMLSerializer target) throws SAXException, IOException, XMLStreamException {
         if(tagName==null) {
             target.reportError(
@@ -121,6 +129,7 @@ final class LeafBeanInfoImpl<BeanT> extends JaxBeanInfo<BeanT> {
         }
     }
 
+    @Override
     public final void serializeURIs(BeanT bean, XMLSerializer target) throws SAXException {
         // TODO: maybe we should create another LeafBeanInfoImpl class for
         // context-dependent xducers?
@@ -133,6 +142,7 @@ final class LeafBeanInfoImpl<BeanT> extends JaxBeanInfo<BeanT> {
         }
     }
 
+    @Override
     public final Loader getLoader(JAXBContextImpl context, boolean typeSubstitutionCapable) {
         if(typeSubstitutionCapable)
             return loaderWithSubst;
@@ -140,6 +150,7 @@ final class LeafBeanInfoImpl<BeanT> extends JaxBeanInfo<BeanT> {
             return loader;
     }
 
+    @Override
     public Transducer<BeanT> getTransducer() {
         return xducer;
     }

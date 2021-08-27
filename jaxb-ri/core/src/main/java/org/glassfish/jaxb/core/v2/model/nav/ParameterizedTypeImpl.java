@@ -39,7 +39,7 @@ class ParameterizedTypeImpl implements ParameterizedType {
     }
 
     private void validateConstructorArguments() {
-        TypeVariable/*<?>*/[] formals = rawType.getTypeParameters();
+        TypeVariable<?>[] formals = rawType.getTypeParameters();
         // check correct arity of actual type args
         if (formals.length != actualTypeArguments.length) {
             throw new MalformedParameterizedTypeException();
@@ -51,14 +51,17 @@ class ParameterizedTypeImpl implements ParameterizedType {
 */
     }
 
+    @Override
     public Type[] getActualTypeArguments() {
         return actualTypeArguments.clone();
     }
 
+    @Override
     public Class<?> getRawType() {
         return rawType;
     }
 
+    @Override
     public Type getOwnerType() {
         return ownerType;
     }
@@ -124,6 +127,7 @@ class ParameterizedTypeImpl implements ParameterizedType {
                 (rawType == null ? 0 : rawType.hashCode());
     }
 
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
 

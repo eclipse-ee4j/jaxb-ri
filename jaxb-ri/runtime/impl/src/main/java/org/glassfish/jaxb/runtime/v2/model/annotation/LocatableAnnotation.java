@@ -68,14 +68,17 @@ public class LocatableAnnotation implements InvocationHandler, Locatable, Locati
         this.upstream = upstream;
     }
 
+    @Override
     public Locatable getUpstream() {
         return upstream;
     }
 
+    @Override
     public Location getLocation() {
         return this;
     }
 
+    @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         try {
             if(method.getDeclaringClass()==Locatable.class)
@@ -94,6 +97,7 @@ public class LocatableAnnotation implements InvocationHandler, Locatable, Locati
         }
     }
 
+    @Override
     public String toString() {
         return core.toString();
     }

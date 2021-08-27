@@ -32,6 +32,7 @@ public final class BridgeContextImpl extends BridgeContext {
         marshaller = context.createMarshaller();
     }
 
+    @Override
     public void setErrorHandler(ValidationEventHandler handler) {
         try {
             unmarshaller.setEventHandler(handler);
@@ -42,18 +43,22 @@ public final class BridgeContextImpl extends BridgeContext {
         }
     }
 
+    @Override
     public void setAttachmentMarshaller(AttachmentMarshaller m) {
         marshaller.setAttachmentMarshaller(m);
     }
 
+    @Override
     public void setAttachmentUnmarshaller(AttachmentUnmarshaller u) {
         unmarshaller.setAttachmentUnmarshaller(u);
     }
 
+    @Override
     public AttachmentMarshaller getAttachmentMarshaller() {
         return marshaller.getAttachmentMarshaller();
     }
 
+    @Override
     public AttachmentUnmarshaller getAttachmentUnmarshaller() {
         return unmarshaller.getAttachmentUnmarshaller();
     }

@@ -25,11 +25,13 @@ import javax.xml.namespace.QName;
  */
 enum Form {
     QUALIFIED(XmlNsForm.QUALIFIED,true) {
+        @Override
         void declare(String attName, Schema schema) {
             schema._attribute(attName,"qualified");
         }
     },
     UNQUALIFIED(XmlNsForm.UNQUALIFIED,false) {
+        @Override
         void declare(String attName,Schema schema) {
             // pointless, but required by the spec.
             // people need to understand that @attributeFormDefault is a syntax sugar
@@ -37,6 +39,7 @@ enum Form {
         }
     },
     UNSET(XmlNsForm.UNSET,false) {
+        @Override
         void declare(String attName,Schema schema) {
         }
     };

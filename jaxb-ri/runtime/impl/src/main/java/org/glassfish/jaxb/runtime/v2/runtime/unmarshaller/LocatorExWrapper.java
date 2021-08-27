@@ -27,22 +27,27 @@ class LocatorExWrapper implements LocatorEx {
         this.locator = locator;
     }
 
+    @Override
     public ValidationEventLocator getLocation() {
         return new ValidationEventLocatorImpl(locator);
     }
 
+    @Override
     public String getPublicId() {
         return locator.getPublicId();
     }
 
+    @Override
     public String getSystemId() {
         return locator.getSystemId();
     }
 
+    @Override
     public int getLineNumber() {
         return locator.getLineNumber();
     }
 
+    @Override
     public int getColumnNumber() {
         return locator.getColumnNumber();
     }

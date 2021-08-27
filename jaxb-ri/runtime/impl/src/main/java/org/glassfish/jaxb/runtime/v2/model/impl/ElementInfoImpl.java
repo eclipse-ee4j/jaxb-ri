@@ -93,37 +93,46 @@ class ElementInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M> implements ElementI
         //
         // TypeRef impl
         //
+        @Override
         public NonElement<T,C> getTarget() {
             return contentType;
         }
+        @Override
         public QName getTagName() {
             return tagName;
         }
 
+        @Override
         public List<? extends TypeRef<T,C>> getTypes() {
             return Collections.singletonList(this);
         }
 
+        @Override
         public List<? extends NonElement<T,C>> ref() {
             return Collections.singletonList(contentType);
         }
 
+        @Override
         public QName getXmlName() {
             return tagName;
         }
 
+        @Override
         public boolean isCollectionRequired() {
             return false;
         }
 
+        @Override
         public boolean isCollectionNillable() {
             return true;
         }
 
+        @Override
         public boolean isNillable() {
             return true;
         }
 
+        @Override
         public String getDefaultValue() {
             String v = anno.defaultValue();
             if(v.equals("\u0000"))
@@ -132,18 +141,22 @@ class ElementInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M> implements ElementI
                 return v;
         }
 
+        @Override
         public ElementInfoImpl<T,C,F,M> parent() {
             return ElementInfoImpl.this;
         }
 
+        @Override
         public String getName() {
             return "value";
         }
 
+        @Override
         public String displayName() {
             return "JAXBElement#value";
         }
 
+        @Override
         public boolean isCollection() {
             return isCollection;
         }
@@ -151,38 +164,47 @@ class ElementInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M> implements ElementI
         /**
          * For {@link ElementInfo}s, a collection always means a list of values.
          */
+        @Override
         public boolean isValueList() {
             return isCollection;
         }
 
+        @Override
         public boolean isRequired() {
             return true;
         }
 
+        @Override
         public PropertyKind kind() {
             return PropertyKind.ELEMENT;
         }
 
+        @Override
         public Adapter<T,C> getAdapter() {
             return adapter;
         }
 
+        @Override
         public ID id() {
             return id;
         }
 
+        @Override
         public MimeType getExpectedMimeType() {
             return expectedMimeType;
         }
 
+        @Override
         public QName getSchemaType() {
             return schemaType;
         }
 
+        @Override
         public boolean inlineBinaryData() {
             return inlineBinary;
         }
 
+        @Override
         public PropertyInfo<T,C> getSource() {
             return this;
         }
@@ -192,10 +214,12 @@ class ElementInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M> implements ElementI
         // AnnotationSource impl
         //
         //
+        @Override
         public <A extends Annotation> A readAnnotation(Class<A> annotationType) {
             return reader().getMethodAnnotation(annotationType,method,ElementInfoImpl.this);
         }
 
+        @Override
         public boolean hasAnnotation(Class<? extends Annotation> annotationType) {
             return reader().hasMethodAnnotation(annotationType,method);
         }
@@ -229,12 +253,12 @@ class ElementInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M> implements ElementI
         if(methodParams.length>0) {
             XmlJavaTypeAdapter adapter = reader().getMethodAnnotation(XmlJavaTypeAdapter.class,m,this);
             if(adapter!=null)
-                a = new Adapter<T,C>(adapter,reader(),nav());
+                a = new Adapter<>(adapter,reader(),nav());
             else {
                 XmlAttachmentRef xsa = reader().getMethodAnnotation(XmlAttachmentRef.class,m,this);
                 if(xsa!=null) {
                     TODO.prototype("in Annotation Processing swaRefAdapter isn't avaialble, so this returns null");
-                    a = new Adapter<T,C>(owner.nav.asDecl(SwaRefAdapter.class),owner.nav);
+                    a = new Adapter<>(owner.nav.asDecl(SwaRefAdapter.class),owner.nav);
                 }
             }
         }
@@ -306,14 +330,17 @@ class ElementInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M> implements ElementI
         return new PropertyImpl();
     }
 
+    @Override
     public ElementPropertyInfo<T,C> getProperty() {
         return property;
     }
 
+    @Override
     public NonElement<T,C> getContentType() {
         return contentType;
     }
 
+    @Override
     public T getContentInMemoryType() {
         if(adapter==null) {
             return tOfJAXBElementT;
@@ -322,10 +349,12 @@ class ElementInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M> implements ElementI
         }
     }
 
+    @Override
     public QName getElementName() {
         return tagName;
     }
 
+    @Override
     public T getType() {
         return elementType;
     }
@@ -336,6 +365,8 @@ class ElementInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M> implements ElementI
      * @deprecated
      *      why are you calling a method whose return value is always known?
      */
+    @Override
+    @Deprecated
     public final boolean canBeReferencedByIDREF() {
         return false;
     }
@@ -352,14 +383,17 @@ class ElementInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M> implements ElementI
         }
     }
 
+    @Override
     public ClassInfo<T, C> getScope() {
         return scope;
     }
 
+    @Override
     public ElementInfo<T,C> getSubstitutionHead() {
         return substitutionHead;
     }
 
+    @Override
     public Collection<? extends ElementInfoImpl<T,C,F,M>> getSubstitutionMembers() {
         if(substitutionMembers==null)
             return Collections.emptyList();
@@ -370,7 +404,8 @@ class ElementInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M> implements ElementI
     /**
      * Called after all the {@link TypeInfo}s are collected into the {@link #owner}.
      */
-    /*package*/ void link() {
+    /*package*/@Override
+ void link() {
         // substitution head
         if(anno.substitutionHeadName().length()!=0) {
             QName name = new QName(
@@ -390,10 +425,11 @@ class ElementInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M> implements ElementI
 
     private void addSubstitutionMember(ElementInfoImpl<T,C,F,M> child) {
         if(substitutionMembers==null)
-            substitutionMembers = new FinalArrayList<ElementInfoImpl<T,C,F,M>>();
+            substitutionMembers = new FinalArrayList<>();
         substitutionMembers.add(child);
     }
 
+    @Override
     public Location getLocation() {
         return nav().getMethodLocation(method);
     }

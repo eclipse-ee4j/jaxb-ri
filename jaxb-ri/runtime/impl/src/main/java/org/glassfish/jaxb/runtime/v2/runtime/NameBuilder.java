@@ -30,11 +30,11 @@ import java.util.Set;
  */
 @SuppressWarnings({"StringEquality"})
 public final class NameBuilder {
-    private Map<String,Integer> uriIndexMap = new HashMap<String, Integer>();
-    private Set<String> nonDefaultableNsUris = new HashSet<String>();
-    private Map<String,Integer> localNameIndexMap = new HashMap<String, Integer>();
-    private QNameMap<Integer> elementQNameIndexMap = new QNameMap<Integer>();
-    private QNameMap<Integer> attributeQNameIndexMap = new QNameMap<Integer>();
+    private Map<String,Integer> uriIndexMap = new HashMap<>();
+    private Set<String> nonDefaultableNsUris = new HashSet<>();
+    private Map<String,Integer> localNameIndexMap = new HashMap<>();
+    private QNameMap<Integer> elementQNameIndexMap = new QNameMap<>();
+    private QNameMap<Integer> attributeQNameIndexMap = new QNameMap<>();
 
     public Name createElementName(QName name) {
         return createElementName(name.getNamespaceURI(),name.getLocalPart());

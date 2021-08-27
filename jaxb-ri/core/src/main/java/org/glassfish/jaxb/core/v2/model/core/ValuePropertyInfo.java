@@ -16,5 +16,6 @@ package org.glassfish.jaxb.core.v2.model.core;
  * @author Kohsuke Kawaguchi
  */
 public interface ValuePropertyInfo<T,C> extends PropertyInfo<T,C>, NonElementRef<T,C> {
+    @Override
     Adapter<T,C> getAdapter();
 }

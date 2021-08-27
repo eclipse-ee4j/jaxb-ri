@@ -26,6 +26,7 @@ public interface RuntimeLeafInfo extends LeafInfo<Type,Class>, RuntimeNonElement
      * @return
      *      always non-null.
      */
+    @Override
     <V> Transducer<V> getTransducer();
 
     /**

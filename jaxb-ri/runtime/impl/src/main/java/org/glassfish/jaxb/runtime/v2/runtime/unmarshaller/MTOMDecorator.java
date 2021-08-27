@@ -55,14 +55,17 @@ final class MTOMDecorator implements XmlVisitor {
         this.au = au;
     }
 
+    @Override
     public void startDocument(LocatorEx loc, NamespaceContext nsContext) throws SAXException {
         next.startDocument(loc,nsContext);
     }
 
+    @Override
     public void endDocument() throws SAXException {
         next.endDocument();
     }
 
+    @Override
     public void startElement(TagName tagName) throws SAXException {
         if(tagName.local.equals("Include") && tagName.uri.equals(WellKnownNamespace.XOP)) {
             // found xop:Include
@@ -81,6 +84,7 @@ final class MTOMDecorator implements XmlVisitor {
             next.startElement(tagName);
     }
 
+    @Override
     public void endElement(TagName tagName) throws SAXException {
         if(inXopInclude) {
             // consume </xop:Include> by ourselves.
@@ -91,14 +95,17 @@ final class MTOMDecorator implements XmlVisitor {
         next.endElement(tagName);
     }
 
+    @Override
     public void startPrefixMapping(String prefix, String nsUri) throws SAXException {
         next.startPrefixMapping(prefix,nsUri);
     }
 
+    @Override
     public void endPrefixMapping(String prefix) throws SAXException {
         next.endPrefixMapping(prefix);
     }
 
+    @Override
     public void text( CharSequence pcdata ) throws SAXException {
         if(!followXop)
             next.text(pcdata);
@@ -106,10 +113,12 @@ final class MTOMDecorator implements XmlVisitor {
             followXop = false;
     }
 
+    @Override
     public UnmarshallingContext getContext() {
         return next.getContext();
     }
 
+    @Override
     public TextPredictor getPredictor() {
         return next.getPredictor();
     }

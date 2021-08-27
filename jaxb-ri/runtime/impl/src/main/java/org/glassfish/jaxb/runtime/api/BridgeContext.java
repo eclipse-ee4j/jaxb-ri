@@ -38,6 +38,7 @@ import jakarta.xml.bind.attachment.AttachmentUnmarshaller;
  *      The caller no longer needs to use this, as {@link Bridge} has
  *      methods that can work without {@link BridgeContext}.
  */
+@Deprecated
 public abstract class BridgeContext {
     protected BridgeContext() {}
     

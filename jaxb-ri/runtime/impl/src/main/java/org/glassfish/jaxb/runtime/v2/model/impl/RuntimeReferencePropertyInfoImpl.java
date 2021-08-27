@@ -37,18 +37,22 @@ class RuntimeReferencePropertyInfoImpl extends ReferencePropertyInfoImpl<Type,Cl
         this.acc = rawAcc;
     }
 
+    @Override
     public Set<? extends RuntimeElement> getElements() {
         return (Set<? extends RuntimeElement>)super.getElements();
     }
 
+    @Override
     public Set<? extends RuntimeElement> ref() {
         return (Set<? extends RuntimeElement>)super.ref();
     }
 
+    @Override
     public Accessor getAccessor() {
         return acc;
     }
 
+    @Override
     public boolean elementOnlyContent() {
         return !isMixed();
     }

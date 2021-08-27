@@ -109,7 +109,7 @@ public final class XMLSerializer extends Coordinator {
     private NamespaceContextImpl.Element nse;
 
     // Introduced based on Jersey requirements - to be able to retrieve marshalled name
-    ThreadLocal<Property> currentProperty = new ThreadLocal<Property>();
+    ThreadLocal<Property> currentProperty = new ThreadLocal<>();
     
     /**
      * Set to true if a text is already written,
@@ -126,16 +126,16 @@ public final class XMLSerializer extends Coordinator {
     private final MarshallerImpl marshaller;
 
     /** Objects referenced through IDREF. */
-    private final Set<Object> idReferencedObjects = new HashSet<Object>();
+    private final Set<Object> idReferencedObjects = new HashSet<>();
 
     /** Objects with ID. */
-    private final Set<Object> objectsWithId = new HashSet<Object>();
+    private final Set<Object> objectsWithId = new HashSet<>();
 
     /**
      * Used to detect cycles in the object.
      * Also used to learn what's being marshalled.
      */
-    private final CollisionCheckStack<Object> cycleDetectionStack = new CollisionCheckStack<Object>();
+    private final CollisionCheckStack<Object> cycleDetectionStack = new CollisionCheckStack<>();
 
     /** Optional attributes to go with root element. */
     private String schemaLocation;
@@ -176,6 +176,7 @@ public final class XMLSerializer extends Coordinator {
      *      {@link Base64Data} is no longer cached, so that
      *      XMLStreamWriterEx impl can retain the data, like JAX-WS does.
      */
+    @Deprecated
     public Base64Data getCachedBase64DataInstance() {
         return new Base64Data();
     }
@@ -482,6 +483,7 @@ public final class XMLSerializer extends Coordinator {
         // allow the object to nominate its replacement
         if(obj instanceof CycleRecoverable) {
             obj = ((CycleRecoverable)obj).onCycleDetected(new CycleRecoverable.Context(){
+                @Override
                 public Marshaller getMarshaller() {
                     return marshaller;
                 }
@@ -993,6 +995,7 @@ public final class XMLSerializer extends Coordinator {
                     e));
     }
 
+    @Override
     public boolean handleEvent(ValidationEvent event) {
         try {
             return marshaller.getEventHandler().handleEvent(event);
@@ -1024,6 +1027,7 @@ public final class XMLSerializer extends Coordinator {
         return new ValidationEventLocatorExImpl(cycleDetectionStack.peek(),fieldName);
     }
 
+    @Override
     protected ValidationEventLocator getLocation() {
         return getCurrentLocation(null);
     }

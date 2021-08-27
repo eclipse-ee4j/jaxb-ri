@@ -29,7 +29,7 @@ import java.io.IOException;
 final class ContentHandlerAdaptor extends DefaultHandler {
 
     /** Stores newly declared prefix-URI mapping. */
-    private final FinalArrayList<String> prefixMap = new FinalArrayList<String>();
+    private final FinalArrayList<String> prefixMap = new FinalArrayList<>();
 
     /** Events will be sent to this object. */
     private final XMLSerializer serializer;
@@ -41,10 +41,12 @@ final class ContentHandlerAdaptor extends DefaultHandler {
         this.serializer = _serializer;
     }
     
+    @Override
     public void startDocument() {
         prefixMap.clear();
     }
 
+    @Override
     public void startPrefixMapping(String prefix, String uri) {
         prefixMap.add(prefix);
         prefixMap.add(uri);
@@ -59,6 +61,7 @@ final class ContentHandlerAdaptor extends DefaultHandler {
         return false;
     }
 
+    @Override
     public void startElement(String namespaceURI, String localName, String qName, Attributes atts)
         throws SAXException {
         try {
@@ -118,6 +121,7 @@ final class ContentHandlerAdaptor extends DefaultHandler {
         return prefix;
     }
 
+    @Override
     public void endElement(String namespaceURI, String localName, String qName) throws SAXException {
         try {
             flushText();
@@ -136,6 +140,7 @@ final class ContentHandlerAdaptor extends DefaultHandler {
         }
     }
 
+    @Override
     public void characters(char[] ch, int start, int length) {
         text.append(ch,start,length);
     }

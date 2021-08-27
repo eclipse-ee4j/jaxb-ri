@@ -30,20 +30,24 @@ class FieldPropertySeed<TypeT,ClassDeclT,FieldT,MethodT> implements
         this.field = field;
     }
 
+    @Override
     public <A extends Annotation> A readAnnotation(Class<A> a) {
         return parent.reader().getFieldAnnotation(a, field,this);
     }
 
+    @Override
     public boolean hasAnnotation(Class<? extends Annotation> annotationType) {
         return parent.reader().hasFieldAnnotation(annotationType,field);
     }
 
+    @Override
     public String getName() {
         // according to the spec team, the BeanIntrospector.decapitalize does not apply
         // to the fields. Don't call Introspector.decapitalize
         return parent.nav().getFieldName(field);
     }
 
+    @Override
     public TypeT getRawType() {
         return parent.nav().getFieldType(field);
     }
@@ -51,10 +55,12 @@ class FieldPropertySeed<TypeT,ClassDeclT,FieldT,MethodT> implements
     /**
      * Use the enclosing class as the upsream {@link Location}.
      */
+    @Override
     public Locatable getUpstream() {
         return parent;
     }
 
+    @Override
     public Location getLocation() {
         return parent.nav().getFieldLocation(field);
     }

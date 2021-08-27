@@ -30,6 +30,7 @@ public abstract class AbstractInlineAnnotationReaderImpl<T,C,F,M>
 
     private ErrorHandler errorHandler;
 
+    @Override
     public void setErrorHandler(ErrorHandler errorHandler) {
         if(errorHandler==null)
             throw new IllegalArgumentException();
@@ -44,6 +45,7 @@ public abstract class AbstractInlineAnnotationReaderImpl<T,C,F,M>
         return errorHandler;
     }
 
+    @Override
     public final <A extends Annotation> A getMethodAnnotation(Class<A> annotation, M getter, M setter, Locatable srcPos) {
         A a1 = getter==null?null:getMethodAnnotation(annotation,getter,srcPos);
         A a2 = setter==null?null:getMethodAnnotation(annotation,setter,srcPos);
@@ -68,6 +70,7 @@ public abstract class AbstractInlineAnnotationReaderImpl<T,C,F,M>
         }
     }
 
+    @Override
     public boolean hasMethodAnnotation(Class<? extends Annotation> annotation, String propertyName, M getter, M setter, Locatable srcPos) {
         boolean x = ( getter != null && hasMethodAnnotation(annotation, getter) );
         boolean y = ( setter != null && hasMethodAnnotation(annotation, setter) );

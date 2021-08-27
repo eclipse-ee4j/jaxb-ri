@@ -64,14 +64,17 @@ public final class IntArrayData extends Pcdata {
         this.literal = null;
     }
 
+    @Override
     public int length() {
         return getLiteral().length();
     }
 
+    @Override
     public char charAt(int index) {
         return getLiteral().charAt(index);
     }
 
+    @Override
     public CharSequence subSequence(int start, int end) {
         return getLiteral().subSequence(start,end);
     }
@@ -92,10 +95,12 @@ public final class IntArrayData extends Pcdata {
         return literal;
     }
 
+    @Override
     public String toString() {
         return literal.toString();
     }
 
+    @Override
     public void writeTo(UTF8XmlOutput output) throws IOException {
         int p = start;
         for( int i=len; i>0; i-- ) {

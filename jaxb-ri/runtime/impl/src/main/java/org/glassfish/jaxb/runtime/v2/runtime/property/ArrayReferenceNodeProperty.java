@@ -37,7 +37,7 @@ class ArrayReferenceNodeProperty<BeanT,ListT,ItemT> extends ArrayERProperty<Bean
     /**
      * Expected element names and what class to unmarshal.
      */
-    private final QNameMap<JaxBeanInfo> expectedElements = new QNameMap<JaxBeanInfo>();
+    private final QNameMap<JaxBeanInfo> expectedElements = new QNameMap<>();
 
     private final boolean isMixed;
 
@@ -63,6 +63,7 @@ class ArrayReferenceNodeProperty<BeanT,ListT,ItemT> extends ArrayERProperty<Bean
         }
     }
 
+    @Override
     protected final void serializeListBody(BeanT o, XMLSerializer w, ListT list) throws IOException, XMLStreamException, SAXException {
         ListIterator<ItemT> itr = lister.iterator(list, w);
 
@@ -89,6 +90,7 @@ class ArrayReferenceNodeProperty<BeanT,ListT,ItemT> extends ArrayERProperty<Bean
         }
     }
 
+    @Override
     public void createBodyUnmarshaller(UnmarshallerChain chain, QNameMap<ChildLoader> loaders) {
         final int offset = chain.allocateOffset();
 
@@ -120,6 +122,7 @@ class ArrayReferenceNodeProperty<BeanT,ListT,ItemT> extends ArrayERProperty<Bean
             this.recv = recv;
         }
 
+        @Override
         public void text(UnmarshallingContext.State state, CharSequence text) throws SAXException {
             if(text.length()!=0) // length 0 text is pointless
                 recv.receive(state,text.toString());
@@ -127,6 +130,7 @@ class ArrayReferenceNodeProperty<BeanT,ListT,ItemT> extends ArrayERProperty<Bean
     }
 
 
+    @Override
     public PropertyKind getKind() {
         return PropertyKind.REFERENCE;
     }

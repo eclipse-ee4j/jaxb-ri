@@ -47,12 +47,14 @@ public class SAXOutput extends XmlOutputAbstractImpl {
             out.startDocument();
     }
 
+    @Override
     public void endDocument(boolean fragment) throws SAXException, IOException, XMLStreamException {
         if(!fragment)
             out.endDocument();
         super.endDocument(fragment);
     }
 
+    @Override
     public void beginStartTag(int prefix, String localName) {
         elementNsUri = nsContext.getNamespaceURI(prefix);
         elementLocalName = localName;
@@ -60,6 +62,7 @@ public class SAXOutput extends XmlOutputAbstractImpl {
         atts.clear();
     }
 
+    @Override
     public void attribute(int prefix, String localName, String value) {
         String qname;
         String nsUri;
@@ -81,6 +84,7 @@ public class SAXOutput extends XmlOutputAbstractImpl {
         atts.addAttribute( nsUri, localName, qname, "CDATA", value );
     }
 
+    @Override
     public void endStartTag() throws SAXException {
         NamespaceContextImpl.Element ns = nsContext.getCurrent();
         if(ns!=null) {
@@ -96,6 +100,7 @@ public class SAXOutput extends XmlOutputAbstractImpl {
         out.startElement(elementNsUri,elementLocalName,elementQName,atts);
     }
 
+    @Override
     public void endTag(int prefix, String localName) throws SAXException {
         out.endElement(
             nsContext.getNamespaceURI(prefix),
@@ -126,6 +131,7 @@ public class SAXOutput extends XmlOutputAbstractImpl {
         return qname;
     }
 
+    @Override
     public void text(String value, boolean needsSP) throws IOException, SAXException, XMLStreamException {
         int vlen = value.length();
         if(buf.length<=vlen) {
@@ -140,6 +146,7 @@ public class SAXOutput extends XmlOutputAbstractImpl {
         out.characters(buf,0,vlen+(needsSP?1:0));
     }
 
+    @Override
     public void text(Pcdata value, boolean needsSP) throws IOException, SAXException, XMLStreamException {
         int vlen = value.length();
         if(buf.length<=vlen) {

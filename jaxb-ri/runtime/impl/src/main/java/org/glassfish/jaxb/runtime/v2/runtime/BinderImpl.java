@@ -58,7 +58,7 @@ public class BinderImpl<XmlNode> extends Binder<XmlNode> {
      * A {@link Binder} always works with the same
      * association map.
      */
-    private final AssociationMap<XmlNode> assoc = new AssociationMap<XmlNode>();
+    private final AssociationMap<XmlNode> assoc = new AssociationMap<>();
     
     BinderImpl(JAXBContextImpl _context,InfosetScanner<XmlNode> scanner) {
         this.context = _context;
@@ -77,6 +77,7 @@ public class BinderImpl<XmlNode> extends Binder<XmlNode> {
         return marshaller;
     }
 
+    @Override
     public void marshal(Object jaxbObject, XmlNode xmlNode) throws JAXBException {
         if ((xmlNode == null) || (jaxbObject == null))
             throw new IllegalArgumentException();
@@ -89,24 +90,29 @@ public class BinderImpl<XmlNode> extends Binder<XmlNode> {
     }
 
 
+    @Override
     public Object updateJAXB(XmlNode xmlNode) throws JAXBException {
         return associativeUnmarshal(xmlNode,true,null);
     }
 
+    @Override
     public Object unmarshal( XmlNode xmlNode ) throws JAXBException {
         return associativeUnmarshal(xmlNode,false,null);
     }
 
+    @Override
     public <T> JAXBElement<T> unmarshal(XmlNode xmlNode, Class<T> expectedType) throws JAXBException {
         if(expectedType==null)  throw new IllegalArgumentException();
         return (JAXBElement)associativeUnmarshal(xmlNode,true,expectedType);
     }
 
+    @Override
     public void setSchema(Schema schema) {
         getMarshaller().setSchema(schema);
         getUnmarshaller().setSchema(schema);
     }
 
+    @Override
     public Schema getSchema() {
         return getUnmarshaller().getSchema();
     }
@@ -131,6 +137,7 @@ public class BinderImpl<XmlNode> extends Binder<XmlNode> {
         return handler.getContext().getResult();
     }
 
+    @Override
     public XmlNode getXMLNode(Object jaxbObject) {
         if(jaxbObject==null)
             throw new IllegalArgumentException();
@@ -139,6 +146,7 @@ public class BinderImpl<XmlNode> extends Binder<XmlNode> {
         return e.element();
     }
 
+    @Override
     public Object getJAXBNode(XmlNode xmlNode) {
         if(xmlNode==null)
             throw new IllegalArgumentException();
@@ -148,10 +156,12 @@ public class BinderImpl<XmlNode> extends Binder<XmlNode> {
         return e.inner();
     }
 
+    @Override
     public XmlNode updateXML(Object jaxbObject) throws JAXBException {
         return updateXML(jaxbObject,getXMLNode(jaxbObject));
     }
 
+    @Override
     public XmlNode updateXML(Object jaxbObject, XmlNode xmlNode) throws JAXBException {
         if(jaxbObject==null || xmlNode==null)   throw new IllegalArgumentException();
 
@@ -178,15 +188,18 @@ public class BinderImpl<XmlNode> extends Binder<XmlNode> {
         return (XmlNode)newNode;
     }
 
+    @Override
     public void setEventHandler(ValidationEventHandler handler) throws JAXBException {
         getUnmarshaller().setEventHandler(handler);
         getMarshaller().setEventHandler(handler);
     }
 
+    @Override
     public ValidationEventHandler getEventHandler() {
         return getUnmarshaller().getEventHandler();
     }
 
+    @Override
     public Object getProperty(String name) throws PropertyException {
         if (name == null)
             throw new IllegalArgumentException(Messages.NULL_PROPERTY_NAME.format());
@@ -217,6 +230,7 @@ public class BinderImpl<XmlNode> extends Binder<XmlNode> {
         throw pe;
     }
 
+    @Override
     public void setProperty(String name, Object value) throws PropertyException {
         if (name == null)
             throw new IllegalArgumentException(Messages.NULL_PROPERTY_NAME.format());

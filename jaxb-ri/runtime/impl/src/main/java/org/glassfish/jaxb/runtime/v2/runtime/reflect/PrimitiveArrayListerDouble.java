@@ -32,31 +32,38 @@ final class PrimitiveArrayListerDouble<BeanT> extends Lister<BeanT,double[],Doub
         Lister.primitiveArrayListers.put(Double.TYPE,new PrimitiveArrayListerDouble());
     }
 
+    @Override
     public ListIterator<Double> iterator(final double[] objects, XMLSerializer context) {
         return new ListIterator<Double>() {
             int idx=0;
+            @Override
             public boolean hasNext() {
                 return idx<objects.length;
             }
 
+            @Override
             public Double next() {
                 return objects[idx++];
             }
         };
     }
 
+    @Override
     public DoubleArrayPack startPacking(BeanT current, Accessor<BeanT, double[]> acc) {
         return new DoubleArrayPack();
     }
 
+    @Override
     public void addToPack(DoubleArrayPack objects, Double o) {
         objects.add(o);
     }
 
+    @Override
     public void endPacking( DoubleArrayPack pack, BeanT bean, Accessor<BeanT,double[]> acc ) throws AccessorException {
         acc.set(bean,pack.build());
     }
 
+    @Override
     public void reset(BeanT o,Accessor<BeanT,double[]> acc) throws AccessorException {
         acc.set(o,new double[0]);
     }

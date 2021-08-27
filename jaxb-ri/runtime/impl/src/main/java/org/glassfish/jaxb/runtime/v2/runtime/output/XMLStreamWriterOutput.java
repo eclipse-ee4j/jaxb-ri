@@ -93,6 +93,7 @@ public class XMLStreamWriterOutput extends XmlOutputAbstractImpl {
         super.endDocument(fragment);
     }
 
+    @Override
     public void beginStartTag(int prefix, String localName) throws IOException, XMLStreamException {
         out.writeStartElement(
             nsContext.getPrefix(prefix),
@@ -110,6 +111,7 @@ public class XMLStreamWriterOutput extends XmlOutputAbstractImpl {
         }
     }
 
+    @Override
     public void attribute(int prefix, String localName, String value) throws IOException, XMLStreamException {
         if(prefix==-1)
             out.writeAttribute(localName,value);
@@ -120,20 +122,24 @@ public class XMLStreamWriterOutput extends XmlOutputAbstractImpl {
                     localName, value);
     }
 
+    @Override
     public void endStartTag() throws IOException, SAXException {
         // noop
     }
 
+    @Override
     public void endTag(int prefix, String localName) throws IOException, SAXException, XMLStreamException {
         out.writeEndElement();
     }
 
+    @Override
     public void text(String value, boolean needsSeparatingWhitespace) throws IOException, SAXException, XMLStreamException {
         if(needsSeparatingWhitespace)
             out.writeCharacters(" ");
         escapeHandler.escape(value.toCharArray(), 0, value.length(), false, writerWrapper);
     }
 
+    @Override
     public void text(Pcdata value, boolean needsSeparatingWhitespace) throws IOException, SAXException, XMLStreamException {
         if(needsSeparatingWhitespace)
             out.writeCharacters(" ");

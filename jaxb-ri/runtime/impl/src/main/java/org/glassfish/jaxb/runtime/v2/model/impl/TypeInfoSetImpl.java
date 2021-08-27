@@ -49,15 +49,15 @@ class TypeInfoSetImpl<T,C,F,M> implements TypeInfoSet<T,C,F,M> {
      * All the leaves.
      */
     private final Map<T,BuiltinLeafInfo<T,C>> builtins =
-            new LinkedHashMap<T,BuiltinLeafInfo<T,C>>();
+            new LinkedHashMap<>();
 
     /** All {@link EnumLeafInfoImpl}s. */
     private final Map<C,EnumLeafInfoImpl<T,C,F,M>> enums =
-            new LinkedHashMap<C,EnumLeafInfoImpl<T,C,F,M>>();
+            new LinkedHashMap<>();
 
     /** All {@link ArrayInfoImpl}s. */
     private final Map<T,ArrayInfoImpl<T,C,F,M>> arrays =
-            new LinkedHashMap<T,ArrayInfoImpl<T,C,F,M>>();
+            new LinkedHashMap<>();
 
     /**
      * All the user-defined classes.
@@ -79,12 +79,13 @@ class TypeInfoSetImpl<T,C,F,M> implements TypeInfoSet<T,C,F,M> {
      * The element mapping.
      */
     private final Map<C,Map<QName,ElementInfoImpl<T,C,F,M>>> elementMappings =
-        new LinkedHashMap<C,Map<QName,ElementInfoImpl<T,C,F,M>>>();
+        new LinkedHashMap<>();
     
     private final Iterable<? extends ElementInfoImpl<T,C,F,M>> allElements =
         new Iterable<ElementInfoImpl<T,C,F,M>>() {
+            @Override
             public Iterator<ElementInfoImpl<T,C,F,M>> iterator() {
-                return new FlattenIterator<ElementInfoImpl<T,C,F,M>>(elementMappings.values());
+                return new FlattenIterator<>(elementMappings.values());
             }
         };
 
@@ -113,18 +114,19 @@ class TypeInfoSetImpl<T,C,F,M> implements TypeInfoSet<T,C,F,M> {
         this.anyType = createAnyType();
 
         // register primitive types.
-        for (Map.Entry<Class, Class> e : RuntimeUtil.primitiveToBox.entrySet()) {
+        for (Map.Entry<Class<?>, Class<?>> e : RuntimeUtil.primitiveToBox.entrySet()) {
             this.builtins.put( nav.getPrimitive(e.getKey()), leaves.get(nav.ref(e.getValue())) );
         }
 
         // make sure at lease we got a map for global ones.
-        elementMappings.put(null,new LinkedHashMap<QName,ElementInfoImpl<T,C,F,M>>());
+        elementMappings.put(null,new LinkedHashMap<>());
     }
 
     protected NonElement<T,C> createAnyType() {
-        return new AnyTypeImpl<T,C>(nav);
+        return new AnyTypeImpl<>(nav);
     }
 
+    @Override
     public Navigator<T,C,F,M> getNavigator() {
         return nav;
     }
@@ -154,6 +156,7 @@ class TypeInfoSetImpl<T,C,F,M> implements TypeInfoSet<T,C,F,M> {
      *      null if the specified type cannot be bound by JAXB, or
      *      not known to this set.
      */
+    @Override
     public NonElement<T,C> getTypeInfo( T type ) {
         type = nav.erasure(type);   // replace type variables by their bounds
 
@@ -169,6 +172,7 @@ class TypeInfoSetImpl<T,C,F,M> implements TypeInfoSet<T,C,F,M> {
         return getClassInfo(d);
     }
 
+    @Override
     public NonElement<T,C> getAnyTypeInfo() {
         return anyType;
     }
@@ -176,6 +180,7 @@ class TypeInfoSetImpl<T,C,F,M> implements TypeInfoSet<T,C,F,M> {
     /**
      * This method is used to add a root reference to a model.
      */
+    @Override
     public NonElement<T,C> getTypeInfo(Ref<T,C> ref) {
         // TODO: handle XmlValueList
         assert !ref.valueList;
@@ -189,18 +194,22 @@ class TypeInfoSetImpl<T,C,F,M> implements TypeInfoSet<T,C,F,M> {
     /**
      * Returns all the {@link ClassInfo}s known to this set.
      */
+    @Override
     public Map<C,? extends ClassInfoImpl<T,C,F,M>> beans() {
         return beansView;
     }
 
+    @Override
     public Map<T, ? extends BuiltinLeafInfo<T,C>> builtins() {
         return builtins;
     }
 
+    @Override
     public Map<C, ? extends EnumLeafInfoImpl<T,C,F,M>> enums() {
         return enums;
     }
 
+    @Override
     public Map<? extends T, ? extends ArrayInfoImpl<T,C,F,M>> arrays() {
         return arrays;
     }
@@ -216,6 +225,7 @@ class TypeInfoSetImpl<T,C,F,M> implements TypeInfoSet<T,C,F,M> {
      *      null if the specified type is not bound by JAXB or otherwise
      *      unknown to this set.
      */
+    @Override
     public NonElement<T,C> getClassInfo( C type ) {
         LeafInfo<T,C> l = builtins.get(nav.use(type));
         if(l!=null)     return l;
@@ -229,6 +239,7 @@ class TypeInfoSetImpl<T,C,F,M> implements TypeInfoSet<T,C,F,M> {
         return beans.get(type);
     }
 
+    @Override
     public ElementInfoImpl<T,C,F,M> getElementInfo( C scope, QName name ) {
         while(scope!=null) {
             Map<QName,ElementInfoImpl<T,C,F,M>> m = elementMappings.get(scope);
@@ -252,7 +263,7 @@ class TypeInfoSetImpl<T,C,F,M> implements TypeInfoSet<T,C,F,M> {
 
         Map<QName,ElementInfoImpl<T,C,F,M>> m = elementMappings.get(scope);
         if(m==null)
-            elementMappings.put(scope,m=new LinkedHashMap<QName,ElementInfoImpl<T,C,F,M>>());
+            elementMappings.put(scope,m=new LinkedHashMap<>());
 
         ElementInfoImpl<T,C,F,M> existing = m.put(ei.getElementName(),ei);
 
@@ -265,17 +276,20 @@ class TypeInfoSetImpl<T,C,F,M> implements TypeInfoSet<T,C,F,M> {
         }
     }
 
+    @Override
     public Map<QName,? extends ElementInfoImpl<T,C,F,M>> getElementMappings( C scope ) {
         return elementMappings.get(scope);
     }
 
+    @Override
     public Iterable<? extends ElementInfoImpl<T,C,F,M>> getAllElements() {
         return allElements;
     }
 
+    @Override
     public Map<String,String> getXmlNs(String namespaceUri) {
         if(xmlNsCache==null) {
-            xmlNsCache = new HashMap<String,Map<String,String>>();
+            xmlNsCache = new HashMap<>();
 
             for (ClassInfoImpl<T, C, F, M> ci : beans().values()) {
                 XmlSchema xs = reader.getPackageAnnotation( XmlSchema.class, ci.getClazz(), null );
@@ -285,7 +299,7 @@ class TypeInfoSetImpl<T,C,F,M> implements TypeInfoSet<T,C,F,M> {
                 String uri = xs.namespace();
                 Map<String,String> m = xmlNsCache.get(uri);
                 if(m==null)
-                    xmlNsCache.put(uri,m=new HashMap<String, String>());
+                    xmlNsCache.put(uri,m=new HashMap<>());
 
                 for( XmlNs xns : xs.xmlns() ) {
                     m.put(xns.prefix(),xns.namespaceURI());
@@ -298,8 +312,9 @@ class TypeInfoSetImpl<T,C,F,M> implements TypeInfoSet<T,C,F,M> {
         else            return Collections.emptyMap();
     }
 
+    @Override
     public Map<String,String> getSchemaLocations() {
-        Map<String, String> r = new HashMap<String,String>();
+        Map<String, String> r = new HashMap<>();
         for (ClassInfoImpl<T, C, F, M> ci : beans().values()) {
             XmlSchema xs = reader.getPackageAnnotation( XmlSchema.class, ci.getClazz(), null );
             if(xs==null)
@@ -314,6 +329,7 @@ class TypeInfoSetImpl<T,C,F,M> implements TypeInfoSet<T,C,F,M> {
         return r;
     }
 
+    @Override
     public final XmlNsForm getElementFormDefault(String nsUri) {
         for (ClassInfoImpl<T, C, F, M> ci : beans().values()) {
             XmlSchema xs = reader.getPackageAnnotation( XmlSchema.class, ci.getClazz(), null );
@@ -330,6 +346,7 @@ class TypeInfoSetImpl<T,C,F,M> implements TypeInfoSet<T,C,F,M> {
         return XmlNsForm.UNSET;
     }
 
+    @Override
     public final XmlNsForm getAttributeFormDefault(String nsUri) {
         for (ClassInfoImpl<T,C,F,M> ci : beans().values()) {
             XmlSchema xs = reader.getPackageAnnotation( XmlSchema.class, ci.getClazz(), null );
@@ -353,6 +370,7 @@ class TypeInfoSetImpl<T,C,F,M> implements TypeInfoSet<T,C,F,M> {
      *
      * TODO: not sure if this actually works. We don't really know what are T,C.
      */
+    @Override
     public void dump( Result out ) throws JAXBException {
         JAXBContext context = JAXBContext.newInstance(this.getClass());
         Marshaller m = context.createMarshaller();

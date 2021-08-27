@@ -19,17 +19,21 @@ import java.lang.reflect.Type;
  * @author Kohsuke Kawaguchi
  */
 public interface RuntimeElementInfo extends ElementInfo<Type,Class>, RuntimeElement {
+    @Override
     RuntimeClassInfo getScope();
 
+    @Override
     RuntimeElementPropertyInfo getProperty();
 
     /**
      * Returns the custom {@link JAXBElement} class tailored this element.
      */
+    @Override
     Class<? extends JAXBElement> getType();
 
     /**
      * {@inheritDoc}
      */
+    @Override
     RuntimeNonElement getContentType();
 }

@@ -38,14 +38,17 @@ class RuntimeElementPropertyInfoImpl extends ElementPropertyInfoImpl<Type,Class,
         this.acc = rawAcc;
     }
 
+    @Override
     public Accessor getAccessor() {
         return acc;
     }
 
+    @Override
     public boolean elementOnlyContent() {
         return true;
     }
 
+    @Override
     public List<? extends RuntimeTypeInfo> ref() {
         return (List<? extends RuntimeTypeInfo>)super.ref();
     }
@@ -55,6 +58,7 @@ class RuntimeElementPropertyInfoImpl extends ElementPropertyInfoImpl<Type,Class,
         return new RuntimeTypeRefImpl(this,name,type,isNillable,defaultValue);
     }
 
+    @Override
     public List<RuntimeTypeRefImpl> getTypes() {
         return (List<RuntimeTypeRefImpl>)super.getTypes();
     }

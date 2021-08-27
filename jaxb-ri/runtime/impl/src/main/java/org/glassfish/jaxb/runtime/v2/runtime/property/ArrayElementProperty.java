@@ -40,11 +40,11 @@ import java.util.Map;
  */
 abstract class ArrayElementProperty<BeanT,ListT,ItemT> extends ArrayERProperty<BeanT,ListT,ItemT> {
 
-    private final Map<Class,TagAndType> typeMap  = new HashMap<Class,TagAndType>();
+    private final Map<Class,TagAndType> typeMap  = new HashMap<>();
     /**
      * Set by the constructor and reset in the {@link #wrapUp()} method.
      */
-    private Map<TypeRef<Type,Class>, JaxBeanInfo> refs = new HashMap<TypeRef<Type, Class>, JaxBeanInfo>();
+    private Map<TypeRef<Type,Class>, JaxBeanInfo> refs = new HashMap<>();
     /**
      * Set by the constructor and reset in the {@link #wrapUp()} method.
      */
@@ -88,6 +88,7 @@ abstract class ArrayElementProperty<BeanT,ListT,ItemT> extends ArrayERProperty<B
         prop = null;    // avoid keeping model objects live
     }
 
+    @Override
     protected void serializeListBody(BeanT beanT, XMLSerializer w, ListT list) throws IOException, XMLStreamException, SAXException, AccessorException {
         ListIterator<ItemT> itr = lister.iterator(list, w);
 
@@ -152,6 +153,7 @@ abstract class ArrayElementProperty<BeanT,ListT,ItemT> extends ArrayERProperty<B
     protected abstract void serializeItem(JaxBeanInfo expected, ItemT item, XMLSerializer w) throws SAXException, AccessorException, IOException, XMLStreamException;
 
 
+    @Override
     public void createBodyUnmarshaller(UnmarshallerChain chain, QNameMap<ChildLoader> loaders) {
 
         // all items go to the same lister,
@@ -173,6 +175,7 @@ abstract class ArrayElementProperty<BeanT,ListT,ItemT> extends ArrayERProperty<B
         }
     }
 
+    @Override
     public final PropertyKind getKind() {
         return PropertyKind.ELEMENT;
     }
@@ -199,6 +202,7 @@ abstract class ArrayElementProperty<BeanT,ListT,ItemT> extends ArrayERProperty<B
         }
     }
 
+    @Override
     public Accessor getElementPropertyAccessor(String nsUri, String localName) {
         if(wrapperTagName!=null) {
             if(wrapperTagName.equals(nsUri,localName))
@@ -210,7 +214,7 @@ abstract class ArrayElementProperty<BeanT,ListT,ItemT> extends ArrayERProperty<B
                     // null (just like any user apps), but since we are providing a raw accessor,
                     // which just grabs the value from the field, we wrap it so that it won't return
                     // null.
-                    return new NullSafeAccessor<BeanT,ListT,Object>(acc,lister);
+                    return new NullSafeAccessor<>(acc,lister);
             }
         }
         return null;

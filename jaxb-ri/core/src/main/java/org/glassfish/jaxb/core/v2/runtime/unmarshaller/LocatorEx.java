@@ -53,38 +53,47 @@ public interface LocatorEx extends Locator {
             node = vel.getNode();
         }
 
+        @Override
         public Object getObject() {
             return object;
         }
 
+        @Override
         public Node getNode() {
             return node;
         }
 
+        @Override
         public int getOffset() {
             return offset;
         }
 
+        @Override
         public URL getURL() {
             return url;
         }
 
+        @Override
         public int getColumnNumber() {
             return columnNumber;
         }
 
+        @Override
         public int getLineNumber() {
             return lineNumber;
         }
 
+        @Override
         public String getSystemId() {
             return systemId;
         }
 
+        @Override
         public String getPublicId() {
             return publicId;
         }
 
+        @Override
         public ValidationEventLocator getLocation() {
             return this;
         }

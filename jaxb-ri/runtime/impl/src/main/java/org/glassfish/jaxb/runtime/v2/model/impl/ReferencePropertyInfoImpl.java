@@ -36,7 +36,7 @@ class ReferencePropertyInfoImpl<T,C,F,M>
      * @see #getElements()
      */
     private Set<Element<T,C>> types;
-    private Set<ReferencePropertyInfoImpl<T,C,F,M>> subTypes = new LinkedHashSet<ReferencePropertyInfoImpl<T,C,F,M>>();
+    private Set<ReferencePropertyInfoImpl<T,C,F,M>> subTypes = new LinkedHashSet<>();
 
     private final boolean isMixed;
 
@@ -66,14 +66,17 @@ class ReferencePropertyInfoImpl<T,C,F,M>
         }
     }
 
+    @Override
     public Set<? extends Element<T,C>> ref() {
         return getElements();
     }
 
+    @Override
     public PropertyKind kind() {
         return PropertyKind.REFERENCE;
     }
 
+    @Override
     public Set<? extends Element<T,C>> getElements() {
         if(types==null)
             calcTypes(false);
@@ -89,7 +92,7 @@ class ReferencePropertyInfoImpl<T,C,F,M>
      */
     private void calcTypes(boolean last) {
         XmlElementRef[] ann;
-        types = new LinkedHashSet<Element<T,C>>();
+        types = new LinkedHashSet<>();
         XmlElementRefs refs = seed.readAnnotation(XmlElementRefs.class);
         XmlElementRef ref = seed.readAnnotation(XmlElementRef.class);
 
@@ -229,6 +232,7 @@ class ReferencePropertyInfoImpl<T,C,F,M>
         types = Collections.unmodifiableSet(types);
     }
 
+    @Override
     public boolean isRequired() {
         if(isRequired==null)
             calcTypes(false);
@@ -345,19 +349,23 @@ class ReferencePropertyInfoImpl<T,C,F,M>
 
     }
 
+    @Override
     public final void addType(PropertyInfoImpl<T,C,F,M> info) {
         //noinspection unchecked
         subTypes.add((ReferencePropertyInfoImpl)info);
     }
 
+    @Override
     public final boolean isMixed() {
         return isMixed;
     }
 
+    @Override
     public final WildcardMode getWildcard() {
         return wildcard;
     }
 
+    @Override
     public final C getDOMHandler() {
         return domHandler;
     }

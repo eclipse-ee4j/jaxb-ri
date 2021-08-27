@@ -37,6 +37,7 @@ final class AdaptedAccessor<BeanT,InMemValueT,OnWireValueT> extends Accessor<Bea
         return true;
     }
 
+    @Override
     public OnWireValueT get(BeanT bean) throws AccessorException {
         InMemValueT v = core.get(bean);
 
@@ -48,6 +49,7 @@ final class AdaptedAccessor<BeanT,InMemValueT,OnWireValueT> extends Accessor<Bea
         }
     }
 
+    @Override
     public void set(BeanT bean, OnWireValueT o) throws AccessorException {
         XmlAdapter<OnWireValueT, InMemValueT> a = getAdapter();
         try {
@@ -57,10 +59,12 @@ final class AdaptedAccessor<BeanT,InMemValueT,OnWireValueT> extends Accessor<Bea
         }
     }
 
+    @Override
     public Object getUnadapted(BeanT bean) throws AccessorException {
         return core.getUnadapted(bean);
     }
 
+    @Override
     public void setUnadapted(BeanT bean, Object value) throws AccessorException {
         core.setUnadapted(bean,value);
     }

@@ -90,6 +90,7 @@ import java.io.InputStream;
         }
     }
 
+    @Override
     public UnmarshallerHandler getUnmarshallerHandler() {
         return getUnmarshallerHandler(true,null);
     }
@@ -185,6 +186,7 @@ import java.io.InputStream;
         return true;
     }
 
+    @Override
     protected Object unmarshal( XMLReader reader, InputSource source ) throws JAXBException {
         return unmarshal0(reader,source,null);
     }
@@ -308,6 +310,7 @@ import java.io.InputStream;
         return (JAXBElement)unmarshal0(node,getBeanInfo(expectedType));
     }
 
+    @Override
     public final Object unmarshal( Node node ) throws JAXBException {
         return unmarshal0(node,null);
     }
@@ -542,6 +545,7 @@ import java.io.InputStream;
     /**
      * Default error handling behavior for {@link Unmarshaller}.
      */
+    @Override
     public boolean handleEvent(ValidationEvent event) {
         return event.getSeverity()!=ValidationEvent.FATAL_ERROR;
     }
@@ -587,6 +591,7 @@ import java.io.InputStream;
      *  Must be called from same thread which created the UnmarshallerImpl instance.
      * @throws IOException 
      */
+    @Override
     public void close() throws IOException {
         ClassFactory.cleanCache();
     }

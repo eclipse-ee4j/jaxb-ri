@@ -62,6 +62,7 @@ public interface ElementInfo<T,C> extends Element<T,C> {
      * <p>
      * This returns the signature in Java and thus isn't affected by the adapter.
      */
+    @Override
     T getType();
 
     /**
@@ -69,6 +70,7 @@ public interface ElementInfo<T,C> extends Element<T,C> {
      *
      * {@link ElementInfo} can only substitute {@link ElementInfo}.
      */
+    @Override
     ElementInfo<T,C> getSubstitutionHead();
 
     /**

@@ -27,10 +27,12 @@ public class FieldAccessor_Boolean extends Accessor {
         super(Boolean.class);
     }
 
+    @Override
     public Object get(Object bean) {
         return ((Bean)bean).f_boolean;
     }
 
+    @Override
     public void set(Object bean, Object value) {
         ((Bean)bean).f_boolean = value==null ? Const.default_value_boolean : (Boolean)value;
     }

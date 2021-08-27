@@ -29,6 +29,7 @@ public final class StAXExStreamWriterOutput extends XMLStreamWriterOutput {
         this.out = out;
     }
 
+    @Override
     public void text(Pcdata value, boolean needsSeparatingWhitespace) throws XMLStreamException {
         if(needsSeparatingWhitespace) {
             out.writeCharacters(" ");

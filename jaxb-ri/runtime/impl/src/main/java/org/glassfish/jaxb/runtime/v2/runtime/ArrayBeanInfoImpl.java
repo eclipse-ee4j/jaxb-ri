@@ -85,6 +85,7 @@ final class ArrayBeanInfoImpl  extends JaxBeanInfo {
             return Collections.singleton(new QName("","item"));
         }
 
+        @Override
         public void receive(UnmarshallingContext.State state, Object o) {
             ((List)state.getTarget()).add(o);
         }
@@ -98,6 +99,7 @@ final class ArrayBeanInfoImpl  extends JaxBeanInfo {
         return array;
     }
 
+    @Override
     public void serializeBody(Object array, XMLSerializer target) throws SAXException, IOException, XMLStreamException {
         int len = Array.getLength(array);
         for( int i=0; i<len; i++ )  {
@@ -113,31 +115,38 @@ final class ArrayBeanInfoImpl  extends JaxBeanInfo {
         }
     }
 
+    @Override
     public final String getElementNamespaceURI(Object array) {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public final String getElementLocalName(Object array) {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public final Object createInstance(UnmarshallingContext context) {
         // we first create a List and then later convert it to an array
         return new ArrayList();
     }
 
+    @Override
     public final boolean reset(Object array, UnmarshallingContext context) {
         return false;
     }
 
+    @Override
     public final String getId(Object array, XMLSerializer target) {
         return null;
     }
 
+    @Override
     public final void serializeAttributes(Object array, XMLSerializer target) {
         // noop
     }
 
+    @Override
     public final void serializeRoot(Object array, XMLSerializer target) throws SAXException, IOException, XMLStreamException {
         target.reportError(
                 new ValidationEventImpl(
@@ -147,14 +156,17 @@ final class ArrayBeanInfoImpl  extends JaxBeanInfo {
                         null));
     }
 
+    @Override
     public final void serializeURIs(Object array, XMLSerializer target) {
         // noop
     }
 
+    @Override
     public final Transducer getTransducer() {
         return null;
     }
 
+    @Override
     public final Loader getLoader(JAXBContextImpl context, boolean typeSubstitutionCapable) {
         if(loader==null)
             loader = new ArrayLoader(context);

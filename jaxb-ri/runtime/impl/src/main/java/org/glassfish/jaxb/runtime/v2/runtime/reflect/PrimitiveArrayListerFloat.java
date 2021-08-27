@@ -32,31 +32,38 @@ final class PrimitiveArrayListerFloat<BeanT> extends Lister<BeanT,float[],Float,
         Lister.primitiveArrayListers.put(Float.TYPE,new PrimitiveArrayListerFloat());
     }
 
+    @Override
     public ListIterator<Float> iterator(final float[] objects, XMLSerializer context) {
         return new ListIterator<Float>() {
             int idx=0;
+            @Override
             public boolean hasNext() {
                 return idx<objects.length;
             }
 
+            @Override
             public Float next() {
                 return objects[idx++];
             }
         };
     }
 
+    @Override
     public FloatArrayPack startPacking(BeanT current, Accessor<BeanT, float[]> acc) {
         return new FloatArrayPack();
     }
 
+    @Override
     public void addToPack(FloatArrayPack objects, Float o) {
         objects.add(o);
     }
 
+    @Override
     public void endPacking( FloatArrayPack pack, BeanT bean, Accessor<BeanT,float[]> acc ) throws AccessorException {
         acc.set(bean,pack.build());
     }
 
+    @Override
     public void reset(BeanT o,Accessor<BeanT,float[]> acc) throws AccessorException {
         acc.set(o,new float[0]);
     }

@@ -32,14 +32,17 @@ final class XmlTransientQuick
         this.core = core;
     }
 
+    @Override
     protected Annotation getAnnotation() {
         return core;
     }
 
+    @Override
     protected Quick newInstance(Locatable upstream, Annotation core) {
         return new XmlTransientQuick(upstream, ((XmlTransient) core));
     }
 
+    @Override
     public Class<XmlTransient> annotationType() {
         return XmlTransient.class;
     }

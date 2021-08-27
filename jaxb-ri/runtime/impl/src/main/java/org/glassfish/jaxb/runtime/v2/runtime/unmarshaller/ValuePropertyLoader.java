@@ -30,6 +30,7 @@ public class ValuePropertyLoader extends Loader {
         this.xacc = xacc;
     }
 
+    @Override
     public void text(UnmarshallingContext.State state, CharSequence text) throws SAXException {
         try {
             xacc.parse(state.getTarget(),text);

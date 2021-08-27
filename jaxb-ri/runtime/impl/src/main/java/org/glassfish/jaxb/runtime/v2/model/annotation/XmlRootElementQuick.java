@@ -32,22 +32,27 @@ final class XmlRootElementQuick
         this.core = core;
     }
 
+    @Override
     protected Annotation getAnnotation() {
         return core;
     }
 
+    @Override
     protected Quick newInstance(Locatable upstream, Annotation core) {
         return new XmlRootElementQuick(upstream, ((XmlRootElement) core));
     }
 
+    @Override
     public Class<XmlRootElement> annotationType() {
         return XmlRootElement.class;
     }
 
+    @Override
     public String name() {
         return core.name();
     }
 
+    @Override
     public String namespace() {
         return core.namespace();
     }

@@ -32,30 +32,37 @@ final class XmlElementRefQuick
         this.core = core;
     }
 
+    @Override
     protected Annotation getAnnotation() {
         return core;
     }
 
+    @Override
     protected Quick newInstance(Locatable upstream, Annotation core) {
         return new XmlElementRefQuick(upstream, ((XmlElementRef) core));
     }
 
+    @Override
     public Class<XmlElementRef> annotationType() {
         return XmlElementRef.class;
     }
 
+    @Override
     public String name() {
         return core.name();
     }
 
+    @Override
     public Class type() {
         return core.type();
     }
 
+    @Override
     public String namespace() {
         return core.namespace();
     }
 
+    @Override
     public boolean required() {
         return core.required();
     }

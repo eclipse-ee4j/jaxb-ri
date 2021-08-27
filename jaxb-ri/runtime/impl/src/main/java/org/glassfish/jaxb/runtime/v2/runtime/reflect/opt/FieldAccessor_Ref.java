@@ -22,10 +22,12 @@ public class FieldAccessor_Ref extends Accessor {
         super(Ref.class);
     }
 
+    @Override
     public Object get(Object bean) {
         return ((Bean)bean).f_ref;
     }
 
+    @Override
     public void set(Object bean, Object value) {
         ((Bean)bean).f_ref = (Ref)value;
     }

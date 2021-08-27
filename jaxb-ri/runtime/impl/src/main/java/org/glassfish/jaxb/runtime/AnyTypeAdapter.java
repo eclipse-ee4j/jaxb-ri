@@ -25,6 +25,7 @@ public final class AnyTypeAdapter extends XmlAdapter<Object,Object> {
     /**
      * Noop. Just returns the object given as the argument.
      */
+    @Override
     public Object unmarshal(Object v) {
         return v;
     }
@@ -32,6 +33,7 @@ public final class AnyTypeAdapter extends XmlAdapter<Object,Object> {
     /**
      * Noop. Just returns the object given as the argument.
      */
+    @Override
     public Object marshal(Object v) {
         return v;
     }

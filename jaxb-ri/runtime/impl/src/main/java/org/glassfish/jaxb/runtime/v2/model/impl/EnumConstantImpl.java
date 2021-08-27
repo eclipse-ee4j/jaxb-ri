@@ -33,14 +33,17 @@ class EnumConstantImpl<T,C,F,M> implements EnumConstant<T,C> {
         this.next = next;
     }
 
+    @Override
     public EnumLeafInfo<T,C> getEnclosingClass() {
         return owner;
     }
 
+    @Override
     public final String getLexicalValue() {
         return lexical;
     }
 
+    @Override
     public final String getName() {
         return name;
     }

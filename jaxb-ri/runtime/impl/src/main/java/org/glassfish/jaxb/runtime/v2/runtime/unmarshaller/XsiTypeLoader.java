@@ -39,6 +39,7 @@ public class XsiTypeLoader extends Loader {
         this.defaultBeanInfo = defaultBeanInfo;
     }
 
+    @Override
     public void startElement(UnmarshallingContext.State state, TagName ea) throws SAXException {
         JaxBeanInfo beanInfo = parseXsiType(state,ea,defaultBeanInfo);
         if(beanInfo==null)
@@ -103,7 +104,7 @@ public class XsiTypeLoader extends Loader {
 
     @Override
     public Collection<QName> getExpectedAttributes() {
-        final Collection<QName> expAttrs =  new HashSet<QName>();
+        final Collection<QName> expAttrs =  new HashSet<>();
         expAttrs.addAll(super.getExpectedAttributes());
         expAttrs.add(XsiTypeQNAME);
         return Collections.unmodifiableCollection(expAttrs);

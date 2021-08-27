@@ -25,10 +25,12 @@ public interface RuntimeArrayInfo extends ArrayInfo<Type,Class>, RuntimeNonEleme
      * The same as {@link TypeInfo#getType()} but at the runtime, an array
      * is guaranteed to have a {@link Class} representation, not just any {@link Type}.
      */
+    @Override
     Class getType();
 
     /**
      * {@inheritDoc}
      */
+    @Override
     RuntimeNonElement getItemType();
 }

@@ -52,23 +52,28 @@ public class IntData extends Pcdata {
                 return i+1;
     }
 
+    @Override
     public String toString() {
         return String.valueOf(data);
     }
 
 
+    @Override
     public int length() {
         return length;
     }
 
+    @Override
     public char charAt(int index) {
         return toString().charAt(index);
     }
 
+    @Override
     public CharSequence subSequence(int start, int end) {
         return toString().substring(start,end);
     }
 
+    @Override
     public void writeTo(UTF8XmlOutput output) throws IOException {
         output.text(data);
     }

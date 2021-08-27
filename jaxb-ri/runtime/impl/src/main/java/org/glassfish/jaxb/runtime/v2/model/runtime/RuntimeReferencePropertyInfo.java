@@ -19,5 +19,6 @@ import java.util.Set;
  * @author Kohsuke Kawaguchi
  */
 public interface RuntimeReferencePropertyInfo extends ReferencePropertyInfo<Type,Class>, RuntimePropertyInfo {
+    @Override
     Set<? extends RuntimeElement> getElements();
 }

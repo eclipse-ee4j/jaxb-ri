@@ -34,6 +34,7 @@ final class FoolProofResolver extends SchemaOutputResolver {
         this.resolver = resolver;
     }
 
+    @Override
     public Result createOutput(String namespaceUri, String suggestedFileName) throws IOException {
         logger.entering(getClass().getName(),"createOutput",new Object[]{namespaceUri,suggestedFileName});
         Result r = resolver.createOutput(namespaceUri,suggestedFileName);

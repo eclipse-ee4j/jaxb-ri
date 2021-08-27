@@ -40,7 +40,7 @@ public class JaxbDistribution {
      * Creates new instance of this class with default values!
      */
     public JaxbDistribution() {
-        this.deployments = new ArrayList<JaxbDeployment>();
+        this.deployments = new ArrayList<>();
     }
 
     /**

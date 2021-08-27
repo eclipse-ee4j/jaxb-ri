@@ -53,7 +53,7 @@ public class C14nXmlOutput extends UTF8XmlOutput {
      *
      * As long as this map is empty, there's no need for sorting.
      */
-    private final FinalArrayList<DynamicAttribute> otherAttributes = new FinalArrayList<DynamicAttribute>();
+    private final FinalArrayList<DynamicAttribute> otherAttributes = new FinalArrayList<>();
 
     /**
      * True if {@link JAXBRIContext} is created with c14n support on,
@@ -86,6 +86,7 @@ public class C14nXmlOutput extends UTF8XmlOutput {
                 prefix, name.localName, value );
         }
 
+        @Override
         public int compareTo(StaticAttribute that) {
             return this.name.compareTo(that.name);
         }
@@ -108,6 +109,7 @@ public class C14nXmlOutput extends UTF8XmlOutput {
             else            return nsContext.getNamespaceURI(prefix);
         }
 
+        @Override
         public int compareTo(DynamicAttribute that) {
             int r = this.getURI().compareTo(that.getURI());
             if(r!=0)    return r;

@@ -79,6 +79,7 @@ final class SingleMapNodeProperty<BeanT,ValueT extends Map> extends PropertyImpl
         HashMap.class, TreeMap.class, LinkedHashMap.class
     };
 
+    @Override
     public void reset(BeanT bean) throws AccessorException {
         acc.set(bean,null);
     }
@@ -87,14 +88,17 @@ final class SingleMapNodeProperty<BeanT,ValueT extends Map> extends PropertyImpl
     /**
      * A Map property can never be ID.
      */
+    @Override
     public String getIdValue(BeanT bean) {
         return null;
     }
 
+    @Override
     public PropertyKind getKind() {
         return PropertyKind.MAP;
     }
 
+    @Override
     public void buildChildElementUnmarshallers(UnmarshallerChain chain, QNameMap<ChildLoader> handlers) {
         keyLoader = keyBeanInfo.getLoader(chain.context,true);
         valueLoader = valueBeanInfo.getLoader(chain.context,true);
@@ -111,8 +115,8 @@ final class SingleMapNodeProperty<BeanT,ValueT extends Map> extends PropertyImpl
      */
     private final Loader itemsLoader = new Loader(false) {
 
-        private ThreadLocal<Stack<BeanT>> target = new ThreadLocal<Stack<BeanT>>();
-        private ThreadLocal<Stack<ValueT>> map = new ThreadLocal<Stack<ValueT>>();
+        private ThreadLocal<Stack<BeanT>> target = new ThreadLocal<>();
+        private ThreadLocal<Stack<ValueT>> map = new ThreadLocal<>();
 
         @Override
         public void startElement(UnmarshallingContext.State state, TagName ea) throws SAXException {
@@ -204,6 +208,7 @@ final class SingleMapNodeProperty<BeanT,ValueT extends Map> extends PropertyImpl
         public ReceiverImpl(int index) {
             this.index = index;
         }
+        @Override
         public void receive(UnmarshallingContext.State state, Object o) {
             ((Object[])state.getTarget())[index] = o;
         }
@@ -274,9 +279,9 @@ final class SingleMapNodeProperty<BeanT,ValueT extends Map> extends PropertyImpl
         private static <T> void push(ThreadLocal<Stack<T>> holder, T value) {
             Stack<T> parent = holder.get();
             if (parent == null)
-                holder.set(new Stack<T>(value));
+                holder.set(new Stack<>(value));
             else
-                holder.set(new Stack<T>(parent, value));
+                holder.set(new Stack<>(parent, value));
         }
 
         private static <T> T pop(ThreadLocal<Stack<T>> holder) {

@@ -39,6 +39,7 @@ class GetterSetterPropertySeed<TypeT,ClassDeclT,FieldT,MethodT> implements
             throw new IllegalArgumentException();
     }
 
+    @Override
     public TypeT getRawType() {
         if(getter!=null)
             return parent.nav().getReturnType(getter);
@@ -46,14 +47,17 @@ class GetterSetterPropertySeed<TypeT,ClassDeclT,FieldT,MethodT> implements
             return parent.nav().getMethodParameters(setter)[0];
     }
 
+    @Override
     public <A extends Annotation> A readAnnotation(Class<A> annotation) {
         return parent.reader().getMethodAnnotation(annotation, getter,setter,this);
     }
 
+    @Override
     public boolean hasAnnotation(Class<? extends Annotation> annotationType) {
         return parent.reader().hasMethodAnnotation(annotationType,getName(),getter,setter,this);
     }
 
+    @Override
     public String getName() {
         if(getter!=null)
             return getName(getter);
@@ -79,10 +83,12 @@ class GetterSetterPropertySeed<TypeT,ClassDeclT,FieldT,MethodT> implements
     /**
      * Use the enclosing class as the upsream {@link Location}.
      */
+    @Override
     public Locatable getUpstream() {
         return parent;
     }
 
+    @Override
     public Location getLocation() {
         if(getter!=null)
             return parent.nav().getMethodLocation(getter);

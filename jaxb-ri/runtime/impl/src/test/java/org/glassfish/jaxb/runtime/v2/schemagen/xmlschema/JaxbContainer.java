@@ -45,7 +45,7 @@ public abstract class JaxbContainer {
      * Creates new instance of JaxbContainer with empty version, intended for JAXB purposes only!
      */
     protected JaxbContainer() {
-        this.deployments = new ArrayList<JaxbDeployment>();
+        this.deployments = new ArrayList<>();
     }
 
     /**

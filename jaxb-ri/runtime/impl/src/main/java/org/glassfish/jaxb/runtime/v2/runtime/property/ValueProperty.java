@@ -50,32 +50,39 @@ public final class ValueProperty<BeanT> extends PropertyImpl<BeanT> {
         acc = prop.getAccessor();   // we only use this for binder, so don't waste memory by optimizing
     }
 
+    @Override
     public final void serializeBody(BeanT o, XMLSerializer w, Object outerPeer) throws SAXException, AccessorException, IOException, XMLStreamException {
         if(xacc.hasValue(o))
             xacc.writeText(w,o,fieldName);
     }
 
+    @Override
     public void serializeURIs(BeanT o, XMLSerializer w) throws SAXException, AccessorException {
         xacc.declareNamespace(o,w);
     }
 
+    @Override
     public boolean hasSerializeURIAction() {
         return xacc.useNamespace();
     }
 
+    @Override
     public void buildChildElementUnmarshallers(UnmarshallerChain chainElem, QNameMap<ChildLoader> handlers) {
         handlers.put(TEXT_HANDLER,
                 new ChildLoader(new ValuePropertyLoader(xacc),null));
     }
 
+    @Override
     public PropertyKind getKind() {
         return PropertyKind.VALUE;
     }
 
+    @Override
     public void reset(BeanT o) throws AccessorException {
         acc.set(o,null);
     }
 
+    @Override
     public String getIdValue(BeanT bean) throws AccessorException, SAXException {
         return xacc.print(bean).toString();
     }

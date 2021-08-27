@@ -64,10 +64,12 @@ final class ListElementProperty<BeanT,ListT,ItemT> extends ArrayProperty<BeanT,L
         xacc = new ListTransducedAccessorImpl(xducer,acc,lister);
     }
 
+    @Override
     public PropertyKind getKind() {
         return PropertyKind.ELEMENT;
     }
 
+    @Override
     public void buildChildElementUnmarshallers(UnmarshallerChain chain, QNameMap<ChildLoader> handlers) {
         Loader l = new LeafPropertyLoader(xacc);
         l = new DefaultValueLoaderDecorator(l, defaultValue);

@@ -30,6 +30,7 @@ final class ArrayElementNodeProperty<BeanT,ListT,ItemT> extends ArrayElementProp
         super(p, prop);
     }
 
+    @Override
     public void serializeItem(JaxBeanInfo expected, ItemT item, XMLSerializer w) throws SAXException, IOException, XMLStreamException {
         if(item==null) {
             w.writeXsiNilTrue();

@@ -71,31 +71,38 @@ public final class AttributeProperty<BeanT> extends PropertyImpl<BeanT>
             w.attribute(attName,value.toString());
     }
 
+    @Override
     public void serializeURIs(BeanT o, XMLSerializer w) throws AccessorException, SAXException {
         xacc.declareNamespace(o,w);
     }
 
+    @Override
     public boolean hasSerializeURIAction() {
         return xacc.useNamespace();
     }
 
+    @Override
     public void buildChildElementUnmarshallers(UnmarshallerChain chainElem, QNameMap<ChildLoader> handlers) {
         throw new IllegalStateException();
     }
 
    
+    @Override
     public PropertyKind getKind() {
         return PropertyKind.ATTRIBUTE;
     }
 
+    @Override
     public void reset(BeanT o) throws AccessorException {
         acc.set(o,null);
     }
 
+    @Override
     public String getIdValue(BeanT bean) throws AccessorException, SAXException {
         return xacc.print(bean).toString();
     }
 
+    @Override
     public int compareTo(AttributeProperty that) {
         return this.attName.compareTo(that.attName);
     }

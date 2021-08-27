@@ -60,10 +60,12 @@ final class SingleElementLeafProperty<BeanT> extends PropertyImpl<BeanT> {
         idRef = ref.getSource().id() == ID.IDREF;
     }
 
+    @Override
     public void reset(BeanT o) throws AccessorException {
         acc.set(o, null);
     }
 
+    @Override
     public String getIdValue(BeanT bean) throws AccessorException, SAXException {
         return xacc.print(bean).toString();
     }
@@ -139,6 +141,7 @@ final class SingleElementLeafProperty<BeanT> extends PropertyImpl<BeanT> {
         return acc.isAbstractable(declaredTypeClass); // and is not builtin type
     }
 
+    @Override
     public void buildChildElementUnmarshallers(UnmarshallerChain chain, QNameMap<ChildLoader> handlers) {
         Loader l = new LeafPropertyLoader(xacc);
         if (defaultValue != null)
@@ -154,6 +157,7 @@ final class SingleElementLeafProperty<BeanT> extends PropertyImpl<BeanT> {
     }
 
 
+    @Override
     public PropertyKind getKind() {
         return PropertyKind.ELEMENT;
     }

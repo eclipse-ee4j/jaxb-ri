@@ -20,10 +20,12 @@ import org.glassfish.jaxb.runtime.util.AttributesImpl;
  * @author Kohsuke Kawaguchi
  */
 public final class AttributesExImpl extends AttributesImpl implements AttributesEx {
+    @Override
     public CharSequence getData(int idx) {
         return getValue(idx);
     }
 
+    @Override
     public CharSequence getData(String nsUri, String localName) {
         return getValue(nsUri,localName);
     }

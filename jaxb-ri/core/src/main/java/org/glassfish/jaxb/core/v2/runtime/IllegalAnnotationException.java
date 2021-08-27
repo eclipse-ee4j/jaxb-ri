@@ -70,7 +70,7 @@ public class IllegalAnnotationException extends JAXBException {
     }
 
     private List<List<Location>> build(Locatable... srcs) {
-        List<List<Location>> r = new ArrayList<List<Location>>();
+        List<List<Location>> r = new ArrayList<>();
         for( Locatable l : srcs ) {
             if(l!=null) {
                 List<Location> ll = convert(l);
@@ -87,7 +87,7 @@ public class IllegalAnnotationException extends JAXBException {
     private List<Location> convert(Locatable src) {
         if(src==null)   return null;
 
-        List<Location> r = new ArrayList<Location>();
+        List<Location> r = new ArrayList<>();
         for( ; src!=null; src=src.getUpstream())
             r.add(src.getLocation());
         return Collections.unmodifiableList(r);
@@ -158,6 +158,7 @@ public class IllegalAnnotationException extends JAXBException {
      * this crucial detail to show up even when this exception is nested
      * inside other exceptions.
      */
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(getMessage());
 

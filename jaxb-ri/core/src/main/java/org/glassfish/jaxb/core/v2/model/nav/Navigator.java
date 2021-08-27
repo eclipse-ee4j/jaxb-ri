@@ -182,7 +182,7 @@ public interface Navigator<T,C,F,M> {
      *      can be a primitive, array, class, or anything.
      *      (therefore the return type has to be T, not C)
      */
-    T ref(Class c);
+    T ref(Class<?> c);
 
     /**
      * Gets the T for the given C.
@@ -205,7 +205,7 @@ public interface Navigator<T,C,F,M> {
      * The behavior is undefined if the class object represents
      * primitives, arrays, and other types that are not class declaration.
      */
-    C asDecl(Class c);
+    C asDecl(Class<?> c);
 
     /**
      * Checks if the type is an array type.
@@ -255,7 +255,7 @@ public interface Navigator<T,C,F,M> {
      * @param primitiveType
      *      must be Class objects like {@link Integer#TYPE}.
      */
-    T getPrimitive(Class primitiveType);
+    T getPrimitive(Class<?> primitiveType);
 
     /**
      * Returns a location of the specified class.

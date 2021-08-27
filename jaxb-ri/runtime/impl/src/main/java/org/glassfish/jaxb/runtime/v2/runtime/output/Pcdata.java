@@ -56,5 +56,6 @@ public abstract class Pcdata implements CharSequence {
         toString().getChars(0,length(),buf,start);
     }
 
+    @Override
     public abstract String toString();
 }

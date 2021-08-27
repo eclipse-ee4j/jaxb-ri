@@ -40,7 +40,7 @@ final class SingleReferenceNodeProperty<BeanT,ValueT> extends PropertyImpl<BeanT
 
     private final Accessor<BeanT,ValueT> acc;
 
-    private final QNameMap<JaxBeanInfo> expectedElements = new QNameMap<JaxBeanInfo>();
+    private final QNameMap<JaxBeanInfo> expectedElements = new QNameMap<>();
 
     private final DomHandler domHandler;
     private final WildcardMode wcMode;
@@ -62,14 +62,17 @@ final class SingleReferenceNodeProperty<BeanT,ValueT> extends PropertyImpl<BeanT
         }
     }
 
+    @Override
     public void reset(BeanT bean) throws AccessorException {
         acc.set(bean,null);
     }
 
+    @Override
     public String getIdValue(BeanT beanT) {
         return null;
     }
 
+    @Override
     public void serializeBody(BeanT o, XMLSerializer w, Object outerPeer) throws SAXException, AccessorException, IOException, XMLStreamException {
         ValueT v = acc.get(o);
         if(v!=null) {
@@ -88,6 +91,7 @@ final class SingleReferenceNodeProperty<BeanT,ValueT> extends PropertyImpl<BeanT
         }
     }
 
+    @Override
     public void buildChildElementUnmarshallers(UnmarshallerChain chain, QNameMap<ChildLoader> handlers) {
         for (QNameMap.Entry<JaxBeanInfo> n : expectedElements.entrySet())
             handlers.put(n.nsUri,n.localName, new ChildLoader(n.getValue().getLoader(chain.context,true),acc));
@@ -97,6 +101,7 @@ final class SingleReferenceNodeProperty<BeanT,ValueT> extends PropertyImpl<BeanT
 
     }
 
+    @Override
     public PropertyKind getKind() {
         return PropertyKind.REFERENCE;
     }
@@ -109,6 +114,7 @@ final class SingleReferenceNodeProperty<BeanT,ValueT> extends PropertyImpl<BeanT
                 final ElementBeanInfoImpl ebi = (ElementBeanInfoImpl) bi;
                 // a JAXBElement. We need to handle JAXBElement for JAX-WS
                 return new Accessor<BeanT,Object>(ebi.expectedType) {
+                    @Override
                     public Object get(BeanT bean) throws AccessorException {
                         ValueT r = acc.get(bean);
                         if(r instanceof JAXBElement) {
@@ -118,6 +124,7 @@ final class SingleReferenceNodeProperty<BeanT,ValueT> extends PropertyImpl<BeanT
                             return r;
                     }
 
+                    @Override
                     public void set(BeanT bean, Object value) throws AccessorException {
                         if(value!=null) {
                             try {

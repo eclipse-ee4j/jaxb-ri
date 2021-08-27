@@ -22,10 +22,12 @@ public class MethodAccessor_Ref extends Accessor {
         super(Ref.class);
     }
 
+    @Override
     public Object get(Object bean) {
         return ((Bean)bean).get_ref();
     }
 
+    @Override
     public void set(Object bean, Object value) {
         ((Bean)bean).set_ref((Ref)value);
     }

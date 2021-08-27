@@ -31,22 +31,27 @@ class RuntimeMapPropertyInfoImpl extends MapPropertyInfoImpl<Type,Class,Field,Me
         this.acc = ((RuntimeClassInfoImpl.RuntimePropertySeed)seed).getAccessor();
     }
 
+    @Override
     public Accessor getAccessor() {
         return acc;
     }
 
+    @Override
     public boolean elementOnlyContent() {
         return true;
     }
 
+    @Override
     public RuntimeNonElement getKeyType() {
         return (RuntimeNonElement)super.getKeyType();
     }
 
+    @Override
     public RuntimeNonElement getValueType() {
         return (RuntimeNonElement)super.getValueType();
     }
 
+    @Override
     public List<? extends RuntimeTypeInfo> ref() {
         return (List<? extends RuntimeTypeInfo>)super.ref();
     }

@@ -31,7 +31,7 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
  * {@link Navigator} implementation for {@code java.lang.reflect}.
  *
  */
-/*package*/final class ReflectionNavigator implements Navigator<Type, Class, Field, Method> {
+/*package*/final class ReflectionNavigator implements Navigator<Type, Class<?>, Field, Method> {
 
 //  ----------  Singleton -----------------
     private static final ReflectionNavigator INSTANCE = new ReflectionNavigator();
@@ -44,20 +44,22 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
     }
 //  ---------------------------------------
 
-    public Class getSuperClass(Class clazz) {
+    @Override
+    public Class<?> getSuperClass(Class<?> clazz) {
         if (clazz == Object.class) {
             return null;
         }
-        Class sc = clazz.getSuperclass();
+        Class<?> sc = clazz.getSuperclass();
         if (sc == null) {
             sc = Object.class;        // error recovery
         }
         return sc;
     }
 
-    private static final TypeVisitor<Type, Class> baseClassFinder = new TypeVisitor<Type, Class>() {
+    private static final TypeVisitor<Type, Class<?>> baseClassFinder = new TypeVisitor<Type, Class<?>>() {
 
-        public Type onClass(Class c, Class sup) {
+        @Override
+        public Type onClass(Class<?> c, Class<?> sup) {
             // t is a raw type
             if (sup == c) {
                 return sup;
@@ -83,8 +85,9 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
             return null;
         }
 
-        public Type onParameterizdType(ParameterizedType p, Class sup) {
-            Class raw = (Class) p.getRawType();
+        @Override
+        public Type onParameterizdType(ParameterizedType p, Class<?> sup) {
+            Class<?> raw = (Class<?>) p.getRawType();
             if (raw == sup) {
                 // p is of the form sup<...>
                 return p;
@@ -107,16 +110,19 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
             }
         }
 
-        public Type onGenericArray(GenericArrayType g, Class sup) {
+        @Override
+        public Type onGenericArray(GenericArrayType g, Class<?> sup) {
             // not clear what I should do here
             return null;
         }
 
-        public Type onVariable(TypeVariable v, Class sup) {
+        @Override
+        public Type onVariable(TypeVariable v, Class<?> sup) {
             return visit(v.getBounds()[0], sup);
         }
 
-        public Type onWildcard(WildcardType w, Class sup) {
+        @Override
+        public Type onWildcard(WildcardType w, Class<?> sup) {
             // not clear what I should do here
             return null;
         }
@@ -160,10 +166,12 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
     }
     private static final TypeVisitor<Type, BinderArg> binder = new TypeVisitor<Type, BinderArg>() {
 
-        public Type onClass(Class c, BinderArg args) {
+        @Override
+        public Type onClass(Class<?> c, BinderArg args) {
             return c;
         }
 
+        @Override
         public Type onParameterizdType(ParameterizedType p, BinderArg args) {
             Type[] params = p.getActualTypeArguments();
 
@@ -187,6 +195,7 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
             return new ParameterizedTypeImpl((Class<?>) p.getRawType(), params, newOwner);
         }
 
+        @Override
         public Type onGenericArray(GenericArrayType g, BinderArg types) {
             Type c = visit(g.getGenericComponentType(), types);
             if (c == g.getGenericComponentType()) {
@@ -196,10 +205,12 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
             return new GenericArrayTypeImpl(c);
         }
 
+        @Override
         public Type onVariable(TypeVariable v, BinderArg types) {
             return types.replace(v);
         }
 
+        @Override
         public Type onWildcard(WildcardType w, BinderArg types) {
             // TODO: this is probably still incorrect
             // bind( "? extends T" ) with T= "? extends Foo" should be "? extends Foo",
@@ -228,17 +239,20 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
         }
     };
 
-    public Type getBaseClass(Type t, Class sup) {
+    @Override
+    public Type getBaseClass(Type t, Class<?> sup) {
         return baseClassFinder.visit(t, sup);
     }
 
-    public String getClassName(Class clazz) {
+    @Override
+    public String getClassName(Class<?> clazz) {
         return clazz.getName();
     }
 
+    @Override
     public String getTypeName(Type type) {
         if (type instanceof Class) {
-            Class c = (Class) type;
+            Class<?> c = (Class) type;
             if (c.isArray()) {
                 return getTypeName(c.getComponentType()) + "[]";
             }
@@ -247,11 +261,13 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
         return type.toString();
     }
 
-    public String getClassShortName(Class clazz) {
+    @Override
+    public String getClassShortName(Class<?> clazz) {
         return clazz.getSimpleName();
     }
 
-    public Collection<? extends Field> getDeclaredFields(final Class clazz) {
+    @Override
+    public Collection<? extends Field> getDeclaredFields(final Class<?> clazz) {
         Field[] fields = AccessController.doPrivileged(new PrivilegedAction<Field[]>() {
             @Override
             public Field[] run() {
@@ -261,7 +277,8 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
         return Arrays.asList(fields);
     }
 
-    public Field getDeclaredField(final Class clazz, final String fieldName) {
+    @Override
+    public Field getDeclaredField(final Class<?> clazz, final String fieldName) {
         return AccessController.doPrivileged(new PrivilegedAction<Field>() {
             @Override
             public Field run() {
@@ -274,7 +291,8 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
         });
     }
 
-    public Collection<? extends Method> getDeclaredMethods(final Class clazz) {
+    @Override
+    public Collection<? extends Method> getDeclaredMethods(final Class<?> clazz) {
         Method[] methods =
             AccessController.doPrivileged(new PrivilegedAction<Method[]>() {
                 @Override
@@ -285,17 +303,20 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
         return Arrays.asList(methods);
     }
 
-    public Class getDeclaringClassForField(Field field) {
+    @Override
+    public Class<?> getDeclaringClassForField(Field field) {
         return field.getDeclaringClass();
     }
 
-    public Class getDeclaringClassForMethod(Method method) {
+    @Override
+    public Class<?> getDeclaringClassForMethod(Method method) {
         return method.getDeclaringClass();
     }
 
+    @Override
     public Type getFieldType(Field field) {
         if (field.getType().isArray()) {
-            Class c = field.getType().getComponentType();
+            Class<?> c = field.getType().getComponentType();
             if (c.isPrimitive()) {
                 return Array.newInstance(c, 0).getClass();
             }
@@ -303,47 +324,58 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
         return fix(field.getGenericType());
     }
 
+    @Override
     public String getFieldName(Field field) {
         return field.getName();
     }
 
+    @Override
     public String getMethodName(Method method) {
         return method.getName();
     }
 
+    @Override
     public Type getReturnType(Method method) {
         return fix(method.getGenericReturnType());
     }
 
+    @Override
     public Type[] getMethodParameters(Method method) {
         return method.getGenericParameterTypes();
     }
 
+    @Override
     public boolean isStaticMethod(Method method) {
         return Modifier.isStatic(method.getModifiers());
     }
 
+    @Override
     public boolean isFinalMethod(Method method) {
         return Modifier.isFinal(method.getModifiers());
     }
 
+    @Override
     public boolean isSubClassOf(Type sub, Type sup) {
         return erasure(sup).isAssignableFrom(erasure(sub));
     }
 
-    public Class ref(Class c) {
+    @Override
+    public Class<?> ref(Class<?> c) {
         return c;
     }
 
-    public Class use(Class c) {
+    @Override
+    public Class<?> use(Class<?> c) {
         return c;
     }
 
-    public Class asDecl(Type t) {
+    @Override
+    public Class<?> asDecl(Type t) {
         return erasure(t);
     }
 
-    public Class asDecl(Class c) {
+    @Override
+    public Class<?> asDecl(Class<?> c) {
         return c;
     }
     /**
@@ -351,26 +383,31 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
      */
     private static final TypeVisitor<Class, Void> eraser = new TypeVisitor<Class, Void>() {
 
-        public Class onClass(Class c, Void v) {
+        @Override
+        public Class<?> onClass(Class<?> c, Void v) {
             return c;
         }
 
-        public Class onParameterizdType(ParameterizedType p, Void v) {
+        @Override
+        public Class<?> onParameterizdType(ParameterizedType p, Void v) {
             // TODO: why getRawType returns Type? not Class?
             return visit(p.getRawType(), null);
         }
 
-        public Class onGenericArray(GenericArrayType g, Void v) {
+        @Override
+        public Class<?> onGenericArray(GenericArrayType g, Void v) {
             return Array.newInstance(
                     visit(g.getGenericComponentType(), null),
                     0).getClass();
         }
 
-        public Class onVariable(TypeVariable tv, Void v) {
+        @Override
+        public Class<?> onVariable(TypeVariable tv, Void v) {
             return visit(tv.getBounds()[0], null);
         }
 
-        public Class onWildcard(WildcardType w, Void v) {
+        @Override
+        public Class<?> onWildcard(WildcardType w, Void v) {
             return visit(w.getUpperBounds()[0], null);
         }
     };
@@ -390,28 +427,32 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
      * layer for two different underlying reflection library. The other way
      * is to throw away the entire parameterization and go to the wrapper approach.
      */
+    @Override
     public <T> Class<T> erasure(Type t) {
         return eraser.visit(t, null);
     }
 
-    public boolean isAbstract(Class clazz) {
+    @Override
+    public boolean isAbstract(Class<?> clazz) {
         return Modifier.isAbstract(clazz.getModifiers());
     }
 
-    public boolean isFinal(Class clazz) {
+    @Override
+    public boolean isFinal(Class<?> clazz) {
         return Modifier.isFinal(clazz.getModifiers());
     }
 
     /**
      * Returns the {@link Type} object that represents {@code clazz<T1,T2,T3>}.
      */
-    public Type createParameterizedType(Class rawType, Type... arguments) {
+    public Type createParameterizedType(Class<?> rawType, Type... arguments) {
         return new ParameterizedTypeImpl(rawType, arguments, null);
     }
 
+    @Override
     public boolean isArray(Type t) {
         if (t instanceof Class) {
-            Class c = (Class) t;
+            Class<?> c = (Class) t;
             return c.isArray();
         }
         if (t instanceof GenericArrayType) {
@@ -420,9 +461,10 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
         return false;
     }
 
+    @Override
     public boolean isArrayButNotByteArray(Type t) {
         if (t instanceof Class) {
-            Class c = (Class) t;
+            Class<?> c = (Class) t;
             return c.isArray() && c != byte[].class;
         }
         if (t instanceof GenericArrayType) {
@@ -432,9 +474,10 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
         return false;
     }
 
+    @Override
     public Type getComponentType(Type t) {
         if (t instanceof Class) {
-            Class c = (Class) t;
+            Class<?> c = (Class) t;
             return c.getComponentType();
         }
         if (t instanceof GenericArrayType) {
@@ -444,6 +487,7 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
         throw new IllegalArgumentException();
     }
 
+    @Override
     public Type getTypeArgument(Type type, int i) {
         if (type instanceof ParameterizedType) {
             ParameterizedType p = (ParameterizedType) type;
@@ -453,24 +497,28 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
         }
     }
 
+    @Override
     public boolean isParameterizedType(Type type) {
         return type instanceof ParameterizedType;
     }
 
+    @Override
     public boolean isPrimitive(Type type) {
         if (type instanceof Class) {
-            Class c = (Class) type;
+            Class<?> c = (Class) type;
             return c.isPrimitive();
         }
         return false;
     }
 
-    public Type getPrimitive(Class primitiveType) {
+    @Override
+    public Type getPrimitive(Class<?> primitiveType) {
         assert primitiveType.isPrimitive();
         return primitiveType;
     }
 
-    public Location getClassLocation(final Class clazz) {
+    @Override
+    public Location getClassLocation(final Class<?> clazz) {
         return new Location() {
 
             @Override
@@ -480,6 +528,7 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
         };
     }
 
+    @Override
     public Location getFieldLocation(final Field field) {
         return new Location() {
 
@@ -490,6 +539,7 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
         };
     }
 
+    @Override
     public Location getMethodLocation(final Method method) {
         return new Location() {
 
@@ -500,7 +550,8 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
         };
     }
 
-    public boolean hasDefaultConstructor(Class c) {
+    @Override
+    public boolean hasDefaultConstructor(Class<?> c) {
         try {
             c.getDeclaredConstructor();
             return true;
@@ -509,23 +560,28 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
         }
     }
 
+    @Override
     public boolean isStaticField(Field field) {
         return Modifier.isStatic(field.getModifiers());
     }
 
+    @Override
     public boolean isPublicMethod(Method method) {
         return Modifier.isPublic(method.getModifiers());
     }
 
+    @Override
     public boolean isPublicField(Field field) {
         return Modifier.isPublic(field.getModifiers());
     }
 
-    public boolean isEnum(Class c) {
+    @Override
+    public boolean isEnum(Class<?> c) {
         return Enum.class.isAssignableFrom(c);
     }
 
-    public Field[] getEnumConstants(Class clazz) {
+    @Override
+    public Field[] getEnumConstants(Class<?> clazz) {
         try {
             Object[] values = clazz.getEnumConstants();
             Field[] fields = new Field[values.length];
@@ -539,11 +595,13 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
         }
     }
 
+    @Override
     public Type getVoidType() {
         return Void.class;
     }
 
-    public String getPackageName(Class clazz) {
+    @Override
+    public String getPackageName(Class<?> clazz) {
         String name = clazz.getName();
         int idx = name.lastIndexOf('.');
         if (idx < 0) {
@@ -554,7 +612,7 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
     }
 
     @Override
-    public Class loadObjectFactory(Class referencePoint, String pkg) {
+    public Class<?> loadObjectFactory(Class<?> referencePoint, String pkg) {
         ClassLoader cl = SecureLoader.getClassClassLoader(referencePoint);
         if (cl == null)
             cl = SecureLoader.getSystemClassLoader();
@@ -566,11 +624,13 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
         }
     }
 
+    @Override
     public boolean isBridgeMethod(Method method) {
         return method.isBridge();
     }
 
-    public boolean isOverriding(Method method, final Class base) {
+    @Override
+    public boolean isOverriding(Method method, final Class<?> base) {
         // this isn't actually correct,
         // as the JLS considers
         // class Derived extends Base<Integer> {
@@ -589,7 +649,7 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
 
                     @Override
                     public Boolean run() {
-                        Class clazz = base;
+                        Class<?> clazz = base;
                         while (clazz != null) {
                             try {
                                 Method m = clazz.getDeclaredMethod(name, params);
@@ -607,15 +667,18 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
         );
     }
 
-    public boolean isInterface(Class clazz) {
+    @Override
+    public boolean isInterface(Class<?> clazz) {
         return clazz.isInterface();
     }
 
+    @Override
     public boolean isTransient(Field f) {
         return Modifier.isTransient(f.getModifiers());
     }
 
-    public boolean isInnerClass(Class clazz) {
+    @Override
+    public boolean isInnerClass(Class<?> clazz) {
         return clazz.getEnclosingClass() != null && !Modifier.isStatic(clazz.getModifiers());
     }
 
@@ -637,7 +700,7 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
 
         GenericArrayType gat = (GenericArrayType) t;
         if (gat.getGenericComponentType() instanceof Class) {
-            Class c = (Class) gat.getGenericComponentType();
+            Class<?> c = (Class<?>) gat.getGenericComponentType();
             return Array.newInstance(c, 0).getClass();
         }
 

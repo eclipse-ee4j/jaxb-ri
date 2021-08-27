@@ -31,7 +31,7 @@ class SecureLoader {
         }
     }
 
-    static ClassLoader getClassClassLoader(final Class c) {
+    static ClassLoader getClassClassLoader(final Class<?> c) {
         if (System.getSecurityManager() == null) {
             return c.getClassLoader();
         } else {

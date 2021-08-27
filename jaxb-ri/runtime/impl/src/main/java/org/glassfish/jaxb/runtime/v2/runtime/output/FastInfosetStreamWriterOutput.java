@@ -192,12 +192,13 @@ public final class FastInfosetStreamWriterOutput extends XMLStreamWriterOutput {
      */
     final static class AppData implements VocabularyApplicationData {
         final Map<JAXBContext, TablesPerJAXBContext> contexts =
-                new WeakHashMap<JAXBContext, TablesPerJAXBContext>();
+                new WeakHashMap<>();
         final Collection<TablesPerJAXBContext> collectionOfContexts = contexts.values();
 
         /**
          * Clear all the tables.
          */
+        @Override
         public void clear() {
             for(TablesPerJAXBContext c : collectionOfContexts)
                 c.requireClearTables();

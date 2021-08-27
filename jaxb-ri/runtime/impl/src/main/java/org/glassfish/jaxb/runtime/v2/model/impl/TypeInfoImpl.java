@@ -57,6 +57,7 @@ abstract class TypeInfoImpl<TypeT,ClassDeclT,FieldT,MethodT>
         this.upstream = upstream;
     }
 
+    @Override
     public Locatable getUpstream() {
         return upstream;
     }

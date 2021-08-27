@@ -32,14 +32,17 @@ final class XmlValueQuick
         this.core = core;
     }
 
+    @Override
     protected Annotation getAnnotation() {
         return core;
     }
 
+    @Override
     protected Quick newInstance(Locatable upstream, Annotation core) {
         return new XmlValueQuick(upstream, ((XmlValue) core));
     }
 
+    @Override
     public Class<XmlValue> annotationType() {
         return XmlValue.class;
     }

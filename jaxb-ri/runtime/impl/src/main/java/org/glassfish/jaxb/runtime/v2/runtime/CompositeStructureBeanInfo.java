@@ -29,31 +29,38 @@ public class CompositeStructureBeanInfo extends JaxBeanInfo<CompositeStructure> 
         super(context,null, CompositeStructure.class,false,true,false);
     }
 
+    @Override
     public String getElementNamespaceURI(CompositeStructure o) {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public String getElementLocalName(CompositeStructure o) {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public CompositeStructure createInstance(UnmarshallingContext context) throws IllegalAccessException, InvocationTargetException, InstantiationException, SAXException {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public boolean reset(CompositeStructure o, UnmarshallingContext context) throws SAXException {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public String getId(CompositeStructure o, XMLSerializer target) throws SAXException {
         return null;
     }
 
+    @Override
     public Loader getLoader(JAXBContextImpl context, boolean typeSubstitutionCapable) {
         // no unmarshaller support for this.
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public void serializeRoot(CompositeStructure o, XMLSerializer target) throws SAXException, IOException, XMLStreamException {
         target.reportError(
                 new ValidationEventImpl(
@@ -63,14 +70,17 @@ public class CompositeStructureBeanInfo extends JaxBeanInfo<CompositeStructure> 
                         null));
     }
 
+    @Override
     public void serializeURIs(CompositeStructure o, XMLSerializer target) throws SAXException {
         // noop
     }
 
+    @Override
     public void serializeAttributes(CompositeStructure o, XMLSerializer target) throws SAXException, IOException, XMLStreamException {
         // noop
     }
 
+    @Override
     public void serializeBody(CompositeStructure o, XMLSerializer target) throws SAXException, IOException, XMLStreamException {
         int len = o.bridges.length;
         for( int i=0; i<len; i++ ) {
@@ -80,6 +90,7 @@ public class CompositeStructureBeanInfo extends JaxBeanInfo<CompositeStructure> 
         }
     }
 
+    @Override
     public Transducer<CompositeStructure> getTransducer() {
         return null;
     }

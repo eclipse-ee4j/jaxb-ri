@@ -101,18 +101,22 @@ public final class Base64Data extends Pcdata {
         if (dataHandler == null) {
             dataHandler = new DataHandler(new DataSource() {
 
+                @Override
                 public String getContentType() {
                     return getMimeType();
                 }
 
+                @Override
                 public InputStream getInputStream() {
                     return new ByteArrayInputStream(data, 0, dataLen);
                 }
 
+                @Override
                 public String getName() {
                     return null;
                 }
 
+                @Override
                 public OutputStream getOutputStream() {
                     throw new UnsupportedOperationException();
                 }
@@ -189,6 +193,7 @@ public final class Base64Data extends Pcdata {
      * Gets the number of characters needed to represent
      * this binary data in the base64 encoding.
      */
+    @Override
     public int length() {
         // for each 3 bytes you use 4 chars
         // if the remainder is 1 or 2 there will be 4 more
@@ -200,6 +205,7 @@ public final class Base64Data extends Pcdata {
      * Encode this binary data in the base64 encoding
      * and returns the character at the specified position.
      */
+    @Override
     public char charAt(int index) {
         // we assume that the length() method is called before this method
         // (otherwise how would the caller know that the index is valid?)
@@ -253,6 +259,7 @@ public final class Base64Data extends Pcdata {
      * which doesn't happen that much for base64.
      * So this method should be smaller than faster.
      */
+    @Override
     public CharSequence subSequence(int start, int end) {
         StringBuilder buf = new StringBuilder();
         get();  // fill in the buffer if we haven't done so
@@ -265,6 +272,7 @@ public final class Base64Data extends Pcdata {
     /**
      * Returns the base64 encoded string of this data.
      */
+    @Override
     public String toString() {
         get();  // fill in the buffer
         return DatatypeConverterImpl._printBase64Binary(data, 0, dataLen);
@@ -276,6 +284,7 @@ public final class Base64Data extends Pcdata {
         DatatypeConverterImpl._printBase64Binary(data, 0, dataLen, buf, start);
     }
 
+    @Override
     public void writeTo(UTF8XmlOutput output) throws IOException {
         // TODO: this is inefficient if the data source is note byte[] but DataHandler
         get();

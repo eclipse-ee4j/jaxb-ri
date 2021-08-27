@@ -32,18 +32,22 @@ final class XmlEnumQuick
         this.core = core;
     }
 
+    @Override
     protected Annotation getAnnotation() {
         return core;
     }
 
+    @Override
     protected Quick newInstance(Locatable upstream, Annotation core) {
         return new XmlEnumQuick(upstream, ((XmlEnum) core));
     }
 
+    @Override
     public Class<XmlEnum> annotationType() {
         return XmlEnum.class;
     }
 
+    @Override
     public Class value() {
         return core.value();
     }

@@ -26,14 +26,17 @@ public class FatalAdapter implements ErrorHandler {
         this.core = handler;
     }
 
+    @Override
     public void warning (SAXParseException exception) throws SAXException {
         core.warning(exception);
     }
 
+    @Override
     public void error (SAXParseException exception) throws SAXException {
         core.fatalError(exception);
     }
 
+    @Override
     public void fatalError (SAXParseException exception) throws SAXException {
         core.fatalError(exception);
     }

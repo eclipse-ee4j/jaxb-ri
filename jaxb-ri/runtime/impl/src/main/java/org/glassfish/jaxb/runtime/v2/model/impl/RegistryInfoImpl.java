@@ -40,7 +40,7 @@ final class RegistryInfoImpl<T,C,F,M> implements Locatable, RegistryInfo<T,C> {
     /**
      * Types that are referenced from this registry.
      */
-    private final Set<TypeInfo<T,C>> references = new LinkedHashSet<TypeInfo<T,C>>();
+    private final Set<TypeInfo<T,C>> references = new LinkedHashSet<>();
 
     /**
      * Picks up references in this registry to other types.
@@ -71,7 +71,7 @@ final class RegistryInfoImpl<T,C,F,M> implements Locatable, RegistryInfo<T,C> {
                     // this is a factory method. visit this class
                     references.add(
                         builder.getTypeInfo(nav.getReturnType(m),
-                            new MethodLocatable<M>(this,m,nav)));
+                            new MethodLocatable<>(this,m,nav)));
                 }
 
                 continue;
@@ -92,14 +92,17 @@ final class RegistryInfoImpl<T,C,F,M> implements Locatable, RegistryInfo<T,C> {
         }
     }
 
+    @Override
     public Locatable getUpstream() {
         return upstream;
     }
 
+    @Override
     public Location getLocation() {
         return nav.getClassLocation(registryClass);
     }
 
+    @Override
     public Set<TypeInfo<T,C>> getReferences() {
         return references;
     }
@@ -111,6 +114,7 @@ final class RegistryInfoImpl<T,C,F,M> implements Locatable, RegistryInfo<T,C> {
         return nav.getPackageName(registryClass);
     }
 
+    @Override
     public C getClazz() {
         return registryClass;
     }

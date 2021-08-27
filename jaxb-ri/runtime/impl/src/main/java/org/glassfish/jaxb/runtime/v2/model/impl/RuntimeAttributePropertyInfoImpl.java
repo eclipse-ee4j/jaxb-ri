@@ -29,22 +29,27 @@ class RuntimeAttributePropertyInfoImpl extends AttributePropertyInfoImpl<Type,Cl
         super(classInfo, seed);
     }
 
+    @Override
     public boolean elementOnlyContent() {
         return true;
     }
 
+    @Override
     public RuntimeNonElement getTarget() {
         return (RuntimeNonElement) super.getTarget();
     }
 
+    @Override
     public List<? extends RuntimeNonElement> ref() {
         return (List<? extends RuntimeNonElement>)super.ref();
     }
 
+    @Override
     public RuntimePropertyInfo getSource() {
         return this;
     }
 
+    @Override
     public void link() {
         getTransducer();
         super.link();

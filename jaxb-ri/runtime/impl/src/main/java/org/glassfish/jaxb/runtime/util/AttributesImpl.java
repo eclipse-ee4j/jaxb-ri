@@ -96,6 +96,7 @@ public class AttributesImpl implements Attributes {
      * @return The number of attributes in the list.
      * @see org.xml.sax.Attributes#getLength()
      */
+    @Override
     public int getLength ()
     {
 	return length;
@@ -110,6 +111,7 @@ public class AttributesImpl implements Attributes {
      *         available, or null if the index is out of range.
      * @see org.xml.sax.Attributes#getURI(int)
      */
+    @Override
     public String getURI (int index)
     {
 	if (index >= 0 && index < length) {
@@ -128,6 +130,7 @@ public class AttributesImpl implements Attributes {
      *         none is available, or null if the index if out of range.
      * @see org.xml.sax.Attributes#getLocalName(int)
      */
+    @Override
     public String getLocalName (int index)
     {
 	if (index >= 0 && index < length) {
@@ -146,6 +149,7 @@ public class AttributesImpl implements Attributes {
      *         none is available, or null if the index is out of bounds.
      * @see org.xml.sax.Attributes#getQName(int)
      */
+    @Override
     public String getQName (int index)
     {
 	if (index >= 0 && index < length) {
@@ -164,6 +168,7 @@ public class AttributesImpl implements Attributes {
      *         if the index is out of bounds.
      * @see org.xml.sax.Attributes#getType(int)
      */
+    @Override
     public String getType (int index)
     {
 	if (index >= 0 && index < length) {
@@ -181,6 +186,7 @@ public class AttributesImpl implements Attributes {
      * @return The attribute's value or null if the index is out of bounds.
      * @see org.xml.sax.Attributes#getValue(int)
      */
+    @Override
     public String getValue (int index)
     {
 	if (index >= 0 && index < length) {
@@ -204,6 +210,7 @@ public class AttributesImpl implements Attributes {
      * @return The attribute's index, or -1 if none matches.
      * @see org.xml.sax.Attributes#getIndex(java.lang.String,java.lang.String)
      */
+    @Override
     public int getIndex (String uri, String localName)
     {
 	int max = length * 5;
@@ -236,6 +243,7 @@ public class AttributesImpl implements Attributes {
      * @return The attribute's index, or -1 if none matches.
      * @see org.xml.sax.Attributes#getIndex(java.lang.String)
      */
+    @Override
     public int getIndex (String qName)
     {
 	int max = length * 5;
@@ -258,6 +266,7 @@ public class AttributesImpl implements Attributes {
      *         matching attribute.
      * @see org.xml.sax.Attributes#getType(java.lang.String,java.lang.String)
      */
+    @Override
     public String getType (String uri, String localName)
     {
 	int max = length * 5;
@@ -278,6 +287,7 @@ public class AttributesImpl implements Attributes {
      *         matching attribute.
      * @see org.xml.sax.Attributes#getType(java.lang.String)
      */
+    @Override
     public String getType (String qName)
     {
 	int max = length * 5;
@@ -300,6 +310,7 @@ public class AttributesImpl implements Attributes {
      *         matching attribute.
      * @see org.xml.sax.Attributes#getValue(java.lang.String,java.lang.String)
      */
+    @Override
     public String getValue (String uri, String localName)
     {
 	int max = length * 5;
@@ -320,6 +331,7 @@ public class AttributesImpl implements Attributes {
      *         matching attribute.
      * @see org.xml.sax.Attributes#getValue(java.lang.String)
      */
+    @Override
     public String getValue (String qName)
     {
 	int max = length * 5;

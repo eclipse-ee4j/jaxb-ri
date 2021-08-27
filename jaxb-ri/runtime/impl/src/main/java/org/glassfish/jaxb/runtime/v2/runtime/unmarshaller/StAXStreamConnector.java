@@ -118,6 +118,7 @@ class StAXStreamConnector extends StAXConnector {
         this.staxStreamReader = staxStreamReader;
     }
 
+    @Override
     public void bridge() throws XMLStreamException {
 
         try {
@@ -172,10 +173,12 @@ class StAXStreamConnector extends StAXConnector {
         }
     }
 
+    @Override
     protected Location getCurrentLocation() {
         return staxStreamReader.getLocation();
     }
 
+    @Override
     protected String getCurrentQName() {
         return getQName(staxStreamReader.getPrefix(),staxStreamReader.getLocalName());
     }
@@ -218,20 +221,24 @@ class StAXStreamConnector extends StAXConnector {
      * Proxy of {@link Attributes} that read from {@link XMLStreamReader}.
      */
     private final Attributes attributes = new Attributes() {
+        @Override
         public int getLength() {
             return staxStreamReader.getAttributeCount();
         }
 
+        @Override
         public String getURI(int index) {
             String uri = staxStreamReader.getAttributeNamespace(index);
             if(uri==null)   return "";
             return uri;
         }
 
+        @Override
         public String getLocalName(int index) {
             return staxStreamReader.getAttributeLocalName(index);
         }
 
+        @Override
         public String getQName(int index) {
             String prefix = staxStreamReader.getAttributePrefix(index);
             if(prefix==null || prefix.length()==0)
@@ -240,14 +247,17 @@ class StAXStreamConnector extends StAXConnector {
                 return prefix + ':' + getLocalName(index);
         }
 
+        @Override
         public String getType(int index) {
             return staxStreamReader.getAttributeType(index);
         }
 
+        @Override
         public String getValue(int index) {
             return staxStreamReader.getAttributeValue(index);
         }
 
+        @Override
         public int getIndex(String uri, String localName) {
             for( int i=getLength()-1; i>=0; i-- )
                 if( localName.equals(getLocalName(i)) && uri.equals(getURI(i)))
@@ -257,6 +267,7 @@ class StAXStreamConnector extends StAXConnector {
 
         // this method sholdn't be used that often (if at all)
         // so it's OK to be slow.
+        @Override
         public int getIndex(String qName) {
             for( int i=getLength()-1; i>=0; i-- ) {
                 if(qName.equals(getQName(i)))
@@ -265,24 +276,28 @@ class StAXStreamConnector extends StAXConnector {
             return -1;
         }
 
+        @Override
         public String getType(String uri, String localName) {
             int index = getIndex(uri,localName);
             if(index<0)     return null;
             return getType(index);
         }
 
+        @Override
         public String getType(String qName) {
             int index = getIndex(qName);
             if(index<0)     return null;
             return getType(index);
         }
 
+        @Override
         public String getValue(String uri, String localName) {
             int index = getIndex(uri,localName);
             if(index<0)     return null;
             return getValue(index);
         }
 
+        @Override
         public String getValue(String qName) {
             int index = getIndex(qName);
             if(index<0)     return null;

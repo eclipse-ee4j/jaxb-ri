@@ -204,8 +204,8 @@ public final class ClassBeanInfoImpl<BeanT> extends JaxBeanInfo<BeanT> implement
         }
 
         // create a list of attribute/URI handlers
-        List<AttributeProperty> attProps = new FinalArrayList<AttributeProperty>();
-        List<Property> uriProps = new FinalArrayList<Property>();
+        List<AttributeProperty> attProps = new FinalArrayList<>();
+        List<Property> uriProps = new FinalArrayList<>();
         for (ClassBeanInfoImpl bi = this; bi != null; bi = bi.superClazz) {
             for (int i = 0; i < bi.properties.length; i++) {
                 Property p = bi.properties[i];
@@ -237,14 +237,17 @@ public final class ClassBeanInfoImpl<BeanT> extends JaxBeanInfo<BeanT> implement
         super.wrapUp();
     }
 
+    @Override
     public String getElementNamespaceURI(BeanT bean) {
         return tagName.nsUri;
     }
 
+    @Override
     public String getElementLocalName(BeanT bean) {
         return tagName.localName;
     }
 
+    @Override
     public BeanT createInstance(UnmarshallingContext context) throws IllegalAccessException, InvocationTargetException, InstantiationException, SAXException {
         
         BeanT bean = null;        
@@ -269,6 +272,7 @@ public final class ClassBeanInfoImpl<BeanT> extends JaxBeanInfo<BeanT> implement
         return bean;
     }
 
+    @Override
     public boolean reset(BeanT bean, UnmarshallingContext context) throws SAXException {
         try {
             if(superClazz!=null)
@@ -282,6 +286,7 @@ public final class ClassBeanInfoImpl<BeanT> extends JaxBeanInfo<BeanT> implement
         }
     }
 
+    @Override
     public String getId(BeanT bean, XMLSerializer target) throws SAXException {
         if(idProperty!=null) {
             try {
@@ -293,6 +298,7 @@ public final class ClassBeanInfoImpl<BeanT> extends JaxBeanInfo<BeanT> implement
         return null;
     }
 
+    @Override
     public void serializeRoot(BeanT bean, XMLSerializer target) throws SAXException, IOException, XMLStreamException {
         if(tagName==null) {
             Class beanClass = bean.getClass();
@@ -313,6 +319,7 @@ public final class ClassBeanInfoImpl<BeanT> extends JaxBeanInfo<BeanT> implement
         }
     }
 
+    @Override
     public void serializeBody(BeanT bean, XMLSerializer target) throws SAXException, IOException, XMLStreamException {
         if (superClazz != null) {
             superClazz.serializeBody(bean, target);
@@ -338,6 +345,7 @@ public final class ClassBeanInfoImpl<BeanT> extends JaxBeanInfo<BeanT> implement
         }
     }
 
+    @Override
     public void serializeAttributes(BeanT bean, XMLSerializer target) throws SAXException, IOException, XMLStreamException {
         for( AttributeProperty<BeanT> p : attributeProperties )
             try {
@@ -366,6 +374,7 @@ public final class ClassBeanInfoImpl<BeanT> extends JaxBeanInfo<BeanT> implement
         }
     }
 
+    @Override
     public void serializeURIs(BeanT bean, XMLSerializer target) throws SAXException {
         try {
             if (retainPropertyInfo) {
@@ -389,6 +398,7 @@ public final class ClassBeanInfoImpl<BeanT> extends JaxBeanInfo<BeanT> implement
         }
     }
 
+    @Override
     public Loader getLoader(JAXBContextImpl context, boolean typeSubstitutionCapable) {
         if(loader==null) {
             // these variables have to be set before they are initialized,
@@ -410,6 +420,7 @@ public final class ClassBeanInfoImpl<BeanT> extends JaxBeanInfo<BeanT> implement
             return loader;
     }
 
+    @Override
     public Transducer<BeanT> getTransducer() {
         return xducer;
     }

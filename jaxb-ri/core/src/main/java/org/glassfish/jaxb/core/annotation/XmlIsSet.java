@@ -90,6 +90,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  */
 @Retention(RUNTIME)
 @Target({FIELD,METHOD})
+@Deprecated
 public @interface XmlIsSet {
     /**
      * Specifies the name of the property to attach to.

@@ -80,7 +80,7 @@ public final class XmlSchemaGenerator<T,C,F,M> {
      *
      * @see SchemaOutputResolver#createOutput(String, String)
      */
-    private final Map<String,Namespace> namespaces = new TreeMap<String,Namespace>(NAMESPACE_COMPARATOR);
+    private final Map<String,Namespace> namespaces = new TreeMap<>(NAMESPACE_COMPARATOR);
 
     /**
      * {@link ErrorListener} to send errors to.
@@ -105,7 +105,7 @@ public final class XmlSchemaGenerator<T,C,F,M> {
     /**
      * Used to detect cycles in anonymous types.
      */
-    private final CollisionCheckStack<ClassInfo<T,C>> collisionChecker = new CollisionCheckStack<ClassInfo<T,C>>();
+    private final CollisionCheckStack<ClassInfo<T,C>> collisionChecker = new CollisionCheckStack<>();
 
     public XmlSchemaGenerator( Navigator<T,C,F,M> navigator, TypeInfoSet<T,C,F,M> types ) {
         this.navigator = navigator;
@@ -385,8 +385,8 @@ public final class XmlSchemaGenerator<T,C,F,M> {
 
         Map<String, String> schemaLocations = types.getSchemaLocations();
 
-        Map<Namespace,Result> out = new HashMap<Namespace,Result>();
-        Map<Namespace,String> systemIds = new HashMap<Namespace,String>();
+        Map<Namespace,Result> out = new HashMap<>();
+        Map<Namespace,String> systemIds = new HashMap<>();
 
         // we create a Namespace object for the XML Schema namespace
         // as a side-effect, but we don't want to generate it.
@@ -436,7 +436,7 @@ public final class XmlSchemaGenerator<T,C,F,M> {
         /**
          * Other {@link Namespace}s that this namespace depends on.
          */
-        private final Set<Namespace> depends = new LinkedHashSet<Namespace>();
+        private final Set<Namespace> depends = new LinkedHashSet<>();
 
         /**
          * If this schema refers to components from this schema by itself.
@@ -446,28 +446,28 @@ public final class XmlSchemaGenerator<T,C,F,M> {
         /**
          * List of classes in this namespace.
          */
-        private final Set<ClassInfo<T,C>> classes = new LinkedHashSet<ClassInfo<T,C>>();
+        private final Set<ClassInfo<T,C>> classes = new LinkedHashSet<>();
 
         /**
          * Set of enums in this namespace
          */
-        private final Set<EnumLeafInfo<T,C>> enums = new LinkedHashSet<EnumLeafInfo<T,C>>();
+        private final Set<EnumLeafInfo<T,C>> enums = new LinkedHashSet<>();
 
         /**
          * Set of arrays in this namespace
          */
-        private final Set<ArrayInfo<T,C>> arrays = new LinkedHashSet<ArrayInfo<T,C>>();
+        private final Set<ArrayInfo<T,C>> arrays = new LinkedHashSet<>();
 
         /**
          * Global attribute declarations keyed by their local names.
          */
-        private final MultiMap<String,AttributePropertyInfo<T,C>> attributeDecls = new MultiMap<String,AttributePropertyInfo<T,C>>(null);
+        private final MultiMap<String,AttributePropertyInfo<T,C>> attributeDecls = new MultiMap<>(null);
 
         /**
          * Global element declarations to be written, keyed by their local names.
          */
         private final MultiMap<String,ElementDeclaration> elementDecls =
-                new MultiMap<String,ElementDeclaration>(new ElementWithType(true,anyType));
+                new MultiMap<>(new ElementWithType(true,anyType));
 
         private Form attributeFormDefault;
         private Form elementFormDefault;
@@ -487,7 +487,7 @@ public final class XmlSchemaGenerator<T,C,F,M> {
         /**
          * Container for already processed classes
          */
-        private final Set<ClassInfo> written = new HashSet<ClassInfo>();
+        private final Set<ClassInfo> written = new HashSet<>();
 
         public Namespace(String uri) {
             this.uri = uri;
@@ -910,7 +910,7 @@ public final class XmlSchemaGenerator<T,C,F,M> {
 
             if(contentModelOwner!=null) {
                 // build the tree that represents the explicit content model from iterate over the properties
-                ArrayList<Tree> children = new ArrayList<Tree>();
+                ArrayList<Tree> children = new ArrayList<>();
                 for (PropertyInfo<T,C> p : c.getProperties()) {
                     // handling for <complexType @mixed='true' ...>
                     if(p instanceof ReferencePropertyInfo && ((ReferencePropertyInfo)p).isMixed()) {
@@ -991,6 +991,7 @@ public final class XmlSchemaGenerator<T,C,F,M> {
         private Tree handleElementProp(final ElementPropertyInfo<T,C> ep) {
             if (ep.isValueList()) {
                 return new Tree.Term() {
+                    @Override
                     protected void write(ContentModelContainer parent, boolean isOptional, boolean repeated) {
                         TypeRef<T,C> t = ep.getTypes().get(0);
                         LocalElement e = parent.element();
@@ -1005,9 +1006,10 @@ public final class XmlSchemaGenerator<T,C,F,M> {
                 };
             }
 
-            ArrayList<Tree> children = new ArrayList<Tree>();
+            ArrayList<Tree> children = new ArrayList<>();
             for (final TypeRef<T,C> t : ep.getTypes()) {
                 children.add(new Tree.Term() {
+                    @Override
                     protected void write(ContentModelContainer parent, boolean isOptional, boolean repeated) {
                         LocalElement e = parent.element();
 
@@ -1073,6 +1075,7 @@ public final class XmlSchemaGenerator<T,C,F,M> {
             final QName ename = ep.getXmlName();
             if (ename != null) { // wrapped collection
                 return new Tree.Term() {
+                    @Override
                     protected void write(ContentModelContainer parent, boolean isOptional, boolean repeated) {
                         LocalElement e = parent.element();
                         if(ename.getNamespaceURI().length()>0) {
@@ -1209,10 +1212,11 @@ public final class XmlSchemaGenerator<T,C,F,M> {
          */
         private Tree handleReferenceProp(final ReferencePropertyInfo<T, C> rp) {
             // fill in content model
-            ArrayList<Tree> children = new ArrayList<Tree>();
+            ArrayList<Tree> children = new ArrayList<>();
 
             for (final Element<T,C> e : rp.getElements()) {
                 children.add(new Tree.Term() {
+                    @Override
                     protected void write(ContentModelContainer parent, boolean isOptional, boolean repeated) {
                         LocalElement eref = parent.element();
 
@@ -1256,6 +1260,7 @@ public final class XmlSchemaGenerator<T,C,F,M> {
             final WildcardMode wc = rp.getWildcard();
             if( wc != null ) {
                 children.add(new Tree.Term() {
+                    @Override
                     protected void write(ContentModelContainer parent, boolean isOptional, boolean repeated) {
                         Any any = parent.any();
                         final String pcmode = getProcessContentsModeName(wc);
@@ -1273,6 +1278,7 @@ public final class XmlSchemaGenerator<T,C,F,M> {
 
             if (ename != null) { // wrapped
                 return new Tree.Term() {
+                    @Override
                     protected void write(ContentModelContainer parent, boolean isOptional, boolean repeated) {
                         LocalElement e = parent.element().name(ename.getLocalPart());
                         elementFormDefault.writeForm(e,ename);
@@ -1297,6 +1303,7 @@ public final class XmlSchemaGenerator<T,C,F,M> {
          */
         private Tree handleMapProp(final MapPropertyInfo<T,C> mp) {
             return new Tree.Term() {
+                @Override
                 protected void write(ContentModelContainer parent, boolean isOptional, boolean repeated) {
                     QName ename = mp.getXmlName();
 
@@ -1389,6 +1396,7 @@ public final class XmlSchemaGenerator<T,C,F,M> {
                 this.nillable = nillable;
             }
 
+            @Override
             public void writeTo(String localName, Schema schema) {
                 TopLevelElement e = schema.element().name(localName);
                 if(nillable)
@@ -1401,6 +1409,7 @@ public final class XmlSchemaGenerator<T,C,F,M> {
                 e.commit();
             }
 
+            @Override
             public boolean equals(Object o) {
                 if (this == o) return true;
                 if (o == null || getClass() != o.getClass()) return false;
@@ -1409,6 +1418,7 @@ public final class XmlSchemaGenerator<T,C,F,M> {
                 return type.equals(that.type);
             }
 
+            @Override
             public int hashCode() {
                 return type.hashCode();
             }
@@ -1554,6 +1564,7 @@ public final class XmlSchemaGenerator<T,C,F,M> {
      * so that the empty namespace "" comes to the very end. Don't ask me why.
      */
     private static final Comparator<String> NAMESPACE_COMPARATOR = new Comparator<String>() {
+        @Override
         public int compare(String lhs, String rhs) {
             return -lhs.compareTo(rhs);
         }

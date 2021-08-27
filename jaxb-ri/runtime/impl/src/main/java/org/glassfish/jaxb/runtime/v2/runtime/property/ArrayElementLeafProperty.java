@@ -45,6 +45,7 @@ final class ArrayElementLeafProperty<BeanT,ListT,ItemT> extends ArrayElementProp
         assert xducer!=null;
     }
 
+    @Override
     public void serializeItem(JaxBeanInfo bi, ItemT item, XMLSerializer w) throws SAXException, AccessorException, IOException, XMLStreamException {
         xducer.declareNamespace(item,w);
         w.endNamespaceDecls(item);

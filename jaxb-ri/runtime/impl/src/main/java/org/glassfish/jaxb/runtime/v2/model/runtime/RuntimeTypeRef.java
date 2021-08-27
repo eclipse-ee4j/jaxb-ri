@@ -18,6 +18,8 @@ import java.lang.reflect.Type;
  * @author Kohsuke Kawaguchi
  */
 public interface RuntimeTypeRef extends TypeRef<Type,Class>, RuntimeNonElementRef {
+    @Override
     RuntimeNonElement getTarget();
+    @Override
     RuntimePropertyInfo getSource();
 }

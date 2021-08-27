@@ -32,38 +32,47 @@ final class XmlElementDeclQuick
         this.core = core;
     }
 
+    @Override
     protected Annotation getAnnotation() {
         return core;
     }
 
+    @Override
     protected Quick newInstance(Locatable upstream, Annotation core) {
         return new XmlElementDeclQuick(upstream, ((XmlElementDecl) core));
     }
 
+    @Override
     public Class<XmlElementDecl> annotationType() {
         return XmlElementDecl.class;
     }
 
+    @Override
     public String name() {
         return core.name();
     }
 
+    @Override
     public Class scope() {
         return core.scope();
     }
 
+    @Override
     public String namespace() {
         return core.namespace();
     }
 
+    @Override
     public String defaultValue() {
         return core.defaultValue();
     }
 
+    @Override
     public String substitutionHeadNamespace() {
         return core.substitutionHeadNamespace();
     }
 
+    @Override
     public String substitutionHeadName() {
         return core.substitutionHeadName();
     }

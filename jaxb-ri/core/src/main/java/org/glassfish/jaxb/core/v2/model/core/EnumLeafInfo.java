@@ -54,5 +54,5 @@ public interface EnumLeafInfo<T,C> extends LeafInfo<T,C> {
      * @return
      *      never null. Can be empty (really?).
      */
-    Iterable<? extends EnumConstant> getConstants();
+    Iterable<? extends EnumConstant<?, ?>> getConstants();
 }

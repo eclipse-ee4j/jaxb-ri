@@ -45,7 +45,7 @@ final class ValueListBeanInfoImpl extends JaxBeanInfo {
     private final Loader loader = new Loader(true) {
         @Override
         public void text(UnmarshallingContext.State state, CharSequence text) throws SAXException {
-            List<Object> r = new FinalArrayList<Object>();
+            List<Object> r = new FinalArrayList<>();
 
             int idx = 0;
             int len = text.length();
@@ -85,6 +85,7 @@ final class ValueListBeanInfoImpl extends JaxBeanInfo {
         return array;
     }
 
+    @Override
     public void serializeBody(Object array, XMLSerializer target) throws SAXException, IOException, XMLStreamException {
         int len = Array.getLength(array);
         for( int i=0; i<len; i++ )  {
@@ -97,6 +98,7 @@ final class ValueListBeanInfoImpl extends JaxBeanInfo {
         }
     }
 
+    @Override
     public final void serializeURIs(Object array, XMLSerializer target) throws SAXException {
         if(xducer.useNamespace()) {
             int len = Array.getLength(array);
@@ -111,30 +113,37 @@ final class ValueListBeanInfoImpl extends JaxBeanInfo {
         }
     }
 
+    @Override
     public final String getElementNamespaceURI(Object array) {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public final String getElementLocalName(Object array) {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public final Object createInstance(UnmarshallingContext context) {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public final boolean reset(Object array, UnmarshallingContext context) {
         return false;
     }
 
+    @Override
     public final String getId(Object array, XMLSerializer target) {
         return null;
     }
 
+    @Override
     public final void serializeAttributes(Object array, XMLSerializer target) {
         // noop
     }
 
+    @Override
     public final void serializeRoot(Object array, XMLSerializer target) throws SAXException {
         target.reportError(
                 new ValidationEventImpl(
@@ -144,10 +153,12 @@ final class ValueListBeanInfoImpl extends JaxBeanInfo {
                         null));
     }
 
+    @Override
     public final Transducer getTransducer() {
         return null;
     }
 
+    @Override
     public final Loader getLoader(JAXBContextImpl context, boolean typeSubstitutionCapable) {
         // type substitution impossible
         return loader;

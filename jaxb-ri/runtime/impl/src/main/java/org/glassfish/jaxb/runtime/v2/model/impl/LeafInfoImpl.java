@@ -36,6 +36,7 @@ abstract class LeafInfoImpl<TypeT,ClassDeclT> implements LeafInfo<TypeT,ClassDec
     /**
      * A reference to the representation of the type.
      */
+    @Override
     public TypeT getType() {
         return type;
     }
@@ -46,18 +47,23 @@ abstract class LeafInfoImpl<TypeT,ClassDeclT> implements LeafInfo<TypeT,ClassDec
      * @deprecated
      *      why are you calling a method whose return value is always known?
      */
+    @Override
+    @Deprecated
     public final boolean canBeReferencedByIDREF() {
         return false;
     }
 
+    @Override
     public QName getTypeName() {
         return typeName;
     }
 
+    @Override
     public Locatable getUpstream() {
         return null;
     }
 
+    @Override
     public Location getLocation() {
         // this isn't very accurate, but it's not too bad
         // doing it correctly need leaves to hold navigator.
@@ -65,10 +71,12 @@ abstract class LeafInfoImpl<TypeT,ClassDeclT> implements LeafInfo<TypeT,ClassDec
         return this;
     }
 
+    @Override
     public boolean isSimpleType() {
         return true;
     }
 
+    @Override
     public String toString() {
         return type.toString();
     }
