@@ -39,52 +39,63 @@ public final class MTOMXmlOutput extends XmlOutputAbstractImpl {
         this.next = next;
     }
 
+    @Override
     public void startDocument(XMLSerializer serializer, boolean fragment, int[] nsUriIndex2prefixIndex, NamespaceContextImpl nsContext) throws IOException, SAXException, XMLStreamException {
         super.startDocument(serializer,fragment,nsUriIndex2prefixIndex, nsContext);
         next.startDocument(serializer, fragment, nsUriIndex2prefixIndex, nsContext);
     }
 
+    @Override
     public void endDocument(boolean fragment) throws IOException, SAXException, XMLStreamException {
         next.endDocument(fragment);
         super.endDocument(fragment);
     }
 
+    @Override
     public void beginStartTag(Name name) throws IOException, XMLStreamException {
         next.beginStartTag(name);
         this.nsUri = name.nsUri;
         this.localName = name.localName;
     }
 
+    @Override
     public void beginStartTag(int prefix, String localName) throws IOException, XMLStreamException {
         next.beginStartTag(prefix, localName);
         this.nsUri = nsContext.getNamespaceURI(prefix);
         this.localName = localName;
     }
 
+    @Override
     public void attribute( Name name, String value ) throws IOException, XMLStreamException {
         next.attribute(name, value);
     }
 
+    @Override
     public void attribute( int prefix, String localName, String value ) throws IOException, XMLStreamException {
         next.attribute(prefix, localName, value);
     }
 
+    @Override
     public void endStartTag() throws IOException, SAXException {
         next.endStartTag();
     }
 
+    @Override
     public void endTag(Name name) throws IOException, SAXException, XMLStreamException {
         next.endTag(name);
     }
 
+    @Override
     public void endTag(int prefix, String localName) throws IOException, SAXException, XMLStreamException {
         next.endTag(prefix, localName);
     }
 
+    @Override
     public void text( String value, boolean needsSeparatingWhitespace ) throws IOException, SAXException, XMLStreamException {
         next.text(value,needsSeparatingWhitespace);
     }
 
+    @Override
     public void text( Pcdata value, boolean needsSeparatingWhitespace ) throws IOException, SAXException, XMLStreamException {
         if(value instanceof Base64Data && !serializer.getInlineBinaryFlag()) {
             Base64Data b64d = (Base64Data) value;

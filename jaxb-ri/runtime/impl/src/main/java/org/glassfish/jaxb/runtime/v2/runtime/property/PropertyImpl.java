@@ -38,35 +38,44 @@ abstract class PropertyImpl<BeanT> implements Property<BeanT> {
         }
     }
 
+    @Override
     public RuntimePropertyInfo getInfo() {
         return propertyInfo;
     }
 
+    @Override
     public void serializeBody(BeanT o, XMLSerializer w, Object outerPeer) throws SAXException, AccessorException, IOException, XMLStreamException {
     }
 
+    @Override
     public void serializeURIs(BeanT o, XMLSerializer w) throws SAXException, AccessorException {
     }
 
+    @Override
     public boolean hasSerializeURIAction() {
         return false;
     }
 
+    @Override
     public Accessor getElementPropertyAccessor(String nsUri, String localName) {
         // default implementation. should be overrided
         return null;
     }
 
+    @Override
     public void wrapUp() {/*noop*/}
     
+    @Override
     public boolean isHiddenByOverride() {
         return hiddenByOverride;
     }
 
+    @Override
     public void setHiddenByOverride(boolean hidden) {
         this.hiddenByOverride = hidden;
     }
     
+    @Override
     public String getFieldName() {
         return fieldName;
     }

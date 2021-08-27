@@ -79,7 +79,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
     /**
      * All the bridge classes.
      */
-    private final Map<TypeReference, Bridge> bridges = new LinkedHashMap<TypeReference,Bridge>();
+    private final Map<TypeReference, Bridge> bridges = new LinkedHashMap<>();
 
     /**
      * Shared instance of {@link DocumentBuilder}.
@@ -87,13 +87,13 @@ public final class JAXBContextImpl extends JAXBRIContext {
      */
     private static DocumentBuilder db;
 
-    private final QNameMap<JaxBeanInfo> rootMap = new QNameMap<JaxBeanInfo>();
-    private final HashMap<QName,JaxBeanInfo> typeMap = new HashMap<QName,JaxBeanInfo>();
+    private final QNameMap<JaxBeanInfo> rootMap = new QNameMap<>();
+    private final HashMap<QName,JaxBeanInfo> typeMap = new HashMap<>();
 
     /**
      * Map from JAXB-bound {@link Class} to its {@link JaxBeanInfo}.
      */
-    private final Map<Class,JaxBeanInfo> beanInfoMap = new LinkedHashMap<Class,JaxBeanInfo>();
+    private final Map<Class,JaxBeanInfo> beanInfoMap = new LinkedHashMap<>();
 
     /**
      * All created {@link JaxBeanInfo}s.
@@ -104,21 +104,23 @@ public final class JAXBContextImpl extends JAXBRIContext {
      * This map is only used while the {@link JAXBContextImpl} is built and set to null
      * to avoid keeping references too long.
      */
-    protected Map<RuntimeTypeInfo,JaxBeanInfo> beanInfos = new LinkedHashMap<RuntimeTypeInfo, JaxBeanInfo>();
+    protected Map<RuntimeTypeInfo,JaxBeanInfo> beanInfos = new LinkedHashMap<>();
 
-    private final Map<Class/*scope*/,Map<QName,ElementBeanInfoImpl>> elements = new LinkedHashMap<Class, Map<QName, ElementBeanInfoImpl>>();
+    private final Map<Class/*scope*/,Map<QName,ElementBeanInfoImpl>> elements = new LinkedHashMap<>();
 
     /**
      * Pool of {@link Marshaller}s.
      */
     public final Pool<Marshaller> marshallerPool = new Pool.Impl<Marshaller>() {
-        protected @NotNull Marshaller create() {
+        protected @NotNull@Override
+ Marshaller create() {
             return createMarshaller();
         }
     };
 
     public final Pool<Unmarshaller> unmarshallerPool = new Pool.Impl<Unmarshaller>() {
-        protected @NotNull Unmarshaller create() {
+        protected @NotNull@Override
+ Unmarshaller create() {
             return createUnmarshaller();
         }
     };
@@ -251,7 +253,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
         RuntimeTypeInfoSet typeSet = getTypeInfoSet();
 
         // at least prepare the empty table so that we don't have to check for null later
-        elements.put(null,new LinkedHashMap<QName, ElementBeanInfoImpl>());
+        elements.put(null,new LinkedHashMap<>());
 
         // recognize leaf bean infos
         for( RuntimeBuiltinLeafInfo leaf : RuntimeBuiltinLeafInfoImpl.builtinBeanInfos ) {
@@ -282,7 +284,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
             if(xs != null) {
                 if(xs.xmlns() != null && xs.xmlns().length > 0) {
                     if(xmlNsSet == null)
-                        xmlNsSet = new HashSet<XmlNs>();
+                        xmlNsSet = new HashSet<>();
                     xmlNsSet.addAll(Arrays.asList(xs.xmlns()));
                 }
             }
@@ -304,7 +306,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
             Class scopeClazz = scope==null?null:scope.getClazz();
             Map<QName,ElementBeanInfoImpl> m = elements.get(scopeClazz);
             if(m==null) {
-                m = new LinkedHashMap<QName, ElementBeanInfoImpl>();
+                m = new LinkedHashMap<>();
                 elements.put(scopeClazz,m);
             }
             m.put(n.getElementName(),bi);
@@ -322,7 +324,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
             bi.link(this);
 
         // register primitives for boxed types just to make GrammarInfo fool-proof
-        for( Map.Entry<Class,Class> e : RuntimeUtil.primitiveToBox.entrySet() )
+        for( Map.Entry<Class<?>,Class<?>> e : RuntimeUtil.primitiveToBox.entrySet() )
             beanInfoMap.put( e.getKey(), beanInfoMap.get(e.getValue()) );
 
         // build bridges
@@ -337,10 +339,10 @@ public final class JAXBContextImpl extends JAXBRIContext {
             Class erasedType = (Class) nav.erasure(tr.type);
 
             if(xjta!=null) {
-                a = new Adapter<Type,Class>(xjta.value(),nav);
+                a = new Adapter<>(xjta.value(),nav);
             }
             if(tr.get(XmlAttachmentRef.class)!=null) {
-                a = new Adapter<Type,Class>(SwaRefAdapter.class,nav);
+                a = new Adapter<>(SwaRefAdapter.class,nav);
                 hasSwaRef = true;
             }
 
@@ -375,10 +377,12 @@ public final class JAXBContextImpl extends JAXBRIContext {
     /**
      * True if this JAXBContext has {@link XmlAttachmentRef}.
      */
+    @Override
     public boolean hasSwaRef() {
         return hasSwaRef;
     }
 
+    @Override
     public RuntimeTypeInfoSet getRuntimeTypeInfoSet() {
         try {
             return getTypeInfoSet();
@@ -410,7 +414,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
                 // CompositeStructure doesn't have TypeInfo, so skip it.
                 // We'll add JaxBeanInfo for this later automatically
                 continue;
-            builder.getTypeInfo(new Ref<Type,Class>(c));
+            builder.getTypeInfo(new Ref<>(c));
         }
 
         this.hasSwaRef |= builder.hasSwaRef;
@@ -419,7 +423,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
         errorHandler.check();
         assert r!=null : "if no error was reported, the link must be a success";
 
-        typeInfoSetCache = new WeakReference<RuntimeTypeInfoSet>(r);
+        typeInfoSetCache = new WeakReference<>(r);
 
         return r;
     }
@@ -629,7 +633,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
      * For diagnostic use.
      */
     public Set<QName> getValidRootNames() {
-        Set<QName> r = new TreeSet<QName>(QNAME_COMPARATOR);
+        Set<QName> r = new TreeSet<>(QNAME_COMPARATOR);
         for (QNameMap.Entry e : rootMap.entrySet()) {
             r.add(e.createQName());
         }
@@ -708,10 +712,12 @@ public final class JAXBContextImpl extends JAXBRIContext {
         }
     }
 
+    @Override
     public MarshallerImpl createMarshaller() {
         return new MarshallerImpl(this,null);
     }
 
+    @Override
     public UnmarshallerImpl createUnmarshaller() {
         return new UnmarshallerImpl(this,null);
     }
@@ -719,10 +725,12 @@ public final class JAXBContextImpl extends JAXBRIContext {
     @Override
     public JAXBIntrospector createJAXBIntrospector() {
         return new JAXBIntrospector() {
+            @Override
             public boolean isElement(Object object) {
                 return getElementName(object)!=null;
             }
 
+            @Override
             public QName getElementName(Object jaxbElement) {
                 try {
                     return JAXBContextImpl.this.getElementName(jaxbElement);
@@ -740,7 +748,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
         XmlJavaTypeAdapter xjta = tr.get(XmlJavaTypeAdapter.class);
         XmlList xl = tr.get(XmlList.class);
 
-        Ref<Type,Class> ref = new Ref<Type,Class>(annotationReader, tis.getNavigator(), tr.type, xjta, xl );
+        Ref<Type,Class> ref = new Ref<>(annotationReader, tis.getNavigator(), tr.type, xjta, xl );
 
         return tis.getTypeInfo(ref);
     }
@@ -762,18 +770,22 @@ public final class JAXBContextImpl extends JAXBRIContext {
         final SAXParseException[] w = new SAXParseException[1];
 
         createSchemaGenerator().write(outputResolver, new ErrorListener() {
+            @Override
             public void error(SAXParseException exception) {
                 e[0] = exception;
             }
 
+            @Override
             public void fatalError(SAXParseException exception) {
                 e[0] = exception;
             }
 
+            @Override
             public void warning(SAXParseException exception) {
                 w[0] = exception;
             }
 
+            @Override
             public void info(SAXParseException exception) {}
         });
 
@@ -799,12 +811,12 @@ public final class JAXBContextImpl extends JAXBRIContext {
         }
 
         XmlSchemaGenerator<Type,Class,Field,Method> xsdgen =
-                new XmlSchemaGenerator<Type,Class,Field,Method>(tis.getNavigator(),tis);
+                new XmlSchemaGenerator<>(tis.getNavigator(),tis);
 
         // JAX-RPC uses Bridge objects that collide with
         // @XmlRootElement.
         // we will avoid collision here
-        Set<QName> rootTagNames = new HashSet<QName>();
+        Set<QName> rootTagNames = new HashSet<>();
         for (RuntimeElementInfo ei : tis.getAllElements()) {
             rootTagNames.add(ei.getElementName());
         }
@@ -830,6 +842,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
         return xsdgen;
     }
 
+    @Override
     public QName getTypeName(TypeReference tr) {
         try {
             NonElement<Type,Class> xt = getXmlType(getTypeInfoSet(),tr);
@@ -851,9 +864,10 @@ public final class JAXBContextImpl extends JAXBRIContext {
 
     @Override
     public Binder<Node> createBinder() {
-        return new BinderImpl<Node>(this,new DOMScanner());
+        return new BinderImpl<>(this,new DOMScanner());
     }
 
+    @Override
     public QName getElementName(Object o) throws JAXBException {
         JaxBeanInfo bi = getBeanInfo(o,true);
         if(!bi.isElement())
@@ -861,6 +875,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
         return new QName(bi.getElementNamespaceURI(o),bi.getElementLocalName(o));
     }
 
+    @Override
     public QName getElementName(Class o) throws JAXBException {
         JaxBeanInfo bi = getBeanInfo(o,true);
         if(!bi.isElement())
@@ -868,14 +883,17 @@ public final class JAXBContextImpl extends JAXBRIContext {
         return new QName(bi.getElementNamespaceURI(o),bi.getElementLocalName(o));
     }
 
+    @Override
     public Bridge createBridge(TypeReference ref) {
         return bridges.get(ref);
     }
 
-    public @NotNull BridgeContext createBridgeContext() {
+    public @NotNull@Override
+ BridgeContext createBridgeContext() {
         return new BridgeContextImpl(this);
     }
 
+    @Override
     public RawAccessor getElementPropertyAccessor(Class wrapperBean, String nsUri, String localName) throws JAXBException {
         JaxBeanInfo bi = getBeanInfo(wrapperBean,true);
         if(!(bi instanceof ClassBeanInfoImpl))
@@ -891,10 +909,12 @@ public final class JAXBContextImpl extends JAXBRIContext {
                         // this isn't desirable for JAX-WS, which essentially uses this method
                         // just as a reflection library. So use the "unadapted" version to
                         // achieve the desired semantics
+                    @Override
                         public Object get(Object bean) throws AccessorException {
                             return acc.getUnadapted(bean);
                         }
 
+                    @Override
                         public void set(Object bean, Object value) throws AccessorException {
                             acc.setUnadapted(bean,value);
                         }
@@ -904,10 +924,12 @@ public final class JAXBContextImpl extends JAXBRIContext {
         throw new JAXBException(new QName(nsUri,localName)+" is not a valid property on "+wrapperBean);
     }
 
+    @Override
     public List<String> getKnownNamespaceURIs() {
         return Arrays.asList(nameList.namespaceURIs);
     }
 
+    @Override
     public String getBuildId() {
         Package pkg = getClass().getPackage();
         if(pkg==null)   return null;
@@ -919,7 +941,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
         StringBuilder buf = new StringBuilder(Which.which(getClass()) + " Build-Id: " + getBuildId());
         buf.append("\nClasses known to this context:\n");
 
-        Set<String> names = new TreeSet<String>();  // sort them so that it's easy to read
+        Set<String> names = new TreeSet<>();  // sort them so that it's easy to read
 
         for (Class key : beanInfoMap.keySet())
             names.add(key.getName());
@@ -972,6 +994,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
     }
 
     private static final Comparator<QName> QNAME_COMPARATOR = new Comparator<QName>() {
+        @Override
         public int compare(QName lhs, QName rhs) {
             int r = lhs.getLocalPart().compareTo(rhs.getLocalPart());
             if(r!=0)    return r;

@@ -30,14 +30,17 @@ public final class InterningXmlVisitor implements XmlVisitor {
         this.next = next;
     }
 
+    @Override
     public void startDocument(LocatorEx locator, NamespaceContext nsContext) throws SAXException {
         next.startDocument(locator,nsContext);
     }
 
+    @Override
     public void endDocument() throws SAXException {
         next.endDocument();
     }
 
+    @Override
     public void startElement(TagName tagName ) throws SAXException {
         attributes.setAttributes(tagName.atts);
         tagName.atts = attributes;
@@ -46,28 +49,34 @@ public final class InterningXmlVisitor implements XmlVisitor {
         next.startElement(tagName);
     }
 
+    @Override
     public void endElement(TagName tagName ) throws SAXException {
         tagName.uri = intern(tagName.uri);
         tagName.local = intern(tagName.local);
         next.endElement(tagName);
     }
 
+    @Override
     public void startPrefixMapping( String prefix, String nsUri ) throws SAXException {
         next.startPrefixMapping(intern(prefix),intern(nsUri));
     }
 
+    @Override
     public void endPrefixMapping( String prefix ) throws SAXException {
         next.endPrefixMapping(intern(prefix));
     }
 
+    @Override
     public void text( CharSequence pcdata ) throws SAXException {
         next.text(pcdata);
     }
 
+    @Override
     public UnmarshallingContext getContext() {
         return next.getContext();
     }
     
+    @Override
     public TextPredictor getPredictor() {
         return next.getPredictor();
     }
@@ -79,38 +88,47 @@ public final class InterningXmlVisitor implements XmlVisitor {
             this.core = att;
         }
 
+        @Override
         public int getIndex(String qName) {
             return core.getIndex(qName);
         }
 
+        @Override
         public int getIndex(String uri, String localName) {
             return core.getIndex(uri, localName);
         }
 
+        @Override
         public int getLength() {
             return core.getLength();
         }
 
+        @Override
         public String getLocalName(int index) {
             return intern(core.getLocalName(index));
         }
 
+        @Override
         public String getQName(int index) {
             return intern(core.getQName(index));
         }
 
+        @Override
         public String getType(int index) {
             return intern(core.getType(index));
         }
 
+        @Override
         public String getType(String qName) {
             return intern(core.getType(qName));
         }
 
+        @Override
         public String getType(String uri, String localName) {
             return intern(core.getType(uri, localName));
         }
 
+        @Override
         public String getURI(int index) {
             return intern(core.getURI(index));
         }
@@ -120,14 +138,17 @@ public final class InterningXmlVisitor implements XmlVisitor {
         // we don't (probably shouldn't) intern values.
         //
 
+        @Override
         public String getValue(int index) {
             return core.getValue(index);
         }
 
+        @Override
         public String getValue(String qName) {
             return core.getValue(qName);
         }
 
+        @Override
         public String getValue(String uri, String localName) {
             return core.getValue(uri, localName);
         }

@@ -39,6 +39,7 @@ public abstract class XmlOutputAbstractImpl implements XmlOutput {
      * @param fragment
      *      true if we are marshalling a fragment.
      */
+    @Override
     public void startDocument(XMLSerializer serializer, boolean fragment, int[] nsUriIndex2prefixIndex, NamespaceContextImpl nsContext) throws IOException, SAXException, XMLStreamException {
         this.nsUriIndex2prefixIndex = nsUriIndex2prefixIndex;
         this.nsContext = nsContext;
@@ -51,6 +52,7 @@ public abstract class XmlOutputAbstractImpl implements XmlOutput {
      * @param fragment
      *      false if we are writing the whole document.
      */
+    @Override
     public void endDocument(boolean fragment) throws IOException, SAXException, XMLStreamException {
         serializer = null;
     }
@@ -65,12 +67,15 @@ public abstract class XmlOutputAbstractImpl implements XmlOutput {
      * <p>
      * This method is used for writing tags that are indexed.
      */
+    @Override
     public void beginStartTag(Name name) throws IOException, XMLStreamException {
         beginStartTag( nsUriIndex2prefixIndex[name.nsUriIndex], name.localName );
     }
 
+    @Override
     public abstract void beginStartTag(int prefix, String localName) throws IOException, XMLStreamException;
 
+    @Override
     public void attribute( Name name, String value ) throws IOException, XMLStreamException {
         short idx = name.nsUriIndex;
         if(idx==-1)
@@ -83,13 +88,17 @@ public abstract class XmlOutputAbstractImpl implements XmlOutput {
      *      -1 if this attribute does not have a prefix
      *      (this handling differs from that of elements.)
      */
+    @Override
     public abstract void attribute( int prefix, String localName, String value ) throws IOException, XMLStreamException;
 
+    @Override
     public abstract void endStartTag() throws IOException, SAXException;
 
+    @Override
     public void endTag(Name name) throws IOException, SAXException, XMLStreamException {
         endTag( nsUriIndex2prefixIndex[name.nsUriIndex], name.localName);
     }
+    @Override
     public abstract void endTag(int prefix, String localName) throws IOException, SAXException, XMLStreamException;
 
 

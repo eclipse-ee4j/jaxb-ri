@@ -30,8 +30,11 @@ import org.xml.sax.SAXParseException;
  * @since 2.1 EA2
  */
 public interface ErrorListener extends ErrorHandler {
+    @Override
     void error(SAXParseException exception);
+    @Override
     void fatalError(SAXParseException exception);
+    @Override
     void warning(SAXParseException exception);
     /**
      * Used to report possibly verbose information that

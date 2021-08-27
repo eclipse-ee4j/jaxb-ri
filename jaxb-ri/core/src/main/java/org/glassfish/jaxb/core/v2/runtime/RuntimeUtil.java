@@ -20,14 +20,26 @@ import jakarta.xml.bind.annotation.adapters.XmlAdapter;
  * @author Kohsuke Kawaguchi
  */
 public class RuntimeUtil {
+
+    private RuntimeUtil() {}
+
     /**
      * XmlAdapter for printing arbitrary object by using {@link Object#toString()}.
      */
     public static final class ToStringAdapter extends XmlAdapter<String,Object> {
+
+        /**
+         * Default constructor.
+         */
+        public ToStringAdapter() {
+        }
+
+        @Override
         public Object unmarshal(String s) {
             throw new UnsupportedOperationException();
         }
 
+        @Override
         public String marshal(Object o) {
             if(o==null)     return null;
             return o.toString();
@@ -40,15 +52,15 @@ public class RuntimeUtil {
      * <p>
      * e.g., {@code int -> Integer}.
      */
-    public static final Map<Class,Class> boxToPrimitive;
+    public static final Map<Class<?>, Class<?>> boxToPrimitive;
 
     /**
      * Reverse map of {@link #boxToPrimitive}.
      */
-    public static final Map<Class,Class> primitiveToBox;
+    public static final Map<Class<?>, Class<?>> primitiveToBox;
 
     static {
-        Map<Class,Class> b = new HashMap<Class,Class>();
+        Map<Class<?>, Class<?>> b = new HashMap<>();
         b.put(Byte.TYPE,Byte.class);
         b.put(Short.TYPE,Short.class);
         b.put(Integer.TYPE,Integer.class);
@@ -61,8 +73,8 @@ public class RuntimeUtil {
 
         primitiveToBox = Collections.unmodifiableMap(b);
 
-        Map<Class,Class> p = new HashMap<Class,Class>();
-        for( Map.Entry<Class,Class> e :  b.entrySet() )
+        Map<Class<?>, Class<?>> p = new HashMap<>();
+        for( Map.Entry<Class<?>, Class<?>> e :  b.entrySet() )
             p.put(e.getValue(),e.getKey());
 
         boxToPrimitive = Collections.unmodifiableMap(p);

@@ -24,14 +24,24 @@ import java.util.Map;
  * @author Kohsuke Kawaguchi
  */
 public interface RuntimeTypeInfoSet extends TypeInfoSet<Type,Class,Field,Method>{
+    @Override
     Map<Class,? extends RuntimeArrayInfo> arrays();
+    @Override
     Map<Class,? extends RuntimeClassInfo> beans();
+    @Override
     Map<Type,? extends RuntimeBuiltinLeafInfo> builtins();
+    @Override
     Map<Class,? extends RuntimeEnumLeafInfo> enums();
+    @Override
     RuntimeNonElement getTypeInfo( Type type );
+    @Override
     RuntimeNonElement getAnyTypeInfo();
+    @Override
     RuntimeNonElement getClassInfo( Class type );
+    @Override
     RuntimeElementInfo getElementInfo( Class scope, QName name );
+    @Override
     Map<QName,? extends RuntimeElementInfo> getElementMappings( Class scope );
+    @Override
     Iterable<? extends RuntimeElementInfo> getAllElements();
 }

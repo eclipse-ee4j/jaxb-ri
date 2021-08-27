@@ -91,10 +91,12 @@ public final class ElementBeanInfoImpl extends JaxBeanInfo<JAXBElement> {
         constructor = null;
 
         this.property = new Property<JAXBElement>() {
+            @Override
             public void reset(JAXBElement o) {
                 throw new UnsupportedOperationException();
             }
 
+            @Override
             public void serializeBody(JAXBElement e, XMLSerializer target, Object outerPeer) throws SAXException, IOException, XMLStreamException {
                 Class scope = e.getScope();
                 if(e.isGlobalScope())   scope = null;
@@ -127,43 +129,54 @@ public final class ElementBeanInfoImpl extends JaxBeanInfo<JAXBElement> {
                 }
             }
 
+            @Override
             public void serializeURIs(JAXBElement o, XMLSerializer target) {
             }
 
+            @Override
             public boolean hasSerializeURIAction() {
                 return false;
             }
 
+            @Override
             public String getIdValue(JAXBElement o) {
                 return null;
             }
 
+            @Override
             public PropertyKind getKind() {
                 return PropertyKind.ELEMENT;
             }
 
+            @Override
             public void buildChildElementUnmarshallers(UnmarshallerChain chain, QNameMap<ChildLoader> handlers) {
             }
 
+            @Override
             public Accessor getElementPropertyAccessor(String nsUri, String localName) {
                 throw new UnsupportedOperationException();
             }
 
+            @Override
             public void wrapUp() {
             }
 
+            @Override
             public RuntimePropertyInfo getInfo() {
                 return property.getInfo();
             }
 
+            @Override
             public boolean isHiddenByOverride() {
                 return false;
             }
             
+            @Override
             public void setHiddenByOverride(boolean hidden) {
                 throw new UnsupportedOperationException("Not supported on jaxbelements.");
             }
 
+            @Override
             public String getFieldName() {
                 return null;
             }
@@ -216,6 +229,7 @@ public final class ElementBeanInfoImpl extends JaxBeanInfo<JAXBElement> {
             core.startElement(state,ea);
         }
 
+        @Override
         public Object intercept(UnmarshallingContext.State state, Object o) throws SAXException {
             JAXBElement e = (JAXBElement)state.getTarget();
             state.setTarget(state.getBackup());
@@ -237,19 +251,22 @@ public final class ElementBeanInfoImpl extends JaxBeanInfo<JAXBElement> {
         }
     }
 
+    @Override
     public String getElementNamespaceURI(JAXBElement e) {
         return e.getName().getNamespaceURI();
     }
 
+    @Override
     public String getElementLocalName(JAXBElement e) {
         return e.getName().getLocalPart();
     }
 
+    @Override
     public Loader getLoader(JAXBContextImpl context, boolean typeSubstitutionCapable) {
         if(loader==null) {
             // this has to be done lazily to avoid cyclic reference issue
             UnmarshallerChain c = new UnmarshallerChain(context);
-            QNameMap<ChildLoader> result = new QNameMap<ChildLoader>();
+            QNameMap<ChildLoader> result = new QNameMap<>();
             property.buildChildElementUnmarshallers(c,result);
             if(result.size()==1)
                 // for ElementBeanInfoImpl created from RuntimeElementInfo
@@ -261,6 +278,7 @@ public final class ElementBeanInfoImpl extends JaxBeanInfo<JAXBElement> {
         return loader;
     }
 
+    @Override
     public final JAXBElement createInstance(UnmarshallingContext context) throws IllegalAccessException, InvocationTargetException, InstantiationException {
         return createInstanceFromValue(null);
     }
@@ -272,11 +290,13 @@ public final class ElementBeanInfoImpl extends JaxBeanInfo<JAXBElement> {
             return constructor.newInstance(o);
     }
 
+    @Override
     public boolean reset(JAXBElement e, UnmarshallingContext context) {
         e.setValue(null);
         return true;
     }
 
+    @Override
     public String getId(JAXBElement e, XMLSerializer target) {
         // TODO: is this OK? Should we be returning the ID value of the type property?
         /*
@@ -290,6 +310,7 @@ public final class ElementBeanInfoImpl extends JaxBeanInfo<JAXBElement> {
             return null;
     }
 
+    @Override
     public void serializeBody(JAXBElement element, XMLSerializer target) throws SAXException, IOException, XMLStreamException {
         try {
             property.serializeBody(element,target,null);
@@ -298,18 +319,22 @@ public final class ElementBeanInfoImpl extends JaxBeanInfo<JAXBElement> {
         }
     }
 
+    @Override
     public void serializeRoot(JAXBElement e, XMLSerializer target) throws SAXException, IOException, XMLStreamException {
         serializeBody(e,target);
     }
 
+    @Override
     public void serializeAttributes(JAXBElement e, XMLSerializer target) {
         // noop
     }
 
+    @Override
     public void serializeURIs(JAXBElement e, XMLSerializer target) {
         // noop
     }
 
+    @Override
     public final Transducer<JAXBElement> getTransducer() {
         return null;
     }

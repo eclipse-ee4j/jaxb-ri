@@ -23,6 +23,12 @@ public class NoEscapeHandler implements CharacterEscapeHandler {
 
     public static final NoEscapeHandler theInstance = new NoEscapeHandler();
 
+    /**
+     * Default constructor.
+     */
+    public NoEscapeHandler() {
+    }
+
     @Override
     public void escape(char[] ch, int start, int length, boolean isAttVal, Writer out) throws IOException {
         out.write(ch, start, length);

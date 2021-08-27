@@ -60,6 +60,7 @@ public final class Name implements Comparable<Name> {
         this.isAttribute = isAttribute;
     }
 
+    @Override
     public String toString() {
         return '{'+nsUri+'}'+localName;
     }
@@ -75,6 +76,7 @@ public final class Name implements Comparable<Name> {
         return localName.equals(this.localName) && nsUri.equals(this.nsUri);
     }
 
+    @Override
     public int compareTo(Name that) {
         int r = this.nsUri.compareTo(that.nsUri);
         if(r!=0)    return r;

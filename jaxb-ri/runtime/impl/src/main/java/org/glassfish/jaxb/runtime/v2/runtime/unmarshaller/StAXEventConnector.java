@@ -66,6 +66,7 @@ final class StAXEventConnector extends StAXConnector {
         staxEventReader = staxCore;
     }
 
+    @Override
     public void bridge() throws XMLStreamException {
 
         try {
@@ -117,10 +118,12 @@ final class StAXEventConnector extends StAXConnector {
         }
     }
 
+    @Override
     protected Location getCurrentLocation() {
         return event.getLocation();
     }
 
+    @Override
     protected String getCurrentQName() {
         QName qName;
         if(event.isEndElement())

@@ -27,14 +27,17 @@ final class RuntimeArrayInfoImpl extends ArrayInfoImpl<Type,Class,Field,Method> 
         super(builder, upstream, arrayType);
     }
 
+    @Override
     public Class getType() {
         return (Class)super.getType();
     }
 
+    @Override
     public RuntimeNonElement getItemType() {
         return (RuntimeNonElement)super.getItemType();
     }
 
+    @Override
     public <V> Transducer<V> getTransducer() {
         return null;
     }

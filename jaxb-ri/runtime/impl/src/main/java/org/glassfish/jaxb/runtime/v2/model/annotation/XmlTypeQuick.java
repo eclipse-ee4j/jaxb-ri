@@ -32,34 +32,42 @@ final class XmlTypeQuick
         this.core = core;
     }
 
+    @Override
     protected Annotation getAnnotation() {
         return core;
     }
 
+    @Override
     protected Quick newInstance(Locatable upstream, Annotation core) {
         return new XmlTypeQuick(upstream, ((XmlType) core));
     }
 
+    @Override
     public Class<XmlType> annotationType() {
         return XmlType.class;
     }
 
+    @Override
     public String name() {
         return core.name();
     }
 
+    @Override
     public String namespace() {
         return core.namespace();
     }
 
+    @Override
     public String[] propOrder() {
         return core.propOrder();
     }
 
+    @Override
     public Class factoryClass() {
         return core.factoryClass();
     }
 
+    @Override
     public String factoryMethod() {
         return core.factoryMethod();
     }

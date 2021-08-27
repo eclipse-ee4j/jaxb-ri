@@ -39,19 +39,23 @@ final class AnyTypeBeanInfo extends JaxBeanInfo<Object> implements AttributeAcce
         super(grammar, anyTypeInfo, Object.class, new QName(WellKnownNamespace.XML_SCHEMA,"anyType"), false, true, false);
     }
 
+    @Override
     public String getElementNamespaceURI(Object element) {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public String getElementLocalName(Object element) {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public Object createInstance(UnmarshallingContext context) {
         throw new UnsupportedOperationException();
         // return JAXBContextImpl.createDom().createElementNS("","noname");
     }
 
+    @Override
     public boolean reset(Object element, UnmarshallingContext context) {
         return false;
 //        NodeList nl = element.getChildNodes();
@@ -63,10 +67,12 @@ final class AnyTypeBeanInfo extends JaxBeanInfo<Object> implements AttributeAcce
 //        return true;
     }
 
+    @Override
     public String getId(Object element, XMLSerializer target) {
         return null;
     }
 
+    @Override
     public void serializeBody(Object element, XMLSerializer target) throws SAXException, IOException, XMLStreamException {
         NodeList childNodes = ((Element)element).getChildNodes();
         int len = childNodes.getLength();
@@ -84,6 +90,7 @@ final class AnyTypeBeanInfo extends JaxBeanInfo<Object> implements AttributeAcce
         }
     }
 
+    @Override
     public void serializeAttributes(Object element, XMLSerializer target) throws SAXException {
         NamedNodeMap al = ((Element)element).getAttributes();
         int len = al.getLength();
@@ -104,6 +111,7 @@ final class AnyTypeBeanInfo extends JaxBeanInfo<Object> implements AttributeAcce
         }
     }
 
+    @Override
     public void serializeRoot(Object element, XMLSerializer target) throws SAXException {
         target.reportError(
                 new ValidationEventImpl(
@@ -113,6 +121,7 @@ final class AnyTypeBeanInfo extends JaxBeanInfo<Object> implements AttributeAcce
                         null));
     }
 
+    @Override
     public void serializeURIs(Object element, XMLSerializer target) {
         NamedNodeMap al = ((Element)element).getAttributes();
         int len = al.getLength();
@@ -138,10 +147,12 @@ final class AnyTypeBeanInfo extends JaxBeanInfo<Object> implements AttributeAcce
         }
     }
 
+    @Override
     public Transducer<Object> getTransducer() {
         return null;
     }
 
+    @Override
     public Loader getLoader(JAXBContextImpl context, boolean typeSubstitutionCapable) {
         if(typeSubstitutionCapable)
             return substLoader;

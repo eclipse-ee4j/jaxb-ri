@@ -28,7 +28,9 @@ import java.lang.reflect.Type;
  */
 public interface RuntimeNonElementRef extends NonElementRef<Type,Class> {
     // refinements
+    @Override
     RuntimeNonElement getTarget();
+    @Override
     RuntimePropertyInfo getSource();
 
     /**

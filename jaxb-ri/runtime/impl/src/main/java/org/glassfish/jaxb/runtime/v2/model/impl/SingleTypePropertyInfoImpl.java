@@ -53,6 +53,7 @@ abstract class SingleTypePropertyInfoImpl<T,C,F,M>
             this.acc = null;
     }
 
+    @Override
     public List<? extends NonElement<T,C>> ref() {
         return Collections.singletonList(getTarget());
     }
@@ -69,6 +70,7 @@ abstract class SingleTypePropertyInfoImpl<T,C,F,M>
         return this;
     }
 
+    @Override
     public void link() {
         super.link();
 

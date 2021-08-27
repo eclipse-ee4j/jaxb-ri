@@ -52,6 +52,7 @@ final class StAXPostInitAction implements Runnable {
         this.serializer = serializer;
     }
 
+    @Override
     public void run() {
         NamespaceContext ns = nsc;
         if(xsw!=null)   ns = xsw.getNamespaceContext();

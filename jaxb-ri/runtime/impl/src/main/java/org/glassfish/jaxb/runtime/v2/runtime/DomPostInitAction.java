@@ -37,8 +37,9 @@ final class DomPostInitAction implements Runnable {
     }
 
     // declare the currently in-scope namespace bindings
+    @Override
     public void run() {
-        Set<String> declaredPrefixes = new HashSet<String>();
+        Set<String> declaredPrefixes = new HashSet<>();
         for( Node n=node; n!=null && n.getNodeType()==Node.ELEMENT_NODE; n=n.getParentNode() ) {
             NamedNodeMap atts = n.getAttributes();
             if(atts==null)      continue; // broken DOM. but be graceful.

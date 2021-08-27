@@ -27,10 +27,12 @@ public class MethodAccessor_Boolean extends Accessor {
         super(Boolean.class);
     }
 
+    @Override
     public Object get(Object bean) {
         return ((Bean)bean).get_boolean();
     }
 
+    @Override
     public void set(Object bean, Object value) {
         ((Bean)bean).set_boolean( value==null ? Const.default_value_boolean : (Boolean)value );
     }

@@ -27,10 +27,12 @@ public class MethodAccessor_Long extends Accessor {
         super(Long.class);
     }
 
+    @Override
     public Object get(Object bean) {
         return ((Bean)bean).get_long();
     }
 
+    @Override
     public void set(Object bean, Object value) {
         ((Bean)bean).set_long( value==null ? Const.default_value_long : (Long)value );
     }

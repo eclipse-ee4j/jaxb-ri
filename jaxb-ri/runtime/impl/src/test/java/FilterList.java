@@ -134,14 +134,17 @@ public final class FilterList extends AbstractList {
             throw new IndexOutOfBoundsException(Integer.toString(index));
     }
     
+    @Override
     public void add(int index, Object element) {
         core.add(toCoreIndex(index,true),element);
     }
     
+    @Override
     public Iterator iterator() {
         return listIterator();
     }
     
+    @Override
     public ListIterator listIterator(final int index) {
         return new ListIterator() {
             /**
@@ -171,12 +174,15 @@ public final class FilterList extends AbstractList {
              */
             private int lastRet = -1;
             
+            @Override
             public int nextIndex() {
                 return thisIndex;
             }
+            @Override
             public int previousIndex() {
                 return thisIndex-1;
             }
+            @Override
             public void remove() {
                 if (lastRet == -1)
                     throw new IllegalStateException();
@@ -192,9 +198,11 @@ public final class FilterList extends AbstractList {
                     throw new ConcurrentModificationException();
                 }
             }
+            @Override
             public boolean hasNext() {
                 return coreIndex<core.size();
             }
+            @Override
             public Object next() {
                 int coreSize = core.size();
                 
@@ -210,6 +218,7 @@ public final class FilterList extends AbstractList {
                     
                 return core.get(lastRet);
             }
+            @Override
             public boolean hasPrevious() {
                 // TODO: this could be made bit more efficient
                 
@@ -220,6 +229,7 @@ public final class FilterList extends AbstractList {
                 
                 return idx>=0;
             }
+            @Override
             public Object previous() {
                 // TODO: this could be made bit more efficient
                 
@@ -237,6 +247,7 @@ public final class FilterList extends AbstractList {
                 
                 return core.get(lastRet);
             }
+            @Override
             public void add(Object o) {
                 try {
                     core.add(coreIndex,o);
@@ -245,6 +256,7 @@ public final class FilterList extends AbstractList {
                     throw new ConcurrentModificationException();
                 }
             }
+            @Override
             public void set(Object o) {
                 if (lastRet == -1)
                     throw new IllegalStateException();
@@ -258,6 +270,7 @@ public final class FilterList extends AbstractList {
         };
     }
     
+    @Override
     public Object set(int index, Object element) {
         return core.set(toCoreIndex(index,false),element);
     }
@@ -268,14 +281,17 @@ public final class FilterList extends AbstractList {
      * @param index The offset of the object.
      * @return The Object which was removed.
      */
+    @Override
     public Object remove(int index) {
         return core.remove(toCoreIndex(index,false));
     }
     
+    @Override
     public Object get(int index) {
         return core.get(toCoreIndex(index,false));
     }
 
+    @Override
     public int size() {
         if(isCoreModified() || size==-1) {
             size=0;

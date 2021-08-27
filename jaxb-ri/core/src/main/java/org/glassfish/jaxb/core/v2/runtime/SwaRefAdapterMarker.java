@@ -20,10 +20,18 @@ import jakarta.xml.bind.annotation.adapters.XmlAdapter;
  */
 public class SwaRefAdapterMarker extends XmlAdapter<String, DataHandler> {
 
+    /**
+     * Default constructor.
+     */
+    public SwaRefAdapterMarker() {
+    }
+
+    @Override
     public DataHandler unmarshal(String v) throws Exception {
         throw new IllegalStateException("Not implemented");
     }
 
+    @Override
     public String marshal(DataHandler v) throws Exception {
         throw new IllegalStateException("Not implemented");
     }

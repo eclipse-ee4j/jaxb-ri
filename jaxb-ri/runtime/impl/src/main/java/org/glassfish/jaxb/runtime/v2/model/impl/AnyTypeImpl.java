@@ -34,22 +34,27 @@ class AnyTypeImpl<T,C> implements NonElement<T,C> {
         this.nav = nav;
     }
 
+    @Override
     public QName getTypeName() {
         return ANYTYPE_NAME;
     }
 
+    @Override
     public T getType() {
         return type;
     }
 
+    @Override
     public Locatable getUpstream() {
         return null;
     }
 
+    @Override
     public boolean isSimpleType() {
         return false;
     }
 
+    @Override
     public Location getLocation() {
         return nav.getClassLocation(nav.asDecl(Object.class));
     }
@@ -60,6 +65,8 @@ class AnyTypeImpl<T,C> implements NonElement<T,C> {
      * @deprecated
      *      why are you calling a method whose return value is always known?
      */
+    @Override
+    @Deprecated
     public final boolean canBeReferencedByIDREF() {
         return true;
     }

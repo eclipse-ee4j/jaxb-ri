@@ -32,6 +32,7 @@ public class AccessorFactoryImpl implements InternalAccessorFactory {
      * @param readOnly  the isStatic value of the field's modifier.
      * @return Accessor the accessor for this field
      */
+    @Override
     public Accessor createFieldAccessor(Class bean, Field field, boolean readOnly) {
         return readOnly
                 ? new Accessor.ReadOnlyFieldReflection(field)
@@ -47,6 +48,7 @@ public class AccessorFactoryImpl implements InternalAccessorFactory {
      * @param supressWarning supress security warning about accessing fields through reflection
      * @return Accessor the accessor for this field
      */
+    @Override
     public Accessor createFieldAccessor(Class bean, Field field, boolean readOnly, boolean supressWarning) {
         return readOnly
                 ? new Accessor.ReadOnlyFieldReflection(field, supressWarning)
@@ -61,6 +63,7 @@ public class AccessorFactoryImpl implements InternalAccessorFactory {
      * @param setter the setter method to be accessed. The value can be null.
      * @return Accessor the accessor for these methods
      */
+    @Override
     public Accessor createPropertyAccessor(Class bean, Method getter, Method setter) {    
         if (getter == null) {
             return new Accessor.SetterOnlyReflection(setter);

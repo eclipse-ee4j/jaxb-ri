@@ -32,10 +32,12 @@ final class GenericArrayTypeImpl implements GenericArrayType {
      *         of this array
      * @since 1.5
      */
+    @Override
     public Type getGenericComponentType() {
         return genericComponentType; // return cached component type
     }
 
+    @Override
     public String toString() {
         Type componentType = getGenericComponentType();
         StringBuilder sb = new StringBuilder();

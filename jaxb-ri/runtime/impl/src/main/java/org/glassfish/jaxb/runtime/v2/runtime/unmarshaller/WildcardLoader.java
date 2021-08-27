@@ -36,6 +36,7 @@ public final class WildcardLoader extends ProxyLoader {
         this.mode = mode;
     }
 
+    @Override
     protected Loader selectLoader(UnmarshallingContext.State state, TagName tag) throws SAXException {
         UnmarshallingContext context = state.getContext();
 

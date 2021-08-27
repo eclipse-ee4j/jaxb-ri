@@ -197,16 +197,19 @@ public abstract class TransducedAccessor<BeanT> {
             this.acc = acc.optimize(context);
         }
 
+        @Override
         public CharSequence print(BeanT bean) throws AccessorException {
             ValueT o = acc.get(bean);
             if(o==null)     return null;
             return xducer.print(o);
         }
 
+        @Override
         public void parse(BeanT bean, CharSequence lexical) throws AccessorException, SAXException {
             acc.set(bean,xducer.parse(lexical));
         }
 
+        @Override
         public boolean hasValue(BeanT bean) throws AccessorException {
             return acc.getUnadapted(bean)!=null;
         }
@@ -241,6 +244,7 @@ public abstract class TransducedAccessor<BeanT> {
             this.targetType = acc.getValueType();
         }
 
+        @Override
         public String print(BeanT bean) throws AccessorException, SAXException {
             TargetT target = acc.get(bean);
             if(target==null)    return null;
@@ -264,6 +268,7 @@ public abstract class TransducedAccessor<BeanT> {
                 acc.set(bean,t);
         }
 
+        @Override
         public void parse(final BeanT bean, CharSequence lexical) throws AccessorException, SAXException {
             final String idref = WhiteSpaceProcessor.trim(lexical).toString();
             final UnmarshallingContext context = UnmarshallingContext.getInstance();
@@ -291,6 +296,7 @@ public abstract class TransducedAccessor<BeanT> {
                 // try again later
                 final LocatorEx loc = new LocatorEx.Snapshot(context.getLocator());
                 context.addPatcher(new Patcher() {
+                    @Override
                     public void run() throws SAXException {
                         try {
                             TargetT t = (TargetT)callable.call();
@@ -313,6 +319,7 @@ public abstract class TransducedAccessor<BeanT> {
             }
         }
 
+        @Override
         public boolean hasValue(BeanT bean) throws AccessorException {
             return acc.get(bean)!=null;
         }

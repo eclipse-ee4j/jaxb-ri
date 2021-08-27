@@ -33,6 +33,7 @@ public class TextLoader extends Loader {
         this.xducer = xducer;
     }
 
+    @Override
     public void text(UnmarshallingContext.State state, CharSequence text) throws SAXException {
         try {
             state.setTarget(xducer.parse(text));

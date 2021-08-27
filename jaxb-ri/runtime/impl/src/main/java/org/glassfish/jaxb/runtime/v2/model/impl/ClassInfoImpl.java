@@ -147,6 +147,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
         }
     }        
 
+    @Override
     public ClassInfoImpl<T,C,F,M> getBaseClass() {
         if (!baseClassComputed) {
             // compute the base class
@@ -172,6 +173,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
      *
      * The substitution hierarchy is the same as the inheritance hierarchy.
      */
+    @Override
     public final Element<T,C> getSubstitutionHead() {
         ClassInfoImpl<T,C,F,M> c = getBaseClass();
         while(c!=null && !c.isElement())
@@ -179,6 +181,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
         return c;
     }
 
+    @Override
     public final C getClazz() {
         return clazz;
     }
@@ -190,10 +193,13 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
      * @deprecated
      *      you shouldn't be invoking this method on {@link ClassInfoImpl}.
      */
+    @Override
+    @Deprecated
     public ClassInfoImpl<T,C,F,M> getScope() {
         return null;
     }
 
+    @Override
     public final T getType() {
         return nav().use(clazz);
     }
@@ -202,6 +208,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
      * A {@link ClassInfo} can be referenced by {@link XmlIDREF} if
      * it has an ID property.
      */
+    @Override
     public boolean canBeReferencedByIDREF() {
         for (PropertyInfo<T,C> p : getProperties()) {
             if(p.id()== ID.ID)
@@ -214,6 +221,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
             return false;
     }
 
+    @Override
     public final String getName() {
         return nav().getClassName(clazz);
     }
@@ -222,6 +230,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
         return reader().getClassAnnotation(a,clazz,this);
     }
 
+    @Override
     public Element<T,C> asElement() {
         if(isElement())
             return this;
@@ -229,13 +238,14 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
             return null;
     }
 
+    @Override
     public List<? extends PropertyInfo<T,C>> getProperties() {
         if(properties!=null)    return properties;
 
         // check the access type first
         XmlAccessType at = getAccessType();
 
-        properties = new FinalArrayList<PropertyInfoImpl<T,C,F,M>>();
+        properties = new FinalArrayList<>();
 
         findFieldProperties(clazz,at);
 
@@ -342,6 +352,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
         }
     }
 
+    @Override
     public final boolean hasValueProperty() {
         ClassInfoImpl<T, C, F, M> bc = getBaseClass();
         if(bc!=null && bc.hasValueProperty())
@@ -354,6 +365,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
         return false;
         }
 
+    @Override
     public PropertyInfo<T,C> getProperty(String name) {
         for( PropertyInfo<T,C> p: getProperties() ) {
             if(p.getName().equals(name))
@@ -430,6 +442,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
                 }
         }
 
+        @Override
         public int compare(PropertyInfoImpl o1, PropertyInfoImpl o2) {
             int lhs = checkedGet(o1);
             int rhs = checkedGet(o2);
@@ -454,7 +467,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
             int ii = i;
             if(ii<used.length) {
                 if(used[ii]!=null && used[ii]!=p) {
-                    if(collidedNames==null) collidedNames = new HashSet<String>();
+                    if(collidedNames==null) collidedNames = new HashSet<>();
 
                     if(collidedNames.add(p.getName()))
                         // report the error only on the first time
@@ -475,10 +488,12 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
                 if(used[i]==null) {
                     String unusedName = propOrder[i];
                     String nearest = EditDistance.findNearest(unusedName, new AbstractList<String>() {
+                        @Override
                         public String get(int index) {
                             return properties.get(index).getName();
                         }
 
+                        @Override
                         public int size() {
                             return properties.size();
                         }
@@ -492,6 +507,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
         }
     }
 
+    @Override
     public boolean hasProperties() {
         return !properties.isEmpty();
     }
@@ -508,7 +524,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
     }
 
     private static <T> List<T> makeSet( T... args ) {
-        List<T> l = new FinalArrayList<T>();
+        List<T> l = new FinalArrayList<>();
         for( T arg : args )
             if(arg!=null)   l.add(arg);
         return l;
@@ -841,23 +857,23 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
     }
 
     protected ReferencePropertyInfoImpl<T,C,F,M> createReferenceProperty(PropertySeed<T,C,F,M> seed) {
-        return new ReferencePropertyInfoImpl<T,C,F,M>(this,seed);
+        return new ReferencePropertyInfoImpl<>(this,seed);
     }
 
     protected AttributePropertyInfoImpl<T,C,F,M> createAttributeProperty(PropertySeed<T,C,F,M> seed) {
-        return new AttributePropertyInfoImpl<T,C,F,M>(this,seed);
+        return new AttributePropertyInfoImpl<>(this,seed);
     }
 
     protected ValuePropertyInfoImpl<T,C,F,M> createValueProperty(PropertySeed<T,C,F,M> seed) {
-        return new ValuePropertyInfoImpl<T,C,F,M>(this,seed);
+        return new ValuePropertyInfoImpl<>(this,seed);
     }
 
     protected ElementPropertyInfoImpl<T,C,F,M> createElementProperty(PropertySeed<T,C,F,M> seed) {
-        return new ElementPropertyInfoImpl<T,C,F,M>(this,seed);
+        return new ElementPropertyInfoImpl<>(this,seed);
     }
 
     protected MapPropertyInfoImpl<T,C,F,M> createMapProperty(PropertySeed<T,C,F,M> seed) {
-        return new MapPropertyInfoImpl<T,C,F,M>(this,seed);
+        return new MapPropertyInfoImpl<>(this,seed);
     }
 
 
@@ -867,8 +883,8 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
     private void findGetterSetterProperties(XmlAccessType at) {
         // in the first step we accumulate getters and setters
         // into this map keyed by the property name.
-        Map<String,M> getters = new LinkedHashMap<String,M>();
-        Map<String,M> setters = new LinkedHashMap<String,M>();
+        Map<String,M> getters = new LinkedHashMap<>();
+        Map<String,M> setters = new LinkedHashMap<>();
 
         C c = clazz;
         do {
@@ -880,7 +896,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
 
 
         // compute the intersection
-        Set<String> complete = new TreeSet<String>(getters.keySet());
+        Set<String> complete = new TreeSet<>(getters.keySet());
         complete.retainAll(setters.keySet());
 
         resurrect(getters, complete);
@@ -891,8 +907,8 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
             M getter = getters.get(name);
             M setter = setters.get(name);
 
-            Annotation[] ga = getter!=null ? reader().getAllMethodAnnotations(getter,new MethodLocatable<M>(this,getter,nav())) : EMPTY_ANNOTATIONS;
-            Annotation[] sa = setter!=null ? reader().getAllMethodAnnotations(setter,new MethodLocatable<M>(this,setter,nav())) : EMPTY_ANNOTATIONS;
+            Annotation[] ga = getter!=null ? reader().getAllMethodAnnotations(getter,new MethodLocatable<>(this,getter,nav())) : EMPTY_ANNOTATIONS;
+            Annotation[] sa = setter!=null ? reader().getAllMethodAnnotations(setter,new MethodLocatable<>(this,setter,nav())) : EMPTY_ANNOTATIONS;
 
             boolean hasAnnotation = hasJAXBAnnotation(ga) || hasJAXBAnnotation(sa);
             boolean isOverriding = false;
@@ -915,8 +931,8 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
                             nav().getTypeName(nav().getReturnType(getter)),
                             nav().getTypeName(nav().getMethodParameters(setter)[0])
                         ),
-                        new MethodLocatable<M>( this, getter, nav()),
-                        new MethodLocatable<M>( this, setter, nav())));
+                        new MethodLocatable<>( this, getter, nav()),
+                        new MethodLocatable<>( this, setter, nav())));
                     continue;
                 }
 
@@ -960,7 +976,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
             collectGetterSetters(sc,getters,setters);
 
         Collection<? extends M> methods = nav().getDeclaredMethods(c);
-        Map<String,List<M>> allSetters = new LinkedHashMap<String,List<M>>();
+        Map<String,List<M>> allSetters = new LinkedHashMap<>();
         for( M method : methods ) {
             boolean used = false;   // if this method is added to getters or setters
 
@@ -987,7 +1003,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
             if(propName!=null && arity==1) {
                     List<M> propSetters = allSetters.get(propName);
                     if(null == propSetters){
-                        propSetters = new ArrayList<M>();
+                        propSetters = new ArrayList<>();
                         allSetters.put(propName, propSetters);
                     }
                     propSetters.add(method);
@@ -1122,44 +1138,52 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
      * Derived class can override this method to create a sub-class.
      */
     protected PropertySeed<T,C,F,M> createFieldSeed(F f) {
-        return new FieldPropertySeed<T,C,F,M>(this, f);
+        return new FieldPropertySeed<>(this, f);
     }
 
     /**
      * Creates a new {@link GetterSetterPropertySeed} object.
      */
     protected PropertySeed<T,C,F,M> createAccessorSeed(M getter, M setter) {
-        return new GetterSetterPropertySeed<T,C,F,M>(this, getter,setter);
+        return new GetterSetterPropertySeed<>(this, getter,setter);
     }
 
+    @Override
     public final boolean isElement() {
         return elementName!=null;
     }
 
+    @Override
     public boolean isAbstract() {
         return nav().isAbstract(clazz);
     }
 
+    @Override
     public boolean isOrdered() {
         return propOrder!=null;
     }
 
+    @Override
     public final boolean isFinal() {
         return nav().isFinal(clazz);
     }
 
+    @Override
     public final boolean hasSubClasses() {
         return hasSubClasses;
     }
 
+    @Override
     public final boolean hasAttributeWildcard() {
         return declaresAttributeWildcard() || inheritsAttributeWildcard();
     }
 
+    @Override
     public final boolean inheritsAttributeWildcard() {
         return getInheritedAttributeWildcard()!=null;
     }
 
+    @Override
     public final boolean declaresAttributeWildcard() {
         return attributeWildcard!=null;
     }
@@ -1174,14 +1198,17 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
         return null;
     }
 
+    @Override
     public final QName getElementName() {
         return elementName;
     }
 
+    @Override
     public final QName getTypeName() {
         return typeName;
     }
 
+    @Override
     public final boolean isSimpleType() {
         List<? extends PropertyInfo> props = getProperties();
         if(props.size()!=1)     return false;
@@ -1196,7 +1223,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
         getProperties();    // make sure properties!=null
 
         // property name collision cehck
-        Map<String,PropertyInfoImpl> names = new HashMap<String,PropertyInfoImpl>();
+        Map<String,PropertyInfoImpl> names = new HashMap<>();
         for( PropertyInfoImpl<T,C,F,M> p : properties ) {
             p.link();
             PropertyInfoImpl old = names.put(p.getName(),p);
@@ -1209,6 +1236,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
         super.link();
     }
 
+    @Override
     public Location getLocation() {
         return nav().getClassLocation(clazz);
     }

@@ -104,5 +104,6 @@ public interface ElementPropertyInfo<T,C> extends PropertyInfo<T,C> {
      */
     boolean isRequired();
 
+    @Override
     Adapter<T,C> getAdapter();
 }

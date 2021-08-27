@@ -27,14 +27,17 @@ import org.glassfish.jaxb.runtime.v2.runtime.reflect.TransducedAccessor;
  * @see TransducedAccessor#get
  */
 public final class TransducedAccessor_method_Double extends DefaultTransducedAccessor {
+    @Override
     public String print(Object o) {
         return DatatypeConverterImpl._printDouble( ((Bean)o).get_double() );
     }
 
+    @Override
     public void parse(Object o, CharSequence lexical) {
         ((Bean)o).set_double(DatatypeConverterImpl._parseDouble(lexical));
     }
 
+    @Override
     public boolean hasValue(Object o) {
         return true;
     }

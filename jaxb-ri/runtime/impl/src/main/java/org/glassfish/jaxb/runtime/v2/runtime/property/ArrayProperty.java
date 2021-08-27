@@ -39,10 +39,12 @@ abstract class ArrayProperty<BeanT,ListT,ItemT> extends PropertyImpl<BeanT> {
         assert acc!=null;
     }
 
+    @Override
     public void reset(BeanT o) throws AccessorException {
         lister.reset(o,acc);
     }
 
+    @Override
     public final String getIdValue(BeanT bean) {
         // mutli-value property can't be ID
         return null;

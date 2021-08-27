@@ -125,10 +125,11 @@ class EnumLeafInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
     }
 
     protected EnumConstantImpl<T,C,F,M> createEnumConstant(String name, String literal, F constant, EnumConstantImpl<T,C,F,M> last) {
-        return new EnumConstantImpl<T,C,F,M>(this, name, literal, last);
+        return new EnumConstantImpl<>(this, name, literal, last);
     }
 
 
+    @Override
     public T getType() {
         return type;
     }
@@ -147,30 +148,38 @@ class EnumLeafInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
      * @deprecated
      *      why are you calling a method whose return value is always known?
      */
+    @Override
+    @Deprecated
     public final boolean canBeReferencedByIDREF() {
         return false;
     }
 
+    @Override
     public QName getTypeName() {
         return typeName;
     }
 
+    @Override
     public C getClazz() {
         return clazz;
     }
 
+    @Override
     public NonElement<T,C> getBaseType() {
         return baseType;
     }
 
+    @Override
     public boolean isSimpleType() {
         return true;
     }
 
+    @Override
     public Location getLocation() {
         return nav().getClassLocation(clazz);
     }
 
+    @Override
     public Iterable<? extends EnumConstantImpl<T,C,F,M>> getConstants() {
         if(firstConstant==null)
             calcConstants();
@@ -189,18 +198,23 @@ class EnumLeafInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
      *
      * @deprecated if you are invoking this method directly, there's something wrong.
      */
+    @Override
+    @Deprecated
     public Element<T, C> getSubstitutionHead() {
         return null;
     }
 
+    @Override
     public QName getElementName() {
         return elementName;
     }
 
+    @Override
     public boolean isElement() {
         return elementName!=null;
     }
 
+    @Override
     public Element<T,C> asElement() {
         if(isElement())
             return this;
@@ -215,23 +229,29 @@ class EnumLeafInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
      * @deprecated
      *      you shouldn't be invoking this method on {@link ClassInfoImpl}.
      */
+    @Override
+    @Deprecated
     public ClassInfo<T,C> getScope() {
         return null;
     }
 
+    @Override
     public Iterator<EnumConstantImpl<T,C,F,M>> iterator() {
         return new Iterator<EnumConstantImpl<T,C,F,M>>() {
             private EnumConstantImpl<T,C,F,M> next = firstConstant;
+            @Override
             public boolean hasNext() {
                 return next!=null;
             }
 
+            @Override
             public EnumConstantImpl<T,C,F,M> next() {
                 EnumConstantImpl<T,C,F,M> r = next;
                 next = next.next;
                 return r;
             }
 
+            @Override
             public void remove() {
                 throw new UnsupportedOperationException();
             }

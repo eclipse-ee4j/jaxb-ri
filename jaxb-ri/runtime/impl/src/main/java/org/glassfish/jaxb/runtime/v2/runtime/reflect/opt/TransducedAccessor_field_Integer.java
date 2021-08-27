@@ -32,14 +32,17 @@ import java.io.IOException;
  * @see TransducedAccessor#get
  */
 public final class TransducedAccessor_field_Integer extends DefaultTransducedAccessor {
+    @Override
     public String print(Object o) {
         return DatatypeConverterImpl._printInt( ((Bean)o).f_int );
     }
 
+    @Override
     public void parse(Object o, CharSequence lexical) {
         ((Bean)o).f_int=DatatypeConverterImpl._parseInt(lexical);
     }
 
+    @Override
     public boolean hasValue(Object o) {
         return true;
     }

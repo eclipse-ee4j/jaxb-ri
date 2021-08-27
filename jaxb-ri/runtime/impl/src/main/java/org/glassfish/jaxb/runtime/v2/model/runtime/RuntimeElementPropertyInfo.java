@@ -21,7 +21,9 @@ import java.util.List;
  */
 public interface RuntimeElementPropertyInfo extends ElementPropertyInfo<Type,Class>, RuntimePropertyInfo {
     /** {@inheritDoc} */
+    @Override
     Collection<? extends RuntimeTypeInfo> ref();
 
+    @Override
     List<? extends RuntimeTypeRef> getTypes();
 }

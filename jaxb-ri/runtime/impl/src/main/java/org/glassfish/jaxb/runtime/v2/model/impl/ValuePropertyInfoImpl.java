@@ -27,6 +27,7 @@ class ValuePropertyInfoImpl<TypeT,ClassDeclT,FieldT,MethodT>
         super(parent,seed);
     }
 
+    @Override
     public PropertyKind kind() {
         return PropertyKind.VALUE;
     }

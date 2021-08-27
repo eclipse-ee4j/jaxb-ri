@@ -60,31 +60,37 @@ public final class ForkXmlOutput extends XmlOutputAbstractImpl {
         rhs.endTag(name);
     }
 
+    @Override
     public void beginStartTag(int prefix, String localName) throws IOException, XMLStreamException {
         lhs.beginStartTag(prefix,localName);
         rhs.beginStartTag(prefix,localName);
     }
 
+    @Override
     public void attribute(int prefix, String localName, String value) throws IOException, XMLStreamException {
         lhs.attribute(prefix,localName,value);
         rhs.attribute(prefix,localName,value);
     }
 
+    @Override
     public void endStartTag() throws IOException, SAXException {
         lhs.endStartTag();
         rhs.endStartTag();
     }
 
+    @Override
     public void endTag(int prefix, String localName) throws IOException, SAXException, XMLStreamException {
         lhs.endTag(prefix,localName);
         rhs.endTag(prefix,localName);
     }
 
+    @Override
     public void text(String value, boolean needsSeparatingWhitespace) throws IOException, SAXException, XMLStreamException {
         lhs.text(value,needsSeparatingWhitespace);
         rhs.text(value,needsSeparatingWhitespace);
     }
 
+    @Override
     public void text(Pcdata value, boolean needsSeparatingWhitespace) throws IOException, SAXException, XMLStreamException {
         lhs.text(value,needsSeparatingWhitespace);
         rhs.text(value,needsSeparatingWhitespace);

@@ -62,6 +62,8 @@ public class XmlFactory {
             }
     );
 
+    private XmlFactory() {}
+
     private static boolean isXMLSecurityDisabled(boolean runtimeSetting) {
         return XML_SECURITY_DISABLED || runtimeSetting;
     }

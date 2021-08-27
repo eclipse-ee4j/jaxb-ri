@@ -49,7 +49,7 @@ public final class StructureLoader extends Loader {
      * Since creating new QNames is expensive use this optimized
      * version of the map
      */
-    private final QNameMap<ChildLoader> childUnmarshallers = new QNameMap<ChildLoader>();
+    private final QNameMap<ChildLoader> childUnmarshallers = new QNameMap<>();
 
     /**
      * Loader that processes elements that didn't match anf of the {@link #childUnmarshallers}.
@@ -105,7 +105,7 @@ public final class StructureLoader extends Loader {
                 switch(p.getKind()) {
                 case ATTRIBUTE:
                     if(attUnmarshallers==null)
-                        attUnmarshallers = new QNameMap<TransducedAccessor>();
+                        attUnmarshallers = new QNameMap<>();
                     AttributeProperty ap = (AttributeProperty) p;
                     attUnmarshallers.put(ap.attName.toQName(),ap.xacc);
                     break;
@@ -189,7 +189,7 @@ public final class StructureLoader extends Loader {
 
                             // if null, create a new map.
                             if(attCatchAll.valueType.isAssignableFrom(HashMap.class))
-                                map = new HashMap<QName,String>();
+                                map = new HashMap<>();
                             else {
                                 // we don't know how to create a map for this.
                                 // report an error and back out

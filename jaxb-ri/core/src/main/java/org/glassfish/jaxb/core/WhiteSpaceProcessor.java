@@ -35,6 +35,12 @@ public abstract class WhiteSpaceProcessor {
 //        return result.toString();
 //    }
 
+    /**
+     * Default constructor.
+     */
+    protected WhiteSpaceProcessor() {
+    }
+
     public static String replace(String text) {
         return replace( (CharSequence)text ).toString();
     }

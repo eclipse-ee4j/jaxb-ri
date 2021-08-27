@@ -29,6 +29,7 @@ public class ValidationEventLocatorExImpl
         this.fieldName = fieldName;
     }
     
+    @Override
     public String getFieldName() {
         return fieldName;
     }
@@ -36,6 +37,7 @@ public class ValidationEventLocatorExImpl
     /**
      * Returns a nice string representation for better debug experience.
      */
+    @Override
     public String toString() {
         StringBuffer buf = new StringBuffer();
         buf.append("[url=");

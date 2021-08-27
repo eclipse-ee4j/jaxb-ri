@@ -27,10 +27,12 @@ public class FieldAccessor_Character extends Accessor {
         super(Character.class);
     }
 
+    @Override
     public Object get(Object bean) {
         return ((Bean)bean).f_char;
     }
 
+    @Override
     public void set(Object bean, Object value) {
         ((Bean)bean).f_char = value==null ? Const.default_value_char : (Character)value;
     }

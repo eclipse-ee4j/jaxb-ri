@@ -27,10 +27,12 @@ public class FieldAccessor_Double extends Accessor {
         super(Double.class);
     }
 
+    @Override
     public Object get(Object bean) {
         return ((Bean)bean).f_double;
     }
 
+    @Override
     public void set(Object bean, Object value) {
         ((Bean)bean).f_double = value==null ? Const.default_value_double : (Double)value;
     }

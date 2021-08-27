@@ -24,6 +24,7 @@ enum Messages {
 
     private static final ResourceBundle rb = ResourceBundle.getBundle(Messages.class.getName());
 
+    @Override
     public String toString() {
         return format();
     }

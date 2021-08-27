@@ -38,20 +38,24 @@ class TypeRefImpl<TypeT,ClassDeclT> implements TypeRef<TypeT,ClassDeclT> {
         assert type!=null;
     }
 
+    @Override
     public NonElement<TypeT,ClassDeclT> getTarget() {
         if(ref==null)
             calcRef();
         return ref;
     }
 
+    @Override
     public QName getTagName() {
         return elementName;
     }
 
+    @Override
     public boolean isNillable() {
         return isNillable;
     }
 
+    @Override
     public String getDefaultValue() {
         return defaultValue;
     }
@@ -67,6 +71,7 @@ class TypeRefImpl<TypeT,ClassDeclT> implements TypeRef<TypeT,ClassDeclT> {
         assert ref!=null;
     }
 
+    @Override
     public PropertyInfo<TypeT,ClassDeclT> getSource() {
         return owner;
     }

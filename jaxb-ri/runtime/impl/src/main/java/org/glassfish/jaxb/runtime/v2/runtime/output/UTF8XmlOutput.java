@@ -121,6 +121,7 @@ public class UTF8XmlOutput extends XmlOutputAbstractImpl {
         }
     }
 
+    @Override
     public void beginStartTag(int prefix, String localName) throws IOException {
         closeStartTag();
         int base= pushNsDecls();
@@ -227,6 +228,7 @@ public class UTF8XmlOutput extends XmlOutputAbstractImpl {
         write('\"');
     }
 
+    @Override
     public void attribute(int prefix, String localName, String value) throws IOException {
         write(' ');
         if(prefix==-1) {
@@ -239,6 +241,7 @@ public class UTF8XmlOutput extends XmlOutputAbstractImpl {
         write('\"');
     }
 
+    @Override
     public void endStartTag() throws IOException {
         closeStartTagPending = true;
     }
@@ -255,6 +258,7 @@ public class UTF8XmlOutput extends XmlOutputAbstractImpl {
         }
     }
 
+    @Override
     public void endTag(int prefix, String localName) throws IOException {
         if(closeStartTagPending) {
             write(EMPTY_TAG);
@@ -266,6 +270,7 @@ public class UTF8XmlOutput extends XmlOutputAbstractImpl {
         }
     }
 
+    @Override
     public void text(String value, boolean needSP) throws IOException {
         closeStartTag();
         if(needSP)
@@ -273,6 +278,7 @@ public class UTF8XmlOutput extends XmlOutputAbstractImpl {
         doText(value,false);
     }
 
+    @Override
     public void text(Pcdata value, boolean needSP) throws IOException {
         closeStartTag();
         if(needSP)

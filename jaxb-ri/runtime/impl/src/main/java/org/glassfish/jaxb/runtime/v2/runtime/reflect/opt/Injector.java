@@ -96,7 +96,7 @@ final class Injector {
         }
         if (injector == null) {
             try {
-                wr = new WeakReference<Injector>(injector = new Injector(cl));
+                wr = new WeakReference<>(injector = new Injector(cl));
                 iw.lock();
                 try {
                     if (!injectors.containsKey(cl)) {

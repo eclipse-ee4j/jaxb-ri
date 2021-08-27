@@ -119,7 +119,7 @@ public abstract class JAXBRIContext extends JAXBContext {
        boolean allNillable,
        boolean retainPropertyInfo,
        boolean supressAccessorWarnings) throws JAXBException {
-        Map<String, Object> properties = new HashMap<String, Object>();
+        Map<String, Object> properties = new HashMap<>();
         if (typeRefs != null) properties.put(JAXBRIContext.TYPE_REFERENCES, typeRefs);
         if (subclassReplacements != null) properties.put(JAXBRIContext.SUBCLASS_REPLACEMENTS, subclassReplacements);
         if (defaultNamespaceRemap != null) properties.put(JAXBRIContext.DEFAULT_NAMESPACE_REMAP, defaultNamespaceRemap);
@@ -136,6 +136,7 @@ public abstract class JAXBRIContext extends JAXBContext {
      * @deprecated
      *      Compatibility with older versions.
      */
+    @Deprecated
     public static JAXBRIContext newInstance(@NotNull Class[] classes,
         @Nullable Collection<TypeReference> typeRefs,
         @Nullable String defaultNamespaceRemap, boolean c14nSupport ) throws JAXBException {

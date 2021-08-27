@@ -49,6 +49,7 @@ public interface ReferencePropertyInfo<T,C> extends PropertyInfo<T,C> {
      * If this {@link ReferencePropertyInfo} has a wildcard in it,
      * then the returned list will contain {@link WildcardTypeInfo}. 
      */
+    @Override
     Collection<? extends TypeInfo<T,C>> ref();
 
     /**
@@ -105,5 +106,6 @@ public interface ReferencePropertyInfo<T,C> extends PropertyInfo<T,C> {
      */
     boolean isRequired();
 
+    @Override
     Adapter<T,C> getAdapter();
 }

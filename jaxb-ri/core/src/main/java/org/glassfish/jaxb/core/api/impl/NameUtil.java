@@ -182,7 +182,7 @@ class NameUtil {
      * {"Abc", "100","Ghi"}.
      */
     public List<String> toWordList(String s) {
-        ArrayList<String> ss = new ArrayList<String>();
+        ArrayList<String> ss = new ArrayList<>();
         int n = s.length();
         for (int i = 0; i < n;) {
 

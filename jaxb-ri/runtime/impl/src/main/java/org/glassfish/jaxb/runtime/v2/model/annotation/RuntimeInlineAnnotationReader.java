@@ -29,18 +29,22 @@ import java.util.Map;
 public final class RuntimeInlineAnnotationReader extends AbstractInlineAnnotationReaderImpl<Type,Class,Field,Method>
     implements RuntimeAnnotationReader {
 
+    @Override
     public <A extends Annotation> A getFieldAnnotation(Class<A> annotation, Field field, Locatable srcPos) {
         return LocatableAnnotation.create(field.getAnnotation(annotation),srcPos);
     }
 
+    @Override
     public boolean hasFieldAnnotation(Class<? extends Annotation> annotationType, Field field) {
         return field.isAnnotationPresent(annotationType);
     }
 
+    @Override
     public boolean hasClassAnnotation(Class clazz, Class<? extends Annotation> annotationType) {
         return clazz.isAnnotationPresent(annotationType);
     }
 
+    @Override
     public Annotation[] getAllFieldAnnotations(Field field, Locatable srcPos) {
         Annotation[] r = field.getAnnotations();
         for( int i=0; i<r.length; i++ ) {
@@ -49,14 +53,17 @@ public final class RuntimeInlineAnnotationReader extends AbstractInlineAnnotatio
         return r;
     }
 
+    @Override
     public <A extends Annotation> A getMethodAnnotation(Class<A> annotation, Method method, Locatable srcPos) {
         return LocatableAnnotation.create(method.getAnnotation(annotation),srcPos);
     }
 
+    @Override
     public boolean hasMethodAnnotation(Class<? extends Annotation> annotation, Method method) {
         return method.isAnnotationPresent(annotation);
     }
 
+    @Override
     public Annotation[] getAllMethodAnnotations(Method method, Locatable srcPos) {
         Annotation[] r = method.getAnnotations();
         for( int i=0; i<r.length; i++ ) {
@@ -65,6 +72,7 @@ public final class RuntimeInlineAnnotationReader extends AbstractInlineAnnotatio
         return r;
     }
 
+    @Override
     public <A extends Annotation> A getMethodParameterAnnotation(Class<A> annotation, Method method, int paramIndex, Locatable srcPos) {
         Annotation[] pa = method.getParameterAnnotations()[paramIndex];
         for( Annotation a : pa ) {
@@ -74,6 +82,7 @@ public final class RuntimeInlineAnnotationReader extends AbstractInlineAnnotatio
         return null;
     }
 
+    @Override
     public <A extends Annotation> A getClassAnnotation(Class<A> a, Class clazz, Locatable srcPos) {
         return LocatableAnnotation.create(((Class<?>)clazz).getAnnotation(a),srcPos);
     }
@@ -83,15 +92,16 @@ public final class RuntimeInlineAnnotationReader extends AbstractInlineAnnotatio
      * Cache for package-level annotations.
      */
     private final Map<Class<? extends Annotation>,Map<Package,Annotation>> packageCache =
-            new HashMap<Class<? extends Annotation>,Map<Package,Annotation>>();
+            new HashMap<>();
 
+    @Override
     public <A extends Annotation> A getPackageAnnotation(Class<A> a, Class clazz, Locatable srcPos) {
         Package p = clazz.getPackage();
         if(p==null) return null;
 
         Map<Package,Annotation> cache = packageCache.get(a);
         if(cache==null) {
-            cache = new HashMap<Package,Annotation>();
+            cache = new HashMap<>();
             packageCache.put(a,cache);
         }
 
@@ -104,6 +114,7 @@ public final class RuntimeInlineAnnotationReader extends AbstractInlineAnnotatio
         }
     }
 
+    @Override
     public Class getClassValue(Annotation a, String name) {
         try {
             return (Class)a.annotationType().getMethod(name).invoke(a);
@@ -118,6 +129,7 @@ public final class RuntimeInlineAnnotationReader extends AbstractInlineAnnotatio
         }
     }
 
+    @Override
     public Class[] getClassArrayValue(Annotation a, String name) {
         try {
             return (Class[])a.annotationType().getMethod(name).invoke(a);
@@ -132,6 +144,7 @@ public final class RuntimeInlineAnnotationReader extends AbstractInlineAnnotatio
         }
     }
 
+    @Override
     protected String fullName(Method m) {
         return m.getDeclaringClass().getName()+'#'+m.getName();
     }

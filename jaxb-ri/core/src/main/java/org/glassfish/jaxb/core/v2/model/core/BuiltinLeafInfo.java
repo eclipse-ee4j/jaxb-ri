@@ -32,5 +32,6 @@ public interface BuiltinLeafInfo<T,C> extends LeafInfo<T,C> {
      * @return
      *      never null.
      */
+    @Override
     public QName getTypeName();
 }

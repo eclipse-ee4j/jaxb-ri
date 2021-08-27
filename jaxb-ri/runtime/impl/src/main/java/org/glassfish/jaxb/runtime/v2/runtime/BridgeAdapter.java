@@ -45,22 +45,27 @@ final class BridgeAdapter<OnWire,InMemory> extends InternalBridge<InMemory> {
         this.adapter = adapter;
     }
 
+    @Override
     public void marshal(Marshaller m, InMemory inMemory, XMLStreamWriter output) throws JAXBException {
         core.marshal(m,adaptM(m,inMemory),output);
     }
 
+    @Override
     public void marshal(Marshaller m, InMemory inMemory, OutputStream output, NamespaceContext nsc) throws JAXBException {
         core.marshal(m,adaptM(m,inMemory),output,nsc);
     }
 
+    @Override
     public void marshal(Marshaller m, InMemory inMemory, Node output) throws JAXBException {
         core.marshal(m,adaptM(m,inMemory),output);
     }
 
+    @Override
     public void marshal(Marshaller context, InMemory inMemory, ContentHandler contentHandler) throws JAXBException {
         core.marshal(context,adaptM(context,inMemory),contentHandler);
     }
 
+    @Override
     public void marshal(Marshaller context, InMemory inMemory, Result result) throws JAXBException {
         core.marshal(context,adaptM(context,inMemory),result);
     }
@@ -86,22 +91,27 @@ final class BridgeAdapter<OnWire,InMemory> extends InternalBridge<InMemory> {
     }
 
 
-    public @NotNull InMemory unmarshal(Unmarshaller u, XMLStreamReader in) throws JAXBException {
+    public @NotNull@Override
+ InMemory unmarshal(Unmarshaller u, XMLStreamReader in) throws JAXBException {
         return adaptU(u, core.unmarshal(u,in));
     }
 
-    public @NotNull InMemory unmarshal(Unmarshaller u, Source in) throws JAXBException {
+    public @NotNull@Override
+ InMemory unmarshal(Unmarshaller u, Source in) throws JAXBException {
         return adaptU(u, core.unmarshal(u,in));
     }
 
-    public @NotNull InMemory unmarshal(Unmarshaller u, InputStream in) throws JAXBException {
+    public @NotNull@Override
+ InMemory unmarshal(Unmarshaller u, InputStream in) throws JAXBException {
         return adaptU(u, core.unmarshal(u,in));
     }
 
-    public @NotNull InMemory unmarshal(Unmarshaller u, Node n) throws JAXBException {
+    public @NotNull@Override
+ InMemory unmarshal(Unmarshaller u, Node n) throws JAXBException {
         return adaptU(u, core.unmarshal(u,n));
     }
 
+    @Override
     public TypeReference getTypeReference() {
         return core.getTypeReference();
     }
@@ -119,6 +129,7 @@ final class BridgeAdapter<OnWire,InMemory> extends InternalBridge<InMemory> {
         }
     }
 
+    @Override
     void marshal(InMemory o, XMLSerializer out) throws IOException, SAXException, XMLStreamException {
         try {
             core.marshal(_adaptM( XMLSerializer.getInstance(), o ), out );

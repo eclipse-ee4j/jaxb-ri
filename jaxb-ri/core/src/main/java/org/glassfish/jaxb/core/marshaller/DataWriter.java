@@ -131,6 +131,7 @@ public class DataWriter extends XMLWriter
      * @deprecated
      *      Only return the length of the indent string.
      */
+    @Deprecated
     public int getIndentStep ()
     {
         return indentStep.length();
@@ -147,6 +148,7 @@ public class DataWriter extends XMLWriter
      * @deprecated
      *      Should use the version that takes string.
      */
+    @Deprecated
     public void setIndentStep (int indentStep)
     {
         StringBuilder buf = new StringBuilder();
@@ -174,14 +176,16 @@ public class DataWriter extends XMLWriter
      *
      * @see XMLWriter#reset()
      */
+    @Override
     public void reset ()
     {
         depth = 0;
         state = SEEN_NOTHING;
-        stateStack = new Stack<Object>();
+        stateStack = new Stack<>();
         super.reset();
     }
 
+    @Override
     protected void writeXmlDecl(String decl) throws IOException {
         super.writeXmlDecl(decl);
         write('\n');
@@ -207,6 +211,7 @@ public class DataWriter extends XMLWriter
      *            down the chain raises an exception.
      * @see XMLWriter#startElement(String, String, String, Attributes)
      */
+    @Override
     public void startElement (String uri, String localName,
                               String qName, Attributes atts)
         throws SAXException
@@ -240,6 +245,7 @@ public class DataWriter extends XMLWriter
      *            down the chain raises an exception.
      * @see XMLWriter#endElement(String, String, String)
      */
+    @Override
     public void endElement (String uri, String localName, String qName)
         throws SAXException
     {
@@ -252,6 +258,7 @@ public class DataWriter extends XMLWriter
         state = stateStack.pop();
     }
 
+    @Override
     public void endDocument() throws SAXException {
         try {
             write('\n');
@@ -304,6 +311,7 @@ public class DataWriter extends XMLWriter
      *            down the chain raises an exception.
      * @see XMLWriter#characters(char[], int, int)
      */
+    @Override
     public void characters (char ch[], int start, int length)
         throws SAXException
     {
@@ -352,7 +360,7 @@ public class DataWriter extends XMLWriter
     ////////////////////////////////////////////////////////////////////
 
     private Object state = SEEN_NOTHING;
-    private Stack<Object> stateStack = new Stack<Object>();
+    private Stack<Object> stateStack = new Stack<>();
 
     private String indentStep = "";
     private int depth = 0;

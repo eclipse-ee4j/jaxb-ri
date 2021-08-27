@@ -27,14 +27,17 @@ final class RuntimeTypeRefImpl extends TypeRefImpl<Type,Class> implements Runtim
         super(elementPropertyInfo, elementName, type, isNillable, defaultValue);
     }
 
+    @Override
     public RuntimeNonElement getTarget() {
         return (RuntimeNonElement)super.getTarget();
     }
 
+    @Override
     public Transducer getTransducer() {
         return RuntimeModelBuilder.createTransducer(this);
     }
 
+    @Override
     public RuntimePropertyInfo getSource() {
         return (RuntimePropertyInfo)owner;
     }

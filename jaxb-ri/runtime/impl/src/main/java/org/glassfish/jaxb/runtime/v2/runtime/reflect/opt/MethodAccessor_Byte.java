@@ -25,10 +25,12 @@ public class MethodAccessor_Byte extends Accessor {
         super(Byte.class);
     }
 
+    @Override
     public Object get(Object bean) {
         return ((Bean)bean).get_byte();
     }
 
+    @Override
     public void set(Object bean, Object value) {
         ((Bean)bean).set_byte( value==null ? Const.default_value_byte : (Byte)value );
     }

@@ -35,6 +35,7 @@ public class XsiNilLoader extends ProxyLoader {
         assert defaultLoader!=null;
     }
 
+    @Override
     protected Loader selectLoader(UnmarshallingContext.State state, TagName ea) throws SAXException {
         int idx = ea.atts.getIndex(WellKnownNamespace.XML_SCHEMA_INSTANCE,"nil");
 

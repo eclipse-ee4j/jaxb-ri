@@ -18,6 +18,8 @@ import java.lang.reflect.Type;
  * @author Kohsuke Kawaguchi
  */
 public interface RuntimeMapPropertyInfo extends RuntimePropertyInfo, MapPropertyInfo<Type,Class> {
+    @Override
     RuntimeNonElement getKeyType();
+    @Override
     RuntimeNonElement getValueType();
 }

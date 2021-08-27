@@ -205,6 +205,7 @@ public final class NamespaceContextImpl implements NamespaceContext2 {
         }
     }
 
+    @Override
     public int force(@NotNull String uri, @NotNull String prefix) {
         // check for the existing binding
 
@@ -302,6 +303,7 @@ public final class NamespaceContextImpl implements NamespaceContext2 {
      * @return null
      *      if the prefix is unbound.
      */
+    @Override
     public String getNamespaceURI(String prefix) {
         for( int i=size-1; i>=0; i-- )
             if(prefixes[i].equals(prefix))
@@ -313,6 +315,7 @@ public final class NamespaceContextImpl implements NamespaceContext2 {
      * Returns the prefix of the specified URI,
      * or null if none exists.
      */
+    @Override
     public String getPrefix( String uri ) {
         if(collectionMode) {
             return declareNamespace(uri,null,false);
@@ -324,6 +327,7 @@ public final class NamespaceContextImpl implements NamespaceContext2 {
         }
     }
 
+    @Override
     public Iterator<String> getPrefixes(String uri) {
         String prefix = getPrefix(uri);
         if(prefix==null)
@@ -332,6 +336,7 @@ public final class NamespaceContextImpl implements NamespaceContext2 {
             return Collections.singleton(uri).iterator();
     }
 
+    @Override
     public String declareNamespace(String namespaceUri, String preferedPrefix, boolean requirePrefix) {
         int idx = declareNsUri(namespaceUri,preferedPrefix,requirePrefix);
         return getPrefix(idx);
@@ -529,6 +534,7 @@ public final class NamespaceContextImpl implements NamespaceContext2 {
      * it is not specified by the user.
      */
     private static final NamespacePrefixMapper defaultNamespacePrefixMapper = new NamespacePrefixMapper() {
+        @Override
         public String getPreferredPrefix(String namespaceUri, String suggestion, boolean requirePrefix) {
             if( namespaceUri.equals(WellKnownNamespace.XML_SCHEMA_INSTANCE) )
                 return "xsi";

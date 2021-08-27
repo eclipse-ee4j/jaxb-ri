@@ -26,5 +26,6 @@ public interface Location {
      * @return
      *      never null.
      */
+    @Override
     String toString();
 }

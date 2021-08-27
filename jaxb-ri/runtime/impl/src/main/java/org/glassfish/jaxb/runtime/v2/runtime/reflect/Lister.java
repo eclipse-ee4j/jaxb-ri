@@ -137,7 +137,7 @@ public abstract class Lister<BeanT,PropT,ItemT,PackT> {
                 l = wr.get();
             if(l==null) {
                 l = new ArrayLister(componentType);
-                arrayListerCache.put(componentType,new WeakReference<Lister>(l));
+                arrayListerCache.put(componentType,new WeakReference<>(l));
             }
         }
         assert l!=null;
@@ -159,31 +159,38 @@ public abstract class Lister<BeanT,PropT,ItemT,PackT> {
             this.itemType = itemType;
         }
 
+        @Override
         public org.glassfish.jaxb.runtime.v2.runtime.reflect.ListIterator<ItemT> iterator(final ItemT[] objects, XMLSerializer context) {
             return new org.glassfish.jaxb.runtime.v2.runtime.reflect.ListIterator<ItemT>() {
                 int idx=0;
+                @Override
                 public boolean hasNext() {
                     return idx<objects.length;
                 }
 
+                @Override
                 public ItemT next() {
                     return objects[idx++];
                 }
             };
         }
 
+        @Override
         public Pack startPacking(BeanT current, Accessor<BeanT, ItemT[]> acc) {
-            return new Pack<ItemT>(itemType);
+            return new Pack<>(itemType);
         }
 
+        @Override
         public void addToPack(Pack<ItemT> objects, ItemT o) {
             objects.add(o);
         }
 
+        @Override
         public void endPacking( Pack<ItemT> pack, BeanT bean, Accessor<BeanT,ItemT[]> acc ) throws AccessorException {
             acc.set(bean,pack.build());
         }
 
+        @Override
         public void reset(BeanT o,Accessor<BeanT,ItemT[]> acc) throws AccessorException {
             acc.set(o,(ItemT[])Array.newInstance(itemType,0));
         }
@@ -234,18 +241,22 @@ public abstract class Lister<BeanT,PropT,ItemT,PackT> {
             this.implClass = implClass;
         }
 
+        @Override
         public org.glassfish.jaxb.runtime.v2.runtime.reflect.ListIterator iterator(T collection, XMLSerializer context) {
             final Iterator itr = collection.iterator();
             return new org.glassfish.jaxb.runtime.v2.runtime.reflect.ListIterator() {
+                @Override
                 public boolean hasNext() {
                     return itr.hasNext();
                 }
+                @Override
                 public Object next() {
                     return itr.next();
                 }
             };
         }
 
+        @Override
         public T startPacking(BeanT bean, Accessor<BeanT, T> acc) throws AccessorException {
             T collection = acc.get(bean);
             if(collection==null) {
@@ -257,10 +268,12 @@ public abstract class Lister<BeanT,PropT,ItemT,PackT> {
             return collection;
         }
 
+        @Override
         public void addToPack(T collection, Object o) {
             collection.add(o);
         }
 
+        @Override
         public void endPacking( T collection, BeanT bean, Accessor<BeanT,T> acc ) throws AccessorException {
             // this needs to be done in the endPacking, because
             // sometimes the accessor uses an adapter, and the adapter needs to see
@@ -279,6 +292,7 @@ public abstract class Lister<BeanT,PropT,ItemT,PackT> {
             }
         }
 
+        @Override
         public void reset(BeanT bean, Accessor<BeanT, T> acc) throws AccessorException {
             T collection = acc.get(bean);
             if(collection == null) {
@@ -303,23 +317,28 @@ public abstract class Lister<BeanT,PropT,ItemT,PackT> {
             this.itemType = itemType;
         }
 
+        @Override
         public org.glassfish.jaxb.runtime.v2.runtime.reflect.ListIterator<String> iterator(PropT prop, XMLSerializer context) {
             final org.glassfish.jaxb.runtime.v2.runtime.reflect.ListIterator i = core.iterator(prop,context);
 
             return new IDREFSIterator(i, context);
         }
 
+        @Override
         public Pack startPacking(BeanT bean, Accessor<BeanT, PropT> acc) {
             return new Pack(bean,acc);
         }
 
+        @Override
         public void addToPack(Pack pack, String item) {
             pack.add(item);
         }
 
+        @Override
         public void endPacking(Pack pack, BeanT bean, Accessor<BeanT, PropT> acc) {
         }
 
+        @Override
         public void reset(BeanT bean, Accessor<BeanT, PropT> acc) throws AccessorException {
             core.reset(bean,acc);
         }
@@ -329,7 +348,7 @@ public abstract class Lister<BeanT,PropT,ItemT,PackT> {
          */
         private class Pack implements Patcher {
             private final BeanT bean;
-            private final List<String> idrefs = new ArrayList<String>();
+            private final List<String> idrefs = new ArrayList<>();
             private final UnmarshallingContext context;
             private final Accessor<BeanT,PropT> acc;
             private final LocatorEx location;
@@ -349,6 +368,7 @@ public abstract class Lister<BeanT,PropT,ItemT,PackT> {
             /**
              * Resolves IDREFS and fill in the actual array.
              */
+            @Override
             public void run() throws SAXException {
                 try {
                     Object pack = core.startPacking(bean,acc);
@@ -398,6 +418,7 @@ public abstract class Lister<BeanT,PropT,ItemT,PackT> {
             this.context = context;
         }
 
+        @Override
         public boolean hasNext() {
             return i.hasNext();
         }
@@ -409,6 +430,7 @@ public abstract class Lister<BeanT,PropT,ItemT,PackT> {
             return last;
         }
 
+        @Override
         public String next() throws SAXException, JAXBException {
             last = i.next();
             String id = context.grammar.getBeanInfo(last,true).getId(last,context);
@@ -428,29 +450,36 @@ public abstract class Lister<BeanT,PropT,ItemT,PackT> {
     }
 
     public static final Lister ERROR = new Lister() {
+        @Override
         public org.glassfish.jaxb.runtime.v2.runtime.reflect.ListIterator iterator(Object o, XMLSerializer context) {
             return EMPTY_ITERATOR;
         }
 
+        @Override
         public Object startPacking(Object o, Accessor accessor) {
             return null;
         }
 
+        @Override
         public void addToPack(Object o, Object o1) {
         }
 
+        @Override
         public void endPacking(Object o, Object o1, Accessor accessor) {
         }
 
+        @Override
         public void reset(Object o, Accessor accessor) {
         }
     };
 
     private static final org.glassfish.jaxb.runtime.v2.runtime.reflect.ListIterator EMPTY_ITERATOR = new ListIterator() {
+        @Override
         public boolean hasNext() {
             return false;
         }
 
+        @Override
         public Object next() {
             throw new IllegalStateException();
         }

@@ -32,31 +32,38 @@ final class PrimitiveArrayListerLong<BeanT> extends Lister<BeanT,long[],Long,Pri
         Lister.primitiveArrayListers.put(Long.TYPE,new PrimitiveArrayListerLong());
     }
 
+    @Override
     public ListIterator<Long> iterator(final long[] objects, XMLSerializer context) {
         return new ListIterator<Long>() {
             int idx=0;
+            @Override
             public boolean hasNext() {
                 return idx<objects.length;
             }
 
+            @Override
             public Long next() {
                 return objects[idx++];
             }
         };
     }
 
+    @Override
     public LongArrayPack startPacking(BeanT current, Accessor<BeanT, long[]> acc) {
         return new LongArrayPack();
     }
 
+    @Override
     public void addToPack(LongArrayPack objects, Long o) {
         objects.add(o);
     }
 
+    @Override
     public void endPacking( LongArrayPack pack, BeanT bean, Accessor<BeanT,long[]> acc ) throws AccessorException {
         acc.set(bean,pack.build());
     }
 
+    @Override
     public void reset(BeanT o,Accessor<BeanT,long[]> acc) throws AccessorException {
         acc.set(o,new long[0]);
     }

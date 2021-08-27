@@ -36,14 +36,17 @@ final class AdaptedLister<BeanT,PropT,InMemItemT,OnWireItemT,PackT> extends List
         return Coordinator._getInstance().getAdapter(adapter);
     }
 
+    @Override
     public ListIterator<OnWireItemT> iterator(PropT prop, XMLSerializer context) {
         return new ListIteratorImpl( core.iterator(prop,context), context );
     }
 
+    @Override
     public PackT startPacking(BeanT bean, Accessor<BeanT, PropT> accessor) throws AccessorException {
         return core.startPacking(bean,accessor);
     }
 
+    @Override
     public void addToPack(PackT pack, OnWireItemT item) throws AccessorException {
         InMemItemT r;
         try {
@@ -54,10 +57,12 @@ final class AdaptedLister<BeanT,PropT,InMemItemT,OnWireItemT,PackT> extends List
         core.addToPack(pack,r);
     }
 
+    @Override
     public void endPacking(PackT pack, BeanT bean, Accessor<BeanT,PropT> accessor) throws AccessorException {
         core.endPacking(pack,bean,accessor);
     }
 
+    @Override
     public void reset(BeanT bean, Accessor<BeanT, PropT> accessor) throws AccessorException {
         core.reset(bean,accessor);
     }
@@ -71,10 +76,12 @@ final class AdaptedLister<BeanT,PropT,InMemItemT,OnWireItemT,PackT> extends List
             this.serializer = serializer;
         }
 
+        @Override
         public boolean hasNext() {
             return core.hasNext();
         }
 
+        @Override
         public OnWireItemT next() throws SAXException, JAXBException {
             InMemItemT next = core.next();
             try {

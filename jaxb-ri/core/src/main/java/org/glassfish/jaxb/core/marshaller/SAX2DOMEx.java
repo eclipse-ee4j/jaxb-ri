@@ -37,8 +37,8 @@ public class SAX2DOMEx implements ContentHandler {
 
     private Node node = null;
     private boolean isConsolidate;
-    protected final Stack<Node> nodeStack = new Stack<Node>();
-    private final FinalArrayList<String> unprocessedNamespaces = new FinalArrayList<String>();
+    protected final Stack<Node> nodeStack = new Stack<>();
+    private final FinalArrayList<String> unprocessedNamespaces = new FinalArrayList<>();
     /**
      * Document object that owns the specified node.
      */
@@ -71,7 +71,7 @@ public class SAX2DOMEx implements ContentHandler {
     /**
      * Creates a fresh empty DOM document and adds nodes under this document.
      */
-    public SAX2DOMEx(DocumentBuilderFactory f) throws ParserConfigurationException {        
+    public SAX2DOMEx(DocumentBuilderFactory f) throws ParserConfigurationException {
         f.setValidating(false);
         document = f.newDocumentBuilder().newDocument();
         node = document;
@@ -80,8 +80,9 @@ public class SAX2DOMEx implements ContentHandler {
 
     /**
      * Creates a fresh empty DOM document and adds nodes under this document.
-     * @deprecated 
+     * @deprecated
      */
+    @Deprecated
     public SAX2DOMEx() throws ParserConfigurationException {
         DocumentBuilderFactory factory = XmlFactory.createDocumentBuilderFactory(false);
         factory.setValidating(false);
@@ -99,9 +100,11 @@ public class SAX2DOMEx implements ContentHandler {
         return node;
     }
 
+    @Override
     public void startDocument() {
     }
 
+    @Override
     public void endDocument() {
     }
 
@@ -131,6 +134,7 @@ public class SAX2DOMEx implements ContentHandler {
         element.setAttributeNS("http://www.w3.org/2000/xmlns/", qname, uri);
     }
 
+    @Override
     public void startElement(String namespace, String localName, String qName, Attributes attrs) {
         Node parent = nodeStack.peek();
 
@@ -172,10 +176,12 @@ public class SAX2DOMEx implements ContentHandler {
         nodeStack.push(element);
     }
 
+    @Override
     public void endElement(String namespace, String localName, String qName) {
         nodeStack.pop();
     }
 
+    @Override
     public void characters(char[] ch, int start, int length) {
         characters(new String(ch, start, length));
     }
@@ -194,26 +200,32 @@ public class SAX2DOMEx implements ContentHandler {
         return text;
     }
 
+    @Override
     public void ignorableWhitespace(char[] ch, int start, int length) {
     }
 
+    @Override
     public void processingInstruction(String target, String data) throws org.xml.sax.SAXException {
         Node parent = nodeStack.peek();
         Node n = document.createProcessingInstruction(target, data);
         parent.appendChild(n);
     }
 
+    @Override
     public void setDocumentLocator(Locator locator) {
     }
 
+    @Override
     public void skippedEntity(String name) {
     }
 
+    @Override
     public void startPrefixMapping(String prefix, String uri) {
         unprocessedNamespaces.add(prefix);
         unprocessedNamespaces.add(uri);
     }
 
+    @Override
     public void endPrefixMapping(String prefix) {
     }
 }

@@ -40,12 +40,14 @@ public final class SwaRefAdapter extends XmlAdapter<String,DataHandler> {
     public SwaRefAdapter() {
     }
 
+    @Override
     public DataHandler unmarshal(String cid) {
         AttachmentUnmarshaller au = UnmarshallingContext.getInstance().parent.getAttachmentUnmarshaller();
         // TODO: error check
         return au.getAttachmentAsDataHandler(cid);
     }
 
+    @Override
     public String marshal(DataHandler data) {
         if(data==null)      return null;
         AttachmentMarshaller am = XMLSerializer.getInstance().attachmentMarshaller;

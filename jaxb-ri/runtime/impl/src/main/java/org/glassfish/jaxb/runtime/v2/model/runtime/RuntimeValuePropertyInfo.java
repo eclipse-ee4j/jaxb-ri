@@ -18,5 +18,6 @@ import java.lang.reflect.Type;
  * @author Kohsuke Kawaguchi
  */
 public interface RuntimeValuePropertyInfo extends ValuePropertyInfo<Type,Class>,RuntimePropertyInfo,RuntimeNonElementRef {
+    @Override
     RuntimeNonElement getTarget();
 }

@@ -20,7 +20,9 @@ import java.net.URL;
  */
 public class Which {
 
-    public static String which( Class clazz ) {
+    private Which() {}
+
+    public static String which( Class<?> clazz ) {
         return which( clazz.getName(), SecureLoader.getClassClassLoader(clazz));
     }
 

@@ -453,7 +453,7 @@ public final class UnmarshallingContext extends Coordinator
     /**
      * User-specified factory methods.
      */
-    private final Map<Class,Factory> factories = new HashMap<Class, Factory>();
+    private final Map<Class,Factory> factories = new HashMap<>();
 
     public void setFactories(Object factoryInstances) {
         factories.clear();
@@ -933,7 +933,7 @@ public final class UnmarshallingContext extends Coordinator
     }
 
     private List<String> getAllPrefixesInList(String uri) {
-        List<String> a = new ArrayList<String>();
+        List<String> a = new ArrayList<>();
 
         if( uri==null )
             throw new IllegalArgumentException();
@@ -1108,7 +1108,7 @@ public final class UnmarshallingContext extends Coordinator
             }
 
             state.loader = beanInfo.getLoader(null,false);
-            state.prev.backup = new JAXBElement<Object>(ea.createQName(),Object.class,null);
+            state.prev.backup = new JAXBElement<>(ea.createQName(),Object.class,null);
             state.receiver = this;
         }
 

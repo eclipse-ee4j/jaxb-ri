@@ -55,28 +55,34 @@ class MapPropertyInfoImpl<T,C,F,M> extends PropertyInfoImpl<T,C,F,M> implements 
         }
     }
 
+    @Override
     public Collection<? extends TypeInfo<T,C>> ref() {
         return Arrays.asList(getKeyType(),getValueType());
     }
 
+    @Override
     public final PropertyKind kind() {
         return PropertyKind.MAP;
     }
 
+    @Override
     public QName getXmlName() {
         return xmlName;
     }
 
+    @Override
     public boolean isCollectionNillable() {
         return nil;
     }
 
+    @Override
     public NonElement<T,C> getKeyType() {
         if(keyTypeInfo==null)
             keyTypeInfo = getTarget(keyType);
         return keyTypeInfo;
     }
 
+    @Override
     public NonElement<T,C> getValueType() {
         if(valueTypeInfo==null)
             valueTypeInfo = getTarget(valueType);

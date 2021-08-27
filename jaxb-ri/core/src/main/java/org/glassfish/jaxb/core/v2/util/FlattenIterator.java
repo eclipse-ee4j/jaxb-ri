@@ -31,15 +31,18 @@ public final class FlattenIterator<T> implements Iterator<T> {
     }
 
 
+    @Override
     public void remove() {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public boolean hasNext() {
         getNext();
         return next!=null;
     }
 
+    @Override
     public T next() {
         T r = next;
         next = null;

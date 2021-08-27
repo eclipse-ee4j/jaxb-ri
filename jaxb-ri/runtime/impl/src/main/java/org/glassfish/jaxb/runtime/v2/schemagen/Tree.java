@@ -64,7 +64,7 @@ abstract class Tree {
 
         // eliminated nesting groups of the same kind.
         // this is where binary tree would have shined.
-        List<Tree> normalizedChildren = new ArrayList<Tree>(children.size());
+        List<Tree> normalizedChildren = new ArrayList<>(children.size());
         for (Tree t : children) {
             if (t instanceof Group) {
                 Group g = (Group) t;
@@ -125,6 +125,7 @@ abstract class Tree {
      * Represents a terminal tree node, such as element, wildcard, etc.
      */
     abstract static class Term extends Tree {
+        @Override
         boolean isNullable() {
             return false;
         }

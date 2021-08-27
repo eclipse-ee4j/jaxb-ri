@@ -26,6 +26,7 @@ public class MinimumEscapeHandler implements CharacterEscapeHandler {
     
     public static final CharacterEscapeHandler theInstance = new MinimumEscapeHandler(); 
     
+    @Override
     public void escape(char[] ch, int start, int length, boolean isAttVal, Writer out) throws IOException {
         // avoid calling the Writerwrite method too much by assuming
         // that the escaping occurs rarely.

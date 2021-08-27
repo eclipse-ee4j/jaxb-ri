@@ -42,14 +42,17 @@ public /*so that our code generator can refer to this class*/ abstract class Qui
      */
     protected abstract Quick newInstance( Locatable upstream, Annotation core );
 
+    @Override
     public final Location getLocation() {
         return this;
     }
 
+    @Override
     public final Locatable getUpstream() {
         return upstream;
     }
 
+    @Override
     public final String toString() {
         return getAnnotation().toString();
     }

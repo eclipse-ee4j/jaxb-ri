@@ -27,14 +27,17 @@ import org.glassfish.jaxb.runtime.v2.runtime.reflect.TransducedAccessor;
  * @see TransducedAccessor#get
  */
 public final class TransducedAccessor_field_Long extends DefaultTransducedAccessor {
+    @Override
     public String print(Object o) {
         return DatatypeConverterImpl._printLong( ((Bean)o).f_long );
     }
 
+    @Override
     public void parse(Object o, CharSequence lexical) {
         ((Bean)o).f_long=DatatypeConverterImpl._parseLong(lexical);
     }
 
+    @Override
     public boolean hasValue(Object o) {
         return true;
     }

@@ -50,7 +50,7 @@ public class CompositeStructureTest extends TestCase {
         };
         cs.values = new Object[] { "foo", 5, new byte[4], new byte[4] };
 
-        JAXBElement<CompositeStructure> root = new JAXBElement<CompositeStructure>(
+        JAXBElement<CompositeStructure> root = new JAXBElement<>(
                 new QName("", "root"), CompositeStructure.class, cs);
 
         StringWriter sw = new StringWriter();

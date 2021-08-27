@@ -108,6 +108,7 @@ abstract class ArrayERProperty<BeanT,ListT,ItemT> extends ArrayProperty<BeanT,Li
         }
     }
 
+    @Override
     public final void serializeBody(BeanT o, XMLSerializer w, Object outerPeer) throws SAXException, AccessorException, IOException, XMLStreamException {
         ListT list = acc.get(o);
 
@@ -147,10 +148,11 @@ abstract class ArrayERProperty<BeanT,ListT,ItemT> extends ArrayProperty<BeanT,Li
     protected abstract void createBodyUnmarshaller(UnmarshallerChain chain, QNameMap<ChildLoader> loaders);
 
 
+    @Override
     public final void buildChildElementUnmarshallers(UnmarshallerChain chain, QNameMap<ChildLoader> loaders) {
         if(wrapperTagName!=null) {
             UnmarshallerChain c = new UnmarshallerChain(chain.context);
-            QNameMap<ChildLoader> m = new QNameMap<ChildLoader>();
+            QNameMap<ChildLoader> m = new QNameMap<>();
             createBodyUnmarshaller(c,m);
             Loader loader = new ItemsLoader(acc, lister, m);
             if(isWrapperNillable || chain.context.allNillable)
@@ -171,6 +173,7 @@ abstract class ArrayERProperty<BeanT,ListT,ItemT> extends ArrayProperty<BeanT,Li
             this.offset = offset;
         }
 
+        @Override
         public void receive(UnmarshallingContext.State state, Object o) throws SAXException {
             state.getContext().getScope(offset).add(acc,lister,o);
         }

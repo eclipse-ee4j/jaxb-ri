@@ -30,10 +30,12 @@ public class ClassLocatable<C> implements Locatable {
         this.nav = nav;
     }
 
+    @Override
     public Locatable getUpstream() {
         return upstream;
     }
 
+    @Override
     public Location getLocation() {
         return nav.getClassLocation(clazz);
     }

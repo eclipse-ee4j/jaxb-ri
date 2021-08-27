@@ -86,6 +86,7 @@ public abstract class TagName {
 //        else        return qname.substring(0,idx);
 //    }
 
+    @Override
     public String toString() {
         return '{'+uri+'}'+local;
     }

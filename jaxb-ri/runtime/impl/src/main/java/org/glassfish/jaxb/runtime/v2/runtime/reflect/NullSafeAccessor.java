@@ -31,6 +31,7 @@ public class NullSafeAccessor<B,V,P> extends Accessor<B,V> {
         this.lister = lister;
     }
 
+    @Override
     public V get(B bean) throws AccessorException {
         V v = core.get(bean);
         if(v==null) {
@@ -42,6 +43,7 @@ public class NullSafeAccessor<B,V,P> extends Accessor<B,V> {
         return v;
     }
 
+    @Override
     public void set(B bean, V value) throws AccessorException {
         core.set(bean,value);
     }

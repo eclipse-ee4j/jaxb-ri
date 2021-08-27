@@ -713,6 +713,7 @@ public final class DatatypeConverterImpl implements DatatypeConverterInterface {
 
     public static DatatypeFactory getDatatypeFactory() {
         ClassLoader tccl = AccessController.doPrivileged(new PrivilegedAction<ClassLoader>() {
+            @Override
             public ClassLoader run() {
                 return Thread.currentThread().getContextClassLoader();
             }
@@ -884,102 +885,122 @@ public final class DatatypeConverterImpl implements DatatypeConverterInterface {
     // DEPRECATED METHODS, KEPT FOR JAXB1 GENERATED CLASSES COMPATIBILITY, WILL BE REMOVED IN FUTURE
 
     @Deprecated
+    @Override
     public String parseString(String lexicalXSDString) {
         return lexicalXSDString;
     }
 
     @Deprecated
+    @Override
     public BigInteger parseInteger(String lexicalXSDInteger) {
         return _parseInteger(lexicalXSDInteger);
     }
 
     @Deprecated
+    @Override
     public String printInteger(BigInteger val) {
         return _printInteger(val);
     }
 
     @Deprecated
+    @Override
     public int parseInt(String s) {
         return _parseInt(s);
     }
 
     @Deprecated
+    @Override
     public long parseLong(String lexicalXSLong) {
         return _parseLong(lexicalXSLong);
     }
 
     @Deprecated
+    @Override
     public short parseShort(String lexicalXSDShort) {
         return _parseShort(lexicalXSDShort);
     }
 
     @Deprecated
+    @Override
     public String printShort(short val) {
         return _printShort(val);
     }
 
     @Deprecated
+    @Override
     public BigDecimal parseDecimal(String content) {
         return _parseDecimal(content);
     }
 
     @Deprecated
+    @Override
     public float parseFloat(String lexicalXSDFloat) {
         return _parseFloat(lexicalXSDFloat);
     }
 
     @Deprecated
+    @Override
     public String printFloat(float v) {
         return _printFloat(v);
     }
 
     @Deprecated
+    @Override
     public double parseDouble(String lexicalXSDDouble) {
         return _parseDouble(lexicalXSDDouble);
     }
 
     @Deprecated
+    @Override
     public boolean parseBoolean(String lexicalXSDBoolean) {
         Boolean b = _parseBoolean(lexicalXSDBoolean);
         return (b == null) ? false : b.booleanValue();
     }
 
     @Deprecated
+    @Override
     public String printBoolean(boolean val) {
         return val ? "true" : "false";
     }
 
     @Deprecated
+    @Override
     public byte parseByte(String lexicalXSDByte) {
         return _parseByte(lexicalXSDByte);
     }
 
     @Deprecated
+    @Override
     public String printByte(byte val) {
         return _printByte(val);
     }
 
     @Deprecated
+    @Override
     public QName parseQName(String lexicalXSDQName, NamespaceContext nsc) {
         return _parseQName(lexicalXSDQName, nsc);
     }
 
     @Deprecated
+    @Override
     public Calendar parseDateTime(String lexicalXSDDateTime) {
         return _parseDateTime(lexicalXSDDateTime);
     }
 
     @Deprecated
+    @Override
     public String printDateTime(Calendar val) {
         return _printDateTime(val);
     }
 
     @Deprecated
+    @Override
     public byte[] parseBase64Binary(String lexicalXSDBase64Binary) {
         return _parseBase64Binary(lexicalXSDBase64Binary);
     }
 
     @Deprecated
+    @Override
     public byte[] parseHexBinary(String s) {
         final int len = s.length();
 
@@ -1021,6 +1042,7 @@ public final class DatatypeConverterImpl implements DatatypeConverterInterface {
     private static final char[] hexCode = "0123456789ABCDEF".toCharArray();
 
     @Deprecated
+    @Override
     public String printHexBinary(byte[] data) {
         StringBuilder r = new StringBuilder(data.length * 2);
         for (byte b : data) {
@@ -1031,86 +1053,103 @@ public final class DatatypeConverterImpl implements DatatypeConverterInterface {
     }
 
     @Deprecated
+    @Override
     public long parseUnsignedInt(String lexicalXSDUnsignedInt) {
         return _parseLong(lexicalXSDUnsignedInt);
     }
 
     @Deprecated
+    @Override
     public String printUnsignedInt(long val) {
         return _printLong(val);
     }
 
     @Deprecated
+    @Override
     public int parseUnsignedShort(String lexicalXSDUnsignedShort) {
         return _parseInt(lexicalXSDUnsignedShort);
     }
 
     @Deprecated
+    @Override
     public Calendar parseTime(String lexicalXSDTime) {
         return getDatatypeFactory().newXMLGregorianCalendar(lexicalXSDTime).toGregorianCalendar();
     }
 
     @Deprecated
+    @Override
     public String printTime(Calendar val) {
         return CalendarFormatter.doFormat("%h:%m:%s%z", val);
     }
 
     @Deprecated
+    @Override
     public Calendar parseDate(String lexicalXSDDate) {
         return getDatatypeFactory().newXMLGregorianCalendar(lexicalXSDDate).toGregorianCalendar();
     }
 
     @Deprecated
+    @Override
     public String printDate(Calendar val) {
         return _printDate(val);
     }
 
     @Deprecated
+    @Override
     public String parseAnySimpleType(String lexicalXSDAnySimpleType) {
         return lexicalXSDAnySimpleType;
     }
 
     @Deprecated
+    @Override
     public String printString(String val) {
         return val;
     }
 
     @Deprecated
+    @Override
     public String printInt(int val) {
         return _printInt(val);
     }
 
     @Deprecated
+    @Override
     public String printLong(long val) {
         return _printLong(val);
     }
 
     @Deprecated
+    @Override
     public String printDecimal(BigDecimal val) {
         return _printDecimal(val);
     }
 
     @Deprecated
+    @Override
     public String printDouble(double v) {
         return _printDouble(v);
     }
 
     @Deprecated
+    @Override
     public String printQName(QName val, NamespaceContext nsc) {
         return _printQName(val, nsc);
     }
 
     @Deprecated
+    @Override
     public String printBase64Binary(byte[] val) {
         return _printBase64Binary(val);
     }
 
     @Deprecated
+    @Override
     public String printUnsignedShort(int val) {
         return String.valueOf(val);
     }
 
     @Deprecated
+    @Override
     public String printAnySimpleType(String val) {
         return val;
     }

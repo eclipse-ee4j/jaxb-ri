@@ -37,6 +37,7 @@ import java.util.Map;
 final class RuntimeEnumLeafInfoImpl<T extends Enum<T>,B> extends EnumLeafInfoImpl<Type,Class,Field,Method>
     implements RuntimeEnumLeafInfo, Transducer<T> {
 
+    @Override
     public Transducer<T> getTransducer() {
         return this;
     }
@@ -47,12 +48,12 @@ final class RuntimeEnumLeafInfoImpl<T extends Enum<T>,B> extends EnumLeafInfoImp
      */
     private final Transducer<B> baseXducer;
 
-    private final Map<B,T> parseMap = new HashMap<B,T>();
+    private final Map<B,T> parseMap = new HashMap<>();
     private final Map<T,B> printMap;
 
     RuntimeEnumLeafInfoImpl(RuntimeModelBuilder builder, Locatable upstream, Class<T> enumType) {
         super(builder,upstream,enumType,enumType);
-        this.printMap = new EnumMap<T,B>(enumType);
+        this.printMap = new EnumMap<>(enumType);
 
         baseXducer = ((RuntimeNonElement)baseType).getTransducer();
     }
@@ -80,7 +81,7 @@ final class RuntimeEnumLeafInfoImpl<T extends Enum<T>,B> extends EnumLeafInfoImp
         } catch (Exception e) {
             builder.reportError(new IllegalAnnotationException(
                 Messages.INVALID_XML_ENUM_VALUE.format(literal,baseType.getType().toString()), e,
-                    new FieldLocatable<Field>(this,constant,nav()) ));
+                    new FieldLocatable<>(this,constant,nav()) ));
         }
 
         parseMap.put(b,t);
@@ -89,6 +90,7 @@ final class RuntimeEnumLeafInfoImpl<T extends Enum<T>,B> extends EnumLeafInfoImp
         return new RuntimeEnumConstantImpl(this, name, literal, last);
     }
 
+    @Override
     public QName[] getTypeNames() {
         return new QName[]{getTypeName()};
     }
@@ -98,18 +100,22 @@ final class RuntimeEnumLeafInfoImpl<T extends Enum<T>,B> extends EnumLeafInfoImp
         return clazz;
     }
 
+    @Override
     public boolean useNamespace() {
         return baseXducer.useNamespace();
     }
 
+    @Override
     public void declareNamespace(T t, XMLSerializer w) throws AccessorException {
         baseXducer.declareNamespace(printMap.get(t),w);
     }
 
+    @Override
     public CharSequence print(T t) throws AccessorException {
         return baseXducer.print(printMap.get(t));
     }
 
+    @Override
     public T parse(CharSequence lexical) throws AccessorException, SAXException {
         // TODO: error handling
 
@@ -122,14 +128,17 @@ final class RuntimeEnumLeafInfoImpl<T extends Enum<T>,B> extends EnumLeafInfoImp
         return parseMap.get(b);
     }
 
+    @Override
     public void writeText(XMLSerializer w, T t, String fieldName) throws IOException, SAXException, XMLStreamException, AccessorException {
         baseXducer.writeText(w,printMap.get(t),fieldName);
     }
 
+    @Override
     public void writeLeafElement(XMLSerializer w, Name tagName, T o, String fieldName) throws IOException, SAXException, XMLStreamException, AccessorException {
         baseXducer.writeLeafElement(w,tagName,printMap.get(o),fieldName);
     }
 
+    @Override
     public QName getTypeName(T instance) {
         return null;
     }

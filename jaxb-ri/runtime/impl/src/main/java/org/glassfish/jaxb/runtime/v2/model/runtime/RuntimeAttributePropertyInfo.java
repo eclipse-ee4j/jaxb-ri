@@ -19,5 +19,6 @@ import java.lang.reflect.Type;
  */
 public interface RuntimeAttributePropertyInfo extends AttributePropertyInfo<Type,Class>, RuntimePropertyInfo, RuntimeNonElementRef {
     // refinement
+    @Override
     RuntimeNonElement getTarget();
 }

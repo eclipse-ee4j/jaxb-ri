@@ -24,7 +24,7 @@ abstract class TypeVisitor<T,P> {
         assert t!=null;
 
         if (t instanceof Class)
-            return onClass((Class)t,param);
+            return onClass((Class<?>)t,param);
         if (t instanceof ParameterizedType)
             return onParameterizdType( (ParameterizedType)t,param);
         if(t instanceof GenericArrayType)
@@ -39,7 +39,7 @@ abstract class TypeVisitor<T,P> {
         throw new IllegalArgumentException();
     }
 
-    protected abstract T onClass(Class c, P param);
+    protected abstract T onClass(Class<?> c, P param);
     protected abstract T onParameterizdType(ParameterizedType p, P param);
     protected abstract T onGenericArray(GenericArrayType g, P param);
     protected abstract T onVariable(TypeVariable v, P param);

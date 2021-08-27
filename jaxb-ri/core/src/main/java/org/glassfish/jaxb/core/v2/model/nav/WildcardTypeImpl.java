@@ -27,18 +27,22 @@ final class WildcardTypeImpl implements WildcardType {
         this.lb = lb;
     }
 
+    @Override
     public Type[] getUpperBounds() {
         return ub;
     }
 
+    @Override
     public Type[] getLowerBounds() {
         return lb;
     }
 
+    @Override
     public int hashCode() {
         return Arrays.hashCode(lb) ^ Arrays.hashCode(ub);
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (obj instanceof WildcardType) {
             WildcardType that = (WildcardType) obj;

@@ -25,10 +25,12 @@ import org.glassfish.jaxb.runtime.v2.runtime.reflect.TransducedAccessor;
  * @see TransducedAccessor#get
  */
 public final class TransducedAccessor_field_Boolean extends DefaultTransducedAccessor {
+    @Override
     public String print(Object o) {
         return DatatypeConverterImpl._printBoolean( ((Bean)o).f_boolean );
     }
 
+    @Override
     public void parse(Object o, CharSequence lexical) {
         Boolean b = DatatypeConverterImpl._parseBoolean(lexical);
 
@@ -36,6 +38,7 @@ public final class TransducedAccessor_field_Boolean extends DefaultTransducedAcc
             ((Bean)o).f_boolean=b;
     }
 
+    @Override
     public boolean hasValue(Object o) {
         return true;
     }

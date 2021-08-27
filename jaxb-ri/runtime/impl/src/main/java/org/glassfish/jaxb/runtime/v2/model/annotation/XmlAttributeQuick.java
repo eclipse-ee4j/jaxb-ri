@@ -32,26 +32,32 @@ final class XmlAttributeQuick
         this.core = core;
     }
 
+    @Override
     protected Annotation getAnnotation() {
         return core;
     }
 
+    @Override
     protected Quick newInstance(Locatable upstream, Annotation core) {
         return new XmlAttributeQuick(upstream, ((XmlAttribute) core));
     }
 
+    @Override
     public Class<XmlAttribute> annotationType() {
         return XmlAttribute.class;
     }
 
+    @Override
     public String name() {
         return core.name();
     }
 
+    @Override
     public String namespace() {
         return core.namespace();
     }
 
+    @Override
     public boolean required() {
         return core.required();
     }

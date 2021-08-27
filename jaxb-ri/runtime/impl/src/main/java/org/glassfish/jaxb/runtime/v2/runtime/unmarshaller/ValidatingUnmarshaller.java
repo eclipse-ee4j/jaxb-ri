@@ -48,6 +48,7 @@ final class ValidatingUnmarshaller implements XmlVisitor, XmlVisitor.TextPredict
         validator.setErrorHandler(new FatalAdapter(getContext()));
     }
 
+    @Override
     public void startDocument(LocatorEx locator, NamespaceContext nsContext) throws SAXException {
         this.nsContext = nsContext;
         validator.setDocumentLocator(locator);
@@ -55,12 +56,14 @@ final class ValidatingUnmarshaller implements XmlVisitor, XmlVisitor.TextPredict
         next.startDocument(locator,nsContext);
     }
 
+    @Override
     public void endDocument() throws SAXException {
         this.nsContext = null;
         validator.endDocument();
         next.endDocument();
     }
 
+    @Override
     public void startElement(TagName tagName) throws SAXException {
         if(nsContext != null) {
             String tagNamePrefix = tagName.getPrefix().intern();
@@ -72,21 +75,25 @@ final class ValidatingUnmarshaller implements XmlVisitor, XmlVisitor.TextPredict
         next.startElement(tagName);
     }
 
+    @Override
     public void endElement(TagName tagName ) throws SAXException {
         validator.endElement(tagName.uri,tagName.local,tagName.getQname());
         next.endElement(tagName);
     }
 
+    @Override
     public void startPrefixMapping(String prefix, String nsUri) throws SAXException {
         validator.startPrefixMapping(prefix,nsUri);
         next.startPrefixMapping(prefix,nsUri);
     }
 
+    @Override
     public void endPrefixMapping(String prefix) throws SAXException {
         validator.endPrefixMapping(prefix);
         next.endPrefixMapping(prefix);
     }
 
+    @Override
     public void text( CharSequence pcdata ) throws SAXException {
         int len = pcdata.length();
         if(buf.length<len) {
@@ -100,16 +107,19 @@ final class ValidatingUnmarshaller implements XmlVisitor, XmlVisitor.TextPredict
             next.text(pcdata);
     }
 
+    @Override
     public UnmarshallingContext getContext() {
         return next.getContext();
     }
 
+    @Override
     public TextPredictor getPredictor() {
         return this;
     }
 
     // should be always invoked through TextPredictor
     @Deprecated
+    @Override
     public boolean expectText() {
         // validator needs to make sure that there's no text
         // even when it's not expected. So always have them

@@ -192,6 +192,7 @@ public /*to make unit tests happy*/ final class MarshallerImpl extends AbstractM
         return null;
     }
 
+    @Override
     public void marshal(Object target,Result result) throws JAXBException {
         write(target, createXmlOutput(result), createPostInitAction(result));
     }
@@ -564,6 +565,7 @@ public /*to make unit tests happy*/ final class MarshallerImpl extends AbstractM
     /**
      * Default error handling behavior fot {@link Marshaller}.
      */
+    @Override
     public boolean handleEvent(ValidationEvent event) {
         // draconian by default
         return false;

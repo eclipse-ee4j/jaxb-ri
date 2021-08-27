@@ -46,6 +46,7 @@ public class XMLEventWriterOutput extends XmlOutputAbstractImpl {
             out.add(ef.createStartDocument());
     }
 
+    @Override
     public void endDocument(boolean fragment) throws IOException, SAXException, XMLStreamException {
         if(!fragment) {
             out.add(ef.createEndDocument());
@@ -54,6 +55,7 @@ public class XMLEventWriterOutput extends XmlOutputAbstractImpl {
         super.endDocument(fragment);
     }
 
+    @Override
     public void beginStartTag(int prefix, String localName) throws IOException, XMLStreamException {
         out.add(
             ef.createStartElement(
@@ -72,6 +74,7 @@ public class XMLEventWriterOutput extends XmlOutputAbstractImpl {
         }
     }
 
+    @Override
     public void attribute(int prefix, String localName, String value) throws IOException, XMLStreamException {
         Attribute att;
         if(prefix==-1)
@@ -85,10 +88,12 @@ public class XMLEventWriterOutput extends XmlOutputAbstractImpl {
         out.add(att);
     }
 
+    @Override
     public void endStartTag() throws IOException, SAXException {
         // noop
     }
 
+    @Override
     public void endTag(int prefix, String localName) throws IOException, SAXException, XMLStreamException {
         out.add(
             ef.createEndElement(
@@ -97,12 +102,14 @@ public class XMLEventWriterOutput extends XmlOutputAbstractImpl {
                 localName));
     }
 
+    @Override
     public void text(String value, boolean needsSeparatingWhitespace) throws IOException, SAXException, XMLStreamException {
         if(needsSeparatingWhitespace)
             out.add(sp);
         out.add(ef.createCharacters(value));
     }
 
+    @Override
     public void text(Pcdata value, boolean needsSeparatingWhitespace) throws IOException, SAXException, XMLStreamException {
         text(value.toString(),needsSeparatingWhitespace);
     }

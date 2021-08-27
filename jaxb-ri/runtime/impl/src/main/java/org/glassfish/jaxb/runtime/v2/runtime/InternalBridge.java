@@ -25,6 +25,7 @@ abstract class InternalBridge<T> extends Bridge<T> {
         super(context);
     }
 
+    @Override
     public JAXBContextImpl getContext() {
         return context;
     }
