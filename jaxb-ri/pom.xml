@@ -250,7 +250,6 @@
                         </archive>
                         <release>11</release>
                         <notimestamp>true</notimestamp>
-                        <aggregate>false</aggregate>
                         <dependencySourceExcludes>
                             <dependencySourceExclude>com.sun.xml.bind:*</dependencySourceExclude>
                             <dependencySourceExclude>com.sun.tools.xjc:*</dependencySourceExclude>
@@ -286,7 +285,6 @@
                     <configuration>
                         <skip>${spotbugs.skip}</skip>
                         <threshold>${spotbugs.threshold}</threshold>
-                        <findbugsXmlWithMessages>true</findbugsXmlWithMessages>
                         <excludeFilterFile>
                             ${spotbugs.exclude}
                         </excludeFilterFile>
@@ -604,14 +602,18 @@
                                 <!-- configuration should be removed once this bug https://github.com/jacoco/jacoco/issues/407 is fixed -->
                                 <configuration>
                                     <excludes>
-                                        <exclude>com/sun/istack/logging/StackHelper.class</exclude>
-                                        <exclude>com/sun/tools/jxc/SchemaGenerator.class</exclude>
-                                        <exclude>com/sun/tools/jxc/SchemaGenerator$JavacOptions.class</exclude>
-                                        <exclude>com/sun/tools/jxc/SchemaGenerator$Runner.class</exclude>
-                                        <exclude>com/sun/tools/jxc/SchemaGenTask.class</exclude>
+                                        <!-- core -->
+                                        <exclude>org/glassfish/jaxb/core/StackHelper.class</exclude>
+                                        <!-- impl -->
+                                        <exclude>org/glassfish/jaxb/runtime/v2/MUtils.class</exclude>
+                                        <!-- xjc -->
                                         <exclude>com/sun/tools/xjc/CatalogUtil.class</exclude>
-                                        <exclude>com/sun/tools/xjc/XJC2Task.class</exclude>
-                                        <exclude>com/sun/xml/bind/v2/runtime/reflect/opt/*.class</exclude>
+                                        <!-- jxc -->
+                                        <exclude>com/sun/tools/jxc/SchemaGenTask.class</exclude>
+                                        <!-- istack-runtime -->
+                                        <exclude>com/sun/istack/logging/StackHelper.class</exclude>
+                                        <!-- istack-tools -->
+                                        <exclude>com/sun/istack/tools/Utils.class</exclude>
                                     </excludes>
                                 </configuration>
                             </execution>
