@@ -33,10 +33,9 @@
 
     <properties>
         <xml.bind-api.version>4.0.0-RC1</xml.bind-api.version>
-        <jaxb-api-osgi.version>3.0</jaxb-api-osgi.version>
         <istack.version>4.1.0-M1</istack.version>
         <fastinfoset.version>2.0.0</fastinfoset.version>
-        <stax-ex.version>2.1.0-SNAPSHOT</stax-ex.version>
+        <stax-ex.version>2.1.0-M2</stax-ex.version>
         <activation-api.version>2.1.0-RC1</activation-api.version>
         <angus-activation.version>1.0.0-M1</angus-activation.version>
     </properties>
