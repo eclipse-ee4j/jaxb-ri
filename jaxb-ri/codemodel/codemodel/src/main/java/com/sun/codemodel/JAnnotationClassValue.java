@@ -19,7 +19,7 @@ public final class JAnnotationClassValue extends JAnnotationValue {
     private String param;
 
     JAnnotationClassValue(JClass type) {
-        this.type = type.erasure();
+        this.type = type;
     }
 
     JAnnotationClassValue(JEnumConstant en) {
@@ -31,9 +31,9 @@ public final class JAnnotationClassValue extends JAnnotationValue {
     @Override
     public void generate(JFormatter f) {
         if (param != null) {
-            f.t(type).p('.').p(param);
+            f.t(type.erasure()).p('.').p(param);
         } else {
-            f.t(type).p(".class");
+            f.t(type.erasure()).p(".class");
         }
     }
 
