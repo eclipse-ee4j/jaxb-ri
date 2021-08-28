@@ -33,6 +33,7 @@ import java.lang.annotation.Target;
 public @interface XmlNamespace {
     /**
      * The namespace URI.
+     * @return URI
      */
     String value();
 }

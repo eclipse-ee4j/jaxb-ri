@@ -258,9 +258,10 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler
      *
      * @param writer
      *      The output destination, or null to use standard output.
-     * @param encoding 
+     * @param encoding
      *      If non-null string is specified, it is written as a part
      *      of the XML declaration.
+     * @param _escapeHandler escape handler
      */
     public XMLWriter (Writer writer, String encoding, CharacterEscapeHandler _escapeHandler ) 
     {
@@ -332,6 +333,7 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler
      * {@link #endDocument endDocument} method after writing a
      * document.</p>
      *
+     * @throws java.io.IOException for errors
      * @see #reset()
      */
     public void flush ()
@@ -346,6 +348,9 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler
      *
      * @param writer The output destination, or null to use
      *        standard output.
+     * @param _encoding
+     *      If non-null string is specified, it is written as a part
+     *      of the XML declaration.
      * @see #flush()
      */
     public void setOutput (Writer writer,String _encoding)
@@ -367,6 +372,7 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler
      * ({@code <?xml version='1.0' ... ?>}).
      * <p>
      * This option is set to true by default. 
+     * @param _writeXmlDecl write out the XML declaration
      */
     public void setXmlDecl( boolean _writeXmlDecl ) {
         this.writeXmlDecl = _writeXmlDecl;

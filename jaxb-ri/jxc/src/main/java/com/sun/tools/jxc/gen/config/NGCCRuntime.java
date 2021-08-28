@@ -474,6 +474,7 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
      * @param qname
      *      Parameter passed to the enter element event. Used to
      *      simulate the startElement event for the new ContentHandler.
+     * @throws SAXException for errors
      */
     public void redirectSubtree( ContentHandler child,
                                  String uri, String local, String qname ) throws SAXException {

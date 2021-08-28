@@ -28,6 +28,8 @@ public interface CharacterEscapeHandler {
      * @param start The starting position.
      * @param length The number of characters to use.
      * @param isAttVal true if this is an attribute value literal.
+     * @param out writer
+     * @throws java.io.IOException for errors
      */
     void escape( char ch[], int start, int length, boolean isAttVal, Writer out ) throws IOException; 
 

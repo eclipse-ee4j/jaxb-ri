@@ -30,7 +30,7 @@ import org.apache.tools.ant.types.Path;
  * @author Yan GAO (gaoyan.gao@oracle.com)
  */
 public class SchemaGenBase extends ApBasedTask {
-    private final List<SchemaGenBase.Schema>/*<Schema>*/ schemas = new ArrayList<SchemaGenBase.Schema>();
+    private final List<SchemaGenBase.Schema>/*<Schema>*/ schemas = new ArrayList<>();
 
     private File episode = null;
 
@@ -180,6 +180,7 @@ public class SchemaGenBase extends ApBasedTask {
     /**
      * Sets the episode file to be generated.
      * Null to not to generate one, which is the default behavior.
+     * @param f episode file
      */
     public void setEpisode(File f) {
         this.episode = f;
@@ -191,7 +192,7 @@ public class SchemaGenBase extends ApBasedTask {
 
     @Override
     protected Processor getProcessor() {
-        Map<String, File> m = new HashMap<String, File>();
+        Map<String, File> m = new HashMap<>();
         for (SchemaGenBase.Schema schema : schemas) {
 
             if (m.containsKey(schema.namespace)) {
@@ -269,7 +270,7 @@ public class SchemaGenBase extends ApBasedTask {
             getCommandline().createArgument().setValue("-d");
             getCommandline().createArgument().setFile(getDestdir());
         }
-        if (getEpisode() != null && !getEpisode().equals("")) {
+        if (getEpisode() != null && getEpisode().exists() && getEpisode().isFile()) {
             getCommandline().createArgument().setValue("-episode");
             getCommandline().createArgument().setFile(getEpisode());
         }

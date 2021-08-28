@@ -78,7 +78,7 @@
         <copyright.update>false</copyright.update>
         <spotbugs.exclude/>
         <spotbugs.skip>false</spotbugs.skip>
-        <spotbugs.threshold>High</spotbugs.threshold>
+        <spotbugs.threshold>Low</spotbugs.threshold>
         <spotbugs.version>4.3.0</spotbugs.version>
 
         <junit.version>4.13.2</junit.version>

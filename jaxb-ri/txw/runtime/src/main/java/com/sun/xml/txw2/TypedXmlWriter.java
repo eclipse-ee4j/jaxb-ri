@@ -78,6 +78,8 @@ public interface TypedXmlWriter {
      * <p>
      * Short for <pre>_attribute("",localName,value);</pre>
      *
+     * @param localName the name
+     * @param value the value
      * @see #_attribute(String, String, Object)
      */
     void _attribute( String localName, Object value );
@@ -88,6 +90,9 @@ public interface TypedXmlWriter {
      * <p>
      * Short for <pre>_attribute(new QName(nsUri,localName),value);</pre>
      *
+     * @param nsUri the namespace URI
+     * @param value the value
+     * @param localName the name
      * @see #_attribute(QName, Object)
      */
     void _attribute( String nsUri, String localName, Object value );
@@ -186,6 +191,15 @@ public interface TypedXmlWriter {
      * <p>
      * The namespace URI will be inherited from the parent element.
      *
+     * @param <T> type
+     * @param localName
+     *      The local name of the newly created element.
+     * @param contentModel
+     *      The typed XML writer interface used to write the children of
+     *      the new child element.
+     * @return
+     *      always return non-null {@link TypedXmlWriter} that can be used
+     *      to write the contents of the newly created child element.
      * @see #_element(String, String, Class)
      */
     <T extends TypedXmlWriter> T _element( String localName, Class<T> contentModel );
@@ -196,6 +210,7 @@ public interface TypedXmlWriter {
      * <p>
      * The newly created child element is appended at the end of the children.
      *
+     * @param <T> type
      * @param nsUri
      *      The namespace URI of the newly created element.
      * @param localName
@@ -216,6 +231,15 @@ public interface TypedXmlWriter {
      * <p>
      * Short for <pre>_element(tagName.getNamespaceURI(),tagName.getLocalPart(),contentModel);</pre>
      *
+     * @param <T> type
+     * @param tagName
+     *      The local name of the newly created element.
+     * @param contentModel
+     *      The typed XML writer interface used to write the children of
+     *      the new child element.
+     * @return
+     *      always return non-null {@link TypedXmlWriter} that can be used
+     *      to write the contents of the newly created child element.
      * @see #_element(String, String, Class)
      */
     <T extends TypedXmlWriter> T _element( QName tagName, Class<T> contentModel );
@@ -228,6 +252,13 @@ public interface TypedXmlWriter {
      * annotated with {@link XmlElement} annotation. The element name will be
      * taken from there.
      *
+     * @param <T> type
+     * @param contentModel
+     *      The typed XML writer interface used to write the children of
+     *      the new child element.
+     * @return
+     *      always return non-null {@link TypedXmlWriter} that can be used
+     *      to write the contents of the newly created child element.
      * @see #_element(String, String, Class)
      */
     <T extends TypedXmlWriter> T _element( Class<T> contentModel );
@@ -244,6 +275,8 @@ public interface TypedXmlWriter {
      * But this is different from Java's ordinary cast because the returned object
      * is not always the same as the current object.
      *
+     * @param <T> type
+     * @param targetInterface target interface
      * @return
      *      always return non-null.
      */

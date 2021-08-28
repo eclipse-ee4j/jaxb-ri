@@ -98,6 +98,7 @@ public class DataWriter extends XMLWriter
      * @param encoding 
      *      If non-null string is specified, it is written as a part
      *      of the XML declaration.
+     * @param _escapeHandler escape handler
      */
     public DataWriter ( Writer writer, String encoding, CharacterEscapeHandler _escapeHandler )
     {

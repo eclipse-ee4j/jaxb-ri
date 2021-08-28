@@ -39,6 +39,8 @@ public class SaxSerializer implements XmlSerializer {
      * <p>
      * Sepcifying a non-null {@link LexicalHandler} allows applications
      * to write comments and CDATA sections.
+     * @param handler writer
+     * @param lex writer for comments and CDATA
      */
     public SaxSerializer(ContentHandler handler,LexicalHandler lex) {
         this(handler, lex, true);
