@@ -44,7 +44,7 @@ public class XJCFacade {
             ClassLoader cl = SecureLoader.getClassClassLoader(XJCFacade.class);
             SecureLoader.setContextClassLoader(cl);
             Class<?> driver = cl.loadClass("com.sun.tools.xjc.Driver");
-            Method mainMethod = driver.getDeclaredMethod("main", new Class[]{String[].class});
+            Method mainMethod = driver.getDeclaredMethod("main", new Class<?>[]{String[].class});
             try {
                 mainMethod.invoke(null, new Object[]{args});
             } catch (InvocationTargetException e) {

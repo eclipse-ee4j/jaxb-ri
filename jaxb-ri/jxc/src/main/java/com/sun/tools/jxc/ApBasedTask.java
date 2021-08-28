@@ -42,6 +42,7 @@ public abstract class ApBasedTask extends Javac {
 
     /**
      * Implemented by the derived class to set up command line switches passed to annotation processing.
+     * @param cmd command line
      */
     protected abstract void setupCommandlineSwitches(Commandline cmd);
 
@@ -114,6 +115,7 @@ public abstract class ApBasedTask extends Javac {
 
     /**
      * Creates a factory that does the actual job.
+     * @return a factory
      */
     protected abstract Processor getProcessor();
 

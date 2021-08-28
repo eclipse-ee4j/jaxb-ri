@@ -70,10 +70,14 @@ public final class ConfigReader  {
 
     /**
      *
+     * @param env
+     *      The ProcessingEnvironment
      * @param classes
      *      The set of classes passed to the AnnotationProcessor
      * @param xmlFile
      *      The configuration file.
+     * @param errorHandler
+     *      The error handler
      * @throws SAXException
      *      If this is thrown, the error has already been reported.
      * @throws IOException
@@ -89,6 +93,13 @@ public final class ConfigReader  {
 
     }
 
+    /**
+     * Return collection of classes to be included based on the configuration.
+     * @return to be included classes.
+     */
+    public Collection<Reference> getClassesToBeIncluded() {
+        return classesToBeIncluded;
+    }
 
     /**
      * This creates a regular expression
@@ -98,10 +109,6 @@ public final class ConfigReader  {
      * after applying those patterns
      *
      */
-    public Collection<Reference> getClassesToBeIncluded() {
-        return classesToBeIncluded;
-    }
-
     private void checkAllClasses(Config config, Collection<? extends TypeElement> rootClasses) {
 
         List<Pattern> includeRegexList = config.getClasses().getIncludes();
@@ -130,6 +137,7 @@ public final class ConfigReader  {
 
     /**
      * This returns the SchemaOutputResolver to generate the schemas
+     * @return schema output resolver
      */
     public SchemaOutputResolver getSchemaOutputResolver(){
         return schemaOutputResolver;

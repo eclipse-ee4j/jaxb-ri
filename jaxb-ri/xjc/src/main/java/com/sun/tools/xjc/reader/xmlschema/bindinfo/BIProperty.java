@@ -779,7 +779,7 @@ public final class BIProperty extends AbstractDeclarationImpl {
             return null;
     }
 
-    private static final class BaseTypeBean {
+    public static final class BaseTypeBean {
         /**
          * If there's a nested javaType customization, this field
          * will keep that customization. Otherwise null.

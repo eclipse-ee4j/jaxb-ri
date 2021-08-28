@@ -22,7 +22,7 @@ import com.sun.tools.xjc.model.Model;
  * Bean used by JAXB to bind a collection type attribute to our {@link FieldRenderer}.
  * @author Kohsuke Kawaguchi
  */
-final class CollectionTypeAttribute {
+public final class CollectionTypeAttribute {
     @XmlValue
     String collectionType = null;
 
