@@ -146,6 +146,8 @@ public abstract class NGCCInterleaveFilter implements NGCCEventSource, NGCCEvent
      * Implemented by the generated code to determine the handler
      * that can receive the given element.
      * 
+     * @param uri element uri
+     * @param local element local name
      * @return
      *      Thread ID of the receiver that can handle this event,
      *      or -1 if none.
@@ -154,11 +156,19 @@ public abstract class NGCCInterleaveFilter implements NGCCEventSource, NGCCEvent
     
     /**
      * Returns the handler that can receive the given attribute, or null.
+     * @param uri attribute uri
+     * @param local attribute local name
+     * @return
+     *      Thread ID of the receiver that can handle this event,
+     *      or -1 if none.
      */
     protected abstract int findReceiverOfAttribute( String uri, String local );
     
     /**
      * Returns the handler that can receive text events, or null.
+     * @return
+     *      Thread ID of the receiver that can handle this event,
+     *      or -1 if none.
      */
     protected abstract int findReceiverOfText();
 
@@ -194,6 +204,11 @@ public abstract class NGCCInterleaveFilter implements NGCCEventSource, NGCCEvent
      *      If this method is called by one of the child receivers,
      *      the receiver object. If this method is called by itself,
      *      null.
+     * @param uri Parameter passed to the element event.
+     * @param local Parameter passed to the element event.
+     * @param qname Parameter passed to the element event.
+     * @param atts Parameter passed to the element event.
+     * @throws SAXException for errors
      */
     public void joinByEnterElement( NGCCEventReceiver source,
         String uri, String local, String qname, Attributes atts ) throws SAXException {

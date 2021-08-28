@@ -24,10 +24,22 @@ public interface NGCCEventSource {
     /**
      * Replaces an old handler with a new handler, and returns
      * ID of the EventReceiver thread.
+     * @param _old old handler
+     * @param _new new handler
+     * @return
+     *      Thread ID of the receiver that can handle this event,
+     *      or -1 if none.
      */
     int replace( NGCCEventReceiver _old, NGCCEventReceiver _new );
     
-    /** Sends an enter element event to the specified EventReceiver thread. */
+    /** Sends an enter element event to the specified EventReceiver thread.
+     * @param receiverThreadId
+     * @param uri element uri
+     * @param local element local name
+     * @param qname element qname
+     * @param atts element attributes
+     * @throws org.xml.sax.SAXException for errors
+     */
     void sendEnterElement( int receiverThreadId, String uri, String local, String qname, Attributes atts ) throws SAXException;
 
     void sendLeaveElement( int receiverThreadId, String uri, String local, String qname ) throws SAXException;

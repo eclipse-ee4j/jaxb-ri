@@ -43,6 +43,7 @@ public abstract class NGCCHandler implements NGCCEventReceiver {
     /**
      * This method will be implemented by the generated code
      * and returns a reference to the current runtime.
+     * @return current runtime
      */
     protected abstract NGCCRuntime getRuntime();
     
@@ -71,6 +72,7 @@ public abstract class NGCCHandler implements NGCCEventReceiver {
      *      processAttribute method to check attribute transitions.
      *      This flag is set to false when this method is triggered by
      *      attribute transition.
+     * @throws org.xml.sax.SAXException for errors
      */
     protected abstract void onChildCompleted( Object result, int cookie, boolean needAttCheck ) throws SAXException;
     
