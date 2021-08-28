@@ -40,6 +40,7 @@ public class IsSetFieldRenderer implements FieldRenderer {
         this.generateIsSetMethod = generateIsSetMethod;
     }
 
+    @Override
     public FieldOutline generate(ClassOutlineImpl context, CPropertyInfo prop) {
         return new IsSetField(context,prop,
             core.generate(context, prop),

@@ -58,6 +58,7 @@ public class SchemaConstraintChecker {
         sf.setErrorHandler(errorFilter);
         if( entityResolver != null ) {
             sf.setResourceResolver(new LSResourceResolver() {
+                @Override
                 public LSInput resolveResource(String type, String namespaceURI, String publicId, String systemId, String baseURI) {
                     try {
                         // XSOM passes the namespace URI to the publicID parameter.

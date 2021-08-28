@@ -22,9 +22,9 @@ import com.sun.tools.xjc.outline.Outline;
  * @author Kohsuke Kawaguchi
  */
 public class EagerNClass extends EagerNType implements NClass {
-    /*package*/ final Class c;
+    /*package*/ final Class<?> c;
 
-    public EagerNClass(Class type) {
+    public EagerNClass(Class<?> type) {
         super(type);
         this.c = type;
     }
@@ -39,11 +39,12 @@ public class EagerNClass extends EagerNType implements NClass {
         return o.getCodeModel().ref(c);
     }
 
+    @Override
     public boolean isAbstract() {
         return Modifier.isAbstract(c.getModifiers());
     }
 
-    private static final Set<Class> boxedTypes = new HashSet<Class>();
+    private static final Set<Class<?>> boxedTypes = new HashSet<>();
 
     static {
         boxedTypes.add(Boolean.class);

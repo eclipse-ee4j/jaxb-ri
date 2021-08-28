@@ -30,7 +30,7 @@ public interface XmlTypeWriter
 
     XmlTypeWriter propOrder(String value);
 
-    XmlTypeWriter factoryClass(Class value);
+    XmlTypeWriter factoryClass(Class<?> value);
 
     XmlTypeWriter factoryClass(JType value);
 

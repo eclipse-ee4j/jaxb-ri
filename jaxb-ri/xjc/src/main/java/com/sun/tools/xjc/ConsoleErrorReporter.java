@@ -38,20 +38,24 @@ public class ConsoleErrorReporter extends ErrorReceiver {
     }
     public ConsoleErrorReporter() { this(System.out); }
     
+    @Override
     public void warning(SAXParseException e) {
         print(Messages.WARNING_MSG,e);
     }
     
+    @Override
     public void error(SAXParseException e) {
         hadError = true;
         print(Messages.ERROR_MSG,e);
     }
     
+    @Override
     public void fatalError(SAXParseException e) {
         hadError = true;
         print(Messages.ERROR_MSG,e);
     }
     
+    @Override
     public void info(SAXParseException e) {
         print(Messages.INFO_MSG,e);
     }

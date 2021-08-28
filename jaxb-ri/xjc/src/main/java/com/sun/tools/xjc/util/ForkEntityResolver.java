@@ -30,6 +30,7 @@ public class ForkEntityResolver implements EntityResolver {
         this.rhs = rhs;
     }
 
+    @Override
     public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
         String sId = systemId == null ? "" : systemId;
         InputSource is = lhs.resolveEntity(publicId, sId);

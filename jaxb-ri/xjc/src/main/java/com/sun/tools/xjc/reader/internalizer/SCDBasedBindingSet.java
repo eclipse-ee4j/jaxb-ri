@@ -82,7 +82,7 @@ public final class SCDBasedBindingSet {
         /**
          * Bindings that apply to this SCD.
          */
-        private final List<Element> bindings = new ArrayList<Element>();
+        private final List<Element> bindings = new ArrayList<>();
 
         private Target(Target parent, Element src, SCD scd) {
             if(parent==null) {

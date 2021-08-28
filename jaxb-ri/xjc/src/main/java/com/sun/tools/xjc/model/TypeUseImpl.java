@@ -43,26 +43,32 @@ final class TypeUseImpl implements TypeUse {
         this.adapter = adapter;
     }
 
+    @Override
     public boolean isCollection() {
         return collection;
     }
 
+    @Override
     public CNonElement getInfo() {
         return coreType;
     }
 
+    @Override
     public CAdapter getAdapterUse() {
         return adapter;
     }
 
+    @Override
     public ID idUse() {
         return id;
     }
 
+    @Override
     public MimeType getExpectedMimeType() {
         return expectedMimeType;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof TypeUseImpl)) return false;
@@ -77,6 +83,7 @@ final class TypeUseImpl implements TypeUse {
         return true;
     }
 
+    @Override
     public int hashCode() {
         int result;
         result = (coreType != null ? coreType.hashCode() : 0);
@@ -86,6 +93,7 @@ final class TypeUseImpl implements TypeUse {
     }
 
 
+    @Override
     public JExpression createConstant(Outline outline, XmlString lexical) {
         if(isCollection())  return null;
 

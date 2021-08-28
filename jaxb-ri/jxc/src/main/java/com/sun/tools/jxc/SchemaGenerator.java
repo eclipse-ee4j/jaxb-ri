@@ -112,7 +112,7 @@ public class SchemaGenerator {
             return -1;
         }
 
-        Class schemagenRunner = classLoader.loadClass(Runner.class.getName());
+        Class<?> schemagenRunner = classLoader.loadClass(Runner.class.getName());
         Method compileMethod = schemagenRunner.getDeclaredMethod("compile",String[].class,File.class);
 
         List<String> aptargs = new ArrayList<String>();

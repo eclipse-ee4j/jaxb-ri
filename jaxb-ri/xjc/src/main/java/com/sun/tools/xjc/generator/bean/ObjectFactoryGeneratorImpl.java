@@ -68,7 +68,7 @@ abstract class ObjectFactoryGeneratorImpl extends ObjectFactoryGenerator {
     private final JDefinedClass objectFactory;
 
     /** map of qname to the QName constant field. */
-    private final HashMap<QName,JFieldVar> qnameMap = new HashMap<QName,JFieldVar>();
+    private final HashMap<QName,JFieldVar> qnameMap = new HashMap<>();
 
     /**
      * Names of the element factory methods that are created.
@@ -76,7 +76,7 @@ abstract class ObjectFactoryGeneratorImpl extends ObjectFactoryGenerator {
      *
      * The value is used for reporting error locations.
      */
-    private final Map<String,CElementInfo> elementFactoryNames = new HashMap<String,CElementInfo>();
+    private final Map<String,CElementInfo> elementFactoryNames = new HashMap<>();
 
     /**
      * Names of the value factory methods that are created.
@@ -84,11 +84,12 @@ abstract class ObjectFactoryGeneratorImpl extends ObjectFactoryGenerator {
      *
      * The value is used for reporting error locations.
      */
-    private final Map<String,ClassOutlineImpl> valueFactoryNames = new HashMap<String,ClassOutlineImpl>();
+    private final Map<String,ClassOutlineImpl> valueFactoryNames = new HashMap<>();
 
     /**
      * Returns a reference to the generated (public) ObjectFactory
      */
+    @Override
     public JDefinedClass getObjectFactory() {
         return objectFactory;
     }

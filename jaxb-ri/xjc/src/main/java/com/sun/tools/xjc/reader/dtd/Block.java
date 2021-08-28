@@ -26,7 +26,7 @@ final class Block {
      * We want to preserve the order they are added, but we don't want
      * dupliates.
      */
-    final Set<Element> elements = new LinkedHashSet<Element>();
+    final Set<Element> elements = new LinkedHashSet<>();
 
     Block(boolean optional, boolean repeated) {
         isOptional = optional;

@@ -294,7 +294,7 @@ public class BGMBuilder extends BindingComponent {
 
     /** Reports an error if there are more than one jaxb:schemaBindings customization. */
     private void checkMultipleSchemaBindings( XSSchema schema ) {
-        ArrayList<Locator> locations = new ArrayList<Locator>();
+        ArrayList<Locator> locations = new ArrayList<>();
 
         BindInfo bi = getBindInfo(schema);
         for( BIDeclaration bid : bi ) {
@@ -308,7 +308,7 @@ public class BGMBuilder extends BindingComponent {
             Messages.ERR_MULTIPLE_SCHEMA_BINDINGS,
             schema.getTargetNamespace() );
         for( int i=1; i<locations.size(); i++ )
-            getErrorReporter().error( (Locator)locations.get(i),
+            getErrorReporter().error(locations.get(i),
                 Messages.ERR_MULTIPLE_SCHEMA_BINDINGS_LOCATION);
     }
 
@@ -414,7 +414,7 @@ public class BGMBuilder extends BindingComponent {
     /**
      * A map that stores binding declarations augmented by XJC.
      */
-    private final Map<XSComponent,BindInfo> externalBindInfos = new HashMap<XSComponent,BindInfo>();
+    private final Map<XSComponent,BindInfo> externalBindInfos = new HashMap<>();
 
     /**
      * Gets the {@link BIDom} object that applies to the given particle.

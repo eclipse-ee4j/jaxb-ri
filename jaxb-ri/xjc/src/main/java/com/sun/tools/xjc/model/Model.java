@@ -64,25 +64,26 @@ public final class Model implements TypeInfoSet<NType,NClass,Void,Void>, CCustom
     /**
      * Generated beans.
      */
-    private final Map<NClass,CClassInfo> beans = new LinkedHashMap<NClass,CClassInfo>();
+    private final Map<NClass,CClassInfo> beans = new LinkedHashMap<>();
 
     /**
      * Generated enums.
      */
-    private final Map<NClass,CEnumLeafInfo> enums = new LinkedHashMap<NClass,CEnumLeafInfo>();
+    private final Map<NClass,CEnumLeafInfo> enums = new LinkedHashMap<>();
 
     /**
      * The element mappings.
      */
     private final Map<NClass/*scope*/,Map<QName,CElementInfo>> elementMappings =
-            new LinkedHashMap<NClass, Map<QName, CElementInfo>>();
+            new LinkedHashMap<>();
 
     private final Iterable<? extends CElementInfo> allElements =
-        new Iterable<CElementInfo>() {
-            public Iterator<CElementInfo> iterator() {
-                return new FlattenIterator<CElementInfo>(elementMappings.values());
-            }
-        };
+            new Iterable<CElementInfo>() {
+                @Override
+                public Iterator<CElementInfo> iterator() {
+                    return new FlattenIterator<>(elementMappings.values());
+                }
+            };
 
     /**
      * {@link TypeUse}s for all named types.
@@ -91,7 +92,7 @@ public final class Model implements TypeInfoSet<NType,NClass,Void,Void>, CCustom
      * but this needs to be exposed for JAX-RPC. A reference to a named XML type will be converted into
      * a reference to a Java type with annotations.
      */
-    private final Map<QName,TypeUse> typeUses = new LinkedHashMap<QName, TypeUse>();
+    private final Map<QName,TypeUse> typeUses = new LinkedHashMap<>();
 
     /**
      * {@link NameConverter} to be used.
@@ -135,7 +136,7 @@ public final class Model implements TypeInfoSet<NType,NClass,Void,Void>, CCustom
         this.defaultSymbolSpace = new SymbolSpace(codeModel);
         defaultSymbolSpace.setType(codeModel.ref(Object.class));
 
-        elementMappings.put(null, new LinkedHashMap<QName, CElementInfo>());
+        elementMappings.put(null, new LinkedHashMap<>());
 
         if(opts.automaticNameConflictResolution)
             allocator = new AutoClassNameAllocator(allocator);
@@ -228,7 +229,7 @@ public final class Model implements TypeInfoSet<NType,NClass,Void,Void>, CCustom
     public final SymbolSpace defaultSymbolSpace;
 
     /** All the defined {@link SymbolSpace}s keyed by their name. */
-    private final Map<String,SymbolSpace> symbolSpaces = new HashMap<String,SymbolSpace>();
+    private final Map<String,SymbolSpace> symbolSpaces = new HashMap<>();
 
     public SymbolSpace getSymbolSpace( String name ) {
         SymbolSpace ss = symbolSpaces.get(name);
@@ -268,7 +269,7 @@ public final class Model implements TypeInfoSet<NType,NClass,Void,Void>, CCustom
         // check for unused plug-in customizations.
         // these can be only checked after the plug-ins run, so it's here.
         // the JAXB bindings are checked by XMLSchema's builder.
-        Set<CCustomizations> check = new HashSet<CCustomizations>();
+        Set<CCustomizations> check = new HashSet<>();
         for( CCustomizations c=customizations; c!=null; c=c.next ) {
             if(!check.add(c)) {
                 throw new AssertionError(); // detect a loop
@@ -311,7 +312,7 @@ public final class Model implements TypeInfoSet<NType,NClass,Void,Void>, CCustom
      * This needs to be filled by the front-end.
      */
     public final Map<QName,CClassInfo> createTopLevelBindings() {
-        Map<QName,CClassInfo> r = new HashMap<QName,CClassInfo>();
+        Map<QName,CClassInfo> r = new HashMap<>();
         for( CClassInfo b : beans().values() ) {
             if(b.isElement())
                 r.put(b.getElementName(),b);
@@ -319,10 +320,12 @@ public final class Model implements TypeInfoSet<NType,NClass,Void,Void>, CCustom
         return r;
     }
 
+    @Override
     public Navigator<NType,NClass,Void,Void> getNavigator() {
         return NavigatorImpl.theInstance;
     }
 
+    @Override
     public CNonElement getTypeInfo(NType type) {
         CBuiltinLeafInfo leaf = CBuiltinLeafInfo.LEAVES.get(type);
         if(leaf!=null)      return leaf;
@@ -330,20 +333,24 @@ public final class Model implements TypeInfoSet<NType,NClass,Void,Void>, CCustom
         return getClassInfo(getNavigator().asDecl(type));
     }
 
+    @Override
     public CBuiltinLeafInfo getAnyTypeInfo() {
         return CBuiltinLeafInfo.ANYTYPE;
     }
 
+    @Override
     public CNonElement getTypeInfo(Ref<NType,NClass> ref) {
         // TODO: handle XmlValueList
         assert !ref.valueList;
         return getTypeInfo(ref.type);
     }
 
+    @Override
     public Map<NClass,CClassInfo> beans() {
         return beans;
     }
 
+    @Override
     public Map<NClass,CEnumLeafInfo> enums() {
         return enums;
     }
@@ -355,18 +362,22 @@ public final class Model implements TypeInfoSet<NType,NClass,Void,Void>, CCustom
     /**
      * No array mapping generation for XJC.
      */
+    @Override
     public Map<NType, ? extends CArrayInfo> arrays() {
         return Collections.emptyMap();
     }
 
+    @Override
     public Map<NType, ? extends CBuiltinLeafInfo> builtins() {
         return CBuiltinLeafInfo.LEAVES;
     }
 
+    @Override
     public CClassInfo getClassInfo(NClass t) {
         return beans.get(t);
     }
 
+    @Override
     public CElementInfo getElementInfo(NClass scope,QName name) {
         Map<QName,CElementInfo> m = elementMappings.get(scope);
         if(m!=null) {
@@ -376,10 +387,12 @@ public final class Model implements TypeInfoSet<NType,NClass,Void,Void>, CCustom
         return elementMappings.get(null).get(name);
     }
 
+    @Override
     public Map<QName,CElementInfo> getElementMappings(NClass scope) {
         return elementMappings.get(scope);
     }
 
+    @Override
     public Iterable<? extends CElementInfo> getAllElements() {
         return allElements;
     }
@@ -388,6 +401,8 @@ public final class Model implements TypeInfoSet<NType,NClass,Void,Void>, CCustom
      * @deprecated
      *      Always return null. Perhaps you are interested in {@link #schemaComponent}?
      */
+    @Deprecated
+    @Override
     public XSComponent getSchemaComponent() {
         return null;
     }
@@ -396,6 +411,8 @@ public final class Model implements TypeInfoSet<NType,NClass,Void,Void>, CCustom
      * @deprecated
      *      No line number available for the "root" component.
      */
+    @Deprecated
+    @Override
     public Locator getLocator() {
         LocatorImpl r = new LocatorImpl();
         r.setLineNumber(-1);
@@ -406,6 +423,7 @@ public final class Model implements TypeInfoSet<NType,NClass,Void,Void>, CCustom
     /**
      * Gets the global customizations.
      */
+    @Override
     public CCustomizations getCustomizations() {
         return globalCustomizations;
     }
@@ -413,22 +431,27 @@ public final class Model implements TypeInfoSet<NType,NClass,Void,Void>, CCustom
     /**
      * Not implemented in the compile-time model.
      */
+    @Override
     public Map<String, String> getXmlNs(String namespaceUri) {
         return Collections.emptyMap();
     }
 
+    @Override
     public Map<String, String> getSchemaLocations() {
         return Collections.emptyMap();
     }
 
+    @Override
     public XmlNsForm getElementFormDefault(String nsUri) {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public XmlNsForm getAttributeFormDefault(String nsUri) {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public void dump(Result out) {
         // TODO
         throw new UnsupportedOperationException();
@@ -449,12 +472,12 @@ public final class Model implements TypeInfoSet<NType,NClass,Void,Void>, CCustom
 
         Map<QName,CElementInfo> m = elementMappings.get(clazz);
         if(m==null)
-            elementMappings.put(clazz, m = new LinkedHashMap<QName, CElementInfo>());
+            elementMappings.put(clazz, m = new LinkedHashMap<>());
         m.put(ei.getElementName(),ei);
     }
 
 
-    private final Map<JPackage,CClassInfoParent.Package> cache = new HashMap<JPackage,CClassInfoParent.Package>();
+    private final Map<JPackage,CClassInfoParent.Package> cache = new HashMap<>();
 
     public CClassInfoParent.Package getPackage(JPackage pkg) {
         CClassInfoParent.Package r = cache.get(pkg);

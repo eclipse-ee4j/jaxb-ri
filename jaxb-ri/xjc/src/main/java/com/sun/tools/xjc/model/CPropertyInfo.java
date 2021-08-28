@@ -123,10 +123,12 @@ public abstract class CPropertyInfo implements PropertyInfo<NType,NClass>, CCust
         customizations.setParent(parent.model,this);
     }
 
+    @Override
     public CTypeInfo parent() {
         return parent;
     }
 
+    @Override
     public Locator getLocator() {
         return locator;
     }
@@ -139,10 +141,12 @@ public abstract class CPropertyInfo implements PropertyInfo<NType,NClass>, CCust
      *      null if the model is built from sources other than XML Schema
      *      (such as DTD.)
      */
+    @Override
     public final XSComponent getSchemaComponent() {
         return source;
     }
 
+    @Override
     public abstract CAdapter getAdapter();
 
     /**
@@ -169,6 +173,8 @@ public abstract class CPropertyInfo implements PropertyInfo<NType,NClass>, CCust
      * 
      * @see #getName(boolean)
      */
+    @Deprecated
+    @Override
     public String getName() {
         return getName(false);
     }
@@ -206,15 +212,18 @@ public abstract class CPropertyInfo implements PropertyInfo<NType,NClass>, CCust
             privateName = newName;
     }
 
+    @Override
     public String displayName() {
         return parent.toString()+'#'+getName(false);
     }
 
+    @Override
     public boolean isCollection() {
         return isCollection;
     }
 
 
+    @Override
     public abstract Collection<? extends CTypeInfo> ref();
 
     /**
@@ -268,10 +277,12 @@ public abstract class CPropertyInfo implements PropertyInfo<NType,NClass>, CCust
         return false;
     }
 
+    @Override
     public CCustomizations getCustomizations() {
         return customizations;
     }
 
+    @Override
     public boolean inlineBinaryData() {
         return inlineBinaryData;
     }
@@ -322,10 +333,12 @@ public abstract class CPropertyInfo implements PropertyInfo<NType,NClass>, CCust
         return null;
     }
 
+    @Override
     public final <A extends Annotation> A readAnnotation(Class<A> annotationType) {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public final boolean hasAnnotation(Class<? extends Annotation> annotationType) {
         throw new UnsupportedOperationException();
     }

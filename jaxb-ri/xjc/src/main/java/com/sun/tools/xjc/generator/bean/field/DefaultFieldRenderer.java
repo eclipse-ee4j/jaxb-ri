@@ -48,6 +48,7 @@ final class DefaultFieldRenderer implements FieldRenderer {
     private FieldRenderer defaultCollectionFieldRenderer;
 
 
+    @Override
     public FieldOutline generate(ClassOutlineImpl outline, CPropertyInfo prop) {
         return decideRenderer(outline,prop).generate(outline,prop);
     }

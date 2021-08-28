@@ -41,9 +41,10 @@ public interface DatatypeWriter<DT> {
      */
     void print(DT dt, NamespaceResolver resolver, StringBuilder buf);
 
-    static final List<DatatypeWriter<?>> BUILTIN = Collections.unmodifiableList(new AbstractList() {
-        
-        private DatatypeWriter<?>[] BUILTIN_ARRAY = new DatatypeWriter<?>[] {
+    static final List<DatatypeWriter<Object>> BUILTIN = Collections.unmodifiableList(new AbstractList<DatatypeWriter<Object>>() {
+
+        @SuppressWarnings({"unchecked", "rawtypes"})
+        private DatatypeWriter<Object>[] BUILTIN_ARRAY = new DatatypeWriter[] {
             new DatatypeWriter<String>() {
                 public Class<String> getType() {
                     return String.class;
@@ -89,7 +90,7 @@ public interface DatatypeWriter<DT> {
             }
         };
                 
-        public DatatypeWriter<?> get(int n) { 
+        public DatatypeWriter<Object> get(int n) {
           return BUILTIN_ARRAY[n];
         }
 

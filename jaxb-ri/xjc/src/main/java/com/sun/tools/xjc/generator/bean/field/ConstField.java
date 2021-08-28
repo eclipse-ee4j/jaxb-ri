@@ -60,12 +60,14 @@ final class ConstField extends AbstractField {
         annotate($ref);
     }
     
+    @Override
     public JType getRawType() {
 //        if( isCollection )      return getInfo().array();
         return exposedType;
     }
     
     
+    @Override
     public FieldAccessor create(JExpression target) {
         return new Accessor(target);
     }
@@ -76,18 +78,22 @@ final class ConstField extends AbstractField {
             super($target);
         }
 
+        @Override
         public void unsetValues( JBlock body ) {
             ;   // can't unset values
         }
+        @Override
         public JExpression hasSetValue() {
             return null;    // can't generate the isSet/unset methods
         }
+        @Override
         public void toRawValue(JBlock block, JVar $var) {
             // TODO: rethink abstraction. Those constant fields
             // don't have "access" to them.
             throw new UnsupportedOperationException();
         }
 
+        @Override
         public void fromRawValue(JBlock block, String uniqueName, JExpression $var) {
             throw new UnsupportedOperationException();
         }

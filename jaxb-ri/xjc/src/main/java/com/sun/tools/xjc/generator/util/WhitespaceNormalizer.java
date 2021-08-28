@@ -55,12 +55,14 @@ public abstract class WhitespaceNormalizer
     }
     
     public static final WhitespaceNormalizer PRESERVE = new WhitespaceNormalizer() {
+        @Override
         public JExpression generate( JCodeModel codeModel, JExpression literal ) {
             return literal;
         }
     };
     
     public static final WhitespaceNormalizer REPLACE = new WhitespaceNormalizer() {
+        @Override
         public JExpression generate( JCodeModel codeModel, JExpression literal ) {
             // WhitespaceProcessor.replace(<literal>);
             if( literal instanceof JStringLiteral )
@@ -73,6 +75,7 @@ public abstract class WhitespaceNormalizer
     };
     
     public static final WhitespaceNormalizer COLLAPSE = new WhitespaceNormalizer() {
+        @Override
         public JExpression generate( JCodeModel codeModel, JExpression literal ) {
             // WhitespaceProcessor.replace(<literal>);
             if( literal instanceof JStringLiteral )

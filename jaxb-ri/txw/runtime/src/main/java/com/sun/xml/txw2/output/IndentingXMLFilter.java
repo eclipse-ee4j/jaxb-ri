@@ -292,7 +292,7 @@ public class IndentingXMLFilter extends XMLFilterImpl implements LexicalHandler 
     ////////////////////////////////////////////////////////////////////
 
     private Object state = SEEN_NOTHING;
-    private Stack<Object> stateStack = new Stack<Object>();
+    private Stack<Object> stateStack = new Stack<>();
 
     private String indentStep = "";
     private int depth = 0;

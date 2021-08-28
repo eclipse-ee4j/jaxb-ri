@@ -12,6 +12,7 @@ package com.sun.tools.jxc.gen.config;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 import java.util.StringTokenizer;
 
@@ -108,7 +109,7 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
 
 
     /** stack of {@link Attributes}. */
-    private final Stack attStack = new Stack();
+    private final Stack<AttributesImpl> attStack = new Stack();
     /** current attributes set. always equal to attStack.peek() */
     private AttributesImpl currentAtts;
 
@@ -199,8 +200,8 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
      * follow an end tag, then they must be either whitespaces or
      * must match to &lt;text/>.
      *
-     * @param   possiblyWhitespace
-     *      True if the buffered character can be ignorabale. False if
+     * @param   ignorable
+     *      True if the buffered character can be ignorable. False if
      *      it needs to be consumed.
      */
     private void processPendingText(boolean ignorable) throws SAXException {
@@ -260,8 +261,8 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
         if(attStack.isEmpty())
             currentAtts = null;
         else
-            currentAtts = (AttributesImpl)attStack.peek();
-        nsEffectivePtr = ((Integer)nsEffectiveStack.pop()).intValue();
+            currentAtts = attStack.peek();
+        nsEffectivePtr = nsEffectiveStack.pop();
     }
 
     public void endElement(String uri, String localname, String qname)
@@ -276,7 +277,7 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
 
             // finished redirection.
             for( int i=0; i<namespaces.size(); i+=2 )
-                redirect.endPrefixMapping((String)namespaces.get(i));
+                redirect.endPrefixMapping(namespaces.get(i));
             redirect.endDocument();
 
             redirect = null;
@@ -447,8 +448,8 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
         // modified to report active bindings only.
         for( int i=0; i<namespaces.size(); i+=2 )
             redirect.startPrefixMapping(
-                    (String)namespaces.get(i),
-                    (String)namespaces.get(i+1)
+                    namespaces.get(i),
+                    namespaces.get(i+1)
             );
 
         redirect.startElement(uri,local,qname,currentAtts);
@@ -463,7 +464,7 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
     /** in-scope namespace mapping.
      * namespaces[2n  ] := prefix
      * namespaces[2n+1] := namespace URI */
-    private final ArrayList namespaces = new ArrayList();
+    private final List<String> namespaces = new ArrayList<>();
     /**
      * Index on the namespaces array, which points to
      * the top of the effective bindings. Because of the
@@ -488,12 +489,12 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
     /**
      * Stack to preserve old nsEffectivePtr values.
      */
-    private final Stack nsEffectiveStack = new Stack();
+    private final Stack<Integer> nsEffectiveStack = new Stack<>();
 
     public String resolveNamespacePrefix( String prefix ) {
         for( int i = nsEffectivePtr-2; i>=0; i-=2 )
             if( namespaces.get(i).equals(prefix) )
-                return (String)namespaces.get(i+1);
+                return namespaces.get(i+1);
 
         // no binding was found.
         if(prefix.equals(""))   return "";  // return the default no-namespace

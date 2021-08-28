@@ -92,14 +92,17 @@ public final class SchemaCompilerImpl extends ErrorReceiver implements SchemaCom
     }
 
     @NotNull
+    @Override
     public Options getOptions() {
         return opts;
     }
 
+    @Override
     public ContentHandler getParserHandler( String systemId ) {
         return forest.getParserHandler(systemId,true);
     }
 
+    @Override
     public void parseSchema( String systemId, Element element ) {
         checkAbsoluteness(systemId);
         try {
@@ -124,6 +127,7 @@ public final class SchemaCompilerImpl extends ErrorReceiver implements SchemaCom
         }
     }
 
+    @Override
     public void parseSchema(InputSource source) {
         checkAbsoluteness(source.getSystemId());
         try {
@@ -135,12 +139,14 @@ public final class SchemaCompilerImpl extends ErrorReceiver implements SchemaCom
         }
     }
 
+    @Override
     public void setTargetVersion(SpecVersion version) {
         if(version==null)
             version = SpecVersion.LATEST;
         opts.target = version;
     }
 
+    @Override
     public void parseSchema(String systemId, XMLStreamReader reader) throws XMLStreamException {
         checkAbsoluteness(systemId);
         forest.parse(systemId,reader,true);
@@ -166,29 +172,35 @@ public final class SchemaCompilerImpl extends ErrorReceiver implements SchemaCom
         }
     }
 
+    @Override
     public void setEntityResolver(EntityResolver entityResolver) {
         forest.setEntityResolver(entityResolver);
         opts.entityResolver = entityResolver;
     }
 
+    @Override
     public void setDefaultPackageName(String packageName) {
         opts.defaultPackage2 = packageName;
     }
 
+    @Override
     public void forcePackageName(String packageName) {
         opts.defaultPackage = packageName;
     }
 
+    @Override
     public void setClassNameAllocator(ClassNameAllocator allocator) {
         opts.classNameAllocator = allocator;
     }
 
+    @Override
     public void resetSchema() {
         forest = new DOMForest(new XMLSchemaInternalizationLogic(), opts);
         forest.setErrorHandler(this);
         forest.setEntityResolver(opts.entityResolver);
     }
 
+    @Override
     public JAXBModelImpl bind() {
         // this has been problematic. turn it off.
 //        if(!forest.checkSchemaCorrectness(this))
@@ -210,6 +222,7 @@ public final class SchemaCompilerImpl extends ErrorReceiver implements SchemaCom
             // taken from SchemaConstraintChecker, TODO XXX FIXME UGLY
             if (opts.entityResolver != null) {
                 sf.setResourceResolver(new LSResourceResolver() {
+                    @Override
                     public LSInput resolveResource(String type, String namespaceURI, String publicId, String systemId, String baseURI) {
                         try {
                             // XSOM passes the namespace URI to the publicID parameter.
@@ -270,23 +283,28 @@ public final class SchemaCompilerImpl extends ErrorReceiver implements SchemaCom
         }
     }
 
+    @Override
     public void setErrorListener(ErrorListener errorListener) {
         this.errorListener = errorListener;
     }
 
+    @Override
     public void info(SAXParseException exception) {
         if(errorListener!=null)
             errorListener.info(exception);
     }
+    @Override
     public void warning(SAXParseException exception) {
         if(errorListener!=null)
             errorListener.warning(exception);
     }
+    @Override
     public void error(SAXParseException exception) {
         hadError = true;
         if(errorListener!=null)
             errorListener.error(exception);
     }
+    @Override
     public void fatalError(SAXParseException exception) {
         hadError = true;
         if(errorListener!=null)

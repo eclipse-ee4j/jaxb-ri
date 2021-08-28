@@ -18,6 +18,7 @@ import jakarta.xml.bind.annotation.adapters.XmlAdapter;
  * @author Kohsuke Kawaguchi
  */
 public abstract class ReadOnlyAdapter<OnTheWire,InMemory> extends XmlAdapter<OnTheWire,InMemory> {
+    @Override
     public final OnTheWire marshal(InMemory onTheWire) {
         // the unmarshaller uses this method
         // to get the current collection object from the property.

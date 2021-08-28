@@ -25,24 +25,24 @@ import org.xml.sax.helpers.LocatorImpl;
  */
 public final class LocatorTable {
     /** Locations of the start element. */
-    private final Map startLocations = new HashMap();
+    private final Map<Element, Locator> startLocations = new HashMap<>();
     
     /** Locations of the end element. */
-    private final Map endLocations = new HashMap();
+    private final Map<Element, Locator> endLocations = new HashMap<>();
     
     public void storeStartLocation( Element e, Locator loc ) {
         startLocations.put(e,new LocatorImpl(loc));
     }
     
     public void storeEndLocation( Element e, Locator loc ) {
-        endLocations.put(e,new LocatorImpl(loc));
+        endLocations.put(e, new LocatorImpl(loc));
     }
     
     public Locator getStartLocation( Element e ) {
-        return (Locator)startLocations.get(e);
+        return startLocations.get(e);
     }
     
     public Locator getEndLocation( Element e ) {
-        return (Locator)endLocations.get(e);
+        return endLocations.get(e);
     }
 }

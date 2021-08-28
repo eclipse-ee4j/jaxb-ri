@@ -32,12 +32,12 @@ import com.sun.tools.rngom.digested.DZeroOrMorePattern;
  */
 final class TypePatternBinder extends DPatternWalker {
     private boolean canInherit;
-    private final Stack<Boolean> stack = new Stack<Boolean>();
+    private final Stack<Boolean> stack = new Stack<>();
 
     /**
      * Patterns that are determined not to be bindable to inheritance.
      */
-    private final Set<DDefine> cannotBeInherited = new HashSet<DDefine>();
+    private final Set<DDefine> cannotBeInherited = new HashSet<>();
 
 
     void reset() {

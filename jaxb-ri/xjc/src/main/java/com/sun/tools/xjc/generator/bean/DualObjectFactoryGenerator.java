@@ -40,11 +40,13 @@ public final class DualObjectFactoryGenerator extends ObjectFactoryGenerator {
                 Void.class, "_useJAXBProperties", JExpr._null());
     }
 
+    @Override
     void populate(CElementInfo ei) {
         publicOFG.populate(ei);
         privateOFG.populate(ei);
     }
 
+    @Override
     void populate(ClassOutlineImpl cc) {
         publicOFG.populate(cc);
         privateOFG.populate(cc);
@@ -53,6 +55,7 @@ public final class DualObjectFactoryGenerator extends ObjectFactoryGenerator {
     /**
      * Returns the private version (which is what gets used at runtime.)
      */
+    @Override
     public JDefinedClass getObjectFactory() {
         return privateOFG.getObjectFactory();
     }

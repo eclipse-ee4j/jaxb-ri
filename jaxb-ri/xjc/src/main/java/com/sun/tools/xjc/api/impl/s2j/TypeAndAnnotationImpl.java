@@ -39,6 +39,7 @@ final class TypeAndAnnotationImpl implements TypeAndAnnotation {
         this.outline = outline;
     }
 
+    @Override
     public JType getTypeClass() {
         CAdapter a = typeUse.getAdapterUse();
         NType nt;
@@ -59,6 +60,7 @@ final class TypeAndAnnotationImpl implements TypeAndAnnotation {
         return jt;
     }
 
+    @Override
     public void annotate(JAnnotatable programElement) {
         if(typeUse.getAdapterUse()==null && !typeUse.isCollection())
             return; // nothing
@@ -79,6 +81,7 @@ final class TypeAndAnnotationImpl implements TypeAndAnnotation {
             programElement.annotate(XmlList.class);
     }
 
+    @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
         // TODO: support annotations
@@ -86,12 +89,14 @@ final class TypeAndAnnotationImpl implements TypeAndAnnotation {
         return builder.toString();
     }
 
+    @Override
     public boolean equals(Object o) {
         if (!(o instanceof TypeAndAnnotationImpl)) return false;
         TypeAndAnnotationImpl that = (TypeAndAnnotationImpl) o;
         return this.typeUse==that.typeUse;
     }
 
+    @Override
     public int hashCode() {
         return typeUse.hashCode();
     }

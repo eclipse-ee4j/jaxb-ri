@@ -39,9 +39,11 @@ abstract class AbstractDeclarationImpl implements BIDeclaration {
 
     @XmlLocation
     Locator loc;    // set by JAXB
+    @Override
     public Locator getLocation() { return loc; }
     
     protected BindInfo parent;
+    @Override
     public void setParent(BindInfo p) { this.parent=p; }
 
     protected final XSComponent getOwner() {
@@ -57,15 +59,19 @@ abstract class AbstractDeclarationImpl implements BIDeclaration {
 
     private boolean isAcknowledged = false;
     
+    @Override
     public final boolean isAcknowledged() { return isAcknowledged; }
 
+    @Override
     public void onSetOwner() {
     }
 
+    @Override
     public Collection<BIDeclaration> getChildren() {
         return Collections.emptyList();
     }
 
+    @Override
     public void markAsAcknowledged() {
         isAcknowledged = true;
     }

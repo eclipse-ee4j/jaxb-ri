@@ -43,6 +43,7 @@ public class BIEnumMember extends AbstractDeclarationImpl {
     @XmlElement
     public final String javadoc;
 
+    @Override
     public QName getName() { return NAME; }
 
     /** Name of this declaration. */

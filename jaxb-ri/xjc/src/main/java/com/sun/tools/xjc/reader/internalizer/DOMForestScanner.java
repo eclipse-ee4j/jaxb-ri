@@ -134,24 +134,28 @@ public class DOMForestScanner {
         // Locator methods
         //
         // 
+        @Override
         public int getColumnNumber() {
             Locator l = findLocator();
             if(l!=null)     return l.getColumnNumber();
             return          -1;
         }
         
+        @Override
         public int getLineNumber() {
             Locator l = findLocator();
             if(l!=null)     return l.getLineNumber();
             return          -1;
         }
 
+        @Override
         public String getPublicId() {
             Locator l = findLocator();
             if(l!=null)     return l.getPublicId();
             return          null;
         }
 
+        @Override
         public String getSystemId() {
             Locator l = findLocator();
             if(l!=null)     return l.getSystemId();

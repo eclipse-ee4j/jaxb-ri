@@ -53,6 +53,7 @@ public final class XSOMParser {
      * security features initialized by setting 
      * XMLConstants.FEATURE_SECURE_PROCESSING feature.
     */
+    @Deprecated
    public XSOMParser() {
        this(new JAXPParser());
    }

@@ -29,66 +29,82 @@ public class LSInputSAXWrapper implements LSInput {
         core = inputSource;
     }
 
+    @Override
     public Reader getCharacterStream() {
         return core.getCharacterStream();
     }
 
+    @Override
     public void setCharacterStream(Reader characterStream) {
         core.setCharacterStream(characterStream);
     }
 
+    @Override
     public InputStream getByteStream() {
         return core.getByteStream();
     }
 
+    @Override
     public void setByteStream(InputStream byteStream) {
         core.setByteStream(byteStream);
     }
 
+    @Override
     public String getStringData() {
         return null;
     }
 
+    @Override
     public void setStringData(String stringData) {
         // no-op
     }
 
+    @Override
     public String getSystemId() {
         return core.getSystemId();
     }
 
+    @Override
     public void setSystemId(String systemId) {
         core.setSystemId(systemId);
     }
 
+    @Override
     public String getPublicId() {
         return core.getPublicId();
     }
 
+    @Override
     public void setPublicId(String publicId) {
         core.setPublicId(publicId);
     }
 
+    @Override
     public String getBaseURI() {
         return null;
     }
 
+    @Override
     public void setBaseURI(String baseURI) {
         // no-op
     }
 
+    @Override
     public String getEncoding() {
         return core.getEncoding();
     }
 
+    @Override
     public void setEncoding(String encoding) {
         core.setEncoding(encoding);
     }
 
+    @Override
     public boolean getCertifiedText() {
         return true;
     }
 
+    @Override
     public void setCertifiedText(boolean certifiedText) {
         // no-op
     }

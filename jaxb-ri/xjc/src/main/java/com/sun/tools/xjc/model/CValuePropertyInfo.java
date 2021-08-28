@@ -30,10 +30,12 @@ public final class CValuePropertyInfo extends CSingleTypePropertyInfo implements
         super(name, type, typeName, source, customizations, locator);
     }
 
+    @Override
     public final PropertyKind kind() {
         return  PropertyKind.VALUE;
     }
 
+    @Override
     public <V> V accept(CPropertyVisitor<V> visitor) {
         return visitor.onValue(this);
     }

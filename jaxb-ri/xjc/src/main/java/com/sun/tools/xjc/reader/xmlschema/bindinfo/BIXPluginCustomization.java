@@ -38,12 +38,14 @@ public final class BIXPluginCustomization extends AbstractDeclarationImpl {
         element = e;
     }
 
+    @Override
     public void onSetOwner() {
         super.onSetOwner();
         if(!Ring.get(Model.class).options.pluginURIs.contains(element.getNamespaceURI()))
             markAsAcknowledged();
     }
 
+    @Override
     public final QName getName() {
         if(name==null)
             name = new QName(element.getNamespaceURI(),element.getLocalName());

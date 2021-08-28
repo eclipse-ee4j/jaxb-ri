@@ -35,19 +35,23 @@ public final class Choice extends Expression {
         this.isNullable = lhs.isNullable() || rhs.isNullable();
     }
 
+    @Override
     boolean isNullable() {
         return isNullable;
     }
 
+    @Override
     ElementSet lastSet() {
         return ElementSets.union(lhs.lastSet(),rhs.lastSet());
     }
 
+    @Override
     void buildDAG(ElementSet incoming) {
         lhs.buildDAG(incoming);
         rhs.buildDAG(incoming);
     }
 
+    @Override
     public String toString() {
         return '('+lhs.toString()+'|'+rhs.toString()+')';
     }

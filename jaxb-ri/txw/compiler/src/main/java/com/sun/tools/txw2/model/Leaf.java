@@ -102,7 +102,7 @@ public abstract class Leaf implements ParsedPattern {
             return;
 
         JMethod m = clazz.method(JMod.PUBLIC,
-            nset.opts.chainMethod? (JType)clazz : nset.codeModel.VOID,
+            nset.opts.chainMethod? clazz : nset.codeModel.VOID,
             "_text");
         m.annotate(XmlValue.class);
         m.param(valueType,"value");

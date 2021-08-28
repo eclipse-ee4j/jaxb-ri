@@ -40,7 +40,7 @@ class DOMBuilder extends SAX2DOMEx {
      *      This set will receive newly found outermost
      *      jaxb:bindings customizations.
      */
-    public DOMBuilder( Document dom, LocatorTable ltable, Set outerMostBindings ) {
+    public DOMBuilder( Document dom, LocatorTable ltable, Set<Element> outerMostBindings ) {
         super( dom );
         this.locatorTable = ltable;
         this.outerMostBindings = outerMostBindings;
@@ -49,7 +49,7 @@ class DOMBuilder extends SAX2DOMEx {
     /** Location information will be stored into this object. */
     private final LocatorTable locatorTable;
     
-    private final Set outerMostBindings;
+    private final Set<Element> outerMostBindings;
     
     private Locator locator;
     

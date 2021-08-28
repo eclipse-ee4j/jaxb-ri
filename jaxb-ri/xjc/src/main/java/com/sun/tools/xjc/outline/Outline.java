@@ -113,5 +113,5 @@ public interface Outline {
      * Copies the specified class into the user's package and returns
      * a reference to it.
      */
-    JClass addRuntime(Class clazz);
+    JClass addRuntime(Class<?> clazz);
 }

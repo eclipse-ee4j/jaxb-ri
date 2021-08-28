@@ -139,7 +139,7 @@ public final class ConfigReader  {
         File baseDir = new File(xmlpath, config.getBaseDir().getPath());
         SchemaOutputResolverImpl outResolver = new SchemaOutputResolverImpl (baseDir);
 
-        for( Schema schema : (List<Schema>)config.getSchema() ) {
+        for( Schema schema : config.getSchema() ) {
             String namespace = schema.getNamespace();
             File location = schema.getLocation();
             outResolver.addSchemaInfo(namespace,location);

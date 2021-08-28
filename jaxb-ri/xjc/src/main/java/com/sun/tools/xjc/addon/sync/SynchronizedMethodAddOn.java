@@ -29,18 +29,22 @@ import org.xml.sax.ErrorHandler;
  */
 public class SynchronizedMethodAddOn extends Plugin {
 
+    @Override
     public String getOptionName() {
         return "Xsync-methods";
     }
 
+    @Override
     public String getUsage() {
         return "  -Xsync-methods      :  generate accessor methods with the 'synchronized' keyword";
     }
 
+    @Override
     public int parseArgument(Options opt, String[] args, int i) throws BadCommandLineException, IOException {
         return 0;   // no option recognized
     }
 
+    @Override
     public boolean run( Outline model, Options opt, ErrorHandler errorHandler ) {
 
         for( ClassOutline co : model.getClasses() )

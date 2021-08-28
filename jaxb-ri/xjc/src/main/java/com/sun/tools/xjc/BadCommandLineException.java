@@ -16,6 +16,8 @@ import com.sun.istack.Nullable;
  * Signals a bad command line argument.
  */
 public class BadCommandLineException extends Exception {
+    private static final long serialVersionUID = 8088500733830641442L;
+
     private Options options;
 
     public BadCommandLineException(String msg) {

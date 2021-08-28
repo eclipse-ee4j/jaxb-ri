@@ -24,8 +24,8 @@ public class SchemaGeneratorFacade {
             ClassLoader cl = SecureLoader.getClassClassLoader(SchemaGeneratorFacade.class);
             if(cl==null)    cl = SecureLoader.getSystemClassLoader();
 
-            Class driver = cl.loadClass("com.sun.tools.jxc.SchemaGenerator");
-            Method mainMethod = driver.getDeclaredMethod("main", new Class[]{String[].class});
+            Class<?> driver = cl.loadClass("com.sun.tools.jxc.SchemaGenerator");
+            Method mainMethod = driver.getDeclaredMethod("main", new Class<?>[]{String[].class});
             try {
                 mainMethod.invoke(null,new Object[]{args});
             } catch (IllegalAccessException e) {

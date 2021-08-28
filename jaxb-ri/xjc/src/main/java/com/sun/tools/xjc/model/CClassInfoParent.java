@@ -53,14 +53,17 @@ public interface CClassInfoParent {
             this.pkg = pkg;
         }
 
+        @Override
         public String fullName() {
             return pkg.name();
         }
 
+        @Override
         public <T> T accept(Visitor<T> visitor) {
             return visitor.onPackage(pkg);
         }
 
+        @Override
         public JPackage getOwnerPackage() {
             return pkg;
         }

@@ -69,7 +69,7 @@ public final class ClassSelector extends BindingComponent {
      * Map from XSComponents to {@link Binding}s. Keeps track of all
      * content interfaces that are already built or being built.
      */
-    private final Map<XSComponent,Binding> bindMap = new HashMap<XSComponent,Binding>();
+    private final Map<XSComponent,Binding> bindMap = new HashMap<>();
 
     /**
      * UGLY HACK.
@@ -84,17 +84,17 @@ public final class ClassSelector extends BindingComponent {
      * OTOH, types need to know whether its parent is bound to a class to decide
      * which class name to use.
      */
-    /*package*/ final Map<XSComponent,CElementInfo> boundElements = new HashMap<XSComponent,CElementInfo>();
+    /*package*/ final Map<XSComponent,CElementInfo> boundElements = new HashMap<>();
 
     /**
      * A list of {@link Binding}s object that needs to be built.
      */
-    private final Stack<Binding> bindQueue = new Stack<Binding>();
+    private final Stack<Binding> bindQueue = new Stack<>();
 
     /**
      * {@link CClassInfo}s that are already {@link Binding#build() built}.
      */
-    private final Set<CClassInfo> built = new HashSet<CClassInfo>();
+    private final Set<CClassInfo> built = new HashSet<>();
 
     /**
      * Object that determines components that are mapped
@@ -106,7 +106,7 @@ public final class ClassSelector extends BindingComponent {
      * {@link CClassInfoParent}s that determines where a new class
      * should be created.
      */
-    private final Stack<CClassInfoParent> classScopes = new Stack<CClassInfoParent>();
+    private final Stack<CClassInfoParent> classScopes = new Stack<>();
 
     /**
      * The component that is being bound to {@link #currentBean}.
@@ -413,7 +413,7 @@ public final class ClassSelector extends BindingComponent {
      * This set is used to avoid duplicating "incorrect package name"
      * errors.
      */
-    private static Set<String> checkedPackageNames = new HashSet<String>();
+    private static Set<String> checkedPackageNames = new HashSet<>();
 
     /**
      * Gets the Java package to which classes from

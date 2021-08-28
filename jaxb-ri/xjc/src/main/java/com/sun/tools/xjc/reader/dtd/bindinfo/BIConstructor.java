@@ -40,7 +40,7 @@ public class BIConstructor
         StringTokenizer tokens = new StringTokenizer(
             DOMUtil.getAttribute(_node,"properties"));
         
-        List<String> vec = new ArrayList<String>();
+        List<String> vec = new ArrayList<>();
         while(tokens.hasMoreTokens())
             vec.add(tokens.nextToken());
         properties = vec.toArray(new String[0]);

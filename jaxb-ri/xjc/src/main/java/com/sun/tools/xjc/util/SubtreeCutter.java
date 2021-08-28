@@ -45,6 +45,7 @@ public abstract class SubtreeCutter extends XMLFilterImpl {
     private ContentHandler next;
 
 
+    @Override
     public void startDocument() throws SAXException {
         cutDepth=0;
         super.startDocument();
@@ -65,6 +66,7 @@ public abstract class SubtreeCutter extends XMLFilterImpl {
         cutDepth=1;
     }
 
+    @Override
     public void setContentHandler(ContentHandler handler) {
         next = handler;
         // changes take effect immediately unless the sub-tree is being pruned
@@ -72,12 +74,14 @@ public abstract class SubtreeCutter extends XMLFilterImpl {
             super.setContentHandler(handler);
     }
 
+    @Override
     public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
         if(cutDepth>0)
             cutDepth++;
         super.startElement(uri, localName, qName, atts);
     }
 
+    @Override
     public void endElement(String namespaceURI, String localName, String qName) throws SAXException {
         super.endElement(namespaceURI, localName, qName);
 

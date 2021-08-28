@@ -27,10 +27,12 @@ final class GWildcardElement extends GElement {
      */
     private boolean strict = true;
 
+    @Override
     public String toString() {
         return "#any";
     }
 
+    @Override
     String getPropertyNameSeed() {
         return "any";
     }

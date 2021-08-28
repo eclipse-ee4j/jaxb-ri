@@ -67,6 +67,7 @@ public class VersionChecker extends XMLFilterImpl {
         if(er!=null)    setEntityResolver(er);
     }
 
+    @Override
     public void startElement(String namespaceURI, String localName, String qName, Attributes atts)
         throws SAXException {
 
@@ -96,6 +97,7 @@ public class VersionChecker extends XMLFilterImpl {
             seenBindings = true;
     }
 
+    @Override
     public void endDocument() throws SAXException {
         super.endDocument();
 
@@ -114,11 +116,12 @@ public class VersionChecker extends XMLFilterImpl {
         }
     }
 
+    @Override
     public void setDocumentLocator(Locator locator) {
         super.setDocumentLocator(locator);
         this.locator = locator;
     }
 
-    private static final Set<String> VERSIONS = new HashSet<String>(Arrays.asList("3.0"));
+    private static final Set<String> VERSIONS = new HashSet<>(Arrays.asList("3.0"));
 
 }

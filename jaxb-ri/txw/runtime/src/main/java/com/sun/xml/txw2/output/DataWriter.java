@@ -182,7 +182,7 @@ public class DataWriter extends XMLWriter
     {
         depth = 0;
         state = SEEN_NOTHING;
-        stateStack = new Stack();
+        stateStack = new Stack<>();
         super.reset();
     }
 
@@ -351,7 +351,7 @@ public class DataWriter extends XMLWriter
     ////////////////////////////////////////////////////////////////////
 
     private Object state = SEEN_NOTHING;
-    private Stack stateStack = new Stack();
+    private Stack<Object> stateStack = new Stack<>();
 
     private String indentStep = "";
     private int depth = 0;

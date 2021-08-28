@@ -35,11 +35,13 @@ public /*for BSH*/ final class PropertyImpl implements Property {
         this.codeModel = fr.getRawType().owner();
     }
 
+    @Override
     public final String name() {
         return fr.getPropertyInfo().getName(false);
     }
 
     /** Returns raw schema name for simpleType property. May return null for other types. */
+    @Override
     public final QName rawName() {
         if (fr instanceof ElementAdapter) {
             CElementInfo eInfo = ((ElementAdapter)fr).ei;
@@ -50,10 +52,12 @@ public /*for BSH*/ final class PropertyImpl implements Property {
         return null;
     }
 
+    @Override
     public final QName elementName() {
         return elementName;
     }
 
+    @Override
     public final JType type() {
         return fr.getRawType();
     }

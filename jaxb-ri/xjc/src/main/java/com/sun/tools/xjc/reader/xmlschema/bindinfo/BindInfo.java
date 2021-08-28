@@ -86,13 +86,13 @@ public final class BindInfo implements Iterable<BIDeclaration> {
     private static final class Documentation {
         @XmlAnyElement
         @XmlMixed
-        List<Object> contents = new ArrayList<Object>();
+        List<Object> contents = new ArrayList<>();
 
         void addAll(Documentation rhs) {
             if(rhs==null)   return;
 
             if(contents==null)
-                contents = new ArrayList<Object>();
+                contents = new ArrayList<>();
             if(!contents.isEmpty())
                 contents.add("\n\n");
             contents.addAll(rhs.contents);
@@ -100,14 +100,14 @@ public final class BindInfo implements Iterable<BIDeclaration> {
     }
 
     /** list of individual declarations. */
-    private final List<BIDeclaration> decls = new ArrayList<BIDeclaration>();
+    private final List<BIDeclaration> decls = new ArrayList<>();
 
     private static final class AppInfo {
         /**
          * Receives {@link BIDeclaration}s and other DOMs.
          */
         @XmlAnyElement(lax=true,value=DomHandlerEx.class)
-        List<Object> contents = new ArrayList<Object>();
+        List<Object> contents = new ArrayList<>();
 
         public void addTo(BindInfo bi) {
             if(contents==null)  return;

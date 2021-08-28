@@ -56,10 +56,12 @@ abstract class ElementAdapter implements FieldOutline {
         this.ei = ei;
     }
 
+    @Override
     public ClassOutline parent() {
         return core.parent();
     }
 
+    @Override
     public CPropertyInfo getPropertyInfo() {
         return core.getPropertyInfo();
     }
@@ -79,18 +81,22 @@ abstract class ElementAdapter implements FieldOutline {
             acc = core.create(target);
         }
 
+        @Override
         public void unsetValues(JBlock body) {
             acc.unsetValues(body);
         }
 
+        @Override
         public JExpression hasSetValue() {
             return acc.hasSetValue();
         }
 
+        @Override
         public FieldOutline owner() {
             return ElementAdapter.this;
         }
 
+        @Override
         public CPropertyInfo getPropertyInfo() {
             return core.getPropertyInfo();
         }

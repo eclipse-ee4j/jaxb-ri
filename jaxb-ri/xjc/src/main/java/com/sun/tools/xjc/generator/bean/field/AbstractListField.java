@@ -122,6 +122,7 @@ abstract class AbstractListField extends AbstractField {
             .assign(field,newCoreList());
     }
 
+    @Override
     public JType getRawType() {
         return codeModel.ref(List.class).narrow(exposedType.boxify());
     }
@@ -199,9 +200,11 @@ abstract class AbstractListField extends AbstractField {
             return JOp.cond( field.eq(JExpr._null()), JExpr.lit(0), field.invoke("size") );
         }
         
+        @Override
         public void unsetValues( JBlock body ) {
             body.assign(field,JExpr._null());
         }
+        @Override
         public JExpression hasSetValue() {
             return field.ne(JExpr._null()).cand(field.invoke("isEmpty").not());
         }

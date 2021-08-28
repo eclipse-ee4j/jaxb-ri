@@ -47,7 +47,7 @@ final class JAXBModelImpl implements S2JJAXBModel {
      */
     private final Model model;
 
-    private final Map<QName,Mapping> byXmlName = new HashMap<QName,Mapping>();
+    private final Map<QName,Mapping> byXmlName = new HashMap<>();
 
     JAXBModelImpl(Outline outline) {
         this.model = outline.getModel();
@@ -63,27 +63,32 @@ final class JAXBModelImpl implements S2JJAXBModel {
         }
     }
 
+    @Override
     public JCodeModel generateCode(Plugin[] extensions,ErrorListener errorListener) {
         // we no longer do any code generation
         return outline.getCodeModel();
     }
 
+    @Override
     public List<JClass> getAllObjectFactories() {
-        List<JClass> r = new ArrayList<JClass>();
+        List<JClass> r = new ArrayList<>();
         for (PackageOutline pkg : outline.getAllPackageContexts()) {
             r.add(pkg.objectFactory());
         }
         return r;
     }
 
+    @Override
     public final Mapping get(QName elementName) {
         return byXmlName.get(elementName);
     }
 
+    @Override
     public final Collection<? extends Mapping> getMappings() {
         return byXmlName.values();
     }
 
+    @Override
     public TypeAndAnnotation getJavaType(QName xmlTypeName) {
         // TODO: primitive type handling?
         TypeUse use = model.typeUses().get(xmlTypeName);
@@ -92,8 +97,9 @@ final class JAXBModelImpl implements S2JJAXBModel {
         return new TypeAndAnnotationImpl(outline,use);
     }
 
+    @Override
     public final List<String> getClassList() {
-        List<String> classList = new ArrayList<String>();
+        List<String> classList = new ArrayList<>();
 
         // list up root classes
         for( PackageOutline p : outline.getAllPackageContexts() )

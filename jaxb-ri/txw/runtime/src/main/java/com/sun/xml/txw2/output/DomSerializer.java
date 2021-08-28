@@ -25,6 +25,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.dom.DOMResult;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 import com.sun.xml.txw2.TxwException;
@@ -120,7 +121,7 @@ public class DomSerializer implements XmlSerializer {
 class Dom2SaxAdapter implements ContentHandler, LexicalHandler {
 
     private final Node _node;
-    private final Stack _nodeStk = new Stack();
+    private final Stack<Node> _nodeStk = new Stack<>();
     private boolean inCDATA;
 
     public final Element getCurrentElement() {
@@ -184,8 +185,8 @@ class Dom2SaxAdapter implements ContentHandler, LexicalHandler {
 
         // process namespace bindings
         for( int i=0; i<unprocessedNamespaces.size(); i+=2 ) {
-            String prefix = (String)unprocessedNamespaces.get(i+0);
-            String uri = (String)unprocessedNamespaces.get(i+1);
+            String prefix = unprocessedNamespaces.get(i+0);
+            String uri = unprocessedNamespaces.get(i+1);
 
             String qname;
             if( "".equals(prefix) || prefix==null )
@@ -227,7 +228,7 @@ class Dom2SaxAdapter implements ContentHandler, LexicalHandler {
     }
 
     private final Node getParent() {
-        return (Node) _nodeStk.peek();
+        return _nodeStk.peek();
     }
 
     public void endElement(String namespace, String localName, String qName){
@@ -264,7 +265,7 @@ class Dom2SaxAdapter implements ContentHandler, LexicalHandler {
     public void skippedEntity(String name) {
     }
 
-    private ArrayList unprocessedNamespaces = new ArrayList();
+    private List<String> unprocessedNamespaces = new ArrayList<>();
 
     public void startPrefixMapping(String prefix, String uri) {
         unprocessedNamespaces.add(prefix);

@@ -32,6 +32,7 @@ public abstract class CDefaultValue {
      */
     public static CDefaultValue create(final TypeUse typeUse, final XmlString defaultValue) {
         return new CDefaultValue() {
+            @Override
             public JExpression compute(Outline outline) {
                 return typeUse.createConstant(outline,defaultValue);
             }

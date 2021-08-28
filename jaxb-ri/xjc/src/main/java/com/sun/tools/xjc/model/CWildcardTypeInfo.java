@@ -35,14 +35,17 @@ public final class CWildcardTypeInfo extends AbstractCTypeInfoImpl implements Wi
 
     public static final CWildcardTypeInfo INSTANCE = new CWildcardTypeInfo();
 
+    @Override
     public JType toType(Outline o, Aspect aspect) {
         return o.getCodeModel().ref(Element.class);
     }
 
+    @Override
     public NType getType() {
         return NavigatorImpl.create(Element.class);
     }
 
+    @Override
     public Locator getLocator() {
         return Model.EMPTY_LOCATOR;
     }

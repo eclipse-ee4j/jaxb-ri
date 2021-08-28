@@ -41,7 +41,7 @@ public abstract class EnumOutline implements CustomizableOutline {
     /**
      * Constants.
      */
-    public final List<EnumConstantOutline> constants = new ArrayList<EnumConstantOutline>();
+    public final List<EnumConstantOutline> constants = new ArrayList<>();
 
     /**
      * {@link PackageOutline} that contains this class.

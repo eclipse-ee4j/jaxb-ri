@@ -39,9 +39,11 @@ public final class BIEnumeration implements BIConversion
     
     private final TypeUse xducer;
     
+    @Override
     public String name() { return DOMUtil.getAttribute(e,"name"); }
     
     /** Returns a transducer for this enumeration declaration. */
+    @Override
     public TypeUse getTransducer() { return xducer; }
     
     
@@ -80,7 +82,7 @@ public final class BIEnumeration implements BIConversion
     }
     
     private static List<CEnumConstant> buildMemberList( Model model, Element dom ) {
-        List<CEnumConstant> r = new ArrayList<CEnumConstant>();
+        List<CEnumConstant> r = new ArrayList<>();
 
         String members = DOMUtil.getAttribute(dom,"members");
         if(members==null) members="";   // TODO: error handling

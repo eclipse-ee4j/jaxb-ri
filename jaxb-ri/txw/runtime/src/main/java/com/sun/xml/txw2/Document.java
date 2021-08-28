@@ -40,7 +40,7 @@ public final class Document {
      */
     private Content current = null;
 
-    private final Map<Class,DatatypeWriter> datatypeWriters = new HashMap<Class,DatatypeWriter>();
+    private final Map<Class<?>,DatatypeWriter<Object>> datatypeWriters = new HashMap<>();
 
     /**
      * Used to generate unique namespace prefix.
@@ -61,7 +61,7 @@ public final class Document {
 
     Document(XmlSerializer out) {
         this.out = out;
-        for( DatatypeWriter dw : DatatypeWriter.BUILTIN )
+        for( DatatypeWriter<Object> dw : DatatypeWriter.BUILTIN )
             datatypeWriters.put(dw.getType(),dw);
     }
 
@@ -86,7 +86,7 @@ public final class Document {
      * @param dw
      *      The {@link DatatypeWriter} to be added. Must not be null.
      */
-    public void addDatatypeWriter( DatatypeWriter<?> dw ) {
+    public void addDatatypeWriter( DatatypeWriter<Object> dw ) {
         datatypeWriters.put(dw.getType(),dw);
     }
 
@@ -128,9 +128,9 @@ public final class Document {
         if(buf.length()>0)
             buf.append(' ');
 
-        Class c = obj.getClass();
+        Class<?> c = obj.getClass();
         while(c!=null) {
-            DatatypeWriter dw = datatypeWriters.get(c);
+            DatatypeWriter<Object> dw = datatypeWriters.get(c);
             if(dw!=null) {
                 dw.print(obj,nsResolver,buf);
                 return;

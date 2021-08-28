@@ -57,6 +57,7 @@ abstract class AbstractCTypeInfoImpl implements CTypeInfo {
         return ID.NONE;
     }
 
+    @Override
     public final XSComponent getSchemaComponent() {
         return source;
     }
@@ -65,6 +66,8 @@ abstract class AbstractCTypeInfoImpl implements CTypeInfo {
      * @deprecated
      *      why are you calling an unimplemented method?
      */
+    @Deprecated
+    @Override
     public final boolean canBeReferencedByIDREF() {
         // we aren't doing any error check in XJC, so no point in implementing this method.
         throw new UnsupportedOperationException();
@@ -77,6 +80,7 @@ abstract class AbstractCTypeInfoImpl implements CTypeInfo {
         return null;
     }
 
+    @Override
     public CCustomizations getCustomizations() {
         return customizations;
     }
@@ -86,10 +90,12 @@ abstract class AbstractCTypeInfoImpl implements CTypeInfo {
         return null;
     }
 
+    @Override
     public final Locatable getUpstream() {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public final Location getLocation() {
         throw new UnsupportedOperationException();
     }

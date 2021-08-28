@@ -17,6 +17,7 @@ import com.sun.tools.jxc.NGCCRuntimeEx;
 
 import java.util.List;
     import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 /**
  * <p><b>
@@ -315,10 +316,10 @@ public class Classes extends NGCCHandler {
     }
 
     
-       private List includes = new ArrayList();
-       public List getIncludes() { return $runtime.getIncludePatterns(this.includes);}
-       private List excludes = new ArrayList();
-       public List getExcludes() { return $runtime.getExcludePatterns(this.excludes);}
+       private List<String> includes = new ArrayList<>();
+       public List<Pattern> getIncludes() { return $runtime.getIncludePatterns(this.includes);}
+       private List<String> excludes = new ArrayList<>();
+       public List<Pattern> getExcludes() { return $runtime.getExcludePatterns(this.excludes);}
        
 }
 

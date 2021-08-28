@@ -29,6 +29,7 @@ import com.sun.xml.xsom.XSType;
  */
 final class RestrictedComplexTypeBuilder extends CTBuilder {
 
+    @Override
     public boolean isApplicable(XSComplexType ct) {
         XSType baseType = ct.getBaseType();
         return baseType!=schemas.getAnyType()
@@ -36,6 +37,7 @@ final class RestrictedComplexTypeBuilder extends CTBuilder {
             &&  ct.getDerivationMethod()==XSType.RESTRICTION;
     }
 
+    @Override
     public void build(XSComplexType ct) {
 
         if (bgmBuilder.getGlobalBinding().isRestrictionFreshType()) {

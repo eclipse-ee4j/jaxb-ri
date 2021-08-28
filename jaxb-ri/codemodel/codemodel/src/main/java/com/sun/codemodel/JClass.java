@@ -130,7 +130,7 @@ public abstract class JClass extends JType {
     @Override
     public JType unboxify() {
         JPrimitiveType pt = getPrimitiveType();
-        return pt==null ? (JType)this : pt;
+        return pt==null ? this : pt;
     }
 
     @Override

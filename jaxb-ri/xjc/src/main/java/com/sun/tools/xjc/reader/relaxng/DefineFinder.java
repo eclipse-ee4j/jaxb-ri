@@ -25,7 +25,7 @@ import com.sun.tools.rngom.digested.DRefPattern;
  */
 final class DefineFinder extends DPatternWalker {
 
-    public final Set<DDefine> defs = new HashSet<DDefine>();
+    public final Set<DDefine> defs = new HashSet<>();
 
     public Void onGrammar(DGrammarPattern p) {
         for( DDefine def : p ) {

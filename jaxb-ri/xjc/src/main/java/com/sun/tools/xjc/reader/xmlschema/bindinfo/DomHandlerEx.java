@@ -44,14 +44,17 @@ final class DomHandlerEx implements DomHandler<DomHandlerEx.DomAndLocation,DomHa
         }
     }
 
+    @Override
     public ResultImpl createUnmarshaller(ValidationEventHandler errorHandler) {
         return new ResultImpl();
     }
 
+    @Override
     public DomAndLocation getElement(ResultImpl r) {
         return new DomAndLocation( ((Document)r.s2d.getDOM()).getDocumentElement(), r.location );
     }
 
+    @Override
     public Source marshal(DomAndLocation domAndLocation, ValidationEventHandler errorHandler) {
         return new DOMSource(domAndLocation.element);
     }

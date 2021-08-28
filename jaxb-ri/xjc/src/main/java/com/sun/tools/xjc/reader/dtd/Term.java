@@ -30,16 +30,20 @@ abstract class Term {
      * This special term is only used to represent #PCDATA-only content model.
      */
     static final Term EMPTY = new Term() {
+        @Override
         void normalize(List<Block> r, boolean optional) {
         }
 
+        @Override
         void addAllElements(Block b) {
         }
 
+        @Override
         boolean isOptional() {
             return false;
         }
 
+        @Override
         boolean isRepeated() {
             return false;
         }

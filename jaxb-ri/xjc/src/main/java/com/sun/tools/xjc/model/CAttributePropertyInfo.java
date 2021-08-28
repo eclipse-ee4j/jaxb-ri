@@ -45,10 +45,12 @@ public final class CAttributePropertyInfo extends CSingleTypePropertyInfo implem
         this.attName = attName;
     }
 
+    @Override
     public boolean isRequired() {
         return isRequired;
     }
 
+    @Override
     public QName getXmlName() {
         return attName;
     }
@@ -57,6 +59,7 @@ public final class CAttributePropertyInfo extends CSingleTypePropertyInfo implem
      * An optional attribute can never be unboxable,
      * for we need null to represent the absence.
      */
+    @Override
     public boolean isUnboxable() {
         if(!isRequired) return false;
         return super.isUnboxable();
@@ -67,6 +70,7 @@ public final class CAttributePropertyInfo extends CSingleTypePropertyInfo implem
         return !isRequired && super.isUnboxable();
     }
 
+    @Override
     public <V> V accept(CPropertyVisitor<V> visitor) {
         return visitor.onAttribute(this);
     }
@@ -75,6 +79,7 @@ public final class CAttributePropertyInfo extends CSingleTypePropertyInfo implem
         return visitor.visit(this, p);
     }
 
+    @Override
     public final PropertyKind kind() {
         return  PropertyKind.ATTRIBUTE;
     }

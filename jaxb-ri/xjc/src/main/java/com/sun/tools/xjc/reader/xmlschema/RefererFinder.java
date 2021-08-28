@@ -44,9 +44,9 @@ import com.sun.xml.xsom.visitor.XSVisitor;
  * @author Kohsuke Kawaguchi
  */
 final class RefererFinder implements XSVisitor {
-    private final Set<Object> visited = new HashSet<Object>();
+    private final Set<Object> visited = new HashSet<>();
 
-    private final Map<XSComponent,Set<XSComponent>> referers = new HashMap<XSComponent,Set<XSComponent>>();
+    private final Map<XSComponent,Set<XSComponent>> referers = new HashMap<>();
 
     public Set<XSComponent> getReferer(XSComponent src) {
         Set<XSComponent> r = referers.get(src);
@@ -131,7 +131,7 @@ final class RefererFinder implements XSVisitor {
     private void refer(XSComponent source, XSType target) {
         Set<XSComponent> r = referers.get(target);
         if(r==null) {
-            r = new HashSet<XSComponent>();
+            r = new HashSet<>();
             referers.put(target,r);
         }
         r.add(source);

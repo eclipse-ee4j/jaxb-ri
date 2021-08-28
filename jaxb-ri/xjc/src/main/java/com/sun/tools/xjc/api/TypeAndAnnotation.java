@@ -41,5 +41,6 @@ public interface TypeAndAnnotation {
      * Two {@link TypeAndAnnotation} are equal if they
      * has the same type and annotations.
      */
+    @Override
     boolean equals(Object o);
 }

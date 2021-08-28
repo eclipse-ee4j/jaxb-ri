@@ -12,9 +12,7 @@ package com.sun.tools.xjc.generator.bean.field;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import jakarta.xml.bind.annotation.W3CDomHandler;
 import jakarta.xml.bind.annotation.XmlList;
@@ -100,10 +98,12 @@ abstract class AbstractField implements FieldOutline {
         this.exposedType = getType(Aspect.EXPOSED);
     }
 
+    @Override
     public final ClassOutline parent() {
         return outline;
     }
 
+    @Override
     public final CPropertyInfo getPropertyInfo() {
         return prop;
     }
@@ -373,10 +373,12 @@ abstract class AbstractField implements FieldOutline {
             this.$target = $target;
         }
 
+        @Override
         public final FieldOutline owner() {
             return AbstractField.this;
         }
 
+        @Override
         public final CPropertyInfo getPropertyInfo() {
             return prop;
         }
@@ -415,7 +417,9 @@ abstract class AbstractField implements FieldOutline {
             return prop.getAdapter().customType.toType(outline.parent(),aspect);
 
         final class TypeList extends ArrayList<JType> {
-            void add( CTypeInfo t ) {
+            private static final long serialVersionUID = -2528889889198580251L;
+
+            void add(CTypeInfo t ) {
                 add( t.getType().toType(outline.parent(),aspect) );
                 if(t instanceof CElementInfo) {
                     // UGLY. element substitution is implemented in a way that
@@ -454,7 +458,7 @@ abstract class AbstractField implements FieldOutline {
      * Returns contents to be added to javadoc.
      */
     protected final List<Object> listPossibleTypes( CPropertyInfo prop ) {
-        List<Object> r = new ArrayList<Object>();
+        List<Object> r = new ArrayList<>();
         List<JType> refs = prop.ref().stream()
                 .map(tt -> tt.toType(outline.parent(), Aspect.EXPOSED))
                 .sorted(comparing(JType::fullName))

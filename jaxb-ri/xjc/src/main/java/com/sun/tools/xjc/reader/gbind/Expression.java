@@ -38,18 +38,22 @@ public abstract class Expression {
      * {@link Expression} that represents epsilon, the length-0 string.
      */
     public static final Expression EPSILON = new Expression() {
+        @Override
         ElementSet lastSet() {
             return ElementSet.EMPTY_SET;
         }
 
+        @Override
         boolean isNullable() {
             return true;
         }
 
+        @Override
         void buildDAG(ElementSet incoming) {
             // noop
         }
 
+        @Override
         public String toString() {
             return "-";
         }

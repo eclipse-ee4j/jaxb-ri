@@ -37,20 +37,24 @@ import org.xml.sax.Locator;
  */
 public class SourceLocationAddOn extends Plugin {
 
+    @Override
     public String getOptionName() {
         return "Xlocator";
     }
 
+    @Override
     public String getUsage() {
         return "  -Xlocator           :  enable source location support for generated code";
     }
 
+    @Override
     public int parseArgument(Options opt, String[] args, int i) throws BadCommandLineException, IOException {
         return 0;   // no option recognized
     }
 
     private static final String fieldName = "locator";
 
+    @Override
     public boolean run(
         Outline outline,
         Options opt,

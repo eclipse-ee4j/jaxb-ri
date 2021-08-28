@@ -33,7 +33,7 @@ final class NamespaceDecl {
     String prefix;
 
     /**
-     * Used temporarily inside {@link Document#finalizeStartTag()}.
+     * Used temporarily inside {@link Document}.
      * true if this prefix is declared on the new element.
      */
     boolean declared;

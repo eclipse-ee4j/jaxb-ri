@@ -31,15 +31,18 @@ public final class NamespaceContextAdapter implements NamespaceContext {
         this.xstr = xstr;
     }
 
+    @Override
     public String getNamespaceURI(String prefix) {
         return xstr.resolvePrefix(prefix);
     }
 
+    @Override
     public String getPrefix(String namespaceURI) {
         return null;
     }
 
-    public Iterator getPrefixes(String namespaceURI) {
-        return Collections.EMPTY_LIST.iterator();
+    @Override
+    public Iterator<String> getPrefixes(String namespaceURI) {
+        return Collections.<String>emptyList().iterator();
     }
 }

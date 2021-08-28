@@ -28,10 +28,12 @@ import com.sun.xml.xsom.XSType;
  */
 final class STDerivedComplexTypeBuilder extends CTBuilder {
 
+    @Override
     public boolean isApplicable(XSComplexType ct) {
         return ct.getBaseType().isSimpleType();
     }
 
+    @Override
     public void build(XSComplexType ct) {
         assert ct.getDerivationMethod()==XSType.EXTENSION;
 

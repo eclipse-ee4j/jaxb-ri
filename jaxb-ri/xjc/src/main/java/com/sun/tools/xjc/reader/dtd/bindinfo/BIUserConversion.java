@@ -100,9 +100,11 @@ public class BIUserConversion implements BIConversion
     }
     
     /** Gets the conversion name. */
+    @Override
     public String name() { return DOMUtil.getAttribute(e,"name"); }
     
     /** Gets a transducer for this conversion. */
+    @Override
     public TypeUse getTransducer() {
         
         String ws = DOMUtil.getAttribute(e,"whitespace");

@@ -81,8 +81,11 @@ public abstract class ErrorReceiver  implements ErrorHandler, ErrorListener {
 // ErrorHandler implementation, but can't throw SAXException
 //
 //
+    @Override
     public abstract void error(SAXParseException exception) throws AbortException;
+    @Override
     public abstract void fatalError(SAXParseException exception) throws AbortException;
+    @Override
     public abstract void warning(SAXParseException exception) throws AbortException;
 
     /**
@@ -99,7 +102,8 @@ public abstract class ErrorReceiver  implements ErrorHandler, ErrorListener {
      * messages. The implementation usually discards them
      * unless some specific debug option is turned on.
      */
-    public abstract void info(SAXParseException exception) /*REVISIT:throws AbortException*/;
+    @Override
+    public abstract void info(SAXParseException exception);
 
     /**
      * Reports a debug message to users.

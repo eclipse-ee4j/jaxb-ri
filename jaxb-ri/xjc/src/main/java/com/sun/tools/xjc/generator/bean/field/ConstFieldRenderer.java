@@ -32,6 +32,7 @@ final class ConstFieldRenderer implements FieldRenderer {
         this.fallback = fallback;
     }
 
+    @Override
     public FieldOutline generate(ClassOutlineImpl outline, CPropertyInfo prop) {
         if(prop.defaultValue.compute(outline.parent())==null)
             return fallback.generate(outline, prop);

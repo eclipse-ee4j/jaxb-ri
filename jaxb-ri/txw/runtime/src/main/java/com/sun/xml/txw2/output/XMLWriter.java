@@ -387,7 +387,7 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler
     }
     
 
-    private final HashMap locallyDeclaredPrefix = new HashMap();
+    private final Map<String, String> locallyDeclaredPrefix = new HashMap<>();
     public void startPrefixMapping( String prefix, String uri ) throws SAXException {
         locallyDeclaredPrefix.put(prefix,uri);
     }
@@ -498,11 +498,11 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler
             
             // declare namespaces specified by the startPrefixMapping methods
             if(!locallyDeclaredPrefix.isEmpty()) {
-                Iterator itr = locallyDeclaredPrefix.entrySet().iterator();
+                Iterator<Map.Entry<String, String>> itr = locallyDeclaredPrefix.entrySet().iterator();
                 while(itr.hasNext()) {
-                    Map.Entry e = (Map.Entry)itr.next();
-                    String p = (String)e.getKey();
-                    String u = (String)e.getValue();
+                    Map.Entry<String, String> e = itr.next();
+                    String p = e.getKey();
+                    String u = e.getValue();
                     if (u == null) {
                         u = "";
                     }

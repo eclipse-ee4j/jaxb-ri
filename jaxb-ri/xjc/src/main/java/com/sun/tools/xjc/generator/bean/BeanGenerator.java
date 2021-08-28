@@ -100,26 +100,26 @@ public final class BeanGenerator implements Outline {
     private final CodeModelClassFactory codeModelClassFactory;
     private final ErrorReceiver errorReceiver;
     /** all {@link PackageOutline}s keyed by their {@link PackageOutline#_package}. */
-    private final Map<JPackage, PackageOutlineImpl> packageContexts = new LinkedHashMap<JPackage, PackageOutlineImpl>();
+    private final Map<JPackage, PackageOutlineImpl> packageContexts = new LinkedHashMap<>();
     /** all {@link ClassOutline}s keyed by their {@link ClassOutline#target}. */
-    private final Map<CClassInfo, ClassOutlineImpl> classes = new LinkedHashMap<CClassInfo, ClassOutlineImpl>();
+    private final Map<CClassInfo, ClassOutlineImpl> classes = new LinkedHashMap<>();
     /** all {@link EnumOutline}s keyed by their {@link EnumOutline#target}. */
-    private final Map<CEnumLeafInfo, EnumOutline> enums = new LinkedHashMap<CEnumLeafInfo, EnumOutline>();
+    private final Map<CEnumLeafInfo, EnumOutline> enums = new LinkedHashMap<>();
     /**
      * Generated runtime classes.
      */
-    private final Map<Class, JClass> generatedRuntime = new LinkedHashMap<Class, JClass>();
+    private final Map<Class<?>, JClass> generatedRuntime = new LinkedHashMap<>();
     /** the model object which we are processing. */
     private final Model model;
     private final JCodeModel codeModel;
     /**
      * for each property, the information about the generated field.
      */
-    private final Map<CPropertyInfo, FieldOutline> fields = new LinkedHashMap<CPropertyInfo, FieldOutline>();
+    private final Map<CPropertyInfo, FieldOutline> fields = new LinkedHashMap<>();
     /**
      * elements that generate classes to the generated classes.
      */
-    /*package*/ final Map<CElementInfo, ElementOutlineImpl> elements = new LinkedHashMap<CElementInfo, ElementOutlineImpl>();
+    /*package*/ final Map<CElementInfo, ElementOutlineImpl> elements = new LinkedHashMap<>();
 
     /**
      * Generates beans into code model according to the BGM,
@@ -258,7 +258,6 @@ public final class BeanGenerator implements Outline {
      * This is used in the debug mode so that a new properly configured
      * {@link JAXBContext} object can be used.
      */
-    @SuppressWarnings("CallToThreadDumpStack")
     private void generateClassList() {
         try {
             JDefinedClass jc = codeModel.rootPackage()._class("JAXBDebug");
@@ -298,14 +297,17 @@ public final class BeanGenerator implements Outline {
         }
     }
 
+    @Override
     public Model getModel() {
         return model;
     }
 
+    @Override
     public JCodeModel getCodeModel() {
         return codeModel;
     }
 
+    @Override
     public JClassContainer getContainer(CClassInfoParent parent, Aspect aspect) {
         CClassInfoParent.Visitor<JClassContainer> v;
         switch (aspect) {
@@ -322,21 +324,25 @@ public final class BeanGenerator implements Outline {
         return parent.accept(v);
     }
 
+    @Override
     public final JType resolve(CTypeRef ref, Aspect a) {
         return ref.getTarget().getType().toType(this, a);
     }
     private final CClassInfoParent.Visitor<JClassContainer> exposedContainerBuilder =
             new CClassInfoParent.Visitor<JClassContainer>() {
 
+                @Override
                 public JClassContainer onBean(CClassInfo bean) {
                     return getClazz(bean).ref;
                 }
 
+                @Override
                 public JClassContainer onElement(CElementInfo element) {
                     // hmm...
                     return getElement(element).implClass;
                 }
 
+                @Override
                 public JClassContainer onPackage(JPackage pkg) {
                     return model.strategy.getPackage(pkg, EXPOSED);
                 }
@@ -344,14 +350,17 @@ public final class BeanGenerator implements Outline {
     private final CClassInfoParent.Visitor<JClassContainer> implContainerBuilder =
             new CClassInfoParent.Visitor<JClassContainer>() {
 
+                @Override
                 public JClassContainer onBean(CClassInfo bean) {
                     return getClazz(bean).implClass;
                 }
 
+                @Override
                 public JClassContainer onElement(CElementInfo element) {
                     return getElement(element).implClass;
                 }
 
+                @Override
                 public JClassContainer onPackage(JPackage pkg) {
                     return model.strategy.getPackage(pkg, Aspect.IMPLEMENTATION);
                 }
@@ -371,7 +380,7 @@ public final class BeanGenerator implements Outline {
      *         is always the same regardless of the environment.
      */
     public final JPackage[] getUsedPackages(Aspect aspect) {
-        Set<JPackage> s = new TreeSet<JPackage>();
+        Set<JPackage> s = new TreeSet<>();
 
         for (CClassInfo bean : model.beans().values()) {
             JClassContainer cont = getContainer(bean.parent(), aspect);
@@ -391,14 +400,17 @@ public final class BeanGenerator implements Outline {
         return s.toArray(new JPackage[s.size()]);
     }
 
+    @Override
     public ErrorReceiver getErrorReceiver() {
         return errorReceiver;
     }
 
+    @Override
     public CodeModelClassFactory getClassFactory() {
         return codeModelClassFactory;
     }
 
+    @Override
     public PackageOutlineImpl getPackageContext(JPackage p) {
         PackageOutlineImpl r = packageContexts.get(p);
         if (r == null) {
@@ -436,12 +448,14 @@ public final class BeanGenerator implements Outline {
         return new ClassOutlineImpl(this, bean, r.exposed, r.implementation, implRef);
     }
 
+    @Override
     public Collection<ClassOutlineImpl> getClasses() {
         // make sure that classes are fully populated
         assert model.beans().size() == classes.size();
         return classes.values();
     }
 
+    @Override
     public ClassOutlineImpl getClazz(CClassInfo bean) {
         ClassOutlineImpl r = classes.get(bean);
         if (r == null) {
@@ -450,6 +464,7 @@ public final class BeanGenerator implements Outline {
         return r;
     }
 
+    @Override
     public ElementOutlineImpl getElement(CElementInfo ei) {
         ElementOutlineImpl def = elements.get(ei);
         if (def == null && ei.hasClass()) {
@@ -459,18 +474,22 @@ public final class BeanGenerator implements Outline {
         return def;
     }
 
+    @Override
     public EnumOutline getEnum(CEnumLeafInfo eli) {
         return enums.get(eli);
     }
 
+    @Override
     public Collection<EnumOutline> getEnums() {
         return enums.values();
     }
 
+    @Override
     public Iterable<? extends PackageOutline> getAllPackageContexts() {
         return packageContexts.values();
     }
 
+    @Override
     public FieldOutline getField(CPropertyInfo prop) {
         return fields.get(prop);
     }
@@ -634,7 +653,7 @@ public final class BeanGenerator implements Outline {
         // [RESULT]
         //    <EnumName>(<deserializer of m>(<value>));
 
-        Set<String> enumFieldNames = new HashSet<String>();    // record generated field names to detect collision
+        Set<String> enumFieldNames = new HashSet<>();    // record generated field names to detect collision
 
         for (CEnumConstant mem : e.members) {
             String constName = mem.getName();
@@ -786,7 +805,8 @@ public final class BeanGenerator implements Outline {
         }
     }
 
-    public final JClass addRuntime(Class clazz) {
+    @Override
+    public final JClass addRuntime(Class<?> clazz) {
         JClass g = generatedRuntime.get(clazz);
         if (g == null) {
             // put code into a separate package to avoid name conflicts.
@@ -797,13 +817,13 @@ public final class BeanGenerator implements Outline {
         return g;
     }
 
-    public JClass generateStaticClass(Class src, JPackage out) {
+    public JClass generateStaticClass(Class<?> src, JPackage out) {
         JStaticJavaFile sjf = new JStaticJavaFile(out, getShortName(src), src, null);
         out.addResourceFile(sjf);
         return sjf.getJClass();
     }
 
-    private String getShortName(Class src) {
+    private String getShortName(Class<?> src) {
         String name = src.getName();
         return name.substring(name.lastIndexOf('.') + 1);
     }

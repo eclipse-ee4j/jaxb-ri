@@ -86,7 +86,7 @@ public final class CClassInfo extends AbstractCElement implements ClassInfo<NTyp
 
     private boolean isOrdered = true;
 
-    private final List<CPropertyInfo> properties = new ArrayList<CPropertyInfo>();
+    private final List<CPropertyInfo> properties = new ArrayList<>();
 
     /**
      * TODO: revisit this design.
@@ -162,6 +162,7 @@ public final class CClassInfo extends AbstractCElement implements ClassInfo<NTyp
         model.add(this);
     }
 
+    @Override
     public boolean hasAttributeWildcard() {
         return hasAttributeWildcard;
     }
@@ -170,6 +171,7 @@ public final class CClassInfo extends AbstractCElement implements ClassInfo<NTyp
         this.hasAttributeWildcard = hasAttributeWildcard;
     }
 
+    @Override
     public boolean hasSubClasses() {
         return firstSubclass!=null;
     }
@@ -178,6 +180,7 @@ public final class CClassInfo extends AbstractCElement implements ClassInfo<NTyp
      * Returns true if a new attribute wildcard property needs to be
      * declared on this class.
      */
+    @Override
     public boolean declaresAttributeWildcard() {
         return hasAttributeWildcard && !inheritsAttributeWildcard();
     }
@@ -186,6 +189,7 @@ public final class CClassInfo extends AbstractCElement implements ClassInfo<NTyp
      * Returns true if this class inherits a wildcard attribute property
      * from its ancestor classes.
      */
+    @Override
     public boolean inheritsAttributeWildcard() {
         if (getRefBaseClass() != null) {
             CClassRef cref = (CClassRef)baseClass;
@@ -205,15 +209,18 @@ public final class CClassInfo extends AbstractCElement implements ClassInfo<NTyp
     }
 
 
+    @Override
     public NClass getClazz() {
         return this;
     }
 
+    @Override
     public CClassInfo getScope() {
         return null;
     }
 
     @XmlID
+    @Override
     public String getName() {
         return fullName();
     }
@@ -236,14 +243,17 @@ public final class CClassInfo extends AbstractCElement implements ClassInfo<NTyp
     }
 
     private static final CClassInfoParent.Visitor<String> calcSqueezedName = new Visitor<String>() {
+        @Override
         public String onBean(CClassInfo bean) {
-            return bean.parent.accept(this)+bean.shortName;
+            return bean.parent.accept(this) + bean.shortName;
         }
 
+        @Override
         public String onElement(CElementInfo element) {
-            return element.parent.accept(this)+element.shortName();
+            return element.parent.accept(this) + element.shortName();
         }
 
+        @Override
         public String onPackage(JPackage pkg) {
             return "";
         }
@@ -252,10 +262,12 @@ public final class CClassInfo extends AbstractCElement implements ClassInfo<NTyp
     /**
      * Returns a mutable list.
      */
+    @Override
     public List<CPropertyInfo> getProperties() {
         return properties;
     }
 
+    @Override
     public boolean hasValueProperty() {
         throw new UnsupportedOperationException();
     }
@@ -263,6 +275,7 @@ public final class CClassInfo extends AbstractCElement implements ClassInfo<NTyp
     /**
      * Gets a propery by name.
      */
+    @Override
     public CPropertyInfo getProperty(String name) {
         // TODO: does this method need to be fast?
         for( CPropertyInfo p : properties )
@@ -271,10 +284,12 @@ public final class CClassInfo extends AbstractCElement implements ClassInfo<NTyp
         return null;
     }
 
+    @Override
     public boolean hasProperties() {
         return !getProperties().isEmpty();
     }
 
+    @Override
     public boolean isElement() {
         return elementName!=null;
     }
@@ -283,10 +298,12 @@ public final class CClassInfo extends AbstractCElement implements ClassInfo<NTyp
      * Guaranteed to return this.
      */
     @Deprecated
+    @Override
     public CNonElement getInfo() {
         return this;
     }
     
+    @Override
     public Element<NType,NClass> asElement() {
         if(isElement())
             return this;
@@ -294,6 +311,7 @@ public final class CClassInfo extends AbstractCElement implements ClassInfo<NTyp
             return null;
     }
 
+    @Override
     public boolean isOrdered() {
         return isOrdered;
     }
@@ -302,6 +320,8 @@ public final class CClassInfo extends AbstractCElement implements ClassInfo<NTyp
      * @deprecated
      *      if you are calling this method directly, you must be doing something wrong.
      */
+    @Deprecated
+    @Override
     public boolean isFinal() {
         return false;
     }
@@ -310,14 +330,17 @@ public final class CClassInfo extends AbstractCElement implements ClassInfo<NTyp
         isOrdered = value;
     }
 
+    @Override
     public QName getElementName() {
         return elementName;
     }
 
+    @Override
     public QName getTypeName() {
         return typeName;
     }
 
+    @Override
     public boolean isSimpleType() {
         throw new UnsupportedOperationException();
     }
@@ -325,6 +348,7 @@ public final class CClassInfo extends AbstractCElement implements ClassInfo<NTyp
     /**
      * Returns the FQCN of this bean.
      */
+    @Override
     public String fullName() {
         String r = parent.fullName();
         if(r.length()==0)   return shortName;
@@ -385,6 +409,7 @@ public final class CClassInfo extends AbstractCElement implements ClassInfo<NTyp
      *
      * @see #getRefBaseClass()
      */
+    @Override
     public CClassInfo getBaseClass() {
         if (baseClass instanceof CClassInfo) {
             return (CClassInfo) baseClass;
@@ -407,22 +432,27 @@ public final class CClassInfo extends AbstractCElement implements ClassInfo<NTyp
     public Iterator<CClassInfo> listSubclasses() {
         return new Iterator<CClassInfo>() {
             CClassInfo cur = firstSubclass;
+
+            @Override
             public boolean hasNext() {
-                return cur!=null;
+                return cur != null;
             }
 
+            @Override
             public CClassInfo next() {
                 CClassInfo r = cur;
                 cur = cur.nextSibling;
                 return r;
             }
 
+            @Override
             public void remove() {
                 throw new UnsupportedOperationException();
             }
         };
     }
 
+    @Override
     public CClassInfo getSubstitutionHead() {
         CClassInfo c=getBaseClass();
         while(c!=null && !c.isElement())
@@ -439,13 +469,13 @@ public final class CClassInfo extends AbstractCElement implements ClassInfo<NTyp
 
     public void _implements(JClass c) {
         if(_implements==null)
-            _implements = new HashSet<JClass>();
+            _implements = new HashSet<>();
         _implements.add(c);
     }
 
 
     /** Constructor declarations. array of {@link Constructor}s. */
-    private final List<Constructor> constructors = new ArrayList<Constructor>(1);
+    private final List<Constructor> constructors = new ArrayList<>(1);
 
     /** Creates a new constructor declaration and adds it. */
     public void addConstructor( String... fieldNames ) {
@@ -457,18 +487,22 @@ public final class CClassInfo extends AbstractCElement implements ClassInfo<NTyp
         return constructors;
     }
 
+    @Override
     public final <T> T accept(Visitor<T> visitor) {
         return visitor.onBean(this);
     }
 
+    @Override
     public JPackage getOwnerPackage() {
         return parent.getOwnerPackage();
     }
 
+    @Override
     public final NClass getType() {
         return this;
     }
 
+    @Override
     public final JClass toType(Outline o, Aspect aspect) {
         switch(aspect) {
         case IMPLEMENTATION:
@@ -480,10 +514,12 @@ public final class CClassInfo extends AbstractCElement implements ClassInfo<NTyp
         }
     }
 
+    @Override
     public boolean isBoxedType() {
         return false;
     }
 
+    @Override
     public String toString() {
         return fullName();
     }

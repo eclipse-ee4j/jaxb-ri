@@ -56,12 +56,15 @@ public final class CElementPropertyInfo extends CPropertyInfo implements Element
     /**
      * List of referenced types.
      */
-    private final List<CTypeRef> types = new ArrayList<CTypeRef>();
+    private final List<CTypeRef> types = new ArrayList<>();
 
     private final List<CNonElement> ref = new AbstractList<CNonElement>() {
+        @Override
         public CNonElement get(int index) {
             return getTypes().get(index).getTarget();
         }
+
+        @Override
         public int size() {
             return getTypes().size();
         }
@@ -77,18 +80,22 @@ public final class CElementPropertyInfo extends CPropertyInfo implements Element
         this.isValueList = collection.val;
     }
 
+    @Override
     public ID id() {
         return id;
     }
 
+    @Override
     public List<CTypeRef> getTypes() {
         return types;
     }
 
+    @Override
     public List<CNonElement> ref() {
         return ref;
     }
 
+    @Override
     public QName getSchemaType() {
         if(types.size()!=1)
             // if more than one kind is here, can't produce @XmlSchemaType.
@@ -106,28 +113,34 @@ public final class CElementPropertyInfo extends CPropertyInfo implements Element
      * XJC never uses the wrapper element. Always return null.
      */
     @Deprecated
+    @Override
     public QName getXmlName() {
         return null;
     }
 
+    @Override
     public boolean isCollectionRequired() {
         // in XJC, we never recognize a nillable collection pattern, so this is always false.
         return false;
     }
 
+    @Override
     public boolean isCollectionNillable() {
         // in XJC, we never recognize a nillable collection pattern, so this is always false.
         return false;
     }
 
+    @Override
     public boolean isRequired() {
         return required;
     }
 
+    @Override
     public boolean isValueList() {
         return isValueList;
     }
 
+    @Override
     public boolean isUnboxable() {
         if(!isCollection() && !required)
             // if the property can be legally absent, it's not unboxable
@@ -150,6 +163,7 @@ public final class CElementPropertyInfo extends CPropertyInfo implements Element
         return !isCollection() && !required && super.isUnboxable();
     }
 
+    @Override
     public <V> V accept(CPropertyVisitor<V> visitor) {
         return visitor.onElement(this);
     }
@@ -159,6 +173,7 @@ public final class CElementPropertyInfo extends CPropertyInfo implements Element
         return visitor.visit(this, p);
     }
 
+    @Override
     public CAdapter getAdapter() {
         return adapter;
     }
@@ -168,10 +183,12 @@ public final class CElementPropertyInfo extends CPropertyInfo implements Element
         adapter = a;
     }
 
+    @Override
     public final PropertyKind kind() {
         return PropertyKind.ELEMENT;
     }
 
+    @Override
     public MimeType getExpectedMimeType() {
         return expectedMimeType;
     }

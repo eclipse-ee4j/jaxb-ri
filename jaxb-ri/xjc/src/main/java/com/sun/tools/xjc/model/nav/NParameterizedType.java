@@ -30,6 +30,7 @@ final class NParameterizedType implements NClass {
         assert args.length>0;
     }
 
+    @Override
     public JClass toType(Outline o, Aspect aspect) {
         JClass r = rawType.toType(o,aspect);
 
@@ -39,15 +40,18 @@ final class NParameterizedType implements NClass {
         return r;
     }
 
+    @Override
     public boolean isAbstract() {
         return rawType.isAbstract();
     }
 
+    @Override
     public boolean isBoxedType() {
         return false;
     }
 
 
+    @Override
     public String fullName() {
         StringBuilder buf = new StringBuilder();
         buf.append(rawType.fullName());

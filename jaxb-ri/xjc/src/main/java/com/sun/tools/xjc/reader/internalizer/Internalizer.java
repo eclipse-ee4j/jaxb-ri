@@ -104,7 +104,7 @@ class Internalizer {
     private SCDBasedBindingSet transform() {
 
         // either target nodes are conventional DOM nodes (as per spec),
-        Map<Element,List<Node>> targetNodes = new HashMap<Element,List<Node>>();
+        Map<Element,List<Node>> targetNodes = new HashMap<>();
         // ... or it will be schema components by means of SCD (RI extension)
         SCDBasedBindingSet scd = new SCDBasedBindingSet(forest);
         
@@ -175,7 +175,7 @@ class Internalizer {
             if(schemaLocation.equals("*")) {
                 for(String systemId : forest.listSystemIDs()) {
                     if (result.get(bindings) == null)
-                        result.put(bindings, new ArrayList<Node>());
+                        result.put(bindings, new ArrayList<>());
                     result.get(bindings).add(forest.get(systemId).getDocumentElement());
 
                     Element[] children = DOMUtils.getChildElements(bindings, Const.JAXB_NSURI, "bindings");
@@ -248,7 +248,7 @@ class Internalizer {
 
                     return; // abort
                 } else {
-                    if(targetMultiple == null) targetMultiple = new ArrayList<Node>();
+                    if(targetMultiple == null) targetMultiple = new ArrayList<>();
                     for(int i = 0; i < nlst.getLength(); i++) {
                         targetMultiple.add(nlst.item(i));
                     }
@@ -315,12 +315,12 @@ class Internalizer {
             inheritedSCD.addBinidng(bindings);
         } else if (!multiple || targetMultiple == null) {
             if (result.get(bindings) == null)
-                result.put(bindings, new ArrayList<Node>());
+                result.put(bindings, new ArrayList<>());
             result.get(bindings).add(target);
         } else {
             for (Node rnode : targetMultiple) {
                 if (result.get(bindings) == null)
-                    result.put(bindings, new ArrayList<Node>());
+                    result.put(bindings, new ArrayList<>());
                 
                 result.get(bindings).add(rnode);
             }
@@ -416,7 +416,7 @@ class Internalizer {
         // to the decl node itself so that this move won't change
         // the in-scope namespace bindings.
         Element p = decl;
-        Set<String> inscopes = new HashSet<String>();
+        Set<String> inscopes = new HashSet<>();
         while(true) {
             NamedNodeMap atts = p.getAttributes();
             for( int i=0; i<atts.getLength(); i++ ) {

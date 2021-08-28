@@ -24,6 +24,7 @@ public class ExistingBlockReference implements BlockReference {
         this.block = _block;
     }
     
+    @Override
     public JBlock get(boolean create) {
         return block;
     }

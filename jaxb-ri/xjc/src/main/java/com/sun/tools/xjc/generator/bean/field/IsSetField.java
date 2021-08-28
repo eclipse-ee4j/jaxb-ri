@@ -73,10 +73,12 @@ public class IsSetField extends AbstractField {
         }
     }
 
+    @Override
     public JType getRawType() {
         return core.getRawType();
     }
     
+    @Override
     public FieldAccessor create(JExpression targetObject) {
         return new Accessor(targetObject);
     }
@@ -91,16 +93,20 @@ public class IsSetField extends AbstractField {
         }
         
 
+        @Override
         public void unsetValues( JBlock body ) {
             core.unsetValues(body);
         }
+        @Override
         public JExpression hasSetValue() {
             return core.hasSetValue();
         }
+        @Override
         public void toRawValue(JBlock block, JVar $var) {
             core.toRawValue(block,$var);
         }
 
+        @Override
         public void fromRawValue(JBlock block, String uniqueName, JExpression $var) {
             core.fromRawValue(block,uniqueName,$var);
         }

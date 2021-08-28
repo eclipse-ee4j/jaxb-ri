@@ -42,6 +42,7 @@ public final class Sequence extends Expression {
         isNullable = lhs.isNullable() && rhs.isNullable();
     }
 
+    @Override
     ElementSet lastSet() {
         if(lastSet==null) {
             if(rhs.isNullable())
@@ -52,10 +53,12 @@ public final class Sequence extends Expression {
         return lastSet;
     }
 
+    @Override
     boolean isNullable() {
         return isNullable;
     }
 
+    @Override
     void buildDAG(ElementSet incoming) {
         lhs.buildDAG(incoming);
         if(lhs.isNullable())
@@ -64,6 +67,7 @@ public final class Sequence extends Expression {
             rhs.buildDAG(lhs.lastSet());
     }
 
+    @Override
     public String toString() {
         return '('+lhs.toString()+','+rhs.toString()+')';
     }

@@ -46,7 +46,7 @@ public abstract class MethodWriter {
      */
     public abstract JMethod declareMethod( JType returnType, String methodName );
     
-    public final JMethod declareMethod( Class returnType, String methodName ) {
+    public final JMethod declareMethod( Class<?> returnType, String methodName ) {
         return declareMethod( codeModel.ref(returnType), methodName );
     }
     
@@ -67,7 +67,7 @@ public abstract class MethodWriter {
      */
     public abstract JVar addParameter( JType type, String name );
     
-    public final JVar addParameter( Class type, String name ) {
+    public final JVar addParameter( Class<?> type, String name ) {
         return addParameter( codeModel.ref(type), name );
     }
 }

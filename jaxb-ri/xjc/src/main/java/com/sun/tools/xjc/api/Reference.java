@@ -76,6 +76,7 @@ public final class Reference {
         this.annotations = annotations;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Reference)) return false;
@@ -85,6 +86,7 @@ public final class Reference {
         return annotations.equals(that.annotations) && type.equals(that.type);
     }
 
+    @Override
     public int hashCode() {
         return 29 * type.hashCode() + annotations.hashCode();
     }

@@ -103,6 +103,7 @@ public class DummyListField extends AbstractListField {
         field.annotate(OverrideAnnotationOf.class);
     }
 
+    @Override
     protected final JClass getCoreListType() {
         return coreList;
     }
@@ -110,6 +111,7 @@ public class DummyListField extends AbstractListField {
     @Override
     public void generateAccessors() { }
 
+    @Override
     public Accessor create(JExpression targetObject) {
         return new Accessor(targetObject);
     }
@@ -119,6 +121,7 @@ public class DummyListField extends AbstractListField {
             super($target);
         }
 
+        @Override
         public void toRawValue(JBlock block, JVar $var) {
             // [RESULT]
             // $<var>.addAll(bean.getLIST());
@@ -128,6 +131,7 @@ public class DummyListField extends AbstractListField {
             ));
         }
 
+        @Override
         public void fromRawValue(JBlock block, String uniqueName, JExpression $var) {
             // [RESULT]
             // bean.getLIST().addAll($<var>);

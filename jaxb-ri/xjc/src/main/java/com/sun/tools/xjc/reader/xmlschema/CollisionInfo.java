@@ -32,6 +32,7 @@ final class CollisionInfo {
     /**
      * Returns a localized message that describes the collision.
      */
+    @Override
     public String toString() {
         return Messages.format( Messages.MSG_COLLISION_INFO,
                 name, printLocator(source1), printLocator(source2) );

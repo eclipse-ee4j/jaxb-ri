@@ -338,6 +338,7 @@ public class XJCBase extends MatchingTask {
      *
      * @deprecated not much need for JAXB2, as we now use much less stack.
      */
+    @Deprecated
     public void setStackSize(String ss) {
         try {
             stackSize = Long.parseLong(ss);
@@ -691,6 +692,7 @@ public class XJCBase extends MatchingTask {
 
                         Thread t;
                         Runnable job = new Runnable() {
+                            @Override
                             public void run() {
                                 try {
                                     doXJC();
@@ -899,7 +901,7 @@ public class XJCBase extends MatchingTask {
         String[] includedFiles = ds.getIncludedFiles();
         File baseDir = ds.getBasedir();
 
-        ArrayList<InputSource> lst = new ArrayList<InputSource>();
+        ArrayList<InputSource> lst = new ArrayList<>();
 
         for (String value : includedFiles) {
             lst.add(getInputSource(new File(baseDir, value)));
@@ -954,18 +956,22 @@ public class XJCBase extends MatchingTask {
      */
     private class ErrorReceiverImpl extends ErrorReceiver {
 
+        @Override
         public void warning(SAXParseException e) {
             print(Project.MSG_WARN, Messages.WARNING_MSG, e);
         }
 
+        @Override
         public void error(SAXParseException e) {
             print(Project.MSG_ERR, Messages.ERROR_MSG, e);
         }
 
+        @Override
         public void fatalError(SAXParseException e) {
             print(Project.MSG_ERR, Messages.ERROR_MSG, e);
         }
 
+        @Override
         public void info(SAXParseException e) {
             print(Project.MSG_VERBOSE, Messages.INFO_MSG, e);
         }

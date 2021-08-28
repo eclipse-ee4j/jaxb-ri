@@ -45,7 +45,7 @@ public final class ComplexTypeFieldBuilder extends BindingComponent {
 
     /** Records ComplexTypeBindingMode for XSComplexType. */
     private final Map<XSComplexType,ComplexTypeBindingMode> complexTypeBindingModes =
-        new HashMap<XSComplexType,ComplexTypeBindingMode>();
+            new HashMap<>();
 
     /**
      * Binds a complex type to a field expression.

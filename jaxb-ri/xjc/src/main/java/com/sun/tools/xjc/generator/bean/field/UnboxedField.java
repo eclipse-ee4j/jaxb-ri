@@ -83,21 +83,26 @@ public class UnboxedField extends AbstractFieldWithVar {
 
     }
 
+    @Override
     protected JType getType(Aspect aspect) {
         return super.getType(aspect).boxify().getPrimitiveType();
     }
 
+    @Override
     protected JType getFieldType() {
         return ptype;
     }
 
+    @Override
     public FieldAccessor create(JExpression targetObject) {
         return new Accessor(targetObject) {
             
+            @Override
             public void unsetValues( JBlock body ) {
                 // you can't unset a value
             }
             
+            @Override
             public JExpression hasSetValue() {
                 return JExpr.TRUE;
             }

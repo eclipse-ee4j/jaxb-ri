@@ -113,8 +113,8 @@ final class NamespaceSupport
     /**
      * An empty enumeration.
      */
-    private final static Enumeration EMPTY_ENUMERATION =
-	new Vector().elements();
+    private final static Enumeration<String> EMPTY_ENUMERATION =
+	new Vector<String>().elements();
 
 
     ////////////////////////////////////////////////////////////////////
@@ -382,7 +382,7 @@ final class NamespaceSupport
      * @see #getDeclaredPrefixes
      * @see #getURI
      */
-    public Enumeration getPrefixes ()
+    public Enumeration<String> getPrefixes ()
     {
 	return currentContext.getPrefixes();
     }
@@ -436,12 +436,12 @@ final class NamespaceSupport
      * @see #getDeclaredPrefixes
      * @see #getURI
      */
-    public Enumeration getPrefixes (String uri)
+    public Enumeration<String> getPrefixes (String uri)
     {
-	Vector prefixes = new Vector();
-	Enumeration allPrefixes = getPrefixes();
+	Vector<String> prefixes = new Vector<>();
+	Enumeration<String> allPrefixes = getPrefixes();
 	while (allPrefixes.hasMoreElements()) {
-	    String prefix = (String)allPrefixes.nextElement();
+	    String prefix = allPrefixes.nextElement();
 	    if (uri.equals(getURI(prefix))) {
 		prefixes.addElement(prefix);
 	    }
@@ -462,7 +462,7 @@ final class NamespaceSupport
      * @see #getPrefixes
      * @see #getURI
      */
-    public Enumeration getDeclaredPrefixes ()
+    public Enumeration<String> getDeclaredPrefixes ()
     {
 	return currentContext.getDeclaredPrefixes();
     }
@@ -546,7 +546,7 @@ final class NamespaceSupport
 	 * The context must either have been freshly constructed,
 	 * or must have been cleared.
 	 *
-	 * @param context The parent Namespace context object.
+	 * @param parent The parent Namespace context object.
 	 */
 	void setParent (Context parent)
 	{
@@ -594,7 +594,7 @@ final class NamespaceSupport
 		copyTables();
 	    }
 	    if (declarations == null) {
-		declarations = new Vector();
+		declarations = new Vector<>();
 	    }
 
 	    prefix = prefix.intern();
@@ -623,7 +623,7 @@ final class NamespaceSupport
 	String [] processName (String qName, boolean isAttribute)
 	{
 	    String name[];
-	    Hashtable table;
+	    Hashtable<String, String[]> table;
 
 				// Select the appropriate table.
 	    if (isAttribute) {
@@ -635,7 +635,7 @@ final class NamespaceSupport
 				// Start by looking in the cache, and
 				// return immediately if the name
 				// is already known in this content
-	    name = (String[])table.get(qName);
+	    name = table.get(qName);
 	    if (name != null) {
 		return name;
 	    }
@@ -670,7 +670,7 @@ final class NamespaceSupport
 		if ("".equals(prefix)) {
 		    uri = defaultNS;
 		} else {
-		    uri = (String)prefixTable.get(prefix);
+		    uri = prefixTable.get(prefix);
 		}
 		if (uri == null
 			|| (!isAttribute && "xmlns".equals (prefix))) {
@@ -702,7 +702,7 @@ final class NamespaceSupport
 	    } else if (prefixTable == null) {
 		return null;
 	    } else {
-		return (String)prefixTable.get(prefix);
+		return prefixTable.get(prefix);
 	    }
 	}
 
@@ -719,9 +719,9 @@ final class NamespaceSupport
 	 */
 	String getPrefix (String uri) {
 	    if (uriTable != null) {
-                String uriPrefix = (String)uriTable.get(uri);
+                String uriPrefix = uriTable.get(uri);
                 if (uriPrefix == null) return null;
-		String verifyNamespace = (String) prefixTable.get(uriPrefix);                
+		String verifyNamespace = prefixTable.get(uriPrefix);
                 if (uri.equals(verifyNamespace)) {
                     return uriPrefix;
                 }
@@ -736,7 +736,7 @@ final class NamespaceSupport
 	 * @return An enumeration of prefixes (possibly empty).
 	 * @see org.xml.sax.helpers.NamespaceSupport#getDeclaredPrefixes
 	 */
-	Enumeration getDeclaredPrefixes ()
+	Enumeration<String> getDeclaredPrefixes ()
 	{
 	    if (declarations == null) {
 		return EMPTY_ENUMERATION;
@@ -755,7 +755,7 @@ final class NamespaceSupport
 	 * @return An enumeration of prefixes (never empty).
 	 * @see org.xml.sax.helpers.NamespaceSupport#getPrefixes
 	 */
-	Enumeration getPrefixes ()
+	Enumeration<String> getPrefixes ()
 	{
 	    if (prefixTable == null) {
 		return EMPTY_ENUMERATION;
@@ -777,20 +777,21 @@ final class NamespaceSupport
 	 * <p>This class is optimized for the normal case where most
 	 * elements do not contain Namespace declarations.</p>
 	 */
+	@SuppressWarnings("unchecked")
 	private void copyTables ()
 	{
 	    if (prefixTable != null) {
-		prefixTable = (Hashtable)prefixTable.clone();
+		prefixTable = (Hashtable<String, String>)prefixTable.clone();
 	    } else {
-		prefixTable = new Hashtable();
+		prefixTable = new Hashtable<>();
 	    }
 	    if (uriTable != null) {
-		uriTable = (Hashtable)uriTable.clone();
+		uriTable = (Hashtable<String, String>)uriTable.clone();
 	    } else {
-		uriTable = new Hashtable();
+		uriTable = new Hashtable<>();
 	    }
-	    elementNameTable = new Hashtable();
-	    attributeNameTable = new Hashtable();
+	    elementNameTable = new Hashtable<>();
+	    attributeNameTable = new Hashtable<>();
 	    declSeen = true;
 	}
 
@@ -800,10 +801,10 @@ final class NamespaceSupport
 	// Protected state.
 	////////////////////////////////////////////////////////////////
 
-	Hashtable prefixTable;
-	Hashtable uriTable;
-	Hashtable elementNameTable;
-	Hashtable attributeNameTable;
+	Hashtable<String, String> prefixTable;
+	Hashtable<String, String> uriTable;
+	Hashtable<String, String[]> elementNameTable;
+	Hashtable<String, String[]> attributeNameTable;
 	String defaultNS = "";
 
 
@@ -812,7 +813,7 @@ final class NamespaceSupport
 	// Internal state.
 	////////////////////////////////////////////////////////////////
 
-	private Vector declarations = null;
+	private Vector<String> declarations = null;
 	private boolean declSeen = false;
 	private Context parent = null;
     }

@@ -48,9 +48,9 @@ import com.sun.tools.xjc.model.Model;
  */
 public final class Ring {
 
-    private final Map<Class,Object> components = new HashMap<Class,Object>();
+    private final Map<Class,Object> components = new HashMap<>();
 
-    private static final ThreadLocal<Ring> instances = new ThreadLocal<Ring>();
+    private static final ThreadLocal<Ring> instances = new ThreadLocal<>();
 
     private Ring() {}
 

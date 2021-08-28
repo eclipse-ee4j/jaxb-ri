@@ -28,17 +28,20 @@ public interface CNonElement extends NonElement<NType,NClass>, TypeUse, CTypeInf
      * Guaranteed to return this.
      */
     @Deprecated
+    @Override
     CNonElement getInfo();
 
     /**
      * Guaranteed to return false.
      */
     @Deprecated
+    @Override
     boolean isCollection();
 
     /**
      * Guaranteed to return null.
      */
     @Deprecated
+    @Override
     CAdapter getAdapterUse();
 }

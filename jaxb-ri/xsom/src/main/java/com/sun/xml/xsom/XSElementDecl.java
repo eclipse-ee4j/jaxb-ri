@@ -89,6 +89,7 @@ public interface XSElementDecl extends XSDeclaration, XSTerm
      *      inefficient when working with a large schema. Use
      *      {@link #getSubstitutables()} instead.
      */
+    @Deprecated
     XSElementDecl[] listSubstitutables();
     
     /**

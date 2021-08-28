@@ -36,10 +36,12 @@ public class XJCTask extends ProtectedTask {
     }
 
 
+    @Override
     protected ClassLoader createClassLoader() throws ClassNotFoundException, IOException {
         return SecureLoader.getClassClassLoader(XJCTask.class);
     }
 
+    @Override
     protected String getCoreClassName() {
         return "com.sun.tools.xjc.XJC2Task";
     }

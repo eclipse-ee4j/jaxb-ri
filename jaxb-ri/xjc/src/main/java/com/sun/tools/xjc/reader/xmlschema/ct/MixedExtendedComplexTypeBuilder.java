@@ -25,6 +25,7 @@ import com.sun.xml.xsom.XSType;
  */
 final class MixedExtendedComplexTypeBuilder extends AbstractExtendedComplexTypeBuilder {
 
+    @Override
     public boolean isApplicable(XSComplexType ct) {
 
         if (!bgmBuilder.isGenerateMixedExtensions()) return false;
@@ -43,6 +44,7 @@ final class MixedExtendedComplexTypeBuilder extends AbstractExtendedComplexTypeB
         return false;
     }
 
+    @Override
     public void build(XSComplexType ct) {
         XSComplexType baseType = ct.getBaseType().asComplexType();
 

@@ -48,7 +48,7 @@ public final class PackageOutlineImpl implements PackageOutline {
     private final JPackage _package;
     private final ObjectFactoryGenerator objectFactoryGenerator;
 
-    /*package*/ final Set<ClassOutlineImpl> classes = new HashSet<ClassOutlineImpl>();
+    /*package*/ final Set<ClassOutlineImpl> classes = new HashSet<>();
     private final Set<ClassOutlineImpl> classesView = Collections.unmodifiableSet(classes);
 
     private String mostUsedNamespaceURI;
@@ -64,6 +64,7 @@ public final class PackageOutlineImpl implements PackageOutline {
      *
      * @see #calcDefaultValues()
      */
+    @Override
     public String getMostUsedNamespaceURI() {
         return mostUsedNamespaceURI;
     }
@@ -73,6 +74,7 @@ public final class PackageOutlineImpl implements PackageOutline {
      * <p>
      * The value is computed by examining what would yield the smallest generated code.
      */
+    @Override
     public XmlNsForm getAttributeFormDefault() {
         assert attributeFormDefault!=null;
         return attributeFormDefault;
@@ -83,23 +85,28 @@ public final class PackageOutlineImpl implements PackageOutline {
      * <p>
      * The value is computed by examining what would yield the smallest generated code.
      */
+    @Override
     public XmlNsForm getElementFormDefault() {
         assert elementFormDefault!=null;
         return elementFormDefault;
     }
 
+    @Override
     public JPackage _package() {
         return _package;
     }
 
+    @Override
     public ObjectFactoryGenerator objectFactoryGenerator() {
         return objectFactoryGenerator;
     }
 
+    @Override
     public Set<ClassOutlineImpl> getClasses() {
         return classesView;
     }
 
+    @Override
     public JDefinedClass objectFactory() {
         return objectFactoryGenerator.getObjectFactory();
     }
@@ -137,6 +144,7 @@ public final class PackageOutlineImpl implements PackageOutline {
 
         // used to visit properties
         CPropertyVisitor<Void> propVisitor = new CPropertyVisitor<Void>() {
+            @Override
             public Void onElement(CElementPropertyInfo p) {
                 for (CTypeRef tr : p.getTypes()) {
                     countURI(propUriCountMap, tr.getTagName());
@@ -144,6 +152,7 @@ public final class PackageOutlineImpl implements PackageOutline {
                 return null;
             }
 
+            @Override
             public Void onReference(CReferencePropertyInfo p) {
                 for (CElement e : p.getElements()) {
                     countURI(propUriCountMap, e.getElementName());
@@ -151,10 +160,12 @@ public final class PackageOutlineImpl implements PackageOutline {
                 return null;
             }
 
+            @Override
             public Void onAttribute(CAttributePropertyInfo p) {
                 return null;
             }
 
+            @Override
             public Void onValue(CValuePropertyInfo p) {
                 return null;
             }
@@ -195,11 +206,11 @@ public final class PackageOutlineImpl implements PackageOutline {
 
     // Map to keep track of how often each type or element uri is used in this package
     // mostly used to calculate mostUsedNamespaceURI
-    private HashMap<String, Integer> uriCountMap = new HashMap<String, Integer>();
+    private HashMap<String, Integer> uriCountMap = new HashMap<>();
 
     // Map to keep track of how often each property uri is used in this package
     // used to calculate elementFormDefault
-    private HashMap<String, Integer> propUriCountMap = new HashMap<String, Integer>();
+    private HashMap<String, Integer> propUriCountMap = new HashMap<>();
 
     /**
      * pull the uri out of the specified QName and keep track of it in the

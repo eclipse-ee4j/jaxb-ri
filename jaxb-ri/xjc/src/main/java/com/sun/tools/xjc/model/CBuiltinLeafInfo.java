@@ -103,6 +103,7 @@ public abstract class CBuiltinLeafInfo implements CNonElement, BuiltinLeafInfo<N
     /**
      * Gets the code model representation of this type.
      */
+    @Override
     public JType toType(Outline o, Aspect aspect) {
         return getType().toType(o,aspect);
     }
@@ -112,6 +113,7 @@ public abstract class CBuiltinLeafInfo implements CNonElement, BuiltinLeafInfo<N
      * it is never a collection.
      */
     @Deprecated
+    @Override
     public final boolean isCollection() {
         return false;
     }
@@ -120,10 +122,12 @@ public abstract class CBuiltinLeafInfo implements CNonElement, BuiltinLeafInfo<N
      * Guaranteed to return this.
      */
     @Deprecated
+    @Override
     public CNonElement getInfo() {
         return this;
     }
 
+    @Override
     public ID idUse() {
         return id;
     }
@@ -131,19 +135,23 @@ public abstract class CBuiltinLeafInfo implements CNonElement, BuiltinLeafInfo<N
     /**
      * {@link CBuiltinLeafInfo} never has a default associated MIME type.
      */
+    @Override
     public MimeType getExpectedMimeType() {
         return null;
     }
 
     @Deprecated
+    @Override
     public final CAdapter getAdapterUse() {
         return null;
     }
 
+    @Override
     public Locator getLocator() {
         return Model.EMPTY_LOCATOR;
     }
 
+    @Override
     public final XSComponent getSchemaComponent() {
         throw new UnsupportedOperationException("TODO. If you hit this, let us know.");
     }
@@ -172,6 +180,8 @@ public abstract class CBuiltinLeafInfo implements CNonElement, BuiltinLeafInfo<N
     /**
      * @deprecated always return false at this level.
      */
+    @Deprecated
+    @Override
     public final boolean isElement() {
         return false;
     }
@@ -179,6 +189,8 @@ public abstract class CBuiltinLeafInfo implements CNonElement, BuiltinLeafInfo<N
     /**
      * @deprecated always return null at this level.
      */
+    @Deprecated
+    @Override
     public final QName getElementName() {
         return null;
     }
@@ -186,6 +198,8 @@ public abstract class CBuiltinLeafInfo implements CNonElement, BuiltinLeafInfo<N
     /**
      * @deprecated always return null at this level.
      */
+    @Deprecated
+    @Override
     public final Element<NType,NClass> asElement() {
         return null;
     }
@@ -193,6 +207,7 @@ public abstract class CBuiltinLeafInfo implements CNonElement, BuiltinLeafInfo<N
     /**
      * A reference to the representation of the type.
      */
+    @Override
     public NType getType() {
         return type;
     }
@@ -213,18 +228,23 @@ public abstract class CBuiltinLeafInfo implements CNonElement, BuiltinLeafInfo<N
      * @deprecated
      *      why are you calling a method whose return value is always known?
      */
+    @Deprecated
+    @Override
     public final boolean canBeReferencedByIDREF() {
         return false;
     }
 
+    @Override
     public QName getTypeName() {
         return typeName;
     }
 
+    @Override
     public Locatable getUpstream() {
         return null;
     }
 
+    @Override
     public Location getLocation() {
         // this isn't very accurate, but it's not too bad
         // doing it correctly need leaves to hold navigator.
@@ -232,6 +252,7 @@ public abstract class CBuiltinLeafInfo implements CNonElement, BuiltinLeafInfo<N
         return this;
     }
 
+    @Override
     public boolean isSimpleType() {
         return true;
     }
@@ -241,10 +262,10 @@ public abstract class CBuiltinLeafInfo implements CNonElement, BuiltinLeafInfo<N
      * the spec defined built-in binding semantics.
      */
     private static abstract class Builtin extends CBuiltinLeafInfo {
-        protected Builtin(Class c, String typeName) {
+        protected Builtin(Class<?> c, String typeName) {
             this(c,typeName,org.glassfish.jaxb.core.v2.model.core.ID.NONE);
         }
-        protected Builtin(Class c, String typeName, ID id) {
+        protected Builtin(Class<?> c, String typeName, ID id) {
             super(NavigatorImpl.theInstance.ref(c), id, new QName(WellKnownNamespace.XML_SCHEMA,typeName));
             LEAVES.put(getType(),this);
         }
@@ -252,6 +273,7 @@ public abstract class CBuiltinLeafInfo implements CNonElement, BuiltinLeafInfo<N
         /**
          * No vendor customization in the built-in classes.
          */
+        @Override
         public CCustomizations getCustomizations() {
             return CCustomizations.EMPTY;
         }
@@ -261,6 +283,7 @@ public abstract class CBuiltinLeafInfo implements CNonElement, BuiltinLeafInfo<N
         public NoConstantBuiltin(Class c, String typeName) {
             super(c, typeName);
         }
+        @Override
         public JExpression createConstant(Outline outline, XmlString lexical) {
             return null;
         }
@@ -269,31 +292,36 @@ public abstract class CBuiltinLeafInfo implements CNonElement, BuiltinLeafInfo<N
     /**
      * All built-in leaves.
      */
-    public static final Map<NType,CBuiltinLeafInfo> LEAVES = new HashMap<NType,CBuiltinLeafInfo>();
+    public static final Map<NType,CBuiltinLeafInfo> LEAVES = new HashMap<>();
 
 
     public static final CBuiltinLeafInfo ANYTYPE = new NoConstantBuiltin(Object.class,"anyType");
     public static final CBuiltinLeafInfo STRING = new Builtin(String.class,"string") {
+            @Override
             public JExpression createConstant(Outline outline, XmlString lexical) {
                 return JExpr.lit(lexical.value);
             }
     };
     public static final CBuiltinLeafInfo BOOLEAN = new Builtin(Boolean.class,"boolean") {
+            @Override
             public JExpression createConstant(Outline outline, XmlString lexical) {
                 return JExpr.lit(DatatypeConverter.parseBoolean(lexical.value));
             }
     };
     public static final CBuiltinLeafInfo INT = new Builtin(Integer.class,"int") {
+        @Override
         public JExpression createConstant(Outline outline, XmlString lexical) {
             return JExpr.lit(DatatypeConverter.parseInt(lexical.value));
         }
     };
     public static final CBuiltinLeafInfo LONG = new Builtin(Long.class,"long") {
+        @Override
         public JExpression createConstant(Outline outline, XmlString lexical) {
             return JExpr.lit(DatatypeConverter.parseLong(lexical.value));
         }
     };
     public static final CBuiltinLeafInfo BYTE = new Builtin(Byte.class,"byte") {
+        @Override
         public JExpression createConstant(Outline outline, XmlString lexical) {
             return JExpr.cast(
                     outline.getCodeModel().BYTE,
@@ -301,6 +329,7 @@ public abstract class CBuiltinLeafInfo implements CNonElement, BuiltinLeafInfo<N
         }
     };
     public static final CBuiltinLeafInfo SHORT = new Builtin(Short.class,"short") {
+        @Override
         public JExpression createConstant(Outline outline, XmlString lexical) {
             return JExpr.cast(
                     outline.getCodeModel().SHORT,
@@ -308,16 +337,19 @@ public abstract class CBuiltinLeafInfo implements CNonElement, BuiltinLeafInfo<N
         }
     };
     public static final CBuiltinLeafInfo FLOAT = new Builtin(Float.class,"float") {
+        @Override
         public JExpression createConstant(Outline outline, XmlString lexical) {
             return JExpr.lit(DatatypeConverter.parseFloat(lexical.value));
         }
     };
     public static final CBuiltinLeafInfo DOUBLE = new Builtin(Double.class,"double") {
+        @Override
         public JExpression createConstant(Outline outline, XmlString lexical) {
             return JExpr.lit(DatatypeConverter.parseDouble(lexical.value));
         }
     };
     public static final CBuiltinLeafInfo QNAME = new Builtin(QName.class,"QName") {
+        @Override
         public JExpression createConstant(Outline outline, XmlString lexical) {
             QName qn = DatatypeConverter.parseQName(lexical.value,new NamespaceContextAdapter(lexical));
             return JExpr._new(outline.getCodeModel().ref(QName.class))
@@ -333,18 +365,21 @@ public abstract class CBuiltinLeafInfo implements CNonElement, BuiltinLeafInfo<N
     public static final CBuiltinLeafInfo DURATION = new NoConstantBuiltin(Duration.class,"duration");
 
     public static final CBuiltinLeafInfo BIG_INTEGER = new Builtin(BigInteger.class,"integer") {
+        @Override
         public JExpression createConstant(Outline outline, XmlString lexical) {
             return JExpr._new(outline.getCodeModel().ref(BigInteger.class)).arg(lexical.value.trim());
         }
     };
 
     public static final CBuiltinLeafInfo BIG_DECIMAL = new Builtin(BigDecimal.class,"decimal") {
+        @Override
         public JExpression createConstant(Outline outline, XmlString lexical) {
             return JExpr._new(outline.getCodeModel().ref(BigDecimal.class)).arg(lexical.value.trim());
         }
     };
 
     public static final CBuiltinLeafInfo BASE64_BYTE_ARRAY = new Builtin(byte[].class,"base64Binary") {
+        @Override
         public JExpression createConstant(Outline outline, XmlString lexical) {
             return outline.getCodeModel().ref(DatatypeConverter.class).staticInvoke("parseBase64Binary").arg(lexical.value);
         }

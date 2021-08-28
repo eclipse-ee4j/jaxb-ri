@@ -15,6 +15,7 @@ package com.sun.tools.xjc.reader.gbind;
  * @author Kohsuke Kawaguchi
  */
 public final class SinkNode extends Element {
+    @Override
     public String toString() {
         return "#sink";
     }

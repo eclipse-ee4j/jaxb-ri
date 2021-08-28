@@ -43,6 +43,7 @@ public class BIFactoryMethod extends AbstractDeclarationImpl {
     }
 
 
+    @Override
     public final QName getName() { return NAME; }
 
     /** Name of the declaration. */

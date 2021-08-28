@@ -24,6 +24,7 @@ final class ClassNameAllocatorWrapper implements ClassNameAllocator {
     ClassNameAllocatorWrapper(ClassNameAllocator core) {
         if(core==null)
             core = new ClassNameAllocator() {
+                @Override
                 public String assignClassName(String packageName, String className) {
                     return className;
                 }
@@ -31,6 +32,7 @@ final class ClassNameAllocatorWrapper implements ClassNameAllocator {
         this.core = core;
     }
 
+    @Override
     public String assignClassName(String packageName, String className) {
         return core.assignClassName(packageName,className);
     }

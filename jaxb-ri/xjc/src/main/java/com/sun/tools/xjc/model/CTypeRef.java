@@ -106,14 +106,17 @@ public final class CTypeRef implements TypeRef<NType,NClass> {
         this.defaultValue = defaultValue;
     }
 
+    @Override
     public CNonElement getTarget() {
         return type;
     }
 
+    @Override
     public QName getTagName() {
         return elementName;
     }
 
+    @Override
     public boolean isNillable() {
         return nillable;
     }
@@ -124,6 +127,7 @@ public final class CTypeRef implements TypeRef<NType,NClass> {
      *
      * @see #defaultValue
      */
+    @Override
     public String getDefaultValue() {
         if(defaultValue!=null)
             return defaultValue.value;
@@ -136,6 +140,7 @@ public final class CTypeRef implements TypeRef<NType,NClass> {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public PropertyInfo<NType, NClass> getSource() {
         // TODO: implement this method later
         throw new UnsupportedOperationException();

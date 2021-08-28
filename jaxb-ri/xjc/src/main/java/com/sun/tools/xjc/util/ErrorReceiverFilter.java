@@ -39,19 +39,23 @@ public class ErrorReceiverFilter extends ErrorReceiver {
     private boolean hadError = false;
     public final boolean hadError() { return hadError; }
 
+    @Override
     public void info(SAXParseException exception) {
         if(core!=null)  core.info(exception);
     }
 
+    @Override
     public void warning(SAXParseException exception) {
         if(core!=null)  core.warning(exception);
     }
 
+    @Override
     public void error(SAXParseException exception) {
         hadError = true;
         if(core!=null)  core.error(exception);
     }
 
+    @Override
     public void fatalError(SAXParseException exception) {
         hadError = true;
         if(core!=null)  core.fatalError(exception);

@@ -44,6 +44,7 @@ final class Occurence extends Term {
         }
     }
 
+    @Override
     void normalize(List<Block> r, boolean optional) {
         if(isRepeated) {
             Block b = new Block(isOptional||optional,true);
@@ -54,14 +55,17 @@ final class Occurence extends Term {
         }
     }
 
+    @Override
     void addAllElements(Block b) {
         term.addAllElements(b);
     }
 
+    @Override
     boolean isOptional() {
         return isOptional||term.isOptional();
     }
 
+    @Override
     boolean isRepeated() {
         return isRepeated||term.isRepeated();
     }

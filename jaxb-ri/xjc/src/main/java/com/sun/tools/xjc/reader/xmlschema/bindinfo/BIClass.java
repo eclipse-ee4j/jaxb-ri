@@ -101,8 +101,10 @@ public final class BIClass extends AbstractDeclarationImpl {
      */
     public String getJavadoc() { return javadoc; }
 
+    @Override
     public QName getName() { return NAME; }
 
+    @Override
     public void setParent(BindInfo p) {
         super.setParent(p);
         // if this specifies a reference to external class,

@@ -32,6 +32,7 @@ final class BeanMappingImpl extends AbstractMappingImpl<CClassInfo> {
         assert classInfo.isElement();
     }
 
+    @Override
     public TypeAndAnnotation getType() {
         return taa;
     }
@@ -40,6 +41,7 @@ final class BeanMappingImpl extends AbstractMappingImpl<CClassInfo> {
         return getClazz();
     }
 
+    @Override
     public List<Property> calcDrilldown() {
         if(!clazz.isOrdered())
             return null;    // all is not eligible for the wrapper style

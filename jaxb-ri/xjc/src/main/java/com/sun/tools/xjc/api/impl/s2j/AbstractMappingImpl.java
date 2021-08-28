@@ -57,6 +57,7 @@ abstract class AbstractMappingImpl<InfoT extends CElement> implements Mapping {
         this.clazz = clazz;
     }
 
+    @Override
     public final QName getElement() {
         return clazz.getElementName();
     }
@@ -65,6 +66,7 @@ abstract class AbstractMappingImpl<InfoT extends CElement> implements Mapping {
         return clazz.getType().fullName();
     }
 
+    @Override
     public final List<? extends Property> getWrapperStyleDrilldown() {
         if (!drilldownComputed) {
             drilldownComputed = true;
@@ -95,7 +97,7 @@ abstract class AbstractMappingImpl<InfoT extends CElement> implements Mapping {
                 return null;        // aborted
             }
         } else {
-            result = new ArrayList<Property>();
+            result = new ArrayList<>();
         }
 
         for (CPropertyInfo p : typeBean.getProperties()) {

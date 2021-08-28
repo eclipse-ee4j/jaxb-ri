@@ -46,10 +46,12 @@ final class PrivateObjectFactoryGenerator extends ObjectFactoryGeneratorImpl {
             factory.fullName());
     }
 
+    @Override
     void populate(CElementInfo ei) {
         populate(ei,Aspect.IMPLEMENTATION,Aspect.IMPLEMENTATION);
     }
 
+    @Override
     void populate(ClassOutlineImpl cc) {
         populate(cc,cc.implRef);
     }
