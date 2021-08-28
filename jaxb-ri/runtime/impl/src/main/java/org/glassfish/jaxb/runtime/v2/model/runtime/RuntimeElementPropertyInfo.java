@@ -20,7 +20,6 @@ import java.util.List;
  * @author Kohsuke Kawaguchi
  */
 public interface RuntimeElementPropertyInfo extends ElementPropertyInfo<Type,Class>, RuntimePropertyInfo {
-    /** {@inheritDoc} */
     @Override
     Collection<? extends RuntimeTypeInfo> ref();
 

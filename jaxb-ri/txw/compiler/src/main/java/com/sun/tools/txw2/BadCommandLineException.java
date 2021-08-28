@@ -17,6 +17,8 @@ package com.sun.tools.txw2;
  */
 public class BadCommandLineException extends Exception {
 
+    private static final long serialVersionUID = -689101368298669934L;
+
     public BadCommandLineException(String msg) {
         super(msg);
     }
