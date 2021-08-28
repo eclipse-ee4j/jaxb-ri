@@ -46,6 +46,7 @@ public final class NGCCRuntimeEx extends NGCCRuntime {
      *    The baseDir attribute passed by the user in the xml config file as a path
      * @return
      *     The file representation of the path name
+     * @throws SAXException if provided {@code basedir} does not exist
      */
     public File getBaseDir(String baseDir) throws SAXException {
         File dir = new File(baseDir);

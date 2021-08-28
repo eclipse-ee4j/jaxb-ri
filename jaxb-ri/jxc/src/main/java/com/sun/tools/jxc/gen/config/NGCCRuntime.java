@@ -61,6 +61,7 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
      * pattern will be used as the root handler, but any NGCCHandler
      * can be a root handler.
      *
+     * @param rootHandler new root handler
      * @exception IllegalStateException
      *      If this method is called but it doesn't satisfy the
      *      pre-condition stated above.
@@ -105,6 +106,7 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
      * <p>
      * One can call this method from RelaxNGCC handlers to access
      * the line number information. Note that to
+     * @return the source location of the current event
      */
     public Locator getLocator() { return locator; }
 
@@ -121,6 +123,7 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
      * this method. RelaxNGCC internally removes processed attributes,
      * so this doesn't correctly reflect all the attributes an element
      * carries.
+     * @return Attributes that belong to the current element
      */
     public Attributes getCurrentAttributes() {
         return currentAtts;
@@ -249,16 +252,28 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
      * because the processing of the enterElement event can trigger
      * other attribute events and etc.
      * <p>
-     * This method will be called from one of handlers when it truely
+     * This method will be called from one of handlers when it truly
      * consumes the enterElement event.
+     * @param uri Parameter passed to the element event.
+     * @param localName Parameter passed to the element event.
+     * @param qname Parameter passed to the element event.
+     * @param atts Parameter passed to the element event.
+     * @throws SAXException for errors
+     * 
      */
     public void onEnterElementConsumed(
             String uri, String localName, String qname,Attributes atts) throws SAXException {
         attStack.push(currentAtts=new AttributesImpl(atts));
-        nsEffectiveStack.push( Integer.valueOf(nsEffectivePtr) );
+        nsEffectiveStack.push(nsEffectivePtr);
         nsEffectivePtr = namespaces.size();
     }
 
+    /**
+     * @param uri Parameter passed to the element event.
+     * @param localName Parameter passed to the element event.
+     * @param qname Parameter passed to the element event.
+     * @throws SAXException for errors
+     */
     public void onLeaveElementConsumed(String uri, String localName, String qname) throws SAXException {
         attStack.pop();
         if(attStack.isEmpty())
@@ -449,8 +464,15 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
      * Currently active NGCCHandler will only receive the leaveElement
      * event of the newly started element.
      *
-     * @param   uri,local,qname
-     *      Parameters passed to the enter element event. Used to
+     * @param child the new ContentHandler
+     * @param uri
+     *      Parameter passed to the enter element event. Used to
+     *      simulate the startElement event for the new ContentHandler.
+     * @param local
+     *      Parameter passed to the enter element event. Used to
+     *      simulate the startElement event for the new ContentHandler.
+     * @param qname
+     *      Parameter passed to the enter element event. Used to
      *      simulate the startElement event for the new ContentHandler.
      */
     public void redirectSubtree( ContentHandler child,
@@ -527,8 +549,8 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
                 "Unexpected {0} appears at line {1} column {2}",
                 new Object[]{
                         token,
-                        Integer.valueOf(getLocator().getLineNumber()),
-                        Integer.valueOf(getLocator().getColumnNumber()) }),
+                    getLocator().getLineNumber(),
+                    getLocator().getColumnNumber() }),
                 getLocator());
     }
 

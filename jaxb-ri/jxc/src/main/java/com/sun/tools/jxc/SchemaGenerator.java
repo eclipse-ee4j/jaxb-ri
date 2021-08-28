@@ -47,11 +47,20 @@ public class SchemaGenerator {
 
     /**
      * Runs the schema generator.
+     * @param args command line arguments
+     * @throws java.lang.Exception for error
      */
     public static void main(String[] args) throws Exception {
         System.exit(run(args));
     }
 
+    /**
+     * Runs the schema generator.
+     * @param args command line arguments
+     * @return
+     *      exit code. 0 if success.
+     * @throws java.lang.Exception for error
+     */
     public static int run(String[] args) throws Exception {
         try {
             ClassLoader cl = SecureLoader.getClassClassLoader(SchemaGenerator.class);
@@ -68,6 +77,7 @@ public class SchemaGenerator {
     /**
      * Runs the schema generator.
      *
+     * @param args arguments for the schema generator
      * @param classLoader
      *      the schema generator will run in this classLoader.
      *      It needs to be able to load annotation processing and JAXB RI classes. Note that
@@ -75,6 +85,10 @@ public class SchemaGenerator {
      *
      * @return
      *      exit code. 0 if success.
+     * @throws java.lang.ClassNotFoundException if {@link Runner} cannot be found
+     * @throws java.lang.NoSuchMethodException if {@link Runner#compile(java.lang.String[], java.io.File) } cannot be found
+     * @throws java.lang.IllegalAccessException if {@link Runner#compile(java.lang.String[], java.io.File) } cannot be accessed
+     * @throws java.lang.reflect.InvocationTargetException if {@link Runner#compile(java.lang.String[], java.io.File) } cannot be invoked
      *
      */
     public static int run(String[] args, ClassLoader classLoader) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
@@ -115,7 +129,7 @@ public class SchemaGenerator {
         Class<?> schemagenRunner = classLoader.loadClass(Runner.class.getName());
         Method compileMethod = schemagenRunner.getDeclaredMethod("compile",String[].class,File.class);
 
-        List<String> aptargs = new ArrayList<String>();
+        List<String> aptargs = new ArrayList<>();
 
         if (options.encoding != null) {
             aptargs.add("-encoding");
@@ -214,7 +228,7 @@ public class SchemaGenerator {
         public static boolean compile(String[] args, File episode) throws Exception {
 
             JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-            DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<JavaFileObject>();
+            DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<>();
             StandardJavaFileManager fileManager = compiler.getStandardFileManager(diagnostics, null, null);
             JavacOptions options = JavacOptions.parse(compiler, fileManager, args);
             List<String> unrecognizedOptions = options.getUnrecognizedOptions();
@@ -260,10 +274,10 @@ public class SchemaGenerator {
         }
 
         public static JavacOptions parse(OptionChecker primary, OptionChecker secondary, String... arguments) {
-            List<String> recognizedOptions = new ArrayList<String>();
-            List<String> unrecognizedOptions = new ArrayList<String>();
-            List<String> classNames = new ArrayList<String>();
-            List<File> files = new ArrayList<File>();
+            List<String> recognizedOptions = new ArrayList<>();
+            List<String> unrecognizedOptions = new ArrayList<>();
+            List<String> classNames = new ArrayList<>();
+            List<File> files = new ArrayList<>();
             for (int i = 0; i < arguments.length; i++) {
                 String argument = arguments[i];
                 int optionCount = primary.isSupportedOption(argument);

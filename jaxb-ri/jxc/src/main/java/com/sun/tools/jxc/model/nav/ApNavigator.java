@@ -368,7 +368,7 @@ public final class ApNavigator implements Navigator<TypeMirror, TypeElement, Var
         return t.getKind().isPrimitive();
     }
 
-    private static final Map<Class, TypeKind> primitives = new HashMap<Class, TypeKind>();
+    private static final Map<Class<?>, TypeKind> primitives = new HashMap<>();
 
     static {
         primitives.put(Integer.TYPE, TypeKind.INT);

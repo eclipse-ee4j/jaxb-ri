@@ -24,7 +24,7 @@ public interface XmlEnumWriter
 {
 
 
-    XmlEnumWriter value(Class value);
+    XmlEnumWriter value(Class<?> value);
 
     XmlEnumWriter value(JType value);
 

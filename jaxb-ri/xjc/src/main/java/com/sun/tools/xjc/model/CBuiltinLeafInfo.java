@@ -282,7 +282,7 @@ public abstract class CBuiltinLeafInfo implements CNonElement, BuiltinLeafInfo<N
     }
 
     private static final class NoConstantBuiltin extends Builtin {
-        public NoConstantBuiltin(Class c, String typeName) {
+        public NoConstantBuiltin(Class<?> c, String typeName) {
             super(c, typeName);
         }
         @Override

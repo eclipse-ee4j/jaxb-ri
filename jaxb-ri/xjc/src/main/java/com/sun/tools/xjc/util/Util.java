@@ -55,7 +55,7 @@ public final class Util {
      * Calls the other getSystemProperty method with
      * "[clazz]&#x2E;[name].
      */
-    public static String getSystemProperty( Class clazz, String name ) {
+    public static String getSystemProperty( Class<?> clazz, String name ) {
         return getSystemProperty( clazz.getName()+'.'+name );
     }    
 }

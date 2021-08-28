@@ -124,11 +124,11 @@ public abstract class JAXBRIContext extends JAXBContext {
         if (subclassReplacements != null) properties.put(JAXBRIContext.SUBCLASS_REPLACEMENTS, subclassReplacements);
         if (defaultNamespaceRemap != null) properties.put(JAXBRIContext.DEFAULT_NAMESPACE_REMAP, defaultNamespaceRemap);
         if (ar != null) properties.put(JAXBRIContext.ANNOTATION_READER, ar);
-        properties.put(JAXBRIContext.CANONICALIZATION_SUPPORT, Boolean.valueOf(c14nSupport));
-        properties.put(JAXBRIContext.XMLACCESSORFACTORY_SUPPORT, Boolean.valueOf(xmlAccessorFactorySupport));
-        properties.put(JAXBRIContext.TREAT_EVERYTHING_NILLABLE, Boolean.valueOf(allNillable));
-        properties.put(JAXBRIContext.RETAIN_REFERENCE_TO_INFO, Boolean.valueOf(retainPropertyInfo));
-        properties.put(JAXBRIContext.SUPRESS_ACCESSOR_WARNINGS, Boolean.valueOf(supressAccessorWarnings));
+        properties.put(JAXBRIContext.CANONICALIZATION_SUPPORT, c14nSupport);
+        properties.put(JAXBRIContext.XMLACCESSORFACTORY_SUPPORT, xmlAccessorFactorySupport);
+        properties.put(JAXBRIContext.TREAT_EVERYTHING_NILLABLE, allNillable);
+        properties.put(JAXBRIContext.RETAIN_REFERENCE_TO_INFO, retainPropertyInfo);
+        properties.put(JAXBRIContext.SUPRESS_ACCESSOR_WARNINGS, supressAccessorWarnings);
         return (JAXBRIContext) ContextFactory.createContext(classes, properties);
     }
 

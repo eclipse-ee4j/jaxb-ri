@@ -704,12 +704,12 @@ public class XJCBase extends MatchingTask {
 
                         try {
                             // this method is available only on JDK1.4
-                            Constructor c = Thread.class.getConstructor(
+                            Constructor<Thread> c = Thread.class.getConstructor(
                                 ThreadGroup.class,
                                 Runnable.class,
                                 String.class,
                                 long.class);
-                            t = (Thread) c.newInstance(
+                            t = c.newInstance(
                                 Thread.currentThread().getThreadGroup(),
                                 job,
                                 Thread.currentThread().getName() + ":XJC",

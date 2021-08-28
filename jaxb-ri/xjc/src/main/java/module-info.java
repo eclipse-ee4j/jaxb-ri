@@ -44,6 +44,7 @@ module org.glassfish.jaxb.xjc {
     exports com.sun.tools.xjc.model.nav;
     exports com.sun.tools.xjc.outline;
     exports com.sun.tools.xjc.reader;
+    exports com.sun.tools.xjc.reader.gbind;
     exports com.sun.tools.xjc.reader.internalizer;
     exports com.sun.tools.xjc.reader.xmlschema;
     exports com.sun.tools.xjc.reader.xmlschema.bindinfo;

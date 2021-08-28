@@ -283,7 +283,6 @@ public class Options {
     /**
      * Sets the {@link FieldRendererFactory}.
      * <p>
-     * <p>
      * This method is for plugins to call to set a custom {@link FieldRendererFactory}.
      *
      * @param frf   The {@link FieldRendererFactory} to be installed. Must not be null.
@@ -320,7 +319,6 @@ public class Options {
     /**
      * Sets the {@link NameConverter}.
      * <p>
-     * <p>
      * This method is for plugins to call to set a custom {@link NameConverter}.
      *
      * @param nc    The {@link NameConverter} to be installed. Must not be null.
@@ -346,7 +344,6 @@ public class Options {
 
     /**
      * Gets all the {@link Plugin}s discovered so far.
-     * <p>
      * <p>
      * A plugins are enumerated when this method is called for the first time,
      * by taking {@link #classpaths} into account. That means

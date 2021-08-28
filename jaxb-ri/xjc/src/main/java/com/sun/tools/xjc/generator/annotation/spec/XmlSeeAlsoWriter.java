@@ -24,7 +24,7 @@ public interface XmlSeeAlsoWriter
 {
 
 
-    XmlSeeAlsoWriter value(Class value);
+    XmlSeeAlsoWriter value(Class<?> value);
 
     XmlSeeAlsoWriter value(JType value);
 
