@@ -428,6 +428,8 @@
                         <configuration>
                             <compilerArgument>-Xlint:all</compilerArgument>
                             <!--<XDignore.symbol.file/>-->
+                            <showDeprecation>true</showDeprecation>
+                            <showWarnings>true</showWarnings>
                         </configuration>
                     </execution>
                     <execution>
