@@ -25,6 +25,7 @@ abstract class Text extends Content {
         document.writeValue(obj,nsResolver,buffer);
     }
 
+    @Override
     boolean concludesPendingStartTag() {
         return false;
     }

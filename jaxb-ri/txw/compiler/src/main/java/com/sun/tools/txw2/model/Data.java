@@ -31,10 +31,12 @@ public class Data extends Leaf implements Text {
         this.type = type;
     }
 
+    @Override
     public JType getDatatype(NodeSet nset) {
         return type;
     }
 
+    @Override
     void generate(JDefinedClass clazz, NodeSet nset, Set<Prop> props) {
         createDataMethod(clazz,type,nset,props);
     }

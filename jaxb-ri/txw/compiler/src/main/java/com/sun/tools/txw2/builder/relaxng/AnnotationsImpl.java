@@ -19,15 +19,19 @@ import com.sun.tools.rngom.ast.util.LocatorImpl;
  * @author Kohsuke Kawaguchi
  */
 final class AnnotationsImpl implements Annotations<ParsedElementAnnotation,LocatorImpl,CommentListImpl> {
+    @Override
     public void addAttribute(String ns, String localName, String prefix, String value, LocatorImpl locator) throws BuildException {
     }
 
+    @Override
     public void addElement(ParsedElementAnnotation parsedElementAnnotation) throws BuildException {
     }
 
+    @Override
     public void addComment(CommentListImpl commentList) throws BuildException {
     }
 
+    @Override
     public void addLeadingComment(CommentListImpl commentList) throws BuildException {
     }
 }

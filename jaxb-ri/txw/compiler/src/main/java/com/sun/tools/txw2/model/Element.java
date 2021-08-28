@@ -66,15 +66,18 @@ public class Element extends XmlNode {
         return new DataOnly();
     }
 
+    @Override
     void declare(NodeSet nset) {
         strategy = decideStrategy();
         strategy.declare(nset);
     }
 
+    @Override
     void generate(NodeSet nset) {
         strategy.generate(nset);
     }
 
+    @Override
     void generate(JDefinedClass clazz, NodeSet nset, Set<Prop> props) {
         strategy.generate(clazz,nset,props);
     }
@@ -111,6 +114,7 @@ public class Element extends XmlNode {
     private class ToInterface implements Strategy {
         private JDefinedClass clazz;
 
+        @Override
         public void declare(NodeSet nset) {
             String cname;
             if(alternativeName!=null)
@@ -125,12 +129,14 @@ public class Element extends XmlNode {
             // TODO: namespace
         }
 
+        @Override
         public void generate(NodeSet nset) {
             HashSet<Prop> props = new HashSet<Prop>();
             for( Leaf l : Element.this )
                 l.generate(clazz,nset, props);
         }
 
+        @Override
         public void generate(JDefinedClass outer, NodeSet nset, Set<Prop> props) {
             if(props.add(new ElementProp(name,clazz)))
                 generateMethod(outer, nset, clazz);
@@ -147,11 +153,14 @@ public class Element extends XmlNode {
             this.ref = ref;
         }
 
+        @Override
         public void declare(NodeSet nset) {
         }
+        @Override
         public void generate(NodeSet nset) {
         }
 
+        @Override
         public void generate(JDefinedClass clazz, NodeSet nset, Set<Prop> props) {
             if(props.add(new ElementProp(name,ref.def.clazz)))
                 generateMethod(clazz, nset, ref.def.clazz);
@@ -159,12 +168,15 @@ public class Element extends XmlNode {
     }
 
     private class DataOnly implements Strategy {
+        @Override
         public void declare(NodeSet nset) {
         }
+        @Override
         public void generate(NodeSet nset) {
         }
 
         // TODO: code share with Attribute
+        @Override
         public void generate(JDefinedClass clazz, NodeSet nset, Set<Prop> props) {
             Set<JType> types = new HashSet<JType>();
 

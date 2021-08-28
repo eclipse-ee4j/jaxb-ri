@@ -15,6 +15,7 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
@@ -129,7 +130,7 @@ public class Driver {
             if( n.getNodeType()==Node.ELEMENT_NODE ) {
                 Element x = (Element)n;
                 if(x.getLocalName().equals("schema")
-                && x.getNamespaceURI().equals(WellKnownNamespace.XML_SCHEMA))
+                && XMLConstants.W3C_XML_SCHEMA_NS_URI.equals(x.getNamespaceURI()))
                     return x;
 
                 x = findSchemas(x);

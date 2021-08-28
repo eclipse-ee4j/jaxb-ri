@@ -25,10 +25,12 @@ final class Comment extends Content {
         document.writeValue(obj,nsResolver,buffer);
     }
 
+    @Override
     boolean concludesPendingStartTag() {
         return false;
     }
 
+    @Override
     void accept(ContentVisitor visitor) {
         visitor.onComment(buffer);
     }

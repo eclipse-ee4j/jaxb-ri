@@ -123,21 +123,21 @@ class ReferencePropertyInfoImpl<T,C,F,M>
             final C je = nav.asDecl(JAXBElement.class);
 
             for( XmlElementRef r : ann ) {
-                boolean yield;
+                boolean _yield;
                 T type = reader.getClassValue(r,"type");
                 if(nav().isSameType(type, defaultType))
                     type = nav.erasure(getIndividualType());
                 if(nav.getBaseClass(type,je)!=null)
-                    yield = addGenericElement(r);
+                    _yield = addGenericElement(r);
                 else
-                    yield = addAllSubtypes(type);
+                    _yield = addAllSubtypes(type);
 
                 // essentially "isRequired &= isRequired(r)" except that we'd like to skip evaluating isRequird(r)
                 // if the value is already false.
                 if(isRequired && !isRequired(r))
                     isRequired = false;
 
-                if(last && !yield) {
+                if(last && !_yield) {
                     // a reference didn't produce any type.
                     // diagnose the problem
                     if(nav().isSameType(type, nav.ref(JAXBElement.class))) {
@@ -162,7 +162,7 @@ class ReferencePropertyInfoImpl<T,C,F,M>
         }
 
         for (ReferencePropertyInfoImpl<T, C, F, M> info : subTypes) {
-            PropertySeed sd = info.seed;
+            PropertySeed<T, C, F, M> sd = info.seed;
             refs = sd.readAnnotation(XmlElementRefs.class);
             ref = sd.readAnnotation(XmlElementRef.class);
 
@@ -192,19 +192,19 @@ class ReferencePropertyInfoImpl<T,C,F,M>
                 final C je = nav.asDecl(JAXBElement.class);
 
                 for( XmlElementRef r : ann ) {
-                    boolean yield;
+                    boolean _yield;
                     T type = reader.getClassValue(r,"type");
                     if (nav().isSameType(type, defaultType)) {
                         type = nav.erasure(getIndividualType());
                     }
                     if (nav.getBaseClass(type,je) != null) {
-                        yield = addGenericElement(r, info);
+                        _yield = addGenericElement(r, info);
 
                     } else {
-                        yield = addAllSubtypes(type);
+                        _yield = addAllSubtypes(type);
                     }
 
-                    if(last && !yield) {
+                    if(last && !_yield) {
                         // a reference didn't produce any type.
                         // diagnose the problem
                         if(nav().isSameType(type, nav.ref(JAXBElement.class))) {

@@ -35,6 +35,7 @@ public class Config extends NGCCHandler {
     protected String $localName;
     protected String $qname;
 
+    @Override
     public final NGCCRuntime getRuntime() {
         return($runtime);
     }
@@ -57,6 +58,7 @@ public class Config extends NGCCHandler {
         baseDir = $runtime.getBaseDir(bd);
 }
 
+    @Override
     public void enterElement(String $__uri, String $__local, String $__qname, Attributes $attrs) throws SAXException {
         int $ai;
         $uri = $__uri;
@@ -132,6 +134,7 @@ public class Config extends NGCCHandler {
         }
     }
 
+    @Override
     public void leaveElement(String $__uri, String $__local, String $__qname) throws SAXException {
         int $ai;
         $uri = $__uri;
@@ -179,6 +182,7 @@ public class Config extends NGCCHandler {
         }
     }
 
+    @Override
     public void enterAttribute(String $__uri, String $__local, String $__qname) throws SAXException {
         int $ai;
         $uri = $__uri;
@@ -214,6 +218,7 @@ public class Config extends NGCCHandler {
         }
     }
 
+    @Override
     public void leaveAttribute(String $__uri, String $__local, String $__qname) throws SAXException {
         int $ai;
         $uri = $__uri;
@@ -249,6 +254,7 @@ public class Config extends NGCCHandler {
         }
     }
 
+    @Override
     public void text(String $value) throws SAXException {
         int $ai;
         switch($_ngcc_current_state) {
@@ -281,6 +287,7 @@ public class Config extends NGCCHandler {
         }
     }
 
+    @Override
     public void onChildCompleted(Object result, int cookie, boolean needAttCheck)throws SAXException {
         switch(cookie) {
         case 19:

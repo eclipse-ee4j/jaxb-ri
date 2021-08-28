@@ -15,6 +15,7 @@ import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.Javac;
 import org.apache.tools.ant.taskdefs.compilers.DefaultCompilerAdapter;
 import org.apache.tools.ant.types.Commandline;
+import org.apache.tools.ant.util.StringUtils;
 
 import javax.annotation.processing.Processor;
 import javax.tools.DiagnosticCollector;
@@ -35,6 +36,11 @@ import java.util.Collections;
 public abstract class ApBasedTask extends Javac {
 
     /**
+     * Default constructor.
+     */
+    protected ApBasedTask() {}
+
+    /**
      * Implemented by the derived class to set up command line switches passed to annotation processing.
      */
     protected abstract void setupCommandlineSwitches(Commandline cmd);
@@ -44,12 +50,14 @@ public abstract class ApBasedTask extends Javac {
             setJavac(ApBasedTask.this);
         }
 
+        @Override
         protected Commandline setupModernJavacCommandlineSwitches(Commandline cmd) {
             super.setupModernJavacCommandlineSwitches(cmd);
             setupCommandlineSwitches(cmd);
             return cmd;
         }
 
+        @Override
         protected void logAndAddFilesToCompile(Commandline cmd) {
             attributes.log("Compilation " + cmd.describeArguments(),
                            Project.MSG_VERBOSE);
@@ -60,13 +68,13 @@ public abstract class ApBasedTask extends Javac {
             }
             niceSourceList.append(" to be compiled:");
 
-            niceSourceList.append(lSep);
+            niceSourceList.append(System.lineSeparator());
 
             StringBuilder tempbuilder = new StringBuilder();
             for (File aCompileList : compileList) {
                 String arg = aCompileList.getAbsolutePath();
                 // cmd.createArgument().setValue(arg); --> we don't need compile list withing cmd arguments
-                tempbuilder.append("    ").append(arg).append(lSep);
+                tempbuilder.append("    ").append(arg).append(System.lineSeparator());
                 niceSourceList.append(tempbuilder);
                 tempbuilder.setLength(0);
             }
@@ -80,10 +88,11 @@ public abstract class ApBasedTask extends Javac {
      */
     private final class InternalApAdapter extends ApAdapter {
 
+        @Override
         public boolean execute() throws BuildException {
             try {
                 JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
-                DiagnosticCollector diagnostics = new DiagnosticCollector();
+                DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<>();
                 StandardJavaFileManager fileManager = compiler.getStandardFileManager(diagnostics, null, null);
                 Iterable<? extends JavaFileObject> compilationUnits = fileManager.getJavaFileObjectsFromFiles(Arrays.asList(compileList));
                 JavaCompiler.CompilationTask task = compiler.getTask(
@@ -118,6 +127,7 @@ public abstract class ApBasedTask extends Javac {
 //        }
 //    }
 
+    @Override
     protected void compile() {
         if (compileList.length == 0) return;
 

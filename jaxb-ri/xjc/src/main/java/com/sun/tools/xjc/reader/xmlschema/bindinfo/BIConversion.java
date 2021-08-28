@@ -14,6 +14,8 @@ import jakarta.xml.bind.DatatypeConverter;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
+
+import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
 import com.sun.codemodel.JClass;
@@ -74,6 +76,7 @@ public abstract class BIConversion extends AbstractDeclarationImpl {
      */
     public abstract TypeUse getTypeUse( XSSimpleType owner );
 
+    @Override
     public QName getName() { return NAME; }
     
     /** Name of the conversion declaration. */
@@ -94,6 +97,7 @@ public abstract class BIConversion extends AbstractDeclarationImpl {
             this.transducer = transducer;
         }
 
+        @Override
         public TypeUse getTypeUse(XSSimpleType owner) {
             return transducer;
         }
@@ -136,6 +140,7 @@ public abstract class BIConversion extends AbstractDeclarationImpl {
          */
         private TypeUse typeUse;
 
+        @Override
         public TypeUse getTypeUse(XSSimpleType owner) {
             if(typeUse!=null)
                 return typeUse;
@@ -277,7 +282,7 @@ public abstract class BIConversion extends AbstractDeclarationImpl {
         private String findBaseConversion(XSSimpleType owner) {
             // find the base simple type mapping.
             for( XSSimpleType st=owner; st!=null; st = st.getSimpleBaseType() ) {
-                if( !WellKnownNamespace.XML_SCHEMA.equals(st.getTargetNamespace()) )
+                if( !XMLConstants.W3C_XML_SCHEMA_NS_URI.equals(st.getTargetNamespace()) )
                     continue;   // user-defined type
 
                 String name = st.getName().intern();
@@ -289,6 +294,7 @@ public abstract class BIConversion extends AbstractDeclarationImpl {
             return null;
         }
 
+        @Override
         public QName getName() { return NAME; }
 
         /** Name of the conversion declaration. */
@@ -306,6 +312,7 @@ public abstract class BIConversion extends AbstractDeclarationImpl {
 
         private TypeUse typeUse;
 
+        @Override
         public TypeUse getTypeUse(XSSimpleType owner) {
             if(typeUse!=null)
                 return typeUse;

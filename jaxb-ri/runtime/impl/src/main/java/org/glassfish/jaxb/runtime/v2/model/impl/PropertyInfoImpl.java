@@ -34,7 +34,7 @@ import java.util.Collection;
  * @author Kohsuke Kawaguchi
  */
 abstract class PropertyInfoImpl<T,C,F,M>
-    implements PropertyInfo<T,C>, Locatable, Comparable<PropertyInfoImpl> /*by their names*/ {
+    implements PropertyInfo<T,C>, Locatable, Comparable<PropertyInfoImpl<T,C,F,M>> /*by their names*/ {
 
     /**
      * Object that reads annotations.
@@ -357,7 +357,7 @@ abstract class PropertyInfoImpl<T,C,F,M>
     }
 
     @Override
-    public int compareTo(PropertyInfoImpl that) {
+    public int compareTo(PropertyInfoImpl<T,C,F,M> that) {
         return this.getName().compareTo(that.getName());
     }
 

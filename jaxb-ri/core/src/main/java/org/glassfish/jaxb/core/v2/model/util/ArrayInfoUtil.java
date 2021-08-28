@@ -10,6 +10,7 @@
 
 package org.glassfish.jaxb.core.v2.model.util;
 
+import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
 import org.glassfish.jaxb.core.v2.TODO;
@@ -29,7 +30,7 @@ public class ArrayInfoUtil {
      */
     public static QName calcArrayTypeName(QName n) {
         String uri;
-        if(n.getNamespaceURI().equals(WellKnownNamespace.XML_SCHEMA)) {
+        if(n.getNamespaceURI().equals(XMLConstants.W3C_XML_SCHEMA_NS_URI)) {
             TODO.checkSpec("this URI");
             uri = "http://jaxb.dev.java.net/array";
         } else

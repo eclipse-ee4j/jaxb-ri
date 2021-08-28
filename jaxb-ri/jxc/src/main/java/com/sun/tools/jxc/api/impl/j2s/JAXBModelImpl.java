@@ -123,10 +123,12 @@ final class JAXBModelImpl implements J2SJAXBModel {
         }
     }
 
+    @Override
     public List<String> getClassList() {
         return classList;
     }
 
+    @Override
     public QName getXmlTypeName(Reference javaType) {
         NonElement<TypeMirror, TypeElement> ti = refMap.get(javaType);
 
@@ -149,10 +151,12 @@ final class JAXBModelImpl implements J2SJAXBModel {
         return types.getTypeInfo(ref);
     }
 
+    @Override
     public void generateSchema(SchemaOutputResolver outputResolver, ErrorListener errorListener) throws IOException {
         getSchemaGenerator().write(outputResolver,errorListener);
     }
 
+    @Override
     public void generateEpisodeFile(Result output) {
         getSchemaGenerator().writeEpisodeFile(ResultFactory.createSerializer(output));
     }

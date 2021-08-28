@@ -97,7 +97,8 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
     // current content handler can be acccessed via set/getContentHandler.
 
     private Locator locator;
-    public void setDocumentLocator( Locator _loc ) { this.locator=_loc; }
+    @Override
+    public void setDocumentLocator(Locator _loc ) { this.locator=_loc; }
     /**
      * Gets the source location of the current event.
      *
@@ -109,7 +110,7 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
 
 
     /** stack of {@link Attributes}. */
-    private final Stack<AttributesImpl> attStack = new Stack();
+    private final Stack<AttributesImpl> attStack = new Stack<>();
     /** current attributes set. always equal to attStack.peek() */
     private AttributesImpl currentAtts;
 
@@ -134,7 +135,8 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
     /** The current NGCCHandler. Always equals to handlerStack.peek() */
     private NGCCEventReceiver currentHandler;
 
-    public int replace( NGCCEventReceiver o, NGCCEventReceiver n ) {
+    @Override
+    public int replace(NGCCEventReceiver o, NGCCEventReceiver n ) {
         if(o!=currentHandler)
             throw new IllegalStateException();  // bug of RelaxNGCC
         currentHandler = n;
@@ -221,6 +223,7 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
             currentHandler.text(t.nextToken());
     }
 
+    @Override
     public void startElement(String uri, String localname, String qname, Attributes atts)
             throws SAXException {
 
@@ -265,6 +268,7 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
         nsEffectivePtr = nsEffectiveStack.pop();
     }
 
+    @Override
     public void endElement(String uri, String localname, String qname)
             throws SAXException {
 
@@ -290,12 +294,14 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
 //        System.out.println("endElement:"+localname);
     }
 
+    @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
         if(redirect!=null)
             redirect.characters(ch,start,length);
         else
             text.append(ch,start,length);
     }
+    @Override
     public void ignorableWhitespace(char[] ch, int start, int length) throws SAXException {
         if(redirect!=null)
             redirect.ignorableWhitespace(ch,start,length);
@@ -319,7 +325,8 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
     }
 
 
-    public void startPrefixMapping( String prefix, String uri ) throws SAXException {
+    @Override
+    public void startPrefixMapping(String prefix, String uri ) throws SAXException {
         if(redirect!=null)
             redirect.startPrefixMapping(prefix,uri);
         else {
@@ -328,7 +335,8 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
         }
     }
 
-    public void endPrefixMapping( String prefix ) throws SAXException {
+    @Override
+    public void endPrefixMapping(String prefix ) throws SAXException {
         if(redirect!=null)
             redirect.endPrefixMapping(prefix);
         else {
@@ -337,12 +345,14 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
         }
     }
 
-    public void skippedEntity( String name ) throws SAXException {
+    @Override
+    public void skippedEntity(String name ) throws SAXException {
         if(redirect!=null)
             redirect.skippedEntity(name);
     }
 
-    public void processingInstruction( String target, String data ) throws SAXException {
+    @Override
+    public void processingInstruction(String target, String data ) throws SAXException {
         if(redirect!=null)
             redirect.processingInstruction(target,data);
     }
@@ -350,6 +360,7 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
     /** Impossible token. This value can never be a valid XML name. */
     static final String IMPOSSIBLE = "\u0000";
 
+    @Override
     public void endDocument() throws SAXException {
         // consume the special "end document" token so that all the handlers
         // currently at the stack will revert to their respective parents.
@@ -369,6 +380,7 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
 
         reset();
     }
+    @Override
     public void startDocument() {}
 
 
@@ -380,30 +392,35 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
 //
 //
 
-    public void sendEnterAttribute( int threadId,
-                                    String uri, String local, String qname) throws SAXException {
+    @Override
+    public void sendEnterAttribute(int threadId,
+                                   String uri, String local, String qname) throws SAXException {
 
         currentHandler.enterAttribute(uri,local,qname);
     }
 
-    public void sendEnterElement( int threadId,
-                                  String uri, String local, String qname, Attributes atts) throws SAXException {
+    @Override
+    public void sendEnterElement(int threadId,
+                                 String uri, String local, String qname, Attributes atts) throws SAXException {
 
         currentHandler.enterElement(uri,local,qname,atts);
     }
 
-    public void sendLeaveAttribute( int threadId,
-                                    String uri, String local, String qname) throws SAXException {
+    @Override
+    public void sendLeaveAttribute(int threadId,
+                                   String uri, String local, String qname) throws SAXException {
 
         currentHandler.leaveAttribute(uri,local,qname);
     }
 
-    public void sendLeaveElement( int threadId,
-                                  String uri, String local, String qname) throws SAXException {
+    @Override
+    public void sendLeaveElement(int threadId,
+                                 String uri, String local, String qname) throws SAXException {
 
         currentHandler.leaveElement(uri,local,qname);
     }
 
+    @Override
     public void sendText(int threadId, String value) throws SAXException {
         currentHandler.text(value);
     }

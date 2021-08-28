@@ -26,24 +26,29 @@ import com.sun.xml.xsom.XSWildcard;
  * @author Kohsuke Kawaguchi
  */
 public final class BindYellow extends ColorBinder {
+    @Override
     public void complexType(XSComplexType ct) {
     }
 
+    @Override
     public void wildcard(XSWildcard xsWildcard) {
         // TODO: implement this method later
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public void elementDecl(XSElementDecl xsElementDecl) {
         // TODO: implement this method later
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public void simpleType(XSSimpleType xsSimpleType) {
         // TODO: implement this method later
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public void attributeDecl(XSAttributeDecl xsAttributeDecl) {
         // TODO: implement this method later
         throw new UnsupportedOperationException();
@@ -55,26 +60,32 @@ public final class BindYellow extends ColorBinder {
     Components that can never map to a type
 
 */
+    @Override
     public void attGroupDecl(XSAttGroupDecl xsAttGroupDecl) {
         throw new IllegalStateException();
     }
 
+    @Override
     public void attributeUse(XSAttributeUse use) {
         throw new IllegalStateException();
     }
 
+    @Override
     public void modelGroupDecl(XSModelGroupDecl xsModelGroupDecl) {
         throw new IllegalStateException();
     }
 
+    @Override
     public void modelGroup(XSModelGroup xsModelGroup) {
         throw new IllegalStateException();
     }
 
+    @Override
     public void particle(XSParticle xsParticle) {
         throw new IllegalStateException();
     }
 
+    @Override
     public void empty(XSContentType xsContentType) {
         throw new IllegalStateException();
     }

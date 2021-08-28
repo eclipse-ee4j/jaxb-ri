@@ -70,6 +70,7 @@ public class StreamSerializer implements XmlSerializer {
 
         // now delegate to the SaxSerializer
         serializer = new SaxSerializer(writer,writer,false) {
+            @Override
             public void endDocument() {
                 super.endDocument();
                 if(autoClose[0]!=null) {
@@ -104,46 +105,57 @@ public class StreamSerializer implements XmlSerializer {
     }
 
     // XmlSerializer api's - delegate to SaxSerializer
+    @Override
     public void startDocument() {
         serializer.startDocument();
     }
 
+    @Override
     public void beginStartTag(String uri, String localName, String prefix) {
         serializer.beginStartTag(uri, localName, prefix);
     }
 
+    @Override
     public void writeAttribute(String uri, String localName, String prefix, StringBuilder value) {
         serializer.writeAttribute(uri, localName, prefix, value);
     }
 
+    @Override
     public void writeXmlns(String prefix, String uri) {
         serializer.writeXmlns(prefix, uri);
     }
 
+    @Override
     public void endStartTag(String uri, String localName, String prefix) {
         serializer.endStartTag(uri, localName, prefix);
     }
 
+    @Override
     public void endTag() {
         serializer.endTag();
     }
 
+    @Override
     public void text(StringBuilder text) {
         serializer.text(text);
     }
 
+    @Override
     public void cdata(StringBuilder text) {
         serializer.cdata(text);
     }
 
+    @Override
     public void comment(StringBuilder comment) {
         serializer.comment(comment);
     }
 
+    @Override
     public void endDocument() {
         serializer.endDocument();
     }
 
+    @Override
     public void flush() {
         serializer.flush();
         try {

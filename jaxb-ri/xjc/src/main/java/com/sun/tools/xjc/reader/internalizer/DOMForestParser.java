@@ -51,6 +51,7 @@ class DOMForestParser implements XMLParser {
         this.fallbackParser = fallbackParser;
     }
 
+    @Override
     public void parse(
         InputSource source,
         ContentHandler contentHandler,

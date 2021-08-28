@@ -34,6 +34,7 @@ public class Classes extends NGCCHandler {
     protected String $localName;
     protected String $qname;
 
+    @Override
     public final NGCCRuntime getRuntime() {
         return($runtime);
     }
@@ -62,6 +63,7 @@ public class Classes extends NGCCHandler {
     private void action3()throws SAXException {
         $runtime.processList(__text);}
 
+    @Override
     public void enterElement(String $__uri, String $__local, String $__qname, Attributes $attrs) throws SAXException {
         int $ai;
         $uri = $__uri;
@@ -121,6 +123,7 @@ public class Classes extends NGCCHandler {
         }
     }
 
+    @Override
     public void leaveElement(String $__uri, String $__local, String $__qname) throws SAXException {
         int $ai;
         $uri = $__uri;
@@ -185,6 +188,7 @@ public class Classes extends NGCCHandler {
         }
     }
 
+    @Override
     public void enterAttribute(String $__uri, String $__local, String $__qname) throws SAXException {
         int $ai;
         $uri = $__uri;
@@ -216,6 +220,7 @@ public class Classes extends NGCCHandler {
         }
     }
 
+    @Override
     public void leaveAttribute(String $__uri, String $__local, String $__qname) throws SAXException {
         int $ai;
         $uri = $__uri;
@@ -247,6 +252,7 @@ public class Classes extends NGCCHandler {
         }
     }
 
+    @Override
     public void text(String $value) throws SAXException {
         int $ai;
         switch($_ngcc_current_state) {
@@ -306,6 +312,7 @@ public class Classes extends NGCCHandler {
         }
     }
 
+    @Override
     public void onChildCompleted(Object result, int cookie, boolean needAttCheck)throws SAXException {
         switch(cookie) {
         }

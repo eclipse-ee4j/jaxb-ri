@@ -45,14 +45,17 @@ public final class MultiplicityCounter implements XSTermFunction<Multiplicity> {
         return Multiplicity.multiply( m, Multiplicity.create(p.getMinOccurs(),max) );
     }
 
+    @Override
     public Multiplicity wildcard(XSWildcard wc) {
         return ONE;
     }
 
+    @Override
     public Multiplicity modelGroupDecl(XSModelGroupDecl decl) {
         return modelGroup(decl.getModelGroup());
     }
 
+    @Override
     public Multiplicity modelGroup(XSModelGroup group) {
         boolean isChoice = group.getCompositor() == XSModelGroup.CHOICE;
 
@@ -74,6 +77,7 @@ public final class MultiplicityCounter implements XSTermFunction<Multiplicity> {
         return r;
     }
 
+    @Override
     public Multiplicity elementDecl(XSElementDecl decl) {
         return ONE;
     }

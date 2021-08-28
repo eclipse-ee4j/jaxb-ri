@@ -77,6 +77,7 @@ public abstract class Leaf implements ParsedPattern {
      */
     public final Iterable<Leaf> siblings() {
         return new Iterable<Leaf>() {
+            @Override
             public Iterator<Leaf> iterator() {
                 return new CycleIterator(Leaf.this);
             }

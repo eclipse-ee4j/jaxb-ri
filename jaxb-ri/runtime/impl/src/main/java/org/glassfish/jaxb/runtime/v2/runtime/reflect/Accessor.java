@@ -34,11 +34,9 @@ import java.util.logging.Logger;
 /**
  * Accesses a particular property of a bean.
  * <p>
- * <p>
  * This interface encapsulates the access to the actual data store.
  * The intention is to generate implementations for a particular bean
  * and a property to improve the performance.
- * <p>
  * <p>
  * Accessor can be used as a receiver. Upon receiving an object
  * it sets that to the field.
@@ -359,7 +357,6 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
     /**
      * A version of {@link GetterSetterReflection} that doesn't have any setter.
      * <p>
-     * <p>
      * This provides a user-friendly error message.
      */
     public static class GetterOnlyReflection<BeanT, ValueT> extends GetterSetterReflection<BeanT, ValueT> {
@@ -375,7 +372,6 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
 
     /**
      * A version of {@link GetterSetterReflection} thaat doesn't have any getter.
-     * <p>
      * <p>
      * This provides a user-friendly error message.
      */

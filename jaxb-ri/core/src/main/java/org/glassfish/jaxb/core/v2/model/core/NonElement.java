@@ -11,6 +11,8 @@
 package org.glassfish.jaxb.core.v2.model.core;
 
 import org.glassfish.jaxb.core.v2.WellKnownNamespace;
+
+import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
 /**
@@ -23,7 +25,7 @@ import javax.xml.namespace.QName;
  * @author Kohsuke Kawaguchi
  */
 public interface NonElement<T,C> extends TypeInfo<T,C> {
-    public static final QName ANYTYPE_NAME = new QName(WellKnownNamespace.XML_SCHEMA, "anyType");
+    public static final QName ANYTYPE_NAME = new QName(XMLConstants.W3C_XML_SCHEMA_NS_URI, "anyType");
 
     /**
      * Gets the primary XML type ANYTYPE_NAME of the class.

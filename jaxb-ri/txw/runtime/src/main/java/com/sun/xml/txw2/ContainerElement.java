@@ -85,6 +85,7 @@ final class ContainerElement implements InvocationHandler, TypedXmlWriter {
         return tail==null;
     }
 
+    @Override
     public Document getDocument() {
         return document;
     }
@@ -93,10 +94,12 @@ final class ContainerElement implements InvocationHandler, TypedXmlWriter {
         return blocked && !isCommitted();
     }
 
+    @Override
     public void block() {
         blocked = true;
     }
 
+    @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         if(method.getDeclaringClass()==TypedXmlWriter.class || method.getDeclaringClass()==Object.class) {
             // forward to myself
@@ -230,10 +233,12 @@ final class ContainerElement implements InvocationHandler, TypedXmlWriter {
         tail = child;
     }
 
+    @Override
     public void commit() {
         commit(true);
     }
 
+    @Override
     public void commit(boolean includingAllPredecessors) {
         _commit(includingAllPredecessors);
         document.flush();
@@ -280,23 +285,28 @@ final class ContainerElement implements InvocationHandler, TypedXmlWriter {
         this.prevOpen = null;
     }
 
+    @Override
     public void _attribute(String localName, Object value) {
         _attribute("",localName,value);
     }
 
+    @Override
     public void _attribute(String nsUri, String localName, Object value) {
         checkStartTag();
         startTag.addAttribute(nsUri,localName,value);
     }
 
+    @Override
     public void _attribute(QName attributeName, Object value) {
         _attribute(attributeName.getNamespaceURI(),attributeName.getLocalPart(),value);
     }
 
+    @Override
     public void _namespace(String uri) {
         _namespace(uri,false);
     }
 
+    @Override
     public void _namespace(String uri, String prefix) {
         if(prefix==null)
             throw new IllegalArgumentException();
@@ -304,41 +314,50 @@ final class ContainerElement implements InvocationHandler, TypedXmlWriter {
         startTag.addNamespaceDecl(uri,prefix,false);
     }
 
+    @Override
     public void _namespace(String uri, boolean requirePrefix) {
         checkStartTag();
         startTag.addNamespaceDecl(uri,null,requirePrefix);
     }
 
+    @Override
     public void _pcdata(Object value) {
         // we need to allow this method even when startTag has already been completed.
         // checkStartTag();
         addChild(new Pcdata(document,startTag,value));
     }
 
+    @Override
     public void _cdata(Object value) {
         addChild(new Cdata(document,startTag,value));
     }
 
+    @Override
     public void _comment(Object value) throws UnsupportedOperationException {
         addChild(new Comment(document,startTag,value));
     }
 
+    @Override
     public <T extends TypedXmlWriter> T _element(String localName, Class<T> contentModel) {
         return _element(nsUri,localName,contentModel);
     }
 
+    @Override
     public <T extends TypedXmlWriter> T _element(QName tagName, Class<T> contentModel) {
         return _element(tagName.getNamespaceURI(),tagName.getLocalPart(),contentModel);
     }
 
+    @Override
     public <T extends TypedXmlWriter> T _element(Class<T> contentModel) {
         return _element(TXW.getTagName(contentModel),contentModel);
     }
 
+    @Override
     public <T extends TypedXmlWriter> T _cast(Class<T> facadeType) {
         return facadeType.cast(Proxy.newProxyInstance(facadeType.getClassLoader(),new Class<?>[]{facadeType},this));
     }
 
+    @Override
     public <T extends TypedXmlWriter> T _element(String nsUri, String localName, Class<T> contentModel) {
         ContainerElement child = new ContainerElement(document,this,nsUri,localName);
         addChild(child.startTag);

@@ -38,6 +38,7 @@ public final class Ref extends Leaf {
         return def.isInline();
     }
 
+    @Override
     void generate(JDefinedClass clazz, NodeSet nset, Set<Prop> props) {
         def.generate(clazz,nset,props);
     }

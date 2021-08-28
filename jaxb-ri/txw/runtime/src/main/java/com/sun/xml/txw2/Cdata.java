@@ -20,6 +20,7 @@ final class Cdata extends Text {
         super(document, nsResolver, obj);
     }
 
+    @Override
     void accept(ContentVisitor visitor) {
         visitor.onCdata(buffer);
     }

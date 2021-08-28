@@ -14,6 +14,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
 
+import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
 import com.sun.tools.xjc.reader.Const;
@@ -139,7 +140,7 @@ public class CustomizationContextChecker extends XMLFilterImpl {
         QName newElement = new QName(namespaceURI,localName);
         
         if( newElement.getNamespaceURI().equals(Const.JAXB_NSURI)
-         && top().getNamespaceURI().equals(WellKnownNamespace.XML_SCHEMA) ) {
+         && XMLConstants.W3C_XML_SCHEMA_NS_URI.equals(top().getNamespaceURI()) ) {
             // we hit a JAXB customization. the stack top should be
             // <xs:appinfo>
             if( elementNames.size()>=3 ) {

@@ -37,24 +37,28 @@ final class ErrorReceiverImpl extends ErrorReceiver {
         this(env.getMessager());
     }
 
+    @Override
     public void error(SAXParseException exception) {
         messager.printMessage(Diagnostic.Kind.ERROR, exception.getMessage());
         messager.printMessage(Diagnostic.Kind.ERROR, getLocation(exception));
         printDetail(exception);
     }
 
+    @Override
     public void fatalError(SAXParseException exception) {
         messager.printMessage(Diagnostic.Kind.ERROR, exception.getMessage());
         messager.printMessage(Diagnostic.Kind.ERROR, getLocation(exception));
         printDetail(exception);
     }
 
+    @Override
     public void warning(SAXParseException exception) {
         messager.printMessage(Diagnostic.Kind.WARNING, exception.getMessage());
         messager.printMessage(Diagnostic.Kind.WARNING, getLocation(exception));
         printDetail(exception);
     }
 
+    @Override
     public void info(SAXParseException exception) {
         printDetail(exception);
     }

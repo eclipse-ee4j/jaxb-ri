@@ -26,6 +26,8 @@ import org.xml.sax.SAXException;
 
 import org.glassfish.jaxb.core.v2.WellKnownNamespace;
 
+import javax.xml.XMLConstants;
+
 /**
  * Common code between {@code DTDExtensionBindingChecker} and {@link ExtensionBindingChecker}.
  *
@@ -162,7 +164,7 @@ public abstract class AbstractExtensionBindingChecker extends SubtreeCutter {
 
     @Override
     public void startPrefixMapping(String prefix, String uri) throws SAXException {
-        if (WellKnownNamespace.XML_NAMESPACE_URI.equals(uri)) return;
+        if (XMLConstants.XML_NS_URI.equals(uri)) return;
         super.startPrefixMapping(prefix, uri); //xml prefix shall not be declared based on jdk api javado
         nsSupport.pushContext();
         nsSupport.declarePrefix(prefix,uri);

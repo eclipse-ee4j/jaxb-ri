@@ -198,8 +198,9 @@ public final class ModelLoader {
             this.baseParser = baseParser;
         }
 
+        @Override
         public void parse(InputSource source, ContentHandler handler,
-            ErrorHandler errorHandler, EntityResolver entityResolver ) throws SAXException, IOException {
+                          ErrorHandler errorHandler, EntityResolver entityResolver ) throws SAXException, IOException {
             // set up the chain of handlers.
             handler = wrapBy( new ExtensionBindingChecker(XMLConstants.W3C_XML_SCHEMA_NS_URI,opt,errorReceiver), handler );
             handler = wrapBy( new IncorrectNamespaceURIChecker(errorReceiver), handler );
@@ -432,8 +433,9 @@ public final class ModelLoader {
         XMLParser parser = new XMLParser() {
             private final JAXPParser base = new JAXPParser(XmlFactory.createParserFactory(opt.disableXmlSecurity));
 
+            @Override
             public void parse(InputSource source, ContentHandler handler,
-                ErrorHandler errorHandler, EntityResolver entityResolver ) throws SAXException, IOException {
+                              ErrorHandler errorHandler, EntityResolver entityResolver ) throws SAXException, IOException {
                 // set up the chain of handlers.
                 handler = wrapBy( new SpeculationChecker(), handler );
                 handler = wrapBy( new VersionChecker(null,errorReceiver,entityResolver), handler );

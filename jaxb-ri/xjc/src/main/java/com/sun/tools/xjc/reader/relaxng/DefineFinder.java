@@ -27,6 +27,7 @@ final class DefineFinder extends DPatternWalker {
 
     public final Set<DDefine> defs = new HashSet<>();
 
+    @Override
     public Void onGrammar(DGrammarPattern p) {
         for( DDefine def : p ) {
             defs.add(def);
@@ -40,6 +41,7 @@ final class DefineFinder extends DPatternWalker {
      * We visit all {@link DDefine}s from {@link DGrammarPattern},
      * so no point in resolving refs.
      */
+    @Override
     public Void onRef(DRefPattern p) {
         return null;
     }

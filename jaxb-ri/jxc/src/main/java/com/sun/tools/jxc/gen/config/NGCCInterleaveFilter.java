@@ -35,6 +35,7 @@ public abstract class NGCCInterleaveFilter implements NGCCEventSource, NGCCEvent
     /** event receiverse. */
     protected NGCCEventReceiver[] _receivers;
     
+    @Override
     public int replace(NGCCEventReceiver oldHandler, NGCCEventReceiver newHandler) {
         for( int i=0; i<_receivers.length; i++ )
             if( _receivers[i]==oldHandler ) {
@@ -76,6 +77,7 @@ public abstract class NGCCInterleaveFilter implements NGCCEventSource, NGCCEvent
      */
     private int lockCount=0;
     
+    @Override
     public void enterElement(
         String uri, String localName, String qname,Attributes atts) throws SAXException {
         
@@ -92,6 +94,7 @@ public abstract class NGCCInterleaveFilter implements NGCCEventSource, NGCCEvent
         
         _receivers[lockedReceiver].enterElement(uri,localName,qname,atts);
     }
+    @Override
     public void leaveElement(String uri, String localName, String qname) throws SAXException {
         if(isJoining)   return; // ignore any token if we are joining. See joinByXXXX.
 
@@ -100,6 +103,7 @@ public abstract class NGCCInterleaveFilter implements NGCCEventSource, NGCCEvent
         else
             _receivers[lockedReceiver].leaveElement(uri,localName,qname);
     }
+    @Override
     public void enterAttribute(String uri, String localName, String qname) throws SAXException {
         if(isJoining)   return; // ignore any token if we are joining. See joinByXXXX.
         
@@ -114,6 +118,7 @@ public abstract class NGCCInterleaveFilter implements NGCCEventSource, NGCCEvent
                 
         _receivers[lockedReceiver].enterAttribute(uri,localName,qname);
     }
+    @Override
     public void leaveAttribute(String uri, String localName, String qname) throws SAXException {
         if(isJoining)   return; // ignore any token if we are joining. See joinByXXXX.
         
@@ -122,6 +127,7 @@ public abstract class NGCCInterleaveFilter implements NGCCEventSource, NGCCEvent
         else
             _receivers[lockedReceiver].leaveAttribute(uri,localName,qname);
     }
+    @Override
     public void text(String value) throws SAXException {
         if(isJoining)   return; // ignore any token if we are joining. See joinByXXXX.
         
@@ -307,30 +313,35 @@ public abstract class NGCCInterleaveFilter implements NGCCEventSource, NGCCEvent
 //
 //
     
-    public void sendEnterAttribute( int threadId,
-        String uri, String local, String qname) throws SAXException {
+    @Override
+    public void sendEnterAttribute(int threadId,
+                                   String uri, String local, String qname) throws SAXException {
         
         _receivers[threadId].enterAttribute(uri,local,qname);
     }
 
-    public void sendEnterElement( int threadId,
-        String uri, String local, String qname, Attributes atts) throws SAXException {
+    @Override
+    public void sendEnterElement(int threadId,
+                                 String uri, String local, String qname, Attributes atts) throws SAXException {
         
         _receivers[threadId].enterElement(uri,local,qname,atts);
     }
 
-    public void sendLeaveAttribute( int threadId,
-        String uri, String local, String qname) throws SAXException {
+    @Override
+    public void sendLeaveAttribute(int threadId,
+                                   String uri, String local, String qname) throws SAXException {
         
         _receivers[threadId].leaveAttribute(uri,local,qname);
     }
 
-    public void sendLeaveElement( int threadId,
-        String uri, String local, String qname) throws SAXException {
+    @Override
+    public void sendLeaveElement(int threadId,
+                                 String uri, String local, String qname) throws SAXException {
         
         _receivers[threadId].leaveElement(uri,local,qname);
     }
 
+    @Override
     public void sendText(int threadId, String value) throws SAXException {
         _receivers[threadId].text(value);
     }

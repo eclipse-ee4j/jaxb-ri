@@ -32,23 +32,28 @@ import org.xml.sax.ErrorHandler;
  * @author Kohsuke Kawaguchi
  */
 public class PluginImpl extends Plugin {
+    @Override
     public String getOptionName() {
         return "Xinject-code";
     }
 
+    @Override
     public List<String> getCustomizationURIs() {
         return Collections.singletonList(Const.NS);
     }
 
+    @Override
     public boolean isCustomizationTagName(String nsUri, String localName) {
         return Const.NS.equals(nsUri) && "code".equals(localName);
     }
 
+    @Override
     public String getUsage() {
         return "  -Xinject-code       :  inject specified Java code fragments into the generated code";
     }
 
     // meat of the processing
+    @Override
     public boolean run(@NotNull Outline model, Options opt, ErrorHandler errorHandler) {
         checkAndInject(model.getClasses());
         checkAndInject(model.getEnums());

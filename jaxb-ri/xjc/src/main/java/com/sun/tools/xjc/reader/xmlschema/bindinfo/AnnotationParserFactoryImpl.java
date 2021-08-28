@@ -50,12 +50,14 @@ public class AnnotationParserFactoryImpl implements AnnotationParserFactory {
      */
     private ValidatorHandler validator;
 
+    @Override
     public AnnotationParser create() {
         return new AnnotationParser() {
             private Unmarshaller u = BindInfo.getCustomizationUnmarshaller();
 
             private UnmarshallerHandler handler;
 
+            @Override
             public ContentHandler getContentHandler(
                 AnnotationContext context, String parentElementName,
                 final ErrorHandler errorHandler, EntityResolver entityResolver ) {
@@ -104,7 +106,8 @@ public class AnnotationParserFactoryImpl implements AnnotationParserFactory {
                 };
             }
 
-            public BindInfo getResult( Object existing ) {
+            @Override
+            public BindInfo getResult(Object existing ) {
                 if(handler==null)
                     // interface contract violation.
                     // the getContentHandler method must have been called.

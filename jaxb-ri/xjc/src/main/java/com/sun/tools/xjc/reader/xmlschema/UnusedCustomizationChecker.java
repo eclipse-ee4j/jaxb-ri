@@ -134,23 +134,28 @@ class UnusedCustomizationChecker extends BindingComponent implements XSVisitor, 
     }
 
 
+    @Override
     public void annotation(XSAnnotation ann) {}
     
+    @Override
     public void attGroupDecl(XSAttGroupDecl decl) {
         if(check(decl))
             attContainer(decl);
     }
 
+    @Override
     public void attributeDecl(XSAttributeDecl decl) {
         if(check(decl))
             decl.getType().visit((XSSimpleTypeVisitor)this);
     }
 
+    @Override
     public void attributeUse(XSAttributeUse use) {
         if(check(use))
             use.getDecl().visit(this);
     }
 
+    @Override
     public void complexType(XSComplexType type) {
         if(check(type)) {
             // don't need to check the base type -- it must be global, thus
@@ -171,27 +176,33 @@ class UnusedCustomizationChecker extends BindingComponent implements XSVisitor, 
         if(wc!=null)        wc.visit(this);
     }
 
+    @Override
     public void schema(XSSchema schema) {
         check(schema);
     }
 
+    @Override
     public void facet(XSFacet facet) {
         check(facet);
     }
 
+    @Override
     public void notation(XSNotation notation) {
         check(notation);
     }
 
+    @Override
     public void wildcard(XSWildcard wc) {
         check(wc);
     }
 
+    @Override
     public void modelGroupDecl(XSModelGroupDecl decl) {
         if(check(decl))
             decl.getModelGroup().visit(this);
     }
 
+    @Override
     public void modelGroup(XSModelGroup group) {
         if(check(group)) {
             for( int i=0; i<group.getSize(); i++ )
@@ -199,6 +210,7 @@ class UnusedCustomizationChecker extends BindingComponent implements XSVisitor, 
         }
     }
 
+    @Override
     public void elementDecl(XSElementDecl decl) {
         if(check(decl)) {
             decl.getType().visit(this);
@@ -207,30 +219,36 @@ class UnusedCustomizationChecker extends BindingComponent implements XSVisitor, 
         }
     }
 
+    @Override
     public void simpleType(XSSimpleType simpleType) {
         if(check(simpleType))
             simpleType.visit( (XSSimpleTypeVisitor)this );
     }
 
+    @Override
     public void particle(XSParticle particle) {
         if(check(particle))
             particle.getTerm().visit(this);
     }
 
+    @Override
     public void empty(XSContentType empty) {
         check(empty);
     }
 
+    @Override
     public void listSimpleType(XSListSimpleType type) {
         if(check(type))
             type.getItemType().visit((XSSimpleTypeVisitor)this);
     }
 
+    @Override
     public void restrictionSimpleType(XSRestrictionSimpleType type) {
         if(check(type))
             type.getBaseType().visit(this);
     }
 
+    @Override
     public void unionSimpleType(XSUnionSimpleType type) {
         if(check(type)) {
             for( int i=0; i<type.getMemberSize(); i++ )
@@ -238,6 +256,7 @@ class UnusedCustomizationChecker extends BindingComponent implements XSVisitor, 
         }
     }
 
+    @Override
     public void identityConstraint(XSIdentityConstraint id) {
         if(check(id)) {
             id.getSelector().visit(this);
@@ -246,6 +265,7 @@ class UnusedCustomizationChecker extends BindingComponent implements XSVisitor, 
         }
     }
 
+    @Override
     public void xpath(XSXPath xp) {
         check(xp);
     }

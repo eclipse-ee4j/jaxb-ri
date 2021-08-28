@@ -41,10 +41,12 @@ public class TXWResult implements Result {
         this.writer = writer;
     }
 
+    @Override
     public String getSystemId() {
         return systemId;
     }
 
+    @Override
     public void setSystemId(String systemId) {
         this.systemId = systemId;
     }

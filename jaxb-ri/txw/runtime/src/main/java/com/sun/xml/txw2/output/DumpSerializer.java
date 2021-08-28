@@ -26,50 +26,61 @@ public class DumpSerializer implements XmlSerializer {
         this.out = out;
     }
 
+    @Override
     public void beginStartTag(String uri, String localName, String prefix) {
         out.println('<'+prefix+':'+localName);
     }
 
+    @Override
     public void writeAttribute(String uri, String localName, String prefix, StringBuilder value) {
         out.println('@'+prefix+':'+localName+'='+value);
     }
 
+    @Override
     public void writeXmlns(String prefix, String uri) {
         out.println("xmlns:"+prefix+'='+uri);
     }
 
+    @Override
     public void endStartTag(String uri, String localName, String prefix) {
         out.println('>');
     }
 
+    @Override
     public void endTag() {
         out.println("</  >");
     }
 
+    @Override
     public void text(StringBuilder text) {
         out.println(text);
     }
 
+    @Override
     public void cdata(StringBuilder text) {
         out.println("<![CDATA[");
         out.println(text);
         out.println("]]>");
     }
 
+    @Override
     public void comment(StringBuilder comment) {
         out.println("<!--");
         out.println(comment);
         out.println("-->");
     }
 
+    @Override
     public void startDocument() {
         out.println("<?xml?>");
     }
 
+    @Override
     public void endDocument() {
         out.println("done");
     }
 
+    @Override
     public void flush() {
         out.println("flush");
     }

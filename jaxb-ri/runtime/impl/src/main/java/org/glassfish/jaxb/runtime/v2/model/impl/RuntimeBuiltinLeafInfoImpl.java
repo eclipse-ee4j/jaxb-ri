@@ -37,6 +37,7 @@ import org.xml.sax.SAXException;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageWriter;
 import javax.imageio.stream.ImageOutputStream;
+import javax.xml.XMLConstants;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -158,7 +159,7 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
     public static final Map<Type,RuntimeBuiltinLeafInfoImpl<?>> LEAVES = new HashMap<Type, RuntimeBuiltinLeafInfoImpl<?>>();
 
     private static QName createXS(String typeName) {
-        return new QName(WellKnownNamespace.XML_SCHEMA,typeName);
+        return new QName(XMLConstants.W3C_XML_SCHEMA_NS_URI,typeName);
     }
 
     public static final RuntimeBuiltinLeafInfoImpl<String> STRING;
@@ -276,7 +277,7 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
                     QName type = xs.getSchemaType();
                     GregorianCalendar cal = new GregorianCalendar(0,0,0);
                     cal.setTime(v);
-                    if ((type != null) && (WellKnownNamespace.XML_SCHEMA.equals(type.getNamespaceURI())) &&
+                    if ((type != null) && (XMLConstants.W3C_XML_SCHEMA_NS_URI.equals(type.getNamespaceURI())) &&
                             DATE.equals(type.getLocalPart())) {
                         return DatatypeConverterImpl._printDate(cal);
                     } else {

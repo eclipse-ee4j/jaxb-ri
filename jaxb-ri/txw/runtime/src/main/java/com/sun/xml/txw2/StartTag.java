@@ -195,6 +195,7 @@ class StartTag extends Content implements NamespaceResolver {
      * A {@link StartTag} can be only written after
      * we are sure that all the necessary namespace declarations are given.
      */
+    @Override
     boolean isReadyToCommit() {
         if(owner!=null && owner.isBlocked())
             return false;
@@ -206,6 +207,7 @@ class StartTag extends Content implements NamespaceResolver {
         return false;
     }
 
+    @Override
     public void written() {
         firstAtt = lastAtt = null;
         uri = null;
@@ -215,14 +217,17 @@ class StartTag extends Content implements NamespaceResolver {
         }
     }
 
+    @Override
     boolean concludesPendingStartTag() {
         return true;
     }
 
+    @Override
     void accept(ContentVisitor visitor) {
         visitor.onStartTag(uri,localName,firstAtt,firstNs);
     }
 
+    @Override
     public String getPrefix(String nsUri) {
         NamespaceDecl ns = addNamespaceDecl(nsUri,null,false);
         if(ns.prefix!=null)

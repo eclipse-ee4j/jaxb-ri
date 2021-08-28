@@ -204,71 +204,88 @@ public class PluginImpl extends Plugin {
                 return "tns:" + decl.getName();
         }
 
+        @Override
         public String complexType(XSComplexType type) {
             return "~" + name(type);
         }
 
+        @Override
         public String simpleType(XSSimpleType simpleType) {
             return "~" + name(simpleType);
         }
 
+        @Override
         public String elementDecl(XSElementDecl decl) {
             return name(decl);
         }
 
         // the rest is doing nothing
+        @Override
         public String annotation(XSAnnotation ann) {
             throw new UnsupportedOperationException();
         }
 
+        @Override
         public String attGroupDecl(XSAttGroupDecl decl) {
             throw new UnsupportedOperationException();
         }
 
+        @Override
         public String attributeDecl(XSAttributeDecl decl) {
             throw new UnsupportedOperationException();
         }
 
+        @Override
         public String attributeUse(XSAttributeUse use) {
             throw new UnsupportedOperationException();
         }
 
+        @Override
         public String schema(XSSchema schema) {
             throw new UnsupportedOperationException();
         }
 
+        @Override
         public String facet(XSFacet facet) {
             throw new UnsupportedOperationException();
         }
 
+        @Override
         public String notation(XSNotation notation) {
             throw new UnsupportedOperationException();
         }
 
+        @Override
         public String identityConstraint(XSIdentityConstraint decl) {
             throw new UnsupportedOperationException();
         }
 
+        @Override
         public String xpath(XSXPath xpath) {
             throw new UnsupportedOperationException();
         }
 
+        @Override
         public String particle(XSParticle particle) {
             throw new UnsupportedOperationException();
         }
 
+        @Override
         public String empty(XSContentType empty) {
             throw new UnsupportedOperationException();
         }
 
+        @Override
         public String wildcard(XSWildcard wc) {
             throw new UnsupportedOperationException();
         }
 
+        @Override
         public String modelGroupDecl(XSModelGroupDecl decl) {
             throw new UnsupportedOperationException();
         }
 
+        @Override
         public String modelGroup(XSModelGroup group) {
             throw new UnsupportedOperationException();
         }

@@ -218,7 +218,7 @@ public class ACTask extends Task {
 
     @Override
     public void execute() throws BuildException {
-        userLoader = new AntClassLoader(project, classpath);
+        userLoader = new AntClassLoader(getProject(), classpath);
         try {
             // find clsses to be bound
             for (String path : classpath.list()) {

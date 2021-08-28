@@ -53,12 +53,14 @@ class DOMBuilder extends SAX2DOMEx {
     
     private Locator locator;
     
+    @Override
     public void setDocumentLocator(Locator locator) {
         this.locator = locator;
         super.setDocumentLocator(locator);
     }
     
 
+    @Override
     public void startElement(String namespaceURI, String localName, String qName, Attributes atts) {
         super.startElement(namespaceURI, localName, qName, atts);
         
@@ -80,6 +82,7 @@ class DOMBuilder extends SAX2DOMEx {
         }
     }
     
+    @Override
     public void endElement(String namespaceURI, String localName, String qName) {
         locatorTable.storeEndLocation( getCurrentElement(), locator );
         super.endElement(namespaceURI, localName, qName);

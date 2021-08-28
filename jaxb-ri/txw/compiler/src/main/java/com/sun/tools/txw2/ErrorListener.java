@@ -19,8 +19,11 @@ import org.xml.sax.SAXParseException;
  * @author Kohsuke Kawaguchi (kohsuke.kawaguchi@sun.com)
  */
 public interface ErrorListener extends ErrorHandler {
+    @Override
     abstract void error (SAXParseException exception);
+    @Override
     abstract void fatalError (SAXParseException exception);
+    @Override
     abstract void warning (SAXParseException exception);
 
 }

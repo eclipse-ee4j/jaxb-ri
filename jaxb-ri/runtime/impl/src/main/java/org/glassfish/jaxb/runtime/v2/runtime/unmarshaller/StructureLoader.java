@@ -27,6 +27,7 @@ import org.glassfish.jaxb.runtime.v2.util.QNameMap;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
+import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 import java.util.Collection;
 import java.util.HashMap;
@@ -180,7 +181,7 @@ public final class StructureLoader extends Loader {
                         xacc.parse(child,avalue);
                     } else if (attCatchAll!=null) {
                         String qname = atts.getQName(i);
-                        if(atts.getURI(i).equals(WellKnownNamespace.XML_SCHEMA_INSTANCE))
+                        if(XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI.equals(atts.getURI(i)))
                             continue;   // xsi:* attributes are meant to be processed by us, not by user apps.
                         Object o = state.getTarget();
                         Map<QName,String> map = attCatchAll.get(o);

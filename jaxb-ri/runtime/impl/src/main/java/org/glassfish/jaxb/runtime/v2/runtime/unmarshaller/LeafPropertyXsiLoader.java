@@ -19,6 +19,7 @@ import org.glassfish.jaxb.runtime.v2.runtime.reflect.TransducedAccessor;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
+import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 import java.util.Collection;
 
@@ -50,7 +51,7 @@ public final class LeafPropertyXsiLoader extends Loader {
 
         // look for @xsi:type
         Attributes atts = ea.atts;
-        int idx = atts.getIndex(WellKnownNamespace.XML_SCHEMA_INSTANCE, "type");
+        int idx = atts.getIndex(XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI, "type");
 
         if (idx >= 0) {
             String value = atts.getValue(idx);

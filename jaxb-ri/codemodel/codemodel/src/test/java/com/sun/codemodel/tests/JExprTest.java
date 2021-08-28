@@ -13,8 +13,8 @@ package com.sun.codemodel.tests;
 import com.sun.codemodel.JExpr;
 import com.sun.codemodel.tests.util.CodeModelTestsUtils;
 
-import junit.framework.Assert;
 import junit.framework.TestCase;
+import org.junit.Assert;
 
 /**
  * JExpr tests.

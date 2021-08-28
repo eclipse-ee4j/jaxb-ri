@@ -27,6 +27,7 @@ public class List extends Node implements Text {
         super(location, leaf);
     }
 
+    @Override
     public JType getDatatype(NodeSet nset) {
         if(hasOneChild() && leaf instanceof Text) {
             return ((Text)leaf).getDatatype(nset).array();
@@ -35,6 +36,7 @@ public class List extends Node implements Text {
         }
     }
 
+    @Override
     void generate(JDefinedClass clazz, NodeSet nset, Set<Prop> props) {
         createDataMethod(clazz,getDatatype(nset),nset,props);
     }

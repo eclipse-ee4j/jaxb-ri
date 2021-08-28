@@ -33,11 +33,13 @@ import com.sun.xml.xsom.XSWildcard;
  * @author Kohsuke Kawaguchi
  */
 public class BindPurple extends ColorBinder {
+    @Override
     public void attGroupDecl(XSAttGroupDecl xsAttGroupDecl) {
         // TODO
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public void attributeDecl(XSAttributeDecl xsAttributeDecl) {
         // TODO
         throw new UnsupportedOperationException();
@@ -46,6 +48,7 @@ public class BindPurple extends ColorBinder {
     /**
      * Attribute use always becomes a property.
      */
+    @Override
     public void attributeUse(XSAttributeUse use) {
         boolean hasFixedValue = use.getFixedValue()!=null;
         BIProperty pc = BIProperty.getCustomization(use);
@@ -93,6 +96,7 @@ public class BindPurple extends ColorBinder {
     }
 
 
+    @Override
     public void complexType(XSComplexType ct) {
         CClass ctBean = selector.bindToType(ct,null,false);
         if(getCurrentBean()!=ctBean)
@@ -101,6 +105,7 @@ public class BindPurple extends ColorBinder {
             getCurrentBean().setBaseClass(ctBean);
     }
 
+    @Override
     public void wildcard(XSWildcard xsWildcard) {
         // element wildcards are processed by particle binders,
         // so this one is for attribute wildcard.
@@ -108,30 +113,36 @@ public class BindPurple extends ColorBinder {
         getCurrentBean().hasAttributeWildcard(true);
     }
 
+    @Override
     public void modelGroupDecl(XSModelGroupDecl xsModelGroupDecl) {
         // TODO
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public void modelGroup(XSModelGroup xsModelGroup) {
         // TODO
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public void elementDecl(XSElementDecl xsElementDecl) {
         // TODO
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public void simpleType(XSSimpleType type) {
         createSimpleTypeProperty(type,"Value");
     }
 
+    @Override
     public void particle(XSParticle xsParticle) {
         // TODO
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public void empty(XSContentType ct) {
         // empty generates nothing
     }

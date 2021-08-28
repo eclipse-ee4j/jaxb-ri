@@ -41,6 +41,7 @@ import org.glassfish.jaxb.core.v2.runtime.IllegalAnnotationException;
  * @author Kohsuke Kawaguchi (kk@kohsuke.org)
  */
 public class JavaCompilerImpl implements JavaCompiler {
+    @Override
     public J2SJAXBModel bind(
         Collection<Reference> rootClasses,
         Map<QName,Reference> additionalElementDecls,
@@ -87,6 +88,7 @@ public class JavaCompilerImpl implements JavaCompiler {
             this.messager = messager;
         }
 
+        @Override
         public void error(IllegalAnnotationException e) {
             String error = e.toString();
             messager.printMessage(Diagnostic.Kind.ERROR, error);

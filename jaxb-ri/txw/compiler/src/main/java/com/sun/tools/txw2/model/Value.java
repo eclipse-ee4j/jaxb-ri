@@ -39,10 +39,12 @@ public class Value extends Leaf implements Text {
         this.name = name;
     }
 
+    @Override
     void generate(JDefinedClass clazz, NodeSet nset, Set<Prop> props) {
         createDataMethod(clazz,type,nset,props);
     }
 
+    @Override
     public JType getDatatype(NodeSet nset) {
         // TODO: enum support
         return type;

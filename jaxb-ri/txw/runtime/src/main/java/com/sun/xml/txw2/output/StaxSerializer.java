@@ -36,6 +36,7 @@ public class StaxSerializer implements XmlSerializer {
         this.out = writer;
     }
 
+    @Override
     public void startDocument() {
         try {
             out.writeStartDocument();
@@ -44,6 +45,7 @@ public class StaxSerializer implements XmlSerializer {
         }
     }
 
+    @Override
     public void beginStartTag(String uri, String localName, String prefix) {
         try {
             out.writeStartElement(prefix, localName, uri);
@@ -52,6 +54,7 @@ public class StaxSerializer implements XmlSerializer {
         }
     }
 
+    @Override
     public void writeAttribute(String uri, String localName, String prefix, StringBuilder value) {
         try {
             out.writeAttribute(prefix, uri, localName, value.toString());
@@ -60,6 +63,7 @@ public class StaxSerializer implements XmlSerializer {
         }
     }
 
+    @Override
     public void writeXmlns(String prefix, String uri) {
         try {
             if (prefix.length() == 0) {
@@ -75,10 +79,12 @@ public class StaxSerializer implements XmlSerializer {
         }
     }
 
+    @Override
     public void endStartTag(String uri, String localName, String prefix) {
         // NO-OP
     }
 
+    @Override
     public void endTag() {
         try {
             out.writeEndElement();
@@ -87,6 +93,7 @@ public class StaxSerializer implements XmlSerializer {
         }
     }
 
+    @Override
     public void text(StringBuilder text) {
         try {
             out.writeCharacters(text.toString());
@@ -95,6 +102,7 @@ public class StaxSerializer implements XmlSerializer {
         }
     }
 
+    @Override
     public void cdata(StringBuilder text) {
         try {
             out.writeCData(text.toString());
@@ -103,6 +111,7 @@ public class StaxSerializer implements XmlSerializer {
         }
     }
 
+    @Override
     public void comment(StringBuilder comment) {
         try {
             out.writeComment(comment.toString());
@@ -111,6 +120,7 @@ public class StaxSerializer implements XmlSerializer {
         }
     }
 
+    @Override
     public void endDocument() {
         try {
             out.writeEndDocument();
@@ -120,6 +130,7 @@ public class StaxSerializer implements XmlSerializer {
         }
     }
 
+    @Override
     public void flush() {
         try {
             out.flush();

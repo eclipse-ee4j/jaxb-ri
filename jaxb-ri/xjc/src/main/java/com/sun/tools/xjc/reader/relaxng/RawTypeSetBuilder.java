@@ -62,11 +62,13 @@ public final class RawTypeSetBuilder extends DPatternWalker {
         return new RawTypeSet(refs,mul);
     }
 
+    @Override
     public Void onAttribute(DAttributePattern p) {
         // attributes form their own properties
         return null;
     }
 
+    @Override
     public Void onElement(DElementPattern p) {
         CTypeInfo[] tis = compiler.classes.get(p);
         if(tis!=null) {
@@ -79,11 +81,13 @@ public final class RawTypeSetBuilder extends DPatternWalker {
         return null;
     }
 
+    @Override
     public Void onZeroOrMore(DZeroOrMorePattern p) {
         mul = mul.makeRepeated();
         return super.onZeroOrMore(p);
     }
 
+    @Override
     public Void onOneOrMore(DOneOrMorePattern p) {
         mul = mul.makeRepeated();
         return super.onOneOrMore(p);

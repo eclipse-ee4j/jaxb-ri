@@ -62,6 +62,7 @@ public class SaxSerializer implements XmlSerializer {
 
     // XmlSerializer implementation
 
+    @Override
     public void startDocument() {
         try {
             writer.startDocument();
@@ -74,6 +75,7 @@ public class SaxSerializer implements XmlSerializer {
     // add in #writeXmlns and fired in #endStartTag
     private final Stack<String> prefixBindings = new Stack<>();
 
+    @Override
     public void writeXmlns(String prefix, String uri) {
         // defend against parsers that pass null in for "xmlns" prefix
         if (prefix == null) {
@@ -91,6 +93,7 @@ public class SaxSerializer implements XmlSerializer {
     // element stack
     private final Stack<String> elementBindings = new Stack<>();
 
+    @Override
     public void beginStartTag(String uri, String localName, String prefix) {
         // save element bindings for #endTag
         elementBindings.add(getQName(prefix, localName));
@@ -103,6 +106,7 @@ public class SaxSerializer implements XmlSerializer {
     // handler in #endStartTag
     private final AttributesImpl attrs = new AttributesImpl();
 
+    @Override
     public void writeAttribute(String uri, String localName, String prefix, StringBuilder value) {
         attrs.addAttribute(uri,
                 localName,
@@ -111,6 +115,7 @@ public class SaxSerializer implements XmlSerializer {
                 value.toString());
     }
 
+    @Override
     public void endStartTag(String uri, String localName, String prefix) {
         try {
             while (prefixBindings.size() != 0) {
@@ -130,6 +135,7 @@ public class SaxSerializer implements XmlSerializer {
         }
     }
 
+    @Override
     public void endTag() {
         try {
             writer.endElement(elementBindings.pop(), // uri
@@ -141,6 +147,7 @@ public class SaxSerializer implements XmlSerializer {
         }
     }
 
+    @Override
     public void text(StringBuilder text) {
         try {
             writer.characters(text.toString().toCharArray(), 0, text.length());
@@ -149,6 +156,7 @@ public class SaxSerializer implements XmlSerializer {
         }
     }
 
+    @Override
     public void cdata(StringBuilder text) {
         if(lexical==null)
             throw new UnsupportedOperationException("LexicalHandler is needed to write PCDATA");
@@ -162,6 +170,7 @@ public class SaxSerializer implements XmlSerializer {
         }
     }
 
+    @Override
     public void comment(StringBuilder comment) {
         try {
             if(lexical==null)
@@ -173,6 +182,7 @@ public class SaxSerializer implements XmlSerializer {
         }
     }
 
+    @Override
     public void endDocument() {
         try {
             writer.endDocument();
@@ -181,6 +191,7 @@ public class SaxSerializer implements XmlSerializer {
         }
     }
 
+    @Override
     public void flush() {
         // noop
     }

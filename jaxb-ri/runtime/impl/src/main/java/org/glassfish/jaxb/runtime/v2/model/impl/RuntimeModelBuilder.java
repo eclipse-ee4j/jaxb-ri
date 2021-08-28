@@ -27,6 +27,7 @@ import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.UnmarshallingContext;
 import jakarta.activation.MimeType;
 import org.xml.sax.SAXException;
 
+import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -133,7 +134,7 @@ public class RuntimeModelBuilder extends ModelBuilder<Type,Class,Field,Method> {
     }
 
     private static QName createXSSimpleType() {
-        return new QName(WellKnownNamespace.XML_SCHEMA,"anySimpleType");
+        return new QName(XMLConstants.W3C_XML_SCHEMA_NS_URI,"anySimpleType");
     }
 
     /**

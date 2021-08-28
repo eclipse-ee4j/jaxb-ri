@@ -36,6 +36,7 @@ import jakarta.xml.bind.annotation.XmlElement;
 import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.*;
 import org.xml.sax.SAXParseException;
 
+import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 import javax.xml.transform.Result;
 import javax.xml.transform.stream.StreamResult;
@@ -49,7 +50,6 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static org.glassfish.jaxb.core.v2.WellKnownNamespace.XML_SCHEMA;
 import static org.glassfish.jaxb.runtime.v2.schemagen.Util.*;
 
 /**
@@ -390,7 +390,7 @@ public final class XmlSchemaGenerator<T,C,F,M> {
 
         // we create a Namespace object for the XML Schema namespace
         // as a side-effect, but we don't want to generate it.
-        namespaces.remove(WellKnownNamespace.XML_SCHEMA);
+        namespaces.remove(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 
         // first create the outputs for all so that we can resolve references among
         // schema files when we write
@@ -537,7 +537,7 @@ public final class XmlSchemaGenerator<T,C,F,M> {
 
             String nsUri = qname.getNamespaceURI();
 
-            if (nsUri.equals(XML_SCHEMA)) {
+            if (XMLConstants.W3C_XML_SCHEMA_NS_URI.equals(nsUri)) {
                 // no need to explicitly refer to XSD namespace
                 return;
             }
@@ -584,9 +584,9 @@ public final class XmlSchemaGenerator<T,C,F,M> {
 
                 // declare XML Schema namespace to be xs, but allow the user to override it.
                 // if 'xs' is used for other things, we'll just let TXW assign a random prefix
-                if(!xmlNs.containsValue(WellKnownNamespace.XML_SCHEMA)
+                if(!xmlNs.containsValue(XMLConstants.W3C_XML_SCHEMA_NS_URI)
                 && !xmlNs.containsKey("xs"))
-                    schema._namespace(WellKnownNamespace.XML_SCHEMA,"xs");
+                    schema._namespace(XMLConstants.W3C_XML_SCHEMA_NS_URI,"xs");
                 schema.version("1.0");
 
                 if(uri.length()!=0)
@@ -685,10 +685,10 @@ public final class XmlSchemaGenerator<T,C,F,M> {
             // ID / IDREF handling
             switch(typeRef.getSource().id()) {
             case ID:
-                th._attribute(refAttName, new QName(WellKnownNamespace.XML_SCHEMA, "ID"));
+                th._attribute(refAttName, new QName(XMLConstants.W3C_XML_SCHEMA_NS_URI, "ID"));
                 return;
             case IDREF:
-                th._attribute(refAttName, new QName(WellKnownNamespace.XML_SCHEMA, "IDREF"));
+                th._attribute(refAttName, new QName(XMLConstants.W3C_XML_SCHEMA_NS_URI, "IDREF"));
                 return;
             case NONE:
                 // no ID/IDREF, so continue on and generate the type

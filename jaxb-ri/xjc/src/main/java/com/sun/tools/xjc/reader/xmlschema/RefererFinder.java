@@ -63,6 +63,7 @@ final class RefererFinder implements XSVisitor {
         }
     }
 
+    @Override
     public void schema(XSSchema xs) {
         if(!visited.add(xs))       return;
 
@@ -75,6 +76,7 @@ final class RefererFinder implements XSVisitor {
         }
     }
 
+    @Override
     public void elementDecl(XSElementDecl e) {
         if(!visited.add(e))       return;
 
@@ -82,6 +84,7 @@ final class RefererFinder implements XSVisitor {
         e.getType().visit(this);
     }
 
+    @Override
     public void complexType(XSComplexType ct) {
         if(!visited.add(ct))       return;
 
@@ -90,12 +93,14 @@ final class RefererFinder implements XSVisitor {
         ct.getContentType().visit(this);
     }
 
+    @Override
     public void modelGroupDecl(XSModelGroupDecl decl) {
         if(!visited.add(decl))  return;
 
         modelGroup(decl.getModelGroup());
     }
 
+    @Override
     public void modelGroup(XSModelGroup group) {
         if(!visited.add(group))  return;
 
@@ -104,6 +109,7 @@ final class RefererFinder implements XSVisitor {
         }
     }
 
+    @Override
     public void particle(XSParticle particle) {
         // since the particle method is side-effect free, no need to check for double-visit.
         particle.getTerm().visit(this);
@@ -111,16 +117,27 @@ final class RefererFinder implements XSVisitor {
 
 
     // things we don't care
+    @Override
     public void simpleType(XSSimpleType simpleType) {}
+    @Override
     public void annotation(XSAnnotation ann) {}
+    @Override
     public void attGroupDecl(XSAttGroupDecl decl) {}
+    @Override
     public void attributeDecl(XSAttributeDecl decl) {}
+    @Override
     public void attributeUse(XSAttributeUse use) {}
+    @Override
     public void facet(XSFacet facet) {}
+    @Override
     public void notation(XSNotation notation) {}
+    @Override
     public void identityConstraint(XSIdentityConstraint decl) {}
+    @Override
     public void xpath(XSXPath xp) {}
+    @Override
     public void wildcard(XSWildcard wc) {}
+    @Override
     public void empty(XSContentType empty) {}
 
     /**

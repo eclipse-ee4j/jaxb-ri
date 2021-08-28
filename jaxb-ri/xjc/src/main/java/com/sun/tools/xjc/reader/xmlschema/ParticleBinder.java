@@ -186,14 +186,17 @@ public abstract class ParticleBinder {
              */
             private boolean rep = repeated;
 
+            @Override
             public void wildcard(XSWildcard wc) {
                 append("any");
             }
 
+            @Override
             public void modelGroupDecl(XSModelGroupDecl mgd) {
                 modelGroup(mgd.getModelGroup());
             }
 
+            @Override
             public void modelGroup(XSModelGroup mg) {
                 String operator;
                 if(mg.getCompositor()==XSModelGroup.CHOICE)     operator = "Or";
@@ -212,6 +215,7 @@ public abstract class ParticleBinder {
                 }
             }
 
+            @Override
             public void elementDecl(XSElementDecl ed) {
                 append(ed.getName());
             }

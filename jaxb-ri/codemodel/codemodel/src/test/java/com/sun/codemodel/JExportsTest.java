@@ -24,6 +24,11 @@ import static org.junit.Assert.*;
 public class JExportsTest extends JTestModuleDirective {
 
     /**
+     * Default constructor.
+     */
+    public JExportsTest() {}
+
+    /**
      * Test of getType method to make sure that it returns ExportsDirective.
      */
     @Test

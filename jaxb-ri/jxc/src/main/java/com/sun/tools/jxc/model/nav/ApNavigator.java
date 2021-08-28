@@ -60,6 +60,7 @@ public final class ApNavigator implements Navigator<TypeMirror, TypeElement, Var
         this.primitiveByte = env.getTypeUtils().getPrimitiveType(TypeKind.BYTE);
     }
 
+    @Override
     public TypeElement getSuperClass(TypeElement typeElement) {
         if (typeElement.getKind().equals(ElementKind.CLASS)) {
             TypeMirror sup = typeElement.getSuperclass();
@@ -71,26 +72,32 @@ public final class ApNavigator implements Navigator<TypeMirror, TypeElement, Var
         return env.getElementUtils().getTypeElement(Object.class.getName());
     }
 
+    @Override
     public TypeMirror getBaseClass(TypeMirror type, TypeElement sup) {
         return baseClassFinder.visit(type, sup);
     }
 
+    @Override
     public String getClassName(TypeElement t) {
         return t.getQualifiedName().toString();
     }
 
+    @Override
     public String getTypeName(TypeMirror typeMirror) {
         return typeMirror.toString();
     }
 
+    @Override
     public String getClassShortName(TypeElement t) {
         return t.getSimpleName().toString();
     }
 
+    @Override
     public Collection<VariableElement> getDeclaredFields(TypeElement typeElement) {
         return ElementFilter.fieldsIn(typeElement.getEnclosedElements());
     }
 
+    @Override
     public VariableElement getDeclaredField(TypeElement clazz, String fieldName) {
         for (VariableElement fd : ElementFilter.fieldsIn(clazz.getEnclosedElements())) {
             if (fd.getSimpleName().toString().equals(fieldName))
@@ -99,34 +106,42 @@ public final class ApNavigator implements Navigator<TypeMirror, TypeElement, Var
         return null;
     }
 
+    @Override
     public Collection<ExecutableElement> getDeclaredMethods(TypeElement typeElement) {
         return ElementFilter.methodsIn(typeElement.getEnclosedElements());
     }
 
+    @Override
     public TypeElement getDeclaringClassForField(VariableElement f) {
         return (TypeElement) f.getEnclosingElement();
     }
 
+    @Override
     public TypeElement getDeclaringClassForMethod(ExecutableElement m) {
         return (TypeElement) m.getEnclosingElement();
     }
 
+    @Override
     public TypeMirror getFieldType(VariableElement f) {
         return f.asType();
     }
 
+    @Override
     public String getFieldName(VariableElement f) {
         return f.getSimpleName().toString();
     }
 
+    @Override
     public String getMethodName(ExecutableElement m) {
         return m.getSimpleName().toString();
     }
 
+    @Override
     public TypeMirror getReturnType(ExecutableElement m) {
         return m.getReturnType();
     }
 
+    @Override
     public TypeMirror[] getMethodParameters(ExecutableElement m) {
         Collection<? extends VariableElement> ps = m.getParameters();
         TypeMirror[] r = new TypeMirror[ps.size()];
@@ -136,10 +151,12 @@ public final class ApNavigator implements Navigator<TypeMirror, TypeElement, Var
         return r;
     }
 
+    @Override
     public boolean isStaticMethod(ExecutableElement m) {
         return hasModifier(m, Modifier.STATIC);
     }
 
+    @Override
     public boolean isFinalMethod(ExecutableElement m) {
         return hasModifier(m, Modifier.FINAL);
     }
@@ -148,6 +165,7 @@ public final class ApNavigator implements Navigator<TypeMirror, TypeElement, Var
         return d.getModifiers().contains(mod);
     }
 
+    @Override
     public boolean isSubClassOf(TypeMirror sub, TypeMirror sup) {
         if(sup==DUMMY)
         // see ref(). if the sub type is known to Annotation Processing,
@@ -157,7 +175,7 @@ public final class ApNavigator implements Navigator<TypeMirror, TypeElement, Var
         return env.getTypeUtils().isSubtype(sub,sup);
     }
 
-    private String getSourceClassName(Class clazz) {
+    private String getSourceClassName(Class<?> clazz) {
         Class<?> d = clazz.getDeclaringClass();
         if(d==null)
             return clazz.getName();
@@ -167,7 +185,8 @@ public final class ApNavigator implements Navigator<TypeMirror, TypeElement, Var
         }
     }
 
-    public TypeMirror ref(Class c) {
+    @Override
+    public TypeMirror ref(Class<?> c) {
         if(c.isArray())
             return env.getTypeUtils().getArrayType( ref(c.getComponentType()) );
         if(c.isPrimitive())
@@ -186,11 +205,13 @@ public final class ApNavigator implements Navigator<TypeMirror, TypeElement, Var
         return env.getTypeUtils().getDeclaredType(t);
     }
 
+    @Override
     public TypeMirror use(TypeElement t) {
         assert t != null;
         return env.getTypeUtils().getDeclaredType(t);
     }
 
+    @Override
     public TypeElement asDecl(TypeMirror m) {
         m = env.getTypeUtils().erasure(m);
         if (m.getKind().equals(TypeKind.DECLARED)) {
@@ -200,10 +221,12 @@ public final class ApNavigator implements Navigator<TypeMirror, TypeElement, Var
             return null;
     }
 
-    public TypeElement asDecl(Class c) {
+    @Override
+    public TypeElement asDecl(Class<?> c) {
         return env.getElementUtils().getTypeElement(getSourceClassName(c));
     }
 
+    @Override
     public TypeMirror erasure(TypeMirror t) {
         Types tu = env.getTypeUtils();
         t = tu.erasure(t);
@@ -218,14 +241,17 @@ public final class ApNavigator implements Navigator<TypeMirror, TypeElement, Var
         return t;
     }
 
+    @Override
     public boolean isAbstract(TypeElement clazz) {
         return hasModifier(clazz,Modifier.ABSTRACT);
     }
 
+    @Override
     public boolean isFinal(TypeElement clazz) {
         return hasModifier(clazz, Modifier.FINAL);
     }
 
+    @Override
     public VariableElement[] getEnumConstants(TypeElement clazz) {
         List<? extends Element> elements = env.getElementUtils().getAllMembers(clazz);
         Collection<VariableElement> constants = new ArrayList<VariableElement>();
@@ -237,10 +263,12 @@ public final class ApNavigator implements Navigator<TypeMirror, TypeElement, Var
         return constants.toArray(new VariableElement[constants.size()]);
     }
 
+    @Override
     public TypeMirror getVoidType() {
         return env.getTypeUtils().getNoType(TypeKind.VOID);
     }
 
+    @Override
     public String getPackageName(TypeElement clazz) {
         return env.getElementUtils().getPackageOf(clazz).getQualifiedName().toString();
     }
@@ -250,10 +278,12 @@ public final class ApNavigator implements Navigator<TypeMirror, TypeElement, Var
         return env.getElementUtils().getTypeElement(packageName + ".ObjectFactory");
     }
 
+    @Override
     public boolean isBridgeMethod(ExecutableElement method) {
         return method.getModifiers().contains(Modifier.VOLATILE);
     }
 
+    @Override
     public boolean isOverriding(ExecutableElement method, TypeElement base) {
         Elements elements = env.getElementUtils();
 
@@ -269,14 +299,17 @@ public final class ApNavigator implements Navigator<TypeMirror, TypeElement, Var
         }
     }
 
+    @Override
     public boolean isInterface(TypeElement clazz) {
         return clazz.getKind().isInterface();
     }
 
+    @Override
     public boolean isTransient(VariableElement f) {
         return f.getModifiers().contains(Modifier.TRANSIENT);
     }
 
+    @Override
     public boolean isInnerClass(TypeElement clazz) {
         return clazz.getEnclosingElement() != null && !clazz.getModifiers().contains(Modifier.STATIC);
     }
@@ -286,10 +319,12 @@ public final class ApNavigator implements Navigator<TypeMirror, TypeElement, Var
         return env.getTypeUtils().isSameType(t1, t2);
     }
 
+    @Override
     public boolean isArray(TypeMirror type) {
         return type != null && type.getKind().equals(TypeKind.ARRAY);
     }
 
+    @Override
     public boolean isArrayButNotByteArray(TypeMirror t) {
         if(!isArray(t))
             return false;
@@ -300,6 +335,7 @@ public final class ApNavigator implements Navigator<TypeMirror, TypeElement, Var
         return !ct.equals(primitiveByte);
     }
 
+    @Override
     public TypeMirror getComponentType(TypeMirror t) {
         if (isArray(t)) {
             ArrayType at = (ArrayType) t;
@@ -309,6 +345,7 @@ public final class ApNavigator implements Navigator<TypeMirror, TypeElement, Var
         throw new IllegalArgumentException();
     }
 
+    @Override
     public TypeMirror getTypeArgument(TypeMirror typeMirror, int i) {
         if (typeMirror != null && typeMirror.getKind().equals(TypeKind.DECLARED)) {
             DeclaredType declaredType = (DeclaredType) typeMirror;
@@ -317,6 +354,7 @@ public final class ApNavigator implements Navigator<TypeMirror, TypeElement, Var
         } else throw new IllegalArgumentException();
     }
 
+    @Override
     public boolean isParameterizedType(TypeMirror typeMirror) {
         if (typeMirror != null && typeMirror.getKind().equals(TypeKind.DECLARED)) {
             DeclaredType d = (DeclaredType) typeMirror;
@@ -325,6 +363,7 @@ public final class ApNavigator implements Navigator<TypeMirror, TypeElement, Var
         return false;
     }
 
+    @Override
     public boolean isPrimitive(TypeMirror t) {
         return t.getKind().isPrimitive();
     }
@@ -342,7 +381,8 @@ public final class ApNavigator implements Navigator<TypeMirror, TypeElement, Var
         primitives.put(Character.TYPE, TypeKind.CHAR);
     }
 
-    public TypeMirror getPrimitive(Class primitiveType) {
+    @Override
+    public TypeMirror getPrimitive(Class<?> primitiveType) {
         assert primitiveType.isPrimitive();
         if(primitiveType==void.class)
             return getVoidType();
@@ -364,34 +404,41 @@ public final class ApNavigator implements Navigator<TypeMirror, TypeElement, Var
         }
 
 //        @Override
+        @Override
         public List<? extends AnnotationMirror> getAnnotationMirrors() {
             throw new IllegalStateException();
         }
 
 //        @Override
+        @Override
         public <A extends Annotation> A getAnnotation(Class<A> annotationType) {
             throw new IllegalStateException();
         }
 
 //        @Override
+        @Override
         public <A extends Annotation> A[] getAnnotationsByType(Class<A> annotationType) {
             throw new IllegalStateException();
         }
     };
 
+    @Override
     public Location getClassLocation(TypeElement typeElement) {
         Trees trees = Trees.instance(env);
         return getLocation(typeElement.getQualifiedName().toString(), trees.getPath(typeElement));
     }
 
+    @Override
     public Location getFieldLocation(VariableElement variableElement) {
         return getLocation(variableElement);
     }
 
+    @Override
     public Location getMethodLocation(ExecutableElement executableElement) {
         return getLocation(executableElement);
     }
 
+    @Override
     public boolean hasDefaultConstructor(TypeElement t) {
         if (t == null || !t.getKind().equals(ElementKind.CLASS))
             return false;
@@ -403,18 +450,22 @@ public final class ApNavigator implements Navigator<TypeMirror, TypeElement, Var
         return false;
     }
 
+    @Override
     public boolean isStaticField(VariableElement f) {
         return hasModifier(f,Modifier.STATIC);
     }
 
+    @Override
     public boolean isPublicMethod(ExecutableElement m) {
         return hasModifier(m,Modifier.PUBLIC);
     }
 
+    @Override
     public boolean isPublicField(VariableElement f) {
         return hasModifier(f,Modifier.PUBLIC);
     }
 
+    @Override
     public boolean isEnum(TypeElement t) {
         return t != null && t.getKind().equals(ElementKind.ENUM);
     }

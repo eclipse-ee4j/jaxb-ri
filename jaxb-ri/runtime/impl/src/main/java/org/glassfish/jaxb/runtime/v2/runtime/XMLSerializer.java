@@ -35,6 +35,7 @@ import jakarta.xml.bind.helpers.ValidationEventImpl;
 import jakarta.xml.bind.helpers.ValidationEventLocatorImpl;
 import org.xml.sax.SAXException;
 
+import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.transform.Source;
@@ -260,7 +261,7 @@ public final class XMLSerializer extends Coordinator {
         if(!seenRoot) {
             seenRoot = true;
             if(schemaLocation!=null || noNsSchemaLocation!=null) {
-                int p = nsContext.getPrefixIndex(WellKnownNamespace.XML_SCHEMA_INSTANCE);
+                int p = nsContext.getPrefixIndex(XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI);
                 if(schemaLocation!=null)
                     out.attribute(p,"schemaLocation",schemaLocation);
                 if(noNsSchemaLocation!=null)
@@ -634,7 +635,7 @@ public final class XMLSerializer extends Coordinator {
                                 getCurrentLocation(fieldName)));
                         // recover by not printing @xsi:type
                     } else {
-                        getNamespaceContext().declareNamespace(WellKnownNamespace.XML_SCHEMA_INSTANCE,"xsi",true);
+                        getNamespaceContext().declareNamespace(XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI,"xsi",true);
                         getNamespaceContext().declareNamespace(actualTypeName.getNamespaceURI(),null,false);
                     }
                 }
@@ -642,19 +643,19 @@ public final class XMLSerializer extends Coordinator {
             actual.serializeURIs(child,this);
 
             if (nillable) {
-                getNamespaceContext().declareNamespace(WellKnownNamespace.XML_SCHEMA_INSTANCE,"xsi",true);
+                getNamespaceContext().declareNamespace(XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI,"xsi",true);
             }
             
             endNamespaceDecls(child);
             if(!asExpected) {
-                attribute(WellKnownNamespace.XML_SCHEMA_INSTANCE,"type",
+                attribute(XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI,"type",
                     DatatypeConverter.printQName(actualTypeName,getNamespaceContext()));
             }
 
             actual.serializeAttributes(child,this);
             boolean nilDefined = actual.isNilIncluded();
             if ((nillable) && (!nilDefined)) {
-                attribute(WellKnownNamespace.XML_SCHEMA_INSTANCE,"nil","true");
+                attribute(XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI,"nil","true");
             }
             
             endAttributes();
@@ -756,9 +757,9 @@ public final class XMLSerializer extends Coordinator {
      * </pre>
      */
     public final void writeXsiNilTrue() throws SAXException, IOException, XMLStreamException {
-        getNamespaceContext().declareNamespace(WellKnownNamespace.XML_SCHEMA_INSTANCE,"xsi",true);
+        getNamespaceContext().declareNamespace(XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI,"xsi",true);
         endNamespaceDecls(null);
-        attribute(WellKnownNamespace.XML_SCHEMA_INSTANCE,"nil","true");
+        attribute(XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI,"nil","true");
         endAttributes();
     }
 
@@ -898,7 +899,7 @@ public final class XMLSerializer extends Coordinator {
             }
 
             if(schemaLocation!=null || noNsSchemaLocation!=null) {
-                nsContext.declareNsUri(WellKnownNamespace.XML_SCHEMA_INSTANCE,"xsi",true);
+                nsContext.declareNsUri(XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI,"xsi",true);
             }
         }
 

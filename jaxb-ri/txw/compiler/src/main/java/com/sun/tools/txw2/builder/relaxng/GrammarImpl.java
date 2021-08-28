@@ -28,14 +28,17 @@ class GrammarImpl extends GrammarSectionImpl
         super(scope,new com.sun.tools.txw2.model.Grammar());
     }
 
+    @Override
     public Leaf endGrammar(LocatorImpl locator, AnnotationsImpl annotations) throws BuildException {
         return new Ref(locator,grammar,com.sun.tools.txw2.model.Grammar.START);
     }
 
+    @Override
     public Leaf makeParentRef(String name, LocatorImpl locator, AnnotationsImpl annotations) throws BuildException {
         return parent.makeRef(name,locator,annotations);
     }
 
+    @Override
     public Leaf makeRef(String name, LocatorImpl locator, AnnotationsImpl annotations) throws BuildException {
         return new Ref(locator,grammar,name);
     }

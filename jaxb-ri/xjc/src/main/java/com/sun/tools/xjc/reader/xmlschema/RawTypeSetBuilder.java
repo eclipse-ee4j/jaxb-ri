@@ -100,19 +100,23 @@ public class RawTypeSetBuilder implements XSTermVisitor {
         }
     }
 
+    @Override
     public void wildcard(XSWildcard wc) {
         refs.add(new WildcardRef(wc));
     }
 
+    @Override
     public void modelGroupDecl(XSModelGroupDecl decl) {
         modelGroup(decl.getModelGroup());
     }
 
+    @Override
     public void modelGroup(XSModelGroup group) {
         for( XSParticle p : group.getChildren())
             particle(p);
     }
 
+    @Override
     public void elementDecl(XSElementDecl decl) {
 
         QName n = BGMBuilder.getName(decl);
@@ -156,23 +160,28 @@ public class RawTypeSetBuilder implements XSTermVisitor {
             }
         }
 
+        @Override
         protected CTypeRef toTypeRef(CElementPropertyInfo ep) {
             // we don't allow a mapping to typeRef if the wildcard is present
             throw new IllegalStateException();
         }
 
+        @Override
         protected void toElementRef(CReferencePropertyInfo prop) {
             prop.setWildcard(mode);
         }
 
+        @Override
         protected RawTypeSet.Mode canBeType(RawTypeSet parent) {
             return RawTypeSet.Mode.MUST_BE_REFERENCE;
         }
 
+        @Override
         protected boolean isListOfValues() {
             return false;
         }
 
+        @Override
         protected ID id() {
             return ID.NONE;
         }
@@ -190,14 +199,17 @@ public class RawTypeSetBuilder implements XSTermVisitor {
             this.target = target;
         }
 
+        @Override
         protected CTypeRef toTypeRef(CElementPropertyInfo ep) {
             return new CTypeRef(target,decl);
         }
 
+        @Override
         protected void toElementRef(CReferencePropertyInfo prop) {
             prop.getElements().add(target);
         }
 
+        @Override
         protected RawTypeSet.Mode canBeType(RawTypeSet parent) {
             // if element substitution can occur, no way it can be mapped to a list of types
             if(decl.getSubstitutables().size()>1)
@@ -206,10 +218,12 @@ public class RawTypeSetBuilder implements XSTermVisitor {
             return RawTypeSet.Mode.SHOULD_BE_TYPEREF;
         }
 
+        @Override
         protected boolean isListOfValues() {
             return false;
         }
 
+        @Override
         protected ID id() {
             return ID.NONE;
         }
@@ -227,6 +241,7 @@ public class RawTypeSetBuilder implements XSTermVisitor {
             this.target = target;
         }
 
+        @Override
         protected CTypeRef toTypeRef(CElementPropertyInfo ep) {
             assert !target.isCollection();
             CAdapter a = target.getProperty().getAdapter();
@@ -235,10 +250,12 @@ public class RawTypeSetBuilder implements XSTermVisitor {
             return new CTypeRef(target.getContentType(),decl);
         }
 
+        @Override
         protected void toElementRef(CReferencePropertyInfo prop) {
             prop.getElements().add(target);
         }
 
+        @Override
         protected RawTypeSet.Mode canBeType(RawTypeSet parent) {
             // if element substitution can occur, no way it can be mapped to a list of types
             if(decl.getSubstitutables().size()>1)
@@ -268,10 +285,12 @@ public class RawTypeSetBuilder implements XSTermVisitor {
                 return RawTypeSet.Mode.SHOULD_BE_TYPEREF;
         }
 
+        @Override
         protected boolean isListOfValues() {
             return target.getProperty().isValueList();
         }
 
+        @Override
         protected ID id() {
             return target.getProperty().id();
         }
@@ -298,6 +317,7 @@ public class RawTypeSetBuilder implements XSTermVisitor {
             target = r;
         }
 
+        @Override
         protected CTypeRef toTypeRef(CElementPropertyInfo ep) {
             if(ep!=null && target.getAdapterUse()!=null)
                 ep.setAdapter(target.getAdapterUse());
@@ -311,6 +331,7 @@ public class RawTypeSetBuilder implements XSTermVisitor {
          *
          * This method generates such an element class and returns it.
          */
+        @Override
         protected void toElementRef(CReferencePropertyInfo prop) {
             CClassInfo scope = Ring.get(ClassSelector.class).getCurrentBean();
             Model model = Ring.get(Model.class);
@@ -331,6 +352,7 @@ public class RawTypeSetBuilder implements XSTermVisitor {
             }
         }
 
+        @Override
         protected RawTypeSet.Mode canBeType(RawTypeSet parent) {
             // if we have an adapter or IDness, which requires special
             // annotation, and there's more than one element,
@@ -348,10 +370,12 @@ public class RawTypeSetBuilder implements XSTermVisitor {
             return RawTypeSet.Mode.SHOULD_BE_TYPEREF;
         }
 
+        @Override
         protected boolean isListOfValues() {
             return target.isCollection();
         }
 
+        @Override
         protected ID id() {
             return target.idUse();
         }

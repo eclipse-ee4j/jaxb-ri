@@ -52,19 +52,23 @@ final class TypeUseBinder implements DPatternVisitor<TypeUse> {
     }
 
 
+    @Override
     public TypeUse onGrammar(DGrammarPattern p) {
         return CBuiltinLeafInfo.STRING;
     }
 
+    @Override
     public TypeUse onChoice(DChoicePattern p) {
         // can't support unions
         return CBuiltinLeafInfo.STRING;
     }
 
+    @Override
     public TypeUse onData(DDataPattern p) {
         return onDataType(p.getDatatypeLibrary(), p.getType());
     }
 
+    @Override
     public TypeUse onValue(DValuePattern p) {
         return onDataType(p.getDatatypeLibrary(),p.getType());
     }
@@ -81,10 +85,12 @@ final class TypeUseBinder implements DPatternVisitor<TypeUse> {
         return CBuiltinLeafInfo.STRING;
     }
 
+    @Override
     public TypeUse onInterleave(DInterleavePattern p) {
         return onContainer(p);
     }
 
+    @Override
     public TypeUse onGroup(DGroupPattern p) {
         return onContainer(p);
     }
@@ -100,36 +106,44 @@ final class TypeUseBinder implements DPatternVisitor<TypeUse> {
         return t;
     }
 
+    @Override
     public TypeUse onNotAllowed(DNotAllowedPattern p) {
         // TODO
         return error();
     }
 
+    @Override
     public TypeUse onEmpty(DEmptyPattern p) {
         return CBuiltinLeafInfo.STRING;
     }
 
+    @Override
     public TypeUse onList(DListPattern p) {
         return p.getChild().accept(this);
     }
 
+    @Override
     public TypeUse onOneOrMore(DOneOrMorePattern p) {
         return TypeUseFactory.makeCollection( p.getChild().accept(this) );
     }
 
+    @Override
     public TypeUse onZeroOrMore(DZeroOrMorePattern p) {
         return TypeUseFactory.makeCollection( p.getChild().accept(this) );
     }
 
+    @Override
     public TypeUse onOptional(DOptionalPattern p) {
         return CBuiltinLeafInfo.STRING;
     }
 
+    @Override
     public TypeUse onRef(DRefPattern p) {
         // TODO: check for enums
         return p.getTarget().getPattern().accept(this);
     }
 
+    @Override
     public TypeUse onText(DTextPattern p) {
         return CBuiltinLeafInfo.STRING;
     }
@@ -139,14 +153,17 @@ final class TypeUseBinder implements DPatternVisitor<TypeUse> {
 // Not allowed in this context
 //
 //
+    @Override
     public TypeUse onAttribute(DAttributePattern p) {
         return error();
     }
 
+    @Override
     public TypeUse onElement(DElementPattern p) {
         return error();
     }
 
+    @Override
     public TypeUse onMixed(DMixedPattern p) {
         return error();
     }

@@ -48,6 +48,7 @@ public class Define extends WriterNode {
         return hasOneChild() || name==Grammar.START;
     }
 
+    @Override
     void declare(NodeSet nset) {
         if(isInline())  return;
 
@@ -55,6 +56,7 @@ public class Define extends WriterNode {
         clazz._implements(TypedXmlWriter.class);
     }
 
+    @Override
     void generate(NodeSet nset) {
         if(clazz==null)     return;
 
@@ -63,6 +65,7 @@ public class Define extends WriterNode {
             l.generate(clazz,nset,props);
     }
 
+    @Override
     void generate(JDefinedClass clazz, NodeSet nset, Set<Prop> props) {
         if(isInline()) {
             for( Leaf l : this )
@@ -73,6 +76,7 @@ public class Define extends WriterNode {
         }
     }
 
+    @Override
     void prepare(NodeSet nset) {
         if(isInline() && leaf instanceof WriterNode && !name.equals(Grammar.START))
             ((WriterNode)leaf).alternativeName = name;

@@ -26,6 +26,8 @@ import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlMixed;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
+
+import javax.xml.XMLConstants;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.dom.DOMSource;
@@ -54,8 +56,8 @@ import org.xml.sax.Locator;
  * @author
  *     Kohsuke Kawaguchi (kohsuke,kawaguchi@sun.com)
  */
-@XmlRootElement(namespace= WellKnownNamespace.XML_SCHEMA,name="annotation")
-@XmlType(namespace=WellKnownNamespace.XML_SCHEMA,name="foobar")
+@XmlRootElement(namespace= XMLConstants.W3C_XML_SCHEMA_NS_URI,name="annotation")
+@XmlType(namespace=XMLConstants.W3C_XML_SCHEMA_NS_URI,name="foobar")
 public final class BindInfo implements Iterable<BIDeclaration> {
 
     private BGMBuilder builder;
@@ -66,7 +68,7 @@ public final class BindInfo implements Iterable<BIDeclaration> {
     /**
      * Documentation taken from {@code <xs:documentation>s}.
      */
-    @XmlElement(namespace=WellKnownNamespace.XML_SCHEMA)
+    @XmlElement(namespace=XMLConstants.W3C_XML_SCHEMA_NS_URI)
     private Documentation documentation;
 
     /**
@@ -120,7 +122,7 @@ public final class BindInfo implements Iterable<BIDeclaration> {
                     DomHandlerEx.DomAndLocation e = (DomHandlerEx.DomAndLocation)o;
                     String nsUri = e.element.getNamespaceURI();
                     if(nsUri==null || nsUri.equals("")
-                    || nsUri.equals(WellKnownNamespace.XML_SCHEMA))
+                    || XMLConstants.W3C_XML_SCHEMA_NS_URI.equals(nsUri))
                         continue;   // this is definitely not a customization
                     bi.addDecl(new BIXPluginCustomization(e.element,e.loc));
                 }
@@ -130,7 +132,7 @@ public final class BindInfo implements Iterable<BIDeclaration> {
 
 
     // only used by JAXB
-    @XmlElement(namespace=WellKnownNamespace.XML_SCHEMA)
+    @XmlElement(namespace=XMLConstants.W3C_XML_SCHEMA_NS_URI)
     void setAppinfo(AppInfo aib) {
         aib.addTo(this);
     }
@@ -217,15 +219,18 @@ public final class BindInfo implements Iterable<BIDeclaration> {
                     Writer fw = new FilterWriter(w) {
                         char[] buf = new char[1];
 
+                        @Override
                         public void write(int c) throws IOException {
                             buf[0] = (char)c;
                             write(buf,0,1);
                         }
 
+                        @Override
                         public void write(char[] cbuf, int off, int len) throws IOException {
                             MinimumEscapeHandler.theInstance.escape(cbuf,off,len,false,out);
                         }
 
+                        @Override
                         public void write(String str, int off, int len) throws IOException {
                             write(str.toCharArray(),off,len);
                         }
@@ -262,6 +267,7 @@ public final class BindInfo implements Iterable<BIDeclaration> {
     
     public BIDeclaration get( int idx ) { return decls.get(idx); }
 
+    @Override
     public Iterator<BIDeclaration> iterator() {
         return decls.iterator();
     }

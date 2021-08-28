@@ -19,6 +19,8 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.XMLFilterImpl;
 
+import javax.xml.XMLConstants;
+
 /**
  * This filter detects the use of incorrect JAXB namespace URI.
  * 
@@ -77,7 +79,7 @@ public class IncorrectNamespaceURIChecker extends XMLFilterImpl {
 
     @Override
     public void startPrefixMapping(String prefix, String uri) throws SAXException {
-        if (WellKnownNamespace.XML_NAMESPACE_URI.equals(uri)) return; //xml prefix shall not be declared based on jdk api javadoc
+        if (XMLConstants.XML_NS_URI.equals(uri)) return; //xml prefix shall not be declared based on jdk api javadoc
         if( prefix.equals("jaxb") )
             isJAXBPrefixUsed = true;
         if( uri.equals(Const.JAXB_NSURI) )

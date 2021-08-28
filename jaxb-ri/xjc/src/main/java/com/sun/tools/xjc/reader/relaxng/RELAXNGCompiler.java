@@ -208,10 +208,12 @@ public final class RELAXNGCompiler {
 
         // also look for root elements
         grammar.accept(new DPatternWalker() {
+            @Override
             public Void onRef(DRefPattern p) {
                 return null;    // stop recursion
             }
 
+            @Override
             public Void onElement(DElementPattern p) {
                 mapToClass(p);
                 return null;
