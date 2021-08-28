@@ -10,7 +10,6 @@
 
 package com.sun.xml.txw2.annotation;
 
-import com.sun.xml.txw2.TypedXmlWriter;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
@@ -48,11 +47,13 @@ public @interface XmlAttribute {
      * <p>
      * If left unspecified, the method name is used as the attribute name.
      *
+     * @return the local name
      */
     String value() default "";
 
     /**
      * The namespace URI of the attribute.
+     * @return the namespace URI
      */
     String ns() default "";
 }

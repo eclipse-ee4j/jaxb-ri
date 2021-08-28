@@ -33,7 +33,7 @@ public interface NGCCEventSource {
     int replace( NGCCEventReceiver _old, NGCCEventReceiver _new );
     
     /** Sends an enter element event to the specified EventReceiver thread.
-     * @param receiverThreadId
+     * @param receiverThreadId Thread ID of the receiver that can handle this event
      * @param uri element uri
      * @param local element local name
      * @param qname element qname

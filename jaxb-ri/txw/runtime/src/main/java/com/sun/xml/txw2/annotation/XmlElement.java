@@ -14,7 +14,6 @@ import com.sun.xml.txw2.TypedXmlWriter;
 import com.sun.xml.txw2.TXW;
 import com.sun.xml.txw2.output.XmlSerializer;
 
-import javax.xml.namespace.QName;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
@@ -63,6 +62,7 @@ import static java.lang.annotation.ElementType.METHOD;
 public @interface XmlElement {
     /**
      * The local name of the element.
+     * @return the local name
      */
     String value() default "";
 
@@ -78,6 +78,7 @@ public @interface XmlElement {
      * <p>
      * If the annotation is on a method and this parameter is left unspecified,
      * then the namespace URI is the same as the namespace URI of the writer interface.
+     * @return namespace URI
      */
     String ns() default "##default";
 }

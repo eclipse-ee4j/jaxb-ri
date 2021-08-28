@@ -104,6 +104,7 @@ public class ACTask extends Task {
 
     /**
      * Nested {@code <classpath>} element.
+     * @param cp path
      */
     public void setClasspath(Path cp) {
         classpath.createPath().append(cp);
@@ -111,6 +112,7 @@ public class ACTask extends Task {
 
     /**
      * Nested {@code <classpath>} element.
+     * @return path
      */
     public Path createClasspath() {
         return classpath.createPath();
@@ -192,6 +194,7 @@ public class ACTask extends Task {
 
     /**
      * List of classes to be handled
+     * @param c classes
      */
     public void addConfiguredClasses(Classes c) {
         patterns.add(c);
@@ -211,6 +214,7 @@ public class ACTask extends Task {
 
     /**
      * List of endorsed jars
+     * @param e endorsed jar
      */
     public void addConfiguredEndorse(Endorse e) {
         endorsedJars.add(e.endorsedJar);

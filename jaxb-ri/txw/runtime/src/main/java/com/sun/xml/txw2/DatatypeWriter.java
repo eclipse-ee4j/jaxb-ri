@@ -38,6 +38,8 @@ public interface DatatypeWriter<DT> {
      *      the datatype object to be printed.
      * @param resolver
      *      allows the converter to declare additional namespace prefixes.
+     * @param buf
+     *      buffer
      */
     void print(DT dt, NamespaceResolver resolver, StringBuilder buf);
 

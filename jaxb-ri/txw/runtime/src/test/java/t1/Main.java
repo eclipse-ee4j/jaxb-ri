@@ -13,7 +13,6 @@ package t1;
 import com.sun.xml.txw2.TXW;
 import com.sun.xml.txw2.output.DumpSerializer;
 
-import javax.xml.namespace.QName;
 
 /**
  * @author Kohsuke Kawaguchi

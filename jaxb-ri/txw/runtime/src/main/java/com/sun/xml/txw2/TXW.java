@@ -62,12 +62,16 @@ public abstract class TXW {
     /**
      * Creates a new {@link TypedXmlWriter} to write a new instance of a document.
      *
+     * @param <T> an instance of {@link TypedXmlWriter}
      * @param rootElement
      *      The {@link TypedXmlWriter} interface that declares the content model of the root element.
      *      This interface must have {@link XmlElement} annotation on it to designate the tag name
      *      of the root element.
      * @param out
      *      The target of the writing.
+     * @return
+     *      always return non-null {@link TypedXmlWriter} that can be used
+     *      to write the contents of the root element.
      */
     public static <T extends TypedXmlWriter> T create( Class<T> rootElement, XmlSerializer out ) {
         if (out instanceof TXWSerializer) {
@@ -87,8 +91,18 @@ public abstract class TXW {
      * Similar to the other method, but this version allows the caller to set the
      * tag name at the run-time.
      *
+     * @param <T> an instance of {@link TypedXmlWriter}
      * @param tagName
      *      The tag name of the root document.
+     * @param rootElement
+     *      The {@link TypedXmlWriter} interface that declares the content model of the root element.
+     *      This interface must have {@link XmlElement} annotation on it to designate the tag name
+     *      of the root element.
+     * @param out
+     *      The target of the writing.
+     * @return
+     *      always return non-null {@link TypedXmlWriter} that can be used
+     *      to write the contents of the root element.
      *
      * @see #create(Class,XmlSerializer)
      */

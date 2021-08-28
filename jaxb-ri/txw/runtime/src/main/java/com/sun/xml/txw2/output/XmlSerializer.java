@@ -53,6 +53,8 @@ public interface XmlSerializer {
      *
      * @param uri
      *      the namespace URI of the element. Can be empty but never be null.
+     * @param localName
+     *      the local name of the element.
      * @param prefix
      *      the prefix that should be used for this element. Can be empty,
      *      but never null.
@@ -68,6 +70,8 @@ public interface XmlSerializer {
      *
      * @param uri
      *      the namespace URI of the attribute. Can be empty but never be null.
+     * @param localName
+     *      the local name of the attribute.
      * @param prefix
      *      the prefix that should be used for this attribute. Can be empty,
      *      but never null.
@@ -89,6 +93,8 @@ public interface XmlSerializer {
      *
      * @param uri
      *      the namespace URI of the element. Can be empty but never be null.
+     * @param localName
+     *      the local name of the element.
      * @param prefix
      *      the prefix that should be used for this element. Can be empty,
      *      but never null.
@@ -111,12 +117,14 @@ public interface XmlSerializer {
 
     /**
      * Writes CDATA.
+     * @param text CDATA
      */
     void cdata(StringBuilder text);
 
     /**
      * Writes a comment.
      *
+     * @param comment a comment
      * @throws UnsupportedOperationException
      *      if the writer doesn't support writing a comment, it can throw this exception.
      */
