@@ -22,6 +22,7 @@ import jakarta.xml.bind.helpers.ValidationEventImpl;
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
+import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
@@ -36,7 +37,7 @@ final class AnyTypeBeanInfo extends JaxBeanInfo<Object> implements AttributeAcce
     private boolean nilIncluded = false;
     
     public AnyTypeBeanInfo(JAXBContextImpl grammar, RuntimeTypeInfo anyTypeInfo) {
-        super(grammar, anyTypeInfo, Object.class, new QName(WellKnownNamespace.XML_SCHEMA,"anyType"), false, true, false);
+        super(grammar, anyTypeInfo, Object.class, new QName(XMLConstants.W3C_XML_SCHEMA_NS_URI,"anyType"), false, true, false);
     }
 
     @Override
@@ -102,7 +103,7 @@ final class AnyTypeBeanInfo extends JaxBeanInfo<Object> implements AttributeAcce
             String local = a.getLocalName();
             String name = a.getName();
             if(local==null) local = name;
-            if (uri.equals(WellKnownNamespace.XML_SCHEMA_INSTANCE) && ("nil".equals(local))) {
+            if (XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI.equals(uri) && ("nil".equals(local))) {
                 isNilIncluded = true;
             }
             if(name.startsWith("xmlns")) continue;// DOM reports ns decls as attributes

@@ -39,10 +39,12 @@ public final class WildcardNameClassBuilder implements XSWildcardFunction<NameCl
         return wc.apply(theInstance);
     }
 
+    @Override
     public NameClass any(XSWildcard.Any wc) {
         return NameClass.ANY;
     }
 
+    @Override
     public NameClass other(XSWildcard.Other wc) {
         return new AnyNameExceptNameClass(
             new ChoiceNameClass(
@@ -50,6 +52,7 @@ public final class WildcardNameClassBuilder implements XSWildcardFunction<NameCl
                 new NsNameClass(wc.getOtherNamespace())));
     }
 
+    @Override
     public NameClass union(XSWildcard.Union wc) {
         NameClass nc = null;
         for (Iterator itr = wc.iterateNamespaces(); itr.hasNext();) {

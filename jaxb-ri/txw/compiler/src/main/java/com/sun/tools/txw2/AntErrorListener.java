@@ -25,14 +25,17 @@ public class AntErrorListener implements ErrorListener {
         this.project = p;
     }
 
+    @Override
     public void error(SAXParseException e) {
         print(e,Project.MSG_ERR);
     }
 
+    @Override
     public void fatalError(SAXParseException e) {
         print(e,Project.MSG_ERR);
     }
 
+    @Override
     public void warning(SAXParseException e) {
         print(e,Project.MSG_WARN);
     }

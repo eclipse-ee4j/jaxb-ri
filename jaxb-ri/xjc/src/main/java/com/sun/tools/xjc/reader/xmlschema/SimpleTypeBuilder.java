@@ -69,6 +69,8 @@ import com.sun.xml.xsom.visitor.XSVisitor;
 
 import org.xml.sax.Locator;
 
+import javax.xml.XMLConstants;
+
 /**
  * Builds {@link TypeUse} from simple types.
  *
@@ -272,6 +274,7 @@ public final class SimpleTypeBuilder extends BindingComponent {
 
     public final XSSimpleTypeFunction<TypeUse> composer = new XSSimpleTypeFunction<TypeUse>() {
 
+        @Override
         public TypeUse listSimpleType(XSListSimpleType type) {
             // bind item type individually and then compose them into a list
             // facets on the list shouldn't be taken account when binding item types,
@@ -283,6 +286,7 @@ public final class SimpleTypeBuilder extends BindingComponent {
             return tu;
         }
 
+        @Override
         public TypeUse unionSimpleType(XSUnionSimpleType type) {
             boolean isCollection = false;
             for (int i = 0; i < type.getMemberSize(); i++)
@@ -297,6 +301,7 @@ public final class SimpleTypeBuilder extends BindingComponent {
             return r;
         }
 
+        @Override
         public TypeUse restrictionSimpleType(XSRestrictionSimpleType type) {
             // just process the base type.
             return compose(type.getSimpleBaseType());
@@ -367,7 +372,7 @@ public final class SimpleTypeBuilder extends BindingComponent {
 
 
         // if the type is built in, look for the default binding
-        if(type.getTargetNamespace().equals(WellKnownNamespace.XML_SCHEMA)) {
+        if(XMLConstants.W3C_XML_SCHEMA_NS_URI.equals(type.getTargetNamespace())) {
             String name = type.getName();
             if(name!=null) {
                 r = lookupBuiltin(name);
@@ -479,7 +484,7 @@ public final class SimpleTypeBuilder extends BindingComponent {
      */
     public static boolean canBeMappedToTypeSafeEnum( XSSimpleType type ) {
         do {
-            if( WellKnownNamespace.XML_SCHEMA.equals(type.getTargetNamespace()) ) {
+            if( XMLConstants.W3C_XML_SCHEMA_NS_URI.equals(type.getTargetNamespace()) ) {
                 // type must be derived from one of these types
                 String localName = type.getName();
                 if( localName!=null ) {

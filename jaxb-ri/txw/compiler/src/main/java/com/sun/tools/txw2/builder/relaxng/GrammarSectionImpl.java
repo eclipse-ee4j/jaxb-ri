@@ -37,21 +37,26 @@ abstract class GrammarSectionImpl implements GrammarSection<Leaf,ParsedElementAn
         this.grammar = grammar;
     }
 
+    @Override
     public void topLevelAnnotation(ParsedElementAnnotation parsedElementAnnotation) throws BuildException {
     }
 
+    @Override
     public void topLevelComment(CommentListImpl commentList) throws BuildException {
     }
 
+    @Override
     public Div<Leaf, ParsedElementAnnotation, LocatorImpl, AnnotationsImpl, CommentListImpl> makeDiv() {
         return new DivImpl(parent,grammar);
     }
 
+    @Override
     public Include<Leaf, ParsedElementAnnotation, LocatorImpl, AnnotationsImpl, CommentListImpl> makeInclude() {
         // TODO
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public void define(String name, Combine combine, Leaf leaf, LocatorImpl locator, AnnotationsImpl annotations) throws BuildException {
         Define def = grammar.get(name);
         def.location = locator;

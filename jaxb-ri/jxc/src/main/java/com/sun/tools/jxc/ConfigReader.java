@@ -229,7 +229,8 @@ public final class ConfigReader  {
          * will be written, and return it as a {@link Result} object.
          *
          */
-        public Result createOutput( String namespaceUri, String suggestedFileName ) {
+        @Override
+        public Result createOutput(String namespaceUri, String suggestedFileName ) {
 
             // the user's preference takes a precedence
             if(schemas.containsKey(namespaceUri)) {

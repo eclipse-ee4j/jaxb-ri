@@ -24,6 +24,7 @@ public class Empty extends Leaf {
         super(location);
     }
 
+    @Override
     void generate(JDefinedClass clazz, NodeSet nset, Set<Prop> props) {
         // noop
     }

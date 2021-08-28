@@ -20,4 +20,7 @@ module com.sun.tools.txw2 {
     exports com.sun.tools.txw2;
     exports com.sun.tools.txw2.model;
     exports com.sun.tools.txw2.model.prop;
+
+    uses com.sun.tools.rngdatatype.DatatypeLibraryFactory;
+
 }

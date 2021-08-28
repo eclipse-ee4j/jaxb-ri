@@ -77,34 +77,41 @@ public final class XmlSchemaBuilder implements XSFunction<Leaf>, XSSimpleTypeFun
         nodeSet.addAll(attGroups.values());
     }
 
+    @Override
     public Leaf simpleType(XSSimpleType simpleType) {
         return simpleType.apply((XSSimpleTypeFunction<Leaf>)this);
     }
 
+    @Override
     public Leaf particle(XSParticle particle) {
         return particle.getTerm().apply(this);
     }
 
+    @Override
     public Leaf empty(XSContentType empty) {
         return new Empty(empty.getLocator());
     }
 
+    @Override
     public Attribute attributeDecl(XSAttributeDecl decl) {
         return new Attribute(decl.getLocator(),
                         getQName(decl),
                         simpleType(decl.getType()));
     }
 
+    @Override
     public Attribute attributeUse(XSAttributeUse use) {
         return attributeDecl(use.getDecl());
     }
 
+    @Override
     public Leaf wildcard(XSWildcard wc) {
         // wildcard can be always written through the well-formedness method.
         // no need to generate anything for this.
         return new Empty(wc.getLocator());
     }
 
+    @Override
     public Leaf modelGroupDecl(XSModelGroupDecl mg) {
         Define def = modelGroups.get(mg);
         if(def==null) {
@@ -116,6 +123,7 @@ public final class XmlSchemaBuilder implements XSFunction<Leaf>, XSSimpleTypeFun
         return new Ref(mg.getLocator(),def);
     }
 
+    @Override
     public Leaf modelGroup(XSModelGroup mg) {
         XSParticle[] children = mg.getChildren();
         if(children.length==0)  return new Empty(mg.getLocator());
@@ -126,12 +134,14 @@ public final class XmlSchemaBuilder implements XSFunction<Leaf>, XSSimpleTypeFun
         return l;
     }
 
+    @Override
     public Leaf elementDecl(XSElementDecl e) {
         Element el = new Element(e.getLocator(),getQName(e),e.getType().apply(this));
         nodeSet.add(el);
         return el;
     }
 
+    @Override
     public Leaf complexType(XSComplexType ct) {
         Define def = complexTypes.get(ct);
         if(def==null) {
@@ -173,6 +183,7 @@ public final class XmlSchemaBuilder implements XSFunction<Leaf>, XSSimpleTypeFun
         }
     }
 
+    @Override
     public Leaf attGroupDecl(XSAttGroupDecl ag) {
         Define def = attGroups.get(ag);
         if(def==null) {
@@ -187,12 +198,14 @@ public final class XmlSchemaBuilder implements XSFunction<Leaf>, XSSimpleTypeFun
         return t.getName().equals("anyType") && t.getTargetNamespace().equals("http://www.w3.org/2001/XMLSchema");
     }
 
+    @Override
     public Leaf restrictionSimpleType(XSRestrictionSimpleType rst) {
         JType t = dtf.getType(rst.getTargetNamespace(),rst.getName());
         if(t!=null) return new Data(rst.getLocator(),t);
         return simpleType(rst.getSimpleBaseType());
     }
 
+    @Override
     public Leaf unionSimpleType(XSUnionSimpleType st) {
         Leaf l = simpleType(st.getMember(0));
         for( int i=1; i<st.getMemberSize(); i++ )
@@ -200,6 +213,7 @@ public final class XmlSchemaBuilder implements XSFunction<Leaf>, XSSimpleTypeFun
         return l;
     }
 
+    @Override
     public Leaf listSimpleType(XSListSimpleType st) {
         return new List(st.getLocator(),simpleType(st.getItemType()));
     }
@@ -241,26 +255,32 @@ public final class XmlSchemaBuilder implements XSFunction<Leaf>, XSSimpleTypeFun
 
 
 // won't be used
+    @Override
     public Leaf annotation(XSAnnotation xsAnnotation) {
         throw new IllegalStateException();
     }
 
+    @Override
     public Leaf schema(XSSchema xsSchema) {
         throw new IllegalStateException();
     }
 
+    @Override
     public Leaf facet(XSFacet xsFacet) {
         throw new IllegalStateException();
     }
 
+    @Override
     public Leaf notation(XSNotation xsNotation) {
         throw new IllegalStateException();
     }
 
+    @Override
     public Leaf identityConstraint(XSIdentityConstraint xsIdentityConstraint) {
         throw new IllegalStateException();
     }
 
+    @Override
     public Leaf xpath(XSXPath xsxPath) {
         throw new IllegalStateException();
     }

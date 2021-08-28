@@ -25,6 +25,8 @@ import jakarta.xml.bind.annotation.adapters.HexBinaryAdapter;
 import jakarta.xml.bind.annotation.adapters.NormalizedStringAdapter;
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import javax.xml.XMLConstants;
 import javax.xml.datatype.Duration;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.namespace.QName;
@@ -266,7 +268,7 @@ public abstract class CBuiltinLeafInfo implements CNonElement, BuiltinLeafInfo<N
             this(c,typeName,org.glassfish.jaxb.core.v2.model.core.ID.NONE);
         }
         protected Builtin(Class<?> c, String typeName, ID id) {
-            super(NavigatorImpl.theInstance.ref(c), id, new QName(WellKnownNamespace.XML_SCHEMA,typeName));
+            super(NavigatorImpl.theInstance.ref(c), id, new QName(XMLConstants.W3C_XML_SCHEMA_NS_URI,typeName));
             LEAVES.put(getType(),this);
         }
 

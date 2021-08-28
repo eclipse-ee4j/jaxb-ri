@@ -65,46 +65,57 @@ public class DomSerializer implements XmlSerializer {
     }
 
     // XmlSerializer api's - delegate to SaxSerializer
+    @Override
     public void startDocument() {
         serializer.startDocument();
     }
 
+    @Override
     public void beginStartTag(String uri, String localName, String prefix) {
         serializer.beginStartTag(uri, localName, prefix);
     }
 
+    @Override
     public void writeAttribute(String uri, String localName, String prefix, StringBuilder value) {
         serializer.writeAttribute(uri, localName, prefix, value);
     }
 
+    @Override
     public void writeXmlns(String prefix, String uri) {
         serializer.writeXmlns(prefix, uri);
     }
 
+    @Override
     public void endStartTag(String uri, String localName, String prefix) {
         serializer.endStartTag(uri, localName, prefix);
     }
 
+    @Override
     public void endTag() {
         serializer.endTag();
     }
 
+    @Override
     public void text(StringBuilder text) {
         serializer.text(text);
     }
 
+    @Override
     public void cdata(StringBuilder text) {
         serializer.cdata(text);
     }
 
+    @Override
     public void comment(StringBuilder comment) {
         serializer.comment(comment);
     }
 
+    @Override
     public void endDocument() {
         serializer.endDocument();
     }
 
+    @Override
     public void flush() {
         // no flushing
     }
@@ -165,12 +176,15 @@ class Dom2SaxAdapter implements ContentHandler, LexicalHandler {
         return _node;
     }
 
+    @Override
     public void startDocument() {
     }
 
+    @Override
     public void endDocument(){
     }
 
+    @Override
     public void startElement(String namespace, String localName, String qName, Attributes attrs){
 
         // some broken DOM implementatino (we confirmed it with SAXON)
@@ -231,11 +245,13 @@ class Dom2SaxAdapter implements ContentHandler, LexicalHandler {
         return _nodeStk.peek();
     }
 
+    @Override
     public void endElement(String namespace, String localName, String qName){
         _nodeStk.pop();
     }
 
 
+    @Override
     public void characters(char[] ch, int start, int length) {
         Node text;
         if(inCDATA)
@@ -245,52 +261,65 @@ class Dom2SaxAdapter implements ContentHandler, LexicalHandler {
         getParent().appendChild(text);
     }
 
+    @Override
     public void comment(char ch[], int start, int length) throws SAXException {
         getParent().appendChild(_document.createComment(new String(ch,start,length)));
     }
 
 
 
+    @Override
     public void ignorableWhitespace(char[] ch, int start, int length) {
     }
 
+    @Override
     public void processingInstruction(String target, String data) throws org.xml.sax.SAXException{
         Node node = _document.createProcessingInstruction(target, data);
         getParent().appendChild(node);
     }
 
+    @Override
     public void setDocumentLocator(Locator locator) {
     }
 
+    @Override
     public void skippedEntity(String name) {
     }
 
     private List<String> unprocessedNamespaces = new ArrayList<>();
 
+    @Override
     public void startPrefixMapping(String prefix, String uri) {
         unprocessedNamespaces.add(prefix);
         unprocessedNamespaces.add(uri);
     }
 
+    @Override
     public void endPrefixMapping(String prefix) {
     }
 
+    @Override
     public void startDTD(String name, String publicId, String systemId) throws SAXException {
     }
 
+    @Override
     public void endDTD() throws SAXException {
     }
 
+    @Override
     public void startEntity(String name) throws SAXException {
     }
 
+    @Override
     public void endEntity(String name) throws SAXException {
     }
 
+    @Override
     public void startCDATA() throws SAXException {
         inCDATA = true;
     }
 
+    @Override
     public void endCDATA() throws SAXException {
         inCDATA = false;
     }

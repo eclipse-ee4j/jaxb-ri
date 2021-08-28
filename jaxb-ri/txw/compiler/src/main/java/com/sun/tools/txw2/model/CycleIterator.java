@@ -26,10 +26,12 @@ final class CycleIterator implements Iterator<Leaf> {
         this.current = start;
     }
 
+    @Override
     public boolean hasNext() {
         return hasNext;
     }
 
+    @Override
     public Leaf next() {
         Leaf last = current;
         current = current.getNext();
@@ -39,6 +41,7 @@ final class CycleIterator implements Iterator<Leaf> {
         return last;
     }
 
+    @Override
     public void remove() {
         throw new UnsupportedOperationException();
     }

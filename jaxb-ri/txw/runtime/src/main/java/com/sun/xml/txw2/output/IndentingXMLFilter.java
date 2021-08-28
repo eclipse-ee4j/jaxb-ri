@@ -115,6 +115,7 @@ public class IndentingXMLFilter extends XMLFilterImpl implements LexicalHandler 
      *            down the chain raises an exception.
      * @see XMLWriter#startElement(String, String, String,Attributes)
      */
+    @Override
     public void startElement (String uri, String localName,
                               String qName, Attributes atts)
         throws SAXException {
@@ -153,6 +154,7 @@ public class IndentingXMLFilter extends XMLFilterImpl implements LexicalHandler 
      *            down the chain raises an exception.
      * @see XMLWriter#endElement(String, String, String)
      */
+    @Override
     public void endElement (String uri, String localName, String qName)
         throws SAXException
     {
@@ -209,6 +211,7 @@ public class IndentingXMLFilter extends XMLFilterImpl implements LexicalHandler 
      *            down the chain raises an exception.
      * @see XMLWriter#characters(char[], int, int)
      */
+    @Override
     public void characters (char ch[], int start, int length)
         throws SAXException
     {
@@ -216,6 +219,7 @@ public class IndentingXMLFilter extends XMLFilterImpl implements LexicalHandler 
         super.characters(ch, start, length);
     }
 
+    @Override
     public void comment(char ch[], int start, int length) throws SAXException {
         if (depth > 0) {
             writeNewLine();
@@ -225,31 +229,37 @@ public class IndentingXMLFilter extends XMLFilterImpl implements LexicalHandler 
             lexical.comment(ch,start,length);
     }
 
+    @Override
     public void startDTD(String name, String publicId, String systemId) throws SAXException {
         if(lexical!=null)
             lexical.startDTD(name, publicId, systemId);
     }
 
+    @Override
     public void endDTD() throws SAXException {
         if(lexical!=null)
             lexical.endDTD();
     }
 
+    @Override
     public void startEntity(String name) throws SAXException {
         if(lexical!=null)
             lexical.startEntity(name);
     }
 
+    @Override
     public void endEntity(String name) throws SAXException {
         if(lexical!=null)
             lexical.endEntity(name);
     }
 
+    @Override
     public void startCDATA() throws SAXException {
         if(lexical!=null)
             lexical.startCDATA();
     }
 
+    @Override
     public void endCDATA() throws SAXException {
         if(lexical!=null)
             lexical.endCDATA();

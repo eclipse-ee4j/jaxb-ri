@@ -34,6 +34,7 @@ public final class BindGreen extends ColorBinder {
 
     private final ComplexTypeFieldBuilder ctBuilder = Ring.get(ComplexTypeFieldBuilder.class);
 
+    @Override
     public void attGroupDecl(XSAttGroupDecl ag) {
         attContainer(ag);
     }
@@ -52,6 +53,7 @@ public final class BindGreen extends ColorBinder {
             builder.ying(w,cont);
     }
 
+    @Override
     public void complexType(XSComplexType ct) {
         ctBuilder.build(ct);
     }
@@ -63,36 +65,43 @@ public final class BindGreen extends ColorBinder {
 
 
 
+    @Override
     public void attributeDecl(XSAttributeDecl xsAttributeDecl) {
         // TODO: implement this method later
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public void wildcard(XSWildcard xsWildcard) {
         // TODO: implement this method later
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public void modelGroupDecl(XSModelGroupDecl xsModelGroupDecl) {
         // TODO: implement this method later
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public void modelGroup(XSModelGroup xsModelGroup) {
         // TODO: implement this method later
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public void elementDecl(XSElementDecl xsElementDecl) {
         // TODO: implement this method later
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public void particle(XSParticle xsParticle) {
         // TODO: implement this method later
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public void empty(XSContentType xsContentType) {
         // TODO: implement this method later
         throw new UnsupportedOperationException();
@@ -104,11 +113,13 @@ public final class BindGreen extends ColorBinder {
     Components for which ying should yield to purple.
 
 */
+    @Override
     public void simpleType(XSSimpleType xsSimpleType) {
         // simple type always maps to a type, so this is never possible
         throw new IllegalStateException();
     }
 
+    @Override
     public void attributeUse(XSAttributeUse use) {
         // attribute use always maps to a property
         throw new IllegalStateException();

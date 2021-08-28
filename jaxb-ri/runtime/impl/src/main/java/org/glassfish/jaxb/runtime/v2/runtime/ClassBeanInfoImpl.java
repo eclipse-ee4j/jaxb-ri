@@ -32,6 +32,7 @@ import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.LocatorImpl;
 
+import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
@@ -357,7 +358,7 @@ public final class ClassBeanInfoImpl<BeanT> extends JaxBeanInfo<BeanT> implement
                 } else {
                     p.serializeAttributes(bean,target);
                 }
-                if (p.attName.equals(WellKnownNamespace.XML_SCHEMA_INSTANCE, "nil")) {
+                if (p.attName.equals(XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI, "nil")) {
                     isNilIncluded = true;
                 }
             } catch (AccessorException e) {

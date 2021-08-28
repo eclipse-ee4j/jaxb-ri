@@ -19,6 +19,12 @@ import java.util.ArrayList;
  */
 public class NameUtil {
 
+    /**
+     * Default constructor.
+     */
+    private NameUtil() {
+    }
+
     protected static boolean isPunct(char c) {
         return (c == '-' || c == '.' || c == ':' || c == '_' || c == '\u00b7'
                 || c == '\u0387' || c == '\u06dd' || c == '\u06de');

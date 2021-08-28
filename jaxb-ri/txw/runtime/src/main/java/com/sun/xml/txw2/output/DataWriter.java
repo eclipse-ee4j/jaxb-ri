@@ -178,6 +178,7 @@ public class DataWriter extends XMLWriter
      *
      * @see XMLWriter#reset()
      */
+    @Override
     public void reset ()
     {
         depth = 0;
@@ -206,6 +207,7 @@ public class DataWriter extends XMLWriter
      *            down the chain raises an exception.
      * @see XMLWriter#startElement(String, String, String, Attributes)
      */
+    @Override
     public void startElement (String uri, String localName,
                               String qName, Attributes atts)
         throws SAXException
@@ -239,6 +241,7 @@ public class DataWriter extends XMLWriter
      *            down the chain raises an exception.
      * @see XMLWriter#endElement(String, String, String)
      */
+    @Override
     public void endElement (String uri, String localName, String qName)
         throws SAXException
     {
@@ -295,6 +298,7 @@ public class DataWriter extends XMLWriter
      *            down the chain raises an exception.
      * @see XMLWriter#characters(char[], int, int)
      */
+    @Override
     public void characters (char ch[], int start, int length)
         throws SAXException
     {
@@ -302,6 +306,7 @@ public class DataWriter extends XMLWriter
         super.characters(ch, start, length);
     }
 
+    @Override
     public void comment(char ch[], int start, int length) throws SAXException {
         if (depth > 0) {
             super.characters("\n");

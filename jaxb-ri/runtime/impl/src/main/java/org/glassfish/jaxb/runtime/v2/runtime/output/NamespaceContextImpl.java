@@ -536,9 +536,9 @@ public final class NamespaceContextImpl implements NamespaceContext2 {
     private static final NamespacePrefixMapper defaultNamespacePrefixMapper = new NamespacePrefixMapper() {
         @Override
         public String getPreferredPrefix(String namespaceUri, String suggestion, boolean requirePrefix) {
-            if( namespaceUri.equals(WellKnownNamespace.XML_SCHEMA_INSTANCE) )
+            if( XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI.equals(namespaceUri) )
                 return "xsi";
-            if( namespaceUri.equals(WellKnownNamespace.XML_SCHEMA) )
+            if( XMLConstants.W3C_XML_SCHEMA_NS_URI.equals(namespaceUri) )
                 return "xs";
             if( namespaceUri.equals(WellKnownNamespace.XML_MIME_URI) )
                 return "xmime";

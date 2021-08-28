@@ -26,6 +26,7 @@ class XmlSchemaLoader implements SchemaBuilder {
         this.in = in;
     }
 
+    @Override
     public NodeSet build(TxwOptions options) throws SAXException {
         XSOMParser xsom = new XSOMParser();
         xsom.parse(in);

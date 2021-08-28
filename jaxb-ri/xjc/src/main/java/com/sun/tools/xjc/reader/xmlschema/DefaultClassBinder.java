@@ -73,23 +73,28 @@ final class DefaultClassBinder implements ClassBinder
 
     protected final XSSchemaSet schemas = Ring.get(XSSchemaSet.class);
 
+    @Override
     public CElement attGroupDecl(XSAttGroupDecl decl) {
         return allow(decl,decl.getName());
     }
 
+    @Override
     public CElement attributeDecl(XSAttributeDecl decl) {
         return allow(decl,decl.getName());
     }
 
+    @Override
     public CElement modelGroup(XSModelGroup mgroup) {
         return never();
     }
 
+    @Override
     public CElement modelGroupDecl(XSModelGroupDecl decl) {
         return never();
     }
 
 
+    @Override
     public CElement complexType(XSComplexType type) {
         CElement ci = allow(type,type.getName());
         if(ci!=null)    return ci;
@@ -244,6 +249,7 @@ final class DefaultClassBinder implements ClassBinder
         return sole;
     }
 
+    @Override
     public CElement elementDecl(XSElementDecl decl) {
         CElement r = allow(decl,decl.getName());
 
@@ -288,20 +294,25 @@ final class DefaultClassBinder implements ClassBinder
         return r;
     }
 
-    public CClassInfo empty( XSContentType ct ) { return null; }
+    @Override
+    public CClassInfo empty(XSContentType ct ) { return null; }
 
+    @Override
     public CClassInfo identityConstraint(XSIdentityConstraint xsIdentityConstraint) {
         return never();
     }
 
+    @Override
     public CClassInfo xpath(XSXPath xsxPath) {
         return never();
     }
 
+    @Override
     public CClassInfo attributeUse(XSAttributeUse use) {
         return never();
     }
 
+    @Override
     public CElement simpleType(XSSimpleType type) {
         CElement c = allow(type,type.getName());
         if(c!=null) return c;
@@ -314,30 +325,36 @@ final class DefaultClassBinder implements ClassBinder
         return never();
     }
 
+    @Override
     public CClassInfo particle(XSParticle particle) {
         return never();
     }
 
+    @Override
     public CClassInfo wildcard(XSWildcard wc) {
         return never();
     }
 
 
     // these methods won't be used
+    @Override
     public CClassInfo annotation(XSAnnotation annon) {
         assert false;
         return null;
     }
 
+    @Override
     public CClassInfo notation(XSNotation not) {
         assert false;
         return null;
     }
 
+    @Override
     public CClassInfo facet(XSFacet decl) {
         assert false;
         return null;
     }
+    @Override
     public CClassInfo schema(XSSchema schema) {
         assert false;
         return null;

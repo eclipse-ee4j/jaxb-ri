@@ -45,6 +45,7 @@ final class TypePatternBinder extends DPatternWalker {
         stack.clear();
     }
 
+    @Override
     public Void onRef(DRefPattern p) {
         if(!canInherit) {
             cannotBeInherited.add(p.getTarget());
@@ -65,6 +66,7 @@ final class TypePatternBinder extends DPatternWalker {
 
         All the following code are the same
     */
+    @Override
     public Void onChoice(DChoicePattern p) {
         push(false);
         super.onChoice(p);
@@ -72,6 +74,7 @@ final class TypePatternBinder extends DPatternWalker {
         return null;
     }
 
+    @Override
     public Void onAttribute(DAttributePattern p) {
         push(false);
         super.onAttribute(p);
@@ -79,6 +82,7 @@ final class TypePatternBinder extends DPatternWalker {
         return null;
     }
 
+    @Override
     public Void onList(DListPattern p) {
         push(false);
         super.onList(p);
@@ -86,6 +90,7 @@ final class TypePatternBinder extends DPatternWalker {
         return null;
     }
 
+    @Override
     public Void onMixed(DMixedPattern p) {
         push(false);
         super.onMixed(p);
@@ -93,6 +98,7 @@ final class TypePatternBinder extends DPatternWalker {
         return null;
     }
 
+    @Override
     public Void onOneOrMore(DOneOrMorePattern p) {
         push(false);
         super.onOneOrMore(p);
@@ -100,6 +106,7 @@ final class TypePatternBinder extends DPatternWalker {
         return null;
     }
 
+    @Override
     public Void onZeroOrMore(DZeroOrMorePattern p) {
         push(false);
         super.onZeroOrMore(p);
@@ -107,6 +114,7 @@ final class TypePatternBinder extends DPatternWalker {
         return null;
     }
 
+    @Override
     public Void onOptional(DOptionalPattern p) {
         push(false);
         super.onOptional(p);

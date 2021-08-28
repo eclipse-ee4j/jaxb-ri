@@ -388,7 +388,8 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler
     
 
     private final Map<String, String> locallyDeclaredPrefix = new HashMap<>();
-    public void startPrefixMapping( String prefix, String uri ) throws SAXException {
+    @Override
+    public void startPrefixMapping(String prefix, String uri ) throws SAXException {
         locallyDeclaredPrefix.put(prefix,uri);
     }
     
@@ -407,6 +408,7 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler
      *            the filter chain raises an exception.
      * @see org.xml.sax.ContentHandler#startDocument()
      */
+    @Override
     public void startDocument ()
         throws SAXException
     {
@@ -441,6 +443,7 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler
      *            the filter chain raises an exception.
      * @see org.xml.sax.ContentHandler#endDocument()
      */
+    @Override
     public void endDocument ()
         throws SAXException
     {
@@ -481,6 +484,7 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler
      *            the filter chain raises an exception.
      * @see org.xml.sax.ContentHandler#startElement(java.lang.String, java.lang.String, java.lang.String, org.xml.sax.Attributes)
      */
+    @Override
     public void startElement (String uri, String localName,
                               String qName, Attributes atts)
         throws SAXException
@@ -551,6 +555,7 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler
      *            the filter chain raises an exception.
      * @see org.xml.sax.ContentHandler#endElement(java.lang.String, java.lang.String, java.lang.String)
      */
+    @Override
     public void endElement (String uri, String localName, String qName)
         throws SAXException
     {
@@ -588,6 +593,7 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler
      *            the filter chain raises an exception.
      * @see org.xml.sax.ContentHandler#characters(char[], int, int)
      */
+    @Override
     public void characters (char ch[], int start, int len)
         throws SAXException
     {
@@ -620,6 +626,7 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler
      *            the filter chain raises an exception.
      * @see org.xml.sax.ContentHandler#ignorableWhitespace(char[], int, int)
      */
+    @Override
     public void ignorableWhitespace (char ch[], int start, int length)
         throws SAXException
     {
@@ -645,6 +652,7 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler
      *            the filter chain raises an exception.
      * @see org.xml.sax.ContentHandler#processingInstruction(java.lang.String, java.lang.String)
      */
+    @Override
     public void processingInstruction (String target, String data)
         throws SAXException
     {
@@ -887,18 +895,23 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler
     }
 
 
+    @Override
     public void startDTD(String name, String publicId, String systemId) throws SAXException {
     }
 
+    @Override
     public void endDTD() throws SAXException {
     }
 
+    @Override
     public void startEntity(String name) throws SAXException {
     }
 
+    @Override
     public void endEntity(String name) throws SAXException {
     }
 
+    @Override
     public void startCDATA() throws SAXException {
         try {
             if (!startTagIsClosed) {
@@ -912,6 +925,7 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler
         }
     }
 
+    @Override
     public void endCDATA() throws SAXException {
         try {
             inCDATA = false;
@@ -921,6 +935,7 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler
         }
     }
 
+    @Override
     public void comment(char ch[], int start, int length) throws SAXException {
         try {
             output.write("<!--");

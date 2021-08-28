@@ -17,6 +17,7 @@ import org.glassfish.jaxb.runtime.v2.runtime.JaxBeanInfo;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
+import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 import java.util.Collection;
 import java.util.Collections;
@@ -100,7 +101,7 @@ public class XsiTypeLoader extends Loader {
         return beanInfo;
     }
 
-    static final QName XsiTypeQNAME = new QName(WellKnownNamespace.XML_SCHEMA_INSTANCE,"type");
+    static final QName XsiTypeQNAME = new QName(XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI,"type");
 
     @Override
     public Collection<QName> getExpectedAttributes() {

@@ -105,20 +105,24 @@ final class Element extends Term implements Comparable<Element> {
         this.name = name;
     }
 
+    @Override
     void normalize(List<Block> r, boolean optional) {
         Block o = new Block(optional,false);
         o.elements.add(this);
         r.add(o);
     }
 
+    @Override
     void addAllElements(Block b) {
         b.elements.add(this);
     }
 
+    @Override
     boolean isOptional() {
         return false;
     }
 
+    @Override
     boolean isRepeated() {
         return false;
     }
@@ -293,6 +297,7 @@ final class Element extends Term implements Comparable<Element> {
         }
     }
 
+    @Override
     public int compareTo(Element that) {
         return this.name.compareTo(that.name);
     }

@@ -27,16 +27,19 @@ public class ConsoleErrorReporter implements ErrorListener {
         this.out = out;
     }
 
+    @Override
     public void error(SAXParseException exception) {
         out.print("[ERROR]   ");
         print(exception);
     }
 
+    @Override
     public void fatalError(SAXParseException exception) {
         out.print("[FATAL]   ");
         print(exception);
     }
 
+    @Override
     public void warning(SAXParseException exception) {
         out.print("[WARNING] ");
         print(exception);

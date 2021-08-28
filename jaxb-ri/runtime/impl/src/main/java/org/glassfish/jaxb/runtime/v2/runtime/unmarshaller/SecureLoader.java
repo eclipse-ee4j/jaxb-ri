@@ -24,6 +24,7 @@ class SecureLoader {
         } else {
             return (ClassLoader) java.security.AccessController.doPrivileged(
                     new java.security.PrivilegedAction() {
+                        @Override
                         public java.lang.Object run() {
                             return Thread.currentThread().getContextClassLoader();
                         }
@@ -37,6 +38,7 @@ class SecureLoader {
         } else {
             return (ClassLoader) java.security.AccessController.doPrivileged(
                     new java.security.PrivilegedAction() {
+                        @Override
                         public java.lang.Object run() {
                             return c.getClassLoader();
                         }
@@ -50,6 +52,7 @@ class SecureLoader {
         } else {
             return (ClassLoader) java.security.AccessController.doPrivileged(
                     new java.security.PrivilegedAction() {
+                        @Override
                         public java.lang.Object run() {
                             return ClassLoader.getSystemClassLoader();
                         }

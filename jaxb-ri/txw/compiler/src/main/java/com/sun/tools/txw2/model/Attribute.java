@@ -35,14 +35,17 @@ public class Attribute extends XmlNode {
         super(location, name, leaf);
     }
 
+    @Override
     void declare(NodeSet nset) {
         ; // attributes won't produce a class
     }
 
+    @Override
     void generate(NodeSet nset) {
         ; // nothing
     }
 
+    @Override
     void generate(JDefinedClass clazz, NodeSet nset, Set<Prop> props) {
         Set<JType> types = new HashSet<JType>();
 

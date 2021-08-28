@@ -38,6 +38,7 @@ public abstract class Node extends Leaf implements Iterable<Leaf> {
     /**
      * Iterates all the children.
      */
+    @Override
     public final Iterator<Leaf> iterator() {
         return new CycleIterator(leaf);
     }

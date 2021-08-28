@@ -144,6 +144,7 @@ public final class Document {
 
     // I wanted to hide those write method from users
     private final ContentVisitor visitor = new ContentVisitor() {
+        @Override
         public void onStartDocument() {
             // the startDocument token is used as the sentry, so this method shall never
             // be called.
@@ -151,34 +152,40 @@ public final class Document {
             throw new IllegalStateException();
         }
 
+        @Override
         public void onEndDocument() {
             out.endDocument();
         }
 
+        @Override
         public void onEndTag() {
             out.endTag();
             inscopeNamespace.popContext();
             activeNamespaces = null;
         }
 
+        @Override
         public void onPcdata(StringBuilder buffer) {
             if(activeNamespaces!=null)
                 buffer = fixPrefix(buffer);
             out.text(buffer);
         }
 
+        @Override
         public void onCdata(StringBuilder buffer) {
             if(activeNamespaces!=null)
                 buffer = fixPrefix(buffer);
             out.cdata(buffer);
         }
 
+        @Override
         public void onComment(StringBuilder buffer) {
             if(activeNamespaces!=null)
                 buffer = fixPrefix(buffer);
             out.comment(buffer);
         }
 
+        @Override
         public void onStartTag(String nsUri, String localName, Attribute attributes, NamespaceDecl namespaces) {
             assert nsUri!=null;
             assert localName!=null;

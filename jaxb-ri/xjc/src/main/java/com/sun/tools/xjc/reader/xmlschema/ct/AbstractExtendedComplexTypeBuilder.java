@@ -69,6 +69,7 @@ abstract class AbstractExtendedComplexTypeBuilder extends CTBuilder {
             return nc;
         }
 
+        @Override
         public NameClass elementDecl(XSElementDecl decl) {
             return getNameClass(decl);
         }

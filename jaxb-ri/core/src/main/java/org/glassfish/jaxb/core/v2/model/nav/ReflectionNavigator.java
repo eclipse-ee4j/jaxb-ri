@@ -130,10 +130,8 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
         /**
          * Replaces the type variables in {@code t} by its actual arguments.
          *
-         * @param decl
-         *      provides a list of type variables. See {@link GenericDeclaration#getTypeParameters()}
-         * @param args
-         *      actual arguments. See {@link ParameterizedType#getActualTypeArguments()}
+         * @param decl provides a list of type variables. See {@link GenericDeclaration#getTypeParameters()}
+         * @param args actual arguments. See {@link ParameterizedType#getActualTypeArguments()}
          */
         private Type bind(Type t, GenericDeclaration decl, ParameterizedType args) {
             return binder.visit(t, new BinderArg(decl, args.getActualTypeArguments()));

@@ -151,11 +151,13 @@ final class DefaultParticleBinder extends ParticleBinder {
          */
         private XSParticle outerParticle;
 
+        @Override
         public void elementDecl(XSElementDecl decl) {
             check(outerParticle);
             mark(outerParticle);
         }
 
+        @Override
         public void modelGroup(XSModelGroup mg) {
             // choice gets mapped to a property
             if(mg.getCompositor()== XSModelGroup.Compositor.CHOICE && builder.getGlobalBinding().isChoiceContentPropertyEnabled()) {
@@ -167,10 +169,12 @@ final class DefaultParticleBinder extends ParticleBinder {
                 particle(child);
         }
 
+        @Override
         public void modelGroupDecl(XSModelGroupDecl decl) {
             modelGroup(decl.getModelGroup());
         }
 
+        @Override
         public void wildcard(XSWildcard wc) {
             mark(outerParticle);
         }
@@ -350,21 +354,25 @@ final class DefaultParticleBinder extends ParticleBinder {
             }
         }
 
-        public void elementDecl( XSElementDecl e ) {
+        @Override
+        public void elementDecl(XSElementDecl e ) {
             // because the corresponding particle must be marked.
             assert false;
         }
 
-        public void wildcard( XSWildcard wc ) {
+        @Override
+        public void wildcard(XSWildcard wc ) {
             // because the corresponding particle must be marked.
             assert false;
         }
 
-        public void modelGroupDecl( XSModelGroupDecl decl ) {
+        @Override
+        public void modelGroupDecl(XSModelGroupDecl decl ) {
             modelGroup(decl.getModelGroup());
         }
 
-        public void modelGroup( XSModelGroup mg ) {
+        @Override
+        public void modelGroup(XSModelGroup mg ) {
             boolean oldIOP = insideOptionalParticle;
             insideOptionalParticle |= mg.getCompositor()==XSModelGroup.CHOICE;
 

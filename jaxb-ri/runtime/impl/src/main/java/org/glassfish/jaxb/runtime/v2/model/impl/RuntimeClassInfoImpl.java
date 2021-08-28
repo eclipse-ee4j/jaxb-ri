@@ -41,10 +41,7 @@ import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.lang.reflect.Type;
+import java.lang.reflect.*;
 import java.util.List;
 import java.util.Map;
 
@@ -83,8 +80,8 @@ class RuntimeClassInfoImpl extends ClassInfoImpl<Type,Class,Field,Method>
                 factoryAnn = findXmlAccessorFactoryAnnotation(clazz);
                 if (factoryAnn != null) {
                     try {
-                        accFactory = factoryAnn.value().newInstance();
-                    } catch (InstantiationException e) {
+                        accFactory = factoryAnn.value().getConstructor().newInstance();
+                    } catch (InstantiationException | NoSuchMethodException | InvocationTargetException e) {
                         builder.reportError(new IllegalAnnotationException(
                                 Messages.ACCESSORFACTORY_INSTANTIATION_EXCEPTION.format(
                                 factoryAnn.getClass().getName(), nav().getClassName(clazz)), this));

@@ -20,6 +20,8 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLFilter;
 import org.xml.sax.helpers.XMLFilterImpl;
 
+import javax.xml.XMLConstants;
+
 /**
  * {@link XMLFilter} that can fork an event to another {@link ContentHandler}
  * in the middle.
@@ -93,7 +95,7 @@ public class ForkingFilter extends XMLFilterImpl {
 
     @Override
     public void startPrefixMapping(String prefix, String uri) throws SAXException {
-        if (WellKnownNamespace.XML_NAMESPACE_URI.equals(uri)) return; //xml prefix shall not be declared based on jdk api javadoc
+        if (XMLConstants.XML_NS_URI.equals(uri)) return; //xml prefix shall not be declared based on jdk api javadoc
         if(side!=null)
             side.startPrefixMapping(prefix,uri);
         namespaces.add(prefix);

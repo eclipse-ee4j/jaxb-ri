@@ -20,6 +20,8 @@ import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlEnumValue;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlTransient;
+
+import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
 import com.sun.codemodel.ClassType;
@@ -384,7 +386,7 @@ public final class BIGlobalBinding extends AbstractDeclarationImpl {
         super.setParent(parent);
         // fill in the remaining default values
         if(enumBaseTypes==null)
-            enumBaseTypes = Collections.singleton(new QName(WellKnownNamespace.XML_SCHEMA,"string"));
+            enumBaseTypes = Collections.singleton(new QName(XMLConstants.W3C_XML_SCHEMA_NS_URI,"string"));
 
         this.defaultProperty = new BIProperty(getLocation(),null,null,null,
                 collectionType, fixedAttributeAsConstantProperty, optionalProperty, generateElementProperty );

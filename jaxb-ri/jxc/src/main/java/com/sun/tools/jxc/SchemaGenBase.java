@@ -36,6 +36,11 @@ public class SchemaGenBase extends ApBasedTask {
 
     private boolean fork = false;
 
+    /**
+     * Default constructor.
+     */
+    public SchemaGenBase() { super(); }
+
     private final CommandlineJava cmd = new CommandlineJava();
 
     CommandlineJava getCommandline() {
@@ -48,30 +53,36 @@ public class SchemaGenBase extends ApBasedTask {
 
     private Path modulepath = null;
 
+    @Override
     public void setModulepath(Path mp) {
         this.modulepath = mp;
     }
 
+    @Override
     public Path getModulepath() {
         return this.modulepath;
     }
 
     private Path modulesourcepath = null;
 
+    @Override
     public void setModulesourcepath(Path msp) {
         this.modulesourcepath = msp;
     }
 
+    @Override
     public Path getModulesourcepath() {
         return this.modulesourcepath;
     }
 
     private Path upgrademodulepath = null;
 
+    @Override
     public void setUpgrademodulepath(Path ump) {
         this.upgrademodulepath = ump;
     }
 
+    @Override
     public Path getUpgrademodulepath() {
         return this.upgrademodulepath;
     }
@@ -136,18 +147,22 @@ public class SchemaGenBase extends ApBasedTask {
         return this.addopens;
     }
 
+    @Override
     protected void setupCommandlineSwitches(Commandline cmd) {
         cmd.createArgument().setValue("-proc:only");
     }
 
+    @Override
     protected String getCompilationMessage() {
         return "Generating schema from ";
     }
 
+    @Override
     protected String getFailedMessage() {
         return "schema generation failed";
     }
 
+    @Override
     public void setFork(boolean flg) {
         fork = flg;
     }
@@ -174,6 +189,7 @@ public class SchemaGenBase extends ApBasedTask {
         return this.episode;
     }
 
+    @Override
     protected Processor getProcessor() {
         Map<String, File> m = new HashMap<String, File>();
         for (SchemaGenBase.Schema schema : schemas) {
@@ -197,6 +213,11 @@ public class SchemaGenBase extends ApBasedTask {
     public class Schema {
         private String namespace;
         private File file;
+
+        /**
+         * Default constructor.
+         */
+        public Schema() {}
 
         public void setNamespace(String namespace) {
             this.namespace = namespace;
@@ -232,7 +253,7 @@ public class SchemaGenBase extends ApBasedTask {
                 throw (BuildException) ex;
             } else {
                 throw new BuildException("Error starting " + "schemagen" + ": " + ex.getMessage(), ex,
-                    getLocation());
+                        getLocation());
             }
         }
     }
@@ -278,10 +299,10 @@ public class SchemaGenBase extends ApBasedTask {
         }
 
         String antcp = loader != null
-            //taskedef cp
-            ? ((AntClassLoader) loader).getClasspath()
-            //system classloader, ie. env CLASSPATH=...
-            : System.getProperty("java.class.path");
+                //taskedef cp
+                ? ((AntClassLoader) loader).getClasspath()
+                //system classloader, ie. env CLASSPATH=...
+                : System.getProperty("java.class.path");
         // try to find tools.jar and add it to the cp
         // so the behaviour on all JDKs is the same
         // (avoid creating MaskingClassLoader on non-Mac JDKs)

@@ -578,14 +578,17 @@ public final class BIProperty extends AbstractDeclarationImpl {
      * a fixed value constraint.
      */
     private final XSFinder hasFixedValue = new XSFinder() {
+        @Override
         public Boolean attributeDecl(XSAttributeDecl decl) {
             return decl.getFixedValue()!=null;
         }
 
+        @Override
         public Boolean attributeUse(XSAttributeUse use) {
             return use.getFixedValue()!=null;
         }
         
+        @Override
         public Boolean schema(XSSchema s) {
             // we allow globalBindings to have isConstantProperty==true,
             // so this method returns true to allow this.
@@ -666,73 +669,90 @@ public final class BIProperty extends AbstractDeclarationImpl {
     
     private final static XSFunction<XSComponent> defaultCustomizationFinder = new XSFunction<XSComponent>() {
 
+        @Override
         public XSComponent attributeUse(XSAttributeUse use) {
             return use.getDecl();   // inherit from the declaration
         }
 
+        @Override
         public XSComponent particle(XSParticle particle) {
             return particle.getTerm(); // inherit from the term
         }
 
+        @Override
         public XSComponent schema(XSSchema schema) {
             // no more delegation
             return null;
         }
 
         // delegates to the context schema object
+        @Override
         public XSComponent attributeDecl(XSAttributeDecl decl) {
             return decl.getOwnerSchema();
         }
 
+        @Override
         public XSComponent wildcard(XSWildcard wc) {
             return wc.getOwnerSchema();
         }
 
+        @Override
         public XSComponent modelGroupDecl(XSModelGroupDecl decl) {
             return decl.getOwnerSchema();
         }
 
+        @Override
         public XSComponent modelGroup(XSModelGroup group) {
             return group.getOwnerSchema();
         }
 
+        @Override
         public XSComponent elementDecl(XSElementDecl decl) {
             return decl.getOwnerSchema();
         }
 
+        @Override
         public XSComponent complexType(XSComplexType type) {
             return type.getOwnerSchema();
         }
 
+        @Override
         public XSComponent simpleType(XSSimpleType st) {
             return st.getOwnerSchema();
         }
 
         // property customizations are not allowed on these components.
+        @Override
         public XSComponent attGroupDecl(XSAttGroupDecl decl) {
             throw new IllegalStateException();
         }
 
+        @Override
         public XSComponent empty(XSContentType empty) {
             throw new IllegalStateException();
         }
 
+        @Override
         public XSComponent annotation(XSAnnotation xsAnnotation) {
             throw new IllegalStateException();
         }
 
+        @Override
         public XSComponent facet(XSFacet xsFacet) {
             throw new IllegalStateException();
         }
 
+        @Override
         public XSComponent notation(XSNotation xsNotation) {
             throw new IllegalStateException();
         }
 
+        @Override
         public XSComponent identityConstraint(XSIdentityConstraint x) {
             throw new IllegalStateException();
         }
 
+        @Override
         public XSComponent xpath(XSXPath xsxPath) {
             throw new IllegalStateException();
         }

@@ -21,6 +21,8 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.XMLFilterImpl;
 
+import javax.xml.XMLConstants;
+
 /**
  * XML Schema specific internalization logic.
  * 
@@ -40,7 +42,7 @@ public class XMLSchemaInternalizationLogic implements InternalizationLogic {
         
         @Override
         protected String findExternalResource( String nsURI, String localName, Attributes atts) {
-            if( WellKnownNamespace.XML_SCHEMA.equals(nsURI)
+            if( XMLConstants.W3C_XML_SCHEMA_NS_URI.equals(nsURI)
             && ("import".equals(localName) || "include".equals(localName) ) )
                 return atts.getValue("schemaLocation");
             else
@@ -55,19 +57,19 @@ public class XMLSchemaInternalizationLogic implements InternalizationLogic {
 
     @Override
     public boolean checkIfValidTargetNode(DOMForest parent, Element bindings, Element target) {
-        return WellKnownNamespace.XML_SCHEMA.equals(target.getNamespaceURI());
+        return XMLConstants.W3C_XML_SCHEMA_NS_URI.equals(target.getNamespaceURI());
     }
 
     @Override
     public Element refineTarget(Element target) {
         // look for existing xs:annotation
-        Element annotation = DOMUtils.getFirstChildElement(target, WellKnownNamespace.XML_SCHEMA, "annotation");
+        Element annotation = DOMUtils.getFirstChildElement(target, XMLConstants.W3C_XML_SCHEMA_NS_URI, "annotation");
         if(annotation==null)
             // none exists. need to make one
             annotation = insertXMLSchemaElement( target, "annotation" );
         
         // then look for appinfo
-        Element appinfo = DOMUtils.getFirstChildElement(annotation, WellKnownNamespace.XML_SCHEMA, "appinfo" );
+        Element appinfo = DOMUtils.getFirstChildElement(annotation, XMLConstants.W3C_XML_SCHEMA_NS_URI, "appinfo" );
         if(appinfo==null)
             // none exists. need to make one
             appinfo = insertXMLSchemaElement( annotation, "appinfo" );
@@ -90,7 +92,7 @@ public class XMLSchemaInternalizationLogic implements InternalizationLogic {
         if(idx==-1)     qname = localName;
         else            qname = qname.substring(0,idx+1)+localName;
         
-        Element child = parent.getOwnerDocument().createElementNS( WellKnownNamespace.XML_SCHEMA, qname );
+        Element child = parent.getOwnerDocument().createElementNS( XMLConstants.W3C_XML_SCHEMA_NS_URI, qname );
         
         NodeList children = parent.getChildNodes();
         

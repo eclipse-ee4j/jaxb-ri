@@ -55,6 +55,7 @@ public final class ExpressionBuilder implements XSTermFunction<Expression> {
      * We can only have one {@link XmlAnyElement} property,
      * so all the wildcards need to be treated as one node.
      */
+    @Override
     public Expression wildcard(XSWildcard wc) {
         if(wildcard==null)
             wildcard = new GWildcardElement();
@@ -63,10 +64,12 @@ public final class ExpressionBuilder implements XSTermFunction<Expression> {
         return wildcard;
     }
 
+    @Override
     public Expression modelGroupDecl(XSModelGroupDecl decl) {
         return modelGroup(decl.getModelGroup());
     }
 
+    @Override
     public Expression modelGroup(XSModelGroup group) {
         XSModelGroup.Compositor comp = group.getCompositor();
         if(comp==XSModelGroup.CHOICE) {
@@ -90,6 +93,7 @@ public final class ExpressionBuilder implements XSTermFunction<Expression> {
         }
     }
 
+    @Override
     public Element elementDecl(XSElementDecl decl) {
         QName n = BGMBuilder.getName(decl);
 

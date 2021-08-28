@@ -34,10 +34,12 @@ public final class BindRed extends ColorBinder {
 
     private final ComplexTypeFieldBuilder ctBuilder = Ring.get(ComplexTypeFieldBuilder.class);
 
+    @Override
     public void complexType(XSComplexType ct) {
         ctBuilder.build(ct);
     }
 
+    @Override
     public void wildcard(XSWildcard xsWildcard) {
         // TODO: implement this method later
         // I guess we might allow this to be mapped to a generic element property ---
@@ -46,6 +48,7 @@ public final class BindRed extends ColorBinder {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public void elementDecl(XSElementDecl e) {
         SimpleTypeBuilder stb = Ring.get(SimpleTypeBuilder.class);
         stb.refererStack.push(e);    // referer is element
@@ -53,6 +56,7 @@ public final class BindRed extends ColorBinder {
         stb.refererStack.pop();
     }
 
+    @Override
     public void simpleType(XSSimpleType type) {
         SimpleTypeBuilder stb = Ring.get(SimpleTypeBuilder.class);
         stb.refererStack.push(type);    // referer is itself
@@ -63,24 +67,31 @@ public final class BindRed extends ColorBinder {
 /*
     Components that can never be mapped to a class
 */
+    @Override
     public void attGroupDecl(XSAttGroupDecl ag) {
         throw new IllegalStateException();
     }
+    @Override
     public void attributeDecl(XSAttributeDecl ad) {
         throw new IllegalStateException();
     }
+    @Override
     public void attributeUse(XSAttributeUse au) {
         throw new IllegalStateException();
     }
+    @Override
     public void empty(XSContentType xsContentType) {
         throw new IllegalStateException();
     }
+    @Override
     public void modelGroupDecl(XSModelGroupDecl xsModelGroupDecl) {
         throw new IllegalStateException();
     }
+    @Override
     public void modelGroup(XSModelGroup xsModelGroup) {
         throw new IllegalStateException();
     }
+    @Override
     public void particle(XSParticle p) {
         throw new IllegalStateException();
     }

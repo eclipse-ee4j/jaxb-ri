@@ -28,6 +28,7 @@ class DivImpl
         super(parent,grammar);
     }
 
+    @Override
     public void endDiv(LocatorImpl locator, AnnotationsImpl annotations) {
     }
 }

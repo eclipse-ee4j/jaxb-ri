@@ -14,10 +14,12 @@ package com.sun.xml.txw2;
  * @author Kohsuke Kawaguchi
  */
 final class StartDocument extends Content {
+    @Override
     boolean concludesPendingStartTag() {
         return true;
     }
 
+    @Override
     void accept(ContentVisitor visitor) {
         visitor.onStartDocument();
     }

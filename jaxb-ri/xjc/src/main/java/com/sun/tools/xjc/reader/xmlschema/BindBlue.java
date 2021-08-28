@@ -29,11 +29,13 @@ import com.sun.xml.xsom.XSWildcard;
  */
 final class BindBlue extends ColorBinder {
 
+    @Override
     public void complexType(XSComplexType ct) {
         // TODO: implement this method later
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public void elementDecl(XSElementDecl e) {
         // TODO: implement this method later
         throw new UnsupportedOperationException();
@@ -42,41 +44,49 @@ final class BindBlue extends ColorBinder {
 
 
 
+    @Override
     public void wildcard(XSWildcard xsWildcard) {
         // TODO: implement this method later
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public void attGroupDecl(XSAttGroupDecl xsAttGroupDecl) {
         // TODO
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public void attributeDecl(XSAttributeDecl xsAttributeDecl) {
         // TODO
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public void attributeUse(XSAttributeUse use) {
         // TODO
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public void modelGroupDecl(XSModelGroupDecl xsModelGroupDecl) {
         // TODO
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public void modelGroup(XSModelGroup xsModelGroup) {
         // TODO
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public void particle(XSParticle xsParticle) {
         // TODO
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public void empty(XSContentType xsContentType) {
         // TODO
         throw new UnsupportedOperationException();
@@ -86,6 +96,7 @@ final class BindBlue extends ColorBinder {
 /**
  * Components that always map to a type
  */
+    @Override
     public void simpleType(XSSimpleType type) {
         throw new IllegalStateException();
     }

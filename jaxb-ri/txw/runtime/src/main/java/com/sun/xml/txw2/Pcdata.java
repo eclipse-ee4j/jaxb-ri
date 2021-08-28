@@ -20,6 +20,7 @@ final class Pcdata extends Text {
         super(document, nsResolver, obj);
     }
 
+    @Override
     void accept(ContentVisitor visitor) {
         visitor.onPcdata(buffer);
     }

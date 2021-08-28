@@ -23,6 +23,11 @@ import static org.junit.Assert.*;
 public class JRequiresTest extends JTestModuleDirective {
 
     /**
+     * Default constructor.
+     */
+    public JRequiresTest() {}
+
+    /**
      * Test of generateModifiers method with all combinations of {@code local) and {@code public) modifiers.
      */
     @Test

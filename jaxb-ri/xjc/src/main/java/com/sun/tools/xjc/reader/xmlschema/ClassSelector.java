@@ -49,6 +49,8 @@ import com.sun.xml.xsom.util.ComponentNameFunction;
 
 import org.xml.sax.Locator;
 
+import javax.xml.XMLConstants;
+
 /**
  * Manages association between {@link XSComponent}s and generated
  * {@link CTypeInfo}s.
@@ -186,7 +188,7 @@ public final class ClassSelector extends BindingComponent {
 
         classScopes.push(null);  // so that the getClassFactory method returns null
 
-        XSComplexType anyType = Ring.get(XSSchemaSet.class).getComplexType(WellKnownNamespace.XML_SCHEMA,"anyType");
+        XSComplexType anyType = Ring.get(XSSchemaSet.class).getComplexType(XMLConstants.W3C_XML_SCHEMA_NS_URI,"anyType");
         bindMap.put(anyType,new Binding(anyType,CBuiltinLeafInfo.ANYTYPE));
     }
 

@@ -17,6 +17,7 @@ import org.glassfish.jaxb.runtime.v2.runtime.reflect.Accessor;
 import jakarta.xml.bind.JAXBElement;
 import org.xml.sax.SAXException;
 
+import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 import java.util.Collection;
 
@@ -37,7 +38,7 @@ public class XsiNilLoader extends ProxyLoader {
 
     @Override
     protected Loader selectLoader(UnmarshallingContext.State state, TagName ea) throws SAXException {
-        int idx = ea.atts.getIndex(WellKnownNamespace.XML_SCHEMA_INSTANCE,"nil");
+        int idx = ea.atts.getIndex(XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI,"nil");
 
         if (idx!=-1) {
             Boolean b = DatatypeConverterImpl._parseBoolean(ea.atts.getValue(idx));

@@ -22,7 +22,6 @@ public enum Const {
     /**
      * Name of the annotation processing command-line option to take user-specified config files.
      * <p>
-     * <p>
      * It can take multiple file names separately by {@link File#pathSeparator}.
      */
     CONFIG_FILE_OPTION("jaxb.config"),

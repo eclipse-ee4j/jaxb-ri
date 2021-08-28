@@ -85,6 +85,7 @@ public class SchemaGenerator extends AbstractProcessor {
         try {
             model.generateSchema(
                     new SchemaOutputResolver() {
+                        @Override
                         public Result createOutput(String namespaceUri, String suggestedFileName) throws IOException {
                             File file;
                             OutputStream out;

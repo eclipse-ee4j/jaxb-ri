@@ -52,26 +52,32 @@ abstract class ColorBinder extends BindingComponent implements XSVisitor {
 
 
 
+    @Override
     public final void annotation(XSAnnotation xsAnnotation) {
         throw new IllegalStateException();
     }
 
+    @Override
     public final void schema(XSSchema xsSchema) {
         throw new IllegalStateException();
     }
 
+    @Override
     public final void facet(XSFacet xsFacet) {
         throw new IllegalStateException();
     }
 
+    @Override
     public final void notation(XSNotation xsNotation) {
         throw new IllegalStateException();
     }
 
+    @Override
     public final void identityConstraint(XSIdentityConstraint xsIdentityConstraint) {
         throw new IllegalStateException();
     }
 
+    @Override
     public final void xpath(XSXPath xsxPath) {
         throw new IllegalStateException();
     }

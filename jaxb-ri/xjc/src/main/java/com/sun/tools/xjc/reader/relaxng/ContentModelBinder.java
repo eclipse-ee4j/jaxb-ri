@@ -49,10 +49,12 @@ final class ContentModelBinder extends DPatternWalker {
         this.clazz = clazz;
     }
 
+    @Override
     public Void onMixed(DMixedPattern p) {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public Void onChoice(DChoicePattern p) {
         boolean old = insideOptional;
         insideOptional = true;
@@ -61,6 +63,7 @@ final class ContentModelBinder extends DPatternWalker {
         return null;
     }
 
+    @Override
     public Void onOptional(DOptionalPattern p) {
         boolean old = insideOptional;
         insideOptional = true;
@@ -69,10 +72,12 @@ final class ContentModelBinder extends DPatternWalker {
         return null;
     }
 
+    @Override
     public Void onZeroOrMore(DZeroOrMorePattern p) {
         return onRepeated(p,true);
     }
 
+    @Override
     public Void onOneOrMore(DOneOrMorePattern p) {
         return onRepeated(p,insideOptional);
 
@@ -95,6 +100,7 @@ final class ContentModelBinder extends DPatternWalker {
         return null;
     }
 
+    @Override
     public Void onAttribute(DAttributePattern p) {
         // TODO: support multiple names
         QName name = p.getName().listNames().iterator().next();

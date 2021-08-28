@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -111,8 +112,9 @@ public class NodeSet extends LinkedHashSet<WriterNode> {
         return b;
     }
 
+    @SuppressWarnings("unchecked")
     public <T extends WriterNode> Collection<T> subset(Class<T> t) {
-        ArrayList<T> r = new ArrayList<T>(size());
+        List<T> r = new ArrayList<T>(size());
         for( WriterNode n : this )
             if(t.isInstance(n))
                 r.add((T)n);

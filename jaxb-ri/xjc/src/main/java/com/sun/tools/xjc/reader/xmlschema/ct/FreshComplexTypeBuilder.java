@@ -43,6 +43,7 @@ final class FreshComplexTypeBuilder extends CTBuilder {
         XSContentType contentType = ct.getContentType();
 
         contentType.visit(new XSContentTypeVisitor() {
+            @Override
             public void simpleType(XSSimpleType st) {
                 builder.recordBindingMode(ct,ComplexTypeBindingMode.NORMAL);
 
@@ -55,6 +56,7 @@ final class FreshComplexTypeBuilder extends CTBuilder {
                 selector.getCurrentBean().addProperty(p);
             }
 
+            @Override
             public void particle(XSParticle p) {
                 // determine the binding of this complex type.
 
@@ -69,6 +71,7 @@ final class FreshComplexTypeBuilder extends CTBuilder {
 
             }
 
+            @Override
             public void empty(XSContentType e) {
                 builder.recordBindingMode(ct,NORMAL);
             }

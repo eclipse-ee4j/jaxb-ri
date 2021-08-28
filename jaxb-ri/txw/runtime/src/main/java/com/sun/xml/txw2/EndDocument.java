@@ -14,10 +14,12 @@ package com.sun.xml.txw2;
  * @author Kohsuke Kawaguchi
  */
 final class EndDocument extends Content {
+    @Override
     boolean concludesPendingStartTag() {
         return true;
     }
 
+    @Override
     void accept(ContentVisitor visitor) {
         visitor.onEndDocument();
     }

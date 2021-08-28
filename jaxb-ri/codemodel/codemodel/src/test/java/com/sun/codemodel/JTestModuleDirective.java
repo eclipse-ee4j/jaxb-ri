@@ -21,6 +21,11 @@ import org.junit.Before;
  */
 public abstract class JTestModuleDirective {
 
+    /**
+     * Default constructor.
+     */
+    public JTestModuleDirective() {}
+
     /** Character array writer used to verify code generation output. */
     protected CharArrayWriter out;
 

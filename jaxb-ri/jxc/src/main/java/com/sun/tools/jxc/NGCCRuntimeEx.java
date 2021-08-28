@@ -87,7 +87,7 @@ public final class NGCCRuntimeEx extends NGCCRuntime {
      * @return
      *        A list of regular expression patterns {@link Pattern}
      */
-    public List getExcludePatterns(List<String> excludeContent ) {
+    public List<Pattern> getExcludePatterns(List<String> excludeContent ) {
         List<Pattern> excludeRegexList = new ArrayList<Pattern>();
         for (String excludes : excludeContent) {
             String regex = convertToRegex(excludes);
@@ -141,6 +141,7 @@ public final class NGCCRuntimeEx extends NGCCRuntime {
         return regex.toString();
     }
 
+    @Override
     protected void unexpectedX(String token) throws SAXException {
         errorHandler.error(
             new SAXParseException(Messages.UNEXPECTED_NGCC_TOKEN.format(
