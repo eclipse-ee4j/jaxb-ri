@@ -41,6 +41,7 @@
             --module-path "${module.path}"
             -Djdk.attach.allowAttachSelf
         </argLine>
+        <jdoc.doclint>all</jdoc.doclint>
     </properties>
 
     <dependencies>

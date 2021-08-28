@@ -42,16 +42,4 @@
         <module>osgi</module>
     </modules>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <configuration>
-                    <!-- this was already reported -->
-                    <doclint>-missing</doclint>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>

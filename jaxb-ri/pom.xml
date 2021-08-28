@@ -98,6 +98,8 @@
         <oss.disallow.snapshots>true</oss.disallow.snapshots>
         <vendor.name>Eclipse Foundation</vendor.name>
         <vendor.id>org.eclipse</vendor.id>
+        <!-- too many to fix -->
+        <jdoc.doclint>-missing</jdoc.doclint>
     </properties>
 
     <dependencyManagement>
@@ -243,6 +245,7 @@
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>3.3.0</version>
                     <configuration>
+                        <doclint>${jdoc.doclint}</doclint>
                         <archive>
                             <manifest>
                                 <addDefaultEntries>false</addDefaultEntries>

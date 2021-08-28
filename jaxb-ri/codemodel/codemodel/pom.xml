@@ -28,6 +28,8 @@
 
     <properties>
         <spotbugs.exclude>${project.basedir}/exclude-codemodel.xml</spotbugs.exclude>
+        <!-- too many to fix -->
+        <jdoc.doclint>-missing</jdoc.doclint>
     </properties>
 
     <dependencies>

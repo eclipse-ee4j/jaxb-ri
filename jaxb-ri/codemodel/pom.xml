@@ -64,6 +64,7 @@
 
         <upper.java.level>9</upper.java.level>
         <base.java.level>8</base.java.level>
+        <jdoc.doclint>all</jdoc.doclint>
     </properties>
 
     <modules>
@@ -121,6 +122,7 @@
                         </archive>
                         <release>11</release>
                         <notimestamp>true</notimestamp>
+                        <doclint>${jdoc.doclint}</doclint>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -156,7 +158,6 @@
                     <configuration>
                         <skip>${spotbugs.skip}</skip>
                         <threshold>${spotbugs.threshold}</threshold>
-                        <findbugsXmlWithMessages>true</findbugsXmlWithMessages>
                         <excludeFilterFile>
                             ${spotbugs.exclude}
                         </excludeFilterFile>
