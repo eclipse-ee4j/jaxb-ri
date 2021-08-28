@@ -25,10 +25,12 @@ final class PublicObjectFactoryGenerator extends ObjectFactoryGeneratorImpl {
         super(outline, model, targetPackage);
     }
 
+    @Override
     void populate(CElementInfo ei) {
         populate(ei,Aspect.IMPLEMENTATION,Aspect.EXPOSED);
     }
 
+    @Override
     void populate(ClassOutlineImpl cc) {
         populate(cc,cc.ref);
     }

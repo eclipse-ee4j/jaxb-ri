@@ -57,29 +57,35 @@ public final class CClassRef extends AbstractCElement implements NClass, CClass 
         assert fullyQualifiedClassName!=null;
     }
 
+    @Override
     public void setAbstract() {
         // assume that the referenced class is marked as abstract to begin with.
     }
 
+    @Override
     public boolean isAbstract() {
         // no way to find out for sure
         return false;
     }
 
+    @Override
     public NType getType() {
         return this;
     }
 
+    @Override
     public JClass toType(Outline o, Aspect aspect) {
         if(clazz==null)
             clazz = o.getCodeModel().ref(fullyQualifiedClassName);
         return clazz;
     }
 
+    @Override
     public String fullName() {
         return fullyQualifiedClassName;
     }
 
+    @Override
     public QName getTypeName() {
         return null;
     }
@@ -88,6 +94,7 @@ public final class CClassRef extends AbstractCElement implements NClass, CClass 
      * Guaranteed to return this.
      */
     @Deprecated
+    @Override
     public CNonElement getInfo() {
         return this;
     }
@@ -95,22 +102,27 @@ public final class CClassRef extends AbstractCElement implements NClass, CClass 
 // are these going to bite us?
 //    we can compute some of them, but not all.
 
+    @Override
     public CElement getSubstitutionHead() {
         return null;
     }
 
+    @Override
     public CClassInfo getScope() {
         return null;
     }
 
+    @Override
     public QName getElementName() {
         return null;
     }
 
+    @Override
     public boolean isBoxedType() {
         return false;
     }
 
+    @Override
     public boolean isSimpleType() {
         return false;
     }

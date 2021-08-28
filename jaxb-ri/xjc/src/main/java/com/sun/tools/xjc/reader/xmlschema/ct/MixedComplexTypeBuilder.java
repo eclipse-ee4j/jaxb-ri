@@ -27,6 +27,7 @@ import java.util.List;
  */
 final class MixedComplexTypeBuilder extends CTBuilder {
 
+    @Override
     public boolean isApplicable(XSComplexType ct) {
         XSType bt = ct.getBaseType();
         if(bt ==schemas.getAnyType() && ct.isMixed())
@@ -46,6 +47,7 @@ final class MixedComplexTypeBuilder extends CTBuilder {
         return false;
     }
 
+    @Override
     public void build(XSComplexType ct) {
         XSContentType contentType = ct.getContentType();
 

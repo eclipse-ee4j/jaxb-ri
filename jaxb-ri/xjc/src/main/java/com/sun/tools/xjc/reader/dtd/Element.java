@@ -80,12 +80,12 @@ final class Element extends Term implements Comparable<Element> {
     /**
      * List of attribute properties on this element
      */
-    final List<CPropertyInfo> attributes = new ArrayList<CPropertyInfo>();
+    final List<CPropertyInfo> attributes = new ArrayList<>();
 
     /**
      * Normalized blocks of the content model.
      */
-    private final List<Block> normalizedBlocks = new ArrayList<Block>();
+    private final List<Block> normalizedBlocks = new ArrayList<>();
 
     /**
      * True if this element needs to be a class.
@@ -230,11 +230,11 @@ final class Element extends Term implements Comparable<Element> {
         }
 
         // normalize
-        List<Block> n = new ArrayList<Block>();
+        List<Block> n = new ArrayList<>();
         contentModel.normalize(n,false);
 
         {// check collision among Blocks
-            Set<String> names = new HashSet<String>();
+            Set<String> names = new HashSet<>();
             boolean collision = false;
 
             OUTER:

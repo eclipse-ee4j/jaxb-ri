@@ -24,16 +24,17 @@ import com.sun.tools.xjc.outline.FieldOutline;
  *     Kohsuke Kawaguchi (kohsuke.kawaguchi@sun.com)
  */
 public final class GenericFieldRenderer implements FieldRenderer {
-    private Constructor constructor;
+    private Constructor<?> constructor;
 
-    public GenericFieldRenderer( Class fieldClass ) {
+    public GenericFieldRenderer( Class<?> fieldClass ) {
         try {
-            constructor = fieldClass.getDeclaredConstructor(new Class[]{ClassOutlineImpl.class,CPropertyInfo.class});
+            constructor = fieldClass.getDeclaredConstructor(new Class<?>[]{ClassOutlineImpl.class,CPropertyInfo.class});
         } catch (NoSuchMethodException e) {
             throw new NoSuchMethodError(e.getMessage());
         }
     }
 
+    @Override
     public FieldOutline generate(ClassOutlineImpl context, CPropertyInfo prop) {
         try {
             return (FieldOutline)constructor.newInstance(new Object[]{context,prop});

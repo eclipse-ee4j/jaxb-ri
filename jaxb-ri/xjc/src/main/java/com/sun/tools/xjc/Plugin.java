@@ -38,6 +38,12 @@ import org.xml.sax.SAXException;
 public abstract class Plugin {
 
     /**
+     * Default constructor.
+     */
+    protected Plugin() {
+    }
+
+    /**
      * Gets the option name to turn on this add-on.
      *
      * <p>

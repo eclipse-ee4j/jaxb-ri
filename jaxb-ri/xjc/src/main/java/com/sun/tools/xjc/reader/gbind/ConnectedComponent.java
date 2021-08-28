@@ -24,7 +24,7 @@ public final class ConnectedComponent implements Iterable<Element> {
     /**
      * {@link Element}s that belong to this component.
      */
-    private final List<Element> elements = new ArrayList<Element>();
+    private final List<Element> elements = new ArrayList<>();
 
     /*package*/ boolean isRequired;
 
@@ -65,6 +65,7 @@ public final class ConnectedComponent implements Iterable<Element> {
         elements.add(e);
     }
 
+    @Override
     public Iterator<Element> iterator() {
         return elements.iterator();
     }
@@ -72,6 +73,7 @@ public final class ConnectedComponent implements Iterable<Element> {
     /**
      * Just produces debug representation
      */
+    @Override
     public String toString() {
         String s = elements.toString();
         if(isRequired())

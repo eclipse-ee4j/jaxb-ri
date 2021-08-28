@@ -83,7 +83,6 @@ public final class ModelLoader {
         this.errorReceiver = new ErrorReceiverFilter(er);
     }
 
-    @SuppressWarnings("CallToThreadDumpStack")
     private Model load() {
         Model grammar;
 
@@ -385,6 +384,7 @@ public final class ModelLoader {
     public XSOMParser createXSOMParser(final DOMForest forest) {
         XSOMParser p = createXSOMParser(forest.createParser());
         p.setEntityResolver(new EntityResolver() {
+            @Override
             public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
                 // DOMForest only parses documents that are reachable through systemIds,
                 // and it won't pick up references like <xs:import namespace="..." /> without

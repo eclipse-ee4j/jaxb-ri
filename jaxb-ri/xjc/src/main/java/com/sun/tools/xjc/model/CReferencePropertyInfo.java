@@ -45,7 +45,7 @@ public final class CReferencePropertyInfo extends CPropertyInfo implements Refer
     /**
      * List of referenced elements.
      */
-    private final Set<CElement> elements = new LinkedHashSet<CElement>();
+    private final Set<CElement> elements = new LinkedHashSet<>();
 
     private final boolean isMixed;
     private WildcardMode wildcard;
@@ -63,6 +63,7 @@ public final class CReferencePropertyInfo extends CPropertyInfo implements Refer
         this.isMixedExtendedCust = isMixedExtended;
     }
 
+    @Override
     public Set<? extends CTypeInfo> ref() {
 //        if(wildcard==null && !isMixed())
 //            return getElements();
@@ -109,10 +110,12 @@ public final class CReferencePropertyInfo extends CPropertyInfo implements Refer
         return r;
     }
 
+    @Override
     public Set<CElement> getElements() {
         return elements;
     }
 
+    @Override
     public boolean isMixed() {
         return isMixed;
     }
@@ -133,6 +136,7 @@ public final class CReferencePropertyInfo extends CPropertyInfo implements Refer
      * We'll never use a wrapper element in XJC. Always return null.
      */
     @Deprecated
+    @Override
     public QName getXmlName() {
         return null;
     }
@@ -152,6 +156,7 @@ public final class CReferencePropertyInfo extends CPropertyInfo implements Refer
         return false;
     }
 
+    @Override
     public <V> V accept(CPropertyVisitor<V> visitor) {
         return visitor.onReference(this);
     }
@@ -161,10 +166,12 @@ public final class CReferencePropertyInfo extends CPropertyInfo implements Refer
         return visitor.visit(this, p);
     }
 
+    @Override
     public CAdapter getAdapter() {
         return null;
     }
 
+    @Override
     public final PropertyKind kind() {
         return PropertyKind.REFERENCE;
     }
@@ -173,10 +180,12 @@ public final class CReferencePropertyInfo extends CPropertyInfo implements Refer
      * A reference property can never be ID/IDREF because they always point to
      * other element classes.
      */
+    @Override
     public ID id() {
         return ID.NONE;
     }
 
+    @Override
     public WildcardMode getWildcard() {
         return wildcard;
     }
@@ -185,6 +194,7 @@ public final class CReferencePropertyInfo extends CPropertyInfo implements Refer
         this.wildcard = mode;
     }
 
+    @Override
     public NClass getDOMHandler() {
         // TODO: support other DOM handlers
         if(getWildcard()!=null)
@@ -193,25 +203,30 @@ public final class CReferencePropertyInfo extends CPropertyInfo implements Refer
             return null;
     }
 
+    @Override
     public MimeType getExpectedMimeType() {
         return null;
     }
     
+    @Override
     public boolean isCollectionNillable() {
         // in XJC, we never recognize a nillable collection pattern, so this is always false.
         return false;
     }
 
+    @Override
     public boolean isCollectionRequired() {
         // in XJC, we never recognize a nillable collection pattern, so this is always false.
         return false;
     }
 
     // reference property cannot have a type.
+    @Override
     public QName getSchemaType() {
         return null;
     }
 
+    @Override
     public boolean isRequired() {
         return required;
     }

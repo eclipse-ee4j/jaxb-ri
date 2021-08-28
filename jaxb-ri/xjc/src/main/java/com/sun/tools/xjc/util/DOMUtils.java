@@ -17,6 +17,7 @@
 package com.sun.tools.xjc.util;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.namespace.QName;
 
@@ -50,7 +51,7 @@ public class DOMUtils {
     
     /** Gets the child elements of the given name. */
     public static Element[] getChildElements(Element parent, String nsUri, String localPart ) {
-        ArrayList a = new ArrayList();
+        List<Element> a = new ArrayList<>();
         NodeList children = parent.getChildNodes();
         for( int i=0; i<children.getLength(); i++ ) {
             Node item = children.item(i);
@@ -58,22 +59,22 @@ public class DOMUtils {
             
             if(nsUri.equals(item.getNamespaceURI())
             && localPart.equals(item.getLocalName()) )
-                a.add(item);
+                a.add((Element) item);
         }
-        return (Element[]) a.toArray(new Element[a.size()]);
+        return a.toArray(new Element[a.size()]);
     }
     
     /** Gets all the child elements. */
     public static Element[] getChildElements( Element parent ) {
-        ArrayList a = new ArrayList();
+        List<Element> a = new ArrayList<>();
         NodeList children = parent.getChildNodes();
         for( int i=0; i<children.getLength(); i++ ) {
             Node item = children.item(i);
             if(!(item instanceof Element ))     continue;
             
-            a.add(item);
+            a.add((Element) item);
         }
-        return (Element[]) a.toArray(new Element[a.size()]);
+        return a.toArray(new Element[a.size()]);
     }
     
     

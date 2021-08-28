@@ -40,6 +40,7 @@ final class ElementCollectionAdapter extends ElementAdapter {
         super(core, ei);
     }
 
+    @Override
     public JType getRawType() {
         return codeModel().ref(List.class).narrow(itemType().boxify());
     }
@@ -48,6 +49,7 @@ final class ElementCollectionAdapter extends ElementAdapter {
         return ei.getContentInMemoryType().toType(outline(), EXPOSED);
     }
 
+    @Override
     public FieldAccessor create(JExpression targetObject) {
         return new FieldAccessorImpl(targetObject);
     }
@@ -57,6 +59,7 @@ final class ElementCollectionAdapter extends ElementAdapter {
             super(target);
         }
 
+        @Override
         public void toRawValue(JBlock block, JVar $var) {
             JCodeModel cm = outline().getCodeModel();
             JClass elementType = ei.toType(outline(),EXPOSED).boxify();
@@ -80,6 +83,7 @@ final class ElementCollectionAdapter extends ElementAdapter {
             cond._else().invoke($var,"add").arg(loop.var().invoke("getValue"));
         }
 
+        @Override
         public void fromRawValue(JBlock block, String uniqueName, JExpression $var) {
             JCodeModel cm = outline().getCodeModel();
             JClass elementType = ei.toType(outline(),EXPOSED).boxify();

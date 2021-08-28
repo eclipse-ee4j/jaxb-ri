@@ -66,14 +66,17 @@ public class PluginImpl extends Plugin {
 
     private File episodeFile;
 
+    @Override
     public String getOptionName() {
         return "episode";
     }
 
+    @Override
     public String getUsage() {
         return "  -episode <FILE>     :  generate the episode file for separate compilation";
     }
 
+    @Override
     public int parseArgument(Options opt, String[] args, int i) throws BadCommandLineException, IOException {
         if(args[i].equals("-episode")) {
             episodeFile = new File(opt.requireArgument("-episode",args,++i));
@@ -86,16 +89,17 @@ public class PluginImpl extends Plugin {
      * Capture all the generated classes from global schema components
      * and generate them in an episode file.
      */
+    @Override
     public boolean run(Outline model, Options opt, ErrorHandler errorHandler) throws SAXException {
         OutputStream episodeFileOutputStream = null;
         try {
             // reorganize qualifying components by their namespaces to
             // generate the list nicely
-            Map<XSSchema, PerSchemaOutlineAdaptors> perSchema = new LinkedHashMap<XSSchema, PerSchemaOutlineAdaptors>();
+            Map<XSSchema, PerSchemaOutlineAdaptors> perSchema = new LinkedHashMap<>();
             boolean hasComponentInNoNamespace = false;
 
             // Combine classes and enums into a single list
-            List<OutlineAdaptor> outlines = new ArrayList<OutlineAdaptor>();
+            List<OutlineAdaptor> outlines = new ArrayList<>();
 
             for (ClassOutline co : model.getClasses()) {
                 XSComponent sc = co.target.getSchemaComponent();
@@ -194,18 +198,18 @@ public class PluginImpl extends Plugin {
      */
     private static final XSFunction<String> SCD = new XSFunction<String>() {
         private String name(XSDeclaration decl) {
-            if(decl.getTargetNamespace().equals(""))
+            if (decl.getTargetNamespace().equals(""))
                 return decl.getName();
             else
-                return "tns:"+decl.getName();
+                return "tns:" + decl.getName();
         }
 
         public String complexType(XSComplexType type) {
-            return "~"+name(type);
+            return "~" + name(type);
         }
 
         public String simpleType(XSSimpleType simpleType) {
-            return "~"+name(simpleType);
+            return "~" + name(simpleType);
         }
 
         public String elementDecl(XSElementDecl decl) {
@@ -275,11 +279,13 @@ public class PluginImpl extends Plugin {
         private enum OutlineType {
 
             CLASS(new BindingsBuilder() {
+                @Override
                 public void build(OutlineAdaptor adaptor, Bindings bindings) {
                     bindings.klass().ref(adaptor.implName);
                 }
             }),
             ENUM(new BindingsBuilder() {
+                @Override
                 public void build(OutlineAdaptor adaptor, Bindings bindings) {
                     bindings.typesafeEnumClass().ref(adaptor.implName);
                 }
@@ -318,9 +324,9 @@ public class PluginImpl extends Plugin {
     
     private final static class PerSchemaOutlineAdaptors {
     	
-    	private final List<OutlineAdaptor> outlineAdaptors = new ArrayList<OutlineAdaptor>();
+    	private final List<OutlineAdaptor> outlineAdaptors = new ArrayList<>();
     	
-    	private final Set<String> packageNames = new HashSet<String>();
+    	private final Set<String> packageNames = new HashSet<>();
 
         private void add(OutlineAdaptor outlineAdaptor) {
             this.outlineAdaptors.add(outlineAdaptor);

@@ -63,6 +63,7 @@ public final class CAdapter extends Adapter<NType,NClass> {
                 public JClass toType(Outline o, Aspect aspect) {
                     return o.addRuntime(adapter);
                 }
+                @Override
                 public String fullName() {
                     // TODO: implement this method later
                     throw new UnsupportedOperationException();

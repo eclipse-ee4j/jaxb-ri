@@ -26,6 +26,7 @@ import com.sun.tools.xjc.reader.Const;
  */
 @XmlRootElement(name="substitutable",namespace= Const.XJC_EXTENSION_URI)
 public final class BIXSubstitutable extends AbstractDeclarationImpl {
+    @Override
     public final QName getName() { return NAME; }
 
     /** Name of the conversion declaration. */

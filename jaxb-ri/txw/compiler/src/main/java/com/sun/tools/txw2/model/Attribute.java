@@ -59,7 +59,7 @@ public class Attribute extends XmlNode {
                 continue;
 
             JMethod m = clazz.method(JMod.PUBLIC,
-                nset.opts.chainMethod? (JType)clazz : nset.codeModel.VOID,
+                nset.opts.chainMethod? clazz : nset.codeModel.VOID,
                 methodName);
             m.param(t,"value");
 

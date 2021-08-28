@@ -39,16 +39,20 @@ class DOMLocator {
             return null;    // no location information
         
         return new Locator(){
+            @Override
             public int getLineNumber() {
                 return Integer.parseInt(DOMUtil.getAttribute(e,locationNamespace,line));
             }
+            @Override
             public int getColumnNumber() {
                 return Integer.parseInt(DOMUtil.getAttribute(e,locationNamespace,column));
             }
+            @Override
             public String getSystemId() {
                 return DOMUtil.getAttribute(e,locationNamespace,systemId);
             }
             // we are not interested in PUBLIC ID.
+            @Override
             public String getPublicId() { return null; }
         };
     }

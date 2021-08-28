@@ -160,10 +160,12 @@ public final class CElementInfo extends AbstractCElement
         return parent.getOwnerPackage();
     }
 
+    @Override
     public CNonElement getContentType() {
         return getProperty().ref().get(0);
     }
 
+    @Override
     public NType getContentInMemoryType() {
         if(getProperty().getAdapter()==null) {
             NType itemType = getContentType().getType();
@@ -176,10 +178,12 @@ public final class CElementInfo extends AbstractCElement
         }
     }
 
+    @Override
     public CElementPropertyInfo getProperty() {
         return property;
     }
 
+    @Override
     public CClassInfo getScope() {
         if(parent instanceof CClassInfo)
             return (CClassInfo)parent;
@@ -189,14 +193,18 @@ public final class CElementInfo extends AbstractCElement
     /**
      * @deprecated why are you calling a method that returns this?
      */
+    @Deprecated
+    @Override
     public NType getType() {
         return this;
     }
 
+    @Override
     public QName getElementName() {
         return tagName;
     }
 
+    @Override
     public JType toType(Outline o, Aspect aspect) {
         if(className==null)
             return type.toType(o,aspect);
@@ -224,10 +232,12 @@ public final class CElementInfo extends AbstractCElement
         return b.toString();
     }
 
+    @Override
     public CElementInfo getSubstitutionHead() {
         return substitutionHead;
     }
 
+    @Override
     public Collection<CElementInfo> getSubstitutionMembers() {
         if(substitutionMembers==null)
             return Collections.emptyList();
@@ -246,10 +256,12 @@ public final class CElementInfo extends AbstractCElement
         substitutionHead.substitutionMembers.add(this);
     }
 
+    @Override
     public boolean isBoxedType() {
         return false;
     }
 
+    @Override
     public String fullName() {
         if(className==null)
             return type.fullName();
@@ -260,10 +272,12 @@ public final class CElementInfo extends AbstractCElement
         }
     }
 
+    @Override
     public <T> T accept(Visitor<T> visitor) {
         return visitor.onElement(this);
     }
 
+    @Override
     public JPackage getOwnerPackage() {
         return parent.getOwnerPackage();
     }

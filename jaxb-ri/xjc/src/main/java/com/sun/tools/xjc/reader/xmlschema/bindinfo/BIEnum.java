@@ -73,10 +73,12 @@ public final class BIEnum extends AbstractDeclarationImpl {
      * Always return non-null.
      */
     @XmlTransient
-    public final Map<String,BIEnumMember> members = new HashMap<String,BIEnumMember>();
+    public final Map<String,BIEnumMember> members = new HashMap<>();
 
+    @Override
     public QName getName() { return NAME; }
     
+    @Override
     public void setParent(BindInfo p) {
         super.setParent(p);
         for( BIEnumMember mem : members.values() )

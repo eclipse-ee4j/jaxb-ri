@@ -24,6 +24,7 @@ class Abstractifier extends ClassBinderFilter {
         super(core);
     }
 
+    @Override
     public CElement complexType(XSComplexType xs) {
         CElement ci = super.complexType(xs);
         if(ci!=null && xs.isAbstract())
@@ -31,6 +32,7 @@ class Abstractifier extends ClassBinderFilter {
         return ci;
     }
 
+    @Override
     public CElement elementDecl(XSElementDecl xs) {
         CElement ci = super.elementDecl(xs);
         if(ci!=null && xs.isAbstract())

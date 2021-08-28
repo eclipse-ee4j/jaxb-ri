@@ -70,9 +70,9 @@ public class RawTypeSetBuilder implements XSTermVisitor {
      * (A,A), we keep track of element names here while we are building up
      * this instance.
      */
-    private final Set<QName> elementNames = new LinkedHashSet<QName>();
+    private final Set<QName> elementNames = new LinkedHashSet<>();
 
-    private final Set<RawTypeSet.Ref> refs = new LinkedHashSet<RawTypeSet.Ref>();
+    private final Set<RawTypeSet.Ref> refs = new LinkedHashSet<>();
 
     protected final BGMBuilder builder = Ring.get(BGMBuilder.class);
 

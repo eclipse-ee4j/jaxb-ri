@@ -235,5 +235,6 @@ public interface SchemaCompiler {
      *      {@link Options} class in the compatible fashion. So please don't
      *      use this method unless you know what you're doing.
      */
+    @Deprecated
     @NotNull Options getOptions();
 }

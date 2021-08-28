@@ -118,13 +118,13 @@ public class BindInfo
     private final Element dom;
 
     /** Conversion declarations. */
-    private final Map<String,BIConversion> conversions = new HashMap<String,BIConversion>();
+    private final Map<String,BIConversion> conversions = new HashMap<>();
 
     /** Element declarations keyed by names. */
-    private final Map<String,BIElement> elements = new HashMap<String,BIElement>();
+    private final Map<String,BIElement> elements = new HashMap<>();
     
     /** interface declarations keyed by names. */
-    private final Map<String,BIInterface> interfaces = new HashMap<String,BIInterface>();
+    private final Map<String,BIInterface> interfaces = new HashMap<>();
   
     
     /** XJC extension namespace. */

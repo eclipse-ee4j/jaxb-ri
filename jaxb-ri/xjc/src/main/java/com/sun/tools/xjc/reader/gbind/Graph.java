@@ -28,7 +28,7 @@ public final class Graph implements Iterable<ConnectedComponent> {
     /**
      * Strongly connected components of this graph.
      */
-    private final List<ConnectedComponent> ccs = new ArrayList<ConnectedComponent>();
+    private final List<ConnectedComponent> ccs = new ArrayList<>();
 
     /**
      * Builds a {@link Graph} from an {@link Expression} tree.
@@ -51,7 +51,7 @@ public final class Graph implements Iterable<ConnectedComponent> {
         source.buildStronglyConnectedComponents(ccs);
 
         // cut-set check
-        Set<Element> visited = new HashSet<Element>();
+        Set<Element> visited = new HashSet<>();
         for (ConnectedComponent cc : ccs) {
             visited.clear();
             if(source.checkCutSet(cc,visited)) {
@@ -63,10 +63,12 @@ public final class Graph implements Iterable<ConnectedComponent> {
     /**
      * List up {@link ConnectedComponent}s of this graph in an order.
      */
+    @Override
     public Iterator<ConnectedComponent> iterator() {
         return ccs.iterator();
     }
 
+    @Override
     public String toString() {
         return ccs.toString();
     }

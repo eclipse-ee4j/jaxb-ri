@@ -114,7 +114,7 @@ public final class RawTypeSet {
      * (because of a possible ambiguity).
      */
     private Mode canBeTypeRefs() {
-        Set<NType> types = new HashSet<NType>();
+        Set<NType> types = new HashSet<>();
 
         collectionMode = mul.isAtMostOnce()?NOT_REPEATED:REPEATED_ELEMENT;
 

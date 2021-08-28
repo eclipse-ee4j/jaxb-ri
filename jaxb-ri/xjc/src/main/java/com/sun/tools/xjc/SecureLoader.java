@@ -24,6 +24,7 @@ class SecureLoader {
         } else {
             return java.security.AccessController.doPrivileged(
                     new java.security.PrivilegedAction<ClassLoader>() {
+                        @Override
                         public ClassLoader run() {
                             return Thread.currentThread().getContextClassLoader();
                         }
@@ -31,12 +32,13 @@ class SecureLoader {
         }
     }
 
-    static ClassLoader getClassClassLoader(final Class c) {
+    static ClassLoader getClassClassLoader(final Class<?> c) {
         if (System.getSecurityManager() == null) {
             return c.getClassLoader();
         } else {
             return java.security.AccessController.doPrivileged(
                     new java.security.PrivilegedAction<ClassLoader>() {
+                        @Override
                         public ClassLoader run() {
                             return c.getClassLoader();
                         }
@@ -50,6 +52,7 @@ class SecureLoader {
         } else {
             return java.security.AccessController.doPrivileged(
                     new java.security.PrivilegedAction<ClassLoader>() {
+                        @Override
                         public ClassLoader run() {
                             return ClassLoader.getSystemClassLoader();
                         }
@@ -63,6 +66,7 @@ class SecureLoader {
         } else {
             java.security.AccessController.doPrivileged(
                     new java.security.PrivilegedAction<ClassLoader>() {
+                        @Override
                         public ClassLoader run() {
                             Thread.currentThread().setContextClassLoader(cl);
                             return null;
@@ -77,6 +81,7 @@ class SecureLoader {
         } else {
             return java.security.AccessController.doPrivileged(
                     new java.security.PrivilegedAction<ClassLoader>() {
+                        @Override
                         public ClassLoader run() {
                             return cl.getParent();
                         }

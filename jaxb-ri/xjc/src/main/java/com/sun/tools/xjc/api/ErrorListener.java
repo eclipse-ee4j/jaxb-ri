@@ -29,12 +29,16 @@ import org.xml.sax.SAXParseException;
  * @author Kohsuke Kawaguchi (kohsuke.kawaguchi@sun.com)
  */
 public interface ErrorListener extends org.glassfish.jaxb.core.api.ErrorListener {
+    @Override
     void error(SAXParseException exception);
+    @Override
     void fatalError(SAXParseException exception);
+    @Override
     void warning(SAXParseException exception);
     /**
      * Used to report possibly verbose information that
      * can be safely ignored.
      */
+    @Override
     void info(SAXParseException exception);
 }

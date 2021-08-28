@@ -109,14 +109,14 @@ public final class SimpleTypeBuilder extends BindingComponent {
      *
      * UGLY: Implemented as a Stack of XSComponent to fix a bug
      */
-    public final Stack<XSComponent> refererStack = new Stack<XSComponent>();
+    public final Stack<XSComponent> refererStack = new Stack<>();
 
     /**
      * Records what xmime:expectedContentTypes annotations we honored and processed,
      * so that we can later check if the user had these annotations in the places
      * where we didn't anticipate them.
      */
-    private final Set<XSComponent> acknowledgedXmimeContentTypes = new HashSet<XSComponent>();
+    private final Set<XSComponent> acknowledgedXmimeContentTypes = new HashSet<>();
 
     /**
      * The type that was originally passed to this {@link SimpleTypeBuilder#build(XSSimpleType)}.
@@ -285,14 +285,14 @@ public final class SimpleTypeBuilder extends BindingComponent {
 
         public TypeUse unionSimpleType(XSUnionSimpleType type) {
             boolean isCollection = false;
-            for( int i=0; i<type.getMemberSize(); i++ )
-                if(type.getMember(i).getVariety()==XSVariety.LIST || type.getMember(i).getVariety()==XSVariety.UNION) {
+            for (int i = 0; i < type.getMemberSize(); i++)
+                if (type.getMember(i).getVariety() == XSVariety.LIST || type.getMember(i).getVariety() == XSVariety.UNION) {
                     isCollection = true;
                     break;
                 }
 
             TypeUse r = CBuiltinLeafInfo.STRING;
-            if(isCollection)
+            if (isCollection)
                 r = TypeUseFactory.makeCollection(r);
             return r;
         }
@@ -425,7 +425,7 @@ public final class SimpleTypeBuilder extends BindingComponent {
             // see issue https://jaxb.dev.java.net/issues/show_bug.cgi?id=711
 
             if(reportedEnumMemberSizeWarnings == null)
-                reportedEnumMemberSizeWarnings = new HashSet<XSRestrictionSimpleType>();
+                reportedEnumMemberSizeWarnings = new HashSet<>();
 
             if(!reportedEnumMemberSizeWarnings.contains(type)) {
                 getErrorReporter().warning(type.getLocator(), Messages.WARN_ENUM_MEMBER_SIZE_CAP,
@@ -456,7 +456,7 @@ public final class SimpleTypeBuilder extends BindingComponent {
     private static final Set<String> builtinTypeSafeEnumCapableTypes;
 
     static {
-        Set<String> s = new HashSet<String>();
+        Set<String> s = new HashSet<>();
 
         // see a bullet of 6.5.1 of the spec.
         String[] typeNames = new String[] {
@@ -631,9 +631,9 @@ public final class SimpleTypeBuilder extends BindingComponent {
      *      null if unable to generate names for some of the constants.
      */
     private List<CEnumConstant> buildCEnumConstants(XSRestrictionSimpleType type, boolean needsToGenerateMemberName, Map<String, BIEnumMember> members, XSFacet[] errorRef) {
-        List<CEnumConstant> memberList = new ArrayList<CEnumConstant>();
+        List<CEnumConstant> memberList = new ArrayList<>();
         int idx=1;
-        Set<String> enums = new HashSet<String>(); // to avoid duplicates. See issue #366
+        Set<String> enums = new HashSet<>(); // to avoid duplicates. See issue #366
 
         for( XSFacet facet : type.getDeclaredFacets(XSFacet.FACET_ENUMERATION)) {
             String name=null;
@@ -691,7 +691,7 @@ public final class SimpleTypeBuilder extends BindingComponent {
      *      otherwise return null.
      */
     private CEnumConstant[] checkMemberNameCollision( List<CEnumConstant> memberList ) {
-        Map<String,CEnumConstant> names = new HashMap<String,CEnumConstant>();
+        Map<String,CEnumConstant> names = new HashMap<>();
         for (CEnumConstant c : memberList) {
             CEnumConstant old = names.put(c.getName(),c);
             if(old!=null)
@@ -861,7 +861,7 @@ public final class SimpleTypeBuilder extends BindingComponent {
         // note that although xs:token and xs:normalizedString are not
         // specified in the spec, they need to be here because they
         // have different whitespace normalization semantics.
-        Map<String,TypeUse> m = new HashMap<String,TypeUse>();
+        Map<String,TypeUse> m = new HashMap<>();
 
         // TODO: this is so dumb
         m.put("string",         CBuiltinLeafInfo.STRING);

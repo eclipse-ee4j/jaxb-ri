@@ -25,18 +25,22 @@ public final class OneOrMore extends Expression {
         this.child = child;
     }
 
+    @Override
     ElementSet lastSet() {
         return child.lastSet();
     }
 
+    @Override
     boolean isNullable() {
         return child.isNullable();
     }
 
+    @Override
     void buildDAG(ElementSet incoming) {
         child.buildDAG(ElementSets.union(incoming,child.lastSet()));
     }
 
+    @Override
     public String toString() {
         return child.toString()+'+';
     }

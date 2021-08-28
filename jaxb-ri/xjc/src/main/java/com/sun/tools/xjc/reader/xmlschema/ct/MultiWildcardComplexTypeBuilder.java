@@ -26,6 +26,7 @@ import com.sun.xml.xsom.XSType;
  */
 final class MultiWildcardComplexTypeBuilder extends CTBuilder {
 
+    @Override
     public boolean isApplicable(XSComplexType ct) {
         if (!bgmBuilder.model.options.contentForWildcard) {
             return false;
@@ -49,6 +50,7 @@ final class MultiWildcardComplexTypeBuilder extends CTBuilder {
         return false;
     }
 
+    @Override
     public void build(XSComplexType ct) {
         XSContentType contentType = ct.getContentType();
 

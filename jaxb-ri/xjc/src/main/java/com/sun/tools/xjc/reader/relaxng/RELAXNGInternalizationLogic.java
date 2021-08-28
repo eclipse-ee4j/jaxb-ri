@@ -36,6 +36,7 @@ public class RELAXNGInternalizationLogic implements InternalizationLogic {
             super(parent);
         }
 
+        @Override
         protected String findExternalResource( String nsURI, String localName, Attributes atts) {
             if( Const.RELAXNG_URI.equals(nsURI)
             && ("include".equals(localName) || "externalRef".equals(localName) ) )
@@ -45,14 +46,17 @@ public class RELAXNGInternalizationLogic implements InternalizationLogic {
         }
     };
 
+    @Override
     public XMLFilterImpl createExternalReferenceFinder(DOMForest parent) {
         return new ReferenceFinder(parent);
     }
 
+    @Override
     public boolean checkIfValidTargetNode(DOMForest parent, Element bindings, Element target) {
         return Const.RELAXNG_URI.equals(target.getNamespaceURI());
     }
 
+    @Override
     public Element refineTarget(Element target) {
         // no refinement necessary
         return target;

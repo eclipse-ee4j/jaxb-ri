@@ -137,6 +137,7 @@ public final class BISchemaBinding extends AbstractDeclarationImpl {
     
     public String getJavadoc() { return packageInfo.javadoc; }
     
+    @Override
     public QName getName() { return NAME; }
     public static final QName NAME = new QName(
         Const.JAXB_NSURI, "schemaBinding" );

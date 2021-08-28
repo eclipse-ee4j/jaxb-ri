@@ -28,6 +28,7 @@ import com.sun.tools.xjc.Plugin;
  */
 public final class CCustomizations extends ArrayList<CPluginCustomization> {
 
+    private static final long serialVersionUID = 7551826676482019240L;
     /**
      * All {@link CCustomizations} used by a {@link Model} form a single linked list
      * so that we can look for unacknowledged customizations later.
@@ -119,10 +120,12 @@ public final class CCustomizations extends ArrayList<CPluginCustomization> {
         return r;
     }
 
+    @Override
     public boolean equals(Object o) {
         return this==o;
     }
 
+    @Override
     public int hashCode() {
         return System.identityHashCode(this);
     }

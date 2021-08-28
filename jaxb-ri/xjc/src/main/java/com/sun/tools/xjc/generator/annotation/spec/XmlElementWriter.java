@@ -26,7 +26,7 @@ public interface XmlElementWriter
 
     XmlElementWriter name(String value);
 
-    XmlElementWriter type(Class value);
+    XmlElementWriter type(Class<?> value);
 
     XmlElementWriter type(JType value);
 

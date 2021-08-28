@@ -26,8 +26,9 @@ final class ModelGroup extends Term {
 
     Kind kind;
 
-    private final List<Term> terms = new ArrayList<Term>();
+    private final List<Term> terms = new ArrayList<>();
 
+    @Override
     void normalize(List<Block> r, boolean optional) {
         switch(kind) {
         case SEQUENCE:
@@ -42,11 +43,13 @@ final class ModelGroup extends Term {
         }
     }
 
+    @Override
     void addAllElements(Block b) {
         for( Term t : terms )
             t.addAllElements(b);
     }
 
+    @Override
     boolean isOptional() {
         switch(kind) {
         case SEQUENCE:
@@ -64,6 +67,7 @@ final class ModelGroup extends Term {
         }
     }
 
+    @Override
     boolean isRepeated() {
         switch(kind) {
         case SEQUENCE:

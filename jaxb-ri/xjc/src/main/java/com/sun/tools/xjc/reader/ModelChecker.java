@@ -43,7 +43,7 @@ public final class ModelChecker {
 
     private void check( CClassInfo ci ) {
         List<CPropertyInfo> props = ci.getProperties();
-        Map<QName,CPropertyInfo> collisionTable = new HashMap<QName,CPropertyInfo>();
+        Map<QName,CPropertyInfo> collisionTable = new HashMap<>();
 
         OUTER:
         for( int i=0; i<props.size(); i++ ) {

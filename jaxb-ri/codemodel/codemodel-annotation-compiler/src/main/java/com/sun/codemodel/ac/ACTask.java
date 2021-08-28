@@ -86,7 +86,7 @@ public class ACTask extends Task {
     /**
      * Map from annotation classes to their writers.
      */
-    private final Map<Class, JDefinedClass> queue = new HashMap<Class, JDefinedClass>();
+    private final Map<Class<?>, JDefinedClass> queue = new HashMap<>();
 
     public ACTask() {
         classpath = new Path(null);
@@ -230,14 +230,14 @@ public class ACTask extends Task {
                 }
             }
 
-            for (Map.Entry<Class, JDefinedClass> e : queue.entrySet()) {
-                Class ann = e.getKey();
+            for (Map.Entry<Class<?>, JDefinedClass> e : queue.entrySet()) {
+                Class<?> ann = e.getKey();
                 JDefinedClass w = e.getValue();
 
                 w._implements(codeModel.ref(JAnnotationWriter.class).narrow(ann));
 
                 for (Method m : ann.getDeclaredMethods()) {
-                    Class rt = m.getReturnType();
+                    Class<?> rt = m.getReturnType();
 
                     if (rt.isArray()) // array writers aren't distinguishable from scalar writers
                     {
@@ -354,7 +354,7 @@ public class ACTask extends Task {
      */
     private void queue(String className, long timestamp) {
         log("Processing " + className, Project.MSG_VERBOSE);
-        Class ann;
+        Class<?> ann;
         try {
             ann = userLoader.loadClass(className);
         } catch (ClassNotFoundException e) {

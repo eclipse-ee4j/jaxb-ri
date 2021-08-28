@@ -26,14 +26,17 @@ final class DowngradingErrorHandler implements ErrorHandler {
         this.core = core;
     }
 
+    @Override
     public void warning(SAXParseException exception) throws SAXException {
         core.warning(exception);
     }
 
+    @Override
     public void error(SAXParseException exception) throws SAXException {
         core.warning(exception);
     }
 
+    @Override
     public void fatalError(SAXParseException exception) throws SAXException {
         core.warning(exception);
     }

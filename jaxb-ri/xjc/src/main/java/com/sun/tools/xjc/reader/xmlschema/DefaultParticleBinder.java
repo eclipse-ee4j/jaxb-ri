@@ -202,7 +202,7 @@ final class DefaultParticleBinder extends ParticleBinder {
          *
          * A map from XSParticle to its label.
          */
-        public final Map<XSParticle,String> markedParticles = new HashMap<XSParticle,String>();
+        public final Map<XSParticle,String> markedParticles = new HashMap<>();
 
 
         /**
@@ -242,12 +242,12 @@ final class DefaultParticleBinder extends ParticleBinder {
             }
 
             /** List of particles reported through the check method. */
-            private final List<XSParticle> particles = new ArrayList<XSParticle>();
+            private final List<XSParticle> particles = new ArrayList<>();
 
             /**
              * Label names already used in the base type.
              */
-            private final Map<String,CPropertyInfo> occupiedLabels = new HashMap<String,CPropertyInfo>();
+            private final Map<String,CPropertyInfo> occupiedLabels = new HashMap<>();
 
             /**
              * Checks the conflict of two particles.
@@ -275,7 +275,7 @@ final class DefaultParticleBinder extends ParticleBinder {
 
 
         /** Keep the computed label names for particles. */
-        private final Map<XSParticle,String> labelCache = new Hashtable<XSParticle,String>();
+        private final Map<XSParticle,String> labelCache = new Hashtable<>();
 
         /**
          * Hides the computeLabel method of the outer class

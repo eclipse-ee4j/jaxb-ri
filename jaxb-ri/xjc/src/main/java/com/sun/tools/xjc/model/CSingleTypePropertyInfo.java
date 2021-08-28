@@ -48,18 +48,22 @@ abstract class CSingleTypePropertyInfo extends CPropertyInfo {
             schemaType = null;
     }
 
+    @Override
     public QName getSchemaType() {
         return schemaType;
     }
 
+    @Override
     public final ID id() {
         return type.idUse();
     }
 
+    @Override
     public final MimeType getExpectedMimeType() {
         return type.getExpectedMimeType();
     }
 
+    @Override
     public final List<? extends CTypeInfo> ref() {
         return Collections.singletonList(getTarget());
     }
@@ -70,6 +74,7 @@ abstract class CSingleTypePropertyInfo extends CPropertyInfo {
         return r;
     }
 
+    @Override
     public final CAdapter getAdapter() {
         return type.getAdapterUse();
     }

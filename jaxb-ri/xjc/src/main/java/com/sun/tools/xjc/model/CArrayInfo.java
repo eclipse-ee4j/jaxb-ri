@@ -45,39 +45,48 @@ public final class CArrayInfo extends AbstractCTypeInfoImpl implements ArrayInfo
         this.typeName = ArrayInfoUtil.calcArrayTypeName(itemType.getTypeName());
     }
 
+    @Override
     public CNonElement getItemType() {
         return itemType;
     }
 
+    @Override
     public QName getTypeName() {
         return typeName;
     }
 
+    @Override
     public boolean isSimpleType() {
         return false;
     }
 
     @Deprecated // guaranteed to return this
+    @Override
     public CNonElement getInfo() {
         return this;
     }
 
+    @Override
     public JType toType(Outline o, Aspect aspect) {
         return itemType.toType(o,aspect).array();
     }
 
+    @Override
     public NType getType() {
         return this;
     }
 
+    @Override
     public boolean isBoxedType() {
         return false;
     }
 
+    @Override
     public String fullName() {
         return itemType.getType().fullName()+"[]";
     }
 
+    @Override
     public Locator getLocator() {
         return Model.EMPTY_LOCATOR;
     }

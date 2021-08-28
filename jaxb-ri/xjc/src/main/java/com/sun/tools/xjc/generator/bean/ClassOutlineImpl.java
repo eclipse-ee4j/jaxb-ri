@@ -34,6 +34,7 @@ public final class ClassOutlineImpl extends ClassOutline {
      * Gets {@link #_package} as {@link PackageOutlineImpl},
      * since it's guaranteed to be of that type.
      */
+    @Override
     public PackageOutlineImpl _package() {
         return (PackageOutlineImpl)super._package();
     }
@@ -45,6 +46,7 @@ public final class ClassOutlineImpl extends ClassOutline {
         _package().classes.add(this);
     }
 
+    @Override
     public BeanGenerator parent() {
         return _parent;
     }

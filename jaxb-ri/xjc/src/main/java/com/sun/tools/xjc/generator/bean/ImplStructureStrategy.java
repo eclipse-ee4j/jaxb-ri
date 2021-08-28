@@ -46,6 +46,7 @@ public enum ImplStructureStrategy {
      */
     @XmlEnumValue("true")
     BEAN_ONLY() {
+        @Override
         protected Result createClasses(Outline outline, CClassInfo bean) {
             JClassContainer parent = outline.getContainer( bean.parent(), Aspect.EXPOSED );
 
@@ -58,10 +59,12 @@ public enum ImplStructureStrategy {
             return new Result(impl,impl);
         }
 
+        @Override
         protected JPackage getPackage(JPackage pkg, Aspect a) {
             return pkg;
         }
 
+        @Override
         protected MethodWriter createMethodWriter(final ClassOutlineImpl target) {
             assert target.ref==target.implClass;
 
@@ -70,21 +73,25 @@ public enum ImplStructureStrategy {
 
                 private JMethod implMethod;
 
+                @Override
                 public JVar addParameter(JType type, String name) {
                     return implMethod.param(type,name);
                 }
 
+                @Override
                 public JMethod declareMethod(JType returnType, String methodName) {
                     implMethod = impl.method( JMod.PUBLIC, returnType, methodName );
                     return implMethod;
                 }
 
+                @Override
                 public JDocComment javadoc() {
                     return implMethod.javadoc();
                 }
             };
         }
 
+        @Override
         protected void _extends(ClassOutlineImpl derived, ClassOutlineImpl base) {
             derived.implClass._extends(base.implRef);
         }
@@ -98,6 +105,7 @@ public enum ImplStructureStrategy {
      */
     @XmlEnumValue("false")
     INTF_AND_IMPL() {
+        @Override
         protected Result createClasses( Outline outline, CClassInfo bean ) {
             JClassContainer parent = outline.getContainer( bean.parent(), Aspect.EXPOSED );
 
@@ -116,6 +124,7 @@ public enum ImplStructureStrategy {
             return new Result(intf,impl);
         }
 
+        @Override
         protected JPackage getPackage(JPackage pkg, Aspect a) {
             switch(a) {
             case EXPOSED:
@@ -128,6 +137,7 @@ public enum ImplStructureStrategy {
             }
         }
 
+        @Override
         protected MethodWriter createMethodWriter(final ClassOutlineImpl target) {
             return new MethodWriter(target) {
                 private final JDefinedClass intf = target.ref;
@@ -136,6 +146,7 @@ public enum ImplStructureStrategy {
                 private JMethod intfMethod;
                 private JMethod implMethod;
 
+                @Override
                 public JVar addParameter(JType type, String name) {
                     // TODO: do we still need to deal with the case where intf is null?
                     if(intf!=null)
@@ -143,6 +154,7 @@ public enum ImplStructureStrategy {
                     return implMethod.param(type,name);
                 }
 
+                @Override
                 public JMethod declareMethod(JType returnType, String methodName) {
                     if(intf!=null)
                         intfMethod = intf.method( 0, returnType, methodName );
@@ -150,6 +162,7 @@ public enum ImplStructureStrategy {
                     return implMethod;
                 }
 
+                @Override
                 public JDocComment javadoc() {
                     if(intf!=null)
                         return intfMethod.javadoc();
@@ -159,6 +172,7 @@ public enum ImplStructureStrategy {
             };
         }
 
+        @Override
         protected void _extends(ClassOutlineImpl derived, ClassOutlineImpl base) {
             derived.implClass._extends(base.implRef);
             derived.ref._implements(base.ref);

@@ -24,6 +24,7 @@ module org.glassfish.jaxb.jxc {
 
     exports com.sun.tools.jxc;
     exports com.sun.tools.jxc.ap;
-    exports com.sun.tools.jxc.model.nav;
     exports com.sun.tools.jxc.api;
+    exports com.sun.tools.jxc.gen.config;
+    exports com.sun.tools.jxc.model.nav;
 }

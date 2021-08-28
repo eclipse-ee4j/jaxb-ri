@@ -27,6 +27,7 @@ class EagerNType implements NType {
         assert t!=null;
     }
 
+    @Override
     public JType toType(Outline o, Aspect aspect) {
         try {
             return o.getCodeModel().parseType(t.toString());
@@ -35,6 +36,7 @@ class EagerNType implements NType {
         }
     }
 
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof EagerNType)) return false;
@@ -44,14 +46,17 @@ class EagerNType implements NType {
         return t.equals(eagerNType.t);
     }
 
+    @Override
     public boolean isBoxedType() {
         return false;
     }
 
+    @Override
     public int hashCode() {
         return t.hashCode();
     }
 
+    @Override
     public String fullName() {
         return Utils.REFLECTION_NAVIGATOR.getTypeName(t);
     }

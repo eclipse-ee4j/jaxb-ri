@@ -100,14 +100,14 @@ import org.xml.sax.helpers.XMLFilterImpl;
 public class CustomizationContextChecker extends XMLFilterImpl {
     
     /** Keep names of all the ancestor elements. */
-    private final Stack<QName> elementNames = new Stack<QName>();
+    private final Stack<QName> elementNames = new Stack<>();
     
     private final ErrorHandler errorHandler;
     
     private Locator locator;
     
     /** Set of element names that cannot have JAXB customizations. */
-    private static final Set<String> prohibitedSchemaElementNames = new HashSet<String>();
+    private static final Set<String> prohibitedSchemaElementNames = new HashSet<>();
 
     /**
      * @param _errorHandler
@@ -134,6 +134,7 @@ public class CustomizationContextChecker extends XMLFilterImpl {
         return elementNames.peek();
     }
     
+    @Override
     public void startElement(String namespaceURI, String localName, String qName, Attributes atts) throws SAXException {
         QName newElement = new QName(namespaceURI,localName);
         
@@ -163,6 +164,7 @@ public class CustomizationContextChecker extends XMLFilterImpl {
         super.startElement(namespaceURI, localName, qName, atts );
     }
 
+    @Override
     public void endElement(String namespaceURI, String localName, String qName)
         throws SAXException {
             
@@ -171,6 +173,7 @@ public class CustomizationContextChecker extends XMLFilterImpl {
         elementNames.pop();
     }
 
+    @Override
     public void setDocumentLocator(Locator locator) {
         super.setDocumentLocator(locator);
         this.locator = locator;

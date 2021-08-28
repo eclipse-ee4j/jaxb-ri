@@ -315,7 +315,7 @@ public final class BIGlobalBinding extends AbstractDeclarationImpl {
      * @see #setGlobalConversions
      */
     @XmlTransient
-    private final Map<QName,BIConversion> globalConversions = new HashMap<QName, BIConversion>();
+    private final Map<QName,BIConversion> globalConversions = new HashMap<>();
 
     // method for JAXB unmarshaller
     @XmlElement(name="javaType")
@@ -364,6 +364,7 @@ public final class BIGlobalBinding extends AbstractDeclarationImpl {
         String type;
     }
 
+    @Override
     public void onSetOwner() {
         super.onSetOwner();
         // if one is given by options, use that
@@ -378,6 +379,7 @@ public final class BIGlobalBinding extends AbstractDeclarationImpl {
     public BIGlobalBinding() {
     }
     
+    @Override
     public void setParent(BindInfo parent) {
         super.setParent(parent);
         // fill in the remaining default values
@@ -432,6 +434,7 @@ public final class BIGlobalBinding extends AbstractDeclarationImpl {
     }
 
 
+    @Override
     public QName getName() { return NAME; }
     public static final QName NAME = new QName(
         Const.JAXB_NSURI, "globalBindings" );
@@ -467,6 +470,7 @@ public final class BIGlobalBinding extends AbstractDeclarationImpl {
     }
 
     static final class ClassNameAdapter extends ReadOnlyAdapter<ClassNameBean,String> {
+        @Override
         public String unmarshal(ClassNameBean bean) throws Exception {
             return bean.name;
         }

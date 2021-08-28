@@ -85,13 +85,13 @@ public final class DOMForest {
      * <p>
      * Set of system ids as strings.
      */
-    private final Set<String> rootDocuments = new LinkedHashSet<String>();
+    private final Set<String> rootDocuments = new LinkedHashSet<>();
     
     /** Stores location information for all the trees in this forest. */
     public final LocatorTable locatorTable = new LocatorTable();
     
     /** Stores all the outer-most {@code <jaxb:bindings>} customizations. */
-    public final Set<Element> outerMostBindings = new HashSet<Element>();
+    public final Set<Element> outerMostBindings = new HashSet<>();
     
     /** Used to resolve references to other schema documents. */
     private EntityResolver entityResolver = null;
@@ -348,6 +348,7 @@ public final class DOMForest {
         // but the SAX allows the event source to not to provide that information,
         // so be prepared for such case.
         HandlerImpl x = new HandlerImpl() {
+            @Override
             public Document getDocument() {
                 return dom;
             }
@@ -449,7 +450,7 @@ public final class DOMForest {
      * To receive errors, use {@link SchemaFactory#setErrorHandler(ErrorHandler)}.
      */
     public void weakSchemaCorrectnessCheck(SchemaFactory sf) {
-        List<SAXSource> sources = new ArrayList<SAXSource>();
+        List<SAXSource> sources = new ArrayList<>();
         for( String systemId : getRootDocuments() ) {
             Document dom = get(systemId);
             if (dom.getDocumentElement().getNamespaceURI().equals(Const.JAXB_NSURI))
@@ -551,7 +552,6 @@ public final class DOMForest {
      * 
      * This is a debug method. As such, error handling is sloppy.
      */
-    @SuppressWarnings("CallToThreadDumpStack")
     public void dump( OutputStream out ) throws IOException {
         try {
             // create identity transformer

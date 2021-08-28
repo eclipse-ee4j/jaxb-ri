@@ -58,6 +58,7 @@ public class SymbolSpace
             this.type = _type;
     }
     
+    @Override
     public String toString() {
         if(type==null)  return "undetermined";
         else            return type.name();

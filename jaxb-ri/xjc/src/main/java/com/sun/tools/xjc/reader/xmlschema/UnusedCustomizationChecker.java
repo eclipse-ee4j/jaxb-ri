@@ -61,7 +61,7 @@ class UnusedCustomizationChecker extends BindingComponent implements XSVisitor, 
     private final BGMBuilder builder = Ring.get(BGMBuilder.class);
     private final SimpleTypeBuilder stb = Ring.get(SimpleTypeBuilder.class);
 
-    private final Set<XSComponent> visitedComponents = new HashSet<XSComponent>();
+    private final Set<XSComponent> visitedComponents = new HashSet<>();
 
     /**
      * Runs the check.

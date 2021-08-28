@@ -37,8 +37,8 @@ public abstract class Element extends Expression implements ElementSet {
      * we represent an edge e1 -> e2 by {@code e1.foreEdges.contains(e2)}
      * and {@code e2.backEdges.contains(e1)}.
      */
-    final Set<Element> foreEdges = new LinkedHashSet<Element>();
-    final Set<Element> backEdges = new LinkedHashSet<Element>();
+    final Set<Element> foreEdges = new LinkedHashSet<>();
+    final Set<Element> backEdges = new LinkedHashSet<>();
 
     /**
      * Previous element in the DFS post-order traveral
@@ -62,10 +62,12 @@ public abstract class Element extends Expression implements ElementSet {
     protected Element() {
     }
 
+    @Override
     ElementSet lastSet() {
         return this;
     }
 
+    @Override
     boolean isNullable() {
         return false;
     }
@@ -84,15 +86,18 @@ public abstract class Element extends Expression implements ElementSet {
         return false;
     }
 
+    @Override
     void buildDAG(ElementSet incoming) {
         incoming.addNext(this);
     }
 
+    @Override
     public void addNext(Element element) {
         foreEdges.add(element);
         element.backEdges.add(this);
     }
 
+    @Override
     public boolean contains(ElementSet rhs) {
         return this==rhs || rhs==ElementSet.EMPTY_SET;
     }
@@ -103,6 +108,8 @@ public abstract class Element extends Expression implements ElementSet {
      * @deprecated
      *      if you statically call this method, there's something wrong.
      */
+    @Deprecated
+    @Override
     public Iterator<Element> iterator() {
         return Collections.singleton(this).iterator();
     }
@@ -133,7 +140,7 @@ public abstract class Element extends Expression implements ElementSet {
     public void buildStronglyConnectedComponents(List<ConnectedComponent> ccs) {
 
         // store visited elements - loop detection
-        List<Element> visitedElements = new ArrayList<Element>();
+        List<Element> visitedElements = new ArrayList<>();
 
         for(Element cur=this; cur!=cur.prevPostOrder; cur=cur.prevPostOrder) {
 

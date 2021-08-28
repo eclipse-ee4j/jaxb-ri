@@ -87,6 +87,7 @@ public class NoExtendedContentField extends AbstractListField {
         generate();
     }
 
+    @Override
     protected final JClass getCoreListType() {
         return coreList;
     }
@@ -129,6 +130,7 @@ public class NoExtendedContentField extends AbstractListField {
             .append(listPossibleTypes(prop));
     }
 
+    @Override
     public Accessor create(JExpression targetObject) {
         return new Accessor(targetObject);
     }
@@ -138,6 +140,7 @@ public class NoExtendedContentField extends AbstractListField {
             super($target);
         }
 
+        @Override
         public void toRawValue(JBlock block, JVar $var) {
             // [RESULT]
             // $<var>.addAll(bean.getLIST());
@@ -147,6 +150,7 @@ public class NoExtendedContentField extends AbstractListField {
             ));
         }
 
+        @Override
         public void fromRawValue(JBlock block, String uniqueName, JExpression $var) {
             // [RESULT]
             // bean.getLIST().addAll($<var>);

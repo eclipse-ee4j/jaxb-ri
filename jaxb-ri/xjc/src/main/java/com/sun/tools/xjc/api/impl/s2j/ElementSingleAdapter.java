@@ -33,10 +33,12 @@ final class ElementSingleAdapter extends ElementAdapter {
         super(core, ei);
     }
 
+    @Override
     public JType getRawType() {
         return ei.getContentInMemoryType().toType(outline(), Aspect.EXPOSED);
     }
 
+    @Override
     public FieldAccessor create(JExpression targetObject) {
         return new FieldAccessorImpl(targetObject);
     }
@@ -46,6 +48,7 @@ final class ElementSingleAdapter extends ElementAdapter {
             super(target);
         }
 
+        @Override
         public void toRawValue(JBlock block, JVar $var) {
             // [RESULT]
             // if([core.hasSetValue])
@@ -60,6 +63,7 @@ final class ElementSingleAdapter extends ElementAdapter {
             cond._else().assign($var, JExpr._null());
         }
 
+        @Override
         public void fromRawValue(JBlock block, String uniqueName, JExpression $var) {
             // [RESULT]
             // [core.fromRawValue](new JAXBElement(tagName, TYPE, $var));

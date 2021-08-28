@@ -125,14 +125,17 @@ public final class CEnumLeafInfo implements EnumLeafInfo<NType,NClass>, NClass, 
      * where this type-safe enum is defined.
      * Used to report error messages.
      */
+    @Override
     public Locator getLocator() {
         return sourceLocator;
     }
 
+    @Override
     public QName getTypeName() {
         return typeName;
     }
 
+    @Override
     public NType getType() {
         return this;
     }
@@ -141,42 +144,53 @@ public final class CEnumLeafInfo implements EnumLeafInfo<NType,NClass>, NClass, 
      * @deprecated
      *      why are you calling the method whose return value is known?
      */
+    @Deprecated
+    @Override
     public boolean canBeReferencedByIDREF() {
         return false;
     }
 
+    @Override
     public boolean isElement() {
         return false;
     }
 
+    @Override
     public QName getElementName() {
         return null;
     }
 
+    @Override
     public Element<NType,NClass> asElement() {
         return null;
     }
 
+    @Override
     public NClass getClazz() {
         return this;
     }
 
+    @Override
     public XSComponent getSchemaComponent() {
         return source;
     }
 
+    @Override
     public JClass toType(Outline o, Aspect aspect) {
         return o.getEnum(this).clazz;
     }
 
+    @Override
     public boolean isAbstract() {
         return false;
     }
 
+    @Override
     public boolean isBoxedType() {
         return false;
     }
 
+    @Override
     public String fullName() {
         return parent.fullName()+'.'+shortName;
     }
@@ -185,6 +199,7 @@ public final class CEnumLeafInfo implements EnumLeafInfo<NType,NClass>, NClass, 
         return false;
     }
 
+    @Override
     public boolean isSimpleType() {
         return true;
     }
@@ -205,6 +220,7 @@ public final class CEnumLeafInfo implements EnumLeafInfo<NType,NClass>, NClass, 
         return false;
     }
 
+    @Override
     public JExpression createConstant(Outline outline, XmlString literal) {
         // correctly identifying which constant it maps to is hard, so
         // here I'm cheating
@@ -217,44 +233,54 @@ public final class CEnumLeafInfo implements EnumLeafInfo<NType,NClass>, NClass, 
     }
 
     @Deprecated
+    @Override
     public boolean isCollection() {
         return false;
     }
 
     @Deprecated
+    @Override
     public CAdapter getAdapterUse() {
         return null;
     }
 
     @Deprecated
+    @Override
     public CNonElement getInfo() {
         return this;
     }
 
+    @Override
     public ID idUse() {
         return ID.NONE;
     }
 
+    @Override
     public MimeType getExpectedMimeType() {
         return null;
     }
 
+    @Override
     public Collection<CEnumConstant> getConstants() {
         return members;
     }
 
+    @Override
     public NonElement<NType,NClass> getBaseType() {
         return base;
     }
 
+    @Override
     public CCustomizations getCustomizations() {
         return customizations;
     }
 
+    @Override
     public Locatable getUpstream() {
         throw new UnsupportedOperationException();
     }
 
+    @Override
     public Location getLocation() {
         throw new UnsupportedOperationException();
     }

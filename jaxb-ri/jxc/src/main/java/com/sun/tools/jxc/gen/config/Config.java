@@ -313,10 +313,10 @@ public class Config extends NGCCHandler {
     
    private File baseDir;
    private Classes classes;
-   private List schema = new ArrayList();
+   private List<Schema> schema = new ArrayList<>();
    public Classes getClasses() { return this.classes;}
    public File getBaseDir() { return baseDir;}
-   public List getSchema() { return this.schema;}
+   public List<Schema> getSchema() { return this.schema;}
 
 }
 

@@ -25,14 +25,17 @@ interface ElementSet extends Iterable<Element> {
     void addNext(Element element);
 
     public static final ElementSet EMPTY_SET = new ElementSet() {
+        @Override
         public void addNext(Element element) {
             // noop
         }
 
+        @Override
         public boolean contains(ElementSet element) {
             return this==element;
         }
 
+        @Override
         public Iterator<Element> iterator() {
             return Collections.<Element>emptySet().iterator();
         }

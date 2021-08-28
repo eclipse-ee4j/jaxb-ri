@@ -72,7 +72,7 @@ public class SaxSerializer implements XmlSerializer {
 
     // namespace prefix bindings
     // add in #writeXmlns and fired in #endStartTag
-    private final Stack<String> prefixBindings = new Stack<String>();
+    private final Stack<String> prefixBindings = new Stack<>();
 
     public void writeXmlns(String prefix, String uri) {
         // defend against parsers that pass null in for "xmlns" prefix
@@ -89,7 +89,7 @@ public class SaxSerializer implements XmlSerializer {
     }
 
     // element stack
-    private final Stack<String> elementBindings = new Stack<String>();
+    private final Stack<String> elementBindings = new Stack<>();
 
     public void beginStartTag(String uri, String localName, String prefix) {
         // save element bindings for #endTag

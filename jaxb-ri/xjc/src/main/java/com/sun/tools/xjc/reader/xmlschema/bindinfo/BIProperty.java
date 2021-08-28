@@ -130,6 +130,7 @@ public final class BIProperty extends AbstractDeclarationImpl {
             return Collections.<BIDeclaration>singleton(conv);
     }
 
+    @Override
     public void setParent( BindInfo parent ) {
         super.setParent(parent);
         if(baseType!=null && baseType.conv!=null)
@@ -540,6 +541,7 @@ public final class BIProperty extends AbstractDeclarationImpl {
 
 
 
+    @Override
     public void markAsAcknowledged() {
         if( isAcknowledged() )  return;
         
@@ -678,22 +680,62 @@ public final class BIProperty extends AbstractDeclarationImpl {
         }
 
         // delegates to the context schema object
-        public XSComponent attributeDecl(XSAttributeDecl decl) { return decl.getOwnerSchema(); }
-        public XSComponent wildcard(XSWildcard wc) { return wc.getOwnerSchema(); }
-        public XSComponent modelGroupDecl(XSModelGroupDecl decl) { return decl.getOwnerSchema(); }
-        public XSComponent modelGroup(XSModelGroup group) { return group.getOwnerSchema(); }
-        public XSComponent elementDecl(XSElementDecl decl) { return decl.getOwnerSchema(); }
-        public XSComponent complexType(XSComplexType type) { return type.getOwnerSchema(); }
-        public XSComponent simpleType(XSSimpleType st) { return st.getOwnerSchema(); }
+        public XSComponent attributeDecl(XSAttributeDecl decl) {
+            return decl.getOwnerSchema();
+        }
+
+        public XSComponent wildcard(XSWildcard wc) {
+            return wc.getOwnerSchema();
+        }
+
+        public XSComponent modelGroupDecl(XSModelGroupDecl decl) {
+            return decl.getOwnerSchema();
+        }
+
+        public XSComponent modelGroup(XSModelGroup group) {
+            return group.getOwnerSchema();
+        }
+
+        public XSComponent elementDecl(XSElementDecl decl) {
+            return decl.getOwnerSchema();
+        }
+
+        public XSComponent complexType(XSComplexType type) {
+            return type.getOwnerSchema();
+        }
+
+        public XSComponent simpleType(XSSimpleType st) {
+            return st.getOwnerSchema();
+        }
 
         // property customizations are not allowed on these components.
-        public XSComponent attGroupDecl(XSAttGroupDecl decl) { throw new IllegalStateException(); }
-        public XSComponent empty(XSContentType empty) { throw new IllegalStateException(); }
-        public XSComponent annotation(XSAnnotation xsAnnotation) { throw new IllegalStateException(); }
-        public XSComponent facet(XSFacet xsFacet) { throw new IllegalStateException(); }
-        public XSComponent notation(XSNotation xsNotation) { throw new IllegalStateException(); }
-        public XSComponent identityConstraint(XSIdentityConstraint x) { throw new IllegalStateException(); }
-        public XSComponent xpath(XSXPath xsxPath) { throw new IllegalStateException(); }
+        public XSComponent attGroupDecl(XSAttGroupDecl decl) {
+            throw new IllegalStateException();
+        }
+
+        public XSComponent empty(XSContentType empty) {
+            throw new IllegalStateException();
+        }
+
+        public XSComponent annotation(XSAnnotation xsAnnotation) {
+            throw new IllegalStateException();
+        }
+
+        public XSComponent facet(XSFacet xsFacet) {
+            throw new IllegalStateException();
+        }
+
+        public XSComponent notation(XSNotation xsNotation) {
+            throw new IllegalStateException();
+        }
+
+        public XSComponent identityConstraint(XSIdentityConstraint x) {
+            throw new IllegalStateException();
+        }
+
+        public XSComponent xpath(XSXPath xsxPath) {
+            throw new IllegalStateException();
+        }
     };
     
     
@@ -703,6 +745,7 @@ public final class BIProperty extends AbstractDeclarationImpl {
         return s1+"\n\n"+s2;
     }
     
+    @Override
     public QName getName() { return NAME; }
     
     /** Name of this declaration. */

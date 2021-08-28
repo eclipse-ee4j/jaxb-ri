@@ -56,11 +56,13 @@ public final class ElementSets {
             }
         }
 
+        @Override
         public boolean contains(ElementSet rhs) {
             // this isn't complete but sound
             return super.contains(rhs) || rhs==ElementSet.EMPTY_SET;
         }
 
+        @Override
         public void addNext(Element element) {
             for (Element e : this)
                 e.addNext(element);

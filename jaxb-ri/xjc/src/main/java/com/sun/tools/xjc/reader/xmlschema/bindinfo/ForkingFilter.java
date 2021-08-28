@@ -47,7 +47,7 @@ public class ForkingFilter extends XMLFilterImpl {
      * namespaces[2n  ] := prefix
      * namespaces[2n+1] := namespace URI
      */
-    private final ArrayList<String> namespaces = new ArrayList<String>();
+    private final ArrayList<String> namespaces = new ArrayList<>();
 
     private Locator loc;
 

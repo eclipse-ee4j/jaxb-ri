@@ -13,7 +13,6 @@
  */
 package com.sun.tools.xjc;
 
-
 /**
  * Signals the abortion of the compilation.
  * <p>
@@ -23,6 +22,8 @@ package com.sun.tools.xjc;
  * @author Kohsuke Kawaguchi (kohsuke.kawaguchi@sun.com)
  */
 public class AbortException extends RuntimeException {
+    private static final long serialVersionUID = -335027176514421642L;
+
     public AbortException() {
     }
 }

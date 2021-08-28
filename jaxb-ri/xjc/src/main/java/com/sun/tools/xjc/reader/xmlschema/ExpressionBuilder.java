@@ -47,7 +47,7 @@ public final class ExpressionBuilder implements XSTermFunction<Expression> {
      */
     private GWildcardElement wildcard = null;
 
-    private final Map<QName,GElementImpl> decls = new HashMap<QName,GElementImpl>();
+    private final Map<QName,GElementImpl> decls = new HashMap<>();
 
     private XSParticle current;
 

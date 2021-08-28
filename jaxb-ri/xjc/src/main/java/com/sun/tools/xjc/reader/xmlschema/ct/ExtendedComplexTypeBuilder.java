@@ -25,6 +25,7 @@ import com.sun.xml.xsom.XSType;
  */
 final class ExtendedComplexTypeBuilder extends AbstractExtendedComplexTypeBuilder {
 
+    @Override
     public boolean isApplicable(XSComplexType ct) {
         XSType baseType = ct.getBaseType();
         return baseType!=schemas.getAnyType()
@@ -32,6 +33,7 @@ final class ExtendedComplexTypeBuilder extends AbstractExtendedComplexTypeBuilde
             &&  ct.getDerivationMethod()==XSType.EXTENSION;
     }
 
+    @Override
     public void build(XSComplexType ct) {
         XSComplexType baseType = ct.getBaseType().asComplexType();
 

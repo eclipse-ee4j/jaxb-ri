@@ -342,7 +342,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
                         }
                         DummyPropertyInfo prop = (DummyPropertyInfo) top.getProperty("content");
                         PropertySeed seed = createFieldSeed(f);
-                        ((DummyPropertyInfo)prop).addType(createReferenceProperty(seed));
+                        prop.addType(createReferenceProperty(seed));
                     } else {
                         addProperty(createFieldSeed(f), annotations, false);
                     }

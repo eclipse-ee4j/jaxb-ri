@@ -45,7 +45,7 @@ abstract class AbstractExtendedComplexTypeBuilder extends CTBuilder {
      * represents the names used in its child elements [0] and
      * attributes [1].
      */
-    protected final Map<XSComplexType, NameClass[]> characteristicNameClasses = new HashMap<XSComplexType, NameClass[]>();
+    protected final Map<XSComplexType, NameClass[]> characteristicNameClasses = new HashMap<>();
 
     /**
      * Computes a name class that represents everything in a given content model.
@@ -64,7 +64,7 @@ abstract class AbstractExtendedComplexTypeBuilder extends CTBuilder {
         @Override
         public NameClass modelGroup(XSModelGroup group) {
             NameClass nc = NameClass.NULL;
-            for( int i=0; i<group.getSize(); i++ )
+            for (int i = 0; i < group.getSize(); i++)
                 nc = new ChoiceNameClass(nc, group.getChild(i).getTerm().apply(this));
             return nc;
         }

@@ -27,7 +27,7 @@ public class MimeTypeRange {
     public final String majorType;
     public final String subType;
 
-    public final Map<String,String> parameters = new HashMap<String, String>();
+    public final Map<String,String> parameters = new HashMap<>();
 
     /**
      * Each media-range MAY be followed by one or more accept-params,
@@ -44,7 +44,7 @@ public class MimeTypeRange {
 
     public static List<MimeTypeRange> parseRanges(String s) throws ParseException {
         StringCutter cutter = new StringCutter(s,true);
-        List<MimeTypeRange> r = new ArrayList<MimeTypeRange>();
+        List<MimeTypeRange> r = new ArrayList<>();
         while(cutter.length()>0) {
             r.add(new MimeTypeRange(cutter));
         }
@@ -112,6 +112,7 @@ public class MimeTypeRange {
         return new MimeType(toString());
     }
 
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(majorType+'/'+subType);
         if(q!=1)

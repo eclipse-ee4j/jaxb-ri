@@ -18,6 +18,7 @@ import com.sun.tools.xjc.outline.Outline;
  * @author Kohsuke Kawaguchi
  */
 public interface NClass extends NType {
+    @Override
     JClass toType(Outline o, Aspect aspect);
 
     boolean isAbstract();

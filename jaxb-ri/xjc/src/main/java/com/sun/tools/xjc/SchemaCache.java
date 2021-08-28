@@ -93,7 +93,7 @@ public final class SchemaCache {
 
     class ResourceResolver implements LSResourceResolver {
 
-        private List<InputStream> streamsToClose = Collections.synchronizedList(new ArrayList<InputStream>());
+        private List<InputStream> streamsToClose = Collections.synchronizedList(new ArrayList<>());
         private Class<?> clazz;
 
         ResourceResolver(Class<?> clazz) {

@@ -51,6 +51,7 @@ public final class CEnumConstant implements EnumConstant<NType,NClass>, CCustomi
         this.locator = loc;
     }
 
+    @Override
     public CEnumLeafInfo getEnclosingClass() {
         return parent;
     }
@@ -59,22 +60,27 @@ public final class CEnumConstant implements EnumConstant<NType,NClass>, CCustomi
         this.parent = parent;
     }
 
+    @Override
     public String getLexicalValue() {
         return lexical;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public XSComponent getSchemaComponent() {
         return source;
     }
 
+    @Override
     public CCustomizations getCustomizations() {
     	return customizations;
     }
 
+    @Override
     public Locator getLocator() {
         return locator;
     }

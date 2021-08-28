@@ -65,7 +65,7 @@ public final class RELAXNGCompiler {
      */
     final JPackage pkg;
 
-    final Map<String,DatatypeLib> datatypes = new HashMap<String, DatatypeLib>();
+    final Map<String,DatatypeLib> datatypes = new HashMap<>();
 
     /**
      * Patterns that are mapped to Java concepts.
@@ -77,14 +77,14 @@ public final class RELAXNGCompiler {
      * TODO: depending on the type of the key, the type of the values can be further
      * restricted. Make this into its own class to represent those constraints better.
      */
-    final Map<DPattern,CTypeInfo[]> classes = new HashMap<DPattern,CTypeInfo[]>();
+    final Map<DPattern,CTypeInfo[]> classes = new HashMap<>();
 
     /**
      * Classes that need to be bound.
      *
      * The value is the content model to be bound.
      */
-    final Map<CClassInfo,DPattern> bindQueue = new HashMap<CClassInfo,DPattern>();
+    final Map<CClassInfo,DPattern> bindQueue = new HashMap<>();
 
     final TypeUseBinder typeUseBinder = new TypeUseBinder(this);
 
@@ -139,7 +139,7 @@ public final class RELAXNGCompiler {
         // we'll be trying a lot of choices,
         // and most of them will not be type-safe enum.
         // using the same list improves the memory efficiency.
-        List<CEnumConstant> members = new ArrayList<CEnumConstant>();
+        List<CEnumConstant> members = new ArrayList<>();
 
         OUTER:
         for( DDefine def : defs ) {
@@ -186,7 +186,7 @@ public final class RELAXNGCompiler {
 
                 CEnumLeafInfo xducer = new CEnumLeafInfo(model, null,
                         new CClassInfoParent.Package(pkg), def.getName(), base,
-                        new ArrayList<CEnumConstant>(members),
+                        new ArrayList<>(members),
                         null, null/*TODO*/, cp.getLocation());
 
                 classes.put(cp,new CTypeInfo[]{xducer});

@@ -41,10 +41,12 @@ final class ElementMappingImpl extends AbstractMappingImpl<CElementInfo> {
         taa = new TypeAndAnnotationImpl(parent.outline,t);
     }
 
+    @Override
     public TypeAndAnnotation getType() {
         return taa;
     }
 
+    @Override
     public final List<Property> calcDrilldown() {
         CElementPropertyInfo p = clazz.getProperty();
 

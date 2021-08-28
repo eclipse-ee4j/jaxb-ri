@@ -151,12 +151,14 @@ public class TDTDReader extends DTDHandlerBase
     /**
      * Element name to its content model definition.
      */
-    private final Map<String,Element> elements = new HashMap<String,Element>();
+    private final Map<String,Element> elements = new HashMap<>();
 
 
+    @Override
     public void startDTD(InputEntity entity) throws SAXException {
     }
     
+    @Override
     public void endDTD() throws SAXException {
 
         // bind them all.
@@ -191,16 +193,17 @@ public class TDTDReader extends DTDHandlerBase
     private void processInterfaceDeclarations() {
 
 
-        Map<String,InterfaceAcceptor> fromName = new HashMap<String,InterfaceAcceptor>();
+        Map<String,InterfaceAcceptor> fromName = new HashMap<>();
 
         // first, create empty InterfaceItem declaration for all interfaces
-        Map<BIInterface,JClass> decls = new HashMap<BIInterface,JClass>();
+        Map<BIInterface,JClass> decls = new HashMap<>();
 
         for( BIInterface decl : bindInfo.interfaces() ) {
             final JDefinedClass intf = classFactory.createInterface(
                                 bindInfo.getTargetPackage(), decl.name(), copyLocator() );
             decls.put(decl,intf);
             fromName.put(decl.name(),new InterfaceAcceptor() {
+                @Override
                 public void implement(JClass c) {
                     intf._implements(c);
                 }
@@ -209,6 +212,7 @@ public class TDTDReader extends DTDHandlerBase
 
         for( final CClassInfo ci : model.beans().values() ) {
             fromName.put(ci.getName(),new InterfaceAcceptor() {
+                @Override
                 public void implement(JClass c) {
                     ci._implements(c);
                 }
@@ -274,6 +278,7 @@ public class TDTDReader extends DTDHandlerBase
         }
     }
 
+    @Override
     public void attributeDecl(String elementName, String attributeName, String attributeType, String[] enumeration, short attributeUse, String defaultValue) throws SAXException {
         getOrCreateElement(elementName).attributes.add(
             createAttribute(elementName, attributeName, attributeType, enumeration, attributeUse, defaultValue)
@@ -329,11 +334,13 @@ public class TDTDReader extends DTDHandlerBase
     }
 
 
+    @Override
     public void startContentModel(String elementName, short contentModelType) throws SAXException {
         assert modelGroups.isEmpty();
         modelGroups.push(new ModelGroup());
     }
 
+    @Override
     public void endContentModel(String elementName, short contentModelType) throws SAXException {
         assert modelGroups.size()==1;
         Term term = modelGroups.pop().wrapUp();
@@ -343,17 +350,20 @@ public class TDTDReader extends DTDHandlerBase
     }
 
 
-    private final Stack<ModelGroup> modelGroups = new Stack<ModelGroup>();
+    private final Stack<ModelGroup> modelGroups = new Stack<>();
 
+    @Override
     public void startModelGroup() throws SAXException {
         modelGroups.push(new ModelGroup());
     }
 
+    @Override
     public void endModelGroup(short occurence) throws SAXException {
         Term t = Occurence.wrap( modelGroups.pop().wrapUp(), occurence );
         modelGroups.peek().addTerm(t);
     }
 
+    @Override
     public void connector(short connectorType) throws SAXException {
         modelGroups.peek().setKind(connectorType);
     }
@@ -361,6 +371,7 @@ public class TDTDReader extends DTDHandlerBase
     // TODO: for now, we just ignore all the content model specification
     // and treat it as (A,B,C,....)
 
+    @Override
     public void childElement(String elementName, short occurence) throws SAXException {
         Element child = getOrCreateElement(elementName);
         modelGroups.peek().addTerm( Occurence.wrap( child, occurence ) );
@@ -379,6 +390,7 @@ public class TDTDReader extends DTDHandlerBase
      */
     private Locator locator;
 
+    @Override
     public void setDocumentLocator(Locator loc) {
         this.locator = loc;
     }
@@ -407,7 +419,7 @@ public class TDTDReader extends DTDHandlerBase
         // note that although xs:token and xs:normalizedString are not
         // specified in the spec, they need to be here because they
         // have different whitespace normalization semantics.
-        Map<String,TypeUse> m = new HashMap<String,TypeUse>();
+        Map<String,TypeUse> m = new HashMap<>();
 
         m.put("CDATA",      CBuiltinLeafInfo.NORMALIZED_STRING);
         m.put("ENTITY",     CBuiltinLeafInfo.TOKEN);
@@ -428,14 +440,17 @@ public class TDTDReader extends DTDHandlerBase
 // error related utility methods
 //
 //
+    @Override
     public void error(SAXParseException e) throws SAXException {
         errorReceiver.error(e);
     }
 
+    @Override
     public void fatalError(SAXParseException e) throws SAXException {
         errorReceiver.fatalError(e);
     }
 
+    @Override
     public void warning(SAXParseException e) throws SAXException {
         errorReceiver.warning(e);
     }

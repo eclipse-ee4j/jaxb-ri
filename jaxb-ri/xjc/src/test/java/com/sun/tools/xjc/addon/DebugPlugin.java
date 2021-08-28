@@ -23,22 +23,27 @@ import org.xml.sax.ErrorHandler;
  * @author Kohsuke Kawaguchi
  */
 public class DebugPlugin extends Plugin {
+    @Override
     public String getOptionName() {
         return "Xdebug";
     }
 
+    @Override
     public String getUsage() {
         return "  -Xdebug            :  test various plug-in functionalities";
     }
 
+    @Override
     public boolean run(Outline model, Options opt, ErrorHandler errorHandler) {
         return true;
     }
 
+    @Override
     public List<String> getCustomizationURIs() {
         return Arrays.asList("http://jaxb.dev.java.net/test");
     }
 
+    @Override
     public boolean isCustomizationTagName(String nsUri, String localName) {
         return true;
     }

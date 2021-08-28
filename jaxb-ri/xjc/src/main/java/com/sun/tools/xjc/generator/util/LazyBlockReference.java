@@ -28,6 +28,7 @@ public abstract class LazyBlockReference implements BlockReference {
      */
     protected abstract JBlock create();
     
+    @Override
     public JBlock get(boolean create) {
         if(!create)     return block;
         if(block==null)

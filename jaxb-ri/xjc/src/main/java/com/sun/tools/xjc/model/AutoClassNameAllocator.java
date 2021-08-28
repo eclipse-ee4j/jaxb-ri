@@ -25,12 +25,13 @@ import com.sun.tools.xjc.api.ClassNameAllocator;
 public class AutoClassNameAllocator implements ClassNameAllocator {
     private final ClassNameAllocator core;
 
-    private final Map<String,Set<String>> names = new HashMap<String,Set<String>>();
+    private final Map<String,Set<String>> names = new HashMap<>();
 
     public AutoClassNameAllocator(ClassNameAllocator core) {
         this.core = core;
     }
 
+    @Override
     public String assignClassName(String packageName, String className) {
         className = determineName(packageName, className);
         if(core!=null)
@@ -41,7 +42,7 @@ public class AutoClassNameAllocator implements ClassNameAllocator {
     private String determineName(String packageName, String className) {
         Set<String> s = names.get(packageName);
         if(s==null) {
-            s = new HashSet<String>();
+            s = new HashSet<>();
             names.put(packageName,s);
         }
 

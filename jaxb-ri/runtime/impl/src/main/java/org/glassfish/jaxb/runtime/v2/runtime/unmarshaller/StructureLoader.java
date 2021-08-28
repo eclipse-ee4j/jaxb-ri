@@ -217,7 +217,7 @@ public final class StructureLoader extends Loader {
     public void childElement(UnmarshallingContext.State state, TagName arg) throws SAXException {
         ChildLoader child = childUnmarshallers.get(arg.uri,arg.local);
         if(child == null) {
-            Boolean backupWithParentNamespace = ((JAXBContextImpl) state.getContext().getJAXBContext()).backupWithParentNamespace;
+            Boolean backupWithParentNamespace = state.getContext().getJAXBContext().backupWithParentNamespace;
 			backupWithParentNamespace = backupWithParentNamespace != null
 					? backupWithParentNamespace
 					: Boolean.parseBoolean(Utils.getSystemProperty(JAXBRIContext.BACKUP_WITH_PARENT_NAMESPACE));

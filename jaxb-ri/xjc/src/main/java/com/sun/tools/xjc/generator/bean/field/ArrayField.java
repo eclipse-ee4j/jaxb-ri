@@ -53,10 +53,12 @@ final class ArrayField extends AbstractListField {
             super($target);
         }
         
+        @Override
         public void toRawValue(JBlock block, JVar $var) {
             block.assign($var,$target.invoke($getAll));
         }
 
+        @Override
         public void fromRawValue(JBlock block, String uniqueName, JExpression $var) {
             block.invoke($target,$setAll).arg($var);
         }
@@ -85,6 +87,7 @@ final class ArrayField extends AbstractListField {
         generateAccessors();
     }
     
+    @Override
     public void generateAccessors() {
         
         MethodWriter writer = outline.createMethodWriter();
@@ -201,10 +204,12 @@ final class ArrayField extends AbstractListField {
         return exposedType.array();
     }
 
+    @Override
     protected JClass getCoreListType() {
         return exposedType.array();
     }
     
+    @Override
     public Accessor create(JExpression targetObject) {
         return new Accessor(targetObject);
     }

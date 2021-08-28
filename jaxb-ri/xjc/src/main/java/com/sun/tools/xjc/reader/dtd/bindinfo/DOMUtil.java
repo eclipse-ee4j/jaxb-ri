@@ -67,7 +67,7 @@ public final class DOMUtil {
     }
 
     public static List<Element> getChildElements(Element e) {
-        List<Element> r = new ArrayList<Element>();
+        List<Element> r = new ArrayList<>();
         NodeList l = e.getChildNodes();
         for(int i=0;i<l.getLength();i++) {
             Node n = l.item(i);
@@ -78,7 +78,7 @@ public final class DOMUtil {
     }
 
     public static List<Element> getChildElements(Element e,String localName) {
-        List<Element> r = new ArrayList<Element>();
+        List<Element> r = new ArrayList<>();
         NodeList l = e.getChildNodes();
         for(int i=0;i<l.getLength();i++) {
             Node n = l.item(i);

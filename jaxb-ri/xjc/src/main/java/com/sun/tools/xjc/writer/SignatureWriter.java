@@ -55,7 +55,7 @@ public class SignatureWriter {
     /** All the ClassItems in this grammar. */
     private final Collection<? extends ClassOutline> classes;
     /** Map from content interfaces to ClassItem. */
-    private final Map<JDefinedClass,ClassOutline> classSet = new HashMap<JDefinedClass,ClassOutline>();
+    private final Map<JDefinedClass,ClassOutline> classSet = new HashMap<>();
     
     private final Writer out;
     private int indent=0;
@@ -72,7 +72,8 @@ public class SignatureWriter {
     private void dump() throws IOException {
         
         // collect packages used in the class.
-        Set<JPackage> packages = new TreeSet<JPackage>(new Comparator<JPackage>() {
+        Set<JPackage> packages = new TreeSet<>(new Comparator<JPackage>() {
+            @Override
             public int compare(JPackage lhs, JPackage rhs) {
                 return lhs.name().compareTo(rhs.name());
             }

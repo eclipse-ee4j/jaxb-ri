@@ -25,7 +25,7 @@ abstract class GElement extends Element {
      * All the {@link XSParticle}s (whose term is {@link XSElementDecl})
      * that are coereced into a single {@link Element}.
      */
-    final Set<XSParticle> particles = new HashSet<XSParticle>();
+    final Set<XSParticle> particles = new HashSet<>();
 
     /**
      * Gets the seed (raw XML name) to be used to generate a property name.

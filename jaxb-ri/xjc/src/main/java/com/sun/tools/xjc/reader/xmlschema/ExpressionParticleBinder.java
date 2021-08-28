@@ -30,6 +30,7 @@ import com.sun.xml.xsom.XSParticle;
  * @author Kohsuke Kawaguchi
  */
 final class ExpressionParticleBinder extends ParticleBinder {
+    @Override
     public void build(XSParticle p, Collection<XSParticle> forcedProps) {
         // this class isn't about spec conformance, but
         // for the ease of use.
@@ -121,6 +122,7 @@ final class ExpressionParticleBinder extends ParticleBinder {
         return first;
     }
 
+    @Override
     public boolean checkFallback(XSParticle p) {
         // this algorithm never falls back to 'getContent'.
         return false;

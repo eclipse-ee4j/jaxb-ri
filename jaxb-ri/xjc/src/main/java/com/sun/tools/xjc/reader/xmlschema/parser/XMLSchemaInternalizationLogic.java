@@ -38,6 +38,7 @@ public class XMLSchemaInternalizationLogic implements InternalizationLogic {
             super(parent);
         }
         
+        @Override
         protected String findExternalResource( String nsURI, String localName, Attributes atts) {
             if( WellKnownNamespace.XML_SCHEMA.equals(nsURI)
             && ("import".equals(localName) || "include".equals(localName) ) )
@@ -47,14 +48,17 @@ public class XMLSchemaInternalizationLogic implements InternalizationLogic {
         }
     }
 
+    @Override
     public XMLFilterImpl createExternalReferenceFinder(DOMForest parent) {
         return new ReferenceFinder(parent);
     }
 
+    @Override
     public boolean checkIfValidTargetNode(DOMForest parent, Element bindings, Element target) {
         return WellKnownNamespace.XML_SCHEMA.equals(target.getNamespaceURI());
     }
 
+    @Override
     public Element refineTarget(Element target) {
         // look for existing xs:annotation
         Element annotation = DOMUtils.getFirstChildElement(target, WellKnownNamespace.XML_SCHEMA, "annotation");

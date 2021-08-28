@@ -49,6 +49,7 @@ public class JAXPParser implements XMLParser {
      * security features initialized by setting 
      * XMLConstants.FEATURE_SECURE_PROCESSING feature.
      */
+    @Deprecated
     public JAXPParser() {
         this( SAXParserFactory.newInstance());
     }

@@ -153,6 +153,7 @@ final class ContainerElement implements InvocationHandler, TypedXmlWriter {
     /**
      * Writes a new element.
      */
+    @SuppressWarnings("unchecked")
     private Object addElement(XmlElement e, Method method, Object[] args) {
         Class<?> rt = method.getReturnType();
 
@@ -200,7 +201,7 @@ final class ContainerElement implements InvocationHandler, TypedXmlWriter {
         }
         if(TypedXmlWriter.class.isAssignableFrom(rt)) {
             // sub writer
-            return _element(nsUri,localName,(Class)rt);
+            return _element(nsUri,localName,(Class<? extends TypedXmlWriter>)rt);
         }
 
         throw new IllegalSignatureException("Illegal return type: "+rt);
@@ -335,7 +336,7 @@ final class ContainerElement implements InvocationHandler, TypedXmlWriter {
     }
 
     public <T extends TypedXmlWriter> T _cast(Class<T> facadeType) {
-        return facadeType.cast(Proxy.newProxyInstance(facadeType.getClassLoader(),new Class[]{facadeType},this));
+        return facadeType.cast(Proxy.newProxyInstance(facadeType.getClassLoader(),new Class<?>[]{facadeType},this));
     }
 
     public <T extends TypedXmlWriter> T _element(String nsUri, String localName, Class<T> contentModel) {

@@ -35,6 +35,7 @@ public interface XSDeclaration extends XSComponent
      * @deprecated use the isGlobal method, which always returns
      * the opposite of this function. Or the isLocal method.
      */
+    @Deprecated
     boolean isAnonymous();
 
     /**

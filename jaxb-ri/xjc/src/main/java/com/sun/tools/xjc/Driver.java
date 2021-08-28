@@ -172,18 +172,22 @@ public class Driver {
                     status.println(msg);
             }
 
+            @Override
             public void error(SAXParseException exception) {
                 cer.error(exception);
             }
 
+            @Override
             public void fatalError(SAXParseException exception) {
                 cer.fatalError(exception);
             }
 
+            @Override
             public void warning(SAXParseException exception) {
                 cer.warning(exception);
             }
 
+            @Override
             public void info(SAXParseException exception) {
                 cer.info(exception);
             }

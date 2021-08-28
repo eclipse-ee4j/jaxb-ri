@@ -38,9 +38,9 @@ public abstract class AbstractExtensionBindingChecker extends SubtreeCutter {
     /**
      * Set of namespace URIs that designates enabled extensions.
      */
-    protected final Set<String> enabledExtensions = new HashSet<String>();
+    protected final Set<String> enabledExtensions = new HashSet<>();
 
-    private final Set<String> recognizableExtensions = new HashSet<String>();
+    private final Set<String> recognizableExtensions = new HashSet<>();
 
     private Locator locator;
 

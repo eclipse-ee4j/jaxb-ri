@@ -25,6 +25,7 @@ import com.sun.xml.xsom.XSParticle;
  */
 final class ChoiceContentComplexTypeBuilder extends CTBuilder {
 
+    @Override
     public boolean isApplicable(XSComplexType ct) {
         if( !bgmBuilder.getGlobalBinding().isChoiceContentPropertyEnabled() )
             return false;
@@ -61,6 +62,7 @@ final class ChoiceContentComplexTypeBuilder extends CTBuilder {
         return mg;
     }
 
+    @Override
     public void build(XSComplexType ct) {
         XSParticle p = ct.getContentType().asParticle();
 

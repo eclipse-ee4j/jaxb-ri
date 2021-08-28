@@ -24,18 +24,22 @@ class NClassByJClass implements NClass {
         this.clazz = clazz;
     }
 
+    @Override
     public JClass toType(Outline o, Aspect aspect) {
         return clazz;
     }
 
+    @Override
     public boolean isAbstract() {
         return clazz.isAbstract();
     }
 
+    @Override
     public boolean isBoxedType() {
         return clazz.getPrimitiveType()!=null;
     }
 
+    @Override
     public String fullName() {
         return clazz.fullName();
     }

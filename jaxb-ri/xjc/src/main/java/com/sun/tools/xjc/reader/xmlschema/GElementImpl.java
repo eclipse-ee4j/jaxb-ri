@@ -42,10 +42,12 @@ final class GElementImpl extends GElement {
         this.decl = decl;
     }
 
+    @Override
     public String toString() {
         return tagName.toString();
     }
 
+    @Override
     String getPropertyNameSeed() {
         return tagName.getLocalPart();
     }

@@ -32,11 +32,13 @@ import com.sun.xml.xsom.visitor.XSContentTypeVisitor;
  */
 final class FreshComplexTypeBuilder extends CTBuilder {
 
+    @Override
     public boolean isApplicable(XSComplexType ct) {
         return ct.getBaseType()==schemas.getAnyType()
             &&  !ct.isMixed();  // not mixed
     }
 
+    @Override
     public void build(final XSComplexType ct) {
         XSContentType contentType = ct.getContentType();
 

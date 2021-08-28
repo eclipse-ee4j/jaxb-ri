@@ -106,7 +106,7 @@ public final class ClassFactory {
 
     private static <T> Constructor<T> tryGetDeclaredConstructor(Class<T> clazz) {
         try {
-            return clazz.getDeclaredConstructor((Class<T>[])emptyClass);
+            return clazz.getDeclaredConstructor(emptyClass);
         } catch (NoSuchMethodException e) {
             logger.log(Level.INFO,"No default constructor found on "+clazz,e);
             NoSuchMethodError exp;

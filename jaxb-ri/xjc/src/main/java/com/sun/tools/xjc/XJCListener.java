@@ -38,6 +38,7 @@ public abstract class XJCListener implements ErrorListener {
      *      Override {@link #generatedFile(String, int, int)}.
      *      Deprecated in 2.0.1.
      */
+    @Deprecated
     public void generatedFile(String fileName) {}
 
     /**

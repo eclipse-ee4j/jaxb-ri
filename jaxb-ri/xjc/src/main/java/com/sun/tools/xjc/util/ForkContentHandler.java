@@ -55,56 +55,67 @@ public class ForkContentHandler implements ContentHandler {
 
 	private final ContentHandler lhs,rhs;
 
+        @Override
 	public void setDocumentLocator (Locator locator) {
 		lhs.setDocumentLocator(locator);
 		rhs.setDocumentLocator(locator);
 	}
 
+        @Override
 	public void startDocument() throws SAXException {
 		lhs.startDocument();
 		rhs.startDocument();
 	}
 
+        @Override
 	public void endDocument () throws SAXException {
 		lhs.endDocument();
 		rhs.endDocument();
 	}
 
+        @Override
 	public void startPrefixMapping (String prefix, String uri) throws SAXException {
 		lhs.startPrefixMapping(prefix,uri);
 		rhs.startPrefixMapping(prefix,uri);
 	}
 
+        @Override
 	public void endPrefixMapping (String prefix) throws SAXException {
 		lhs.endPrefixMapping(prefix);
 		rhs.endPrefixMapping(prefix);
 	}
 
+        @Override
 	public void startElement (String uri, String localName, String qName, Attributes attributes) throws SAXException {
 		lhs.startElement(uri,localName,qName,attributes);
 		rhs.startElement(uri,localName,qName,attributes);
 	}
 
+        @Override
 	public void endElement (String uri, String localName, String qName) throws SAXException {
 		lhs.endElement(uri,localName,qName);
 		rhs.endElement(uri,localName,qName);
 	}
 
+        @Override
 	public void characters (char ch[], int start, int length) throws SAXException {
 		lhs.characters(ch,start,length);
 		rhs.characters(ch,start,length);
 	}
 
+        @Override
 	public void ignorableWhitespace (char ch[], int start, int length) throws SAXException {
 		lhs.ignorableWhitespace(ch,start,length);
 		rhs.ignorableWhitespace(ch,start,length);
 	}
 
+        @Override
 	public void processingInstruction (String target, String data) throws SAXException {
 		lhs.processingInstruction(target,data);
 		rhs.processingInstruction(target,data);
 	}
 
+        @Override
 	public void skippedEntity (String name) throws SAXException {
 		lhs.skippedEntity(name);
 		rhs.skippedEntity(name);

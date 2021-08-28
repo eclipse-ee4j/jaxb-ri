@@ -178,7 +178,7 @@ public class Element extends XmlNode {
                 if(!props.add(new LeafElementProp(name,t)))
                     continue;
                 generateMethod(clazz,
-                        nset, nset.opts.chainMethod? (JType)clazz : nset.codeModel.VOID
+                        nset, nset.opts.chainMethod? clazz : nset.codeModel.VOID
                 ).param(t,"value");
             }
         }

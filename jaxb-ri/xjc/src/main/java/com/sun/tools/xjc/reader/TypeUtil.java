@@ -58,7 +58,7 @@ public class TypeUtil {
      */
     public static JType getCommonBaseType(JCodeModel codeModel, JType... t) {
         // first, eliminate duplicates.
-        Set<JType> uniqueTypes = new TreeSet<JType>(typeComparator);
+        Set<JType> uniqueTypes = new TreeSet<>(typeComparator);
         for (JType type : t)
             uniqueTypes.add(type);
 
@@ -126,7 +126,7 @@ public class TypeUtil {
             return result;
 
         // for each uniqueType we store the list of base type parameterization
-        List<List<JClass>> parameters = new ArrayList<List<JClass>>(uniqueTypes.size());
+        List<List<JClass>> parameters = new ArrayList<>(uniqueTypes.size());
         int paramLen = -1;
 
         for (JType type : uniqueTypes) {
@@ -148,8 +148,8 @@ public class TypeUtil {
             paramLen = tp.size();
         }
 
-        List<JClass> paramResult = new ArrayList<JClass>();
-        List<JClass> argList = new ArrayList<JClass>(parameters.size());
+        List<JClass> paramResult = new ArrayList<>();
+        List<JClass> argList = new ArrayList<>(parameters.size());
         // for each type parameter compute the common base type
         for( int i=0; i<paramLen; i++ ) {
             argList.clear();
@@ -187,7 +187,7 @@ public class TypeUtil {
     }
 
     private static Set<JClass> getAssignableTypes( JClass t ) {
-        Set<JClass> r = new TreeSet<JClass>(typeComparator);
+        Set<JClass> r = new TreeSet<>(typeComparator);
         getAssignableTypes(t,r);
         return r;
     }
@@ -244,6 +244,7 @@ public class TypeUtil {
      * Compares {@link JType} objects by their names.
      */
     private static final Comparator<JType> typeComparator = new Comparator<JType>() {
+        @Override
         public int compare(JType t1, JType t2) {
             return t1.fullName().compareTo(t2.fullName());
         }

@@ -35,6 +35,7 @@ import com.sun.tools.xjc.outline.ElementOutline;
 final class ElementOutlineImpl extends ElementOutline {
     private final BeanGenerator parent;
 
+    @Override
     public BeanGenerator parent() {
         return parent;
     }

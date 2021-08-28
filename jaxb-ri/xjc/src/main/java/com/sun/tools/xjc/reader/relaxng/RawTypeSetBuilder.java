@@ -49,7 +49,7 @@ public final class RawTypeSetBuilder extends DPatternWalker {
     /**
      * Accumulates discovered {@link RawTypeSet.Ref}s.
      */
-    private final Set<RawTypeSet.Ref> refs = new HashSet<RawTypeSet.Ref>();
+    private final Set<RawTypeSet.Ref> refs = new HashSet<>();
 
     private final RELAXNGCompiler compiler;
 
@@ -99,22 +99,27 @@ public final class RawTypeSetBuilder extends DPatternWalker {
             assert ci.isElement();
         }
 
+        @Override
         protected ID id() {
             return ID.NONE;
         }
 
+        @Override
         protected boolean isListOfValues() {
             return false;
         }
 
+        @Override
         protected RawTypeSet.Mode canBeType(RawTypeSet parent) {
             return RawTypeSet.Mode.SHOULD_BE_TYPEREF;
         }
 
+        @Override
         protected void toElementRef(CReferencePropertyInfo prop) {
             prop.getElements().add(ci);
         }
 
+        @Override
         protected CTypeRef toTypeRef(CElementPropertyInfo ep) {
             return new CTypeRef(ci,ci.getElementName(),ci.getTypeName(),false,null);
         }

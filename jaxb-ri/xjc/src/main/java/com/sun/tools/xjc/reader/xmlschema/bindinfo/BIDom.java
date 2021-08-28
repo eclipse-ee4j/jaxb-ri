@@ -29,6 +29,7 @@ public class BIDom extends AbstractDeclarationImpl {
     @XmlAttribute
     String type;
 
+    @Override
     public final QName getName() { return NAME; }
     
     /** Name of the conversion declaration. */

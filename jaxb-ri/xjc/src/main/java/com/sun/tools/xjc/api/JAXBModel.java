@@ -39,6 +39,7 @@ public interface JAXBModel {
      * @deprecated
      *      this method is provided for now to allow gradual migration for JAX-RPC.
      */
+    @Deprecated
     List<String> getClassList();
 
 }

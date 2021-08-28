@@ -36,14 +36,17 @@ abstract class AbstractCElement extends AbstractCTypeInfoImpl implements CElemen
         this.locator = locator;
     }
 
+    @Override
     public Locator getLocator() {
         return locator;
     }
 
+    @Override
     public boolean isAbstract() {
         return isAbstract;
     }
 
+    @Override
     public void setAbstract() {
         isAbstract = true;
     }

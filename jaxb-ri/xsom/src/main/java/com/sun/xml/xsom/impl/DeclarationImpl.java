@@ -35,6 +35,7 @@ abstract class DeclarationImpl extends ComponentImpl implements XSDeclaration
     
     private final boolean anonymous;
     /** @deprecated */
+    @Deprecated
     public boolean isAnonymous() { return anonymous; }
     
     public final boolean isGlobal() { return !isAnonymous(); }

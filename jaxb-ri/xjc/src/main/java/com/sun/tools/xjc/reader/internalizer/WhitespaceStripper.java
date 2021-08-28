@@ -50,6 +50,7 @@ class WhitespaceStripper extends XMLFilterImpl {
         if(er!=null)    setEntityResolver(er);
     }
 
+    @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
         switch(state) {
         case AFTER_START_ELEMENT:
@@ -79,6 +80,7 @@ class WhitespaceStripper extends XMLFilterImpl {
         }
     }
 
+    @Override
     public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
         processPendingText();
         super.startElement(uri, localName, qName, atts);
@@ -86,6 +88,7 @@ class WhitespaceStripper extends XMLFilterImpl {
         bufLen = 0;
     }
 
+    @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
         processPendingText();
         super.endElement(uri, localName, qName);
@@ -106,6 +109,7 @@ class WhitespaceStripper extends XMLFilterImpl {
         }
     }
     
+    @Override
     public void ignorableWhitespace(char[] ch, int start, int length) throws SAXException {
         // ignore completely.
     }

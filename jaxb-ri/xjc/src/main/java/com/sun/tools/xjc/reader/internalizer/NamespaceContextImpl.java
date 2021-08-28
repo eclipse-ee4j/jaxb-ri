@@ -39,6 +39,7 @@ final class NamespaceContextImpl implements NamespaceContext {
         this.e = e;
     }
 
+    @Override
     public String getNamespaceURI(String prefix) {
         Node parent = e;
         String namespace = null;
@@ -84,11 +85,13 @@ final class NamespaceContextImpl implements NamespaceContext {
         return namespace;
     }
 
+    @Override
     public String getPrefix(String namespaceURI) {
         throw new UnsupportedOperationException();
     }
 
-    public Iterator getPrefixes(String namespaceURI) {
+    @Override
+    public Iterator<String> getPrefixes(String namespaceURI) {
         throw new UnsupportedOperationException();
     }
 }
