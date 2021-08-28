@@ -145,6 +145,8 @@
                         </archive>
                         <release>11</release>
                         <notimestamp>true</notimestamp>
+                        <!-- too many to fix -->
+                        <doclint>-missing</doclint>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -180,7 +182,6 @@
                     <configuration>
                         <skip>${spotbugs.skip}</skip>
                         <threshold>${spotbugs.threshold}</threshold>
-                        <findbugsXmlWithMessages>true</findbugsXmlWithMessages>
                         <excludeFilterFile>
                             ${spotbugs.exclude}
                         </excludeFilterFile>
