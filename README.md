@@ -8,6 +8,9 @@
 
 # Eclipse Implementation of JAXB
 
+[![Build Status](https://github.com/eclipse-ee4j/jaxb-ri/actions/workflows/maven.yml/badge.svg?branch=master)](https://github.com/eclipse-ee4j/jaxb-ri/actions/workflows/maven.yml?branch=master)
+[![Jakarta Staging (Snapshots)](https://img.shields.io/nexus/s/https/jakarta.oss.sonatype.org/com.sun.xml.bind/jaxb-ri.svg)](https://jakarta.oss.sonatype.org/content/repositories/staging/com/sun/xml/bind/jaxb-ri/)
+
 Jakarta XML Binding gives Java developers an efficient and standard way of mapping between XML and Java code.
 Java developers using Jakarta XML Binding are more productive because they can write less code themselves
 and do not have to be experts in XML. Jakarta XML Binding makes it easier for developers to extend
@@ -38,6 +41,7 @@ the terms of [Eclipse Contributor Agreement](http://www.eclipse.org/legal/ECA.ph
 * [Mailing list](https://accounts.eclipse.org/mailing-list/jaxb-impl-dev)
 * [Jakarta XML Binding Specification](https://jakarta.ee/specifications/xml-binding)
 * [Jakarta XML Binding Specification project](https://github.com/eclipse-ee4j/jaxb-api)
+* [Nightly build job](https://ci.eclipse.org/jaxb-impl/job/jaxb-ri-master-build/)
 
 
 ## Other projects in this repository:
