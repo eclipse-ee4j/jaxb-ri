@@ -28,9 +28,6 @@ public interface RuntimeArrayInfo extends ArrayInfo<Type,Class>, RuntimeNonEleme
     @Override
     Class getType();
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     RuntimeNonElement getItemType();
 }

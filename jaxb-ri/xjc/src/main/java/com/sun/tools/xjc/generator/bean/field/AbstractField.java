@@ -416,8 +416,8 @@ abstract class AbstractField implements FieldOutline {
         if(prop.getAdapter()!=null)
             return prop.getAdapter().customType.toType(outline.parent(),aspect);
 
+        @SuppressWarnings("serial")
         final class TypeList extends ArrayList<JType> {
-            private static final long serialVersionUID = -2528889889198580251L;
 
             void add(CTypeInfo t ) {
                 add( t.getType().toType(outline.parent(),aspect) );

@@ -84,6 +84,11 @@ public class TxwOptions {
         COMPACT
     }
 
+    /**
+     * Default constructor.
+     */
+    public TxwOptions() {}
+
     void parseArguments(String[] args) throws BadCommandLineException {
         String src = null;
         for (int i = 0; i < args.length; i++) {

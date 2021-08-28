@@ -24,7 +24,6 @@ import java.util.Collection;
  */
 public interface RuntimePropertyInfo extends PropertyInfo<Type,Class> {
 
-    /** {@inheritDoc} */
     @Override
     Collection<? extends RuntimeTypeInfo> ref();
 

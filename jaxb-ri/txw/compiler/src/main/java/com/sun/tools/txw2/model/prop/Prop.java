@@ -22,4 +22,9 @@ package com.sun.tools.txw2.model.prop;
  * @author Kohsuke Kawaguchi
  */
 public abstract class Prop {
+    /**
+     * Default constructor.
+     */
+    protected Prop() {
+    }
 }

@@ -345,6 +345,9 @@ public final class ModelLoader {
                 }
             }
 
+            if (wsdlDom == null) {
+                throw new SAXException("Cannot find schema for: " + grammar.getSystemId());
+            }
             NodeList schemas = wsdlDom.getElementsByTagNameNS(XMLConstants.W3C_XML_SCHEMA_NS_URI,"schema");
             for( int i=0; i<schemas.getLength(); i++ )
                 scanner.scan( (Element)schemas.item(i), xsomParser.getParserHandler() );

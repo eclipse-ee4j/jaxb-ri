@@ -21,7 +21,7 @@ import java.lang.reflect.Type;
  */
 public interface RuntimeLeafInfo extends LeafInfo<Type,Class>, RuntimeNonElement {
     /**
-     * {@inheritDoc}
+     *
      *
      * @return
      *      always non-null.

@@ -31,9 +31,6 @@ public interface RuntimeElementInfo extends ElementInfo<Type,Class>, RuntimeElem
     @Override
     Class<? extends JAXBElement> getType();
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     RuntimeNonElement getContentType();
 }

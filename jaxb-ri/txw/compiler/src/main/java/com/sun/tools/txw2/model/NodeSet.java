@@ -32,6 +32,7 @@ import java.util.Set;
  */
 public class NodeSet extends LinkedHashSet<WriterNode> {
 
+    private static final long serialVersionUID = 4733209772279560500L;
     /*package*/ final TxwOptions opts;
     /*package*/ final JCodeModel codeModel;
 
