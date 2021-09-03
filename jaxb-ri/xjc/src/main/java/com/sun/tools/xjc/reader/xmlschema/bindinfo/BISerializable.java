@@ -11,6 +11,7 @@
 package com.sun.tools.xjc.reader.xmlschema.bindinfo;
 
 import jakarta.xml.bind.annotation.XmlAttribute;
+import java.util.Objects;
 
 
 /**
@@ -26,4 +27,17 @@ public final class BISerializable {
     /** serial version UID, or null to avoid generating the serialVersionUID field. */
     @XmlAttribute
     public Long uid;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BISerializable that = (BISerializable) o;
+        return Objects.equals(uid, that.uid);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(uid);
+    }
 }
