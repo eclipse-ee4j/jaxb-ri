@@ -317,11 +317,11 @@
                                 </Export-Package>
                                 <Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
                                 <Import-Package>
-                                    jakarta.xml.bind;version=${jaxb-api-osgi.version},
-                                    jakarta.xml.bind.annotation;version=${jaxb-api-osgi.version},
-                                    jakarta.xml.bind.annotation.adapters;version=${jaxb-api-osgi.version},
-                                    jakarta.xml.bind.attachment;version=${jaxb-api-osgi.version},
-                                    jakarta.xml.bind.helpers;version=${jaxb-api-osgi.version},
+                                    jakarta.xml.bind;version=${xml.bind-api.version},
+                                    jakarta.xml.bind.annotation;version=${xml.bind-api.version},
+                                    jakarta.xml.bind.annotation.adapters;version=${xml.bind-api.version},
+                                    jakarta.xml.bind.attachment;version=${xml.bind-api.version},
+                                    jakarta.xml.bind.helpers;version=${xml.bind-api.version},
                                     javax.xml.catalog;resolution:=optional,
                                     javax.xml.bind.annotation;resolution:=optional,
                                     com.sun.org.apache.xml.internal.resolver;resolution:=optional,

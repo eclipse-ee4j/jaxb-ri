@@ -33,11 +33,10 @@
 
     <properties>
         <xml.bind-api.version>4.0.0-RC1</xml.bind-api.version>
-        <jaxb-api-osgi.version>3.0</jaxb-api-osgi.version>
         <istack.version>4.1.0-M1</istack.version>
-        <fastinfoset.version>2.0.0</fastinfoset.version>
-        <stax-ex.version>2.1.0-M1</stax-ex.version>
-        <activation.version>2.1.0-RC1</activation.version>
+        <fastinfoset.version>2.1.0-M1</fastinfoset.version>
+        <stax-ex.version>2.1.0-M2</stax-ex.version>
+        <activation-api.version>2.1.0-RC1</activation-api.version>
         <angus-activation.version>1.0.0-M1</angus-activation.version>
     </properties>
 
@@ -125,6 +124,12 @@
                 <artifactId>stax-ex</artifactId>
                 <version>${stax-ex.version}</version>
                 <classifier>sources</classifier>
+                <exclusions>
+                    <exclusion>
+                        <groupId>jakarta.activation</groupId>
+                        <artifactId>jakarta.activation-api</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.sun.xml.fastinfoset</groupId>
@@ -227,7 +232,7 @@
             <dependency>
                 <groupId>jakarta.activation</groupId>
                 <artifactId>jakarta.activation-api</artifactId>
-                <version>${activation.version}</version>
+                <version>${activation-api.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.eclipse.angus</groupId>
