@@ -528,7 +528,6 @@ public final class BIGlobalBinding extends AbstractDeclarationImpl {
             this.fixedAttributeAsConstantProperty == b.fixedAttributeAsConstantProperty &&
             this.generateEnumMemberName == b.generateEnumMemberName &&
             this.codeGenerationStrategy == b.codeGenerationStrategy &&
-            this.serializable == b.serializable &&
             this.superClass == b.superClass &&
             this.superInterface == b.superInterface &&
             this.generateElementClass == b.generateElementClass &&
@@ -546,6 +545,7 @@ public final class BIGlobalBinding extends AbstractDeclarationImpl {
                isEqual(this.noUnmarshaller, b.noUnmarshaller) &&
                isEqual(this.noValidator, b.noValidator) &&
                isEqual(this.noValidatingUnmarshaller, b.noValidatingUnmarshaller) &&
+               isEqual(this.serializable, b.serializable) &&
                isEqual(this.typeSubstitution, b.typeSubstitution) &&
                isEqual(this.simpleMode, b.simpleMode) &&
                isEqual(this.enumBaseTypes, b.enumBaseTypes) &&
