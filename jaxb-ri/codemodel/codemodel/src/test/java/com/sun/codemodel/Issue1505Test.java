@@ -10,118 +10,122 @@
 
 package com.sun.codemodel;
 
-import org.junit.Test;
-
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.junit.Ignore;
+import org.junit.Test;
 
 public class Issue1505Test {
-    
-    private void checks(String test) throws ClassNotFoundException {
+
+    private void checks(String test) {
         checks(test, test);
     }
-    
-    private void checks(String expected, String test) throws ClassNotFoundException {
+
+    private void checks(String expected, String test) {
         JCodeModel model = new JCodeModel();
-        JType type = model.parseType(test);
-        assertEquals(expected, type.fullName());
+        try {
+            JType type = model.parseType(test);
+            assertEquals(expected, type.fullName());
+        } catch (ClassNotFoundException e) {
+            fail(e.getMessage());
+        } 
     }
 
     @Test
-    public void test1() throws ClassNotFoundException {
+    public void test1() {
         checks("Map<K,Pair<X,Y>>");
     }
 
     @Test
-    public void test2() throws ClassNotFoundException {
+    public void test2() {
         checks("Map<Pair<X,Y>,V>");
     }
 
     @Test
-    public void test3() throws ClassNotFoundException {
+    public void test3() {
         checks("M<K,V<X>>");
     }
 
     @Test
-    public void test4() throws ClassNotFoundException {
+    public void test4() {
         checks("M<K<X>,V>");
     }
-    
+
     @Test
-    public void test5() throws ClassNotFoundException {
+    public void test5() {
         checks("A<B,C>");
     }
 
     @Test
-    public void test6() throws ClassNotFoundException {
+    public void test6() {
         checks("M<K>");
     }
 
     @Test
-    public void test7() throws ClassNotFoundException {
+    public void test7() {
         checks("M<K<Q>>");
     }
 
     @Test
-    public void test8() throws ClassNotFoundException {
+    public void test8() {
         checks("M<K,V>");
     }
 
     @Test
-    public void test9() throws ClassNotFoundException {
+    public void test9() {
         checks("M<K,V<Q>>");
     }
 
     @Test
     @Ignore("Not supported")
-    public void test10() throws ClassNotFoundException {
+    public void test10() {
         checks("java.util.Map<K extends ?,V extends ?>");
     }
 
     @Test
-    public void test11() throws ClassNotFoundException {
+    public void test11() {
         checks("Map<Key,Value<Que>>");
     }
 
     @Test
-    public void test12() throws ClassNotFoundException {
+    public void test12() {
         checks("M<K<T>,V>");
     }
 
     @Test
-    public void test13() throws ClassNotFoundException {
+    public void test13() {
         checks("M<T,Q,R>");
     }
 
     @Test
-    public void test14() throws ClassNotFoundException {
+    public void test14() {
         checks("M<A,B<C,D<E>,F<G>>>");
     }
 
     @Test
-    public void test15() throws ClassNotFoundException {
+    public void test15() {
         checks("M<A,B[]<C[],D[]<E>,F<G[]>>>");
     }
-    
+
     @Test
-    public void test16() throws ClassNotFoundException {
+    public void test16() {
         checks("M<? extends A,? extends B>");
     }
 
     @Test
     @Ignore("Not supported")
-    public void test17() throws ClassNotFoundException {
+    public void test17() {
         checks("M<A extends Object,B extends Object>");
     }
 
     @Test
-    public void test18() throws ClassNotFoundException {
+    public void test18() {
         checks("java.lang.Object");
     }
 
     @Test
-    public void test19() throws ClassNotFoundException {
+    public void test19() {
         checks("java.util.ArrayList<String>");
     }
 }
