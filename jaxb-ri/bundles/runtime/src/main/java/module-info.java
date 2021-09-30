@@ -41,4 +41,6 @@ module com.sun.xml.bind {
     opens org.glassfish.jaxb.runtime.v2.schemagen.xmlschema to jakarta.xml.bind;
     opens org.glassfish.jaxb.runtime.v2 to jakarta.xml.bind;
 
+    provides jakarta.xml.bind.JAXBContextFactory with org.glassfish.jaxb.runtime.v2.JAXBContextFactory;
+
 }
