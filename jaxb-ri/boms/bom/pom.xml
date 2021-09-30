@@ -32,7 +32,7 @@
     <url>https://eclipse-ee4j.github.io/jaxb-ri/</url>
 
     <properties>
-        <xml.bind-api.version>4.0.0-RC1</xml.bind-api.version>
+        <xml.bind-api.version>4.0.0-RC2</xml.bind-api.version>
         <istack.version>4.1.0-M1</istack.version>
         <fastinfoset.version>2.1.0-M1</fastinfoset.version>
         <stax-ex.version>2.1.0-M2</stax-ex.version>
