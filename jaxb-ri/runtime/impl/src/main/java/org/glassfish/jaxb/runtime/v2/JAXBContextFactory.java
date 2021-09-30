@@ -23,6 +23,13 @@ import java.util.Map;
  */
 public class JAXBContextFactory implements jakarta.xml.bind.JAXBContextFactory {
 
+
+    /**
+     * Default constructor.
+     */
+    public JAXBContextFactory() {
+    }
+
     /**
      * Creates JAXB context.
      *
@@ -32,6 +39,7 @@ public class JAXBContextFactory implements jakarta.xml.bind.JAXBContextFactory {
      * @throws JAXBException on any error.
      */
     @Override
+    @SuppressWarnings({"unchecked"})
     public JAXBContext createContext(Class<?>[] classesToBeBound, Map<String, ?> properties) throws JAXBException {
         return ContextFactory.createContext(classesToBeBound, (Map<String, Object>) properties);
     }
@@ -45,6 +53,7 @@ public class JAXBContextFactory implements jakarta.xml.bind.JAXBContextFactory {
      * @throws JAXBException on any error.
      */
     @Override
+    @SuppressWarnings({"unchecked"})
     public JAXBContext createContext(String contextPath, ClassLoader classLoader, Map<String, ?> properties) throws JAXBException {
         return ContextFactory.createContext(contextPath, classLoader, (Map<String, Object>) properties);
     }

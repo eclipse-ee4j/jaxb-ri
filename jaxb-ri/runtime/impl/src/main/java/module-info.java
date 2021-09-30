@@ -45,12 +45,6 @@ module org.glassfish.jaxb.runtime {
     opens org.glassfish.jaxb.runtime.v2.schemagen to jakarta.xml.bind;
     opens org.glassfish.jaxb.runtime.v2.schemagen.xmlschema to jakarta.xml.bind;
 
-    // The API is going to load us via reflection if no other implementation is found sooner.
-    // Note that it is NOT mandatory for the jakarta.xml.bind.JAXBContext
-    // implementation to implement that interface (v2.ContextFactory does not do that),
-    // so we cannot use provides jakarta.xml.bind.JAXBContext with v2.ContextFactory here
-    // and we have to rely on accessibility of our META-INF/services/jakarta.xml.bind.JAXBContext
-    // resource by the API
-    opens org.glassfish.jaxb.runtime.v2 to jakarta.xml.bind;
+    provides jakarta.xml.bind.JAXBContextFactory with org.glassfish.jaxb.runtime.v2.JAXBContextFactory;
 
 }
