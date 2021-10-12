@@ -94,11 +94,19 @@ public class DOMScanner implements LocatorEx,InfosetScanner<Node> {
             receiver.startPrefixMapping( prefix, nss.getURI(prefix) );
         }
         
+        final String defaultUri = nss.getURI("");
+        if (defaultUri != null && !defaultUri.isEmpty()) {
+        	receiver.startPrefixMapping("", defaultUri);
+        }
+        
         visit(e);
         
         for( Enumeration<String> en = nss.getPrefixes(); en.hasMoreElements(); ) {
             String prefix = en.nextElement();
             receiver.endPrefixMapping( prefix );
+        }
+        if (defaultUri != null && !defaultUri.isEmpty()) {
+        	receiver.endPrefixMapping("");
         }
         
         
