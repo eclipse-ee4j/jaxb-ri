@@ -328,9 +328,9 @@ public final class ClassBeanInfoImpl<BeanT> extends JaxBeanInfo<BeanT> implement
                 if (!isThereAnOverridingProperty || bean.getClass().equals(jaxbType)) {
                     p.serializeBody(bean, target, null);
                 } else if (isThereAnOverridingProperty) { 
-                    // need to double check the override - it should be safe to do after the model has been created because it's targeted to override properties only
-                    Class beanClass = bean.getClass();
-                    if (Utils.REFLECTION_NAVIGATOR.getDeclaredField(beanClass, p.getFieldName()) == null) {
+                    // need to double check the override - it should be safe to do after the model has been created because it's targeted to override properties only 
+                    Class beanSuperClass = bean.getClass().getSuperclass();
+                    if (Utils.REFLECTION_NAVIGATOR.getDeclaredField(beanSuperClass, p.getFieldName()) == null) {
                         p.serializeBody(bean, target, null);
                     }
                 }
