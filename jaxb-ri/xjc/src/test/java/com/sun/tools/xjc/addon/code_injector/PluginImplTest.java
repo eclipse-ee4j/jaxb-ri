@@ -33,6 +33,11 @@ public class PluginImplTest {
 
     @Test
     public void pluginRunTest(final @Mocked Outline model, @Mocked Options opt, @Mocked ErrorHandler errorHandler) {
+        if (System.getProperty("jacoco-build") != null) {
+            // JMockit does not work if coverage is enabled
+            // see https://github.com/jmockit/jmockit1/issues/615
+            return;
+        }
 
         new Expectations() {{
             Collection<? extends CustomizableOutline> target = Collections.emptyList();
