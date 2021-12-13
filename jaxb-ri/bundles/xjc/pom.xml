@@ -48,13 +48,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.sun.org.apache.xml.internal</groupId>
-            <artifactId>resolver</artifactId>
-            <scope>provided</scope>
-            <optional>true</optional>
-        </dependency>
-
-        <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-xjc</artifactId>
             <scope>provided</scope>
@@ -159,7 +152,7 @@
                             <goal>unpack-dependencies</goal>
                         </goals>
                         <configuration>
-                            <includeGroupIds>org.glassfish.jaxb,com.sun.istack,com.sun.xml.bind.external,com.sun.xml.dtd-parser</includeGroupIds>
+                            <includeGroupIds>com.sun.istack,com.sun.xml.bind.external,com.sun.xml.dtd-parser</includeGroupIds>
                             <includeScope>provided</includeScope>
                             <classifier>sources</classifier>
                             <excludeTransitive>true</excludeTransitive>
@@ -330,7 +323,6 @@
                                     javax.swing,
                                     javax.xml.transform.sax,
                                     javax.swing.border,
-                                    com.sun.org.apache.xml.internal.resolver.tools,
                                     javax.lang.model.util,
                                     javax.xml.parsers,
                                     org.w3c.dom,
@@ -346,7 +338,6 @@
                                     org.apache.tools.ant.types,
                                     javax.lang.model.element,
                                     javax.tools,
-                                    com.sun.org.apache.xml.internal.resolver,
                                     org.apache.tools.ant,
                                     jakarta.activation,
                                     javax.xml.transform,
@@ -377,7 +368,6 @@
                                     *
                                 </Export-Package>
                                 <Import-Package>
-                                    javax.xml.catalog;resolution:=optional,
                                     javax.xml.bind.annotation;resolution:=optional,
                                     *
                                 </Import-Package>

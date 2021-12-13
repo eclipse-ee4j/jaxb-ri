@@ -124,7 +124,7 @@
                             <goal>unpack-dependencies</goal>
                         </goals>
                         <configuration>
-                            <includeGroupIds>org.glassfish.jaxb,com.sun.istack</includeGroupIds>
+                            <includeGroupIds>com.sun.istack</includeGroupIds>
                             <includeScope>provided</includeScope>
                             <classifier>sources</classifier>
                             <excludeTransitive>true</excludeTransitive>
@@ -234,7 +234,7 @@
                     <archive>
                         <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
                         <manifestEntries>
-                            <Class-Path>jaxb-core.jar</Class-Path>
+                            <Class-Path>jaxb-core.jar angus-activation.jar</Class-Path>
                             <Multi-Release>true</Multi-Release>
                         </manifestEntries>
                     </archive>

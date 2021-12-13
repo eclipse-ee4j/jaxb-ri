@@ -62,10 +62,8 @@
         <spotbugs.exclude/>
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>High</spotbugs.threshold>
-        <spotbugs.version>4.3.0</spotbugs.version>
+        <spotbugs.version>4.5.0.0</spotbugs.version>
 
-        <upper.java.level>9</upper.java.level>
-        <base.java.level>8</base.java.level>
         <jdoc.doclint>all</jdoc.doclint>
     </properties>
 
@@ -285,27 +283,13 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <release>${upper.java.level}</release>
+                    <release>11</release>
                     <compilerArgs>
                         <arg>-Xlint:all</arg>
                     </compilerArgs>
                     <showDeprecation>true</showDeprecation>
                     <showWarnings>true</showWarnings>
                 </configuration>
-                <executions>
-                    <execution>
-                        <id>base-compile</id>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                        <configuration>
-                            <release>${base.java.level}</release>
-                            <excludes>
-                                <exclude>module-info.java</exclude>
-                            </excludes>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.felix</groupId>
