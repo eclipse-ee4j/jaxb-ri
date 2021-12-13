@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,10 +10,11 @@
 
 package org.glassfish.jaxb.core;
 
+import java.lang.StackWalker.StackFrame;
+
 /**
- * Utils for stack trace analysis. Indirection so that a more efficient
- * implementation can be used in later Java versions.
- * 
+ * Utils for stack trace analysis in Java 9+.
+ *
  * @author Philippe Marschall
  */
 final class StackHelper {
@@ -21,16 +22,17 @@ final class StackHelper {
 
     /**
      * Returns the name of the calling class of the second method in the call chain of this method.
-     * 
+     *
      * @return the name of the caller class
      * @throws SecurityException in case a security manager is installed that
      *                           prevents stack introspection
      */
     static String getCallerClassName() {
-       StackTraceElement[] trace = new Exception().getStackTrace();
-       if (2 < trace.length) {
-           return trace[2].getClassName();
-       }
-       return "org.glassfish.jaxb.core"; // use the default
+        return StackWalker.getInstance()
+                .walk(frames ->
+                        frames.map(StackFrame::getClassName)
+                                .skip(2L)
+                                .findFirst()
+                                .get());
     }
 }

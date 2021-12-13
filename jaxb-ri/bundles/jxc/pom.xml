@@ -55,13 +55,6 @@
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
-        <dependency>
-            <groupId>com.sun.org.apache.xml.internal</groupId>
-            <artifactId>resolver</artifactId>
-            <scope>provided</scope>
-            <!--Not needed starting from JavaSE 11-->
-            <optional>true</optional>
-        </dependency>
 
         <!-- CQ #20807 -->
         <dependency>
@@ -80,7 +73,6 @@
 
     <properties>
         <dep.sources>${project.build.directory}/generated-sources/dependencies</dep.sources>
-        <dep.sources.mr>${project.build.directory}/generated-sources/dependencies-mr</dep.sources.mr>
     </properties>
 
     <profiles>
@@ -134,21 +126,6 @@
                             <outputDirectory>${dep.sources}</outputDirectory>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>unpack-sources-mr</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>unpack-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <includeGroupIds>org.glassfish.jaxb</includeGroupIds>
-                            <includeScope>provided</includeScope>
-                            <classifier>sources</classifier>
-                            <excludeTransitive>true</excludeTransitive>
-                            <includes>META-INF/versions/9/**</includes>
-                            <outputDirectory>${dep.sources.mr}</outputDirectory>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
             <plugin>
@@ -192,20 +169,6 @@
                             </sources>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>add-mr-resource</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>add-resource</goal>
-                        </goals>
-                        <configuration>
-                            <resources>
-                                <resource>
-                                    <directory>${dep.sources.mr}</directory>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
             <plugin>
@@ -219,18 +182,6 @@
                                 <arg>--add-reads</arg>
                                 <arg>com.sun.tools.jxc=ALL-UNNAMED</arg>
                             </compilerArgs>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>default-compile-mr</id>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                        <configuration>
-                            <compileSourceRoots>
-                                <compileSourceRoot>${dep.sources.mr}/META-INF/versions/9</compileSourceRoot>
-                            </compileSourceRoots>
-                            <outputDirectory>${project.build.outputDirectory}/META-INF/versions/${upper.java.level}</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
@@ -248,10 +199,6 @@
                         <configuration>
                             <instructions>
                                 <Bundle-ActivationPolicy>lazy</Bundle-ActivationPolicy>
-                                <Export-Package>
-                                    !META-INF.*,
-                                    *
-                                </Export-Package>
                             </instructions>
                         </configuration>
                     </execution>
@@ -264,7 +211,6 @@
                         <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
                         <manifestEntries>
                             <Class-Path>jaxb-core.jar jaxb-impl.jar jaxb-xjc.jar</Class-Path>
-                            <Multi-Release>true</Multi-Release>
                         </manifestEntries>
                         <manifest>
                             <mainClass>com.sun.tools.jxc.SchemaGeneratorFacade</mainClass>
@@ -274,25 +220,9 @@
             </plugin>
 
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <!--<addDefaultEntries>false</addDefaultEntries>-->
-                        <manifestEntries>
-                            <Multi-Release>true</Multi-Release>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
-            </plugin>
-
-            <plugin>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
                     <includeDependencySources>false</includeDependencySources>
-                    <sourceFileExcludes>
-                        <sourceFileExclude>META-INF/versions/**</sourceFileExclude>
-                    </sourceFileExcludes>
                     <additionalJOptions>
                         <additionalJOption>--add-reads</additionalJOption>
                         <additionalJOption>com.sun.tools.jxc=ALL-UNNAMED</additionalJOption>

@@ -116,13 +116,6 @@
             <optional>true</optional>
         </dependency>
 
-        <dependency>
-            <groupId>com.sun.org.apache.xml.internal</groupId>
-            <artifactId>resolver</artifactId>
-            <scope>provided</scope>
-            <optional>true</optional>
-        </dependency>
-
         <!-- CQ #20807 -->
         <dependency>
             <groupId>org.checkerframework</groupId>
@@ -170,7 +163,7 @@
                             <goal>unpack-dependencies</goal>
                         </goals>
                         <configuration>
-                            <includeGroupIds>org.glassfish.jaxb,com.sun.istack,com.sun.xml.bind.external,com.sun.xml.dtd-parser,com.sun.xml.fastinfoset,org.jvnet.staxex</includeGroupIds>
+                            <includeGroupIds>com.sun.istack,com.sun.xml.bind.external,com.sun.xml.dtd-parser,com.sun.xml.fastinfoset,org.jvnet.staxex</includeGroupIds>
                             <includeScope>provided</includeScope>
                             <classifier>sources</classifier>
                             <excludeTransitive>true</excludeTransitive>
@@ -322,10 +315,7 @@
                                     jakarta.xml.bind.annotation.adapters;version=${xml.bind-api.version},
                                     jakarta.xml.bind.attachment;version=${xml.bind-api.version},
                                     jakarta.xml.bind.helpers;version=${xml.bind-api.version},
-                                    javax.xml.catalog;resolution:=optional,
                                     javax.xml.bind.annotation;resolution:=optional,
-                                    com.sun.org.apache.xml.internal.resolver;resolution:=optional,
-                                    com.sun.org.apache.xml.internal.resolver.tools;resolution:=optional,
                                     com.sun.source.tree;resolution:=optional,
                                     com.sun.source.util;resolution:=optional,
                                     org.apache.tools.ant;resolution:=optional,

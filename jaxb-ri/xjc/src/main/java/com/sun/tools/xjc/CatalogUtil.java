@@ -10,12 +10,13 @@
 
 package com.sun.tools.xjc;
 
-import com.sun.org.apache.xml.internal.resolver.CatalogManager;
-import com.sun.org.apache.xml.internal.resolver.tools.CatalogResolver;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
+import javax.xml.catalog.CatalogFeatures;
+import javax.xml.catalog.CatalogFeatures.Feature;
+import javax.xml.catalog.CatalogManager;
 import org.xml.sax.EntityResolver;
 
 /**
@@ -24,16 +25,14 @@ import org.xml.sax.EntityResolver;
  */
 final class CatalogUtil {
 
+    // Cache CatalogFeatures instance for future usages.
+    // Resolve feature is set to "continue" value for backward compatibility.
+    private static final CatalogFeatures CATALOG_FEATURES = CatalogFeatures.builder()
+            .with(Feature.RESOLVE, "continue")
+            .build();
+
     static EntityResolver getCatalog(EntityResolver entityResolver, File catalogFile, ArrayList<URI> catalogUrls) throws IOException {
-        EntityResolver er = entityResolver;
-        if (er == null) {
-            final CatalogManager staticManager = CatalogManager.getStaticManager();
-            // hack to force initialization so catalog manager system properties take effect
-            staticManager.getVerbosity();
-            staticManager.setIgnoreMissingProperties(true);
-            er = new CatalogResolver(true);
-        }
-        ((CatalogResolver) er).getCatalog().parseCatalog(catalogFile.getPath());
-        return er;
+        return CatalogManager.catalogResolver(
+                CATALOG_FEATURES, catalogUrls.toArray(new URI[0]));
     }
 }
