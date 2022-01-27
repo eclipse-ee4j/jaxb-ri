@@ -16,6 +16,7 @@
 .sxd
 .vsd
 .tif
+.iml
 .regexp
 jaxb.index
 target
