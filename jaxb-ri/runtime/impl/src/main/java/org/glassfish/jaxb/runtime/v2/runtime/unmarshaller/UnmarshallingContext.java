@@ -1,5 +1,6 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates and others.
+ * All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -475,7 +476,7 @@ public final class UnmarshallingContext extends Coordinator
             // look for methods whose signature is T createXXX()
             if(!m.getName().startsWith("create"))
                 continue;
-            if(m.getParameterTypes().length>0)
+            if(m.getParameterCount()>0)
                 continue;
 
             Class type = m.getReturnType();
