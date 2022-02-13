@@ -121,7 +121,7 @@ public class DOMScanner implements LocatorEx,InfosetScanner<Node> {
      * @deprecated in JAXB 2.0
      *      Use {@link #scan(Element)}
      */
-    @Deprecated
+    @Deprecated(since="4.0.0-SNAPSHOT", forRemoval=true)
     public void parse( Element e, ContentHandler handler ) throws SAXException {
         // it might be better to set receiver at the constructor.
         receiver = handler;
@@ -143,7 +143,7 @@ public class DOMScanner implements LocatorEx,InfosetScanner<Node> {
      * @deprecated in JAXB 2.0
      *      Use {@link #scan(Element)}
      */
-    @Deprecated
+    @Deprecated(since="4.0.0-SNAPSHOT", forRemoval=true)
     public void parseWithContext( Element e, ContentHandler handler ) throws SAXException {
         setContentHandler(handler);
         scan(e);
