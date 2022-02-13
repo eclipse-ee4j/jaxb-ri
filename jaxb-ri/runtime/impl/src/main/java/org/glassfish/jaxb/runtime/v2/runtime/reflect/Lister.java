@@ -212,7 +212,7 @@ public abstract class Lister<BeanT,PropT,ItemT,PackT> {
     /**
      * Listers for the primitive type arrays, keyed by their primitive Class object.
      */
-    /*package*/ static final Map<Class,Lister> primitiveArrayListers = new HashMap<Class,Lister>();
+    /*package*/ static final Map<Class,Lister> primitiveArrayListers = new HashMap<>();
 
     static {
         // register primitive array listers

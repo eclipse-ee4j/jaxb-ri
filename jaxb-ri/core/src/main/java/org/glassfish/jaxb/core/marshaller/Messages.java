@@ -69,7 +69,7 @@ public class Messages {
     /**
      * @deprecated use ERR_MISSING_OBJECT2
      */
-    @Deprecated
+    @Deprecated(since="4.0.0-SNAPSHOT", forRemoval=true)
     public static final String ERR_MISSING_OBJECT = // 0 args
         "SAXMarshaller.MissingObject";
     
@@ -84,14 +84,14 @@ public class Messages {
     /**
      * @deprecated only used from 1.0
      */
-    @Deprecated
+    @Deprecated(since="4.0.0-SNAPSHOT", forRemoval=true)
     public static final String ERR_DANGLING_IDREF = // 1 arg
         "SAXMarshaller.DanglingIDREF";
 
     /**
      * @deprecated only used from 1.0
      */
-    @Deprecated
+    @Deprecated(since="4.0.0-SNAPSHOT", forRemoval=true)
     public static final String ERR_NOT_IDENTIFIABLE = // 0 args
         "SAXMarshaller.NotIdentifiable";
 

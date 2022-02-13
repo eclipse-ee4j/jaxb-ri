@@ -58,7 +58,7 @@ public final class ConfigReader  {
      * The set of classes to be passed to XJC
      *
      */
-    private final Set<Reference> classesToBeIncluded = new HashSet<Reference>();
+    private final Set<Reference> classesToBeIncluded = new HashSet<>();
 
 
     /**
@@ -229,7 +229,7 @@ public final class ConfigReader  {
          * Namespace URI to the location of the schema.
          * This captures what the user specifies.
          */
-        private final Map<String,File> schemas = new HashMap<String,File>();
+        private final Map<String,File> schemas = new HashMap<>();
 
 
         /**

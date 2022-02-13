@@ -78,7 +78,7 @@ public abstract class Coordinator implements ErrorHandler, ValidationEventHandle
     }
 
     // this much is necessary to avoid calling get and set twice when we push.
-    private static final ThreadLocal<Coordinator> activeTable = new ThreadLocal<Coordinator>();
+    private static final ThreadLocal<Coordinator> activeTable = new ThreadLocal<>();
 
     /**
      * The {@link Coordinator} in charge before this {@link Coordinator}.
