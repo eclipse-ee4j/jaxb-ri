@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2021 Contributors to the Eclipse Foundation
+# Copyright (c) 2021, 2022 Contributors to the Eclipse Foundation
 #
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License v. 2.0 which is available at
@@ -16,27 +16,23 @@ on: [push, pull_request]
 
 jobs:
   build:
-    name: Test on JDK ${{ matrix.java_version }} 
+    name: Test on JDK ${{ matrix.java_version }}
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        java_version: [ 11, 17-ea ]
+        java_version: [ 11, 17 ]
 
     steps:
-    - name: Cache local Maven repository
-      uses: actions/cache@v2
-      with:
-        path: ~/.m2/repository
-        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-        restore-keys: |
-          ${{ runner.os }}-maven-
-    - name: Checkout for build
-      uses: actions/checkout@v2.3.4
-    - name: Set up JDK
-      uses: actions/setup-java@v2
-      with:
-        distribution: 'zulu'
-        java-version: ${{ matrix.java_version }}
-    - name: Verify
-      run: cd jaxb-ri && mvn -B -V -U -C -Pstaging,oss-release clean verify org.glassfish.copyright:glassfish-copyright-maven-plugin:check -Dgpg.skip=true -Doss.disallow.snapshots=false
+      - name: Checkout for build
+        uses: actions/checkout@v2.3.4
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: ${{ matrix.java_version }}
+          cache: maven
+      - name: Verify
+        run: |
+          cd jaxb-ri
+          mvn -B -V -U -C -Pstaging,oss-release clean verify org.glassfish.copyright:glassfish-copyright-maven-plugin:check -Dgpg.skip=true -Doss.disallow.snapshots=false -Dcopyright.ignoreyear=true
