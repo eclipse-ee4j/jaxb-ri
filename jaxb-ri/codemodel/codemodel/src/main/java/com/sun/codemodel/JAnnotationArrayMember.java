@@ -266,7 +266,7 @@ public final class JAnnotationArrayMember extends JAnnotationValue implements JA
      * @deprecated
      *      use {@link #annotate}
      */
-    @Deprecated(since="4.0.0-SNAPSHOT", forRemoval=true)
+    @Deprecated(since="2.3", forRemoval=true)
     public JAnnotationArrayMember param (JAnnotationUse value ){
         values.add(value);
         return this;
