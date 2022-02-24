@@ -14,7 +14,7 @@ following is a summary of the TCK results for releases of Eclipse Implementation
 - [x] Specification Name, Version and download URL:<br/>
    [Jakarta XML Binding 4.0](https://jakarta.ee/specifications/xml-binding/4.0/)
 - [x] TCK Version, digital SHA-256 fingerprint and download URL:<br/>
-  [Jakarta XML Binding TCK 4.0.0](http://download.eclipse.org/jakartaee/xml-binding/4.0/jakarta-xml-binding-tck-4.0.0.zip), SHA-256: db058b3886ed32b1546315889817e66cfb6c45f0de25d78e231006ffcc8c72e1
+  [Jakarta XML Binding TCK 4.0.0](http://download.eclipse.org/jakartaee/xml-binding/4.0/jakarta-xml-binding-tck-4.0.0.zip), SHA-256: 07d8544eb5ed97a72c89518bbb2154bf69d809ad19921a952ab455655364577b
 - [x] Public URL of TCK Results Summary:<br/>
  [TCK results summary](https://eclipse-ee4j.github.io/jaxb-ri/TCK-Results.html)
 - [x] Any Additional Specification Certification Requirements:<br/>
