@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -51,8 +51,8 @@ public class ParserContext {
     final XMLParser parser;
 
 
-    private final Vector<Patch> patchers = new Vector<Patch>();
-    private final Vector<Patch> errorCheckers = new Vector<Patch>();
+    private final Vector<Patch> patchers = new Vector<>();
+    private final Vector<Patch> errorCheckers = new Vector<>();
 
     /**
      * Documents that are parsed already. Used to avoid cyclic inclusion/double
@@ -61,7 +61,7 @@ public class ParserContext {
      * The actual data structure is map from {@link SchemaDocumentImpl} to itself,
      * so that we can access the {@link SchemaDocumentImpl} itself.
      */
-    public final Map<SchemaDocumentImpl, SchemaDocumentImpl> parsedDocuments = new HashMap<SchemaDocumentImpl, SchemaDocumentImpl>();
+    public final Map<SchemaDocumentImpl, SchemaDocumentImpl> parsedDocuments = new HashMap<>();
 
 
     public ParserContext( XSOMParser owner, XMLParser parser ) {

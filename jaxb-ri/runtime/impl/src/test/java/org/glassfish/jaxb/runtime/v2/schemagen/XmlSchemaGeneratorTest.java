@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -46,18 +46,15 @@ public class XmlSchemaGeneratorTest extends TestCase {
 
     private static boolean checkNamespaces() throws Exception {
         FileInputStream schema1 = new FileInputStream("schema1.xsd");
-        BufferedReader reader = new BufferedReader(new InputStreamReader(schema1));
-        String line;
 
-        try {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(schema1))) {
+            String line;
             while ((line = reader.readLine()) != null) {
                 System.out.println(line);
                 if (line.contains("ref=\"ns1:myRef\"")) {
                     return true;
                 }
             }
-        } finally {
-            reader.close();
         }
         return false;
     }

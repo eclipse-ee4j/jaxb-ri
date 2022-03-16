@@ -41,7 +41,7 @@ public class DOMScannerTest extends TestCase {
 		
 		DOMScanner scanner = new DOMScanner();
 		MockContentHandler mockHandler = new MockContentHandler();
-		Map<String,String> assertMapping = new HashMap<String,String>();
+		Map<String,String> assertMapping = new HashMap<>();
 		assertMapping.put("xml", "http://www.w3.org/XML/1998/namespace");
 		assertMapping.put("xsi", "http://www.w3.org/2001/XMLSchema-instance");
 		assertMapping.put("", "http://example.com/test/ns");
@@ -52,9 +52,9 @@ public class DOMScannerTest extends TestCase {
 	
 	private class MockContentHandler implements ContentHandler {
 		
-		private Map<String,String> prefixMapping = new HashMap<String,String>();
+		private Map<String,String> prefixMapping = new HashMap<>();
 		
-		private Map<String,String> assertMapping = new HashMap<String,String>();
+		private Map<String,String> assertMapping = new HashMap<>();
 		private String assertElement = null;
 		
 		public void setAssertion(String elementName, Map<String,String> mapping) {

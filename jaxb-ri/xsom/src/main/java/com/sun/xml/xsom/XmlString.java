@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -36,7 +36,7 @@ public final class XmlString {
     public final ValidationContext context;
 
     /**
-     * Creates a new {@link XmlString} from a lexical representation and in-scope namespaces.
+     * Creates a new  from a lexical representation and in-scope namespaces.
      */
     public XmlString(String value, ValidationContext context) {
         this.value = value;
@@ -46,7 +46,7 @@ public final class XmlString {
     }
 
     /**
-     * Creates a new {@link XmlString} with empty in-scope namespace bindings.
+     * Creates a new  with empty in-scope namespace bindings.
      */
     public XmlString(String value) {
         this(value,NULL_CONTEXT);
@@ -72,7 +72,7 @@ public final class XmlString {
      *		If the specified prefix is not declared,
      *		the implementation returns null.
      */
-    public final String resolvePrefix(String prefix) {
+    public String resolvePrefix(String prefix) {
         return context.resolveNamespacePrefix(prefix);
     }
 

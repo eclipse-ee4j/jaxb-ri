@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -22,10 +22,10 @@ public interface XSModelGroup extends XSComponent, XSTerm, Iterable<XSParticle>
      * Type-safe enumeration for kind of model groups.
      * Constants are defined in the {@link XSModelGroup} interface.
      */
-    public static enum Compositor {
+    enum Compositor {
         ALL("all"),CHOICE("choice"),SEQUENCE("sequence");
 
-        private Compositor(String _value) {
+        Compositor(String _value) {
             this.value = _value;
         }
 
@@ -43,15 +43,15 @@ public interface XSModelGroup extends XSComponent, XSTerm, Iterable<XSParticle>
     /**
      * A constant that represents "all" compositor.
      */
-    static final Compositor ALL = Compositor.ALL;
+    Compositor ALL = Compositor.ALL;
     /**
      * A constant that represents "sequence" compositor.
      */
-    static final Compositor SEQUENCE = Compositor.SEQUENCE;
+    Compositor SEQUENCE = Compositor.SEQUENCE;
     /**
      * A constant that represents "choice" compositor.
      */
-    static final Compositor CHOICE = Compositor.CHOICE;
+    Compositor CHOICE = Compositor.CHOICE;
 
     Compositor getCompositor();
 

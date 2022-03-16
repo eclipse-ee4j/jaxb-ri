@@ -86,8 +86,8 @@ class JavaCharStream
   int bufsize;
   int available;
   int tokenBegin;
-  protected int bufline[];
-  protected int bufcolumn[];
+  protected int[] bufline;
+  protected int[] bufcolumn;
 
   protected int column = 0;
   protected int line = 1;
@@ -110,8 +110,8 @@ class JavaCharStream
   protected void ExpandBuff(boolean wrapAround)
   {
     char[] newbuffer = new char[bufsize + 2048];
-    int newbufline[] = new int[bufsize + 2048];
-    int newbufcolumn[] = new int[bufsize + 2048];
+    int[] newbufline = new int[bufsize + 2048];
+    int[] newbufcolumn = new int[bufsize + 2048];
 
     try
     {
@@ -368,20 +368,20 @@ class JavaCharStream
     }
   }
 
-  @Deprecated
   /**
    * @deprecated
    * @see #getEndColumn
    */
+  @Deprecated
   public int getColumn() {
     return bufcolumn[bufpos];
   }
 
-  @Deprecated
   /**
    * @deprecated
    * @see #getEndLine
    */
+  @Deprecated
   public int getLine() {
     return bufline[bufpos];
   }

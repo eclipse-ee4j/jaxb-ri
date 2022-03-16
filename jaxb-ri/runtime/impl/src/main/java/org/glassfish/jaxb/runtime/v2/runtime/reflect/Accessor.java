@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -164,7 +164,7 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
     }
 
     /**
-     * Wraps this  {@link Accessor} into another {@link Accessor}
+     * Wraps this   into another
      * and performs the type adaption as necessary.
      */
     public final <T> Accessor<BeanT, T> adapt(Class<T> targetType, final Class<? extends XmlAdapter<T, ValueT>> adapter) {
@@ -387,14 +387,14 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
     }
 
     /**
-     * Gets the special {@link Accessor} used to recover from errors.
+     * Gets the special  used to recover from errors.
      */
     @SuppressWarnings("unchecked")
     public static <A, B> Accessor<A, B> getErrorInstance() {
         return ERROR;
     }
 
-    private static final Accessor ERROR = new Accessor<Object, Object>(Object.class) {
+    private static final Accessor ERROR = new Accessor<>(Object.class) {
         @Override
         public Object get(Object o) {
             return null;
@@ -408,7 +408,7 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
     /**
      * {@link Accessor} for {@link JAXBElement#getValue()}.
      */
-    public static final Accessor<JAXBElement, Object> JAXB_ELEMENT_VALUE = new Accessor<JAXBElement, Object>(Object.class) {
+    public static final Accessor<JAXBElement, Object> JAXB_ELEMENT_VALUE = new Accessor<>(Object.class) {
         @Override
         public Object get(JAXBElement jaxbElement) {
             return jaxbElement.getValue();
@@ -423,7 +423,7 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
     /**
      * Uninitialized map keyed by their classes.
      */
-    private static final Map<Class, Object> uninitializedValues = new HashMap<Class, Object>();
+    private static final Map<Class, Object> uninitializedValues = new HashMap<>();
 
     static {
 /*

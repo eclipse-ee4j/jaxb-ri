@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -46,7 +46,7 @@ public class CPluginCustomization {
      * to mark it.
      *
      * <p>
-     * {@link CPluginCustomization}s that are not marked will be
+     * s that are not marked will be
      * reporeted as an error to users. This allows us to catch
      * customizations that are not used by anybody.
      */

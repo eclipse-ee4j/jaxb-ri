@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,7 +23,7 @@ import java.util.concurrent.Callable;
  * @author Kohsuke Kawaguchi
  */
 final class DefaultIDResolver extends IDResolver {
-    /** Records ID->Object map. */
+    /** Records ID-{@literal >}Object map. */
     private HashMap<String,Object> idmap = null;
 
     @Override

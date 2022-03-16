@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -71,12 +71,12 @@ final class LeafBeanInfoImpl<BeanT> extends JaxBeanInfo<BeanT> {
     }
 
     @Override
-    public final String getElementNamespaceURI(BeanT t) {
+    public String getElementNamespaceURI(BeanT t) {
         return tagName.nsUri;
     }
 
     @Override
-    public final String getElementLocalName(BeanT t) {
+    public String getElementLocalName(BeanT t) {
         return tagName.localName;
     }
 
@@ -86,17 +86,17 @@ final class LeafBeanInfoImpl<BeanT> extends JaxBeanInfo<BeanT> {
     }
 
     @Override
-    public final boolean reset(BeanT bean, UnmarshallingContext context) {
+    public boolean reset(BeanT bean, UnmarshallingContext context) {
         return false;
     }
 
     @Override
-    public final String getId(BeanT bean, XMLSerializer target) {
+    public String getId(BeanT bean, XMLSerializer target) {
         return null;
     }
 
     @Override
-    public final void serializeBody(BeanT bean, XMLSerializer w) throws SAXException, IOException, XMLStreamException {
+    public void serializeBody(BeanT bean, XMLSerializer w) throws SAXException, IOException, XMLStreamException {
         // most of the times leaves are printed as leaf element/attribute property,
         // so this code is only used for example when you have multiple XmlElement on a property
         // and some of them are leaves. Hence this doesn't need to be super-fast.
@@ -108,12 +108,12 @@ final class LeafBeanInfoImpl<BeanT> extends JaxBeanInfo<BeanT> {
     }
 
     @Override
-    public final void serializeAttributes(BeanT bean, XMLSerializer target) {
+    public void serializeAttributes(BeanT bean, XMLSerializer target) {
         // noop
     }
 
     @Override
-    public final void serializeRoot(BeanT bean, XMLSerializer target) throws SAXException, IOException, XMLStreamException {
+    public void serializeRoot(BeanT bean, XMLSerializer target) throws SAXException, IOException, XMLStreamException {
         if(tagName==null) {
             target.reportError(
                 new ValidationEventImpl(
@@ -130,7 +130,7 @@ final class LeafBeanInfoImpl<BeanT> extends JaxBeanInfo<BeanT> {
     }
 
     @Override
-    public final void serializeURIs(BeanT bean, XMLSerializer target) throws SAXException {
+    public void serializeURIs(BeanT bean, XMLSerializer target) throws SAXException {
         // TODO: maybe we should create another LeafBeanInfoImpl class for
         // context-dependent xducers?
         if(xducer.useNamespace()) {
@@ -143,7 +143,7 @@ final class LeafBeanInfoImpl<BeanT> extends JaxBeanInfo<BeanT> {
     }
 
     @Override
-    public final Loader getLoader(JAXBContextImpl context, boolean typeSubstitutionCapable) {
+    public Loader getLoader(JAXBContextImpl context, boolean typeSubstitutionCapable) {
         if(typeSubstitutionCapable)
             return loaderWithSubst;
         else

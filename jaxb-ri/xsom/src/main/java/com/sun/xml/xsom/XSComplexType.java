@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -79,26 +79,24 @@ public interface XSComplexType extends XSType, XSAttContainer
     boolean isMixed();
 
     /**
-     * If this {@link XSComplexType} is redefined by another complex type,
+     * If this  is redefined by another complex type,
      * return that component.
      *
      * @return null
      *      if this component has not been redefined.
      */
-    public XSComplexType getRedefinedBy();
+    XSComplexType getRedefinedBy();
 
     /**
      * Returns a list of direct subtypes of this complex type. If the type is not subtyped, returns empty list.
      * Doesn't return null.
      * Note that the complex type may be extended outside of the scope of the schemaset known to XSOM.
-     * @return
      */
-    public List<XSComplexType> getSubtypes();
+    List<XSComplexType> getSubtypes();
 
     /**
      * Returns a list of element declarations of this type.
-     * @return
      */
-    public List<XSElementDecl> getElementDecls();
+    List<XSElementDecl> getElementDecls();
 
 }

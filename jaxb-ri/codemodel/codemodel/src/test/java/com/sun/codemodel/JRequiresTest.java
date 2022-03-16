@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -28,7 +28,7 @@ public class JRequiresTest extends JTestModuleDirective {
     public JRequiresTest() {}
 
     /**
-     * Test of generateModifiers method with all combinations of {@code local) and {@code public) modifiers.
+     * Test of generateModifiers method with all combinations of {@code local} and {@code public} modifiers.
      */
     @Test
     public void testGenerateModifiers() {

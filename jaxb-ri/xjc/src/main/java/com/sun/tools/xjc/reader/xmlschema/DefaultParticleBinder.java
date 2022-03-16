@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -60,7 +60,7 @@ final class DefaultParticleBinder extends ParticleBinder {
 
     @Override
     public boolean checkFallback( XSParticle p ) {
-        return checkCollision(p,Collections.<XSParticle>emptyList()).hasNameCollision();
+        return checkCollision(p,Collections.emptyList()).hasNameCollision();
     }
 
     private Checker checkCollision( XSParticle p, Collection<XSParticle> forcedProps ) {
@@ -112,7 +112,7 @@ final class DefaultParticleBinder extends ParticleBinder {
         private final NameCollisionChecker cchecker = new NameCollisionChecker();
 
         /**
-         * @see DefaultParticleBinder#build(XSParticle, Collection<com.sun.xml.xsom.XSParticle>)
+         * @see DefaultParticleBinder#build(XSParticle, Collection) 
          */
         private final Collection<XSParticle> forcedProps;
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -41,7 +41,7 @@ public interface CycleRecoverable {
      * @return
      *      the object to be marshalled instead of {@code this} object.
      *      Or return null to indicate that the JAXB RI should behave
-     *      just like when your object does not implement {@link CycleRecoverable}
+     *      just like when your object does not implement
      *      (IOW, cut the cycle arbitrarily and try to go on.)
      */
     Object onCycleDetected(Context context);
@@ -54,7 +54,7 @@ public interface CycleRecoverable {
      * We may add more methods in the future, so please do not
      * implement this interface in your application.
      */
-    public interface Context {
+    interface Context {
         /**
          * Returns the marshaller object that's doing the marshalling.
          *

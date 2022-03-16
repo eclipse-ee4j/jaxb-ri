@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,6 +23,7 @@ import org.xml.sax.SAXException;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -145,9 +146,7 @@ public final class FastInfosetStreamWriterOutput extends XMLStreamWriterOutput {
         }
         
         private void clear(int[] array) {
-            for (int i = 0; i < array.length; i++) {
-                array[i] = 0;
-            }
+            Arrays.fill(array, 0);
         }
         
         /**
@@ -185,7 +184,7 @@ public final class FastInfosetStreamWriterOutput extends XMLStreamWriterOutput {
     }
 
     /**
-     * Holder of JAXB contexts -> tables.
+     * Holder of JAXB contexts -{@literal >} tables.
      * <p>
      * An instance will be registered with the 
      * {@link StAXDocumentSerializer}.
@@ -224,7 +223,7 @@ public final class FastInfosetStreamWriterOutput extends XMLStreamWriterOutput {
         final TablesPerJAXBContext tablesPerContext = appData.contexts.get(context);
         if (tablesPerContext != null) {
             tables = tablesPerContext;
-            /**
+            /*
              * Obtain the current local name index. Thus will be used to
              * calculate the maximum index value when serializing for this context
              */

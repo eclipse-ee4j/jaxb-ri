@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -69,11 +69,6 @@ public final class JPrimitiveType extends JType {
         return wrapperClass;
     }
 
-    /**
-     * @deprecated calling this method from {@link JPrimitiveType}
-     * would be meaningless, since it's always guaranteed to
-     * return {@code this}.
-     */
     @Deprecated
     @Override
     public JType unboxify() {

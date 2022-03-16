@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -146,7 +146,7 @@ public class SchemaGenerator {
 
         aptargs.addAll(options.arguments);
 
-        String[] argsarray = aptargs.toArray(new String[aptargs.size()]);
+        String[] argsarray = aptargs.toArray(new String[0]);
         return ((Boolean) compileMethod.invoke(null, argsarray, options.episodeFile)) ? 0 : 1;
     }
 
@@ -212,9 +212,7 @@ public class SchemaGenerator {
             if (f.exists() && f.getName().endsWith(".jar")) { // this is here for potential backw. compatibility issues
                 return f.getPath();
             }
-        } catch (URISyntaxException ex) {
-            LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
-        } catch (MalformedURLException ex) {
+        } catch (URISyntaxException | MalformedURLException ex) {
             LOGGER.log(Level.SEVERE, ex.getMessage(), ex);
         }
         return null;

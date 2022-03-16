@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -51,7 +51,7 @@ final class JAXBModelImpl implements J2SJAXBModel {
 
     private final Map<QName,Reference> additionalElementDecls;
 
-    private final List<String> classList = new ArrayList<String>();
+    private final List<String> classList = new ArrayList<>();
 
     private final TypeInfoSet<TypeMirror, TypeElement, VariableElement, ExecutableElement> types;
 
@@ -66,7 +66,7 @@ final class JAXBModelImpl implements J2SJAXBModel {
      * Look up table from an externally visible {@link Reference} object
      * to our internal format.
      */
-    private final Map<Reference, NonElement<TypeMirror, TypeElement>> refMap = new HashMap<Reference, NonElement<TypeMirror, TypeElement>>();
+    private final Map<Reference, NonElement<TypeMirror, TypeElement>> refMap = new HashMap<>();
 
     public JAXBModelImpl(TypeInfoSet<TypeMirror, TypeElement, VariableElement, ExecutableElement> types,
                          AnnotationReader<TypeMirror, TypeElement, VariableElement, ExecutableElement> reader,
@@ -145,8 +145,8 @@ final class JAXBModelImpl implements J2SJAXBModel {
         XmlJavaTypeAdapter xjta = r.annotations.getAnnotation(XmlJavaTypeAdapter.class);
         XmlList xl = r.annotations.getAnnotation(XmlList.class);
 
-        Ref<TypeMirror, TypeElement> ref = new Ref<TypeMirror, TypeElement>(
-            reader,types.getNavigator(),r.type,xjta,xl);
+        Ref<TypeMirror, TypeElement> ref = new Ref<>(
+                reader, types.getNavigator(), r.type, xjta, xl);
 
         return types.getTypeInfo(ref);
     }
@@ -163,7 +163,7 @@ final class JAXBModelImpl implements J2SJAXBModel {
 
     private synchronized XmlSchemaGenerator<TypeMirror, TypeElement, VariableElement, ExecutableElement> getSchemaGenerator() {
         if(xsdgen==null) {
-            xsdgen = new XmlSchemaGenerator<TypeMirror, TypeElement, VariableElement, ExecutableElement>(types.getNavigator(), types);
+            xsdgen = new XmlSchemaGenerator<>(types.getNavigator(), types);
 
             for (Map.Entry<QName, Reference> e : additionalElementDecls.entrySet()) {
                 Reference value = e.getValue();

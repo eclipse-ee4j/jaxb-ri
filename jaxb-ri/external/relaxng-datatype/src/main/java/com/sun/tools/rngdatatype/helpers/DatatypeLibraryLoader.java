@@ -44,6 +44,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
 import java.util.NoSuchElementException;
 import java.util.Vector;
@@ -212,15 +213,10 @@ public class DatatypeLibraryLoader implements DatatypeLibraryFactory {
 	    try {
 	      InputStream in = url.openStream();
 	      Reader r;
-	      try {
-		r = new InputStreamReader(in, "UTF-8");
-	      }
-	      catch (UnsupportedEncodingException e) {
-		r = new InputStreamReader(in, "UTF8");
-	      }
-	      r = new BufferedReader(r);
+            r = new InputStreamReader(in, StandardCharsets.UTF_8);
+            r = new BufferedReader(r);
 	      Vector tokens = new Vector();
-	      StringBuffer tokenBuf = new StringBuffer();
+	      StringBuilder tokenBuf = new StringBuilder();
 	      int state = START;
 	      for (;;) {
 		int n = r.read();

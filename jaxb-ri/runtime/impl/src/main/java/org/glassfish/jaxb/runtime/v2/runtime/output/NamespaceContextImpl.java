@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -331,7 +331,7 @@ public final class NamespaceContextImpl implements NamespaceContext2 {
     public Iterator<String> getPrefixes(String uri) {
         String prefix = getPrefix(uri);
         if(prefix==null)
-            return Collections.<String>emptySet().iterator();
+            return Collections.emptyIterator();
         else
             return Collections.singleton(uri).iterator();
     }
@@ -417,7 +417,7 @@ public final class NamespaceContextImpl implements NamespaceContext2 {
         }
 
         /**
-         * Returns true if this {@link Element} represents the root element that
+         * Returns true if this  represents the root element that
          * we are marshalling.
          */
         public boolean isRootElement() {
@@ -484,7 +484,7 @@ public final class NamespaceContextImpl implements NamespaceContext2 {
         /**
          * Gets the number of bindings declared on this element.
          */
-        public final int count() {
+        public int count() {
             return context.size-baseIndex;
         }
 
@@ -494,7 +494,7 @@ public final class NamespaceContextImpl implements NamespaceContext2 {
          * @param idx
          *      between 0 and {@link #count()}
          */
-        public final String getPrefix(int idx) {
+        public String getPrefix(int idx) {
             return context.prefixes[baseIndex+idx];
         }
 
@@ -504,7 +504,7 @@ public final class NamespaceContextImpl implements NamespaceContext2 {
          * @param idx
          *      between 0 and {@link #count()}
          */
-        public final String getNsUri(int idx) {
+        public String getNsUri(int idx) {
             return context.nsUris[baseIndex+idx];
         }
 
@@ -521,7 +521,7 @@ public final class NamespaceContextImpl implements NamespaceContext2 {
         }
 
         /**
-         * Gets the parent {@link Element}.
+         * Gets the parent .
          */
         public Element getParent() {
             return prev;

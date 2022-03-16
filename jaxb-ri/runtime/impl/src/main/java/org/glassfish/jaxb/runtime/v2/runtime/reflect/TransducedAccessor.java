@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -113,7 +113,7 @@ public abstract class TransducedAccessor<BeanT> {
 
 
     /**
-     * Gets the {@link TransducedAccessor} appropriately configured for
+     * Gets the  appropriately configured for
      * the given property.
      *
      * <p>

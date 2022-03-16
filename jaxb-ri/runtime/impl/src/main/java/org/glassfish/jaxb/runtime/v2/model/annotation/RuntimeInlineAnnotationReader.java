@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -99,11 +99,7 @@ public final class RuntimeInlineAnnotationReader extends AbstractInlineAnnotatio
         Package p = clazz.getPackage();
         if(p==null) return null;
 
-        Map<Package,Annotation> cache = packageCache.get(a);
-        if(cache==null) {
-            cache = new HashMap<>();
-            packageCache.put(a,cache);
-        }
+        Map<Package, Annotation> cache = packageCache.computeIfAbsent(a, k -> new HashMap<>());
 
         if(cache.containsKey(p))
             return (A)cache.get(p);

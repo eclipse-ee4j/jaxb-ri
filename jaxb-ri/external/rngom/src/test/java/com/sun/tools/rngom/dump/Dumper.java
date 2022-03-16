@@ -85,7 +85,7 @@ public class Dumper implements SchemaBuilder {
 
     private ParsedPattern makeNode(List patterns, Location loc, Annotations anno) {
         for( int i=0; i<patterns.size(); i++ )
-            printer.param((ParsedPattern)patterns.get(i));
+            printer.param(patterns.get(i));
         printer.param(loc).param(anno);
         return printer.result(factory.createPattern());
     }

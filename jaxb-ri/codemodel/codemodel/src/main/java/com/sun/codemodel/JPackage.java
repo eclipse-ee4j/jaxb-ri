@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -105,7 +105,6 @@ public final class JPackage implements JDeclaration, JGenerable, JClassContainer
 
     /**
      * Gets the parent package, or null if this class is the root package.
-     * @return
      */
     public JPackage parent() {
         if(name.length()==0)    return null;
@@ -141,7 +140,7 @@ public final class JPackage implements JDeclaration, JGenerable, JClassContainer
     }
 
     /**
-     * {@inheritDoc}
+     *
      * @deprecated
      */
     @Deprecated
@@ -172,9 +171,6 @@ public final class JPackage implements JDeclaration, JGenerable, JClassContainer
     /**
      * Adds a public class to this package.
      *
-     * @param name
-     * @return
-     * @throws JClassAlreadyExistsException
      */
     @Override
     public JDefinedClass _class(String name) throws JClassAlreadyExistsException {
@@ -184,20 +180,15 @@ public final class JPackage implements JDeclaration, JGenerable, JClassContainer
     /**
      * Gets a reference to the already created {@link JDefinedClass}.
      *
-     * @param name
      * @return null
      *      If the class is not yet created.
      */
     public JDefinedClass _getClass(String name) {
-        if(classes.containsKey(name))
-            return classes.get(name);
-        else
-            return null;
+        return classes.getOrDefault(name, null);
     }
 
     /**
      * Order is based on the lexicological order of the package name.
-     * @param that
      */
     @Override
     public int compareTo(JPackage that) {
@@ -214,7 +205,6 @@ public final class JPackage implements JDeclaration, JGenerable, JClassContainer
      *        Name of interface to be added to this package
      *
      * @return Newly generated interface
-     * @throws JClassAlreadyExistsException
      */
     @Override
     public JDefinedClass _interface(int mods, String name) throws JClassAlreadyExistsException {
@@ -223,9 +213,6 @@ public final class JPackage implements JDeclaration, JGenerable, JClassContainer
 
     /**
      * Adds a public interface to this package.
-     * @param name
-     * @return
-     * @throws JClassAlreadyExistsException
      */
     @Override
     public JDefinedClass _interface(String name) throws JClassAlreadyExistsException {
@@ -263,8 +250,6 @@ public final class JPackage implements JDeclaration, JGenerable, JClassContainer
     }
     /**
      * Adds a new resource file to this package.
-     * @param rsrc
-     * @return
      */
     public JResourceFile addResourceFile(JResourceFile rsrc) {
         resources.add(rsrc);
@@ -273,8 +258,6 @@ public final class JPackage implements JDeclaration, JGenerable, JClassContainer
 
     /**
      * Checks if a resource of the given name exists.
-     * @param name
-     * @return
      */
     public boolean hasResourceFile(String name) {
         for (JResourceFile r : resources)
@@ -285,7 +268,6 @@ public final class JPackage implements JDeclaration, JGenerable, JClassContainer
 
     /**
      * Iterates all resource files in this package.
-     * @return
      */
     public Iterator<JResourceFile> propertyFiles() {
         return resources.iterator();
@@ -306,7 +288,6 @@ public final class JPackage implements JDeclaration, JGenerable, JClassContainer
 
     /**
      * Removes a class from this package.
-     * @param c
      */
     public void remove(JClass c) {
         if (c._package() != this)
@@ -322,9 +303,6 @@ public final class JPackage implements JDeclaration, JGenerable, JClassContainer
 
     /**
      * Reference a class within this package.
-     * @param name
-     * @return
-     * @throws java.lang.ClassNotFoundException
      */
     public JClass ref(String name) throws ClassNotFoundException {
         if (name.indexOf('.') >= 0)
@@ -340,8 +318,6 @@ public final class JPackage implements JDeclaration, JGenerable, JClassContainer
 
     /**
      * Gets a reference to a sub package of this package.
-     * @param pkg
-     * @return
      */
     public JPackage subPackage( String pkg ) {
         if(isUnnamed())     return owner()._package(pkg);
@@ -351,7 +327,6 @@ public final class JPackage implements JDeclaration, JGenerable, JClassContainer
     /**
      * Returns an iterator that walks the top-level classes defined in this
      * package.
-     * @return
      */
     @Override
     public Iterator<JDefinedClass> classes() {
@@ -369,8 +344,6 @@ public final class JPackage implements JDeclaration, JGenerable, JClassContainer
 
     /**
      * Checks if a given name is already defined as a class/interface
-     * @param classLocalName
-     * @return
      */
     public boolean isDefined(String classLocalName) {
         Iterator<JDefinedClass> itr = classes();
@@ -384,9 +357,8 @@ public final class JPackage implements JDeclaration, JGenerable, JClassContainer
 
     /**
      * Checks if this package is the root, unnamed package.
-     * @return
      */
-    public final boolean isUnnamed() { return name.length() == 0; }
+    public boolean isUnnamed() { return name.length() == 0; }
 
     /**
      * Get the name of this package
@@ -402,10 +374,9 @@ public final class JPackage implements JDeclaration, JGenerable, JClassContainer
 
     /**
      * Return the code model root object being used to create this package.
-     * @return
      */
     @Override
-    public final JCodeModel owner() { return owner; }
+    public JCodeModel owner() { return owner; }
 
 
     @Override

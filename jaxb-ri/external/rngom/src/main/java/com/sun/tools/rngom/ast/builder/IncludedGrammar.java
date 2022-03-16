@@ -39,15 +39,5 @@ public interface IncludedGrammar<
     A extends Annotations<E,L,CL>,
     CL extends CommentList<L>> extends GrammarSection<P,E,L,A,CL>, Scope<P,E,L,A,CL> {
 
-    /**
-     *
-     * @return
-     *      technically, an included gramamr does not produce a pattern,
-     *      but this allows {@link Parseable#parseInclude(String, SchemaBuilder, IncludedGrammar, String)}
-     *      to return the result from {@link IncludedGrammar} nicely.
-     *
-     *      <p>
-     *      The value returned from this method will be returned from the abovementioned method.
-     */
     P endIncludedGrammar(L loc, A anno) throws BuildException;
 }

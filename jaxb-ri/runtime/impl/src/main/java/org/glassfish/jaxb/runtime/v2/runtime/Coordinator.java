@@ -86,7 +86,7 @@ public abstract class Coordinator implements ErrorHandler, ValidationEventHandle
     private Coordinator old;
 
     /**
-     * Called whenever an execution flow enters the realm of this {@link Coordinator}.
+     * Called whenever an execution flow enters the realm of this .
      */
     protected final void pushCoordinator() {
         old = activeTable.get();
@@ -94,7 +94,7 @@ public abstract class Coordinator implements ErrorHandler, ValidationEventHandle
     }
 
     /**
-     * Called whenever an execution flow exits the realm of this {@link Coordinator}.
+     * Called whenever an execution flow exits the realm of this .
      */
     protected final void popCoordinator() {
         if (old != null)

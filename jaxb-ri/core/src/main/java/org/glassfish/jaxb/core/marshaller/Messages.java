@@ -74,14 +74,6 @@ public class Messages {
         "SAXMarshaller.MissingObject";
     
     /**
-     * @deprecated
-     *  use {@link org.glassfish.jaxb.core.v2.runtime.XMLSerializer#reportMissingObjectError(String)}
-     * Usage not found. TODO Remove
-     */
-    // public static final String ERR_MISSING_OBJECT2 = // 1 arg
-    //    "SAXMarshaller.MissingObject2";
-    
-    /**
      * @deprecated only used from 1.0
      */
     @Deprecated(since="2.0", forRemoval=true)

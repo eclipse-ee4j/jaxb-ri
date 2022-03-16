@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -230,9 +230,6 @@ abstract class AbstractField implements FieldOutline {
      *        .type(jtype)
      *        .defaultValue(ctype.getDefaultValue());
      *
-     * @param field
-     * @param ctype
-     * @param jtype
      * @param checkWrapper true if the method might need to generate XmlElements
      */
     private void writeXmlElementAnnotation( JAnnotatable field, CTypeRef ctype, JType jtype,
@@ -410,7 +407,6 @@ abstract class AbstractField implements FieldOutline {
 
     /**
      * Compute the type of a {@link CPropertyInfo}
-     * @param aspect
      */
     protected JType getType(final Aspect aspect) {
         if(prop.getAdapter()!=null)

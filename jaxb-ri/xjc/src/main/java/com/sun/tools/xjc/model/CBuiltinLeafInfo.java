@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -47,7 +47,6 @@ import com.sun.tools.xjc.model.nav.NavigatorImpl;
 import com.sun.tools.xjc.outline.Outline;
 import com.sun.tools.xjc.runtime.ZeroOneBooleanAdapter;
 import com.sun.tools.xjc.util.NamespaceContextAdapter;
-import org.glassfish.jaxb.core.v2.WellKnownNamespace;
 import org.glassfish.jaxb.core.v2.model.core.ID;
 import com.sun.xml.xsom.XSComponent;
 import com.sun.xml.xsom.XmlString;
@@ -111,7 +110,7 @@ public abstract class CBuiltinLeafInfo implements CNonElement, BuiltinLeafInfo<N
     }
 
     /**
-     * Since {@link CBuiltinLeafInfo} represents a default binding,
+     * Since  represents a default binding,
      * it is never a collection.
      */
     @Deprecated
@@ -135,7 +134,7 @@ public abstract class CBuiltinLeafInfo implements CNonElement, BuiltinLeafInfo<N
     }
 
     /**
-     * {@link CBuiltinLeafInfo} never has a default associated MIME type.
+     *  never has a default associated MIME type.
      */
     @Override
     public MimeType getExpectedMimeType() {
@@ -159,21 +158,21 @@ public abstract class CBuiltinLeafInfo implements CNonElement, BuiltinLeafInfo<N
     }
 
     /**
-     * Creates a {@link TypeUse} that represents a collection of this {@link CBuiltinLeafInfo}.
+     * Creates a {@link TypeUse} that represents a collection of this .
      */
     public final TypeUse makeCollection() {
         return TypeUseFactory.makeCollection(this);
     }
 
     /**
-     * Creates a {@link TypeUse} that represents an adapted use of this {@link CBuiltinLeafInfo}.
+     * Creates a {@link TypeUse} that represents an adapted use of this .
      */
     public final TypeUse makeAdapted( Class<? extends XmlAdapter> adapter, boolean copy ) {
         return TypeUseFactory.adapt(this,adapter,copy);
     }
 
     /**
-     * Creates a {@link TypeUse} that represents a MIME-type assocaited version of this {@link CBuiltinLeafInfo}.
+     * Creates a {@link TypeUse} that represents a MIME-type assocaited version of this .
      */
     public final TypeUse makeMimeTyped( MimeType mt ) {
         return TypeUseFactory.makeMimeTyped(this,mt);

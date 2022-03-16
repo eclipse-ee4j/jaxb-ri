@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -90,7 +90,7 @@ public abstract class Bridge<T> {
 
     /**
      * Marshals the specified type object with the implicit element name
-     * associated with this instance of {@link Bridge}.
+     * associated with this instance of .
      *
      * @param nsContext
      *      if this marshalling is done to marshal a subelement, this {@link NamespaceContext}
@@ -182,7 +182,7 @@ public abstract class Bridge<T> {
      *
      * @param in
      *      the parser must be pointing at a start tag
-     *      that encloses the XML type that this {@link Bridge} is
+     *      that encloses the XML type that this  is
      *      instanciated for.
      *
      * @return
@@ -214,7 +214,7 @@ public abstract class Bridge<T> {
      *
      * @param in
      *      the parser must be pointing at a start tag
-     *      that encloses the XML type that this {@link Bridge} is
+     *      that encloses the XML type that this  is
      *      instanciated for.
      *
      * @return
@@ -246,7 +246,7 @@ public abstract class Bridge<T> {
      *
      * @param in
      *      the parser must be pointing at a start tag
-     *      that encloses the XML type that this {@link Bridge} is
+     *      that encloses the XML type that this  is
      *      instanciated for.
      *
      * @return

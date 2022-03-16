@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -49,7 +49,7 @@ public abstract class Plugin {
      * <p>
      * For example, if "abc" is returned, "-abc" will
      * turn on this plugin. A plugin needs to be turned
-     * on explicitly, or else no other methods of {@link Plugin}
+     * on explicitly, or else no other methods of
      * will be invoked.
      *
      * <p>
@@ -89,7 +89,7 @@ public abstract class Plugin {
      * the option that activates a plugin (one that's returned
      * by {@link #getOptionName()}.
      *
-     * But nevertheless a {@link Plugin} needs to be activated
+     * But nevertheless a  needs to be activated
      * to participate in further processing.
      *
      * @return
@@ -186,7 +186,7 @@ public abstract class Plugin {
      * Java syntax level.
      *
      * <p>
-     * Note that this method is invoked only when a {@link Plugin}
+     * Note that this method is invoked only when a
      * is activated.
      *
      * @param model
@@ -211,7 +211,7 @@ public abstract class Plugin {
      * code (or add more code) by using {@link Outline} and {@link Options}.
      *
      * <p>
-     * Note that this method is invoked only when a {@link Plugin}
+     * Note that this method is invoked only when a
      * is activated.
      * 
      * @param outline

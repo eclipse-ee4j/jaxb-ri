@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2005, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -198,7 +198,7 @@ class Dom2SaxAdapter implements ContentHandler, LexicalHandler {
 
         // process namespace bindings
         for( int i=0; i<unprocessedNamespaces.size(); i+=2 ) {
-            String prefix = unprocessedNamespaces.get(i+0);
+            String prefix = unprocessedNamespaces.get(i);
             String uri = unprocessedNamespaces.get(i+1);
 
             String qname;
@@ -240,7 +240,7 @@ class Dom2SaxAdapter implements ContentHandler, LexicalHandler {
         _nodeStk.push(element);
     }
 
-    private final Node getParent() {
+    private Node getParent() {
         return _nodeStk.peek();
     }
 
@@ -261,7 +261,7 @@ class Dom2SaxAdapter implements ContentHandler, LexicalHandler {
     }
 
     @Override
-    public void comment(char ch[], int start, int length) throws SAXException {
+    public void comment(char[] ch, int start, int length) throws SAXException {
         getParent().appendChild(_document.createComment(new String(ch,start,length)));
     }
 

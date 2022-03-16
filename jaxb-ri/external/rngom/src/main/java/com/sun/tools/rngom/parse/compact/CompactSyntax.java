@@ -317,7 +317,7 @@ public class CompactSyntax implements Context, CompactSyntaxConstants {
             Location loc = makeLocation(t);
             if (t.next != null
                 && t.next.kind == CompactSyntaxConstants.SINGLE_LINE_COMMENT_CONTINUE) {
-              StringBuffer buf = new StringBuffer(s);
+              StringBuilder buf = new StringBuilder(s);
               do {
                 t = t.next;
                 buf.append('\u005cn');
@@ -778,8 +778,7 @@ public class CompactSyntax implements Context, CompactSyntaxConstants {
       }
     }
     namespaceTable.put("xml", WellKnownNamespaces.XML);
-    if (datatypesTable.get("xsd") == null)
-      datatypesTable.put("xsd", WellKnownNamespaces.XML_SCHEMA_DATATYPES);
+      datatypesTable.putIfAbsent("xsd", WellKnownNamespaces.XML_SCHEMA_DATATYPES);
   }
 
   final public void NamespaceDecl() throws ParseException {
@@ -2493,12 +2492,12 @@ public class CompactSyntax implements Context, CompactSyntaxConstants {
   final public String Literal() throws ParseException {
   Token t;
   String s;
-  StringBuffer buf;
+  StringBuilder buf;
     t = jj_consume_token(LITERAL);
     s = unquote(t.image);
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case 8:
-      buf = new StringBuffer(s);
+      buf = new StringBuilder(s);
       label_26:
       while (true) {
         jj_consume_token(8);
@@ -2527,12 +2526,12 @@ public class CompactSyntax implements Context, CompactSyntaxConstants {
   Token t;
   Token t2;
   String s;
-  StringBuffer buf;
+  StringBuilder buf;
     t = jj_consume_token(LITERAL);
     s = unquote(t.image);
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case 8:
-      buf = new StringBuffer(s);
+      buf = new StringBuilder(s);
       label_27:
       while (true) {
         jj_consume_token(8);
@@ -3242,7 +3241,7 @@ public class CompactSyntax implements Context, CompactSyntaxConstants {
       return (jj_ntk = jj_nt.kind);
   }
 
-  private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
+  private java.util.List<int[]> jj_expentries = new java.util.ArrayList<>();
   private int[] jj_expentry;
   private int jj_kind = -1;
   private int[] jj_lasttokens = new int[100];

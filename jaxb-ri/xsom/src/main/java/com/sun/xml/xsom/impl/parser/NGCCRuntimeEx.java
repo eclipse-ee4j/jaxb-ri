@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -87,7 +87,7 @@ public class NGCCRuntimeEx extends NGCCRuntime implements PatcherManager {
      * This information is passed to AnnotationParser as
      * context information
      */
-    private final Stack<String> elementNames = new Stack<String>();
+    private final Stack<String> elementNames = new Stack<>();
 
     /**
      * Points to the schema document (the parser of it) that included/imported
@@ -225,9 +225,7 @@ public class NGCCRuntimeEx extends NGCCRuntime implements PatcherManager {
 
     /**
      * Includes the specified schema.
-     *
-     * @param schemaLocation
-     * @throws org.xml.sax.SAXException */
+     *    */
     public void includeSchema( String schemaLocation ) throws SAXException {
         NGCCRuntimeEx runtime = new NGCCRuntimeEx(parser,chameleonMode,this);
         runtime.currentSchema = this.currentSchema;
@@ -247,10 +245,7 @@ public class NGCCRuntimeEx extends NGCCRuntime implements PatcherManager {
 
     /**
      * Imports the specified schema.
-     *
-     * @param ns
-     * @param schemaLocation
-     * @throws org.xml.sax.SAXException */
+     *     */
     public void importSchema( String ns, String schemaLocation ) throws SAXException {
         NGCCRuntimeEx newRuntime = new NGCCRuntimeEx(parser,false,this);
         InputSource source = resolveRelativeURL(ns,schemaLocation);
@@ -332,13 +327,9 @@ public class NGCCRuntimeEx extends NGCCRuntime implements PatcherManager {
     /**
      * Parses the specified entity.
      *
-     * @param source
      * @param importLocation
      *      The source location of the import/include statement.
      *      Used for reporting errors.
-     * @param includeMode
-     * @param expectedNamespace
-     * @throws org.xml.sax.SAXException
      */
     public void parseEntity( InputSource source, boolean includeMode, String expectedNamespace, Locator importLocation )
             throws SAXException {
@@ -479,7 +470,6 @@ public class NGCCRuntimeEx extends NGCCRuntime implements PatcherManager {
      * Parses UName under the given context.
      * @param qname Attribute name.
      * @return New {@link UName} instance based on attribute name.
-     * @throws org.xml.sax.SAXException
      */
     public UName parseUName(final String qname ) throws SAXException {
         int idx = qname.indexOf(':');
@@ -519,7 +509,7 @@ public class NGCCRuntimeEx extends NGCCRuntime implements PatcherManager {
     /**
      * returns true if the specified char is a white space character.
      */
-    private final boolean isWhiteSpace(char ch) {
+    private boolean isWhiteSpace(char ch) {
         // most of the characters are non-control characters.
         // so check that first to quickly return false for most of the cases.
         if (ch > 0x20) {

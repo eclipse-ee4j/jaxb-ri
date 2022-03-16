@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2005, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -198,7 +198,7 @@ public interface TypedXmlWriter {
      *      The typed XML writer interface used to write the children of
      *      the new child element.
      * @return
-     *      always return non-null {@link TypedXmlWriter} that can be used
+     *      always return non-null  that can be used
      *      to write the contents of the newly created child element.
      * @see #_element(String, String, Class)
      */
@@ -220,7 +220,7 @@ public interface TypedXmlWriter {
      *      the new child element.
      *
      * @return
-     *      always return non-null {@link TypedXmlWriter} that can be used
+     *      always return non-null  that can be used
      *      to write the contents of the newly created child element.
      */
     <T extends TypedXmlWriter> T _element( String nsUri, String localName, Class<T> contentModel );
@@ -238,7 +238,7 @@ public interface TypedXmlWriter {
      *      The typed XML writer interface used to write the children of
      *      the new child element.
      * @return
-     *      always return non-null {@link TypedXmlWriter} that can be used
+     *      always return non-null  that can be used
      *      to write the contents of the newly created child element.
      * @see #_element(String, String, Class)
      */
@@ -257,7 +257,7 @@ public interface TypedXmlWriter {
      *      The typed XML writer interface used to write the children of
      *      the new child element.
      * @return
-     *      always return non-null {@link TypedXmlWriter} that can be used
+     *      always return non-null  that can be used
      *      to write the contents of the newly created child element.
      * @see #_element(String, String, Class)
      */

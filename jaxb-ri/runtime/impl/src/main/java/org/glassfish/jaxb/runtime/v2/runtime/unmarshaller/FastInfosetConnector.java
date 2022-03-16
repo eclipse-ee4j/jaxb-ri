@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -207,17 +207,17 @@ final class FastInfosetConnector extends StAXConnector {
         // CharSequence interface
 
         @Override
-        public final int length() {
+        public int length() {
             return length;
         }
 
         @Override
-        public final char charAt(final int index) {
+        public char charAt(final int index) {
             return ch[start + index];
         }
 
         @Override
-        public final CharSequence subSequence(final int start, final int end) {
+        public CharSequence subSequence(final int start, final int end) {
             return new CharSequenceImpl(ch, this.start + start, end - start);
         }
 

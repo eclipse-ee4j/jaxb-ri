@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -34,11 +34,12 @@ final class PrimitiveArrayListerCharacter<BeanT> extends Lister<BeanT,char[],Cha
 
     @Override
     public ListIterator<Character> iterator(final char[] objects, XMLSerializer context) {
-        return new ListIterator<Character>() {
-            int idx=0;
+        return new ListIterator<>() {
+            int idx = 0;
+
             @Override
             public boolean hasNext() {
-                return idx<objects.length;
+                return idx < objects.length;
             }
 
             @Override

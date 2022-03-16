@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -55,8 +55,8 @@ import java.util.Vector;
 
 public class SchemaSetImpl implements XSSchemaSet
 {
-    private final Map<String,XSSchema> schemas = new HashMap<String,XSSchema>();
-    private final Vector<XSSchema> schemas2 = new Vector<XSSchema>();
+    private final Map<String,XSSchema> schemas = new HashMap<>();
+    private final Vector<XSSchema> schemas2 = new Vector<>();
     private final List<XSSchema> readonlySchemaList = Collections.unmodifiableList(schemas2);
 
     /**
@@ -147,7 +147,7 @@ public class SchemaSetImpl implements XSSchemaSet
     }
 
     public Iterator<XSElementDecl> iterateElementDecls() {
-        return new Iterators.Map<XSElementDecl,XSSchema>(iterateSchema()) {
+        return new Iterators.Map<>(iterateSchema()) {
             protected Iterator<XSElementDecl> apply(XSSchema u) {
                 return u.iterateElementDecls();
             }
@@ -155,7 +155,7 @@ public class SchemaSetImpl implements XSSchemaSet
     }
 
     public Iterator<XSType> iterateTypes() {
-        return new Iterators.Map<XSType,XSSchema>(iterateSchema()) {
+        return new Iterators.Map<>(iterateSchema()) {
             protected Iterator<XSType> apply(XSSchema u) {
                 return u.iterateTypes();
             }
@@ -163,42 +163,42 @@ public class SchemaSetImpl implements XSSchemaSet
     }
 
     public Iterator<XSAttributeDecl> iterateAttributeDecls() {
-        return new Iterators.Map<XSAttributeDecl,XSSchema>(iterateSchema()) {
+        return new Iterators.Map<>(iterateSchema()) {
             protected Iterator<XSAttributeDecl> apply(XSSchema u) {
                 return u.iterateAttributeDecls();
             }
         };
     }
     public Iterator<XSAttGroupDecl> iterateAttGroupDecls() {
-        return new Iterators.Map<XSAttGroupDecl,XSSchema>(iterateSchema()) {
+        return new Iterators.Map<>(iterateSchema()) {
             protected Iterator<XSAttGroupDecl> apply(XSSchema u) {
                 return u.iterateAttGroupDecls();
             }
         };
     }
     public Iterator<XSModelGroupDecl> iterateModelGroupDecls() {
-        return new Iterators.Map<XSModelGroupDecl,XSSchema>(iterateSchema()) {
+        return new Iterators.Map<>(iterateSchema()) {
             protected Iterator<XSModelGroupDecl> apply(XSSchema u) {
                 return u.iterateModelGroupDecls();
             }
         };
     }
     public Iterator<XSSimpleType> iterateSimpleTypes() {
-        return new Iterators.Map<XSSimpleType,XSSchema>(iterateSchema()) {
+        return new Iterators.Map<>(iterateSchema()) {
             protected Iterator<XSSimpleType> apply(XSSchema u) {
                 return u.iterateSimpleTypes();
             }
         };
     }
     public Iterator<XSComplexType> iterateComplexTypes() {
-        return new Iterators.Map<XSComplexType,XSSchema>(iterateSchema()) {
+        return new Iterators.Map<>(iterateSchema()) {
             protected Iterator<XSComplexType> apply(XSSchema u) {
                 return u.iterateComplexTypes();
             }
         };
     }
     public Iterator<XSNotation> iterateNotations() {
-        return new Iterators.Map<XSNotation,XSSchema>(iterateSchema()) {
+        return new Iterators.Map<>(iterateSchema()) {
             protected Iterator<XSNotation> apply(XSSchema u) {
                 return u.iterateNotations();
             }
@@ -206,7 +206,7 @@ public class SchemaSetImpl implements XSSchemaSet
     }
 
     public Iterator<XSIdentityConstraint> iterateIdentityConstraints() {
-        return new Iterators.Map<XSIdentityConstraint,XSSchema>(iterateSchema()) {
+        return new Iterators.Map<>(iterateSchema()) {
             protected Iterator<XSIdentityConstraint> apply(XSSchema u) {
                 return u.getIdentityConstraints().values().iterator();
             }

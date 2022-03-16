@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,6 +24,7 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.charset.Charset;
 import java.nio.charset.IllegalCharsetNameException;
+import java.nio.charset.StandardCharsets;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.text.SimpleDateFormat;
@@ -349,7 +350,6 @@ public class Options {
      * by taking {@link #classpaths} into account. That means
      * "-cp plugin.jar" has to come before you specify options to enable it.
      *
-     * @return
      */
     public List<Plugin> getAllPlugins() {
         if (allPlugins == null) {
@@ -372,16 +372,14 @@ public class Options {
     /**
      * Input schema files.
      *
-     * @return
      */
     public InputSource[] getGrammars() {
-        return grammars.toArray(new InputSource[grammars.size()]);
+        return grammars.toArray(new InputSource[0]);
     }
 
     /**
      * Adds a new input schema.
      *
-     * @param is
      */
     public void addGrammar(InputSource is) {
         grammars.add(absolutize(is));
@@ -403,7 +401,6 @@ public class Options {
     /**
      * Recursively scan directories and add all XSD files in it.
      *
-     * @param dir
      */
     public void addGrammarRecursive(File dir) {
         addRecursive(dir, ".xsd", grammars);
@@ -436,16 +433,14 @@ public class Options {
     /**
      * Input external binding files.
      *
-     * @return
      */
     public InputSource[] getBindFiles() {
-        return bindFiles.toArray(new InputSource[bindFiles.size()]);
+        return bindFiles.toArray(new InputSource[0]);
     }
 
     /**
      * Adds a new binding file.
      *
-     * @param is
      */
     public void addBindFile(InputSource is) {
         bindFiles.add(absolutize(is));
@@ -454,7 +449,6 @@ public class Options {
     /**
      * Adds a new binding file.
      *
-     * @param bindFile
      */
     public void addBindFile(File bindFile) {
         bindFiles.add(fileToInputSource(bindFile));
@@ -463,7 +457,6 @@ public class Options {
     /**
      * Recursively scan directories and add all ".xjb" files in it.
      *
-     * @param dir
      */
     public void addBindFileRecursive(File dir) {
         addRecursive(dir, ".xjb", bindFiles);
@@ -475,14 +468,12 @@ public class Options {
      * Gets a classLoader that can load classes specified via the
      * -classpath option.
      *
-     * @param parent
-     * @return
      */
     public ClassLoader getUserClassLoader(ClassLoader parent) {
         if (classpaths.isEmpty())
             return parent;
         return new URLClassLoader(
-            classpaths.toArray(new URL[classpaths.size()]), parent);
+            classpaths.toArray(new URL[0]), parent);
     }
 
     /**
@@ -498,8 +489,6 @@ public class Options {
      * Parses an option {@code args[i]} and return
      * the number of tokens consumed.
      *
-     * @param args
-     * @param i
      * @return 0 if the argument is not understood. Returning 0
      * will let the caller report an error.
      * @throws BadCommandLineException If the callee wants to provide a custom message for an error.
@@ -627,7 +616,7 @@ public class Options {
                     Messages.format(Messages.NO_SUCH_FILE, file));
             }
 
-            try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"))) {
+            try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8))) {
                 parseProxy(in.readLine());
             } catch (IOException e) {
                 throw new BadCommandLineException(
@@ -776,11 +765,6 @@ public class Options {
     /**
      * Obtains an operand and reports an error if it's not there.
      *
-     * @param optionName
-     * @param args
-     * @param i
-     * @return
-     * @throws com.sun.tools.xjc.BadCommandLineException
      */
     public String requireArgument(String optionName, String[] args, int i) throws BadCommandLineException {
         if (i == args.length || args[i].startsWith("-")) {
@@ -824,8 +808,6 @@ public class Options {
     /**
      * Adds a new catalog file.Use created or existed resolver to parse new catalog file.
      *
-     * @param catalogFile
-     * @throws java.io.IOException
      */
     public void addCatalog(File catalogFile) throws IOException {
         URI newUri = catalogFile.toURI();
@@ -838,7 +820,6 @@ public class Options {
     /**
      * Parses arguments and fill fields of this object.
      *
-     * @param args
      * @throws BadCommandLineException thrown when there's a problem in the command-line arguments
      */
     public void parseArguments(String[] args) throws BadCommandLineException {
@@ -899,8 +880,6 @@ public class Options {
     /**
      * Finds the {@code META-INF/sun-jaxb.episode} file to add as a binding customization.
      *
-     * @param jar
-     * @throws com.sun.tools.xjc.BadCommandLineException
      */
     public void scanEpisodeFile(File jar) throws BadCommandLineException {
         try {
@@ -920,7 +899,6 @@ public class Options {
     /**
      * Guesses the schema language.
      *
-     * @return
      */
     public Language guessSchemaLanguage() {
 
@@ -942,8 +920,6 @@ public class Options {
     /**
      * Creates a configured CodeWriter that produces files into the specified directory.
      *
-     * @return
-     * @throws java.io.IOException
      */
     public CodeWriter createCodeWriter() throws IOException {
         return createCodeWriter(new FileCodeWriter(targetDir, readOnly, encoding));
@@ -952,8 +928,6 @@ public class Options {
     /**
      * Creates a configured CodeWriter that produces files into the specified directory.
      *
-     * @param core
-     * @return
      */
     public CodeWriter createCodeWriter(CodeWriter core) {
         if (noFileHeader)
@@ -965,7 +939,6 @@ public class Options {
     /**
      * Gets the string suitable to be used as the prolog comment baked into artifacts.This is the string like "This file was generated by the JAXB RI on YYYY/mm/dd..."
      *
-     * @return
      */
     public String getPrologComment() {
         // generate format syntax: <date> 'at' <time>
@@ -1015,7 +988,7 @@ public class Options {
     private static boolean getDebugPropertyValue() {
         final String debugPropertyName = Options.class.getName() + ".findServices";
         if (System.getSecurityManager() != null) {
-            return AccessController.doPrivileged(new PrivilegedAction<Boolean>() {
+            return AccessController.doPrivileged(new PrivilegedAction<>() {
                 @Override
                 public Boolean run() {
                     return Boolean.getBoolean(debugPropertyName);

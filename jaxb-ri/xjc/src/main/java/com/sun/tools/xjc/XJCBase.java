@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2017, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -907,7 +907,7 @@ public class XJCBase extends MatchingTask {
             lst.add(getInputSource(new File(baseDir, value)));
         }
 
-        return lst.toArray(new InputSource[lst.size()]);
+        return lst.toArray(new InputSource[0]);
     }
 
     /**

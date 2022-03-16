@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -36,7 +36,7 @@ abstract class CSingleTypePropertyInfo extends CPropertyInfo {
      * @param typeName
      *      XML Schema type name of this property's single value. Optional
      *      for other schema languages. This is used to determine if we should
-     *      generate {@link @XmlSchemaType} annotation to improve the roundtrip.
+     *      generate {@link jakarta.xml.bind.annotation.XmlSchemaType} annotation to improve the roundtrip.
      */
     protected CSingleTypePropertyInfo(String name, TypeUse type, QName typeName, XSComponent source, CCustomizations customizations, Locator locator) {
         super(name, type.isCollection(), source, customizations, locator);

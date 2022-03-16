@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -58,7 +58,7 @@ public final class CElementPropertyInfo extends CPropertyInfo implements Element
      */
     private final List<CTypeRef> types = new ArrayList<>();
 
-    private final List<CNonElement> ref = new AbstractList<CNonElement>() {
+    private final List<CNonElement> ref = new AbstractList<>() {
         @Override
         public CNonElement get(int index) {
             return getTypes().get(index).getTarget();
@@ -184,7 +184,7 @@ public final class CElementPropertyInfo extends CPropertyInfo implements Element
     }
 
     @Override
-    public final PropertyKind kind() {
+    public PropertyKind kind() {
         return PropertyKind.ELEMENT;
     }
 
@@ -193,7 +193,7 @@ public final class CElementPropertyInfo extends CPropertyInfo implements Element
         return expectedMimeType;
     }
 
-    public static enum CollectionMode {
+    public enum CollectionMode {
         NOT_REPEATED(false,false),
         REPEATED_ELEMENT(true,false),
         REPEATED_VALUE(true,true);

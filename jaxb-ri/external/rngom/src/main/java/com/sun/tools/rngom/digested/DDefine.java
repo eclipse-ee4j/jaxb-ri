@@ -60,6 +60,6 @@ public class DDefine {
     public boolean isNullable() {
         if(nullable==null)
             nullable = pattern.isNullable()?Boolean.TRUE:Boolean.FALSE;
-        return nullable.booleanValue();
+        return nullable;
     }
 }

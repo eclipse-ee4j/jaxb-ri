@@ -1,6 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates and others.
- * All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -196,7 +195,7 @@ public final class UnmarshallingContext extends Coordinator
          * requires that we have two objects unmarshalled (a JAXBElement X and a value object Y bound to an XML type.)
          *
          * <p>
-         * So to make room for storing both, this {@link #backup} field is used. When we create X instance
+         * So to make room for storing both, this {@code backup} field is used. When we create X instance
          * in the above example, we set that to {@code state.prev.target} and displace its old value to
          * {@code state.prev.backup} (where Y goes to {@code state.target}.) Upon the completion of the unmarshalling
          * of Y, we revert this.
@@ -209,8 +208,8 @@ public final class UnmarshallingContext extends Coordinator
          * <p>
          * Yes, I know this is a hack, and no, I'm not proud of it.
          *
-         * @see ElementBeanInfoImpl.IntercepterLoader#startElement(State, TagName)
-         * @see ElementBeanInfoImpl.IntercepterLoader#intercept(State, Object)
+         * see ElementBeanInfoImpl.IntercepterLoader#startElement(State, TagName)
+         * see ElementBeanInfoImpl.IntercepterLoader#intercept(State, Object)
          */
         private Object backup;
 
@@ -552,7 +551,7 @@ public final class UnmarshallingContext extends Coordinator
     }
 
     @Override
-    public final void endElement(TagName tagName) throws SAXException {
+    public void endElement(TagName tagName) throws SAXException {
         pushCoordinator();
         try {
             State child = current;
@@ -1242,7 +1241,7 @@ public final class UnmarshallingContext extends Coordinator
 
     /**
      * When called from within the realm of the unmarshaller, this method
-     * returns the current {@link UnmarshallingContext} in charge.
+     * returns the current  in charge.
      */
     public static UnmarshallingContext getInstance() {
         return (UnmarshallingContext) Coordinator._getInstance();
@@ -1252,7 +1251,6 @@ public final class UnmarshallingContext extends Coordinator
      * Allows to access elements which are expected in current state.
      * Useful for getting elements for current parent.
      *
-     * @return
      */
     public Collection<QName> getCurrentExpectedElements() {
         pushCoordinator();
@@ -1269,7 +1267,6 @@ public final class UnmarshallingContext extends Coordinator
      * Allows to access attributes which are expected in current state.
      * Useful for getting attributes for current parent.
      *
-     * @return
      */
     public Collection<QName> getCurrentExpectedAttributes() {
         pushCoordinator();

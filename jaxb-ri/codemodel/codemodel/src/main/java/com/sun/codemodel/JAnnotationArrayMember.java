@@ -239,9 +239,6 @@ public final class JAnnotationArrayMember extends JAnnotationValue implements JA
         return TypedAnnotationWriter.create(clazz,this);
     }
     
-    /**
-     * {@link JAnnotatable#annotations()}
-     */
     @SuppressWarnings("unchecked")
     @Override
     public Collection<JAnnotationUse> annotations() {

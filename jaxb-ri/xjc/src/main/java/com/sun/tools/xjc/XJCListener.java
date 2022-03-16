@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -96,7 +96,7 @@ public abstract class XJCListener implements ErrorListener {
      * So just beware that this is not a cure-all. 
      *
      * @return
-     *      true if the {@link XJCListener} wants to abort the processing.
+     *      true if the  wants to abort the processing.
      * @since 2.1
      */
     public boolean isCanceled() {

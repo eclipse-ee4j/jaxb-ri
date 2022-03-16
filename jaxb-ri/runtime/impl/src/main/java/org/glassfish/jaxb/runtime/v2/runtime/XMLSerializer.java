@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,7 +15,6 @@ import org.glassfish.jaxb.runtime.CycleRecoverable;
 import org.glassfish.jaxb.runtime.marshaller.NamespacePrefixMapper;
 import org.glassfish.jaxb.runtime.api.AccessorException;
 import org.glassfish.jaxb.runtime.util.ValidationEventLocatorExImpl;
-import org.glassfish.jaxb.core.v2.WellKnownNamespace;
 import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimeBuiltinLeafInfo;
 import org.glassfish.jaxb.runtime.v2.runtime.output.MTOMXmlOutput;
 import org.glassfish.jaxb.runtime.v2.runtime.output.NamespaceContextImpl;
@@ -221,7 +220,7 @@ public final class XMLSerializer extends Coordinator {
      * @param fieldName
      *      the name of the property being processed when an error is found.
      */
-    public final void reportError(String fieldName, Throwable t) throws SAXException {
+    public void reportError(String fieldName, Throwable t) throws SAXException {
         ValidationEvent ve = new ValidationEventImpl(ValidationEvent.ERROR,
             t.getMessage(), getCurrentLocation(fieldName), t);
         reportError(ve);
@@ -523,7 +522,7 @@ public final class XMLSerializer extends Coordinator {
      * an element.
      * Used to reduce the code size in the generated marshaller.
      */
-    public final void childAsSoleContent( Object child, String fieldName) throws SAXException, IOException, XMLStreamException {
+    public void childAsSoleContent(Object child, String fieldName) throws SAXException, IOException, XMLStreamException {
         if(child==null) {
             handleMissingObjectError(fieldName);
         } else {
@@ -590,7 +589,7 @@ public final class XMLSerializer extends Coordinator {
      *      Used as a part of the error message in case anything goes wrong
      *      with 'o'.
      */
-    public final void childAsXsiType( Object child, String fieldName, JaxBeanInfo expected, boolean nillable) throws SAXException, IOException, XMLStreamException {
+    public void childAsXsiType(Object child, String fieldName, JaxBeanInfo expected, boolean nillable) throws SAXException, IOException, XMLStreamException {
         if(child==null) {
             handleMissingObjectError(fieldName);
         } else {
@@ -675,8 +674,6 @@ public final class XMLSerializer extends Coordinator {
      *
      * This method is called only after the callee has determined that beanInfo.lookForLifecycleMethods == true.
      *
-     * @param beanInfo
-     * @param currentTarget
      */
     private void fireAfterMarshalEvents(final JaxBeanInfo beanInfo, Object currentTarget) {
         // first invoke bean embedded listener
@@ -699,8 +696,6 @@ public final class XMLSerializer extends Coordinator {
      *
      * This method is called only after the callee has determined that beanInfo.lookForLifecycleMethods == true.
      *
-     * @param beanInfo
-     * @param currentTarget
      */
     private void fireBeforeMarshalEvents(final JaxBeanInfo beanInfo, Object currentTarget) {
         // first invoke bean embedded listener
@@ -756,7 +751,7 @@ public final class XMLSerializer extends Coordinator {
          endAttributes();
      * </pre>
      */
-    public final void writeXsiNilTrue() throws SAXException, IOException, XMLStreamException {
+    public void writeXsiNilTrue() throws SAXException, IOException, XMLStreamException {
         getNamespaceContext().declareNamespace(XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI,"xsi",true);
         endNamespaceDecls(null);
         attribute(XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI,"nil","true");
@@ -935,10 +930,10 @@ public final class XMLSerializer extends Coordinator {
     }
 
     /**
-     * Field used to support an {@link XmlSchemaType} annotation.
+     * Field used to support an {@link jakarta.xml.bind.annotation.XmlSchemaType} annotation.
      *
      * <p>
-     * When we are marshalling a property with an effective {@link XmlSchemaType},
+     * When we are marshalling a property with an effective {@link jakarta.xml.bind.annotation.XmlSchemaType},
      * this field is set to hold the QName of that type. The {@link Transducer} that
      * actually converts a Java object into XML can look this property to decide
      * how to marshal the value.
@@ -1052,7 +1047,7 @@ public final class XMLSerializer extends Coordinator {
     
     /**
      * When called from within the realm of the marshaller, this method
-     * returns the current {@link XMLSerializer} in charge.
+     * returns the current  in charge.
      */
     public static XMLSerializer getInstance() {
         return (XMLSerializer) _getInstance();

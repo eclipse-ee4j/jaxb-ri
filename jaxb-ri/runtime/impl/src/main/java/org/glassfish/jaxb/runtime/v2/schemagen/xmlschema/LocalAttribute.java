@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -28,15 +28,15 @@ public interface LocalAttribute
 
 
     @XmlAttribute
-    public LocalAttribute form(String value);
+    LocalAttribute form(String value);
 
     @XmlAttribute
-    public LocalAttribute name(String value);
+    LocalAttribute name(String value);
 
     @XmlAttribute
-    public LocalAttribute ref(QName value);
+    LocalAttribute ref(QName value);
 
     @XmlAttribute
-    public LocalAttribute use(String value);
+    LocalAttribute use(String value);
 
 }

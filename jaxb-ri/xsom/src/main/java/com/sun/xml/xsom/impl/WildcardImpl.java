@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -47,7 +47,7 @@ public abstract class WildcardImpl extends ComponentImpl implements XSWildcard, 
             return new Any(owner,null,null,null,mode);
         
         if(this instanceof Finite && rhs instanceof Finite) {
-            Set<String> values = new HashSet<String>();
+            Set<String> values = new HashSet<>();
             values.addAll( ((Finite)this).names );
             values.addAll( ((Finite)rhs ).names );
             return new Finite(owner,null,null,null,values,mode);

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -48,7 +48,7 @@ public interface JClassContainer {
      * @exception JClassAlreadyExistsException
      *      When the specified class/interface was already created.
      */
-    public JDefinedClass _class(String name) throws JClassAlreadyExistsException;
+    JDefinedClass _class(String name) throws JClassAlreadyExistsException;
 
     /**
      * Add an interface to this class/package.
@@ -64,7 +64,7 @@ public interface JClassContainer {
      * @exception JClassAlreadyExistsException
      *      When the specified class/interface was already created.
      */
-    public JDefinedClass _interface(int mods, String name) throws JClassAlreadyExistsException;
+    JDefinedClass _interface(int mods, String name) throws JClassAlreadyExistsException;
 
     /**
      * Adds a public interface to this package.
@@ -72,7 +72,7 @@ public interface JClassContainer {
      * @exception JClassAlreadyExistsException
      *      When the specified class/interface was already created.
      */
-    public JDefinedClass _interface(String name) throws JClassAlreadyExistsException;
+    JDefinedClass _interface(String name) throws JClassAlreadyExistsException;
 
     /**
      * Create a new class or a new interface.
@@ -81,13 +81,13 @@ public interface JClassContainer {
      *      use {@link #_class(int, String, ClassType)} 
      */
     @Deprecated
-    public JDefinedClass _class(int mods, String name, boolean isInterface )
+    JDefinedClass _class(int mods, String name, boolean isInterface)
         throws JClassAlreadyExistsException;
 
     /**
      * Creates a new class/enum/interface/annotation.
      */
-    public JDefinedClass _class(int mods, String name, ClassType kind )
+    JDefinedClass _class(int mods, String name, ClassType kind)
         throws JClassAlreadyExistsException;
 
 
@@ -95,7 +95,7 @@ public interface JClassContainer {
      * Returns an iterator that walks the nested classes defined in this
      * class.
      */
-    public Iterator<JDefinedClass> classes();
+    Iterator<JDefinedClass> classes();
     
     /**
      * Parent JClassContainer.
@@ -109,7 +109,7 @@ public interface JClassContainer {
      * If this is an inner class, this method returns the outer
      * class.
      */
-    public JClassContainer parentContainer();
+    JClassContainer parentContainer();
 
     /**
      * Gets the nearest package parent.
@@ -117,12 +117,12 @@ public interface JClassContainer {
      * <p>
      * If {@code this.isPackage()}, then return {@code this}.
      */
-    public JPackage getPackage();
+    JPackage getPackage();
 
     /**
      * Get the root code model object.
      */
-    public JCodeModel owner();
+    JCodeModel owner();
     
     /**
      * Add an annotationType Declaration to this package
@@ -134,7 +134,7 @@ public interface JClassContainer {
      *      When the specified class/interface was already created.
      
      */
-    public JDefinedClass _annotationTypeDeclaration(String name) throws JClassAlreadyExistsException;
+    JDefinedClass _annotationTypeDeclaration(String name) throws JClassAlreadyExistsException;
     
     /**
      * Add a public enum to this package
@@ -146,6 +146,6 @@ public interface JClassContainer {
      *      When the specified class/interface was already created.
      
      */
-    public JDefinedClass _enum (String name) throws JClassAlreadyExistsException;
+    JDefinedClass _enum(String name) throws JClassAlreadyExistsException;
     
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -47,14 +47,14 @@ public final class SCDImpl extends SCD {
 
                 // TODO: this step is not needed if the next step is known not to react to
                 // complex type nor model groups, such as, say Axis.FACET
-                nodeSet = new Iterators.Unique<XSComponent>(
-                    new Iterators.Map<XSComponent,XSComponent>(nodeSet) {
-                        protected Iterator<XSComponent> apply(XSComponent u) {
-                            return new Iterators.Union<XSComponent>(
-                                Iterators.singleton(u),
-                                Axis.INTERMEDIATE_SKIP.iterator(u) );
+                nodeSet = new Iterators.Unique<>(
+                        new Iterators.Map<>(nodeSet) {
+                            protected Iterator<XSComponent> apply(XSComponent u) {
+                                return new Iterators.Union<>(
+                                        Iterators.singleton(u),
+                                        Axis.INTERMEDIATE_SKIP.iterator(u));
+                            }
                         }
-                    }
                 );
             }
             nodeSet = steps[i].evaluate(nodeSet);

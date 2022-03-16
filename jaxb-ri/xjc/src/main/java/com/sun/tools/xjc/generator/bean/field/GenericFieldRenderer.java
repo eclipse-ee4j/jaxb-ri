@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -28,7 +28,7 @@ public final class GenericFieldRenderer implements FieldRenderer {
 
     public GenericFieldRenderer( Class<?> fieldClass ) {
         try {
-            constructor = fieldClass.getDeclaredConstructor(new Class<?>[]{ClassOutlineImpl.class,CPropertyInfo.class});
+            constructor = fieldClass.getDeclaredConstructor(ClassOutlineImpl.class,CPropertyInfo.class);
         } catch (NoSuchMethodException e) {
             throw new NoSuchMethodError(e.getMessage());
         }

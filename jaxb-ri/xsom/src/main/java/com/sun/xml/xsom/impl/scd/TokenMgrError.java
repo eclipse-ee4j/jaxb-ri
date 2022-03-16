@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -48,7 +48,7 @@ public class TokenMgrError extends Error
     * equivalents in the given string
     */
    protected static final String addEscapes(String str) {
-      StringBuffer retval = new StringBuffer();
+      StringBuilder retval = new StringBuilder();
       char ch;
       for (int i = 0; i < str.length(); i++) {
         switch (str.charAt(i))
@@ -74,7 +74,7 @@ public class TokenMgrError extends Error
               retval.append("\\\"");
               continue;
            case '\'':
-              retval.append("\\\'");
+              retval.append("\\'");
               continue;
            case '\\':
               retval.append("\\\\");
@@ -82,7 +82,7 @@ public class TokenMgrError extends Error
            default:
               if ((ch = str.charAt(i)) < 0x20 || ch > 0x7e) {
                  String s = "0000" + Integer.toString(ch, 16);
-                 retval.append("\\u" + s.substring(s.length() - 4, s.length()));
+                 retval.append("\\u").append(s.substring(s.length() - 4));
               } else {
                  retval.append(ch);
               }

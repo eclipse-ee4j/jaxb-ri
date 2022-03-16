@@ -84,7 +84,7 @@ public class Printer {
     }
 
     public Printer param(int i) {
-        return param(new Integer(i));
+        return param(Integer.valueOf(i));
     }
     
     private Object r( Object r ) {

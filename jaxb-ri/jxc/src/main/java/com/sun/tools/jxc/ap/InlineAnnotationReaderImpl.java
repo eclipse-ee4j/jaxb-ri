@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -86,7 +86,7 @@ public final class InlineAnnotationReaderImpl extends AbstractInlineAnnotationRe
      * Gets all the annotations on the given declaration.
      */
     private Annotation[] getAllAnnotations(Element decl, Locatable srcPos) {
-        List<Annotation> r = new ArrayList<Annotation>();
+        List<Annotation> r = new ArrayList<>();
 
         for( AnnotationMirror m : decl.getAnnotationMirrors() ) {
             try {
@@ -101,12 +101,12 @@ public final class InlineAnnotationReaderImpl extends AbstractInlineAnnotationRe
             }
         }
 
-        return r.toArray(new Annotation[r.size()]);
+        return r.toArray(new Annotation[0]);
     }
 
     @Override
     public <A extends Annotation> A getMethodParameterAnnotation(Class<A> a, ExecutableElement m, int paramIndex, Locatable srcPos) {
-        VariableElement[] params = m.getParameters().toArray(new VariableElement[m.getParameters().size()]);
+        VariableElement[] params = m.getParameters().toArray(new VariableElement[0]);
         return LocatableAnnotation.create(
             params[paramIndex].getAnnotation(a), srcPos );
     }
@@ -152,7 +152,7 @@ public final class InlineAnnotationReaderImpl extends AbstractInlineAnnotationRe
             if( e.getCause() instanceof MirroredTypesException ) {
                 MirroredTypesException me = (MirroredTypesException)e.getCause();
                 Collection<? extends TypeMirror> r = me.getTypeMirrors();
-                return r.toArray(new TypeMirror[r.size()]);
+                return r.toArray(new TypeMirror[0]);
             }
             // *********************** TODO: jdk6 bug. Fixed in java7
             // According to the javadocs it should throw the MirroredTypesException

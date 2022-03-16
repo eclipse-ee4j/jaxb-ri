@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -191,9 +191,8 @@ public final class RawTypeSet {
         protected abstract CTypeRef toTypeRef(CElementPropertyInfo ep);
         protected abstract void toElementRef(CReferencePropertyInfo prop);
         /**
-         * Can this {@link Ref} be a type ref?
+         * Can this  be a type ref?
          * @return false to veto.
-         * @param parent
          */
         protected abstract Mode canBeType(RawTypeSet parent);
         protected abstract boolean isListOfValues();

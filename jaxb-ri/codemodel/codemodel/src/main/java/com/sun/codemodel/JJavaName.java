@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,6 +10,7 @@
 
 package com.sun.codemodel;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -110,7 +111,7 @@ public class JJavaName {
 
 
     /** All reserved keywords of Java. */
-    private static HashSet<String> reservedKeywords = new HashSet<String>();
+    private static HashSet<String> reservedKeywords = new HashSet<>();
 
     static {
         // see http://java.sun.com/docs/books/tutorial/java/nutsandbolts/_keywords.html
@@ -175,8 +176,7 @@ public class JJavaName {
             // and 5.0 keywords
             "enum"
             };
-        for (String w : words)
-            reservedKeywords.add(w);
+        reservedKeywords.addAll(Arrays.asList(words));
     }
 
 
@@ -192,7 +192,7 @@ public class JJavaName {
         String apply(String word) {
             Matcher m = pattern.matcher(word);
             if(m.matches()) {
-                StringBuffer buf = new StringBuffer();
+                StringBuilder buf = new StringBuilder();
                 m.appendReplacement(buf,replacement);
                 return buf.toString();
             } else {

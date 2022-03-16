@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -47,7 +47,7 @@ public abstract class Loader {
      * and when the parent designated this loader as the child loader.
      *
      * <p>
-     * The callee may change {@code state.loader} to designate another {@link Loader}
+     * The callee may change {@code state.loader} to designate another
      * for the processing. It's the responsibility of the callee to forward the startElement
      * event in such a case.
      *

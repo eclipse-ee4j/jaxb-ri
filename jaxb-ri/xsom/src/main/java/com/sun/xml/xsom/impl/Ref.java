@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -38,41 +38,41 @@ import com.sun.xml.xsom.XSType;
  */
 public abstract class Ref {
     
-    public static interface Term {
+    public interface Term {
         /** Obtains a reference as a term. */
         XSTerm getTerm();
     }
 
-    public static interface Type {
+    public interface Type {
         /** Obtains a reference as a type. */
         XSType getType();
     }
 
-    public static interface ContentType {
+    public interface ContentType {
         XSContentType getContentType();
     }
     
-    public static interface SimpleType extends Ref.Type {
-        public XSSimpleType getType();
+    public interface SimpleType extends Ref.Type {
+        XSSimpleType getType();
     }
     
-    public static interface ComplexType extends Ref.Type {
-        public XSComplexType getType();
+    public interface ComplexType extends Ref.Type {
+        XSComplexType getType();
     }
     
-    public static interface Attribute {
+    public interface Attribute {
         XSAttributeDecl getAttribute();
     }
 
-    public static interface AttGroup {
+    public interface AttGroup {
         XSAttGroupDecl get();
     }
     
-    public static interface Element extends Term {
+    public interface Element extends Term {
         XSElementDecl get();
     }
 
-    public static interface IdentityConstraint {
+    public interface IdentityConstraint {
         XSIdentityConstraint get();
     }
 //

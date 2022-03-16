@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2005, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -40,9 +40,9 @@ public abstract class XmlNode extends WriterNode {
      * Expand all refs and collect all children.
      */
     protected final Set<Leaf> collectChildren() {
-        Set<Leaf> result = new HashSet<Leaf>();
+        Set<Leaf> result = new HashSet<>();
 
-        Stack<Node> work = new Stack<Node>();
+        Stack<Node> work = new Stack<>();
         work.push(this);
 
         while(!work.isEmpty()) {

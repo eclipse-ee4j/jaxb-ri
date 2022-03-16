@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -198,7 +198,7 @@ public final class ElementBeanInfoImpl extends JaxBeanInfo<JAXBElement> {
         }
 
         @Override
-        public final void startElement(UnmarshallingContext.State state, TagName ea) throws SAXException {
+        public void startElement(UnmarshallingContext.State state, TagName ea) throws SAXException {
             state.setLoader(core);
             state.setIntercepter(this);
 
@@ -279,11 +279,11 @@ public final class ElementBeanInfoImpl extends JaxBeanInfo<JAXBElement> {
     }
 
     @Override
-    public final JAXBElement createInstance(UnmarshallingContext context) throws IllegalAccessException, InvocationTargetException, InstantiationException {
+    public JAXBElement createInstance(UnmarshallingContext context) throws IllegalAccessException, InvocationTargetException, InstantiationException {
         return createInstanceFromValue(null);
     }
 
-    public final JAXBElement createInstanceFromValue(Object o) throws IllegalAccessException, InvocationTargetException, InstantiationException {
+    public JAXBElement createInstanceFromValue(Object o) throws IllegalAccessException, InvocationTargetException, InstantiationException {
         if(constructor==null)
             return new JAXBElement(tagName,expectedType,scope,o);
         else
@@ -335,7 +335,7 @@ public final class ElementBeanInfoImpl extends JaxBeanInfo<JAXBElement> {
     }
 
     @Override
-    public final Transducer<JAXBElement> getTransducer() {
+    public Transducer<JAXBElement> getTransducer() {
         return null;
     }
 

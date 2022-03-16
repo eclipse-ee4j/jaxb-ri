@@ -66,7 +66,7 @@ public abstract class NameClass implements ParsedNameClass, Serializable {
      * is undefined.
      */
     public Set<QName> listNames() {
-        final Set<QName> names = new HashSet<QName>();
+        final Set<QName> names = new HashSet<>();
         accept(new NameClassWalker() {
             @Override
             public Void visitName(QName name) {

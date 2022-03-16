@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,7 +10,6 @@
 
 package com.sun.tools.xjc.reader.xmlschema.bindinfo;
 
-import org.glassfish.jaxb.core.v2.WellKnownNamespace;
 import java.util.ArrayList;
 
 import org.xml.sax.Attributes;
@@ -153,14 +152,14 @@ public class ForkingFilter extends XMLFilterImpl {
     }
 
     @Override
-    public void characters(char ch[], int start, int length) throws SAXException {
+    public void characters(char[] ch, int start, int length) throws SAXException {
         if(side!=null)
             side.characters(ch, start, length);
         super.characters(ch, start, length);
     }
 
     @Override
-    public void ignorableWhitespace(char ch[], int start, int length) throws SAXException {
+    public void ignorableWhitespace(char[] ch, int start, int length) throws SAXException {
         if(side!=null)
             side.ignorableWhitespace(ch, start, length);
         super.ignorableWhitespace(ch, start, length);

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -61,13 +61,13 @@ public interface Axis<T extends XSComponent> {
      * Pseudo-axis that selects all the {@link XSSchema}s in the current set.
      * Used to implement the absolute path expression
      */
-    public static final Axis<XSSchema> ROOT = new Axis<XSSchema>() {
+    Axis<XSSchema> ROOT = new Axis<>() {
         public Iterator<XSSchema> iterator(XSComponent contextNode) {
             return contextNode.getRoot().iterateSchema();
         }
 
         public Iterator<XSSchema> iterator(Iterator<? extends XSComponent> contextNodes) {
-            if(!contextNodes.hasNext())
+            if (!contextNodes.hasNext())
                 return Iterators.empty();
             else
                 // this assumes that all current nodes belong to the same owner.
@@ -92,14 +92,14 @@ public interface Axis<T extends XSComponent> {
      *  <li>combination of above.
      * </ol>
      */
-    public static final Axis<XSComponent> INTERMEDIATE_SKIP = new AbstractAxisImpl<XSComponent>() {
+    Axis<XSComponent> INTERMEDIATE_SKIP = new AbstractAxisImpl<>() {
         public Iterator<XSComponent> elementDecl(XSElementDecl decl) {
             XSComplexType ct = decl.getType().asComplexType();
-            if(ct==null)
+            if (ct == null)
                 return empty();
             else {
                 // also pick up model groups inside this complex type
-                return new Iterators.Union<XSComponent>(singleton(ct),complexType(ct));
+                return new Iterators.Union<>(singleton(ct), complexType(ct));
             }
         }
 
@@ -117,8 +117,8 @@ public interface Axis<T extends XSComponent> {
         private Iterator<XSComponent> descendants(XSModelGroup mg) {
             // TODO: write a tree iterator
             // for now, we do it eagerly because I'm lazy
-            List<XSComponent> r = new ArrayList<XSComponent>();
-            visit(mg,r);
+            List<XSComponent> r = new ArrayList<>();
+            visit(mg, r);
             return r.iterator();
         }
 
@@ -127,8 +127,8 @@ public interface Axis<T extends XSComponent> {
             r.add(mg);
             for (XSParticle p : mg) {
                 XSModelGroup child = p.getTerm().asModelGroup();
-                if(child!=null)
-                    visit(child,r);
+                if (child != null)
+                    visit(child, r);
             }
         }
 
@@ -143,10 +143,11 @@ public interface Axis<T extends XSComponent> {
      * So far the default axes together are guaranteed not to cause any cycle, so
      * no cycle check is needed (if it's needed, the life would be much harder!)
      */
-    public static final Axis<XSComponent> DESCENDANTS = new Axis<XSComponent>() {
+    Axis<XSComponent> DESCENDANTS = new Axis<>() {
         public Iterator<XSComponent> iterator(XSComponent contextNode) {
             return new Visitor().iterator(contextNode);
         }
+
         public Iterator<XSComponent> iterator(Iterator<? extends XSComponent> contextNodes) {
             return new Visitor().iterator(contextNodes);
         }
@@ -159,12 +160,12 @@ public interface Axis<T extends XSComponent> {
          * Stateful visitor that remembers what's already traversed, to reduce the search space.
          */
         final class Visitor extends AbstractAxisImpl<XSComponent> {
-            private final Set<XSComponent> visited = new HashSet<XSComponent>();
+            private final Set<XSComponent> visited = new HashSet<>();
 
             /**
              * Recursively apply the {@link Axis#DESCENDANTS} axis.
              */
-            final class Recursion extends Iterators.Map<XSComponent,XSComponent> {
+            final class Recursion extends Iterators.Map<XSComponent, XSComponent> {
                 public Recursion(Iterator<? extends XSComponent> core) {
                     super(core);
                 }
@@ -173,78 +174,79 @@ public interface Axis<T extends XSComponent> {
                     return DESCENDANTS.iterator(u);
                 }
             }
+
             public Iterator<XSComponent> schema(XSSchema schema) {
-                if(visited.add(schema))
-                    return ret( schema, new Recursion(schema.iterateElementDecls()));
+                if (visited.add(schema))
+                    return ret(schema, new Recursion(schema.iterateElementDecls()));
                 else
                     return empty();
             }
 
             public Iterator<XSComponent> elementDecl(XSElementDecl decl) {
-                if(visited.add(decl))
-                    return ret(decl, iterator(decl.getType()) );
+                if (visited.add(decl))
+                    return ret(decl, iterator(decl.getType()));
                 else
                     return empty();
             }
 
             public Iterator<XSComponent> simpleType(XSSimpleType type) {
-                if(visited.add(type))
+                if (visited.add(type))
                     return ret(type, FACET.iterator(type));
                 else
                     return empty();
             }
 
             public Iterator<XSComponent> complexType(XSComplexType type) {
-                if(visited.add(type))
+                if (visited.add(type))
                     return ret(type, iterator(type.getContentType()));
                 else
                     return empty();
             }
 
             public Iterator<XSComponent> particle(XSParticle particle) {
-                if(visited.add(particle))
+                if (visited.add(particle))
                     return ret(particle, iterator(particle.getTerm()));
                 else
                     return empty();
             }
 
             public Iterator<XSComponent> modelGroupDecl(XSModelGroupDecl decl) {
-                if(visited.add(decl))
+                if (visited.add(decl))
                     return ret(decl, iterator(decl.getModelGroup()));
                 else
                     return empty();
             }
 
             public Iterator<XSComponent> modelGroup(XSModelGroup group) {
-                if(visited.add(group))
+                if (visited.add(group))
                     return ret(group, new Recursion(group.iterator()));
                 else
                     return empty();
             }
 
             public Iterator<XSComponent> attGroupDecl(XSAttGroupDecl decl) {
-                if(visited.add(decl))
+                if (visited.add(decl))
                     return ret(decl, new Recursion(decl.iterateAttributeUses()));
                 else
                     return empty();
             }
 
             public Iterator<XSComponent> attributeUse(XSAttributeUse use) {
-                if(visited.add(use))
+                if (visited.add(use))
                     return ret(use, iterator(use.getDecl()));
                 else
                     return empty();
             }
 
             public Iterator<XSComponent> attributeDecl(XSAttributeDecl decl) {
-                if(visited.add(decl))
+                if (visited.add(decl))
                     return ret(decl, iterator(decl.getType()));
                 else
                     return empty();
             }
 
-            private Iterator<XSComponent> ret( XSComponent one, Iterator<? extends XSComponent> rest ) {
-                return union(singleton(one),rest);
+            private Iterator<XSComponent> ret(XSComponent one, Iterator<? extends XSComponent> rest) {
+                return union(singleton(one), rest);
             }
         }
 
@@ -253,13 +255,13 @@ public interface Axis<T extends XSComponent> {
         }
     };
 
-    public static final Axis<XSSchema> X_SCHEMA = new Axis<XSSchema>() {
+    Axis<XSSchema> X_SCHEMA = new Axis<>() {
         public Iterator<XSSchema> iterator(XSComponent contextNode) {
             return Iterators.singleton(contextNode.getOwnerSchema());
         }
 
         public Iterator<XSSchema> iterator(Iterator<? extends XSComponent> contextNodes) {
-            return new Iterators.Adapter<XSSchema,XSComponent>(contextNodes) {
+            return new Iterators.Adapter<XSSchema, XSComponent>(contextNodes) {
                 protected XSSchema filter(XSComponent u) {
                     return u.getOwnerSchema();
                 }
@@ -275,7 +277,7 @@ public interface Axis<T extends XSComponent> {
         }
     };
 
-    public static final Axis<XSElementDecl> SUBSTITUTION_GROUP = new AbstractAxisImpl<XSElementDecl>() {
+    Axis<XSElementDecl> SUBSTITUTION_GROUP = new AbstractAxisImpl<>() {
         public Iterator<XSElementDecl> elementDecl(XSElementDecl decl) {
             return singleton(decl.getSubstAffiliation());
         }
@@ -285,7 +287,7 @@ public interface Axis<T extends XSComponent> {
         }
     };
 
-    public static final Axis<XSAttributeDecl> ATTRIBUTE = new AbstractAxisImpl<XSAttributeDecl>() {
+    Axis<XSAttributeDecl> ATTRIBUTE = new AbstractAxisImpl<>() {
         public Iterator<XSAttributeDecl> complexType(XSComplexType type) {
             return attributeHolder(type);
         }
@@ -296,7 +298,7 @@ public interface Axis<T extends XSComponent> {
 
         private Iterator<XSAttributeDecl> attributeHolder(final XSAttContainer atts) {
             // TODO: check spec. is this correct?
-            return new Iterators.Adapter<XSAttributeDecl,XSAttributeUse>(atts.iterateAttributeUses()) {
+            return new Iterators.Adapter<XSAttributeDecl, XSAttributeUse>(atts.iterateAttributeUses()) {
                 protected XSAttributeDecl filter(XSAttributeUse u) {
                     return u.getDecl();
                 }
@@ -312,7 +314,7 @@ public interface Axis<T extends XSComponent> {
         }
     };
 
-    public static final Axis<XSElementDecl> ELEMENT = new AbstractAxisImpl<XSElementDecl>() {
+    Axis<XSElementDecl> ELEMENT = new AbstractAxisImpl<>() {
         public Iterator<XSElementDecl> particle(XSParticle particle) {
             return singleton(particle.getTerm().asElementDecl());
         }
@@ -344,7 +346,7 @@ public interface Axis<T extends XSComponent> {
     };
 
 
-    public static final Axis<XSType> TYPE_DEFINITION = new AbstractAxisImpl<XSType>() {
+    Axis<XSType> TYPE_DEFINITION = new AbstractAxisImpl<>() {
         public Iterator<XSType> schema(XSSchema schema) {
             return schema.iterateTypes();
         }
@@ -362,7 +364,7 @@ public interface Axis<T extends XSComponent> {
         }
     };
 
-    public static final Axis<XSType> BASETYPE = new AbstractAxisImpl<XSType>() {
+    Axis<XSType> BASETYPE = new AbstractAxisImpl<>() {
         public Iterator<XSType> simpleType(XSSimpleType type) {
             return singleton(type.getBaseType());
         }
@@ -376,7 +378,7 @@ public interface Axis<T extends XSComponent> {
         }
     };
 
-    public static final Axis<XSSimpleType> PRIMITIVE_TYPE = new AbstractAxisImpl<XSSimpleType>() {
+    Axis<XSSimpleType> PRIMITIVE_TYPE = new AbstractAxisImpl<>() {
         public Iterator<XSSimpleType> simpleType(XSSimpleType type) {
             return singleton(type.getPrimitiveType());
         }
@@ -386,10 +388,10 @@ public interface Axis<T extends XSComponent> {
         }
     };
 
-    public static final Axis<XSSimpleType> ITEM_TYPE = new AbstractAxisImpl<XSSimpleType>() {
+    Axis<XSSimpleType> ITEM_TYPE = new AbstractAxisImpl<>() {
         public Iterator<XSSimpleType> simpleType(XSSimpleType type) {
             XSListSimpleType baseList = type.getBaseListType();
-            if(baseList==null)      return empty();
+            if (baseList == null) return empty();
             return singleton(baseList.getItemType());
         }
 
@@ -398,10 +400,10 @@ public interface Axis<T extends XSComponent> {
         }
     };
 
-    public static final Axis<XSSimpleType> MEMBER_TYPE = new AbstractAxisImpl<XSSimpleType>() {
+    Axis<XSSimpleType> MEMBER_TYPE = new AbstractAxisImpl<>() {
         public Iterator<XSSimpleType> simpleType(XSSimpleType type) {
             XSUnionSimpleType baseUnion = type.getBaseUnionType();
-            if(baseUnion ==null)      return empty();
+            if (baseUnion == null) return empty();
             return baseUnion.iterator();
         }
 
@@ -410,7 +412,7 @@ public interface Axis<T extends XSComponent> {
         }
     };
 
-    public static final Axis<XSComponent> SCOPE = new AbstractAxisImpl<XSComponent>() {
+    Axis<XSComponent> SCOPE = new AbstractAxisImpl<>() {
         public Iterator<XSComponent> complexType(XSComplexType type) {
             return singleton(type.getScope());
         }
@@ -422,7 +424,7 @@ public interface Axis<T extends XSComponent> {
         }
     };
 
-    public static final Axis<XSAttGroupDecl> ATTRIBUTE_GROUP = new AbstractAxisImpl<XSAttGroupDecl>() {
+    Axis<XSAttGroupDecl> ATTRIBUTE_GROUP = new AbstractAxisImpl<>() {
         public Iterator<XSAttGroupDecl> schema(XSSchema schema) {
             return schema.iterateAttGroupDecls();
         }
@@ -432,7 +434,7 @@ public interface Axis<T extends XSComponent> {
         }
     };
 
-    public static final Axis<XSModelGroupDecl> MODEL_GROUP_DECL = new AbstractAxisImpl<XSModelGroupDecl>() {
+    Axis<XSModelGroupDecl> MODEL_GROUP_DECL = new AbstractAxisImpl<>() {
         public Iterator<XSModelGroupDecl> schema(XSSchema schema) {
             return schema.iterateModelGroupDecls();
         }
@@ -446,7 +448,7 @@ public interface Axis<T extends XSComponent> {
         }
     };
 
-    public static final Axis<XSIdentityConstraint> IDENTITY_CONSTRAINT = new AbstractAxisImpl<XSIdentityConstraint>() {
+    Axis<XSIdentityConstraint> IDENTITY_CONSTRAINT = new AbstractAxisImpl<>() {
         public Iterator<XSIdentityConstraint> elementDecl(XSElementDecl decl) {
             return decl.getIdentityConstraints().iterator();
         }
@@ -461,7 +463,7 @@ public interface Axis<T extends XSComponent> {
         }
     };
 
-    public static final Axis<XSIdentityConstraint> REFERENCED_KEY = new AbstractAxisImpl<XSIdentityConstraint>() {
+    Axis<XSIdentityConstraint> REFERENCED_KEY = new AbstractAxisImpl<>() {
         public Iterator<XSIdentityConstraint> identityConstraint(XSIdentityConstraint decl) {
             return singleton(decl.getReferencedKey());
         }
@@ -471,7 +473,7 @@ public interface Axis<T extends XSComponent> {
         }
     };
 
-    public static final Axis<XSNotation> NOTATION = new AbstractAxisImpl<XSNotation>() {
+    Axis<XSNotation> NOTATION = new AbstractAxisImpl<>() {
         public Iterator<XSNotation> schema(XSSchema schema) {
             return schema.iterateNotations();
         }
@@ -481,7 +483,7 @@ public interface Axis<T extends XSComponent> {
         }
     };
 
-    public static final Axis<XSWildcard> WILDCARD = new AbstractAxisImpl<XSWildcard>() {
+    Axis<XSWildcard> WILDCARD = new AbstractAxisImpl<>() {
         public Iterator<XSWildcard> particle(XSParticle particle) {
             return singleton(particle.getTerm().asWildcard());
         }
@@ -491,7 +493,7 @@ public interface Axis<T extends XSComponent> {
         }
     };
 
-    public static final Axis<XSWildcard> ATTRIBUTE_WILDCARD = new AbstractAxisImpl<XSWildcard>() {
+    Axis<XSWildcard> ATTRIBUTE_WILDCARD = new AbstractAxisImpl<>() {
         public Iterator<XSWildcard> complexType(XSComplexType type) {
             return singleton(type.getAttributeWildcard());
         }
@@ -505,11 +507,11 @@ public interface Axis<T extends XSComponent> {
         }
     };
 
-    public static final Axis<XSFacet> FACET = new AbstractAxisImpl<XSFacet>() {
+    Axis<XSFacet> FACET = new AbstractAxisImpl<>() {
         public Iterator<XSFacet> simpleType(XSSimpleType type) {
             // TODO: it's not clear if "facets" mean all inherited facets or just declared facets
             XSRestrictionSimpleType r = type.asRestriction();
-            if(r!=null)
+            if (r != null)
                 return r.iterateDeclaredFacets();
             else
                 return empty();
@@ -520,12 +522,12 @@ public interface Axis<T extends XSComponent> {
         }
     };
 
-    public static final Axis<XSModelGroup> MODELGROUP_ALL = new ModelGroupAxis(Compositor.ALL);
-    public static final Axis<XSModelGroup> MODELGROUP_CHOICE = new ModelGroupAxis(Compositor.CHOICE);
-    public static final Axis<XSModelGroup> MODELGROUP_SEQUENCE = new ModelGroupAxis(Compositor.SEQUENCE);
-    public static final Axis<XSModelGroup> MODELGROUP_ANY = new ModelGroupAxis(null);
+    Axis<XSModelGroup> MODELGROUP_ALL = new ModelGroupAxis(Compositor.ALL);
+    Axis<XSModelGroup> MODELGROUP_CHOICE = new ModelGroupAxis(Compositor.CHOICE);
+    Axis<XSModelGroup> MODELGROUP_SEQUENCE = new ModelGroupAxis(Compositor.SEQUENCE);
+    Axis<XSModelGroup> MODELGROUP_ANY = new ModelGroupAxis(null);
 
-    static final class ModelGroupAxis extends AbstractAxisImpl<XSModelGroup> {
+    final class ModelGroupAxis extends AbstractAxisImpl<XSModelGroup> {
         private final XSModelGroup.Compositor compositor;
 
         ModelGroupAxis(Compositor compositor) {

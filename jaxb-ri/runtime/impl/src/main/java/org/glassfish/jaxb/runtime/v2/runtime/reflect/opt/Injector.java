@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -47,7 +47,7 @@ final class Injector {
     private static final Lock ir = irwl.readLock();
     private static final Lock iw = irwl.writeLock();
     private static final Map<ClassLoader, WeakReference<Injector>> injectors =
-            new WeakHashMap<ClassLoader, WeakReference<Injector>>();
+            new WeakHashMap<>();
     private static final Logger logger = Logger.getLogger(Injector.class.getName());
     /**
      * Injects a new class into the given class loader.
@@ -77,7 +77,7 @@ final class Injector {
     }
 
     /**
-     * Gets or creates an {@link Injector} for the given class loader.
+     * Gets or creates an  for the given class loader.
      *
      * @return null
      *      if it fails.
@@ -133,16 +133,16 @@ final class Injector {
     static {
         try {
             Method[] m = AccessController.doPrivileged(
-                    new PrivilegedAction<Method[]>() {
-                @Override
-                public Method[] run() {
-                    return new Method[]{
-                        getMethod(ClassLoader.class, "defineClass", String.class, byte[].class, Integer.TYPE, Integer.TYPE),
-                        getMethod(ClassLoader.class, "resolveClass", Class.class),
-                        getMethod(ClassLoader.class, "findLoadedClass", String.class)
-                    };
-                }
-            }
+                    new PrivilegedAction<>() {
+                        @Override
+                        public Method[] run() {
+                            return new Method[]{
+                                    getMethod(ClassLoader.class, "defineClass", String.class, byte[].class, Integer.TYPE, Integer.TYPE),
+                                    getMethod(ClassLoader.class, "resolveClass", Class.class),
+                                    getMethod(ClassLoader.class, "findLoadedClass", String.class)
+                            };
+                        }
+                    }
             );
             defineClass = m[0];
             resolveClass = m[1];
@@ -158,17 +158,17 @@ final class Injector {
                         return theUnsafe.get(null);
                     }
                 });
-                defineClass = AccessController.doPrivileged(new PrivilegedExceptionAction<Method>() {
+                defineClass = AccessController.doPrivileged(new PrivilegedExceptionAction<>() {
                     @Override
                     public Method run() throws Exception {
                         try {
                             return U.getClass().getMethod("defineClass",
-                                    new Class[]{String.class,
-                                        byte[].class,
-                                        Integer.TYPE,
-                                        Integer.TYPE,
-                                        ClassLoader.class,
-                                        ProtectionDomain.class});
+                                    String.class,
+                                    byte[].class,
+                                    Integer.TYPE,
+                                    Integer.TYPE,
+                                    ClassLoader.class,
+                                    ProtectionDomain.class);
                         } catch (NoSuchMethodException | SecurityException ex) {
                             throw ex;
                         }

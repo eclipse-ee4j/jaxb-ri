@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -70,7 +70,7 @@ public final class NGCCRuntimeEx extends NGCCRuntime {
      *        A list of regular expression patterns {@link Pattern}
      */
     public List<Pattern> getIncludePatterns(List<String> includeContent ) {
-        List<Pattern> includeRegexList = new ArrayList<Pattern>();
+        List<Pattern> includeRegexList = new ArrayList<>();
         for (String includes : includeContent) {
             String regex = convertToRegex(includes);
             Pattern pattern = Pattern.compile(regex);
@@ -89,7 +89,7 @@ public final class NGCCRuntimeEx extends NGCCRuntime {
      *        A list of regular expression patterns {@link Pattern}
      */
     public List<Pattern> getExcludePatterns(List<String> excludeContent ) {
-        List<Pattern> excludeRegexList = new ArrayList<Pattern>();
+        List<Pattern> excludeRegexList = new ArrayList<>();
         for (String excludes : excludeContent) {
             String regex = convertToRegex(excludes);
             Pattern pattern = Pattern.compile(regex);
@@ -101,7 +101,6 @@ public final class NGCCRuntimeEx extends NGCCRuntime {
 
     /**
      * This will tokenize the pattern and convert it into a regular expression
-     * @param pattern
      */
     private String convertToRegex(String pattern) {
         StringBuilder regex = new StringBuilder();

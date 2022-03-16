@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2021, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -31,7 +31,8 @@ final class MUtils {
         final Module coreModule = org.glassfish.jaxb.core.v2.ClassFactory.class.getModule();
         final Module rtModule = JAXBContextFactory.class.getModule();
 
-        if (rtModule == coreModule) {
+        if (rtModule == coreModule || !rtModule.isNamed()) {
+            //we're either in a bundle or on the classpath
             return;
         }
 

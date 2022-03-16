@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -69,19 +69,19 @@ public interface PackageOutline {
      * <p>
      * Null if no default
      */
-    public String getMostUsedNamespaceURI();
+    String getMostUsedNamespaceURI();
 
     /**
      * The element form default for this package.
      * <p>
      * The value is computed by examining what would yield the smallest generated code.
      */
-    public XmlNsForm getElementFormDefault();
+    XmlNsForm getElementFormDefault();
 
     /**
      * The attribute form default for this package.
      * <p>
      * The value is computed by examining what would yield the smallest generated code.
      */
-    public XmlNsForm getAttributeFormDefault();
+    XmlNsForm getAttributeFormDefault();
 }

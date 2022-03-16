@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2005, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -60,7 +60,7 @@ public class Define extends WriterNode {
     void generate(NodeSet nset) {
         if(clazz==null)     return;
 
-        HashSet<Prop> props = new HashSet<Prop>();
+        HashSet<Prop> props = new HashSet<>();
         for( Leaf l : this )
             l.generate(clazz,nset,props);
     }

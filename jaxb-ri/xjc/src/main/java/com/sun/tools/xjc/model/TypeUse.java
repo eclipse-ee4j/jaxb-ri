@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -60,12 +60,12 @@ public interface TypeUse {
      * IDREF, neither Foo nor Bar is IDREF.
      *
      * <p>
-     * That's why we have this method in {@link TypeUse}.
+     * That's why we have this method in .
      */
     ID idUse();
 
     /**
-     * A {@link TypeUse} can have an associated MIME type.
+     * A  can have an associated MIME type.
      */
     MimeType getExpectedMimeType();
 
@@ -85,7 +85,7 @@ public interface TypeUse {
      *      if the type isn't bound to a text in XML.
      *
      * @return null
-     *      if the constant cannot be created for this {@link TypeUse}
+     *      if the constant cannot be created for this
      *      (such as when it's a collection)
      */
     JExpression createConstant(Outline outline, XmlString lexical);

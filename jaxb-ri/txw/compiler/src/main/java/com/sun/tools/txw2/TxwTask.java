@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2005, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -35,7 +35,7 @@ public class TxwTask extends org.apache.tools.ant.Task {
     private File schemaFile;
 
     // syntax style of RELAX NG source schema - "xml" or "compact"
-    private static enum Style {
+    private enum Style {
         COMPACT, XML, XMLSCHEMA, AUTO_DETECT
     }
     private Style style = Style.AUTO_DETECT;

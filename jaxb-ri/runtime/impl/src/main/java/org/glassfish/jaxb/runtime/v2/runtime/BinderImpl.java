@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -41,13 +41,13 @@ public class BinderImpl<XmlNode> extends Binder<XmlNode> {
     private final JAXBContextImpl context;
     
     /**
-     * Lazily created unmarshaller to do XML->Java binding.
+     * Lazily created unmarshaller to do XML-{@literal >}Java binding.
      * @see #getUnmarshaller()
      */
     private UnmarshallerImpl unmarshaller;
 
     /**
-     * Lazily create marshaller to do Java->XML binding.
+     * Lazily create marshaller to do Java-{@literal >}XML binding.
      * @see #getMarshaller()
      */
     private MarshallerImpl marshaller;

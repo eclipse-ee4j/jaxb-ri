@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -44,7 +44,7 @@ public class IdentityConstraintImpl extends ComponentImpl implements XSIdentityC
         this.name = name;
         this.selector = selector;
         selector.setParent(this);
-        this.fields = (List<XSXPath>) Collections.unmodifiableList((List<? extends XSXPath>)fields);
+        this.fields = Collections.unmodifiableList(fields);
         for( XPathImpl xp : fields )
             xp.setParent(this);
         this.refer = refer;

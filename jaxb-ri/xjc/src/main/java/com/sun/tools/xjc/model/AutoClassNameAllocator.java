@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -40,11 +40,7 @@ public class AutoClassNameAllocator implements ClassNameAllocator {
     }
 
     private String determineName(String packageName, String className) {
-        Set<String> s = names.get(packageName);
-        if(s==null) {
-            s = new HashSet<>();
-            names.put(packageName,s);
-        }
+        Set<String> s = names.computeIfAbsent(packageName, k -> new HashSet<>());
 
         if(s.add(className))
             return className;

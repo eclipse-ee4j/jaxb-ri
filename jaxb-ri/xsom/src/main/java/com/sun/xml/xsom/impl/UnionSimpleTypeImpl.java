@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -42,10 +42,11 @@ public class UnionSimpleTypeImpl extends SimpleTypeImpl implements XSUnionSimple
     public int getMemberSize() { return memberTypes.length; }
 
     public Iterator<XSSimpleType> iterator() {
-        return new Iterator<XSSimpleType>() {
-            int idx=0;
+        return new Iterator<>() {
+            int idx = 0;
+
             public boolean hasNext() {
-                return idx<memberTypes.length;
+                return idx < memberTypes.length;
             }
 
             public XSSimpleType next() {

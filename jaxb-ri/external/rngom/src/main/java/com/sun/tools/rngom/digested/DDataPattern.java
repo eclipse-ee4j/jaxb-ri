@@ -36,7 +36,7 @@ public class DDataPattern extends DPattern {
     String datatypeLibrary;
     String type;
 
-    final List<Param> params = new ArrayList<Param>();
+    final List<Param> params = new ArrayList<>();
 
     /**
      * Parameter to a data pattern.

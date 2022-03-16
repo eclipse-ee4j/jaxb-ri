@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,9 +27,9 @@ public interface XSType extends XSDeclaration {
      */
     XSType getBaseType();
 
-    final static int EXTENSION = 1;
-    final static int RESTRICTION = 2;
-    final static int SUBSTITUTION = 4;
+    int EXTENSION = 1;
+    int RESTRICTION = 2;
+    int SUBSTITUTION = 4;
 
     int getDerivationMethod();
 
@@ -47,7 +47,7 @@ public interface XSType extends XSDeclaration {
     XSType[] listSubstitutables();
 
     /**
-     * If this {@link XSType} is redefined by another type,
+     * If this  is redefined by another type,
      * return that component.
      *
      * @return null

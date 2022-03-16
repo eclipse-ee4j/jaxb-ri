@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -65,10 +65,10 @@ public abstract class JClass extends JType {
      * 
      * @return
      *      Returns the JClass representing the superclass of the
-     *      entity (class or interface) represented by this {@link JClass}.
-     *      Even if no super class is given explicitly or this {@link JClass}
+     *      entity (class or interface) represented by this .
+     *      Even if no super class is given explicitly or this
      *      is not a class, this method still returns
-     *      {@link JClass} for {@link Object}.
+     *       for {@link Object}.
      *      If this JClass represents {@link Object}, return null.
      */
     abstract public JClass _extends();
@@ -79,7 +79,7 @@ public abstract class JClass extends JType {
      * 
      * @return
      *		A non-null valid iterator that iterates all
-     *		{@link JClass} objects that represents those interfaces
+     *         objects that represents those interfaces
      *		implemented by this object.
      */
     abstract public Iterator<JClass> _implements();
@@ -88,7 +88,7 @@ public abstract class JClass extends JType {
      * Iterates all the type parameters of this class/interface.
      * 
      * <p>
-     * For example, if this {@link JClass} represents 
+     * For example, if this  represents
      * {@code Set<T>}, this method returns an array
      * that contains single {@link JTypeVar} for 'T'.
      */
@@ -118,11 +118,6 @@ public abstract class JClass extends JType {
      */
     public JPrimitiveType getPrimitiveType() { return null; }
 
-    /**
-     * @deprecated calling this method from {@link JClass}
-     * would be meaningless, since it's always guaranteed to
-     * return {@code this}.
-     */
     @Deprecated
     @Override
     public JClass boxify() { return this; }
@@ -298,7 +293,7 @@ public abstract class JClass extends JType {
      * <p>
      * For example, when this class is {@code Map<String,Map<V>>},
      * (where V then doing
-     * substituteParams( V, Integer ) returns a {@link JClass}
+     * substituteParams( V, Integer ) returns a
      * for {@code Map<String,Map<Integer>>}.
      * 
      * <p>

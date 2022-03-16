@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -469,9 +469,8 @@ public class SchemaTreeTraverser implements XSVisitor, XSSimpleTypeVisitor {
         else {
             // reference to a global one
             String str = MessageFormat.format(
-                    "Attribute ref \"'{'{0}'}'{1}{2}\"", new Object[]{
-                        decl.getTargetNamespace(), decl.getName(),
-                        additionalAtts});
+                    "Attribute ref \"'{'{0}'}'{1}{2}\"", decl.getTargetNamespace(), decl.getName(),
+                    additionalAtts);
             SchemaTreeNode newNode = new SchemaTreeNode(str, decl.getLocator());
             this.currNode.add(newNode);
         }
@@ -494,17 +493,15 @@ public class SchemaTreeTraverser implements XSVisitor, XSSimpleTypeVisitor {
         XSSimpleType type = decl.getType();
 
         String str = MessageFormat.format("Attribute \"{0}\"{1}{2}{3}{4}",
-                new Object[]{
-                    decl.getName(),
-                    additionalAtts,
-                    type.isLocal() ? "" : MessageFormat.format(
-                            " type=\"'{'{0}'}'{1}\"", new Object[]{
-                                type.getTargetNamespace(),
-                                type.getName()}),
-                    decl.getFixedValue() == null ? "" : " fixed=\""
-                + decl.getFixedValue() + "\"",
-                    decl.getDefaultValue() == null ? "" : " default=\""
-                + decl.getDefaultValue() + "\""});
+                decl.getName(),
+                additionalAtts,
+                type.isLocal() ? "" : MessageFormat.format(
+                        " type=\"'{'{0}'}'{1}\"", type.getTargetNamespace(),
+                        type.getName()),
+                decl.getFixedValue() == null ? "" : " fixed=\""
+            + decl.getFixedValue() + "\"",
+                decl.getDefaultValue() == null ? "" : " default=\""
+            + decl.getDefaultValue() + "\"");
 
         SchemaTreeNode newNode = new SchemaTreeNode(str, decl.getLocator());
         this.currNode.add(newNode);
@@ -522,8 +519,8 @@ public class SchemaTreeTraverser implements XSVisitor, XSSimpleTypeVisitor {
     public void simpleType(XSSimpleType type) {
 
         String str = MessageFormat.format("Simple type {0}",
-                new Object[]{type.isLocal() ? "" : " name=\""
-                + type.getName() + "\""});
+                type.isLocal() ? "" : " name=\""
+                + type.getName() + "\"");
 
         SchemaTreeNode newNode = new SchemaTreeNode(str, type.getLocator());
         this.currNode.add(newNode);
@@ -551,8 +548,8 @@ public class SchemaTreeTraverser implements XSVisitor, XSSimpleTypeVisitor {
         else {
             // global type
             String str = MessageFormat.format("List itemType=\"'{'{0}'}'{1}\"",
-                    new Object[]{itemType.getTargetNamespace(),
-                                 itemType.getName()});
+                    itemType.getTargetNamespace(),
+                    itemType.getName());
             SchemaTreeNode newNode = new SchemaTreeNode(str, itemType
                     .getLocator());
             this.currNode.add(newNode);
@@ -564,15 +561,14 @@ public class SchemaTreeTraverser implements XSVisitor, XSSimpleTypeVisitor {
      */
     public void unionSimpleType(XSUnionSimpleType type) {
         final int len = type.getMemberSize();
-        StringBuffer ref = new StringBuffer();
+        StringBuilder ref = new StringBuilder();
 
         for (int i = 0; i < len; i++) {
             XSSimpleType member = type.getMember(i);
             if (member.isGlobal()) {
                 ref.append(MessageFormat.format(" '{'{0}'}'{1}",
-                        new Object[]{
-                            member.getTargetNamespace(),
-                            member.getName()}));
+                        member.getTargetNamespace(),
+                        member.getName()));
             }
         }
 
@@ -610,9 +606,9 @@ public class SchemaTreeTraverser implements XSVisitor, XSSimpleTypeVisitor {
         XSSimpleType baseType = type.getSimpleBaseType();
 
         String str = MessageFormat.format("Restriction {0}",
-                new Object[]{baseType.isLocal() ? "" : " base=\"{"
+                baseType.isLocal() ? "" : " base=\"{"
                 + baseType.getTargetNamespace() + "}"
-                + baseType.getName() + "\""});
+                + baseType.getName() + "\"");
 
         SchemaTreeNode newNode = new SchemaTreeNode(str, baseType.getLocator());
         this.currNode.add(newNode);
@@ -635,8 +631,8 @@ public class SchemaTreeTraverser implements XSVisitor, XSSimpleTypeVisitor {
      */
     public void facet(XSFacet facet) {
         SchemaTreeNode newNode = new SchemaTreeNode(MessageFormat.format(
-                "{0} value=\"{1}\"", new Object[]{facet.getName(),
-                                                  facet.getValue(), }),
+                "{0} value=\"{1}\"", facet.getName(),
+                facet.getValue()),
                 facet.getLocator());
         this.currNode.add(newNode);
     }
@@ -647,8 +643,8 @@ public class SchemaTreeTraverser implements XSVisitor, XSSimpleTypeVisitor {
     public void notation(XSNotation notation) {
         SchemaTreeNode newNode = new SchemaTreeNode(MessageFormat.format(
                 "Notation name='\"0}\" public =\"{1}\" system=\"{2}\"",
-                new Object[]{notation.getName(), notation.getPublicId(),
-                             notation.getSystemId()}), notation.getLocator());
+                notation.getName(), notation.getPublicId(),
+                notation.getSystemId()), notation.getLocator());
         this.currNode.add(newNode);
     }
 
@@ -657,8 +653,8 @@ public class SchemaTreeTraverser implements XSVisitor, XSSimpleTypeVisitor {
      */
     public void complexType(XSComplexType type) {
         SchemaTreeNode newNode = new SchemaTreeNode(MessageFormat.format(
-                "ComplexType {0}", new Object[]{type.isLocal() ? ""
-                : " name=\"" + type.getName() + "\""}), type
+                "ComplexType {0}", type.isLocal() ? ""
+                : " name=\"" + type.getName() + "\""), type
                 .getLocator());
         this.currNode.add(newNode);
         this.currNode = newNode;
@@ -677,9 +673,8 @@ public class SchemaTreeTraverser implements XSVisitor, XSSimpleTypeVisitor {
             if (type.getDerivationMethod() == XSType.RESTRICTION) {
                 // restriction
                 String str = MessageFormat.format(
-                        "Restriction base=\"<{0}>{1}\"", new Object[]{
-                            baseType.getTargetNamespace(),
-                            baseType.getName()});
+                        "Restriction base=\"<{0}>{1}\"", baseType.getTargetNamespace(),
+                        baseType.getName());
                 SchemaTreeNode newNode3 = new SchemaTreeNode(str, baseType
                         .getLocator());
                 this.currNode.add(newNode3);
@@ -692,9 +687,8 @@ public class SchemaTreeTraverser implements XSVisitor, XSSimpleTypeVisitor {
             else {
                 // extension
                 String str = MessageFormat.format(
-                        "Extension base=\"<{0}>{1}\"", new Object[]{
-                            baseType.getTargetNamespace(),
-                            baseType.getName()});
+                        "Extension base=\"<{0}>{1}\"", baseType.getTargetNamespace(),
+                        baseType.getName());
                 SchemaTreeNode newNode3 = new SchemaTreeNode(str, baseType
                         .getLocator());
                 this.currNode.add(newNode3);
@@ -734,9 +728,8 @@ public class SchemaTreeTraverser implements XSVisitor, XSSimpleTypeVisitor {
             if (type.getDerivationMethod() == XSType.RESTRICTION) {
                 // restriction
                 String str = MessageFormat.format(
-                        "Restriction base=\"<{0}>{1}\"", new Object[]{
-                            baseType.getTargetNamespace(),
-                            baseType.getName()});
+                        "Restriction base=\"<{0}>{1}\"", baseType.getTargetNamespace(),
+                        baseType.getName());
                 SchemaTreeNode newNode3 = new SchemaTreeNode(str,
                         baseType.getLocator());
                 this.currNode.add(newNode3);
@@ -750,9 +743,8 @@ public class SchemaTreeTraverser implements XSVisitor, XSSimpleTypeVisitor {
             else {
                 // extension
                 String str = MessageFormat.format(
-                        "Extension base=\"'{'{0}'}'{1}\"", new Object[]{
-                            baseType.getTargetNamespace(),
-                            baseType.getName()});
+                        "Extension base=\"'{'{0}'}'{1}\"", baseType.getTargetNamespace(),
+                        baseType.getName());
                 SchemaTreeNode newNode3 = new SchemaTreeNode(str,
                         baseType.getLocator());
                 this.currNode.add(newNode3);
@@ -823,11 +815,10 @@ public class SchemaTreeTraverser implements XSVisitor, XSSimpleTypeVisitor {
         // TODO: various other attributes
 
         String str = MessageFormat.format("Element name=\"{0}\"{1}{2}",
-                new Object[]{
-                    decl.getName(),
-                    type.isLocal() ? "" : " type=\"{"
-                + type.getTargetNamespace() + "}"
-                + type.getName() + "\"", extraAtts});
+                decl.getName(),
+                type.isLocal() ? "" : " type=\"{"
+            + type.getTargetNamespace() + "}"
+            + type.getName() + "\"", extraAtts);
 
         SchemaTreeNode newNode = new SchemaTreeNode(str, decl.getLocator());
         this.currNode.add(newNode);
@@ -847,7 +838,7 @@ public class SchemaTreeTraverser implements XSVisitor, XSSimpleTypeVisitor {
      */
     public void modelGroupDecl(XSModelGroupDecl decl) {
         SchemaTreeNode newNode = new SchemaTreeNode(MessageFormat.format(
-                "Group name=\"{0}\"", new Object[]{decl.getName()}),
+                "Group name=\"{0}\"", decl.getName()),
                 decl.getLocator());
         this.currNode.add(newNode);
         this.currNode = newNode;
@@ -872,7 +863,7 @@ public class SchemaTreeTraverser implements XSVisitor, XSSimpleTypeVisitor {
      */
     private void modelGroup(XSModelGroup group, String extraAtts) {
         SchemaTreeNode newNode = new SchemaTreeNode(MessageFormat.format(
-                "{0}{1}", new Object[]{group.getCompositor(), extraAtts}),
+                "{0}{1}", group.getCompositor(), extraAtts),
                 group.getLocator());
         this.currNode.add(newNode);
         this.currNode = newNode;
@@ -891,7 +882,7 @@ public class SchemaTreeTraverser implements XSVisitor, XSSimpleTypeVisitor {
     public void particle(XSParticle part) {
         BigInteger i;
 
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
 
         i = part.getMaxOccurs();
         if (i.equals(BigInteger.valueOf(XSParticle.UNBOUNDED))) {
@@ -899,13 +890,13 @@ public class SchemaTreeTraverser implements XSVisitor, XSSimpleTypeVisitor {
         }
         else {
             if (!i.equals(BigInteger.ONE)) {
-                buf.append(" maxOccurs=\"" + i + "\"");
+                buf.append(" maxOccurs=\"").append(i).append("\"");
             }
         }
 
         i = part.getMinOccurs();
         if (!i.equals(BigInteger.ONE)) {
-            buf.append(" minOccurs=\"" + i + "\"");
+            buf.append(" minOccurs=\"").append(i).append("\"");
         }
 
         final String extraAtts = buf.toString();
@@ -919,8 +910,8 @@ public class SchemaTreeTraverser implements XSVisitor, XSSimpleTypeVisitor {
                     // reference
                     SchemaTreeNode newNode = new SchemaTreeNode(MessageFormat
                             .format("Element ref=\"'{'{0}'}'{1}\"{2}",
-                                    new Object[]{decl.getTargetNamespace(),
-                                                 decl.getName(), extraAtts}),
+                                    decl.getTargetNamespace(),
+                                    decl.getName(), extraAtts),
                             decl.getLocator());
                     currNode.add(newNode);
                 }
@@ -929,9 +920,8 @@ public class SchemaTreeTraverser implements XSVisitor, XSSimpleTypeVisitor {
             public void modelGroupDecl(XSModelGroupDecl decl) {
                 // reference
                 SchemaTreeNode newNode = new SchemaTreeNode(MessageFormat
-                        .format("Group ref=\"'{'{0}'}'{1}\"{2}", new Object[]{
-                            decl.getTargetNamespace(), decl.getName(),
-                            extraAtts}), decl.getLocator());
+                        .format("Group ref=\"'{'{0}'}'{1}\"{2}", decl.getTargetNamespace(), decl.getName(),
+                                extraAtts), decl.getLocator());
                 currNode.add(newNode);
             }
 
@@ -961,7 +951,7 @@ public class SchemaTreeTraverser implements XSVisitor, XSSimpleTypeVisitor {
     private void wildcard(XSWildcard wc, String extraAtts) {
         // TODO
         SchemaTreeNode newNode = new SchemaTreeNode(MessageFormat.format(
-                "Any ", new Object[]{extraAtts}), wc.getLocator());
+                "Any ", extraAtts), wc.getLocator());
         currNode.add(newNode);
     }
 

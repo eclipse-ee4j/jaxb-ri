@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2005, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -231,17 +231,17 @@ public final class XmlSchemaBuilder implements XSFunction<Leaf>, XSSimpleTypeFun
     /**
      * We map model groups to interfaces.
      */
-    private final Map<XSModelGroupDecl,Define> modelGroups = new HashMap<XSModelGroupDecl, Define>();
+    private final Map<XSModelGroupDecl,Define> modelGroups = new HashMap<>();
 
     /**
      * We map complex types to interfaces.
      */
-    private final Map<XSComplexType,Define> complexTypes = new HashMap<XSComplexType,Define>();
+    private final Map<XSComplexType,Define> complexTypes = new HashMap<>();
 
     /**
      * ... and attribute groups
      */
-    private final Map<XSAttGroupDecl,Define> attGroups = new HashMap<XSAttGroupDecl,Define>();
+    private final Map<XSAttGroupDecl,Define> attGroups = new HashMap<>();
 
     private final Grammar grammar = new Grammar();
 

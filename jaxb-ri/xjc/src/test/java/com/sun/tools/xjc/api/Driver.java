@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,7 +25,6 @@ import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.writer.SingleStreamCodeWriter;
 import com.sun.tools.xjc.ConsoleErrorReporter;
 import java.io.IOException;
-import org.glassfish.jaxb.core.v2.WellKnownNamespace;
 
 import org.glassfish.jaxb.core.v2.util.XmlFactory;
 import org.w3c.dom.Document;

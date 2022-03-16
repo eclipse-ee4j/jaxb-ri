@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,7 +23,7 @@ class SecureLoader {
             return Thread.currentThread().getContextClassLoader();
         } else {
             return java.security.AccessController.doPrivileged(
-                    new java.security.PrivilegedAction<ClassLoader>() {
+                    new java.security.PrivilegedAction<>() {
                         @Override
                         public ClassLoader run() {
                             return Thread.currentThread().getContextClassLoader();
@@ -37,7 +37,7 @@ class SecureLoader {
             return c.getClassLoader();
         } else {
             return java.security.AccessController.doPrivileged(
-                    new java.security.PrivilegedAction<ClassLoader>() {
+                    new java.security.PrivilegedAction<>() {
                         @Override
                         public ClassLoader run() {
                             return c.getClassLoader();
@@ -51,7 +51,7 @@ class SecureLoader {
             return ClassLoader.getSystemClassLoader();
         } else {
             return java.security.AccessController.doPrivileged(
-                    new java.security.PrivilegedAction<ClassLoader>() {
+                    new java.security.PrivilegedAction<>() {
                         @Override
                         public ClassLoader run() {
                             return ClassLoader.getSystemClassLoader();

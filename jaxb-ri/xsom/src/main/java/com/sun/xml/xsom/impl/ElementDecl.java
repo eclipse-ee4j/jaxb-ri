@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -55,7 +55,7 @@ public class ElementDecl extends DeclarationImpl implements XSElementDecl, Ref.T
         this.substHead = _substHead;
         this.substDisallowed = _substDisallowed;
         this.substExcluded = _substExcluded;
-        this.idConstraints = (List<XSIdentityConstraint>) Collections.unmodifiableList((List<? extends XSIdentityConstraint>)idConstraints);
+        this.idConstraints = Collections.unmodifiableList(idConstraints);
 
         for (IdentityConstraintImpl idc : idConstraints)
             idc.setParent(this);
@@ -123,7 +123,7 @@ public class ElementDecl extends DeclarationImpl implements XSElementDecl, Ref.T
     @Deprecated
     public XSElementDecl[] listSubstitutables() {
         Set<? extends XSElementDecl> s = getSubstitutables();
-        return s.toArray(new XSElementDecl[s.size()]);
+        return s.toArray(new XSElementDecl[0]);
     }
 
     /** Set that represents element decls that can substitute this element. */
@@ -137,14 +137,14 @@ public class ElementDecl extends DeclarationImpl implements XSElementDecl, Ref.T
         if( substitutables==null ) {
             // if the field is null by the time this method
             // is called, it means this element is substitutable by itself only.
-            substitutables = substitutablesView = Collections.singleton((XSElementDecl)this);
+            substitutables = substitutablesView = Collections.singleton(this);
         }
         return substitutablesView;
     }
     
     protected void addSubstitutable( ElementDecl decl ) {
         if( substitutables==null ) {
-            substitutables = new HashSet<XSElementDecl>();
+            substitutables = new HashSet<>();
             substitutables.add(this);
             substitutablesView = Collections.unmodifiableSet(substitutables);
         }

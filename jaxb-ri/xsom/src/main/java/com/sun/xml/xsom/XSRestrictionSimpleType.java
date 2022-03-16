@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,7 +24,7 @@ public interface XSRestrictionSimpleType extends XSSimpleType {
     // TODO
     
     /** Iterates facets that are specified in this step of derivation. */
-    public Iterator<XSFacet> iterateDeclaredFacets();
+    Iterator<XSFacet> iterateDeclaredFacets();
 
     /**
      * Gets all the facets that are declared on this restriction.
@@ -32,7 +32,7 @@ public interface XSRestrictionSimpleType extends XSSimpleType {
      * @return
      *      Can be empty but always non-null.
      */
-    public Collection<? extends XSFacet> getDeclaredFacets();
+    Collection<? extends XSFacet> getDeclaredFacets();
 
     /**
      * Gets the declared facet object of the given name.

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,7 +11,6 @@
 package com.sun.tools.xjc.reader;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -73,13 +72,7 @@ public final class Ring {
                 if(!get().components.containsKey(key))
                     // many components register themselves.
                     add(key,t);
-            } catch (InstantiationException e) {
-                throw new Error(e);
-            } catch (IllegalAccessException e) {
-                throw new Error(e);
-            } catch (NoSuchMethodException e) {
-                throw new Error(e);
-            } catch (InvocationTargetException e) {
+            } catch (ReflectiveOperationException e) {
                 throw new Error(e);
             }
         }
@@ -89,7 +82,7 @@ public final class Ring {
     }
 
     /**
-     * A {@link Ring} instance is associated with a thread.
+     * A  instance is associated with a thread.
      */
     public static Ring get() {
         return instances.get();

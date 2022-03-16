@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2005, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -103,7 +103,7 @@ public class IndentingXMLStreamWriter extends DelegatingXMLStreamWriter {
     /**
      * Print indentation for the current level.
      *
-     * @exception org.xml.sax.SAXException If there is an error
+     * @exception XMLStreamException If there is an error
      *            writing the indentation characters, or if a filter
      *            further down the chain raises an exception.
      */

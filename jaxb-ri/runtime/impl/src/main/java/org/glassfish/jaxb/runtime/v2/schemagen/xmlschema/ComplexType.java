@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -26,21 +26,21 @@ public interface ComplexType
 
 
     @XmlAttribute("final")
-    public ComplexType _final(String[] value);
+    ComplexType _final(String[] value);
 
     @XmlAttribute("final")
-    public ComplexType _final(String value);
+    ComplexType _final(String value);
 
     @XmlAttribute
-    public ComplexType block(String[] value);
+    ComplexType block(String[] value);
 
     @XmlAttribute
-    public ComplexType block(String value);
+    ComplexType block(String value);
 
     @XmlAttribute("abstract")
-    public ComplexType _abstract(boolean value);
+    ComplexType _abstract(boolean value);
 
     @XmlAttribute
-    public ComplexType name(String value);
+    ComplexType name(String value);
 
 }

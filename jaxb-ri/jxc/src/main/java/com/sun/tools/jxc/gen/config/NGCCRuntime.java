@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -172,8 +172,8 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
      * }</pre>
      *
      * Then this first space needs to be ignored (for otherwise, we will
-     * end up treating this space as the match to &lt;text/> and won't
-     * be able to process &lt;bar>.)
+     * end up treating this space as the match to &lt;text/&gt; and won't
+     * be able to process &lt;bar&gt;.)
      *
      * Now assume the following instance:
      * <pre>{@code
@@ -188,7 +188,7 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
      * easy solution is to use the type of next event. If a text is
      * followed by a start tag, it follows from the constraint on
      * RELAX NG that that text must be either whitespaces or a match
-     * to &lt;text/>.
+     * to &lt;text/&gt;.
      *
      * <p>
      * On the contrary, if a text is followed by a end tag, then it
@@ -203,7 +203,7 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
      * <p>
      * TODO: according to the constraint of RELAX NG, if characters
      * follow an end tag, then they must be either whitespaces or
-     * must match to &lt;text/>.
+     * must match to &lt;text/&gt;.
      *
      * @param   ignorable
      *      True if the buffered character can be ignorable. False if
@@ -548,10 +548,9 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
     protected void unexpectedX(String token) throws SAXException {
         throw new SAXParseException(MessageFormat.format(
                 "Unexpected {0} appears at line {1} column {2}",
-                new Object[]{
-                        token,
-                    getLocator().getLineNumber(),
-                    getLocator().getColumnNumber() }),
+                token,
+                getLocator().getLineNumber(),
+                getLocator().getColumnNumber()),
                 getLocator());
     }
 

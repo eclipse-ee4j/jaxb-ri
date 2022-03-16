@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -8,16 +8,7 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-package com.sun.codemodel;
-
-
 /**
- * Common interface for code components that can generate declarations
- * of themselves.
+ * Various resource file formats (classes that implement <code>JResourceFile</code>).
  */
-
-public interface JDeclaration {
-
-    void declare(JFormatter f);
-
-}
+package com.sun.codemodel.fmt;

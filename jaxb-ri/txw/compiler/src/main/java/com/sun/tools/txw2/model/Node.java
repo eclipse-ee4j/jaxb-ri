@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2005, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -51,7 +51,7 @@ public abstract class Node extends Leaf implements Iterable<Leaf> {
     }
 
     /**
-     * Adds the given {@link Leaf} and their sibling as children of this {@link Node}.
+     * Adds the given {@link Leaf} and their sibling as children of this .
      */
     public final void addChild(Leaf child) {
         if(this.leaf==null)

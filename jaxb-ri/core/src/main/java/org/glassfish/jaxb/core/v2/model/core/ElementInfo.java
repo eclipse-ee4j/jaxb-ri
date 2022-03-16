@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -68,13 +68,13 @@ public interface ElementInfo<T,C> extends Element<T,C> {
     /**
      * {@inheritDoc}
      *
-     * {@link ElementInfo} can only substitute {@link ElementInfo}.
+     *  can only substitute .
      */
     @Override
     ElementInfo<T,C> getSubstitutionHead();
 
     /**
-     * All the {@link ElementInfo}s whose {@link #getSubstitutionHead()} points
+     * All the s whose {@link #getSubstitutionHead()} points
      * to this object.
      *
      * @return

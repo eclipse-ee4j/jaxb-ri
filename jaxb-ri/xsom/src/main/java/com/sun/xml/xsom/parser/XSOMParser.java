@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.Set;
 import java.util.HashSet;
@@ -193,7 +194,7 @@ public final class XSOMParser {
      *      can be empty but never null.
      */
     public Set<SchemaDocument> getDocuments() {
-        return new HashSet<SchemaDocument>(context.parsedDocuments.keySet());
+        return new HashSet<>(context.parsedDocuments.keySet());
     }
     
     public EntityResolver getEntityResolver() {
@@ -231,11 +232,11 @@ public final class XSOMParser {
         setAnnotationParser( new AnnotationParserFactory() {
             public AnnotationParser create() {
                 try {
-                    return (AnnotationParser)annParser.newInstance();
-                } catch( InstantiationException e ) {
-                    throw new InstantiationError(e.getMessage());
+                    return (AnnotationParser)annParser.getConstructor().newInstance();
                 } catch( IllegalAccessException e ) {
                     throw new IllegalAccessError(e.getMessage());
+                } catch(ReflectiveOperationException e ) {
+                    throw new InstantiationError(e.getMessage());
                 }
             }
         });

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -306,14 +306,10 @@ public class BindInfo
             
             if(controller.hadError())   throw new AbortException();
             return (Document)builder.getDOM();
-        } catch( IOException e ) {
-            receiver.error( new SAXParseException2(e.getMessage(),null,e) );
-        } catch( SAXException e ) {
-            receiver.error( new SAXParseException2(e.getMessage(),null,e) );
-        } catch( ParserConfigurationException e ) {
+        } catch( IOException | SAXException | ParserConfigurationException e ) {
             receiver.error( new SAXParseException2(e.getMessage(),null,e) );
         }
-        
+
         throw new AbortException();
     }
 }

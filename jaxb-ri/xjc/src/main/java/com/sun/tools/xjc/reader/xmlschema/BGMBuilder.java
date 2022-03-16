@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -471,7 +471,7 @@ public class BGMBuilder extends BindingComponent {
      * See the chart at the class javadoc.
      */
     public void ying( XSComponent sc, @Nullable XSComponent referer ) {
-        if(sc.apply(toPurple)==true || getClassSelector().bindToType(sc,referer)!=null)
+        if(sc.apply(toPurple) || getClassSelector().bindToType(sc,referer)!=null)
             sc.visit(purple);
         else
             sc.visit(green);

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -35,7 +35,7 @@ public final class Encoded {
             buf = new byte[size];
     }
 
-    public final void set( String text ) {
+    public void set(String text ) {
         int length = text.length();
 
         ensureSize(length*3+1); // +1 for append
@@ -77,7 +77,7 @@ public final class Encoded {
      * @param isAttribute
      *      if true, characters like \t, \r, and \n are also escaped.
      */
-    public final void setEscape(String text, boolean isAttribute) {
+    public void setEscape(String text, boolean isAttribute) {
         int length = text.length();
         ensureSize(length*6+1);     // in the worst case the text is like """""", so we need 6 bytes per char
 
@@ -133,7 +133,7 @@ public final class Encoded {
     /**
      * Writes the encoded bytes to the given output stream.
      */
-    public final void write(UTF8XmlOutput out) throws IOException {
+    public void write(UTF8XmlOutput out) throws IOException {
         out.write(buf,0,len);
     }
 
@@ -157,7 +157,7 @@ public final class Encoded {
 
     /**
      * UTF-8 encoded entities keyed by their character code.
-     * e.g., entities['&'] == AMP_ENTITY.
+     * e.g., entities['&amp;'] == AMP_ENTITY.
      *
      * In attributes we need to encode more characters.
      */
