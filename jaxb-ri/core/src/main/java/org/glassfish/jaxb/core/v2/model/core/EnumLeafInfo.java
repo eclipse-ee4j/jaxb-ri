@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,7 +17,7 @@ package org.glassfish.jaxb.core.v2.model.core;
  */
 public interface EnumLeafInfo<T,C> extends LeafInfo<T,C> {
     /**
-     * The same as {@link #getType()} but an {@link EnumLeafInfo}
+     * The same as {@link #getType()} but an
      * is guaranteed to represent an enum declaration, which is a
      * kind of a class declaration.
      *

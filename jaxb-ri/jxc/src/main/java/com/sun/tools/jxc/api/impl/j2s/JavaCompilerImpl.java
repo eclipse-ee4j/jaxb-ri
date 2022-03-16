@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -49,11 +49,11 @@ public class JavaCompilerImpl implements JavaCompiler {
         ProcessingEnvironment env) {
 
         ModelBuilder<TypeMirror, TypeElement, VariableElement, ExecutableElement> builder =
-                new ModelBuilder<TypeMirror, TypeElement, VariableElement, ExecutableElement>(
-                InlineAnnotationReaderImpl.theInstance,
-                new ApNavigator(env),
-                Collections.<TypeElement, TypeElement>emptyMap(),
-                defaultNamespaceRemap );
+                new ModelBuilder<>(
+                        InlineAnnotationReaderImpl.theInstance,
+                        new ApNavigator(env),
+                        Collections.emptyMap(),
+                        defaultNamespaceRemap);
 
         builder.setErrorHandler(new ErrorHandlerImpl(env.getMessager()));
 
@@ -63,7 +63,7 @@ public class JavaCompilerImpl implements JavaCompiler {
             XmlJavaTypeAdapter xjta = ref.annotations.getAnnotation(XmlJavaTypeAdapter.class);
             XmlList xl = ref.annotations.getAnnotation(XmlList.class);
 
-            builder.getTypeInfo(new Ref<TypeMirror, TypeElement>(builder, t, xjta, xl));
+            builder.getTypeInfo(new Ref<>(builder, t, xjta, xl));
         }
 
         TypeInfoSet<TypeMirror, TypeElement, VariableElement, ExecutableElement> r = builder.link();
@@ -78,7 +78,7 @@ public class JavaCompilerImpl implements JavaCompiler {
                     throw new IllegalArgumentException("nulls in additionalElementDecls");
             }
         }
-        return new JAXBModelImpl(r, builder.reader, rootClasses, new HashMap<QName, Reference>(additionalElementDecls));
+        return new JAXBModelImpl(r, builder.reader, rootClasses, new HashMap<>(additionalElementDecls));
     }
 
     private static final class ErrorHandlerImpl implements ErrorHandler {

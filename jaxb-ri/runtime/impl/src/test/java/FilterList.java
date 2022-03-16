@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -78,12 +78,12 @@ public final class FilterList extends AbstractList {
     
     /**
      * Creates a new filtered list that filters objects in
-     * the spcified {@link List}.
+     * the specified {@link List}.
      * 
      * @param core
      *      {@link List} to be filtered.
      * @param type
-     *      Out of all the objects in the <tt>core</tt> list,
+     *      Out of all the objects in the {@code core} list,
      *      only objects of this type will be visible through
      *      this list.
      */

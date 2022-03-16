@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -59,7 +59,7 @@ public abstract class SCD {
         try {
             SCDParser p = new SCDParser(path,nsContext);
             List<?> list = p.RelativeSchemaComponentPath();
-            return new SCDImpl(path,list.toArray(new Step[list.size()]));
+            return new SCDImpl(path,list.toArray(new Step[0]));
         } catch (TokenMgrError e) {
             throw setCause(new java.text.ParseException(e.getMessage(), -1 ),e);
         } catch (ParseException e) {
@@ -80,7 +80,7 @@ public abstract class SCD {
      *      could be empty but never be null.
      */
     public final Collection<XSComponent> select(XSComponent contextNode) {
-        return new DeferedCollection<XSComponent>(select(Iterators.singleton(contextNode)));
+        return new DeferedCollection<>(select(Iterators.singleton(contextNode)));
     }
 
     /**
@@ -132,7 +132,7 @@ public abstract class SCD {
      *
      * @param contextNodes
      *      {@link XSComponent}s that represent the context node against
-     *      which {@link SCD} is evaluated.
+     *      which  is evaluated.
      *
      * @return
      *      could be empty but never be null.
@@ -145,13 +145,13 @@ public abstract class SCD {
      *
      * @param contextNodes
      *      {@link XSComponent}s that represent the context node against
-     *      which {@link SCD} is evaluated.
+     *      which  is evaluated.
      *
      * @return
      *      could be empty but never be null.
      */
     public final Collection<XSComponent> select(Collection<? extends XSComponent> contextNodes) {
-        return new DeferedCollection<XSComponent>(select(contextNodes.iterator()));
+        return new DeferedCollection<>(select(contextNodes.iterator()));
     }
 
     /**

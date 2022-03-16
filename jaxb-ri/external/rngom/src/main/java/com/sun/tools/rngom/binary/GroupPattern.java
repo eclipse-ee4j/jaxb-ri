@@ -21,8 +21,6 @@
  */
 package com.sun.tools.rngom.binary;
 
-import com.sun.tools.rngom.binary.visitor.PatternFunction;
-import com.sun.tools.rngom.binary.visitor.PatternVisitor;
 import com.sun.tools.rngom.binary.visitor.*;
 
 public class GroupPattern extends BinaryPattern {

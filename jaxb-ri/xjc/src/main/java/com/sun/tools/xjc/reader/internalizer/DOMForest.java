@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -323,7 +323,7 @@ public final class DOMForest {
         /**
          * Gets the DOM that was built.
          */
-        public Document getDocument();
+        Document getDocument();
     }
     
     private static abstract class HandlerImpl extends XMLFilterImpl implements Handler {
@@ -485,7 +485,7 @@ public final class DOMForest {
     }
 
     /**
-     * Creates a {@link SAXSource} that, when parsed, reads from this {@link DOMForest}
+     * Creates a {@link SAXSource} that, when parsed, reads from this
      * (instead of parsing the original source identified by the system ID.)
      */
     public @NotNull SAXSource createSAXSource(String systemId) {
@@ -537,14 +537,14 @@ public final class DOMForest {
      * Gets all the parsed documents.
      */
     public Document[] listDocuments() {
-        return core.values().toArray(new Document[core.size()]);
+        return core.values().toArray(new Document[0]);
     }
     
     /**
      * Gets all the system IDs of the documents.
      */
     public String[] listSystemIDs() {
-        return core.keySet().toArray(new String[core.keySet().size()]);
+        return core.keySet().toArray(new String[0]);
     }
     
     /**

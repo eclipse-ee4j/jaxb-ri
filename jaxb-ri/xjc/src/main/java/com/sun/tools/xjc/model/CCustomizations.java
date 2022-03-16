@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -109,7 +109,7 @@ public final class CCustomizations extends ArrayList<CPluginCustomization> {
     public static final CCustomizations EMPTY = new CCustomizations();
 
     /**
-     * Merges two {@link CCustomizations} objects into one.
+     * Merges two  objects into one.
      */
     public static CCustomizations merge(CCustomizations lhs, CCustomizations rhs) {
         if(lhs==null || lhs.isEmpty())   return rhs;

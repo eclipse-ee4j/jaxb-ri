@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -34,14 +34,14 @@ import java.util.Set;
 public abstract class Element extends Expression implements ElementSet {
     /**
      * Once we build a graph from {@link Expression},
-     * we represent an edge e1 -> e2 by {@code e1.foreEdges.contains(e2)}
+     * we represent an edge e1 -{@literal >} e2 by {@code e1.foreEdges.contains(e2)}
      * and {@code e2.backEdges.contains(e1)}.
      */
     final Set<Element> foreEdges = new LinkedHashSet<>();
     final Set<Element> backEdges = new LinkedHashSet<>();
 
     /**
-     * Previous element in the DFS post-order traveral
+     * Previous element in the DFS post-order traversal
      * of the element graph.
      *
      * <p>
@@ -55,7 +55,7 @@ public abstract class Element extends Expression implements ElementSet {
     /**
      * {@link ConnectedComponent} to which this element belongs.
      *
-     * Set in {@link #buildStronglyConnectedComponents(List<ConnectedComponent>)}
+     * Set in {@link #buildStronglyConnectedComponents(List)}
      */
     private ConnectedComponent cc;
 
@@ -73,14 +73,14 @@ public abstract class Element extends Expression implements ElementSet {
     }
 
     /**
-     * True if this {@link Element} is {@link SourceNode}.
+     * True if this  is {@link SourceNode}.
      */
     boolean isSource() {
         return false;
     }
 
     /**
-     * True if this {@link Element} is {@link SinkNode}.
+     * True if this  is {@link SinkNode}.
      */
     boolean isSink() {
         return false;
@@ -115,7 +115,7 @@ public abstract class Element extends Expression implements ElementSet {
     }
 
     /**
-     * Traverses the {@link Element} graph with DFS
+     * Traverses the  graph with DFS
      * and set {@link #prevPostOrder}.
      *
      * Should be first invoked on the source node of the graph.

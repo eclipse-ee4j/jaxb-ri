@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,9 +10,9 @@
 
 package com.sun.tools.xjc.reader.internalizer;
 
+import java.util.List;
 import java.util.Set;
 import java.util.HashSet;
-import java.util.Arrays;
 
 import com.sun.tools.xjc.reader.Const;
 
@@ -122,6 +122,6 @@ public class VersionChecker extends XMLFilterImpl {
         this.locator = locator;
     }
 
-    private static final Set<String> VERSIONS = new HashSet<>(Arrays.asList("3.0"));
+    private static final Set<String> VERSIONS = new HashSet<>(List.of("3.0"));
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -53,18 +53,18 @@ public interface Property<BeanT> extends StructureLoaderBuilder {
      * @throws AccessorException
      *      If thrown, caught by the caller and reported.
      */
-    public void serializeBody(BeanT beanT, XMLSerializer target, Object outerPeer) throws SAXException, AccessorException, IOException, XMLStreamException;
+    void serializeBody(BeanT beanT, XMLSerializer target, Object outerPeer) throws SAXException, AccessorException, IOException, XMLStreamException;
 
     /**
      * @see JaxBeanInfo#serializeURIs(Object, XMLSerializer)
      */
-    public void serializeURIs(BeanT beanT, XMLSerializer target) throws SAXException, AccessorException;
+    void serializeURIs(BeanT beanT, XMLSerializer target) throws SAXException, AccessorException;
 
     /**
      * Returns true if
      * {@link #serializeURIs(Object,XMLSerializer)} performs some meaningful action.
      */
-    public boolean hasSerializeURIAction();
+    boolean hasSerializeURIAction();
 
 //    /**
 //     * Builds the unmarshaller.
@@ -117,11 +117,11 @@ public interface Property<BeanT> extends StructureLoaderBuilder {
      * @return
      *      null if RETAIN_REFERENCE_TO_INFO property is not set on the {@link JAXBContext}
      */
-    public RuntimePropertyInfo getInfo();
+    RuntimePropertyInfo getInfo();
     
-    public boolean isHiddenByOverride();
+    boolean isHiddenByOverride();
     
-    public void setHiddenByOverride(boolean hidden);
+    void setHiddenByOverride(boolean hidden);
     
-    public String getFieldName();    
+    String getFieldName();
 }

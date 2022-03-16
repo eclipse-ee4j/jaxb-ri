@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -38,7 +38,7 @@ public /*so that our code generator can refer to this class*/ abstract class Qui
 
     /**
      * Factory method to create a new instance of the same kind.
-     * A {@link Quick} object also works as a factory of itself
+     * A  object also works as a factory of itself
      */
     protected abstract Quick newInstance( Locatable upstream, Annotation core );
 

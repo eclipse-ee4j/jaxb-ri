@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -112,10 +112,7 @@ public class TDTDReader extends DTDHandlerBase
             } finally {
                 Ring.end(old);
             }
-        } catch (IOException e) {
-            errorReceiver.error(new SAXParseException2(e.getMessage(),null,e));
-            return null;
-        } catch (SAXException e) {
+        } catch (IOException | SAXException e) {
             errorReceiver.error(new SAXParseException2(e.getMessage(),null,e));
             return null;
         } catch (AbortException e) {
@@ -243,7 +240,7 @@ public class TDTDReader extends DTDHandlerBase
         // TODO: check the cyclic interface definition
     }
 
-    private static interface InterfaceAcceptor {
+    private interface InterfaceAcceptor {
         void implement( JClass c );
     }
 

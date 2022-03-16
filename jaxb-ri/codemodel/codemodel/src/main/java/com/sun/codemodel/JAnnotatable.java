@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -45,14 +45,11 @@ public interface JAnnotatable {
     /**
      * Adds an annotation to this program element
      * and returns a type-safe writer to fill in the values of such annotations.
-     * @param <W>
-     * @param clazz
-     * @return 
      */
     <W extends JAnnotationWriter<? extends Annotation>> W annotate2(Class<W> clazz);
     
     /**
-     * Read-only live view of all annotations on this {@link JAnnotatable}
+     * Read-only live view of all annotations on this
      * 
      * @return
      *      Can be empty but never null.

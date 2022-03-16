@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -98,13 +98,13 @@ public class ForkContentHandler implements ContentHandler {
 	}
 
         @Override
-	public void characters (char ch[], int start, int length) throws SAXException {
+	public void characters (char[] ch, int start, int length) throws SAXException {
 		lhs.characters(ch,start,length);
 		rhs.characters(ch,start,length);
 	}
 
         @Override
-	public void ignorableWhitespace (char ch[], int start, int length) throws SAXException {
+	public void ignorableWhitespace (char[] ch, int start, int length) throws SAXException {
 		lhs.ignorableWhitespace(ch,start,length);
 		rhs.ignorableWhitespace(ch,start,length);
 	}

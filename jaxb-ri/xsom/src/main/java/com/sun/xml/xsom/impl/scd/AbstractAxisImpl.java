@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -51,11 +51,11 @@ abstract class AbstractAxisImpl<T extends XSComponent> implements Axis<T>, XSFun
     }
 
     protected final Iterator<T> union(T... items) {
-        return new Iterators.Array<T>(items);
+        return new Iterators.Array<>(items);
     }
 
     protected final Iterator<T> union(Iterator<? extends T> first, Iterator<? extends T> second) {
-        return new Iterators.Union<T>(first,second);
+        return new Iterators.Union<>(first, second);
     }
 
     public Iterator<T> iterator(XSComponent contextNode) {
@@ -151,7 +151,7 @@ abstract class AbstractAxisImpl<T extends XSComponent> implements Axis<T>, XSFun
 
     public Iterator<T> modelGroup(XSModelGroup group) {
         // compensate for particles that are ignored in SCD
-        return new Iterators.Map<T,XSParticle>(group.iterator()) {
+        return new Iterators.Map<>(group.iterator()) {
             protected Iterator<? extends T> apply(XSParticle p) {
                 return particle(p);
             }

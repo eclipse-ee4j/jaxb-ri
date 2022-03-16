@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -242,7 +242,7 @@ public final class CClassInfo extends AbstractCElement implements ClassInfo<NTyp
         return calcSqueezedName.onBean(this);
     }
 
-    private static final CClassInfoParent.Visitor<String> calcSqueezedName = new Visitor<String>() {
+    private static final CClassInfoParent.Visitor<String> calcSqueezedName = new Visitor<>() {
         @Override
         public String onBean(CClassInfo bean) {
             return bean.parent.accept(this) + bean.shortName;
@@ -383,7 +383,7 @@ public final class CClassInfo extends AbstractCElement implements ClassInfo<NTyp
     }
 
     /**
-     * This method accepts both {@link CClassInfo} (which means the base class
+     * This method accepts both  (which means the base class
      * is also generated), or {@link CClassRef} (which means the base class is
      * already generated and simply referenced.)
      *
@@ -430,7 +430,7 @@ public final class CClassInfo extends AbstractCElement implements ClassInfo<NTyp
      * Enumerates all the sub-classes of this class.
      */
     public Iterator<CClassInfo> listSubclasses() {
-        return new Iterator<CClassInfo>() {
+        return new Iterator<>() {
             CClassInfo cur = firstSubclass;
 
             @Override
@@ -488,7 +488,7 @@ public final class CClassInfo extends AbstractCElement implements ClassInfo<NTyp
     }
 
     @Override
-    public final <T> T accept(Visitor<T> visitor) {
+    public <T> T accept(Visitor<T> visitor) {
         return visitor.onBean(this);
     }
 
@@ -498,12 +498,12 @@ public final class CClassInfo extends AbstractCElement implements ClassInfo<NTyp
     }
 
     @Override
-    public final NClass getType() {
+    public NClass getType() {
         return this;
     }
 
     @Override
-    public final JClass toType(Outline o, Aspect aspect) {
+    public JClass toType(Outline o, Aspect aspect) {
         switch(aspect) {
         case IMPLEMENTATION:
             return o.getClazz(this).implRef;

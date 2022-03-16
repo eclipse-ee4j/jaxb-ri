@@ -48,7 +48,7 @@ public class JAXPXMLReaderCreator implements XMLReaderCreator {
     }
     
     /**
-     * Creates a {@link JAXPXMLReaderCreator} by using
+     * Creates a  by using
      * {@link SAXParserFactory#newInstance()}.
      */
     public JAXPXMLReaderCreator() {
@@ -65,9 +65,6 @@ public class JAXPXMLReaderCreator implements XMLReaderCreator {
         }
     }
     
-    /**
-     * @see XMLReaderCreator#createXMLReader()
-     */
     public XMLReader createXMLReader() throws SAXException {
         try {
             return spf.newSAXParser().getXMLReader();

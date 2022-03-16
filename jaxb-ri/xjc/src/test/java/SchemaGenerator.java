@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,7 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
- * Alias of {@link com.sun.tools.jxc.SchemaGenerator}, just to make testing easier.
+ * Alias of {@code com.sun.tools.jxc.SchemaGenerator}, just to make testing easier.
  *
  * @author Kohsuke Kawaguchi
  */
@@ -38,7 +38,7 @@ public class SchemaGenerator {
             }
 
             Class driver = cl.loadClass("com.sun.tools.jxc.SchemaGenerator");
-            Method mainMethod = driver.getDeclaredMethod("main", new Class[]{String[].class});
+            Method mainMethod = driver.getDeclaredMethod("main", String[].class);
             try {
                 mainMethod.invoke(null,new Object[]{args});
             } catch (IllegalAccessException e) {

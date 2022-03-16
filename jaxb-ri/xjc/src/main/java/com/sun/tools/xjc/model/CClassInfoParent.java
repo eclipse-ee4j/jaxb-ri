@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -35,7 +35,7 @@ public interface CClassInfoParent {
     /**
      * Visitor of {@link CClassInfoParent}
      */
-    public static interface Visitor<T> {
+    interface Visitor<T> {
         T onBean( CClassInfo bean );
         T onPackage( JPackage pkg );
         T onElement( CElementInfo element );
@@ -46,7 +46,7 @@ public interface CClassInfoParent {
      *
      * Use {@link Model#getPackage} to obtain an instance.
      */
-    public static final class Package implements CClassInfoParent {
+    final class Package implements CClassInfoParent {
         public final JPackage pkg;
 
         public Package(JPackage pkg) {

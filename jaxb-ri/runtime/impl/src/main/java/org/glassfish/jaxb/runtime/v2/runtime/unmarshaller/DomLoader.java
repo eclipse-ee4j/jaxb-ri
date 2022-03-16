@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -66,7 +66,7 @@ public class DomLoader<ResultT extends Result> extends Loader {
         private void declarePrefixes( UnmarshallingContext context, String[] prefixes ) throws SAXException {
             for( int i=prefixes.length-1; i>=0; i-- ) {
                 String nsUri = context.getNamespaceURI(prefixes[i]);
-                if(nsUri==null)     throw new IllegalStateException("prefix \'"+prefixes[i]+"\' isn't bound");
+                if(nsUri==null)     throw new IllegalStateException("prefix '" +prefixes[i]+ "' isn't bound");
                 handler.startPrefixMapping(prefixes[i],nsUri );
             }
         }

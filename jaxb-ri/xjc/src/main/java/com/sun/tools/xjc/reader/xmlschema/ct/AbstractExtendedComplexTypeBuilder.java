@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -50,7 +50,7 @@ abstract class AbstractExtendedComplexTypeBuilder extends CTBuilder {
     /**
      * Computes a name class that represents everything in a given content model.
      */
-    protected final XSTermFunction<NameClass> contentModelNameClassBuilder = new XSTermFunction<NameClass>() {
+    protected final XSTermFunction<NameClass> contentModelNameClassBuilder = new XSTermFunction<>() {
         @Override
         public NameClass wildcard(XSWildcard wc) {
             return WildcardNameClassBuilder.build(wc);
@@ -89,9 +89,9 @@ abstract class AbstractExtendedComplexTypeBuilder extends CTBuilder {
 
             // build attribute name classes
             NameClass nc = NameClass.NULL;
-            Iterator itr = type.iterateAttributeUses();
+            Iterator<? extends XSAttributeUse> itr = type.iterateAttributeUses();
             while( itr.hasNext() )
-                anc = new ChoiceNameClass(anc, getNameClass(((XSAttributeUse) itr.next()).getDecl()));
+                anc = new ChoiceNameClass(anc, getNameClass(itr.next().getDecl()));
             XSWildcard wc = type.getAttributeWildcard();
             if(wc!=null)
                 nc = new ChoiceNameClass(nc, WildcardNameClassBuilder.build(wc));
@@ -104,9 +104,9 @@ abstract class AbstractExtendedComplexTypeBuilder extends CTBuilder {
     }
 
     /**
-     * Looks for the derivation chain t_1 > t_2 > ... > t
+     * Looks for the derivation chain t_1 {@literal >} t_2 {@literal >} ... {@literal >} t
      * and find t_i such that t_i derives by restriction but
-     * for every j>i, t_j derives by extension.
+     * for every j{@literal >}i, t_j derives by extension.
      *
      * @return null
      *      If there's no such t_i or if t_i is any type.
@@ -165,9 +165,9 @@ abstract class AbstractExtendedComplexTypeBuilder extends CTBuilder {
         }
         NameClass anc = NameClass.NULL;
         // build name class for attributes in new complex type
-        Iterator itr = thisType.iterateDeclaredAttributeUses();
+        Iterator<? extends XSAttributeUse> itr = thisType.iterateDeclaredAttributeUses();
         while (itr.hasNext()) {
-            anc = new ChoiceNameClass(anc, getNameClass(((XSAttributeUse) itr.next()).getDecl()));
+            anc = new ChoiceNameClass(anc, getNameClass(itr.next().getDecl()));
         }
         // TODO: attribute wildcard
 

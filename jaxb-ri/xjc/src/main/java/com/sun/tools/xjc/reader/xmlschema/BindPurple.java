@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,7 +10,6 @@
 
 package com.sun.tools.xjc.reader.xmlschema;
 
-import com.sun.tools.xjc.model.CClassInfo;
 import com.sun.tools.xjc.model.CDefaultValue;
 import com.sun.tools.xjc.model.CPropertyInfo;
 import com.sun.tools.xjc.model.TypeUse;
@@ -63,7 +62,7 @@ public class BindPurple extends ColorBinder {
             prop.defaultValue = CDefaultValue.create(attType,use.getFixedValue());
             prop.realization = builder.fieldRendererFactory.getConst(prop.realization);
         } else
-        if(!attType.isCollection() && (prop.baseType == null ? true : !prop.baseType.isPrimitive())) {
+        if(!attType.isCollection() && (prop.baseType == null || !prop.baseType.isPrimitive())) {
             // don't support a collection default value. That's difficult to do.
             // primitive types default value is problematic too - we can't check whether it has been set or no ( ==null) isn't possible TODO: emit a waring in these cases
 

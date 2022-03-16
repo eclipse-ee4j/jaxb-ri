@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -151,7 +151,7 @@ public final class SAXConnector implements UnmarshallerHandler {
 
 
     @Override
-    public final void characters( char[] buf, int start, int len ) {
+    public void characters(char[] buf, int start, int len ) {
         if (logger.isLoggable(Level.FINEST)) {
             logger.log(Level.FINEST, "SAXConnector.characters: {0}", buf);
         }
@@ -160,7 +160,7 @@ public final class SAXConnector implements UnmarshallerHandler {
     }
 
     @Override
-    public final void ignorableWhitespace( char[] buf, int start, int len ) {
+    public void ignorableWhitespace(char[] buf, int start, int len ) {
         if (logger.isLoggable(Level.FINEST)) {
             logger.log(Level.FINEST, "SAXConnector.characters{0}", buf);
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -71,7 +71,7 @@ public abstract class AbstractReferenceFinderImpl extends XMLFilterImpl {
                     int bangIdx = lsi.indexOf('!');
                     if (bangIdx > 0) {
                         ref = lsi.substring(0, bangIdx + 1)
-                                + new URI(lsi.substring(bangIdx + 1)).resolve(new URI(relativeRef)).toString();
+                                + new URI(lsi.substring(bangIdx + 1)).resolve(new URI(relativeRef));
                     } else {
                         ref = relativeRef;
                     }

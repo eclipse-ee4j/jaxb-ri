@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -272,7 +272,7 @@ public final class SimpleTypeBuilder extends BindingComponent {
         return t.apply(composer);
     }
 
-    public final XSSimpleTypeFunction<TypeUse> composer = new XSSimpleTypeFunction<TypeUse>() {
+    public final XSSimpleTypeFunction<TypeUse> composer = new XSSimpleTypeFunction<>() {
 
         @Override
         public TypeUse listSimpleType(XSListSimpleType type) {
@@ -394,7 +394,7 @@ public final class SimpleTypeBuilder extends BindingComponent {
         if(type.isRestriction() && !noAutoEnum) {
             XSRestrictionSimpleType rst = type.asRestriction();
             if(shouldBeMappedToTypeSafeEnumByDefault(rst)) {
-                r = bindToTypeSafeEnum(rst,null,null, Collections.<String, BIEnumMember>emptyMap(),
+                r = bindToTypeSafeEnum(rst,null,null, Collections.emptyMap(),
                             getEnumMemberMode(),null);
                 if(r!=null)
                     return r;
@@ -461,13 +461,12 @@ public final class SimpleTypeBuilder extends BindingComponent {
     private static final Set<String> builtinTypeSafeEnumCapableTypes;
 
     static {
-        Set<String> s = new HashSet<>();
 
         // see a bullet of 6.5.1 of the spec.
         String[] typeNames = new String[] {
             "string", "boolean", "float", "decimal", "double", "anyURI"
         };
-        s.addAll(Arrays.asList(typeNames));
+        Set<String> s = new HashSet<>(Arrays.asList(typeNames));
 
         builtinTypeSafeEnumCapableTypes = Collections.unmodifiableSet(s);
     }
@@ -789,13 +788,10 @@ public final class SimpleTypeBuilder extends BindingComponent {
                 }
 
                 return CBuiltinLeafInfo.DATA_HANDLER.makeMimeTyped(mt.toMimeType());
-            } catch (ParseException e) {
+            } catch (ParseException | MimeTypeParseException e) {
                 getErrorReporter().error( referer.getLocator(),
                     Messages.format(Messages.ERR_ILLEGAL_EXPECTED_MIME_TYPE,emt, e.getMessage()) );
                 // recover by using the default
-            } catch (MimeTypeParseException e) {
-                getErrorReporter().error( referer.getLocator(),
-                    Messages.format(Messages.ERR_ILLEGAL_EXPECTED_MIME_TYPE,emt, e.getMessage()) );
             }
         }
         // default

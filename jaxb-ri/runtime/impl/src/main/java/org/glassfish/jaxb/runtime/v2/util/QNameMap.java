@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -33,7 +33,7 @@ public final class QNameMap<V> {
     /**
      * The maximum capacity, used if a higher value is implicitly specified
      * by either of the constructors with arguments.
-     * MUST be a power of two <= 1<<30.
+     * MUST be a power of two {@literal <= 1<<30}.
      */
     private static final int MAXIMUM_CAPACITY = 1 << 30;
 

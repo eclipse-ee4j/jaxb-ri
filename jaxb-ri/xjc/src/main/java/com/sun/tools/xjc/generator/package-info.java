@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -9,7 +9,7 @@
  */
 
 /**
- * <h1>Code Generator</h1>.
+ * <h2>Code Generator</h2>.
  *
  * This package hosts code for generating CodeModel AST from {@link com.sun.tools.xjc.model Model}
  * classes.

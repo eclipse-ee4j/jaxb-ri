@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -99,7 +99,7 @@ final class ValueListBeanInfoImpl extends JaxBeanInfo {
     }
 
     @Override
-    public final void serializeURIs(Object array, XMLSerializer target) throws SAXException {
+    public void serializeURIs(Object array, XMLSerializer target) throws SAXException {
         if(xducer.useNamespace()) {
             int len = Array.getLength(array);
             for( int i=0; i<len; i++ )  {
@@ -114,37 +114,37 @@ final class ValueListBeanInfoImpl extends JaxBeanInfo {
     }
 
     @Override
-    public final String getElementNamespaceURI(Object array) {
+    public String getElementNamespaceURI(Object array) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public final String getElementLocalName(Object array) {
+    public String getElementLocalName(Object array) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public final Object createInstance(UnmarshallingContext context) {
+    public Object createInstance(UnmarshallingContext context) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public final boolean reset(Object array, UnmarshallingContext context) {
+    public boolean reset(Object array, UnmarshallingContext context) {
         return false;
     }
 
     @Override
-    public final String getId(Object array, XMLSerializer target) {
+    public String getId(Object array, XMLSerializer target) {
         return null;
     }
 
     @Override
-    public final void serializeAttributes(Object array, XMLSerializer target) {
+    public void serializeAttributes(Object array, XMLSerializer target) {
         // noop
     }
 
     @Override
-    public final void serializeRoot(Object array, XMLSerializer target) throws SAXException {
+    public void serializeRoot(Object array, XMLSerializer target) throws SAXException {
         target.reportError(
                 new ValidationEventImpl(
                         ValidationEvent.ERROR,
@@ -154,12 +154,12 @@ final class ValueListBeanInfoImpl extends JaxBeanInfo {
     }
 
     @Override
-    public final Transducer getTransducer() {
+    public Transducer getTransducer() {
         return null;
     }
 
     @Override
-    public final Loader getLoader(JAXBContextImpl context, boolean typeSubstitutionCapable) {
+    public Loader getLoader(JAXBContextImpl context, boolean typeSubstitutionCapable) {
         // type substitution impossible
         return loader;
     }

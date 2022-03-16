@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,6 +25,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.logging.Level;
 
@@ -99,7 +100,7 @@ public class ContextFactory {
 
         Collection<TypeReference> tr = getPropertyValue(properties, JAXBRIContext.TYPE_REFERENCES, Collection.class);
         if (tr == null) {
-            tr = Collections.<TypeReference>emptyList();
+            tr = Collections.emptyList();
         }
 
         Map<Class,Class> subclassReplacements;
@@ -156,17 +157,6 @@ public class ContextFactory {
 
     /**
      *
-     * @param classes
-     * @param typeRefs
-     * @param subclassReplacements
-     * @param defaultNsUri
-     * @param c14nSupport
-     * @param ar
-     * @param xmlAccessorFactorySupport
-     * @param allNillable
-     * @param retainPropertyInfo
-     * @return
-     * @throws JAXBException
      * @deprecated use {@code createContext(Class[] classes, Map<String,Object> properties)} method instead
      */
     @Deprecated
@@ -182,18 +172,6 @@ public class ContextFactory {
 
     /**
      *
-     * @param classes
-     * @param typeRefs
-     * @param subclassReplacements
-     * @param defaultNsUri
-     * @param c14nSupport
-     * @param ar
-     * @param xmlAccessorFactorySupport
-     * @param allNillable
-     * @param retainPropertyInfo
-     * @param improvedXsiTypeHandling
-     * @return
-     * @throws JAXBException
      * @deprecated use {@code createContext( Class[] classes, Map<String,Object> properties)} method instead
      */
     @Deprecated
@@ -262,7 +240,7 @@ public class ContextFactory {
         }
 
 
-        return createContext(classes.toArray(new Class[classes.size()]),properties);
+        return createContext(classes.toArray(new Class[0]),properties);
     }
 
     /**
@@ -282,9 +260,7 @@ public class ContextFactory {
             return null;
         }
 
-        BufferedReader in =
-                new BufferedReader(new InputStreamReader(resourceAsStream, "UTF-8"));
-        try {
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(resourceAsStream, StandardCharsets.UTF_8))) {
             FinalArrayList<Class> classes = new FinalArrayList<>();
             String className = in.readLine();
             while (className != null) {
@@ -301,14 +277,12 @@ public class ContextFactory {
                 try {
                     classes.add(classLoader.loadClass(pkg + '.' + className));
                 } catch (ClassNotFoundException e) {
-                    throw new JAXBException(Messages.ERROR_LOADING_CLASS.format(className, resource),e);
+                    throw new JAXBException(Messages.ERROR_LOADING_CLASS.format(className, resource), e);
                 }
 
                 className = in.readLine();
             }
             return classes;
-        } finally {
-            in.close();
         }
     }
 

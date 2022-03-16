@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2005, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,14 +23,6 @@ abstract class Content {
         return next;
     }
 
-    /**
-     *
-     * @param doc
-     *      A {@link Content} object is so light-weight that
-     *      it doesn't even remember what document it belongs to.
-     *      So the caller needs to "remind" a {@link Content}
-     *      who its owner is.
-     */
     final void setNext(Document doc,Content next) {
         assert next!=null;
         assert this.next==null : "next of "+this+" is already set to "+this.next;
@@ -46,7 +38,7 @@ abstract class Content {
     }
 
     /**
-     * Returns true if this {@link Content} can guarantee that
+     * Returns true if this  can guarantee that
      * no more new namespace decls is necessary for the currently
      * pending start tag.
      */

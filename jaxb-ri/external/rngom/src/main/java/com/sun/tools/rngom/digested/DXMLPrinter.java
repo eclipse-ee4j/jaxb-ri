@@ -77,8 +77,6 @@ public class DXMLPrinter {
     /**
      * Prints grammar enclosed by start/end document.
      *
-     * @param grammar
-     * @throws XMLStreamException
      */
     public void printDocument(DGrammarPattern grammar) throws XMLStreamException {
         try {
@@ -97,7 +95,6 @@ public class DXMLPrinter {
     /**
      * Prints XML fragment for the given pattern.
      *
-     * @throws XMLStreamException
      */
     public void print(DPattern pattern) throws XMLStreamException {
         try {
@@ -114,7 +111,6 @@ public class DXMLPrinter {
     /**
      * Prints XML fragment for the given name class.
      *
-     * @throws XMLStreamException
      */
     public void print(NameClass nc) throws XMLStreamException {
         try {

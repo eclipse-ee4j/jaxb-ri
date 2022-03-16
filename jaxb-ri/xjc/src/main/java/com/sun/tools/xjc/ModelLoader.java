@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -186,9 +186,9 @@ public final class ModelLoader {
      *
      * <p>
      * This parser will parse a DOM forest as:
-     * DOMForestParser -->
-     *   ExtensionBindingChecker -->
-     *     ProhibitedFeatureFilter -->
+     * DOMForestParser --{@literal >}
+     *   ExtensionBindingChecker --{@literal >}
+     *     ProhibitedFeatureFilter --{@literal >}
      *       XSOMParser
      */
     private class XMLSchemaParser implements XMLParser {
@@ -372,9 +372,7 @@ public final class ModelLoader {
     /**
      * Potentially problematic - make sure the parser instance passed is initialized
      * with proper security feature.
-     * 
-     * @param parser
-     * @return 
+     *
      */
     public XSOMParser createXSOMParser(XMLParser parser) {
         // set up other parameters to XSOMParser

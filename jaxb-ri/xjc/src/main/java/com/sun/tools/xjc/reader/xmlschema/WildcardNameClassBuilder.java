@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -55,8 +55,8 @@ public final class WildcardNameClassBuilder implements XSWildcardFunction<NameCl
     @Override
     public NameClass union(XSWildcard.Union wc) {
         NameClass nc = null;
-        for (Iterator itr = wc.iterateNamespaces(); itr.hasNext();) {
-            String ns = (String) itr.next();
+        for (Iterator<String> itr = wc.iterateNamespaces(); itr.hasNext();) {
+            String ns = itr.next();
 
             if(nc==null)    nc = new NsNameClass(ns);
             else

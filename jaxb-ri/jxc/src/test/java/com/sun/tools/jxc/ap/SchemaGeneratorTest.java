@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2015, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -64,7 +64,7 @@ public final class SchemaGeneratorTest {
             classElement.getEnclosedElements(); result = Arrays.asList(nestedEnumElement, interfaceElement);
         }};
 
-        List<Reference> result = new ArrayList<Reference>();
+        List<Reference> result = new ArrayList<>();
         SchemaGenerator sg = new SchemaGenerator();
 
         Collection<TypeElement> elements = Collections.singletonList(interfaceElement);

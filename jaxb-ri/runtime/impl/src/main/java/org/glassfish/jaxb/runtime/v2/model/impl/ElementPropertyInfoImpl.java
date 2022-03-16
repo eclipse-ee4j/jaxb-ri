@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -38,9 +38,9 @@ class ElementPropertyInfoImpl<TypeT,ClassDeclT,FieldT,MethodT>
      */
     private List<TypeRefImpl<TypeT,ClassDeclT>> types;
 
-    private final List<TypeInfo<TypeT,ClassDeclT>> ref = new AbstractList<TypeInfo<TypeT,ClassDeclT>>() {
+    private final List<TypeInfo<TypeT,ClassDeclT>> ref = new AbstractList<>() {
         @Override
-        public TypeInfo<TypeT,ClassDeclT> get(int index) {
+        public TypeInfo<TypeT, ClassDeclT> get(int index) {
             return getTypes().get(index).getTarget();
         }
 

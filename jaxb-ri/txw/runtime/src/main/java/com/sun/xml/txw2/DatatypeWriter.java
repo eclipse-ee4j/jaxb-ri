@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2005, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -43,73 +43,78 @@ public interface DatatypeWriter<DT> {
      */
     void print(DT dt, NamespaceResolver resolver, StringBuilder buf);
 
-    static final List<DatatypeWriter<Object>> BUILTIN = Collections.unmodifiableList(new AbstractList<DatatypeWriter<Object>>() {
+    List<DatatypeWriter<Object>> BUILTIN = Collections.unmodifiableList(new AbstractList<>() {
 
-        @SuppressWarnings({"unchecked", "rawtypes"})
-        private DatatypeWriter<Object>[] BUILTIN_ARRAY = new DatatypeWriter[] {
-            new DatatypeWriter<String>() {
-                @Override
-                public Class<String> getType() {
-                    return String.class;
+        @SuppressWarnings({"unchecked"})
+        private DatatypeWriter<Object>[] BUILTIN_ARRAY = new DatatypeWriter[]{
+                new DatatypeWriter<String>() {
+                    @Override
+                    public Class<String> getType() {
+                        return String.class;
+                    }
+
+                    @Override
+                    public void print(String s, NamespaceResolver resolver, StringBuilder buf) {
+                        buf.append(s);
+                    }
+                },
+                new DatatypeWriter<Integer>() {
+                    @Override
+                    public Class<Integer> getType() {
+                        return Integer.class;
+                    }
+
+                    @Override
+                    public void print(Integer i, NamespaceResolver resolver, StringBuilder buf) {
+                        buf.append(i);
+                    }
+                },
+                new DatatypeWriter<Float>() {
+                    @Override
+                    public Class<Float> getType() {
+                        return Float.class;
+                    }
+
+                    @Override
+                    public void print(Float f, NamespaceResolver resolver, StringBuilder buf) {
+                        buf.append(f);
+                    }
+                },
+                new DatatypeWriter<Double>() {
+                    @Override
+                    public Class<Double> getType() {
+                        return Double.class;
+                    }
+
+                    @Override
+                    public void print(Double d, NamespaceResolver resolver, StringBuilder buf) {
+                        buf.append(d);
+                    }
+                },
+                new DatatypeWriter<QName>() {
+                    @Override
+                    public Class<QName> getType() {
+                        return QName.class;
+                    }
+
+                    @Override
+                    public void print(QName qn, NamespaceResolver resolver, StringBuilder buf) {
+                        String p = resolver.getPrefix(qn.getNamespaceURI());
+                        if (p.length() != 0)
+                            buf.append(p).append(':');
+                        buf.append(qn.getLocalPart());
+                    }
                 }
-                @Override
-                public void print(String s, NamespaceResolver resolver, StringBuilder buf) {
-                    buf.append(s);
-                }
-            },
-            new DatatypeWriter<Integer>() {
-                @Override
-                public Class<Integer> getType() {
-                    return Integer.class;
-                }
-                @Override
-                public void print(Integer i, NamespaceResolver resolver, StringBuilder buf) {
-                    buf.append(i);
-                }
-            },
-            new DatatypeWriter<Float>() {
-                @Override
-                public Class<Float> getType() {
-                    return Float.class;
-                }
-                @Override
-                public void print(Float f, NamespaceResolver resolver, StringBuilder buf) {
-                    buf.append(f);
-                }
-            },
-            new DatatypeWriter<Double>() {
-                @Override
-                public Class<Double> getType() {
-                    return Double.class;
-                }
-                @Override
-                public void print(Double d, NamespaceResolver resolver, StringBuilder buf) {
-                    buf.append(d);
-                }
-            },
-            new DatatypeWriter<QName>() {
-                @Override
-                public Class<QName> getType() {
-                    return QName.class;
-                }
-                @Override
-                public void print(QName qn, NamespaceResolver resolver, StringBuilder buf) {
-                    String p = resolver.getPrefix(qn.getNamespaceURI());
-                    if(p.length()!=0)
-                        buf.append(p).append(':');
-                    buf.append(qn.getLocalPart());
-                }
-            }
         };
-                
+
         @Override
         public DatatypeWriter<Object> get(int n) {
-          return BUILTIN_ARRAY[n];
+            return BUILTIN_ARRAY[n];
         }
 
         @Override
         public int size() {
-          return BUILTIN_ARRAY.length;
+            return BUILTIN_ARRAY.length;
         }
-      });
+    });
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -79,7 +79,7 @@ final class ArrayField extends AbstractListField {
         generateArray();
     }
     
-    protected final void generateArray() {
+    protected void generateArray() {
         field = outline.implClass.field( JMod.PROTECTED, getCoreListType(), prop.getName(false) );
         annotate(field);
 
@@ -217,7 +217,7 @@ final class ArrayField extends AbstractListField {
     /**
      * Case from {@link #exposedType} to array of {@link #implType} .
      */
-    protected final JExpression castToImplTypeArray( JExpression exp ) {
+    protected JExpression castToImplTypeArray(JExpression exp ) {
         return JExpr.cast(implType.array(), exp);
     }
 

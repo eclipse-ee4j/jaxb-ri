@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -54,7 +54,7 @@ public class XmlFactory {
     private static final String DISABLE_XML_SECURITY  = "org.glassfish.jaxb.disableXmlSecurity";
 
     private static final boolean XML_SECURITY_DISABLED = AccessController.doPrivileged(
-            new PrivilegedAction<Boolean>() {
+            new PrivilegedAction<>() {
                 @Override
                 public Boolean run() {
                     return Boolean.getBoolean(DISABLE_XML_SECURITY);
@@ -81,10 +81,7 @@ public class XmlFactory {
             }
             factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, !isXMLSecurityDisabled(disableSecureProcessing));
             return factory;
-        } catch (SAXNotRecognizedException ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
-            throw new IllegalStateException(ex);
-        } catch (SAXNotSupportedException ex) {
+        } catch (SAXNotRecognizedException | SAXNotSupportedException ex) {
             LOGGER.log(Level.SEVERE, null, ex);
             throw new IllegalStateException(ex);
         } catch (AbstractMethodError er) {
@@ -107,13 +104,7 @@ public class XmlFactory {
             factory.setNamespaceAware(true);
             factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, !isXMLSecurityDisabled(disableSecureProcessing));
             return factory;
-        } catch (ParserConfigurationException ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
-            throw new IllegalStateException( ex);
-        } catch (SAXNotRecognizedException ex) {
-            LOGGER.log(Level.SEVERE, null, ex);
-            throw new IllegalStateException( ex);
-        } catch (SAXNotSupportedException ex) {
+        } catch (ParserConfigurationException | SAXNotRecognizedException | SAXNotSupportedException ex) {
             LOGGER.log(Level.SEVERE, null, ex);
             throw new IllegalStateException( ex);
         } catch (AbstractMethodError er) {

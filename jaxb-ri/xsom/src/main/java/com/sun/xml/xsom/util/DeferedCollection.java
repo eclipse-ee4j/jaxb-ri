@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -31,7 +31,7 @@ public class DeferedCollection<T> implements Collection<T> {
     /**
      * Stores values that are already fetched from {@link #result}.
      */
-    private final List<T> archive = new ArrayList<T>();
+    private final List<T> archive = new ArrayList<>();
 
     public DeferedCollection(Iterator<T> result) {
         this.result = result;
@@ -69,18 +69,19 @@ public class DeferedCollection<T> implements Collection<T> {
     }
 
     public Iterator<T> iterator() {
-        return new Iterator<T>() {
-            int idx=0;
+        return new Iterator<>() {
+            int idx = 0;
+
             public boolean hasNext() {
-                if(idx<archive.size())
+                if (idx < archive.size())
                     return true;
                 return result.hasNext();
             }
 
             public T next() {
-                if(idx==archive.size())
+                if (idx == archive.size())
                     fetch();
-                if(idx==archive.size())
+                if (idx == archive.size())
                     throw new NoSuchElementException();
                 return archive.get(idx++);
             }
@@ -109,7 +110,7 @@ public class DeferedCollection<T> implements Collection<T> {
     }
 
     /**
-     * Fetches another item from {@link
+     * Fetches another item from {@link #result}.
      */
     private void fetch() {
         if(result.hasNext())

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -61,7 +61,6 @@ class EnumLeafInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
     protected boolean tokenStringType;
             
     /**
-     * @param clazz
      * @param type
      *      clazz and type should both point to the enum class
      *      that this {@link EnumLeafInfo} represents.
@@ -106,7 +105,7 @@ class EnumLeafInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
                         tokenStringType = true;
                         break;
                     }
-                };
+                }
             }
         }
         F[] constants = nav().getEnumConstants(clazz);
@@ -237,16 +236,17 @@ class EnumLeafInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
 
     @Override
     public Iterator<EnumConstantImpl<T,C,F,M>> iterator() {
-        return new Iterator<EnumConstantImpl<T,C,F,M>>() {
-            private EnumConstantImpl<T,C,F,M> next = firstConstant;
+        return new Iterator<>() {
+            private EnumConstantImpl<T, C, F, M> next = firstConstant;
+
             @Override
             public boolean hasNext() {
-                return next!=null;
+                return next != null;
             }
 
             @Override
-            public EnumConstantImpl<T,C,F,M> next() {
-                EnumConstantImpl<T,C,F,M> r = next;
+            public EnumConstantImpl<T, C, F, M> next() {
+                EnumConstantImpl<T, C, F, M> r = next;
                 next = next.next;
                 return r;
             }

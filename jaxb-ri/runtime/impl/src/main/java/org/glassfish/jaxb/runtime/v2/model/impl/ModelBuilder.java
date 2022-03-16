@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -120,7 +120,7 @@ public class ModelBuilder<T,C,F,M> implements ModelBuilderI<T,C,F,M> {
         typeInfoSet = createTypeInfoSet();
     }
 
-    /**
+    /*
      * Makes sure that we are running with 2.1 JAXB API,
      * and report an error if not.
      */
@@ -146,7 +146,7 @@ public class ModelBuilder<T,C,F,M> implements ModelBuilderI<T,C,F,M> {
         }
     }
 
-    /**
+    /*
      * Makes sure that we don't have conflicting 1.0 runtime,
      * and report an error if we do.
      */
@@ -162,7 +162,7 @@ public class ModelBuilder<T,C,F,M> implements ModelBuilderI<T,C,F,M> {
         }
     }
 
-    /**
+    /*
      * Logger init
      */
     static {

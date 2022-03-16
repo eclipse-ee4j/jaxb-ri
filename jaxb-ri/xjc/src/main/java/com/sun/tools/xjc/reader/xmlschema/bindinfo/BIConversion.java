@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -39,7 +39,6 @@ import com.sun.tools.xjc.reader.Const;
 import com.sun.tools.xjc.reader.Ring;
 import com.sun.tools.xjc.reader.TypeUtil;
 import com.sun.tools.xjc.reader.xmlschema.ClassSelector;
-import org.glassfish.jaxb.core.v2.WellKnownNamespace;
 import com.sun.xml.xsom.XSSimpleType;
 
 import org.xml.sax.Locator;
@@ -69,9 +68,9 @@ public abstract class BIConversion extends AbstractDeclarationImpl {
      * The returned {@link TypeUse} object is properly adapted.
      *
      * @param owner
-     *      A {@link BIConversion} is always associated with one
+     *      A  is always associated with one
      *      {@link XSSimpleType}, but that's not always available
-     *      when a {@link BIConversion} is built. So we pass this
+     *      when a  is built. So we pass this
      *      as a parameter to this method.
      */
     public abstract TypeUse getTypeUse( XSSimpleType owner );

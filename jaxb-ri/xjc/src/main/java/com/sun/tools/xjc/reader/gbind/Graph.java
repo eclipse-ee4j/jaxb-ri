@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -31,10 +31,10 @@ public final class Graph implements Iterable<ConnectedComponent> {
     private final List<ConnectedComponent> ccs = new ArrayList<>();
 
     /**
-     * Builds a {@link Graph} from an {@link Expression} tree.
+     * Builds a  from an {@link Expression} tree.
      *
      * {@link Expression} given to the graph will be modified forever,
-     * and it will not be able to create another {@link Graph}.
+     * and it will not be able to create another .
      */
     public Graph(Expression body) {
         // attach source and sink

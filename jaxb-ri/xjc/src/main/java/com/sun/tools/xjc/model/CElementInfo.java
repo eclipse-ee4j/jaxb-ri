@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -122,7 +122,7 @@ public final class CElementInfo extends AbstractCElement
      *
      * This is to avoid a circular model construction dependency between buidling a type
      * inside an element and element itself. To build a content type, you need to have
-     * {@link CElementInfo} for a parent, so we can't take it as a constructor parameter.
+     *  for a parent, so we can't take it as a constructor parameter.
      */
     public CElementInfo(Model model,QName tagName, CClassInfoParent parent, String className, CCustomizations customizations, Locator location ) {
         this(model,tagName,parent,null,null,null,customizations,location);
@@ -152,11 +152,11 @@ public final class CElementInfo extends AbstractCElement
 
     }
 
-    public final String getDefaultValue() {
+    public String getDefaultValue() {
         return getProperty().getTypes().get(0).getDefaultValue();
     }
 
-    public final JPackage _package() {
+    public JPackage _package() {
         return parent.getOwnerPackage();
     }
 

@@ -31,7 +31,7 @@ import java.util.Map;
  * @author Kohsuke Kawaguchi (kk@kohsuke.org)
  */
 public class DGrammarPattern extends DPattern implements Iterable<DDefine> {
-    private final Map<String,DDefine> patterns = new HashMap<String,DDefine>();
+    private final Map<String,DDefine> patterns = new HashMap<>();
 
     DPattern start;
 

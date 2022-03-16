@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -79,12 +79,12 @@ final class JAXBModelImpl implements S2JJAXBModel {
     }
 
     @Override
-    public final Mapping get(QName elementName) {
+    public Mapping get(QName elementName) {
         return byXmlName.get(elementName);
     }
 
     @Override
-    public final Collection<? extends Mapping> getMappings() {
+    public Collection<? extends Mapping> getMappings() {
         return byXmlName.values();
     }
 
@@ -98,7 +98,7 @@ final class JAXBModelImpl implements S2JJAXBModel {
     }
 
     @Override
-    public final List<String> getClassList() {
+    public List<String> getClassList() {
         List<String> classList = new ArrayList<>();
 
         // list up root classes

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.Map;
 
 import javax.xml.XMLConstants;
-import jakarta.xml.bind.annotation.XmlInlineBinaryData;
+
 import jakarta.xml.bind.annotation.XmlSchemaType;
 import jakarta.xml.bind.annotation.XmlTransient;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -154,7 +154,7 @@ public abstract class CPropertyInfo implements PropertyInfo<NType,NClass>, CCust
      *
      * <p>
      * This method is implemented to follow the contract of
-     * {@link PropertyInfo#getName()}, and therefore it always
+     * , and therefore it always
      * returns the name of the annotated field.
      * <p>
      * This name is normally not useful for the rest of XJC,

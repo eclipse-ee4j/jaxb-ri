@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2005, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -49,9 +49,8 @@ public class AntErrorListener implements ErrorListener {
 
     String getLocation(SAXParseException e) {
         return MessageFormat.format("  {0}:{1} of {2}",
-            new Object[]{
                 String.valueOf(e.getLineNumber()),
                 String.valueOf(e.getColumnNumber()),
-                e.getSystemId()});
+                e.getSystemId());
     }
 }

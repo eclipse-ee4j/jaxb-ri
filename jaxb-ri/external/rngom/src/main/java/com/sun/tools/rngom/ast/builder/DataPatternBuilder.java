@@ -24,7 +24,6 @@ package com.sun.tools.rngom.ast.builder;
 import com.sun.tools.rngom.ast.om.Location;
 import com.sun.tools.rngom.ast.om.ParsedElementAnnotation;
 import com.sun.tools.rngom.ast.om.ParsedPattern;
-import com.sun.tools.rngom.parse.Context;
 import com.sun.tools.rngom.parse.*;
 
 

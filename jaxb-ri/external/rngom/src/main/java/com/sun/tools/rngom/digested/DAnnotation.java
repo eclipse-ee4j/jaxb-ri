@@ -46,12 +46,12 @@ public class DAnnotation {
     /**
      * Keyed by QName.
      */
-    final Map<QName,Attribute> attributes = new HashMap<QName,Attribute>();
+    final Map<QName,Attribute> attributes = new HashMap<>();
 
     /**
      * List of nested elements.
      */
-    final List<Element> contents = new ArrayList<Element>();
+    final List<Element> contents = new ArrayList<>();
 
     /**
      * Attribute.

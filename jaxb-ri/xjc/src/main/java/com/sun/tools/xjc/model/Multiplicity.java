@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -43,7 +43,7 @@ public final class Multiplicity {
     }
 
     public static Multiplicity create(int min, Integer max ) {
-        return Multiplicity.create(BigInteger.valueOf(min), BigInteger.valueOf(max.intValue()));
+        return Multiplicity.create(BigInteger.valueOf(min), BigInteger.valueOf(max));
     }
 
     private Multiplicity(BigInteger min, BigInteger max) {

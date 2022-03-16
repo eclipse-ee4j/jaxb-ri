@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -36,13 +36,13 @@ public /*for BSH*/ final class PropertyImpl implements Property {
     }
 
     @Override
-    public final String name() {
+    public String name() {
         return fr.getPropertyInfo().getName(false);
     }
 
     /** Returns raw schema name for simpleType property. May return null for other types. */
     @Override
-    public final QName rawName() {
+    public QName rawName() {
         if (fr instanceof ElementAdapter) {
             CElementInfo eInfo = ((ElementAdapter)fr).ei;
             if ((eInfo != null) && (eInfo.getProperty() != null)) {
@@ -53,12 +53,12 @@ public /*for BSH*/ final class PropertyImpl implements Property {
     }
 
     @Override
-    public final QName elementName() {
+    public QName elementName() {
         return elementName;
     }
 
     @Override
-    public final JType type() {
+    public JType type() {
         return fr.getRawType();
     }
 }

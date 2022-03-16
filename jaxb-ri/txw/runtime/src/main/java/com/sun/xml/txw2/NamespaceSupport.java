@@ -202,7 +202,7 @@ final class NamespaceSupport
 
 				// Extend the array if necessary
 	if (contextPos >= max) {
-	    Context newContexts[] = new Context[max*2];
+	    Context[] newContexts = new Context[max*2];
 	    System.arraycopy(contexts, 0, newContexts, 0, max);
 	    max *= 2;
 	    contexts = newContexts;
@@ -335,10 +335,10 @@ final class NamespaceSupport
      *        is an undeclared prefix.
      * @see #declarePrefix
      * @see java.lang.String#intern */
-    public String [] processName (String qName, String parts[],
-				  boolean isAttribute)
+    public String [] processName (String qName, String[] parts,
+                                  boolean isAttribute)
     {
-	String myParts[] = currentContext.processName(qName, isAttribute);
+	String[] myParts = currentContext.processName(qName, isAttribute);
 	if (myParts == null) {
 	    return null;
 	} else {
@@ -508,7 +508,7 @@ final class NamespaceSupport
     // Internal state.
     ////////////////////////////////////////////////////////////////////
 
-    private Context contexts[];
+    private Context[] contexts;
     private Context currentContext;
     private int contextPos;
     private boolean namespaceDeclUris;
@@ -622,7 +622,7 @@ final class NamespaceSupport
 	 */
 	String [] processName (String qName, boolean isAttribute)
 	{
-	    String name[];
+	    String[] name;
 	    Hashtable<String, String[]> table;
 
 				// Select the appropriate table.

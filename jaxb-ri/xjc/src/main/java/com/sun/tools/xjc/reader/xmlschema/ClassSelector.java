@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -35,7 +35,6 @@ import com.sun.tools.xjc.reader.Ring;
 import com.sun.tools.xjc.reader.xmlschema.bindinfo.BIProperty;
 import com.sun.tools.xjc.reader.xmlschema.bindinfo.BISchemaBinding;
 import com.sun.tools.xjc.reader.xmlschema.bindinfo.LocalScoping;
-import org.glassfish.jaxb.core.v2.WellKnownNamespace;
 import com.sun.xml.xsom.XSComplexType;
 import com.sun.xml.xsom.XSComponent;
 import com.sun.xml.xsom.XSDeclaration;
@@ -82,7 +81,7 @@ public final class ClassSelector extends BindingComponent {
      * <p>
      * the cyclic dependency is as follows:
      * elements need to bind its types first, because otherwise it can't
-     * determine T of JAXBElement<T>.
+     * determine T of {@literal JAXBElement<T>}.
      * OTOH, types need to know whether its parent is bound to a class to decide
      * which class name to use.
      */
@@ -193,17 +192,17 @@ public final class ClassSelector extends BindingComponent {
     }
 
     /** Gets the current class scope. */
-    public final CClassInfoParent getClassScope() {
+    public CClassInfoParent getClassScope() {
         assert !classScopes.isEmpty();
         return classScopes.peek();
     }
 
-    public final void pushClassScope( CClassInfoParent clsFctry ) {
+    public void pushClassScope(CClassInfoParent clsFctry ) {
         assert clsFctry!=null;
         classScopes.push(clsFctry);
     }
 
-    public final void popClassScope() {
+    public void popClassScope() {
         classScopes.pop();
     }
 
@@ -218,7 +217,7 @@ public final class ClassSelector extends BindingComponent {
     /**
      * Checks if the given component is bound to a class.
      */
-    public final CElement isBound( XSElementDecl x, XSComponent referer ) {
+    public CElement isBound(XSElementDecl x, XSComponent referer ) {
         CElementInfo r = boundElements.get(x);
         if(r!=null)
             return r;

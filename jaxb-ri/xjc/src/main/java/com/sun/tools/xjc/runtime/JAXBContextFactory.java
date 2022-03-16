@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -136,7 +136,7 @@ public class JAXBContextFactory {
         }
 
         // delegate to the JAXB provider in the system
-        return JAXBContext.newInstance(classes.toArray(new Class<?>[classes.size()]),properties);
+        return JAXBContext.newInstance(classes.toArray(new Class<?>[0]),properties);
     }
     
     private static ClassLoader getClassClassLoader(final Class<?> c) {
@@ -144,7 +144,7 @@ public class JAXBContextFactory {
             return c.getClassLoader();
         } else {
             return java.security.AccessController.doPrivileged(
-                    new java.security.PrivilegedAction<ClassLoader>() {
+                    new java.security.PrivilegedAction<>() {
                         @Override
                         public ClassLoader run() {
                             return c.getClassLoader();

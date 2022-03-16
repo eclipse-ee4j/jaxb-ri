@@ -49,10 +49,11 @@ public abstract class DContainerPattern extends DPattern implements Iterable<DPa
     }
 
     public Iterator<DPattern> iterator() {
-        return new Iterator<DPattern>() {
+        return new Iterator<>() {
             DPattern next = head;
+
             public boolean hasNext() {
-                return next!=null;
+                return next != null;
             }
 
             public DPattern next() {

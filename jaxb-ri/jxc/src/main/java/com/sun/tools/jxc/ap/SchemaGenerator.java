@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -54,7 +54,7 @@ public class SchemaGenerator extends AbstractProcessor {
     /**
      * User-specified schema locations, if any.
      */
-    private final Map<String,File> schemaLocations = new HashMap<String, File>();
+    private final Map<String,File> schemaLocations = new HashMap<>();
 
     private File episodeFile;
 
@@ -73,12 +73,12 @@ public class SchemaGenerator extends AbstractProcessor {
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         final ErrorReceiverImpl errorListener = new ErrorReceiverImpl(processingEnv);
 
-        List<Reference> classesToBeBound = new ArrayList<Reference>();
+        List<Reference> classesToBeBound = new ArrayList<>();
         // simply ignore all the interface definitions,
         // so that users won't have to manually exclude interfaces, which is silly.
         filterClass(classesToBeBound, roundEnv.getRootElements());
 
-        J2SJAXBModel model = JXC.createJavaCompiler().bind(classesToBeBound, Collections.<QName, Reference>emptyMap(), null, processingEnv);
+        J2SJAXBModel model = JXC.createJavaCompiler().bind(classesToBeBound, Collections.emptyMap(), null, processingEnv);
         if (model == null)
             return false; // error
 

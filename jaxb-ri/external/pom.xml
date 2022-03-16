@@ -65,6 +65,13 @@
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>High</spotbugs.threshold>
         <spotbugs.version>4.5.3.0</spotbugs.version>
+        <!-- exclude big groups from the Xlint -->
+        <comp.xlint>-Xlint:all,-rawtypes,-unchecked</comp.xlint>
+        <!-- -Xdoclint:-missing does not seem to work properly on the infra -->
+        <comp.xdoclint>-Xdoclint:all,-missing</comp.xdoclint>
+        <warn.limit>150000</warn.limit>
+        <!-- too many to fix -->
+        <jdoc.doclint>all,-missing</jdoc.doclint>
     </properties>
 
     <modules>
@@ -152,7 +159,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.10.0</version>
+                    <version>3.10.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -308,9 +315,16 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <release>11</release>
-                    <compilerArgs>
-                        <arg>-Xlint:all</arg>
+                    <compilerArgs combine.children="append">
+                        <arg>${comp.xlint}</arg>
+                        <arg>${comp.xdoclint}</arg>
+                        <arg>-Xmaxwarns</arg>
+                        <arg>${warn.limit}</arg>
+                        <arg>-Xmaxerrs</arg>
+                        <arg>${warn.limit}</arg>
                     </compilerArgs>
+                    <showDeprecation>true</showDeprecation>
+                    <showWarnings>true</showWarnings>
                 </configuration>
             </plugin>
             <plugin>

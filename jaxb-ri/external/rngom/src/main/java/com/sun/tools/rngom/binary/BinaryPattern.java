@@ -82,7 +82,7 @@ public abstract class BinaryPattern extends Pattern {
   public final Pattern[] getChildren() {
       List lst = new ArrayList();
       fillChildren(lst);
-      return (Pattern[]) lst.toArray(new Pattern[lst.size()]);
+      return (Pattern[]) lst.toArray(new Pattern[0]);
   }
 
   private void fillChildren( Class c, Pattern p, Collection col ) {

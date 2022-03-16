@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2005, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -55,7 +55,7 @@ public class NameUtil {
     public static String capitalize(String s) {
         if (!isLower(s.charAt(0)))
             return s;
-        StringBuffer sb = new StringBuffer(s.length());
+        StringBuilder sb = new StringBuilder(s.length());
         sb.append(Character.toUpperCase(s.charAt(0)));
         sb.append(s.substring(1).toLowerCase());
         return sb.toString();
@@ -119,11 +119,11 @@ public class NameUtil {
 //      so there's not much point in rejecting things in this way.
 //        if (ss.size() == 0)
 //            throw new IllegalArgumentException("Zero-length identifier");
-        return ss.toArray(new String[ss.size()]);
+        return ss.toArray(new String[0]);
     }
 
     protected static String toMixedCaseName(String[] ss, boolean startUpper) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         if(ss.length>0) {
             sb.append(startUpper ? ss[0] : ss[0].toLowerCase());
             for (int i = 1; i < ss.length; i++)
@@ -138,7 +138,7 @@ public class NameUtil {
         if (cdrUpper)
             for (int i = 1; i < ss.length; i++)
                 ss[i] = capitalize(ss[i]);
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         if( ss.length>0 ) {
             sb.append(startUpper ? ss[0] : ss[0].toLowerCase());
             for (int i = 1; i < ss.length; i++)
@@ -167,7 +167,7 @@ public class NameUtil {
      *      the generated code is a valid Java identifier.
      */
     public static String toConstantName(String[] ss) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         if( ss.length>0 ) {
             sb.append(ss[0].toUpperCase());
             for (int i = 1; i < ss.length; i++) {
@@ -231,7 +231,7 @@ public class NameUtil {
      * @param s source string to be escaped
      */
     public static String escapeURI(String s) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for( int i = 0; i < s.length(); i++ ) {
             char c = s.charAt(i);
             if(Character.isSpaceChar(c)) {

@@ -524,7 +524,7 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler
                         write(p);
                         write("=\"");
                     }
-                    char ch[] = u.toCharArray();
+                    char[] ch = u.toCharArray();
                     writeEsc(ch, 0, ch.length, true);
                     write('\"');
                 }
@@ -600,7 +600,7 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler
      * @see org.xml.sax.ContentHandler#characters(char[], int, int)
      */
     @Override
-    public void characters (char ch[], int start, int len)
+    public void characters (char[] ch, int start, int len)
         throws SAXException
     {
         try {
@@ -633,7 +633,7 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler
      * @see org.xml.sax.ContentHandler#ignorableWhitespace(char[], int, int)
      */
     @Override
-    public void ignorableWhitespace (char ch[], int start, int length)
+    public void ignorableWhitespace (char[] ch, int start, int length)
         throws SAXException
     {
         try {
@@ -893,7 +893,7 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler
                 write('>');
                 startTagIsClosed = true;
             }
-            char ch[] = data.toCharArray();
+            char[] ch = data.toCharArray();
             characters(ch, 0, ch.length);
         } catch( IOException e ) {
             throw new SAXException(e);
@@ -942,7 +942,7 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler
     }
 
     @Override
-    public void comment(char ch[], int start, int length) throws SAXException {
+    public void comment(char[] ch, int start, int length) throws SAXException {
         try {
             output.write("<!--");
             output.write(ch,start,length);
@@ -992,7 +992,7 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler
     private void writeAttributes (Attributes atts) throws IOException, SAXException {
         int len = atts.getLength();
         for (int i = 0; i < len; i++) {
-            char ch[] = atts.getValue(i).toCharArray();
+            char[] ch = atts.getValue(i).toCharArray();
             write(' ');
             writeName(atts.getURI(i), atts.getLocalName(i),
                       atts.getQName(i), false);
@@ -1014,8 +1014,8 @@ public class XMLWriter extends XMLFilterImpl implements LexicalHandler
      *            the characters, this method will throw an
      *            IOException wrapped in a SAXException.
      */    
-    private void writeEsc (char ch[], int start,
-                             int length, boolean isAttVal)
+    private void writeEsc (char[] ch, int start,
+                           int length, boolean isAttVal)
         throws SAXException, IOException
     {
         escapeHandler.escape(ch, start, length, isAttVal, output);

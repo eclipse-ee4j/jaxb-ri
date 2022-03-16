@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -9,8 +9,6 @@
  */
 
 package org.glassfish.jaxb.core.v2.model.core;
-
-import org.glassfish.jaxb.core.v2.WellKnownNamespace;
 
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
@@ -25,7 +23,7 @@ import javax.xml.namespace.QName;
  * @author Kohsuke Kawaguchi
  */
 public interface NonElement<T,C> extends TypeInfo<T,C> {
-    public static final QName ANYTYPE_NAME = new QName(XMLConstants.W3C_XML_SCHEMA_NS_URI, "anyType");
+    QName ANYTYPE_NAME = new QName(XMLConstants.W3C_XML_SCHEMA_NS_URI, "anyType");
 
     /**
      * Gets the primary XML type ANYTYPE_NAME of the class.
@@ -40,7 +38,7 @@ public interface NonElement<T,C> extends TypeInfo<T,C> {
     QName getTypeName();
 
     /**
-     * Returns true if this {@link NonElement} maps to text in XML,
+     * Returns true if this  maps to text in XML,
      * without any attribute nor child elements.
      */
     boolean isSimpleType();

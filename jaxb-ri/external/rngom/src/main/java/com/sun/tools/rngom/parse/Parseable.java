@@ -21,14 +21,6 @@
  */
 package com.sun.tools.rngom.parse;
 
-import com.sun.tools.rngom.ast.builder.Annotations;
-import com.sun.tools.rngom.ast.builder.BuildException;
-import com.sun.tools.rngom.ast.builder.Include;
-import com.sun.tools.rngom.ast.builder.IncludedGrammar;
-import com.sun.tools.rngom.ast.builder.SchemaBuilder;
-import com.sun.tools.rngom.ast.builder.Scope;
-import com.sun.tools.rngom.ast.om.Location;
-import com.sun.tools.rngom.ast.om.ParsedPattern;
 import com.sun.tools.rngom.ast.builder.*;
 import com.sun.tools.rngom.ast.om.*;
 
@@ -41,7 +33,7 @@ import com.sun.tools.rngom.ast.om.*;
  */
 public interface Parseable {
     /**
-     * Parses this {@link Parseable} object into a RELAX NG pattern.
+     * Parses this  object into a RELAX NG pattern.
      * 
      * @param sb
      *      The builder of the schema object model. This object

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -472,7 +472,7 @@ class attributeDeclBody extends NGCCHandler {
             break;
         case 395:
             {
-                form = ((Boolean)$__result__).booleanValue();
+                form = (Boolean) $__result__;
                 action1();
                 $_ngcc_current_state = 14;
             }
@@ -506,7 +506,7 @@ class attributeDeclBody extends NGCCHandler {
           if(!isLocal)       form = true;
 
         String tns;
-        if(form==true)  tns = $runtime.currentSchema.getTargetNamespace();
+        if(form)  tns = $runtime.currentSchema.getTargetNamespace();
         else            tns = "";
 
         // proper handling of anonymous types

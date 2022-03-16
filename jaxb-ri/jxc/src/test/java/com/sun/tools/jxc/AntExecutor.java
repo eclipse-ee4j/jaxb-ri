@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2017, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,7 +13,6 @@ package com.sun.tools.jxc;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,7 +29,7 @@ public class AntExecutor {
 
     public static int exec(File script, String... targets) throws IOException {
         File heapDump = null;
-        List<String> cmd = new ArrayList<String>();
+        List<String> cmd = new ArrayList<>();
         cmd.add("java");
         if (DEBUG) {
             cmd.add("-Xdebug");

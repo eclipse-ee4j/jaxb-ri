@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -212,15 +212,15 @@ public class ComplexTypeImpl extends AttributesHolder implements XSComplexType, 
 
         if( baseType==null )    return super.iterateAttributeUses();
 
-        return new Iterators.Union<XSAttributeUse>(
-            new Iterators.Filter<XSAttributeUse>(baseType.iterateAttributeUses()) {
-                protected boolean matches(XSAttributeUse value) {
-                    XSAttributeDecl u = value.getDecl();
-                    UName n = new UName(u.getTargetNamespace(),u.getName());
-                    return !prohibitedAtts.contains(n);
-                }
-            },
-            super.iterateAttributeUses() );
+        return new Iterators.Union<>(
+                new Iterators.Filter<XSAttributeUse>(baseType.iterateAttributeUses()) {
+                    protected boolean matches(XSAttributeUse value) {
+                        XSAttributeDecl u = value.getDecl();
+                        UName n = new UName(u.getTargetNamespace(), u.getName());
+                        return !prohibitedAtts.contains(n);
+                    }
+                },
+                super.iterateAttributeUses());
     }
 
     public Collection<XSAttributeUse> getAttributeUses() {
@@ -229,7 +229,7 @@ public class ComplexTypeImpl extends AttributesHolder implements XSComplexType, 
         if( baseType==null )    return super.getAttributeUses();
 
         // TODO: this is fairly inefficient
-        Map<UName,XSAttributeUse> uses = new HashMap<UName, XSAttributeUse>();
+        Map<UName,XSAttributeUse> uses = new HashMap<>();
         for( XSAttributeUse a : baseType.getAttributeUses())
             uses.put(new UName(a.getDecl()),a);
 

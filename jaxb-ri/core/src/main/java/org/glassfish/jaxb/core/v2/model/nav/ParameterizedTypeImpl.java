@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -135,7 +135,7 @@ class ParameterizedTypeImpl implements ParameterizedType {
             if (ownerType instanceof Class)
                 sb.append(((Class) ownerType).getName());
             else
-                sb.append(ownerType.toString());
+                sb.append(ownerType);
 
             sb.append(".");
 

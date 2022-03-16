@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -46,7 +46,7 @@ public interface StructureLoaderBuilder {
      * of the {@link #buildChildElementUnmarshallers} method by using
      * this magic token as the key.
      */
-    public static final QName TEXT_HANDLER = new QName("\u0000","text");
+    QName TEXT_HANDLER = new QName("\u0000","text");
 
     /**
      * Magic {@link QName} used to store a handler for the rest of the elements.
@@ -60,5 +60,5 @@ public interface StructureLoaderBuilder {
      * of the {@link #buildChildElementUnmarshallers} method by using
      * this magic token as the key.
      */
-    public static final QName CATCH_ALL = new QName("\u0000","catchAll");
+    QName CATCH_ALL = new QName("\u0000","catchAll");
 }

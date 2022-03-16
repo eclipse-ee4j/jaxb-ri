@@ -37,22 +37,22 @@ public interface GrammarSection<
     A extends Annotations<E,L,CL>,
     CL extends CommentList<L>> {
 
-    static final class Combine {
+    final class Combine {
         private final String name;
         private Combine(String name) {
             this.name = name;
         }
-        final public String toString() {
+        public String toString() {
             return name;
         }
     }
 
-    static final Combine COMBINE_CHOICE = new Combine("choice");
-    static final Combine COMBINE_INTERLEAVE = new Combine("interleave");
+    Combine COMBINE_CHOICE = new Combine("choice");
+    Combine COMBINE_INTERLEAVE = new Combine("interleave");
 
     // using \u0000 guarantees that the name will be never used as
     // a user-defined pattern name.
-    static final String START = "\u0000#start\u0000";
+    String START = "\u0000#start\u0000";
 
     /**
      * Called when a pattern is defined.

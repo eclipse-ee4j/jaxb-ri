@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -114,9 +114,7 @@ public class JDocComment extends JCommentPart implements JGenerable {
      * add an xdoclet.
      */
     public Map<String,String> addXdoclet(String name) {
-        Map<String,String> p = atXdoclets.get(name);
-        if(p==null)
-            atXdoclets.put(name,p=new HashMap<>());
+        Map<String, String> p = atXdoclets.computeIfAbsent(name, k -> new HashMap<>());
         return p;
     }
 
@@ -124,9 +122,7 @@ public class JDocComment extends JCommentPart implements JGenerable {
      * add an xdoclet.
      */
     public Map<String,String> addXdoclet(String name, Map<String,String> attributes) {
-        Map<String,String> p = atXdoclets.get(name);
-        if(p==null)
-            atXdoclets.put(name,p=new HashMap<>());
+        Map<String, String> p = atXdoclets.computeIfAbsent(name, k -> new HashMap<>());
         p.putAll(attributes);
         return p;
     }
@@ -135,9 +131,7 @@ public class JDocComment extends JCommentPart implements JGenerable {
      * add an xdoclet.
      */
     public Map<String,String> addXdoclet(String name, String attribute, String value) {
-        Map<String,String> p = atXdoclets.get(name);
-        if(p==null)
-            atXdoclets.put(name,p=new HashMap<>());
+        Map<String, String> p = atXdoclets.computeIfAbsent(name, k -> new HashMap<>());
         p.put(attribute, value);
         return p;
     }

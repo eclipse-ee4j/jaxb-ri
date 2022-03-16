@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -53,14 +53,14 @@ public abstract class Step<T extends XSComponent> {
      */
     public final Iterator<T> evaluate(Iterator<XSComponent> nodeSet) {
         // list up the whole thing
-        Iterator<T> r = new Iterators.Map<T,XSComponent>(nodeSet) {
+        Iterator<T> r = new Iterators.Map<>(nodeSet) {
             protected Iterator<? extends T> apply(XSComponent contextNode) {
                 return filter(axis.iterator(contextNode));
             }
         };
 
         // avoid duplicates
-        r = new Iterators.Unique<T>(r);
+        r = new Iterators.Unique<>(r);
 
         if(predicate>=0) {
             T item=null;
@@ -69,7 +69,7 @@ public abstract class Step<T extends XSComponent> {
                     return Iterators.empty();
                 item = r.next();
             }
-            return new Iterators.Singleton<T>(item);
+            return new Iterators.Singleton<>(item);
         }
 
         return r;
@@ -95,7 +95,7 @@ public abstract class Step<T extends XSComponent> {
         }
 
         protected Iterator<T> filter(Iterator<? extends T> base) {
-            return new Iterators.Filter<T>(base) {
+            return new Iterators.Filter<>(base) {
                 protected boolean matches(T d) {
                     return match(d);
                 }

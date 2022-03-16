@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,7 +16,6 @@ import org.glassfish.jaxb.core.WhiteSpaceProcessor;
 import org.glassfish.jaxb.runtime.DatatypeConverterImpl;
 import org.glassfish.jaxb.runtime.api.AccessorException;
 import org.glassfish.jaxb.core.v2.TODO;
-import org.glassfish.jaxb.core.v2.WellKnownNamespace;
 import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimeBuiltinLeafInfo;
 import org.glassfish.jaxb.runtime.v2.runtime.Name;
 import org.glassfish.jaxb.runtime.v2.runtime.Transducer;
@@ -156,7 +155,7 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
     /**
      * All instances of {@link RuntimeBuiltinLeafInfoImpl}s keyed by their type.
      */
-    public static final Map<Type,RuntimeBuiltinLeafInfoImpl<?>> LEAVES = new HashMap<Type, RuntimeBuiltinLeafInfoImpl<?>>();
+    public static final Map<Type,RuntimeBuiltinLeafInfoImpl<?>> LEAVES = new HashMap<>();
 
     private static QName createXS(String typeName) {
         return new QName(XMLConstants.W3C_XML_SCHEMA_NS_URI,typeName);
@@ -181,7 +180,7 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
     static {
 
         String MAP_ANYURI_TO_URI_VALUE = AccessController.doPrivileged(
-                new PrivilegedAction<String>() {
+                new PrivilegedAction<>() {
                     @Override
                     public String run() {
                         return System.getProperty(MAP_ANYURI_TO_URI);
@@ -622,7 +621,7 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
                     if (value.getFractionalSecond() != null) {
                         String frac = value.getFractionalSecond().toPlainString();
                         //skip leading zero.
-                        buf.append(frac.substring(1, frac.length()));
+                        buf.append(frac.substring(1));
                     }
                             break;
                         case 'z':
@@ -981,7 +980,7 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
     /**
      * Format string for the {@link XMLGregorianCalendar}.
      */
-    private static final Map<QName,String> xmlGregorianCalendarFormatString = new HashMap<QName, String>();
+    private static final Map<QName,String> xmlGregorianCalendarFormatString = new HashMap<>();
 
     static {
         Map<QName,String> m = xmlGregorianCalendarFormatString;
@@ -989,7 +988,7 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
         m.put(DatatypeConstants.DATETIME,   "%Y-%M-%DT%h:%m:%s"+ "%z");
         m.put(DatatypeConstants.DATE,       "%Y-%M-%D" +"%z");
         m.put(DatatypeConstants.TIME,       "%h:%m:%s"+ "%z");
-        final String oldGmonthMappingProperty = AccessController.doPrivileged(new PrivilegedAction<String>() {
+        final String oldGmonthMappingProperty = AccessController.doPrivileged(new PrivilegedAction<>() {
             @Override
             public String run() {
                 return System.getProperty(USE_OLD_GMONTH_MAPPING);
@@ -1020,7 +1019,7 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
 	 * timezone     0x1000000
 	 */
 	private static final Map<QName, Integer> xmlGregorianCalendarFieldRef =
-		new HashMap<QName, Integer>();
+            new HashMap<>();
 	static {
 		Map<QName, Integer> f = xmlGregorianCalendarFieldRef;
 		f.put(DatatypeConstants.DATETIME,   0x1111111);

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2011, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,6 +20,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import junit.framework.TestCase;
@@ -67,7 +68,7 @@ public class OptionsJUTest extends TestCase {
         fis.read(in);
         fis.close();
         cls.delete();
-        String inStr = new String(in, "UTF-8");
+        String inStr = new String(in, StandardCharsets.UTF_8);
         assertTrue("Got: '" + inStr + "'", inStr.contains("// This f"));
 
         //test UTF-16
@@ -80,7 +81,7 @@ public class OptionsJUTest extends TestCase {
         fis.read(in);
         fis.close();
         cls.delete();
-        inStr = new String(in, "UTF-16");
+        inStr = new String(in, StandardCharsets.UTF_16);
         assertTrue("Got: '" + inStr + "'", inStr.contains("package t"));
 
         //test default encoding
