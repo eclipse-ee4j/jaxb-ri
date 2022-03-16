@@ -745,9 +745,9 @@ public final class XMLSerializer extends Coordinator {
      * Short for the following call sequence:
      *
      * <pre>
-         getNamespaceContext().declareNamespace(WellKnownNamespace.XML_SCHEMA_INSTANCE,"xsi",true);
+         getNamespaceContext().declareNamespace(XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI,"xsi",true);
          endNamespaceDecls();
-         attribute(WellKnownNamespace.XML_SCHEMA_INSTANCE,"nil","true");
+         attribute(XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI,"nil","true");
          endAttributes();
      * </pre>
      */
