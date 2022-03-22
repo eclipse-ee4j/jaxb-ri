@@ -397,9 +397,7 @@ public final class XMLSerializer extends Coordinator {
 
         try {
             out.attribute(prefix,local,value);
-        } catch (IOException e) {
-            throw new SAXException2(e);
-        } catch (XMLStreamException e) {
+        } catch (IOException | XMLStreamException e) {
             throw new SAXException2(e);
         }
     }

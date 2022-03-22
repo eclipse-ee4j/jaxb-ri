@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -68,4 +68,7 @@ public class Messages
 
     public static final String JAXP_SUPPORTED_PROPERTY =
         "JAXPSupportedProperty"; // arg:1
+
+    public static final String INVALID_JAXP_IMPLEMENTATION =
+            "INVALID_JAXP_IMPLEMENTATION"; // arg:0
 }

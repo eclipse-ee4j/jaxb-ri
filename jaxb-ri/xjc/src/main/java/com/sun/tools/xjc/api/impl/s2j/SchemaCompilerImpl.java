@@ -93,6 +93,7 @@ public final class SchemaCompilerImpl extends ErrorReceiver implements SchemaCom
 
     @NotNull
     @Override
+    @SuppressWarnings({"deprecation"})
     public Options getOptions() {
         return opts;
     }

@@ -43,6 +43,7 @@ public final class LeafPropertyXsiLoader extends Loader {
         loader.startElement(state, ea);
     }
 
+    @SuppressWarnings({"deprecation"})
     protected Loader selectLoader(UnmarshallingContext.State state, TagName ea) throws SAXException {
 
         UnmarshallingContext context = state.getContext();

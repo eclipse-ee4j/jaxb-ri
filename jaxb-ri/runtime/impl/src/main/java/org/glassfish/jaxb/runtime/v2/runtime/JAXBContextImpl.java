@@ -886,11 +886,6 @@ public final class JAXBContextImpl extends JAXBRIContext {
         return bridges.get(ref);
     }
 
-    public @NotNull@Override
- BridgeContext createBridgeContext() {
-        return new BridgeContextImpl(this);
-    }
-
     @Override
     public RawAccessor getElementPropertyAccessor(Class wrapperBean, String nsUri, String localName) throws JAXBException {
         JaxBeanInfo bi = getBeanInfo(wrapperBean,true);
@@ -966,11 +961,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
                 if(ap.attName.equals(WellKnownNamespace.XML_MIME_URI,"contentType"))
                     try {
                         return (String)ap.xacc.print(o);
-                    } catch (AccessorException e) {
-                        return null;
-                    } catch (SAXException e) {
-                        return null;
-                    } catch (ClassCastException e) {
+                    } catch (AccessorException | ClassCastException | SAXException e) {
                         return null;
                     }
             }

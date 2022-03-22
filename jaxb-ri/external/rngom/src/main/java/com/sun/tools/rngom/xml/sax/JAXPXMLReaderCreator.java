@@ -56,11 +56,7 @@ public class JAXPXMLReaderCreator implements XMLReaderCreator {
         try {
             spf.setNamespaceAware(true);
             spf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
-        } catch (ParserConfigurationException ex) {
-            Logger.getLogger(JAXPXMLReaderCreator.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SAXNotRecognizedException ex) {
-            Logger.getLogger(JAXPXMLReaderCreator.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SAXNotSupportedException ex) {
+        } catch (ParserConfigurationException | SAXNotSupportedException | SAXNotRecognizedException ex) {
             Logger.getLogger(JAXPXMLReaderCreator.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

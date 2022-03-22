@@ -36,6 +36,7 @@ public class XsiNilLoader extends ProxyLoader {
     }
 
     @Override
+    @SuppressWarnings({"deprecation"})
     protected Loader selectLoader(UnmarshallingContext.State state, TagName ea) throws SAXException {
         int idx = ea.atts.getIndex(XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI,"nil");
 

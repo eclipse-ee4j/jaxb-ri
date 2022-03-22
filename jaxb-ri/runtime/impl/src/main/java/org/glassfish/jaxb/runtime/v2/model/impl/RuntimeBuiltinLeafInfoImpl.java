@@ -233,6 +233,7 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
         secondaryList.add(
             new StringImpl<Character>(Character.class, createXS("unsignedShort")) {
                 @Override
+                @SuppressWarnings({"deprecation"})
                 public Character parse(CharSequence text) {
                     // TODO.checkSpec("default mapping for char is not defined yet");
                     return (char) DatatypeConverterImpl._parseInt(text);
@@ -245,10 +246,12 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
         secondaryList.add(
             new StringImpl<Calendar>(Calendar.class, DatatypeConstants.DATETIME) {
                 @Override
+                @SuppressWarnings({"deprecation"})
                 public Calendar parse(CharSequence text) {
                     return DatatypeConverterImpl._parseDateTime(text.toString());
                 }
                 @Override
+                @SuppressWarnings({"deprecation"})
                 public String print(Calendar v) {
                     return DatatypeConverterImpl._printDateTime(v);
                 }
@@ -256,10 +259,12 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
         secondaryList.add(
             new StringImpl<GregorianCalendar>(GregorianCalendar.class, DatatypeConstants.DATETIME) {
                 @Override
+                @SuppressWarnings({"deprecation"})
                 public GregorianCalendar parse(CharSequence text) {
                     return DatatypeConverterImpl._parseDateTime(text.toString());
                 }
                 @Override
+                @SuppressWarnings({"deprecation"})
                 public String print(GregorianCalendar v) {
                     return DatatypeConverterImpl._printDateTime(v);
                 }
@@ -267,10 +272,12 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
         secondaryList.add(
             new StringImpl<Date>(Date.class, DatatypeConstants.DATETIME) {
                 @Override
+                @SuppressWarnings({"deprecation"})
                 public Date parse(CharSequence text) {
                     return DatatypeConverterImpl._parseDateTime(text.toString()).getTime();
                 }
                 @Override
+                @SuppressWarnings({"deprecation"})
                 public String print(Date v) {
                     XMLSerializer xs = XMLSerializer.getInstance();
                     QName type = xs.getSchemaType();
@@ -578,6 +585,7 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
                 }
 
                 @Override
+                @SuppressWarnings({"deprecation"})
                 public XMLGregorianCalendar parse(CharSequence lexical) throws SAXException {
                     try {
                         return DatatypeConverterImpl.getDatatypeFactory()
@@ -675,6 +683,7 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
                 createXS("boolean")
                 ) {
                 @Override
+                @SuppressWarnings({"deprecation"})
                 public Boolean parse(CharSequence text) {
                     return DatatypeConverterImpl._parseBoolean(text);
                 }
@@ -706,11 +715,13 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
                 createXS("byte")
                 ) {
                 @Override
+                @SuppressWarnings({"deprecation"})
                 public Byte parse(CharSequence text) {
                     return DatatypeConverterImpl._parseByte(text);
                 }
 
                 @Override
+                @SuppressWarnings({"deprecation"})
                 public String print(Byte v) {
                     return DatatypeConverterImpl._printByte(v);
                 }
@@ -720,11 +731,13 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
                 createXS("unsignedByte")
                 ) {
                 @Override
+                @SuppressWarnings({"deprecation"})
                 public Short parse(CharSequence text) {
                     return DatatypeConverterImpl._parseShort(text);
                 }
 
                 @Override
+                @SuppressWarnings({"deprecation"})
                 public String print(Short v) {
                     return DatatypeConverterImpl._printShort(v);
                 }
@@ -734,11 +747,13 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
                 createXS("unsignedShort")
                 ) {
                 @Override
+                @SuppressWarnings({"deprecation"})
                 public Integer parse(CharSequence text) {
                     return DatatypeConverterImpl._parseInt(text);
                 }
 
                 @Override
+                @SuppressWarnings({"deprecation"})
                 public String print(Integer v) {
                     return DatatypeConverterImpl._printInt(v);
                 }
@@ -749,11 +764,13 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
                 createXS("unsignedInt")
                 ) {
                 @Override
+                @SuppressWarnings({"deprecation"})
                 public Long parse(CharSequence text) {
                     return DatatypeConverterImpl._parseLong(text);
                 }
 
                 @Override
+                @SuppressWarnings({"deprecation"})
                 public String print(Long v) {
                     return DatatypeConverterImpl._printLong(v);
                 }
@@ -763,11 +780,13 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
                 createXS("float")
                 ) {
                 @Override
+                @SuppressWarnings({"deprecation"})
                 public Float parse(CharSequence text) {
                     return DatatypeConverterImpl._parseFloat(text.toString());
                 }
 
                 @Override
+                @SuppressWarnings({"deprecation"})
                 public String print(Float v) {
                     return DatatypeConverterImpl._printFloat(v);
                 }
@@ -777,11 +796,13 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
                 createXS("double")
                 ) {
                 @Override
+                @SuppressWarnings({"deprecation"})
                 public Double parse(CharSequence text) {
                     return DatatypeConverterImpl._parseDouble(text);
                 }
 
                 @Override
+                @SuppressWarnings({"deprecation"})
                 public String print(Double v) {
                     return DatatypeConverterImpl._printDouble(v);
                 }
@@ -796,11 +817,13 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
                 createXS("unsignedLong")
                 ) {
                 @Override
+                @SuppressWarnings({"deprecation"})
                 public BigInteger parse(CharSequence text) {
                     return DatatypeConverterImpl._parseInteger(text);
                 }
 
                 @Override
+                @SuppressWarnings({"deprecation"})
                 public String print(BigInteger v) {
                     return DatatypeConverterImpl._printInteger(v);
                 }
@@ -810,11 +833,13 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
                         createXS("decimal")
                 ) {
                     @Override
+                    @SuppressWarnings({"deprecation"})
                     public BigDecimal parse(CharSequence text) {
                         return DatatypeConverterImpl._parseDecimal(text.toString());
                     }
 
                     @Override
+                    @SuppressWarnings({"deprecation"})
                     public String print(BigDecimal v) {
                         return DatatypeConverterImpl._printDecimal(v);
                     }
@@ -825,6 +850,7 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
                 createXS("QName")
                 ) {
                 @Override
+                @SuppressWarnings({"deprecation"})
                 public QName parse(CharSequence text) throws SAXException {
                     try {
                         return DatatypeConverterImpl._parseQName(text.toString(),UnmarshallingContext.getInstance());
@@ -835,6 +861,7 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
                 }
 
                 @Override
+                @SuppressWarnings({"deprecation"})
                 public String print(QName v) {
                     return DatatypeConverterImpl._printQName(v,XMLSerializer.getInstance().getNamespaceContext());
                 }
@@ -876,6 +903,7 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
                     }
 
                     @Override
+                    @SuppressWarnings({"deprecation"})
                     public Duration parse(CharSequence lexical) {
                         TODO.checkSpec("JSR222 Issue #42");
                         return DatatypeConverterImpl.getDatatypeFactory().newDuration(lexical.toString());
@@ -913,6 +941,7 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
         builtinBeanInfos = Collections.unmodifiableList(l);
     }
 
+    @SuppressWarnings({"deprecation"})
     private static byte[] decodeBase64(CharSequence text) {
         if (text instanceof Base64Data) {
             Base64Data base64Data = (Base64Data) text;

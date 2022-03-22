@@ -133,18 +133,6 @@ public abstract class JAXBRIContext extends JAXBContext {
     }
 
     /**
-     * @deprecated
-     *      Compatibility with older versions.
-     */
-    @Deprecated
-    public static JAXBRIContext newInstance(@NotNull Class[] classes,
-        @Nullable Collection<TypeReference> typeRefs,
-        @Nullable String defaultNamespaceRemap, boolean c14nSupport ) throws JAXBException {
-        return newInstance(classes,typeRefs, Collections.emptyMap(),
-                defaultNamespaceRemap,c14nSupport,null);
-    }
-
-    /**
      * Returns true if this context includes a class
      * that has {@link XmlAttachmentRef}.
      *
@@ -180,16 +168,6 @@ public abstract class JAXBRIContext extends JAXBContext {
      * @since 2.0 EA1
      */
     public abstract Bridge createBridge(@NotNull TypeReference ref);
-
-    /**
-     * Creates a new {@link BridgeContext} instance.
-     *
-     * @return
-     *      always a valid non-null instance.
-     *
-     * @since 2.0 EA1
-     */
-    public abstract @NotNull BridgeContext createBridgeContext();
 
     /**
      * Gets a {@link RawAccessor} for the specified element property of the specified wrapper bean class.

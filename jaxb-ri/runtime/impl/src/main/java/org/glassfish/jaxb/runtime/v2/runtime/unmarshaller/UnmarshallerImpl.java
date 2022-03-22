@@ -118,9 +118,7 @@ import java.io.InputStream;
                  // a proper schemaLocation.
                  parserFactory.setValidating(false);
                  reader = parserFactory.newSAXParser().getXMLReader();
-             } catch (ParserConfigurationException e) {
-                 throw new JAXBException(e);
-             } catch (SAXException e) {
+             } catch (ParserConfigurationException | SAXException e) {
                  throw new JAXBException(e);
              }
          }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2005, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,6 +10,7 @@
 
 package com.sun.tools.txw2;
 
+import com.sun.xml.xsom.parser.XmlFactory;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import com.sun.tools.txw2.model.NodeSet;
@@ -28,7 +29,7 @@ class XmlSchemaLoader implements SchemaBuilder {
 
     @Override
     public NodeSet build(TxwOptions options) throws SAXException {
-        XSOMParser xsom = new XSOMParser();
+        XSOMParser xsom = new XSOMParser(XmlFactory.createParserFactory(options.disableXmlSecurity));
         xsom.parse(in);
         return XmlSchemaBuilder.build(xsom.getResult(),options);
     }
