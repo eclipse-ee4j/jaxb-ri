@@ -63,7 +63,6 @@
 
     <properties>
         <dep.sources>${project.build.directory}/generated-sources/dependencies</dep.sources>
-        <dep.sources.mr>${project.build.directory}/generated-sources/dependencies-mr</dep.sources.mr>
     </properties>
 
     <profiles>
@@ -117,21 +116,6 @@
                             <outputDirectory>${dep.sources}</outputDirectory>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>unpack-sources-mr</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>unpack-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <includeGroupIds>com.sun.istack</includeGroupIds>
-                            <includeScope>provided</includeScope>
-                            <classifier>sources</classifier>
-                            <excludeTransitive>true</excludeTransitive>
-                            <includes>META-INF/versions/9/**</includes>
-                            <outputDirectory>${dep.sources.mr}</outputDirectory>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
             <plugin>
@@ -165,38 +149,6 @@
                             <sources>
                                 <source>${dep.sources}</source>
                             </sources>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>add-mr-resource</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>add-resource</goal>
-                        </goals>
-                        <configuration>
-                            <resources>
-                                <resource>
-                                    <directory>${dep.sources.mr}</directory>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>default-compile-mr</id>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                        <configuration>
-                            <compileSourceRoots>
-                                <compileSourceRoot>${dep.sources.mr}/META-INF/versions/9</compileSourceRoot>
-                            </compileSourceRoots>
-                            <outputDirectory>${project.build.outputDirectory}/META-INF/versions/${upper.java.level}</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
