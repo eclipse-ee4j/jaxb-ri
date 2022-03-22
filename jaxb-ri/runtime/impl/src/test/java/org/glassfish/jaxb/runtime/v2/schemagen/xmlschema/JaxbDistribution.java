@@ -12,6 +12,7 @@ package org.glassfish.jaxb.runtime.v2.schemagen.xmlschema;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -74,15 +75,13 @@ public class JaxbDistribution {
 
         final JaxbDistribution that = (JaxbDistribution) o;
 
-        return deployments != null ? deployments.equals(that.deployments) : that
-                .deployments == null;
+        return Objects.equals(deployments, that.deployments);
 
     }
 
     @Override
     public int hashCode() {
-        int result = deployments.hashCode();
-        return result;
+        return deployments.hashCode();
     }
 
     @Override

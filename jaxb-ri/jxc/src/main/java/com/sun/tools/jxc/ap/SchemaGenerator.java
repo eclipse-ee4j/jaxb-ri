@@ -26,7 +26,7 @@ import javax.lang.model.util.ElementFilter;
 import javax.tools.Diagnostic;
 import javax.tools.StandardLocation;
 import jakarta.xml.bind.SchemaOutputResolver;
-import javax.xml.namespace.QName;
+
 import javax.xml.transform.Result;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;

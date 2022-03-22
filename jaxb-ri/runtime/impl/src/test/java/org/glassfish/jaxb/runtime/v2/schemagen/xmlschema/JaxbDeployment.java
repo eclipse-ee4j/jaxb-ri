@@ -17,6 +17,8 @@ import jakarta.xml.bind.annotation.XmlID;
 import jakarta.xml.bind.annotation.XmlSeeAlso;
 import jakarta.xml.bind.annotation.XmlType;
 
+import java.util.Objects;
+
 /**
  */
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -52,7 +54,7 @@ public abstract class JaxbDeployment {
 
         JaxbDeployment that = (JaxbDeployment) o;
 
-        return contextRoot != null ? contextRoot.equals(that.contextRoot) : that.contextRoot == null;
+        return Objects.equals(contextRoot, that.contextRoot);
     }
 
     @Override

@@ -67,8 +67,8 @@ public class RuntimeModelBuilder extends ModelBuilder<Type,Class,Field,Method> {
     }
 
     @Override
-    protected RuntimeEnumLeafInfoImpl createEnumLeafInfo(Class clazz, Locatable upstream) {
-        return new RuntimeEnumLeafInfoImpl(this,upstream,clazz);
+    protected EnumLeafInfoImpl<Type, Class, Field, Method> createEnumLeafInfo(Class clazz, Locatable upstream) {
+        return new RuntimeEnumLeafInfoImpl<>(this,upstream,clazz);
     }
 
     @Override
@@ -104,29 +104,30 @@ public class RuntimeModelBuilder extends ModelBuilder<Type,Class,Field,Method> {
      *
      * TODO: this is not the proper place for this class to be in.
      */
-    public static Transducer createTransducer(RuntimeNonElementRef ref) {
-        Transducer t = ref.getTarget().getTransducer();
+    @SuppressWarnings({"unchecked"})
+    public static <V> Transducer<V> createTransducer(RuntimeNonElementRef ref) {
+        Transducer<V> t = ref.getTarget().getTransducer();
         RuntimePropertyInfo src = ref.getSource();
         ID id = src.id();
 
         if(id==ID.IDREF)
-            return RuntimeBuiltinLeafInfoImpl.STRING;
+            return (Transducer<V>) RuntimeBuiltinLeafInfoImpl.STRING;
 
         if(id==ID.ID)
-            t = new IDTransducerImpl(t);
+            t = new IDTransducerImpl<>(t);
 
         MimeType emt = src.getExpectedMimeType();
         if(emt!=null)
-            t = new MimeTypedTransducer(t,emt);
+            t = new MimeTypedTransducer<>(t,emt);
 
         if(src.inlineBinaryData())
-            t = new InlineBinaryTransducer(t);
+            t = new InlineBinaryTransducer<>(t);
 
         if(src.getSchemaType()!=null) {
             if (src.getSchemaType().equals(createXSSimpleType())) {
-                return RuntimeBuiltinLeafInfoImpl.STRING;
+                return (Transducer<V>) RuntimeBuiltinLeafInfoImpl.STRING;
             }
-            t = new SchemaTypeTransducer(t,src.getSchemaType());
+            t = new SchemaTypeTransducer<>(t,src.getSchemaType());
         }
         
         return t;

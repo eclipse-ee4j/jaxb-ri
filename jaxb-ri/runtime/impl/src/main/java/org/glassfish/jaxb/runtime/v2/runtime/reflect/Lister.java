@@ -177,7 +177,7 @@ public abstract class Lister<BeanT,PropT,ItemT,PackT> {
         }
 
         @Override
-        public Pack startPacking(BeanT current, Accessor<BeanT, ItemT[]> acc) {
+        public Pack<ItemT> startPacking(BeanT current, Accessor<BeanT, ItemT[]> acc) {
             return new Pack<>(itemType);
         }
 
@@ -244,9 +244,9 @@ public abstract class Lister<BeanT,PropT,ItemT,PackT> {
         }
 
         @Override
-        public org.glassfish.jaxb.runtime.v2.runtime.reflect.ListIterator iterator(T collection, XMLSerializer context) {
-            final Iterator itr = collection.iterator();
-            return new org.glassfish.jaxb.runtime.v2.runtime.reflect.ListIterator() {
+        public org.glassfish.jaxb.runtime.v2.runtime.reflect.ListIterator<Object> iterator(T collection, XMLSerializer context) {
+            final Iterator<?> itr = collection.iterator();
+            return new org.glassfish.jaxb.runtime.v2.runtime.reflect.ListIterator<Object>() {
                 @Override
                 public boolean hasNext() {
                     return itr.hasNext();

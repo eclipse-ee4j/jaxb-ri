@@ -102,7 +102,7 @@ public final class FilterList extends AbstractList {
             itr.previous();
             return false;
         } catch( NoSuchElementException e ) {
-            ; // this is cool. 
+            // this is cool.
             return false;
         } catch( ConcurrentModificationException e ) {
             itr = core.listIterator();

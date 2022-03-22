@@ -55,6 +55,11 @@ import java.util.concurrent.Callable;
 public abstract class IDResolver {
 
     /**
+     * Default constructor.
+     */
+    protected IDResolver() {}
+
+    /**
      * Called when the unmarshalling starts.
      *
      * <p>

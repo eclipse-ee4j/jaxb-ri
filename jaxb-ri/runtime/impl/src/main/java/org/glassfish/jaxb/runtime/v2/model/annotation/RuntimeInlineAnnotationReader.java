@@ -29,6 +29,11 @@ import java.util.Map;
 public final class RuntimeInlineAnnotationReader extends AbstractInlineAnnotationReaderImpl<Type,Class,Field,Method>
     implements RuntimeAnnotationReader {
 
+    /**
+     * Default constructor.
+     */
+    public RuntimeInlineAnnotationReader() {}
+
     @Override
     public <A extends Annotation> A getFieldAnnotation(Class<A> annotation, Field field, Locatable srcPos) {
         return LocatableAnnotation.create(field.getAnnotation(annotation),srcPos);

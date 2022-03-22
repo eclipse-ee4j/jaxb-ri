@@ -169,17 +169,14 @@ public final class JFormatter {
         if (c1 == ';') return true;
         if (c1 == CLOSE_TYPE_ARGS) {
             // e.g., "public Foo<Bar> test;"
-            if(c2=='(') // but not "new Foo<Bar>()"
-                return false;
-            return true;
+            // but not "new Foo<Bar>()"
+            return c2 != '(';
         }
         if ((c1 == ')') && (c2 == '{')) return true;
         if ((c1 == ',') || (c1 == '=')) return true;
         if (c2 == '=') return true;
         if (Character.isDigit(c1)) {
-            if ((c2 == '(') || (c2 == ')') || (c2 == ';') || (c2 == ','))
-                return false;
-            return true;
+            return (c2 != '(') && (c2 != ')') && (c2 != ';') && (c2 != ',');
         }
         if (Character.isJavaIdentifierPart(c1)) {
             switch (c2) {
@@ -205,8 +202,7 @@ public final class JFormatter {
             }
         }
         if (Character.isDigit(c2)) {
-            if (c1 == '(') return false;
-            return true;
+            return c1 != '(';
         }
         return false;
     }
@@ -486,9 +482,7 @@ public final class JFormatter {
             // inner classes require an import stmt.
             // All other pkg local classes do not need an
             // import stmt for ref.
-            if(clazz.outer()==null) {
-                return true;    // no need to explicitly import a class into itself
-            }
+            return clazz.outer() == null;    // no need to explicitly import a class into itself
         }
         return false;
     }

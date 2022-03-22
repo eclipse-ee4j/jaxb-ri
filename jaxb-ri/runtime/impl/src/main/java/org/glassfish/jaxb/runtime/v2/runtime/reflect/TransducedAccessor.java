@@ -53,6 +53,11 @@ import java.util.concurrent.Callable;
 public abstract class TransducedAccessor<BeanT> {
 
     /**
+     * Default constructor.
+     */
+    protected TransducedAccessor() {}
+
+    /**
      * @see Transducer#useNamespace()
      */
     public boolean useNamespace() {

@@ -28,7 +28,7 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.ElementFilter;
 import jakarta.xml.bind.SchemaOutputResolver;
-import javax.xml.namespace.QName;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;

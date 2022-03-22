@@ -239,7 +239,7 @@ public final class JAnnotationArrayMember extends JAnnotationValue implements JA
         return TypedAnnotationWriter.create(clazz,this);
     }
     
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
     public Collection<JAnnotationUse> annotations() {
         // this invocation is invalid if the caller isn't adding annotations into an array

@@ -78,10 +78,7 @@ public final class BindInfo implements Iterable<BIDeclaration> {
      */
     public boolean isPointless() {
         if(size()>0)     return false;
-        if(documentation!=null && !documentation.contents.isEmpty())
-            return false;
-
-        return true;
+        return documentation == null || documentation.contents.isEmpty();
     }
 
     private static final class Documentation {

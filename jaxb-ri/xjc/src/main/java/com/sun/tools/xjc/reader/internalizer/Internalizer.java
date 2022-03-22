@@ -226,10 +226,8 @@ class Internalizer {
                 if(required) {
                     reportError( bindings,
                         Messages.format(Messages.ERR_XPATH_EVAL,e.getMessage()), e );
-                    return; // abort processing this <jaxb:bindings>
-                } else {
-                    return;
                 }
+                return; // abort processing this <jaxb:bindings>
             }
             
             if( nlst.getLength()==0 ) {

@@ -158,7 +158,7 @@ public abstract class JExpr {
     }
 
     public static JExpression lit(long n) {
-        return new JAtom(Long.toString(n) + "L");
+        return new JAtom(n + "L");
     }
 
     public static JExpression lit(float f) {
@@ -176,7 +176,7 @@ public abstract class JExpr {
     	}
     	else
     	{
-    		return new JAtom(Float.toString(f) + "F");
+    		return new JAtom(f + "F");
     	}
     }
 
@@ -195,7 +195,7 @@ public abstract class JExpr {
     	}
     	else
     	{
-    		return new JAtom(Double.toString(d) + "D");
+    		return new JAtom(d + "D");
     	}
     }
 

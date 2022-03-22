@@ -517,14 +517,16 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
     /**
      * Picks the first non-null argument, or null if all arguments are null.
      */
-    private static <T> T pickOne( T... args ) {
+    @SafeVarargs
+    private static <T> T pickOne(T... args ) {
         for( T arg : args )
             if(arg!=null)
                 return arg;
         return null;
     }
 
-    private static <T> List<T> makeSet( T... args ) {
+    @SafeVarargs
+    private static <T> List<T> makeSet(T... args ) {
         List<T> l = new FinalArrayList<>();
         for( T arg : args )
             if(arg!=null)   l.add(arg);
@@ -570,6 +572,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
          */
         final Class<? extends Annotation>[] members;
 
+        @SafeVarargs
         SecondaryAnnotation(int bitMask, Class<? extends Annotation>... members) {
             this.bitMask = bitMask;
             this.members = members;

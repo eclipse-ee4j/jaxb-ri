@@ -185,7 +185,6 @@ final class Injector {
             try {
                 return Class.forName(name);
             } catch (ClassNotFoundException e) {
-                continue;
             }
         }
 

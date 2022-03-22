@@ -45,7 +45,7 @@ public interface DatatypeWriter<DT> {
 
     List<DatatypeWriter<Object>> BUILTIN = Collections.unmodifiableList(new AbstractList<>() {
 
-        @SuppressWarnings({"unchecked"})
+        @SuppressWarnings({"unchecked", "rawtypes"})
         private DatatypeWriter<Object>[] BUILTIN_ARRAY = new DatatypeWriter[]{
                 new DatatypeWriter<String>() {
                     @Override

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2017, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -51,18 +51,18 @@ public abstract class SchemaAntTaskTestBase extends TestCase {
         }
     }
 
-    protected static File copy(File dest, String name, InputStream is) throws FileNotFoundException, IOException {
+    protected static File copy(File dest, String name, InputStream is) throws IOException {
         return copy(dest, name, is, null);
     }
 
     protected static File copy(File dest, String name, InputStream is, String targetEncoding)
-        throws FileNotFoundException, IOException {
+        throws IOException {
         File destFile = new File(dest, name);
         OutputStream os = new BufferedOutputStream(new FileOutputStream(destFile));
         Writer w = targetEncoding != null ?
             new OutputStreamWriter(os, targetEncoding) : new OutputStreamWriter(os);
         byte[] b = new byte[4096];
-        int len = -1;
+        int len;
         while ((len = is.read(b)) > 0) {
             w.write(new String(b), 0, len);
         }

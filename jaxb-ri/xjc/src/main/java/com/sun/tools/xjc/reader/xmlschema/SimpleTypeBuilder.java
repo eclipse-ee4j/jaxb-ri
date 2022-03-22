@@ -824,8 +824,7 @@ public final class SimpleTypeBuilder extends BindingComponent {
         XSFacet enumf = initiatingType.getFacet(XSFacet.FACET_ENUMERATION);
         if(enumf!=null) {
             String v = enumf.getValue().value;
-            if(v.equals("0") || v.equals("1"))
-                return true;
+            return v.equals("0") || v.equals("1");
         }
         return false;
     }

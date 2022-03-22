@@ -411,6 +411,7 @@ public abstract class JaxBeanInfo<BeanT> {
      * use reflection to determine which of the 4 object lifecycle methods exist on
      * the JAXB bound type.
      */
+    @SuppressWarnings({"unchecked"})
     protected final void setLifecycleFlags() {
         try {
             Class<BeanT> jt = jaxbType;

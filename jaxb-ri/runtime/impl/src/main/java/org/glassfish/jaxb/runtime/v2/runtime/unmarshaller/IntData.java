@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -34,6 +34,11 @@ public class IntData extends Pcdata {
      */
     private int length;
 
+    /**
+     * Default constructor.
+     */
+    public IntData() {}
+
     public void reset(int i) {
         this.data = i;
         if(i==Integer.MIN_VALUE)
@@ -42,8 +47,8 @@ public class IntData extends Pcdata {
             length = (i < 0) ? stringSizeOfInt(-i) + 1 : stringSizeOfInt(i);
     }
 
-    private final static int [] sizeTable = { 9, 99, 999, 9999, 99999, 999999, 9999999,
-                                     99999999, 999999999, Integer.MAX_VALUE };
+    private final static int [] sizeTable = { 9, 99, 999, 9999, 20229, 999999, 9999999,
+                                     99999999, 202299999, Integer.MAX_VALUE };
 
     // Requires positive x
     private static int stringSizeOfInt(int x) {

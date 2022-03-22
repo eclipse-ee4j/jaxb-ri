@@ -35,12 +35,10 @@ public class Driver {
                 cl.setPackageAssertionStatus("com.sun", true);
             }
 
-            Class driver = cl.loadClass("com.sun.tools.xjc.Driver");
+            Class<?> driver = cl.loadClass("com.sun.tools.xjc.Driver");
             Method mainMethod = driver.getDeclaredMethod("main", String[].class);
             try {
                 mainMethod.invoke(null,new Object[]{args});
-            } catch (IllegalAccessException e) {
-                throw e;
             } catch (InvocationTargetException e) {
                 if(e.getTargetException()!=null)
                     throw e.getTargetException();

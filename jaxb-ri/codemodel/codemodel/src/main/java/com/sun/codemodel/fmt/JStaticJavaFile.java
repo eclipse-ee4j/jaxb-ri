@@ -85,7 +85,7 @@ public final class JStaticJavaFile extends JResourceFile {
         try (
                 InputStream is = source.getResourceAsStream();
                 BufferedReader r = new BufferedReader(new InputStreamReader(is));
-                PrintWriter w = new PrintWriter(new BufferedWriter(new OutputStreamWriter(os)));
+                PrintWriter w = new PrintWriter(new BufferedWriter(new OutputStreamWriter(os)))
         ) {
             LineFilter filter = createLineFilter();
             String line;

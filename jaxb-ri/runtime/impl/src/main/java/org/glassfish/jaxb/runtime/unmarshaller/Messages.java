@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,8 +18,13 @@ import java.util.ResourceBundle;
  * 
  * @since JAXB 1.0
  */
-public class Messages
-{
+public final class Messages {
+
+    /**
+     * Default private constructor.
+     */
+    private Messages() {}
+
     public static String format( String property ) {
         return format( property, null );
     }

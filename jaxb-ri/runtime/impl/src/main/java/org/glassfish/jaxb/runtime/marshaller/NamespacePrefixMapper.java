@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -41,6 +41,11 @@ import java.io.OutputStream;
 public abstract class NamespacePrefixMapper {
 
     private static final String[] EMPTY_STRING = new String[0];
+
+    /**
+     * Default constructor.
+     */
+    protected NamespacePrefixMapper() {}
 
     /**
      * Returns a preferred prefix for the given namespace URI.

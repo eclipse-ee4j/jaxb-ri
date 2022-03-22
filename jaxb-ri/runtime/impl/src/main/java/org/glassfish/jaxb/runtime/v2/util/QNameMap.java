@@ -213,14 +213,15 @@ public final class QNameMap<V> {
      * number of keys in this map reaches its threshold.
      */
     private void resize(int newCapacity) {
-        Entry[] oldTable = table;
+        Entry<V>[] oldTable = table;
         int oldCapacity = oldTable.length;
         if (oldCapacity == MAXIMUM_CAPACITY) {
             threshold = Integer.MAX_VALUE;
             return;
         }
 
-        Entry[] newTable = new Entry[newCapacity];
+        @SuppressWarnings({"unchecked"})
+        Entry<V>[] newTable = (Entry<V>[]) new Entry[newCapacity];
         transfer(newTable);
         table = newTable;
         threshold = newCapacity;
@@ -373,11 +374,10 @@ public final class QNameMap<V> {
             String k3 = localName;
             String k4 = e.localName;
             if (k1 == k2 || (k1 != null && k1.equals(k2)) &&
-                    (k3 == k4 ||(k3 !=null && k3.equals(k4)))) {
+                    (Objects.equals(k3, k4))) {
                 Object v1 = getValue();
                 Object v2 = e.getValue();
-                if (v1 == v2 || (v1 != null && v1.equals(v2)))
-                    return true;
+                return Objects.equals(v1, v2);
             }
             return false;
         }

@@ -89,8 +89,9 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
 
 
     @Override
-    public final Transducer getTransducer() {
-        return this;
+    @SuppressWarnings({"unchecked"})
+    public final <V> Transducer<V> getTransducer() {
+        return (Transducer<V>) this;
     }
 
     @Override
@@ -111,7 +112,7 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
      * Those built-in types that print to {@link String}.
      */
     private static abstract class StringImpl<T> extends RuntimeBuiltinLeafInfoImpl<T> {
-        protected StringImpl(Class type, QName... typeNames) {
+        protected StringImpl(Class<T> type, QName... typeNames) {
             super(type,typeNames);
         }
 
@@ -133,7 +134,7 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
      * Those built-in types that print to {@link Pcdata}.
      */
     private static abstract class PcdataImpl<T> extends RuntimeBuiltinLeafInfoImpl<T> {
-        protected PcdataImpl(Class type, QName... typeNames) {
+        protected PcdataImpl(Class<T> type, QName... typeNames) {
             super(type,typeNames);
         }
 
@@ -1002,7 +1003,7 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
 		if (buf.length() > 0){
 			throw new jakarta.xml.bind.MarshalException(
 			 Messages.XMLGREGORIANCALENDAR_INVALID.format(type.getLocalPart()) 
-			 + buf.toString());
+			 + buf);
 		}
 	}
 	

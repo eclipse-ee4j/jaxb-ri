@@ -376,7 +376,7 @@ public final class XmlSchemaGenerator<T,C,F,M> {
 
         if(logger.isLoggable(Level.FINE)) {
             // debug logging to see what's going on.
-            logger.log(Level.FINE,"Writing XML Schema for "+toString(),new StackRecorder());
+            logger.log(Level.FINE,"Writing XML Schema for "+ this, new StackRecorder());
         }
 
         // make it fool-proof

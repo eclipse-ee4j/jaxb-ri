@@ -185,8 +185,7 @@ public final class PackageOutlineImpl implements PackageOutline {
         elementFormDefault = getFormDefault();
         attributeFormDefault = XmlNsForm.UNQUALIFIED;
         try {
-            XmlNsForm modelValue = _model.getAttributeFormDefault(mostUsedNamespaceURI);
-            attributeFormDefault = modelValue;
+            attributeFormDefault = _model.getAttributeFormDefault(mostUsedNamespaceURI);
         } catch (Exception e) {
             // ignore and accept default
         }

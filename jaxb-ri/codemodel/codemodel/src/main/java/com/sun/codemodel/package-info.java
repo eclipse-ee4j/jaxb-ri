@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -22,8 +22,8 @@
  *
  * <p>
  * You bulid this tree mostly from top-down. So, you first create
- * a new {@link JDefinedClass} from {@link JCodeModel}, then you
- * create a {@link JMethod} from {@link JDefinedClass}, and so on.
+ * a new {@link com.sun.codemodel.JDefinedClass} from {@link com.sun.codemodel.JCodeModel}, then you
+ * create a {@link com.sun.codemodel.JMethod} from {@link com.sun.codemodel.JDefinedClass}, and so on.
  *
  * <p>
  * This design brings the following benefits:

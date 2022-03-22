@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,26 +25,28 @@ public abstract class JType implements JGenerable, Comparable<JType> {
      * Obtains a reference to the primitive type object from a type name.
      */
     public static JPrimitiveType parse(JCodeModel codeModel, String typeName) {
-        if (typeName.equals("void"))
-            return codeModel.VOID;
-        else if (typeName.equals("boolean"))
-            return codeModel.BOOLEAN;
-        else if (typeName.equals("byte"))
-            return codeModel.BYTE;
-        else if (typeName.equals("short"))
-            return codeModel.SHORT;
-        else if (typeName.equals("char"))
-            return codeModel.CHAR;
-        else if (typeName.equals("int"))
-            return codeModel.INT;
-        else if (typeName.equals("float"))
-            return codeModel.FLOAT;
-        else if (typeName.equals("long"))
-            return codeModel.LONG;
-        else if (typeName.equals("double"))
-            return codeModel.DOUBLE;
-        else
-            throw new IllegalArgumentException("Not a primitive type: " + typeName);
+        switch (typeName) {
+            case "void":
+                return codeModel.VOID;
+            case "boolean":
+                return codeModel.BOOLEAN;
+            case "byte":
+                return codeModel.BYTE;
+            case "short":
+                return codeModel.SHORT;
+            case "char":
+                return codeModel.CHAR;
+            case "int":
+                return codeModel.INT;
+            case "float":
+                return codeModel.FLOAT;
+            case "long":
+                return codeModel.LONG;
+            case "double":
+                return codeModel.DOUBLE;
+            default:
+                throw new IllegalArgumentException("Not a primitive type: " + typeName);
+        }
     }
 
     /** Gets the owner code model object. */

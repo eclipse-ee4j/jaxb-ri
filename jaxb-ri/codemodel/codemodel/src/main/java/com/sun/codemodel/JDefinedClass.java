@@ -39,7 +39,7 @@ public class JDefinedClass
     implements JDeclaration, JClassContainer, JGenerifiable, JAnnotatable, JDocCommentable {
 
     /** Name of this class. Null if anonymous. */
-    private String name = null;
+    private String name;
     
     /** Modifiers for the class declaration */
     private JMods mods;
@@ -105,7 +105,7 @@ public class JDefinedClass
      * If this is a nested class, this is {@link JDefinedClass}.
      * If this is an anonymous class, this constructor shouldn't be used.
      */
-    private JClassContainer outer = null;
+    private JClassContainer outer;
 
     
     /** Default value is class or interface

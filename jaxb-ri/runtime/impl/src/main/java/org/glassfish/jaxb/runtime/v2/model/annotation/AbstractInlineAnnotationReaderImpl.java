@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -30,6 +30,11 @@ public abstract class AbstractInlineAnnotationReaderImpl<T,C,F,M>
 
     private ErrorHandler errorHandler;
 
+    /**
+     * Default constructor.
+     */
+    protected AbstractInlineAnnotationReaderImpl() {}
+
     @Override
     public void setErrorHandler(ErrorHandler errorHandler) {
         if(errorHandler==null)
@@ -51,10 +56,7 @@ public abstract class AbstractInlineAnnotationReaderImpl<T,C,F,M>
         A a2 = setter==null?null:getMethodAnnotation(annotation,setter,srcPos);
 
         if(a1==null) {
-            if(a2==null)
-                return null;
-            else
-                return a2;
+            return a2;
         } else {
             if(a2==null)
                 return a1;

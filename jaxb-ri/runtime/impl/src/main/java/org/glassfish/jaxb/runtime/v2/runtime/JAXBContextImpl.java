@@ -788,14 +788,10 @@ public final class JAXBContextImpl extends JAXBRIContext {
         });
 
         if (e[0]!=null) {
-            IOException x = new IOException(Messages.FAILED_TO_GENERATE_SCHEMA.format());
-            x.initCause(e[0]);
-            throw x;
+            throw new IOException(Messages.FAILED_TO_GENERATE_SCHEMA.format(), e[0]);
         }
         if (w[0]!=null) {
-            IOException x = new IOException(Messages.ERROR_PROCESSING_SCHEMA.format());
-            x.initCause(w[0]);
-            throw x;
+            throw new IOException(Messages.ERROR_PROCESSING_SCHEMA.format(), w[0]);
         }
     }
 
@@ -1009,7 +1005,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
         private Boolean backupWithParentNamespace = null; // null for System property to be used
         private int maxErrorsCount;
 
-        public JAXBContextBuilder() {};
+        public JAXBContextBuilder() {}
 
         public JAXBContextBuilder(JAXBContextImpl baseImpl) {
             this.supressAccessorWarnings = baseImpl.supressAccessorWarnings;

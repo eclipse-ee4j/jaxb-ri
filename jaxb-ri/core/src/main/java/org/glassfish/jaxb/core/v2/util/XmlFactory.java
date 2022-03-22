@@ -200,10 +200,10 @@ public class XmlFactory {
             if (LOGGER.isLoggable(Level.FINE)) {
                 LOGGER.log(Level.FINE, Messages.JAXP_SUPPORTED_PROPERTY.format(ACCESS_EXTERNAL_SCHEMA));
             }
-        } catch (SAXException ignored) {
+        } catch (SAXException se) {
             // nothing to do; support depends on version JDK or SAX implementation
             if (LOGGER.isLoggable(Level.CONFIG)) {
-                LOGGER.log(Level.CONFIG, Messages.JAXP_UNSUPPORTED_PROPERTY.format(ACCESS_EXTERNAL_SCHEMA), ignored);
+                LOGGER.log(Level.CONFIG, Messages.JAXP_UNSUPPORTED_PROPERTY.format(ACCESS_EXTERNAL_SCHEMA), se);
             }
         }
         return sf;
@@ -231,10 +231,10 @@ public class XmlFactory {
             if (LOGGER.isLoggable(Level.FINE)) {
                 LOGGER.log(Level.FINE, Messages.JAXP_SUPPORTED_PROPERTY.format(ACCESS_EXTERNAL_DTD));
             }
-        } catch (SAXException ignored) {
+        } catch (SAXException se) {
             // nothing to do; support depends on version JDK or SAX implementation
             if (LOGGER.isLoggable(Level.CONFIG)) {
-                LOGGER.log(Level.CONFIG, Messages.JAXP_UNSUPPORTED_PROPERTY.format(ACCESS_EXTERNAL_DTD), ignored);
+                LOGGER.log(Level.CONFIG, Messages.JAXP_UNSUPPORTED_PROPERTY.format(ACCESS_EXTERNAL_DTD), se);
             }
         }
         return sf;

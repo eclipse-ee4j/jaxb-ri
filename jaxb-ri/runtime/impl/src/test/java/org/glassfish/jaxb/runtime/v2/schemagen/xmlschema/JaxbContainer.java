@@ -13,6 +13,7 @@ package org.glassfish.jaxb.runtime.v2.schemagen.xmlschema;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -75,7 +76,7 @@ public abstract class JaxbContainer {
 
         JaxbContainer that = (JaxbContainer) o;
 
-        return !(deployments != null ? !deployments.equals(that.deployments) : that.deployments != null);
+        return !(!Objects.equals(deployments, that.deployments));
 
     }
 

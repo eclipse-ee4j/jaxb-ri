@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -51,9 +51,7 @@ public class UnicodeEscapeWriter extends FilterWriter {
         if(ch>=128)     return true;
         
         // control characters
-        if( ch<0x20 && " \t\r\n".indexOf(ch)==-1 )  return true;
-        
-        return false;
+        return ch < 0x20 && " \t\r\n".indexOf(ch) == -1;
     }
     
     @Override

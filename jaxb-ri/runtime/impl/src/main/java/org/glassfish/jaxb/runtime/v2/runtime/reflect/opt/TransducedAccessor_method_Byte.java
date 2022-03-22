@@ -18,30 +18,30 @@ import org.glassfish.jaxb.runtime.v2.runtime.reflect.TransducedAccessor;
  * Template {@link TransducedAccessor} for a byte field.
  *
  * <p>
- * All the TransducedAccessor_field are generated from <code>TransducedAccessor_field_B y t e</code>
+ * All the TransducedAccessor_field are generated from <code>TransducedAccessor_field_Byte</code>
  *
  * @author Kohsuke Kawaguchi
  *
  * @see TransducedAccessor#get
  */
 @SuppressWarnings({"deprecation"})
-public final class TransducedAccessor_method_Byte extends DefaultTransducedAccessor {
+public final class TransducedAccessor_method_Byte<T> extends DefaultTransducedAccessor<T> {
     @Override
-    public String print(Object o) {
+    public String print(T o) {
         return DatatypeConverterImpl._printByte( ((Bean)o).get_byte() );
     }
 
     @Override
-    public void parse(Object o, CharSequence lexical) {
+    public void parse(T o, CharSequence lexical) {
         ((Bean)o).set_byte(DatatypeConverterImpl._parseByte(lexical));
     }
 
     @Override
-    public boolean hasValue(Object o) {
+    public boolean hasValue(T o) {
         return true;
     }
 //
-//    public void writeLeafElement(Object o, QName tagName, String fieldName, XMLSerializer w) throws SAXException, AccessorException {
+//    public void writeLeafElement(T o, QName tagName, String fieldName, XMLSerializer w) throws SAXException, AccessorException {
 //        w.leafElement(tagName, ((Bean)o).get_byte(), fieldName );
 //    }
 }

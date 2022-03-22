@@ -152,9 +152,8 @@ final class DefaultClassBinder implements ClassBinder
             CClassInfoParent scope;
 
 
-            if( parentType!=null
-             && parentType instanceof CElementInfo
-             && ((CElementInfo)parentType).hasClass() ) {
+            if(parentType instanceof CElementInfo
+                    && ((CElementInfo) parentType).hasClass()) {
                 // special case where we put a nested 'Type' element
                 scope = (CElementInfo)parentType;
                 className = "Type";
@@ -216,10 +215,7 @@ final class DefaultClassBinder implements ClassBinder
             }
         }
 
-        if(!type.isLocal() || !type.isComplexType())
-            return false;
-
-        return true;
+        return type.isLocal() && type.isComplexType();
     }
 
     /**

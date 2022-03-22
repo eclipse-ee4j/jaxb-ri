@@ -221,7 +221,6 @@ public final class NavigatorImpl implements Navigator<NType,NClass,Void,Void> {
         return create(primitiveType);
     }
 
-    @SuppressWarnings("FinalStaticMethod")
     public static NType create(Type t) {
         if(t==null)     return null;
         if(t instanceof Class)

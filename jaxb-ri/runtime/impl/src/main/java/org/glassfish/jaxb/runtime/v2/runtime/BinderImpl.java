@@ -162,6 +162,7 @@ public class BinderImpl<XmlNode> extends Binder<XmlNode> {
     }
 
     @Override
+    @SuppressWarnings({"unchecked"})
     public XmlNode updateXML(Object jaxbObject, XmlNode xmlNode) throws JAXBException {
         if(jaxbObject==null || xmlNode==null)   throw new IllegalArgumentException();
 

@@ -94,9 +94,7 @@ public abstract class ParticleBinder {
 
         // if not, the term might have one.
         cust = builder.getBindInfo(p.getTerm()).get(type);
-        if(cust!=null)  return cust;
-
-        return null;
+        return cust;
     }
 
     /**
