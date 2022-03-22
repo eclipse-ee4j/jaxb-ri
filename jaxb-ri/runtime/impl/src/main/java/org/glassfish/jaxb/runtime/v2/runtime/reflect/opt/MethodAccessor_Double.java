@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,22 +18,22 @@ import org.glassfish.jaxb.runtime.v2.runtime.reflect.Accessor;
  *     Auto-generated, do not edit.
  * </b></p>
  * <p>
- *     All the MethodAccessors are generated from <code>MethodAccessor_B y t e</code>
+ *     All the MethodAccessors are generated from <code>MethodAccessor_Byte</code>
  * </p>
  * @author Kohsuke Kawaguchi
  */
-public class MethodAccessor_Double extends Accessor {
+public class MethodAccessor_Double<B> extends Accessor<B, Double> {
     public MethodAccessor_Double() {
         super(Double.class);
     }
 
     @Override
-    public Object get(Object bean) {
+    public Double get(B bean) {
         return ((Bean)bean).get_double();
     }
 
     @Override
-    public void set(Object bean, Object value) {
-        ((Bean)bean).set_double( value==null ? Const.default_value_double : (Double)value );
+    public void set(B bean, Double value) {
+        ((Bean)bean).set_double( value==null ? Const.default_value_double : value );
     }
 }

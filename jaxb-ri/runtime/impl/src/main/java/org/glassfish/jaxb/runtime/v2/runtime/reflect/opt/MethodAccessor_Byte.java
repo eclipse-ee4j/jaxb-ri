@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,22 +16,22 @@ import org.glassfish.jaxb.runtime.v2.runtime.reflect.Accessor;
  * Template {@link Accessor} for boolean getter/setter.
  *
  * <p>
- * All the MethodAccessors are generated from <code>MethodAccessor_B y t e</code>
+ * All the MethodAccessors are generated from <code>MethodAccessor_Byte</code>
  *
  * @author Kohsuke Kawaguchi
  */
-public class MethodAccessor_Byte extends Accessor {
+public class MethodAccessor_Byte<B> extends Accessor<B, Byte> {
     public MethodAccessor_Byte() {
         super(Byte.class);
     }
 
     @Override
-    public Object get(Object bean) {
+    public Byte get(B bean) {
         return ((Bean)bean).get_byte();
     }
 
     @Override
-    public void set(Object bean, Object value) {
-        ((Bean)bean).set_byte( value==null ? Const.default_value_byte : (Byte)value );
+    public void set(B bean, Byte value) {
+        ((Bean)bean).set_byte( value==null ? Const.default_value_byte : value );
     }
 }

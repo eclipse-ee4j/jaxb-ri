@@ -95,11 +95,8 @@ final class JArrayClass extends JClass {
     @Override
     public boolean equals(Object obj) {
         if(!(obj instanceof JArrayClass))   return false;
-        
-        if( componentType.equals( ((JArrayClass)obj).componentType ) )
-            return true;
-        
-        return false;
+
+        return componentType.equals(((JArrayClass) obj).componentType);
     }
 
     @Override

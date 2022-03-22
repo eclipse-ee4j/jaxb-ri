@@ -20,26 +20,26 @@ import org.glassfish.jaxb.runtime.v2.runtime.reflect.TransducedAccessor;
  *     Auto-generated, do not edit.
  * </b></p>
  * <p>
- *     All the TransducedAccessor_field are generated from <code>TransducedAccessor_field_B y t e</code>
+ *     All the TransducedAccessor_field are generated from <code>TransducedAccessor_field_Byte</code>
  * </p>
  * @author Kohsuke Kawaguchi
  *
  * @see TransducedAccessor#get
  */
 @SuppressWarnings({"deprecation"})
-public final class TransducedAccessor_field_Short extends DefaultTransducedAccessor {
+public final class TransducedAccessor_field_Short<T> extends DefaultTransducedAccessor<T> {
     @Override
-    public String print(Object o) {
+    public String print(T o) {
         return DatatypeConverterImpl._printShort( ((Bean)o).f_short );
     }
 
     @Override
-    public void parse(Object o, CharSequence lexical) {
+    public void parse(T o, CharSequence lexical) {
         ((Bean)o).f_short=DatatypeConverterImpl._parseShort(lexical);
     }
 
     @Override
-    public boolean hasValue(Object o) {
+    public boolean hasValue(T o) {
         return true;
     }
 }

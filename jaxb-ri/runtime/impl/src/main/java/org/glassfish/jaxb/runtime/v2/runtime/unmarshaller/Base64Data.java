@@ -63,6 +63,11 @@ public final class Base64Data extends Pcdata {
     String mimeType;
 
     /**
+     * Default constructor.
+     */
+    public Base64Data() {}
+
+    /**
      * Fills in the data object by a portion of the byte[].
      *
      * @param len

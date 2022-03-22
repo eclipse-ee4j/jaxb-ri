@@ -115,8 +115,7 @@ final class ContentHandlerAdaptor extends DefaultHandler {
 
     private String getPrefix(String qname) {
         int idx = qname.indexOf(':');
-        String prefix = (idx == -1) ? "" : qname.substring(0, idx);
-        return prefix;
+        return (idx == -1) ? "" : qname.substring(0, idx);
     }
 
     @Override

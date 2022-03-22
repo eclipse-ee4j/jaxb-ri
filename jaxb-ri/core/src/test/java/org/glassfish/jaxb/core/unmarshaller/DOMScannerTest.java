@@ -29,6 +29,8 @@ import org.xml.sax.SAXException;
 
 import junit.framework.TestCase;
 
+import static junit.framework.TestCase.assertEquals;
+
 public class DOMScannerTest extends TestCase {
 	
 	public void testParentDefaultNamespace() throws ParserConfigurationException, SAXException, IOException {
@@ -50,7 +52,7 @@ public class DOMScannerTest extends TestCase {
 		scanner.scan(testElem);
 	}
 	
-	private class MockContentHandler implements ContentHandler {
+	private static class MockContentHandler implements ContentHandler {
 		
 		private Map<String,String> prefixMapping = new HashMap<>();
 		
@@ -68,54 +70,54 @@ public class DOMScannerTest extends TestCase {
 		}
 
 		@Override
-		public void startDocument() throws SAXException {
+		public void startDocument() {
 			
 		}
 
 		@Override
-		public void endDocument() throws SAXException {
+		public void endDocument() {
 			
 		}
 
 		@Override
-		public void startPrefixMapping(String prefix, String uri) throws SAXException {
+		public void startPrefixMapping(String prefix, String uri) {
 			prefixMapping.put(prefix, uri);
 		}
 
 		@Override
-		public void endPrefixMapping(String prefix) throws SAXException {
+		public void endPrefixMapping(String prefix) {
 			prefixMapping.remove(prefix);
 		}
 
 		@Override
-		public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
+		public void startElement(String uri, String localName, String qName, Attributes atts) {
 			if (assertElement != null && assertElement.equals(localName)) {
-				assertTrue("Prefix mapping does not match expected mapping", prefixMapping.equals(assertMapping));
+				assertEquals("Prefix mapping does not match expected mapping", prefixMapping, assertMapping);
 			}
 		}
 
 		@Override
-		public void endElement(String uri, String localName, String qName) throws SAXException {
+		public void endElement(String uri, String localName, String qName) {
 			
 		}
 
 		@Override
-		public void characters(char[] ch, int start, int length) throws SAXException {
+		public void characters(char[] ch, int start, int length) {
 			
 		}
 
 		@Override
-		public void ignorableWhitespace(char[] ch, int start, int length) throws SAXException {
+		public void ignorableWhitespace(char[] ch, int start, int length) {
 			
 		}
 
 		@Override
-		public void processingInstruction(String target, String data) throws SAXException {
+		public void processingInstruction(String target, String data) {
 			
 		}
 
 		@Override
-		public void skippedEntity(String name) throws SAXException {
+		public void skippedEntity(String name) {
 			
 		}
 		

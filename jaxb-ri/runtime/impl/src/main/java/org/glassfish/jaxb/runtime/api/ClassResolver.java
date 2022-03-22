@@ -59,6 +59,12 @@ import jakarta.xml.bind.annotation.XmlAnyElement;
  * @since 2.1
  */
 public abstract class ClassResolver {
+
+    /**
+     * Default constructor.
+     */
+    protected ClassResolver() {}
+
     /**
      * JAXB calls this method when it sees an unknown element.
      *

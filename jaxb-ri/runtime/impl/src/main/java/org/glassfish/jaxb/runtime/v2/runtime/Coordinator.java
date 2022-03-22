@@ -50,6 +50,10 @@ public abstract class Coordinator implements ErrorHandler, ValidationEventHandle
     private final HashMap<Class<? extends XmlAdapter>,XmlAdapter> adapters =
             new HashMap<>();
 
+    /**
+     * Default constructor.
+     */
+    protected Coordinator() {};
 
     public final XmlAdapter putAdapter(Class<? extends XmlAdapter> c, XmlAdapter a) {
         if(a==null)

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,22 +18,22 @@ import org.glassfish.jaxb.runtime.v2.runtime.reflect.Accessor;
  *     Auto-generated, do not edit.
  * </b></p>
  * <p>
- *     All the FieldAccessors are generated from <code>FieldAccessor_B y t e</code>
+ *     All the FieldAccessors are generated from <code>FieldAccessor_Byte</code>
  * </p>
  * @author Kohsuke Kawaguchi
  */
-public class FieldAccessor_Long extends Accessor {
+public class FieldAccessor_Long<B> extends Accessor<B, Long> {
     public FieldAccessor_Long() {
         super(Long.class);
     }
 
     @Override
-    public Object get(Object bean) {
+    public Long get(B bean) {
         return ((Bean)bean).f_long;
     }
 
     @Override
-    public void set(Object bean, Object value) {
-        ((Bean)bean).f_long = value==null ? Const.default_value_long : (Long)value;
+    public void set(B bean, Long value) {
+        ((Bean)bean).f_long = value==null ? Const.default_value_long : value;
     }
 }

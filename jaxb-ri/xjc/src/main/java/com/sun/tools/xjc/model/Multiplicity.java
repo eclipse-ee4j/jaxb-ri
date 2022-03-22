@@ -66,9 +66,7 @@ public final class Multiplicity {
         Multiplicity that = (Multiplicity) o;
 
         if (!this.min.equals(that.min)) return false;
-        if (this.max != null ? !this.max.equals(that.max) : that.max != null) return false;
-
-        return true;
+        return this.max != null ? this.max.equals(that.max) : that.max == null;
     }
 
     @Override
@@ -170,7 +168,7 @@ public final class Multiplicity {
     }
 
     private static boolean isZero(BigInteger i) {
-        return (i != null && BigInteger.ZERO.equals(i));
+        return (BigInteger.ZERO.equals(i));
     }
 
     public static Multiplicity oneOrMore( Multiplicity c ) {

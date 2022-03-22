@@ -27,23 +27,23 @@ import org.glassfish.jaxb.runtime.v2.runtime.reflect.TransducedAccessor;
  * @see TransducedAccessor#get
  */
 @SuppressWarnings({"deprecation"})
-public final class TransducedAccessor_method_Double extends DefaultTransducedAccessor {
+public final class TransducedAccessor_method_Double<T> extends DefaultTransducedAccessor<T> {
     @Override
-    public String print(Object o) {
+    public String print(T o) {
         return DatatypeConverterImpl._printDouble( ((Bean)o).get_double() );
     }
 
     @Override
-    public void parse(Object o, CharSequence lexical) {
+    public void parse(T o, CharSequence lexical) {
         ((Bean)o).set_double(DatatypeConverterImpl._parseDouble(lexical));
     }
 
     @Override
-    public boolean hasValue(Object o) {
+    public boolean hasValue(T o) {
         return true;
     }
 //
-//    public void writeLeafElement(Object o, QName tagName, String fieldName, XMLSerializer w) throws SAXException, AccessorException {
+//    public void writeLeafElement(T o, QName tagName, String fieldName, XMLSerializer w) throws SAXException, AccessorException {
 //        w.leafElement(tagName, ((Bean)o).get_double(), fieldName );
 //    }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -138,7 +138,7 @@ class TypedAnnotationWriter<A extends Annotation,W extends JAnnotationWriter<A>>
             return proxy;
         }
 
-        throw new IllegalArgumentException("Unable to handle this method call "+method.toString());
+        throw new IllegalArgumentException("Unable to handle this method call "+ method);
     }
 
     @SuppressWarnings({"unchecked", "rawtypes"})
@@ -205,7 +205,7 @@ class TypedAnnotationWriter<A extends Annotation,W extends JAnnotationWriter<A>>
     /**
      * Creates a proxy and returns it.
      */
-    @SuppressWarnings({"unchecked", "rawtypes"})
+    @SuppressWarnings({"unchecked"})
     private W createProxy() {
         return (W)Proxy.newProxyInstance(
             SecureLoader.getClassClassLoader(writerType),new Class<?>[]{writerType},this);
@@ -220,7 +220,7 @@ class TypedAnnotationWriter<A extends Annotation,W extends JAnnotationWriter<A>>
         return (W)new TypedAnnotationWriter(a,w,annotatable.annotate(a)).createProxy();
     }
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
+    @SuppressWarnings({"unchecked"})
     private static Class<? extends Annotation> findAnnotationType(Class<?> clazz) {
         for( Type t : clazz.getGenericInterfaces()) {
             if(t instanceof ParameterizedType) {

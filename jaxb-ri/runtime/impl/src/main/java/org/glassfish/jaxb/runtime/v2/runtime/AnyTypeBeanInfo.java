@@ -135,11 +135,10 @@ final class AnyTypeBeanInfo extends JaxBeanInfo<Object> implements AttributeAcce
             if ("xmlns".equals(a.getName())) {
                 if (element instanceof org.w3c.dom.Element) {
                     context.declareNamespace(a.getValue(), null, false);
-                    continue;
                 } else {
                     context.force(a.getValue(), "");
-                    continue;
                 }
+                continue;
             }
             String nsUri = a.getNamespaceURI();
             if(nsUri!=null && nsUri.length()>0)

@@ -249,14 +249,6 @@
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>3.3.2</version>
                     <configuration>
-                        <doclint>${jdoc.doclint}</doclint>
-                        <quiet>true</quiet>
-                        <archive>
-                            <manifest>
-                                <addDefaultEntries>false</addDefaultEntries>
-                            </manifest>
-                        </archive>
-                        <notimestamp>true</notimestamp>
                         <dependencySourceExcludes>
                             <dependencySourceExclude>com.sun.xml.bind:*</dependencySourceExclude>
                             <dependencySourceExclude>com.sun.tools.xjc:*</dependencySourceExclude>
@@ -549,6 +541,20 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <doclint>${jdoc.doclint}</doclint>
+                    <quiet>true</quiet>
+                    <archive>
+                        <manifest>
+                            <addDefaultEntries>false</addDefaultEntries>
+                        </manifest>
+                    </archive>
+                    <notimestamp>true</notimestamp>
+                </configuration>
             </plugin>
         </plugins>
     </build>

@@ -103,9 +103,7 @@ public final class TypeReference {
 
         if (!Arrays.equals(annotations, that.annotations)) return false;
         if (!tagName.equals(that.tagName)) return false;
-        if (!type.equals(that.type)) return false;
-
-        return true;
+        return type.equals(that.type);
     }
 
     @Override

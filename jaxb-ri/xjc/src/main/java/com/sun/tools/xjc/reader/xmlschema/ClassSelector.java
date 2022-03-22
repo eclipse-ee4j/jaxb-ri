@@ -346,9 +346,7 @@ public final class ClassSelector extends BindingComponent {
         if(!(sc instanceof XSElementDecl))  return false;
 
         XSElementDecl decl = (XSElementDecl)sc;
-        if(!decl.getType().isSimpleType())  return false;
-
-        return true;
+        return decl.getType().isSimpleType();
     }
 
     private static final String[] reservedClassNames = new String[]{"ObjectFactory"};

@@ -32,12 +32,12 @@ public class JMethod extends JGenerifiableImpl implements JDeclaration, JAnnotat
     /**
      * Return type for this method
      */
-    private JType type = null;
+    private JType type;
 
     /**
      * Name of this method
      */
-    private String name = null;
+    private String name;
 
     /**
      * List of parameters for this method's declaration

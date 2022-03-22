@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -30,7 +30,6 @@ public class EncoderFactory {
         Charset cs = Charset.forName(encoding == null
                 ? System.getProperty("file.encoding")
                 : encoding);
-        CharsetEncoder encoder = cs.newEncoder();
-        return encoder;
+        return cs.newEncoder();
     }
 }

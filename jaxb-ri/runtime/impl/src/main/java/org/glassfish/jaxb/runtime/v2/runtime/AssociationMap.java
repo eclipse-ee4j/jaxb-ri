@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -51,6 +51,11 @@ public final class AssociationMap<XmlNode> {
     private final Map<Object,Entry<XmlNode>> byPeer = new IdentityHashMap<>();
     private final Set<XmlNode> usedNodes = new HashSet<>();
 
+    /**
+     * Default constructor.
+     */
+    public AssociationMap() {}
+
     /** Records the new {@code element <->inner} peer association. */
     public void addInner( XmlNode element, Object inner ) {
         Entry<XmlNode> e = byElement.get(element);
@@ -81,13 +86,12 @@ public final class AssociationMap<XmlNode> {
         if(e!=null) {
             if(e.outer!=null)
                 byPeer.remove(e.outer);
-            e.outer = outer;
         } else {
             e = new Entry<>();
             e.element = element;
-            e.outer = outer;
         }
-        
+        e.outer = outer;
+
         byElement.put(element,e);
         
         Entry<XmlNode> old = byPeer.put(outer,e);

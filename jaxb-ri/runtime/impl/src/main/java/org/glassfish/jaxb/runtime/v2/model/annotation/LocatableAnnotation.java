@@ -32,6 +32,7 @@ public class LocatableAnnotation implements InvocationHandler, Locatable, Locati
      * Wraps the annotation into a proxy so that the returned object will also implement
      * {@link Locatable}.
      */
+    @SuppressWarnings({"unchecked"})
     public static <A extends Annotation> A create( A annotation, Locatable parentSourcePos ) {
         if(annotation==null)    return null;
         Class<? extends Annotation> type = annotation.annotationType();

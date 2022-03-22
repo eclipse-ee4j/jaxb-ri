@@ -213,7 +213,7 @@ public final class FastInfosetStreamWriterOutput extends XMLStreamWriterOutput {
         
         final VocabularyApplicationData vocabAppData = fiout.getVocabularyApplicationData();
         AppData appData = null;
-        if (vocabAppData == null || !(vocabAppData instanceof AppData)) {
+        if (!(vocabAppData instanceof AppData)) {
             appData = new AppData();
             fiout.setVocabularyApplicationData(appData);
         } else {

@@ -91,7 +91,7 @@ public class XmlSchemaGeneratorTest extends TestCase {
             boolean match = result.equals(uris[i+2]);
 
             // is this particular test case expected to resolve?
-            boolean resolvable = Boolean.valueOf(uris[i+3]);
+            boolean resolvable = Boolean.parseBoolean(uris[i+3]);
 
             boolean resolve = resolve(uris[i], uris[i+1], result);
 

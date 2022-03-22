@@ -217,7 +217,7 @@ public final class BeanGenerator implements Outline {
             }
 
             CClassInfoParent base = cc.target.parent();
-            if ((base != null) && (base instanceof CClassInfo)) {
+            if ((base instanceof CClassInfo)) {
                 String pkg = base.getOwnerPackage().name();
                 String shortName = base.fullName().substring(base.fullName().indexOf(pkg)+pkg.length()+1);
                 if (cc.target.shortName.equals(shortName)) {

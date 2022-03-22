@@ -15,6 +15,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.util.Arrays;
+import java.util.Objects;
 
 
 /**
@@ -108,12 +109,8 @@ class ParameterizedTypeImpl implements ParameterizedType {
 
 
             return
-                    (ownerType == null ?
-                    thatOwner == null :
-                    ownerType.equals(thatOwner)) &&
-                    (rawType == null ?
-                    thatRawType == null :
-                    rawType.equals(thatRawType)) &&
+                    (Objects.equals(ownerType, thatOwner)) &&
+                    (Objects.equals(rawType, thatRawType)) &&
                     Arrays.equals(actualTypeArguments, // avoid clone
                             that.getActualTypeArguments());
         } else

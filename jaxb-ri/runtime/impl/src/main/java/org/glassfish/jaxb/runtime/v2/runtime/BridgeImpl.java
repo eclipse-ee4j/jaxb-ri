@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -92,26 +92,30 @@ final class BridgeImpl<T> extends InternalBridge<T> {
         m.write(tagName,bi,t, m.createXmlOutput(result),m.createPostInitAction(result));
     }
 
-    public @NotNull@Override
- T unmarshal(Unmarshaller _u, XMLStreamReader in) throws JAXBException {
+    @Override
+    @SuppressWarnings({"unchecked"})
+    public @NotNull T unmarshal(Unmarshaller _u, XMLStreamReader in) throws JAXBException {
         UnmarshallerImpl u = (UnmarshallerImpl)_u;
         return ((JAXBElement<T>)u.unmarshal0(in,bi)).getValue();
     }
 
-    public @NotNull@Override
- T unmarshal(Unmarshaller _u, Source in) throws JAXBException {
+    @Override
+    @SuppressWarnings({"unchecked"})
+    public @NotNull T unmarshal(Unmarshaller _u, Source in) throws JAXBException {
         UnmarshallerImpl u = (UnmarshallerImpl)_u;
         return ((JAXBElement<T>)u.unmarshal0(in,bi)).getValue();
     }
 
-    public @NotNull@Override
- T unmarshal(Unmarshaller _u, InputStream in) throws JAXBException {
+    @Override
+    @SuppressWarnings({"unchecked"})
+    public @NotNull T unmarshal(Unmarshaller _u, InputStream in) throws JAXBException {
         UnmarshallerImpl u = (UnmarshallerImpl)_u;
         return ((JAXBElement<T>)u.unmarshal0(in,bi)).getValue();
     }
 
-    public @NotNull@Override
- T unmarshal(Unmarshaller _u, Node n) throws JAXBException {
+    @Override
+    @SuppressWarnings({"unchecked"})
+    public @NotNull T unmarshal(Unmarshaller _u, Node n) throws JAXBException {
         UnmarshallerImpl u = (UnmarshallerImpl)_u;
         return ((JAXBElement<T>)u.unmarshal0(n,bi)).getValue();
     }

@@ -28,7 +28,7 @@ public enum Const {
 
     DEBUG_OPTION("jaxb.debug");
 
-    private String value;
+    private final String value;
 
     Const(String value) {
         this.value = value;

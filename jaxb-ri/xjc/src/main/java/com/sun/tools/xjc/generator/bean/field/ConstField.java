@@ -79,7 +79,7 @@ final class ConstField extends AbstractField {
 
         @Override
         public void unsetValues( JBlock body ) {
-            ;   // can't unset values
+            // can't unset values
         }
         @Override
         public JExpression hasSetValue() {

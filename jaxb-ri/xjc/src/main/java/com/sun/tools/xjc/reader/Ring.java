@@ -47,7 +47,7 @@ import com.sun.tools.xjc.model.Model;
  */
 public final class Ring {
 
-    private final Map<Class,Object> components = new HashMap<>();
+    private final Map<Class<?>,Object> components = new HashMap<>();
 
     private static final ThreadLocal<Ring> instances = new ThreadLocal<>();
 
@@ -58,11 +58,13 @@ public final class Ring {
         get().components.put(clazz,instance);
     }
 
+    @SuppressWarnings({"unchecked"})
     public static <T> void add( T o ) {
         add((Class<T>)o.getClass(),o);
     }
 
     public static <T> T get( Class<T> key ) {
+        @SuppressWarnings({"unchecked"})
         T t = (T)get().components.get(key);
         if(t==null) {
             try {
@@ -82,7 +84,7 @@ public final class Ring {
     }
 
     /**
-     * A  instance is associated with a thread.
+     * An instance is associated with a thread.
      */
     public static Ring get() {
         return instances.get();

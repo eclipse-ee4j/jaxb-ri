@@ -703,10 +703,7 @@ public final class DatatypeConverterImpl implements DatatypeConverterInterface {
         if ('0' <= ch && ch <= '9') {
             return true;
         }
-        if (ch == '+' || ch == '-' || ch == '.') {
-            return true;
-        }
-        return false;
+        return ch == '+' || ch == '-' || ch == '.';
     }
 
     private static final Map<ClassLoader, DatatypeFactory> DF_CACHE = Collections.synchronizedMap(new WeakHashMap<>());

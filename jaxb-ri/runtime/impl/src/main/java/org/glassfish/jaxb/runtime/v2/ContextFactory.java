@@ -30,9 +30,7 @@ import java.util.*;
 import java.util.logging.Level;
 
 /**
- * This class is responsible for producing RI JAXBContext objects.  In
- * the RI, this is the class that the jakarta.xml.bind.context.factory
- * property will point to.
+ * This class is responsible for producing RI JAXBContext objects.
  *
  * <p>
  * Used to create JAXBContext objects for v1.0.1 and forward
@@ -41,6 +39,11 @@ import java.util.logging.Level;
  * @author Kohsuke Kawaguchi
  */
 public class ContextFactory {
+
+    /**
+     * Private constructor.
+     */
+    private ContextFactory() {}
 
     /**
      * The API will invoke this method via reflection

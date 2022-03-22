@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -58,8 +58,6 @@ public class ACTask extends Task {
      * Used to load additional user-specified classes.
      */
     private final Path classpath;
-
-    private final List<URL> endorsedJars = new ArrayList<>();
 
     private final List<Classes> patterns = new ArrayList<>();
 
@@ -134,6 +132,8 @@ public class ACTask extends Task {
         Pattern include;
         Pattern exclude;
 
+        public Classes() {}
+
         public void setIncludes(String pattern) {
             try {
                 include = Pattern.compile(convertToRegex(pattern));
@@ -157,10 +157,9 @@ public class ACTask extends Task {
 
                 for (int i = 0; i < pattern.length(); i++) {
                     char c = pattern.charAt(i);
-                    int j = i;
                     nc = ' ';
-                    if ((j + 1) != pattern.length()) {
-                        nc = pattern.charAt(j + 1);
+                    if ((i + 1) != pattern.length()) {
+                        nc = pattern.charAt(i + 1);
                     }
                     //escape single '.'
                     if ((c == '.') && (nc != '.')) {
@@ -198,26 +197,6 @@ public class ACTask extends Task {
      */
     public void addConfiguredClasses(Classes c) {
         patterns.add(c);
-    }
-
-    /**
-     * Nested {@code <endorse>} elements.
-     */
-    public static class Endorse {
-
-        URL endorsedJar;
-
-        public void setPath(String jar) throws MalformedURLException {
-            endorsedJar = new File(jar).toURI().toURL();
-        }
-    }
-
-    /**
-     * List of endorsed jars
-     * @param e endorsed jar
-     */
-    public void addConfiguredEndorse(Endorse e) {
-        endorsedJars.add(e.endorsedJar);
     }
 
     @Override

@@ -114,8 +114,7 @@ public class JDocComment extends JCommentPart implements JGenerable {
      * add an xdoclet.
      */
     public Map<String,String> addXdoclet(String name) {
-        Map<String, String> p = atXdoclets.computeIfAbsent(name, k -> new HashMap<>());
-        return p;
+        return atXdoclets.computeIfAbsent(name, k -> new HashMap<>());
     }
 
     /**

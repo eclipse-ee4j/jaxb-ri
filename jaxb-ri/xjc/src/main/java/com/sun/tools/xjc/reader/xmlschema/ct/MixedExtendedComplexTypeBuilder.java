@@ -29,17 +29,12 @@ final class MixedExtendedComplexTypeBuilder extends AbstractExtendedComplexTypeB
         if (!bgmBuilder.isGenerateMixedExtensions()) return false;
 
         XSType bt = ct.getBaseType();
-        if (bt.isComplexType() &&
-            bt.asComplexType().isMixed() &&
-            ct.isMixed() &&
-            ct.getDerivationMethod()==XSType.EXTENSION &&
-            ct.getContentType().asParticle() != null &&
-            ct.getExplicitContent().asEmpty() == null
-            )  {
-                return true;
-        }
-
-        return false;
+        return bt.isComplexType() &&
+                bt.asComplexType().isMixed() &&
+                ct.isMixed() &&
+                ct.getDerivationMethod() == XSType.EXTENSION &&
+                ct.getContentType().asParticle() != null &&
+                ct.getExplicitContent().asEmpty() == null;
     }
 
     @Override

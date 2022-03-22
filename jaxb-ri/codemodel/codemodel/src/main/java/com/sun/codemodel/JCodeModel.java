@@ -21,7 +21,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import com.sun.codemodel.writer.FileCodeWriter;
 import com.sun.codemodel.writer.ProgressCodeWriter;
@@ -93,7 +92,7 @@ public final class JCodeModel {
      * If the flag is true, we will consider two classes "Foo" and "foo"
      * as a collision.
      */
-    protected static final boolean isCaseSensitiveFileSystem = getFileSystemCaseSensitivity();
+    /* package */ static final boolean isCaseSensitiveFileSystem = getFileSystemCaseSensitivity();
 
     private static boolean getFileSystemCaseSensitivity() {
         try {
@@ -457,7 +456,6 @@ public final class JCodeModel {
         try {
             return JType.parse(this,name);
         } catch (IllegalArgumentException e) {
-            ;
         }
 
         // existing class
@@ -508,10 +506,8 @@ public final class JCodeModel {
                 }
                 node.jClass =  new TypeNameParser(node.value).parseTypeName();
                 if (!node.childs.isEmpty()) {
-                    List<JClass> args = node.childs.stream().map(n -> n.jClass).collect(Collectors.toList());
-                    JClass[] argsA = args.toArray(new JClass[0]);
-                    JClass clazz = node.jClass.narrow(argsA);
-                    node.jClass = clazz;
+                    JClass[] argsA = node.childs.stream().map(n -> n.jClass).toArray(JClass[]::new);
+                    node.jClass = node.jClass.narrow(argsA);
                 }
             }
         }

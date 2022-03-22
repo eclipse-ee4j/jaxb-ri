@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -79,6 +79,7 @@ final class RuntimeElementInfoImpl extends ElementInfoImpl<Type,Class,Field,Meth
         }
 
         @Override
+        @SuppressWarnings({"unchecked"})
         public List<? extends RuntimeNonElement> ref() {
             return (List<? extends RuntimeNonElement>)super.ref();
         }
@@ -94,7 +95,7 @@ final class RuntimeElementInfoImpl extends ElementInfoImpl<Type,Class,Field,Meth
         }
 
         @Override
-        public Transducer getTransducer() {
+        public <V> Transducer<V> getTransducer() {
             return RuntimeModelBuilder.createTransducer(this);
         }
     }
@@ -110,6 +111,7 @@ final class RuntimeElementInfoImpl extends ElementInfoImpl<Type,Class,Field,Meth
     }
 
     @Override
+    @SuppressWarnings({"unchecked"})
     public Class<? extends JAXBElement> getType() {
         //noinspection unchecked
         return (Class<? extends JAXBElement>) Utils.REFLECTION_NAVIGATOR.erasure(super.getType());
