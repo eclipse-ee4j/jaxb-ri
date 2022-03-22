@@ -406,7 +406,9 @@ public final class ModelLoader {
     }
 
 
-    private static final class SpeculationFailure extends Error {}
+    private static final class SpeculationFailure extends Error {
+        private static final long serialVersionUID = 2133619153549539080L;
+    }
 
     private static final class SpeculationChecker extends XMLFilterImpl {
         @Override

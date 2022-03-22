@@ -421,6 +421,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
      * extends {@link HashMap} to save memory.
      */
     private final class PropertySorter extends HashMap<String,Integer> implements Comparator<PropertyInfoImpl> {
+        private static final long serialVersionUID = 8074459976041391290L;
         /**
          * Mark property names that are used, so that we can report unused property names in the propOrder array.
          */
@@ -531,6 +532,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
     }
 
     private static final class ConflictException extends Exception {
+        private static final long serialVersionUID = -8261248191127673032L;
         final List<Annotation> annotations;
 
         public ConflictException(List<Annotation> one) {
@@ -539,6 +541,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
     }
 
     private static final class DuplicateException extends Exception {
+        private static final long serialVersionUID = -2996855754364938240L;
         final Annotation a1,a2;
         public DuplicateException(Annotation a1, Annotation a2) {
             this.a1 = a1;

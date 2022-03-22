@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2022 Eclipse Foundation
  * Copyright (C) 2004-2011
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -3191,7 +3192,9 @@ public class CompactSyntax implements Context, CompactSyntaxConstants {
     throw generateParseException();
   }
 
-  static private final class LookaheadSuccess extends java.lang.Error { }
+  static private final class LookaheadSuccess extends java.lang.Error {
+    private static final long serialVersionUID = -3695177349455626755L;
+  }
   final private LookaheadSuccess jj_ls = new LookaheadSuccess();
   private boolean jj_scan_token(int kind) {
     if (jj_scanpos == jj_lastpos) {

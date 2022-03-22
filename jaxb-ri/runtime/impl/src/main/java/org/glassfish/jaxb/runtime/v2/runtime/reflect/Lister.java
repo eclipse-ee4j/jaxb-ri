@@ -199,6 +199,7 @@ public abstract class Lister<BeanT,PropT,ItemT,PackT> {
     }
 
     public static final class Pack<ItemT> extends ArrayList<ItemT> {
+        private static final long serialVersionUID = 8543908122652908717L;
         private final Class<ItemT> itemType;
 
         public Pack(Class<ItemT> itemType) {

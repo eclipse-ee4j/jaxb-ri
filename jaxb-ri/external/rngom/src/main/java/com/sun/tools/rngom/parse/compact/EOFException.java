@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2022 Eclipse Foundation
  * Copyright (C) 2004-2011
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,4 +25,5 @@ package com.sun.tools.rngom.parse.compact;
 import java.io.IOException;
 
 public class EOFException extends IOException {
+    private static final long serialVersionUID = -2261064999719670646L;
 }

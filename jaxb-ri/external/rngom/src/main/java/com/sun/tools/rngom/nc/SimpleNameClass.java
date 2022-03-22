@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2022 Eclipse Foundation
  * Copyright (C) 2004-2012
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,6 +25,8 @@ package com.sun.tools.rngom.nc;
 import javax.xml.namespace.QName;
 
 public class SimpleNameClass extends NameClass {
+
+    private static final long serialVersionUID = -1776408159849453340L;
 
     public final QName name;
 

@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2022 Eclipse Foundation
  * Copyright (c) 2005, 2010, Thai Open Source Software Center Ltd
  * All rights reserved.
  *
@@ -41,7 +42,9 @@ package com.sun.tools.rngdatatype;
  * @author <a href="mailto:kohsuke.kawaguchi@sun.com">Kohsuke KAWAGUCHI</a>
  */
 public class DatatypeException extends Exception {
-	
+
+	private static final long serialVersionUID = -6036466759898047370L;
+
 	public DatatypeException( int index, String msg ) {
 		super(msg);
 		this.index = index;

@@ -74,6 +74,7 @@ public final class CReferencePropertyInfo extends CPropertyInfo implements Refer
         // when computing the signature
 
         final class RefList extends LinkedHashSet<CTypeInfo> {
+            private static final long serialVersionUID = -6136978201617936640L;
             RefList() {
                 super(elements.size());
                 addAll(elements);

@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2022 Eclipse Foundation
  * Copyright (C) 2004-2015
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -32,6 +33,7 @@ import java.util.Set;
  * Name class is a set of {@link QName}s.
  */
 public abstract class NameClass implements ParsedNameClass, Serializable {
+    private static final long serialVersionUID = -8327594277689361653L;
     static final int SPECIFICITY_NONE = -1;
     static final int SPECIFICITY_ANY_NAME = 0;
     static final int SPECIFICITY_NS_NAME = 1;
