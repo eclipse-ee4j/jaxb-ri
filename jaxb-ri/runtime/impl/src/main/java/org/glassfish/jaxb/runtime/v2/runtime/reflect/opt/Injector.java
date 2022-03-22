@@ -288,7 +288,7 @@ final class Injector {
                         } else {
                             c = (Class) defineClass.invoke(U, className.replace('/', '.'), image, 0, image.length, parent, Injector.class.getProtectionDomain());
                         }
-                    } catch (IllegalAccessException  e) {
+                    } catch (IllegalAccessException | LinkageError | SecurityException e) {
                         logger.log(Level.FINE, "Unable to inject " + className, e);
                         return null;
                     } catch (InvocationTargetException e) {
@@ -298,12 +298,6 @@ final class Injector {
                         } else {
                             logger.log(Level.FINE, "Unable to inject " + className, t);
                         }
-                        return null;
-                    } catch (SecurityException e) {
-                        logger.log(Level.FINE, "Unable to inject " + className, e);
-                        return null;
-                    } catch (LinkageError e) {
-                        logger.log(Level.FINE, "Unable to inject " + className, e);
                         return null;
                     }
 

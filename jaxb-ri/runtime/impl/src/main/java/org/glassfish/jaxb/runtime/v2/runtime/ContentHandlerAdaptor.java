@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -108,9 +108,7 @@ final class ContentHandlerAdaptor extends DefaultHandler {
             }
             prefixMap.clear();
             serializer.endAttributes();
-        } catch (IOException e) {
-            throw new SAXException2(e);
-        } catch (XMLStreamException e) {
+        } catch (IOException | XMLStreamException e) {
             throw new SAXException2(e);
         }
     }
@@ -126,9 +124,7 @@ final class ContentHandlerAdaptor extends DefaultHandler {
         try {
             flushText();
             serializer.endElement();
-        } catch (IOException e) {
-            throw new SAXException2(e);
-        } catch (XMLStreamException e) {
+        } catch (IOException | XMLStreamException e) {
             throw new SAXException2(e);
         }
     }

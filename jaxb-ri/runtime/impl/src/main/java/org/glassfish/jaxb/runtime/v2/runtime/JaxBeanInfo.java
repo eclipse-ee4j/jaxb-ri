@@ -531,9 +531,7 @@ public abstract class JaxBeanInfo<BeanT> {
     private void invokeUnmarshallCallback(Method m, Object child, UnmarshallerImpl unm, Object parent) throws SAXException {
         try {
             m.invoke(child,unm,parent);
-        } catch (IllegalAccessException e) {
-            UnmarshallingContext.getInstance().handleError(e, false);
-        } catch (InvocationTargetException e) {
+        } catch (IllegalAccessException | InvocationTargetException e) {
             UnmarshallingContext.getInstance().handleError(e, false);
         }
     }

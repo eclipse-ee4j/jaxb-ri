@@ -1746,9 +1746,7 @@ class SchemaParser {
         if (schemaBuilder.usesComments()) {
             try {
                 xr.setProperty("http://xml.org/sax/properties/lexical-handler", new LexicalHandlerImpl());
-            } catch (SAXNotRecognizedException e) {
-                warning("no_comment_support", xr.getClass().getName());
-            } catch (SAXNotSupportedException e) {
+            } catch (SAXNotRecognizedException | SAXNotSupportedException e) {
                 warning("no_comment_support", xr.getClass().getName());
             }
         }

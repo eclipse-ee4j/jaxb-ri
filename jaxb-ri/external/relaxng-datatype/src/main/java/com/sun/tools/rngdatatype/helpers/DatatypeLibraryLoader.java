@@ -189,18 +189,15 @@ public class DatatypeLibraryLoader implements DatatypeLibraryFactory {
 	      while (classNames.hasMoreElements()) {
 		String className = (String)classNames.nextElement();
 		try {
-		  Class cls = loader.loadClass(className);
-		  Object obj = cls.newInstance();
+		  Class<?> cls = loader.loadClass(className);
+		  Object obj = cls.getConstructor().newInstance();
 		  if (serviceClass.isInstance(obj)) {
 		    providers.addElement(obj);
 		    return true;
 		  }
 		}
-		catch (ClassNotFoundException e) { }
-		catch (InstantiationException e) { }
-		catch (IllegalAccessException e) { }
-		catch (LinkageError e) { }
-	      }
+		catch (ReflectiveOperationException | LinkageError e) { }
+		  }
 	      classNames = null;
 	    }
 	  }

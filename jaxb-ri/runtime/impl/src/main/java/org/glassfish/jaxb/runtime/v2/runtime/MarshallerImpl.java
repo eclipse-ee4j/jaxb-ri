@@ -218,11 +218,7 @@ public /*to make unit tests happy*/ final class MarshallerImpl extends AbstractM
                 }
                 serializer.endElement();
                 postwrite();
-            } catch( SAXException e ) {
-                throw new MarshalException(e);
-            } catch (IOException e) {
-                throw new MarshalException(e);
-            } catch (XMLStreamException e) {
+            } catch( SAXException | XMLStreamException | IOException e ) {
                 throw new MarshalException(e);
             } finally {
                 serializer.close();
@@ -268,11 +264,7 @@ public /*to make unit tests happy*/ final class MarshallerImpl extends AbstractM
                 prewrite(out,isFragment(),postInitAction);
                 serializer.childAsRoot(obj);
                 postwrite();
-            } catch( SAXException e ) {
-                throw new MarshalException(e);
-            } catch (IOException e) {
-                throw new MarshalException(e);
-            } catch (XMLStreamException e) {
+            } catch( SAXException | XMLStreamException | IOException e ) {
                 throw new MarshalException(e);
             } finally {
                 serializer.close();

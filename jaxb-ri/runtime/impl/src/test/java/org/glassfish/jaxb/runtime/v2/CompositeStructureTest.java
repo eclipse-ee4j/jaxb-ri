@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,6 +12,7 @@ package org.glassfish.jaxb.runtime.v2;
 
 import java.util.Arrays;
 import java.io.StringWriter;
+import java.util.Collections;
 
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.annotation.adapters.HexBinaryAdapter;
@@ -39,7 +40,7 @@ public class CompositeStructureTest extends TestCase {
         TypeReference tr4 = new TypeReference(new QName("","zoo"),byte[].class,
                 this.getClass().getMethod("test1").getAnnotation(XmlJavaTypeAdapter.class));
         JAXBRIContext c = JAXBRIContext.newInstance(new Class[0],
-                Arrays.asList(tr1,tr2,tr3,tr4),"",false);
+                Arrays.asList(tr1,tr2,tr3,tr4), Collections.emptyMap(), "",false, null);
 
         CompositeStructure cs = new CompositeStructure();
         cs.bridges = new Bridge[] {

@@ -365,9 +365,7 @@ public final class UnmarshallingContext extends Coordinator
         public Object createInstance() throws SAXException {
             try {
                 return method.invoke(factorInstance);
-            } catch (IllegalAccessException e) {
-                getInstance().handleError(e,false);
-            } catch (InvocationTargetException e) {
+            } catch (ReflectiveOperationException e) {
                 getInstance().handleError(e,false);
             }
             return null; // can never be executed
@@ -657,11 +655,7 @@ public final class UnmarshallingContext extends Coordinator
         }
         try {
             return beanInfo.createInstance(this);
-        } catch (IllegalAccessException e) {
-            Loader.reportError("Unable to create an instance of "+beanInfo.jaxbType.getName(),e,false);
-        } catch (InvocationTargetException e) {
-            Loader.reportError("Unable to create an instance of "+beanInfo.jaxbType.getName(),e,false);
-        } catch (InstantiationException e) {
+        } catch (ReflectiveOperationException e) {
             Loader.reportError("Unable to create an instance of "+beanInfo.jaxbType.getName(),e,false);
         }
         return null;    // can never be here

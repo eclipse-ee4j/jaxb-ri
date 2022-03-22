@@ -283,9 +283,7 @@ public abstract class TransducedAccessor<BeanT> {
             TargetT t;
             try {
                 t = (TargetT)callable.call();
-            } catch (SAXException e) {// from callable.call
-                throw e;
-            } catch (RuntimeException e) {// from callable.call
+            } catch (SAXException | RuntimeException e) {// from callable.call
                 throw e;
             } catch (Exception e) {// from callable.call
                 throw new SAXException2(e);
@@ -307,9 +305,7 @@ public abstract class TransducedAccessor<BeanT> {
                             }
                         } catch (AccessorException e) {
                             context.handleError(e);
-                        } catch (SAXException e) {// from callable.call
-                            throw e;
-                        } catch (RuntimeException e) {// from callable.call
+                        } catch (SAXException | RuntimeException e) {// from callable.call
                             throw e;
                         } catch (Exception e) {// from callable.call
                             throw new SAXException2(e);

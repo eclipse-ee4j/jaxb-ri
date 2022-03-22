@@ -1,7 +1,7 @@
 package com.sun.xml.xsom.test;
 
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,6 +14,7 @@ import com.sun.xml.xsom.SCD;
 import com.sun.xml.xsom.XSComponent;
 import com.sun.xml.xsom.XSSchemaSet;
 import com.sun.xml.xsom.parser.XSOMParser;
+import com.sun.xml.xsom.parser.XmlFactory;
 import com.sun.xml.xsom.util.ComponentNameFunction;
 import org.xml.sax.Locator;
 
@@ -28,7 +29,7 @@ import java.util.Collection;
  */
 public class SCDDriver {
     public static void main(String[] args) throws Exception {
-        XSOMParser p = new XSOMParser();
+        XSOMParser p = new XSOMParser(XmlFactory.createParserFactory(false));
 
         for( int i=1; i<args.length; i++ )
             p.parse(args[i]);
