@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -39,6 +39,9 @@ public final class ElementSets {
      * This isn't particularly efficient or anything, but it will do for now.
      */
     private static final class MultiValueSet extends LinkedHashSet<Element> implements ElementSet {
+
+        private static final long serialVersionUID = -2635296810004496648L;
+
         public MultiValueSet(ElementSet lhs, ElementSet rhs) {
             addAll(lhs);
             addAll(rhs);

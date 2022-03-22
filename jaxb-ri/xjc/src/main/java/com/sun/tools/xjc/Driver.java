@@ -515,7 +515,9 @@ public class Driver {
     /**
      * Used to signal that we've finished processing.
      */
-    private static final class WeAreDone extends BadCommandLineException {}
+    private static final class WeAreDone extends BadCommandLineException {
+        private static final long serialVersionUID = 3924802008556012395L;
+    }
 
 
     /**

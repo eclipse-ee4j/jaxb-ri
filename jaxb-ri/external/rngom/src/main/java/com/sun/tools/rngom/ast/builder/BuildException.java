@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2022 Eclipse Foundation
  * Copyright (C) 2004-2011
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -29,6 +30,7 @@ package com.sun.tools.rngom.ast.builder;
  * abort the parsing in the middle.
  */
 public class BuildException extends RuntimeException {
+    private static final long serialVersionUID = -2335066797269369766L;
     private final Throwable cause;
     public BuildException(Throwable cause) {
         if (cause == null)

@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2022 Eclipse Foundation
  * Copyright (C) 2004-2011
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -129,6 +130,7 @@ public class DXMLPrinter {
     }
 
     protected class XMLWriterException extends RuntimeException {
+        private static final long serialVersionUID = -6182580269873640348L;
         protected XMLWriterException(Throwable cause) {
             super(cause);
         }

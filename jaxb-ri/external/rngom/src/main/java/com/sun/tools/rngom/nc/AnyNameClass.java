@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2022 Eclipse Foundation
  * Copyright (C) 2004-2011
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,7 +25,9 @@ package com.sun.tools.rngom.nc;
 import javax.xml.namespace.QName;
 
 final class AnyNameClass extends NameClass {
-    
+
+    private static final long serialVersionUID = -5701225757278913969L;
+
     protected AnyNameClass() {} // no instanciation
     
     public boolean contains(QName name) {
