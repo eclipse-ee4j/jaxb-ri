@@ -10,17 +10,17 @@
 
 package com.sun.xml.xsom.impl.parser;
 
+import com.sun.tools.rngdatatype.ValidationContext;
 import com.sun.xml.xsom.XSDeclaration;
-import com.sun.xml.xsom.XmlString;
 import com.sun.xml.xsom.XSSimpleType;
+import com.sun.xml.xsom.XmlString;
+import com.sun.xml.xsom.impl.Const;
 import com.sun.xml.xsom.impl.ForeignAttributesImpl;
 import com.sun.xml.xsom.impl.SchemaImpl;
 import com.sun.xml.xsom.impl.UName;
-import com.sun.xml.xsom.impl.Const;
 import com.sun.xml.xsom.impl.parser.state.NGCCRuntime;
 import com.sun.xml.xsom.impl.parser.state.Schema;
 import com.sun.xml.xsom.parser.AnnotationParser;
-import com.sun.tools.rngdatatype.ValidationContext;
 import org.xml.sax.Attributes;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.ErrorHandler;
@@ -123,12 +123,12 @@ public class NGCCRuntimeEx extends NGCCRuntime implements PatcherManager {
     }
 
     public static boolean ignorableDuplicateComponent(XSDeclaration c) {
-        if(c.getTargetNamespace().equals(Const.schemaNamespace)) {
-            if(c instanceof XSSimpleType)
+        if(Const.schemaNamespace.equals(c.getTargetNamespace())) {
+            if(c instanceof XSSimpleType) {
                 // hide artificial "double definitions" on simple types
                 return true;
-            if(c.isGlobal() && c.getName().equals("anyType"))
-                return true; // ditto for anyType
+            }
+            return c.isGlobal() && "anyType".equals(c.getName()); // ditto for anyType
         }
         return false;
     }
@@ -180,11 +180,11 @@ public class NGCCRuntimeEx extends NGCCRuntime implements PatcherManager {
             if (relativeUri!=null) {
                 if (isAbsolute(relativeUri)) {
                     systemId = relativeUri;
-                }
-                if (baseUri == null || !isAbsolute(baseUri)) {
+                } else if (baseUri == null || !isAbsolute(baseUri)) {
                     throw new IOException("Unable to resolve relative URI " + relativeUri + " because base URI is not absolute: " + baseUri);
+                } else {
+                    systemId = new URL(new URL(baseUri), relativeUri).toString();
                 }
-                systemId = new URL(new URL(baseUri), relativeUri).toString();
             }
 
             if (er!=null) {
@@ -618,7 +618,4 @@ public class NGCCRuntimeEx extends NGCCRuntime implements PatcherManager {
 
         return impl;
     }
-
-
-    public static final String XMLSchemaNSURI = "http://www.w3.org/2001/XMLSchema";
 }
