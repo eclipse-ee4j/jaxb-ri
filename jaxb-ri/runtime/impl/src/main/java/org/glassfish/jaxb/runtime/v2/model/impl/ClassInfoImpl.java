@@ -148,6 +148,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
     }        
 
     @Override
+    @SuppressWarnings({"unchecked"})
     public ClassInfoImpl<T,C,F,M> getBaseClass() {
         if (!baseClassComputed) {
             // compute the base class
@@ -554,13 +555,14 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
     /**
      * Represents 6 groups of secondary annotations
      */
+    @SuppressWarnings({"unchecked", "rawtypes"})
     private enum SecondaryAnnotation {
-        JAVA_TYPE       (0x01, XmlJavaTypeAdapter.class),
-        ID_IDREF        (0x02, XmlID.class, XmlIDREF.class),
-        BINARY          (0x04, XmlInlineBinaryData.class, XmlMimeType.class, XmlAttachmentRef.class),
-        ELEMENT_WRAPPER (0x08, XmlElementWrapper.class),
-        LIST            (0x10, XmlList.class),
-        SCHEMA_TYPE     (0x20, XmlSchemaType.class);
+        JAVA_TYPE       (0x01, new Class[] {XmlJavaTypeAdapter.class}),
+        ID_IDREF        (0x02, new Class[] {XmlID.class, XmlIDREF.class}),
+        BINARY          (0x04, new Class[] {XmlInlineBinaryData.class, XmlMimeType.class, XmlAttachmentRef.class}),
+        ELEMENT_WRAPPER (0x08, new Class[] {XmlElementWrapper.class}),
+        LIST            (0x10, new Class[] {XmlList.class}),
+        SCHEMA_TYPE     (0x20, new Class[] {XmlSchemaType.class});
 
         /**
          * Each constant gets an unique bit mask so that the presence/absence
@@ -572,8 +574,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
          */
         final Class<? extends Annotation>[] members;
 
-        @SafeVarargs
-        SecondaryAnnotation(int bitMask, Class<? extends Annotation>... members) {
+        SecondaryAnnotation(int bitMask, Class<? extends Annotation>[] members) {
             this.bitMask = bitMask;
             this.members = members;
         }
