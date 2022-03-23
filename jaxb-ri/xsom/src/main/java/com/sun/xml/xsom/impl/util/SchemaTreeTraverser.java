@@ -89,6 +89,7 @@ public class SchemaTreeTraverser implements XSVisitor, XSSimpleTypeVisitor {
      * @author Kirill Grouchnikov
      */
     public static final class SchemaTreeModel extends DefaultTreeModel {
+        private static final long serialVersionUID = 3202903011416748633L;
         /**
          * A simple constructor. Is made private to allow creating the root node
          * first.
@@ -120,6 +121,7 @@ public class SchemaTreeTraverser implements XSVisitor, XSSimpleTypeVisitor {
      * @author Kirill Grouchnikov
      */
     public static class SchemaTreeNode extends DefaultMutableTreeNode {
+        private static final long serialVersionUID = 5119501381189181864L;
         /**
          * File name of the corresponding schema artifact.
          */
@@ -206,6 +208,7 @@ public class SchemaTreeTraverser implements XSVisitor, XSSimpleTypeVisitor {
      * @author Kirill Grouchnikov
      */
     public static class SchemaRootNode extends SchemaTreeNode {
+        private static final long serialVersionUID = -4869737965361647583L;
         /**
          * A simple constructor.
          */
@@ -222,6 +225,7 @@ public class SchemaTreeTraverser implements XSVisitor, XSSimpleTypeVisitor {
      */
     public static class SchemaTreeCellRenderer extends JPanel implements
             TreeCellRenderer {
+        private static final long serialVersionUID = 865538344984392435L;
         /**
          * The icon label.
          */

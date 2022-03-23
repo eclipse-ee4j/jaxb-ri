@@ -43,7 +43,12 @@ import com.sun.xml.xsom.visitor.XSFunction;
  *     Kohsuke Kawaguchi (kohsuke.kawaguchi@sun.com)
  */
 public class XSFinder implements XSFunction<Boolean> {
-    
+
+    /**
+     * Default constructor.
+     */
+    public XSFinder() {}
+
     /**
      * Invokes this object as a visitor with the specified component.
      */

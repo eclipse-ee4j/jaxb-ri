@@ -60,6 +60,11 @@ public class SchemaSetImpl implements XSSchemaSet
     private final List<XSSchema> readonlySchemaList = Collections.unmodifiableList(schemas2);
 
     /**
+     * Default constructor.
+     */
+    public SchemaSetImpl() {}
+
+    /**
      * Gets a reference to the existing schema or creates a new one
      * if none exists yet.
      */
@@ -235,7 +240,7 @@ public class SchemaSetImpl implements XSSchemaSet
 
     public XSSimpleType getAnySimpleType() { return anySimpleType; }
     public final AnySimpleType anySimpleType = new AnySimpleType();
-    private class AnySimpleType extends DeclarationImpl
+    public class AnySimpleType extends DeclarationImpl
         implements XSRestrictionSimpleType, Ref.SimpleType {
 
         AnySimpleType() {
@@ -294,7 +299,7 @@ public class SchemaSetImpl implements XSSchemaSet
 
     public XSComplexType getAnyType() { return anyType; }
     public final AnyType anyType = new AnyType();
-    private class AnyType extends DeclarationImpl implements XSComplexType, Ref.Type {
+    public class AnyType extends DeclarationImpl implements XSComplexType, Ref.Type {
         AnyType() {
             super(null,null,null,null,"http://www.w3.org/2001/XMLSchema","anyType",false);
         }

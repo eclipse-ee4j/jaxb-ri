@@ -223,23 +223,10 @@
                         <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
                         <manifestEntries>
                             <Class-Path>jaxb-core.jar jaxb-impl.jar</Class-Path>
-                            <Multi-Release>true</Multi-Release>
                         </manifestEntries>
                         <manifest>
                             <mainClass>com.sun.tools.xjc.XJCFacade</mainClass>
                         </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifestEntries>
-                            <Multi-Release>true</Multi-Release>
-                        </manifestEntries>
                     </archive>
                 </configuration>
             </plugin>
