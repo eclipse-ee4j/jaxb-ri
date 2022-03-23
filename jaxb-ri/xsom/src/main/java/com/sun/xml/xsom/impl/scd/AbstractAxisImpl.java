@@ -50,6 +50,7 @@ abstract class AbstractAxisImpl<T extends XSComponent> implements Axis<T>, XSFun
         return Iterators.singleton(t);
     }
 
+    @SafeVarargs
     protected final Iterator<T> union(T... items) {
         return new Iterators.Array<>(items);
     }

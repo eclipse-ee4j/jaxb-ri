@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2005, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -43,7 +43,7 @@ import javax.xml.namespace.QName;
  * @author Kohsuke Kawaguchi
  */
 public final class SchemaBuilderImpl implements SchemaBuilder<NameClass,Leaf,ParsedElementAnnotation,LocatorImpl,AnnotationsImpl,CommentListImpl> {
-    private final NameClassBuilderImpl ncb = new NameClassBuilderImpl();
+    private final NameClassBuilderImpl<ParsedElementAnnotation,LocatorImpl,AnnotationsImpl,CommentListImpl> ncb = new NameClassBuilderImpl<>();
     private final JClass string;
     private final DatatypeFactory dtf;
 
@@ -58,10 +58,8 @@ public final class SchemaBuilderImpl implements SchemaBuilder<NameClass,Leaf,Par
         return leaf;
     }
 
-
-
     @Override
-    public NameClassBuilder getNameClassBuilder() throws BuildException {
+    public NameClassBuilder<NameClass,ParsedElementAnnotation,LocatorImpl,AnnotationsImpl,CommentListImpl> getNameClassBuilder() throws BuildException {
         return ncb;
     }
 

@@ -17,8 +17,10 @@ import java.net.URL;
 
 import org.xml.sax.InputSource;
 
-public class Util
-{
+public final class Util  {
+
+    private Util() {}
+
     /**
      * Parses the specified string either as an {@link URL} or as a {@link File}.
      *

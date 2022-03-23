@@ -31,6 +31,11 @@ public final class CollectionTypeAttribute {
     @XmlTransient
     private FieldRenderer fr;
 
+    /**
+     * Default constructor.
+     */
+    public CollectionTypeAttribute() {}
+
     FieldRenderer get(Model m) {
         if(fr==null)
             fr = calcFr(m);

@@ -71,6 +71,11 @@ public final class BindInfo implements Iterable<BIDeclaration> {
     private Documentation documentation;
 
     /**
+     * Default constructor.
+     */
+    public BindInfo() {}
+
+    /**
      * Returns true if this  doesn't contain any useful
      * information.
      *

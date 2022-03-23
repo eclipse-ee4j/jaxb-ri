@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -34,6 +34,11 @@ public final class BindGreen extends ColorBinder {
 
     private final ComplexTypeFieldBuilder ctBuilder = Ring.get(ComplexTypeFieldBuilder.class);
 
+    /**
+     * Default constructor.
+     */
+    public BindGreen() {}
+
     @Override
     public void attGroupDecl(XSAttGroupDecl ag) {
         attContainer(ag);
@@ -57,13 +62,6 @@ public final class BindGreen extends ColorBinder {
     public void complexType(XSComplexType ct) {
         ctBuilder.build(ct);
     }
-
-
-
-
-
-
-
 
     @Override
     public void attributeDecl(XSAttributeDecl xsAttributeDecl) {

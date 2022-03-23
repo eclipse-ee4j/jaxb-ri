@@ -34,9 +34,10 @@ import org.xml.sax.SAXParseException;
  * @author
  *    <a href="mailto:kohsuke.kawaguchi@sun.com">Kohsuke KAWAGUCHI</a>
  */
-public class TypeUtil {
+public final class TypeUtil {
     
-    
+    private TypeUtil() {}
+
     /**
      * Computes the common base type of two types.
      * 

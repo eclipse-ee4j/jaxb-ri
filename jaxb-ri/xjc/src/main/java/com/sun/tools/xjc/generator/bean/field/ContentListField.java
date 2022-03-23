@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,6 +24,7 @@ import com.sun.tools.xjc.generator.bean.ClassOutlineImpl;
 import com.sun.tools.xjc.generator.bean.MethodWriter;
 import com.sun.tools.xjc.model.CPropertyInfo;
 import com.sun.tools.xjc.outline.Aspect;
+import com.sun.tools.xjc.outline.FieldAccessor;
 import org.glassfish.jaxb.core.api.impl.NameConverter;
 import java.io.Serializable;
 
@@ -92,7 +93,7 @@ public class ContentListField extends AbstractListField {
     @Override
     public void generateAccessors() {
         final MethodWriter writer = outline.createMethodWriter();
-        final Accessor acc = create(JExpr._this());
+        final Accessor acc = (Accessor) create(JExpr._this());
 
         // [RESULT]
         // List getXXX() {
@@ -128,7 +129,7 @@ public class ContentListField extends AbstractListField {
     }
 
     @Override
-    public Accessor create(JExpression targetObject) {
+    public FieldAccessor create(JExpression targetObject) {
         return new Accessor(targetObject);
     }
 

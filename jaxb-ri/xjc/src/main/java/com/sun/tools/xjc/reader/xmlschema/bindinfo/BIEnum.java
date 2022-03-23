@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -75,6 +75,11 @@ public final class BIEnum extends AbstractDeclarationImpl {
     @XmlTransient
     public final Map<String,BIEnumMember> members = new HashMap<>();
 
+    /**
+     * Default constructor.
+     */
+    public BIEnum() {}
+
     @Override
     public QName getName() { return NAME; }
     
@@ -107,6 +112,10 @@ public final class BIEnum extends AbstractDeclarationImpl {
      * {@link BIEnumMember} used inside {@link BIEnum} has additional 'value' attribute.
      */
     static class BIEnumMember2 extends BIEnumMember {
+        /**
+         * Default constructor.
+         */
+        public BIEnumMember2() {}
         /**
          * The lexical representaion of the constant to which we are attaching.
          */

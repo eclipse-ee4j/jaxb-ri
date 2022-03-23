@@ -509,7 +509,7 @@ public abstract class JaxBeanInfo<BeanT> {
      * jaxbType if it exists, else return null.
      *
      */
-    public final LifecycleMethods getLifecycleMethods() {
+    final LifecycleMethods getLifecycleMethods() {
         return lcm;
     }
 

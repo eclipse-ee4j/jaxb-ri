@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -79,7 +79,7 @@ final class RegistryInfoImpl<T,C,F,M> implements Locatable, RegistryInfo<T,C> {
 
             ElementInfoImpl<T,C,F,M> ei;
             try {
-                ei = builder.createElementInfo(this,m);
+                ei = (ElementInfoImpl<T, C, F, M>) builder.createElementInfo(this,m);
             } catch (IllegalAnnotationException e) {
                 builder.reportError(e);
                 continue;   // recover by ignoring this element

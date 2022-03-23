@@ -18,6 +18,9 @@ import java.util.LinkedHashSet;
  * @author Kohsuke Kawaguchi
  */
 public final class ElementSets {
+
+    private ElementSets() {}
+
     /**
      * Returns an union of two {@link ElementSet}s.
      *

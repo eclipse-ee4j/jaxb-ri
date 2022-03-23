@@ -18,7 +18,7 @@ import java.util.Iterator;
  *
  * @author Kohsuke Kawaguchi
  */
-interface ElementSet extends Iterable<Element> {
+public interface ElementSet extends Iterable<Element> {
     /**
      * For each element in this set, adds an edge to the given element.
      */

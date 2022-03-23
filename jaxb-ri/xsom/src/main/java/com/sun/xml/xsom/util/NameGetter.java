@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -57,14 +57,14 @@ public class NameGetter implements XSFunction<String> {
      * An instance that gets names in the default locale.
      * This instance is provided just for convenience.
      */
-    public final static XSFunction theInstance = new NameGetter(null);
+    public final static XSFunction<String> theInstance = new NameGetter(null);
     
     /**
      * Gets the name of the specified component in the default locale.
      * This method is just a wrapper.
      */
     public static String get( XSComponent comp ) {
-        return (String)comp.apply(theInstance);
+        return comp.apply(theInstance);
     }
     
     

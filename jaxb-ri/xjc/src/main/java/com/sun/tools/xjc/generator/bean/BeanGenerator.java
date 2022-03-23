@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import com.sun.tools.xjc.outline.ElementOutline;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.annotation.XmlAttachmentRef;
@@ -464,8 +465,8 @@ public final class BeanGenerator implements Outline {
     }
 
     @Override
-    public ElementOutlineImpl getElement(CElementInfo ei) {
-        ElementOutlineImpl def = elements.get(ei);
+    public ElementOutline getElement(CElementInfo ei) {
+        ElementOutline def = elements.get(ei);
         if (def == null && ei.hasClass()) {
             // create one. in the constructor it adds itself to the elements.
             def = new ElementOutlineImpl(this, ei);

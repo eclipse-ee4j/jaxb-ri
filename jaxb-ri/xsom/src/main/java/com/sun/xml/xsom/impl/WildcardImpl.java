@@ -90,7 +90,7 @@ public abstract class WildcardImpl extends ComponentImpl implements XSWildcard, 
         public void visit( XSWildcardVisitor visitor ) {
             visitor.any(this);
         }
-        public Object apply( XSWildcardFunction function ) {
+        public <T> T apply( XSWildcardFunction<T> function ) {
             return function.any(this);
         }
     }
@@ -113,7 +113,7 @@ public abstract class WildcardImpl extends ComponentImpl implements XSWildcard, 
         public void visit( XSWildcardVisitor visitor ) {
             visitor.other(this);
         }
-        public Object apply( XSWildcardFunction function ) {
+        public <T> T apply( XSWildcardFunction<T> function ) {
             return function.other(this);
         }
     }
@@ -144,7 +144,7 @@ public abstract class WildcardImpl extends ComponentImpl implements XSWildcard, 
         public void visit( XSWildcardVisitor visitor ) {
             visitor.union(this);
         }
-        public Object apply( XSWildcardFunction function ) {
+        public <T> T apply( XSWildcardFunction<T> function ) {
             return function.union(this);
         }
     }
@@ -155,7 +155,7 @@ public abstract class WildcardImpl extends ComponentImpl implements XSWildcard, 
     public final void visit( XSTermVisitor visitor ) {
         visitor.wildcard(this);
     }
-    public Object apply( XSTermFunction function ) {
+    public <T> T apply( XSTermFunction<T> function ) {
         return function.wildcard(this);
     }
 
@@ -163,7 +163,7 @@ public abstract class WildcardImpl extends ComponentImpl implements XSWildcard, 
         return function.wildcard(this,param);
     }
 
-    public Object apply( XSFunction function ) {
+    public <T> T apply( XSFunction<T> function ) {
         return function.wildcard(this);
     }
 

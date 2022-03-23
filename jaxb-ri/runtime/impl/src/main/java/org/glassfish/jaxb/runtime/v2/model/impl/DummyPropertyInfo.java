@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,5 +18,5 @@ import org.glassfish.jaxb.core.v2.model.core.PropertyInfo;
  * @author Martin Grebac
  */
 public interface DummyPropertyInfo<T, C, F, M> {
-    void addType(PropertyInfoImpl<T, C, F, M> info);
+    void addType(PropertyInfo<T,C> info);
 }

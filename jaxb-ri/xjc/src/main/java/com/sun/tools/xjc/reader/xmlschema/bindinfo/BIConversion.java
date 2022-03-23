@@ -311,6 +311,11 @@ public abstract class BIConversion extends AbstractDeclarationImpl {
 
         private TypeUse typeUse;
 
+        /**
+         * Default constructor.
+         */
+        public UserAdapter() {}
+
         @Override
         public TypeUse getTypeUse(XSSimpleType owner) {
             if(typeUse!=null)

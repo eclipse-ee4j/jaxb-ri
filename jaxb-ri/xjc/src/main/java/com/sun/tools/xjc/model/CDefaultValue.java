@@ -24,6 +24,12 @@ import com.sun.xml.xsom.XmlString;
  * @author Kohsuke Kawaguchi
  */
 public abstract class CDefaultValue {
+
+    /**
+     * Default constructor.
+     */
+    protected CDefaultValue() {}
+
     public abstract JExpression compute(Outline outline);
 
     /**

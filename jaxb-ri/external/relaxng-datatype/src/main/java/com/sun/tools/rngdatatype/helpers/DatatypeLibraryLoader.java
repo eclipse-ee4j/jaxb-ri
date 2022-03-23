@@ -59,6 +59,11 @@ import java.util.Vector;
 public class DatatypeLibraryLoader implements DatatypeLibraryFactory {
   private final Service service = new Service(DatatypeLibraryFactory.class);
 
+	/**
+	 * Default constructor.
+	 */
+	public DatatypeLibraryLoader() {}
+
   public DatatypeLibrary createDatatypeLibrary(String uri) {
     for (Enumeration e = service.getProviders();
 	 e.hasMoreElements();) {

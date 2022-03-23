@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -82,7 +82,7 @@ public class ModelGroupImpl extends ComponentImpl implements XSModelGroup, Ref.T
     public void visit( XSTermVisitor visitor ) {
         visitor.modelGroup(this);
     }
-    public Object apply( XSTermFunction function ) {
+    public <T> T apply( XSTermFunction<T> function ) {
         return function.modelGroup(this);
     }
 
@@ -90,7 +90,7 @@ public class ModelGroupImpl extends ComponentImpl implements XSModelGroup, Ref.T
         return function.modelGroup(this,param);
     }
 
-    public Object apply( XSFunction function ) {
+    public <T> T apply( XSFunction<T> function ) {
         return function.modelGroup(this);
     }
 

@@ -117,7 +117,7 @@ public class ModelBuilder<T,C,F,M> implements ModelBuilderI<T,C,F,M> {
             defaultNamespaceRemap = "";
         this.defaultNsUri = defaultNamespaceRemap;
         reader.setErrorHandler(proxyErrorHandler);
-        typeInfoSet = createTypeInfoSet();
+        typeInfoSet = (TypeInfoSetImpl<T, C, F, M>) createTypeInfoSet();
     }
 
     /*
@@ -169,7 +169,7 @@ public class ModelBuilder<T,C,F,M> implements ModelBuilderI<T,C,F,M> {
         logger = Logger.getLogger(ModelBuilder.class.getName());
     }
 
-    protected TypeInfoSetImpl<T,C,F,M> createTypeInfoSet() {
+    protected TypeInfoSet<T,C,F,M> createTypeInfoSet() {
         return new TypeInfoSetImpl<>(nav,reader,BuiltinLeafInfoImpl.createLeaves(nav));
     }
 
@@ -197,7 +197,7 @@ public class ModelBuilder<T,C,F,M> implements ModelBuilderI<T,C,F,M> {
             return r;
 
         if(nav.isEnum(clazz)) {
-            EnumLeafInfoImpl<T,C,F,M> li = createEnumLeafInfo(clazz,upstream);
+            EnumLeafInfoImpl<T,C,F,M> li = (EnumLeafInfoImpl<T, C, F, M>) createEnumLeafInfo(clazz,upstream);
             typeInfoSet.add(li);
             r = li;
             addTypeName(r);
@@ -212,7 +212,7 @@ public class ModelBuilder<T,C,F,M> implements ModelBuilderI<T,C,F,M> {
                 r = getClassInfo( nav.getSuperClass(clazz), searchForSuperClass,
                         new ClassLocatable<>(upstream,clazz,nav) );
             } else {
-                ClassInfoImpl<T,C,F,M> ci = createClassInfo(clazz,upstream);
+                ClassInfoImpl<T,C,F,M> ci = (ClassInfoImpl<T, C, F, M>) createClassInfo(clazz,upstream);
                 typeInfoSet.add(ci);
 
                 // compute the closure by eagerly expanding references
@@ -321,8 +321,7 @@ public class ModelBuilder<T,C,F,M> implements ModelBuilderI<T,C,F,M> {
         if(r!=null)     return r;
 
         if(nav.isArray(t)) { // no need for checking byte[], because above typeInfoset.getTypeInfo() would return non-null
-            ArrayInfoImpl<T,C,F,M> ai =
-                createArrayInfo(upstream, t);
+            ArrayInfoImpl<T,C,F,M> ai = (ArrayInfoImpl<T, C, F, M>) createArrayInfo(upstream, t);
             addTypeName(ai);
             typeInfoSet.add(ai);
             return ai;
@@ -349,20 +348,20 @@ public class ModelBuilder<T,C,F,M> implements ModelBuilderI<T,C,F,M> {
     }
 
 
-    protected EnumLeafInfoImpl<T,C,F,M> createEnumLeafInfo(C clazz,Locatable upstream) {
+    protected EnumLeafInfo<T,C> createEnumLeafInfo(C clazz,Locatable upstream) {
         return new EnumLeafInfoImpl<>(this,upstream,clazz,nav.use(clazz));
     }
 
-    protected ClassInfoImpl<T,C,F,M> createClassInfo(C clazz, Locatable upstream ) {
+    protected ClassInfo<T,C> createClassInfo(C clazz, Locatable upstream ) {
         return new ClassInfoImpl<>(this,upstream,clazz);
     }
 
-    protected ElementInfoImpl<T,C,F,M> createElementInfo(
-        RegistryInfoImpl<T,C,F,M> registryInfo, M m) throws IllegalAnnotationException {
-        return new ElementInfoImpl<>(this,registryInfo,m);
+    protected ElementInfo<T,C> createElementInfo(
+            RegistryInfo<T,C> registryInfo, M m) throws IllegalAnnotationException {
+        return new ElementInfoImpl<>(this, (RegistryInfoImpl<T, C, F, M>) registryInfo,m);
     }
 
-    protected ArrayInfoImpl<T,C,F,M> createArrayInfo(Locatable upstream, T arrayType) {
+    protected ArrayInfo<T,C> createArrayInfo(Locatable upstream, T arrayType) {
         return new ArrayInfoImpl<>(this,upstream,arrayType);
     }
 

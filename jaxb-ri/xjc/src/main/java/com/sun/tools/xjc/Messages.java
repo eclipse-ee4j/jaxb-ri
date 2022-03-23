@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,8 +16,10 @@ import java.util.ResourceBundle;
 /**
  * Formats error messages.
  */
-public class Messages
-{
+public final class Messages {
+
+    private Messages() {}
+
     /** Loads a string resource and formats it with specified arguments. */
     public static String format( String property, Object... args ) {
         String text = ResourceBundle.getBundle(Messages.class.getPackage().getName() +".MessageBundle").getString(property);

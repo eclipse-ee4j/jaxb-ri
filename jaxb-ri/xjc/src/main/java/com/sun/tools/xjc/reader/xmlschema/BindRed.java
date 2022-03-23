@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -33,6 +33,11 @@ import com.sun.xml.xsom.XSWildcard;
 public final class BindRed extends ColorBinder {
 
     private final ComplexTypeFieldBuilder ctBuilder = Ring.get(ComplexTypeFieldBuilder.class);
+
+    /**
+     * Default constructor.
+     */
+    public BindRed() {}
 
     @Override
     public void complexType(XSComplexType ct) {

@@ -259,7 +259,7 @@ public class SchemaSetImpl implements XSSchemaSet
         public XSSimpleType getSimpleBaseType() { return null; }
         public int getDerivationMethod() { return RESTRICTION; }
         public Iterator<XSFacet> iterateDeclaredFacets() { return Iterators.empty(); }
-        public Collection<? extends XSFacet> getDeclaredFacets() { return Collections.EMPTY_LIST; }
+        public Collection<? extends XSFacet> getDeclaredFacets() { return Collections.emptyList(); }
         public void visit( XSSimpleTypeVisitor visitor ) {visitor.restrictionSimpleType(this); }
         public void visit( XSContentTypeVisitor visitor ) {visitor.simpleType(this); }
         public void visit( XSVisitor visitor ) {visitor.simpleType(this); }
@@ -272,9 +272,9 @@ public class SchemaSetImpl implements XSSchemaSet
         public XSListSimpleType getBaseListType() {return null;}
         public XSUnionSimpleType getBaseUnionType() {return null;}
         public XSFacet getFacet(String name) { return null; }
-        public List<XSFacet> getFacets( String name ) { return Collections.EMPTY_LIST; }
+        public List<XSFacet> getFacets( String name ) { return Collections.emptyList(); }
         public XSFacet getDeclaredFacet(String name) { return null; }
-        public List<XSFacet> getDeclaredFacets(String name) { return Collections.EMPTY_LIST; }
+        public List<XSFacet> getDeclaredFacets(String name) { return Collections.emptyList(); }
 
         public boolean isRestriction() { return true; }
         public boolean isList() { return false; }
@@ -308,9 +308,9 @@ public class SchemaSetImpl implements XSSchemaSet
         public XSAttributeUse getDeclaredAttributeUse( String nsURI, String localName ) { return null; }
         public Iterator<XSAttributeUse> iterateDeclaredAttributeUses() { return Iterators.empty(); }
         public Iterator<XSAttGroupDecl> iterateAttGroups() { return Iterators.empty(); }
-        public Collection<XSAttributeUse> getAttributeUses() { return Collections.EMPTY_LIST; }
-        public Collection<? extends XSAttributeUse> getDeclaredAttributeUses() { return Collections.EMPTY_LIST; }
-        public Collection<? extends XSAttGroupDecl> getAttGroups() { return Collections.EMPTY_LIST; }
+        public Collection<XSAttributeUse> getAttributeUses() { return Collections.emptyList(); }
+        public Collection<? extends XSAttributeUse> getDeclaredAttributeUses() { return Collections.emptyList(); }
+        public Collection<? extends XSAttGroupDecl> getAttGroups() { return Collections.emptyList(); }
         public boolean isFinal( int i ) { return false; }
         public boolean isSubstitutionProhibited( int i ) { return false; }
         public boolean isMixed() { return true; }
@@ -351,7 +351,7 @@ public class SchemaSetImpl implements XSSchemaSet
                 })
                 ,null,1,1);
         public List<XSComplexType> getSubtypes() {
-            ArrayList subtypeList = new ArrayList();
+            ArrayList<XSComplexType> subtypeList = new ArrayList<>();
             Iterator<XSComplexType> cTypes = getRoot().iterateComplexTypes();
             while (cTypes.hasNext()) {
                 XSComplexType cType= cTypes.next();
@@ -364,7 +364,7 @@ public class SchemaSetImpl implements XSSchemaSet
         }
 
         public List<XSElementDecl> getElementDecls() {
-            ArrayList declList = new ArrayList();
+            ArrayList<XSElementDecl> declList = new ArrayList<>();
             XSSchemaSet schemaSet = getRoot();
             for (XSSchema sch : schemaSet.getSchemas()) {
                 for (XSElementDecl decl : sch.getElementDecls().values()) {

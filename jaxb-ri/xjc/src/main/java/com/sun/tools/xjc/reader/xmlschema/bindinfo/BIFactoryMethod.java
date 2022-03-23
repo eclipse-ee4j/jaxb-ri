@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -29,7 +29,12 @@ import com.sun.tools.xjc.reader.xmlschema.BGMBuilder;
 public class BIFactoryMethod extends AbstractDeclarationImpl {
     @XmlAttribute
     public String name;
-    
+
+    /**
+     * Default constructor.
+     */
+    public BIFactoryMethod() {}
+
     /**
      * If the given component has {@link BIInlineBinaryData} customization,
      * reflect that to the specified property.
