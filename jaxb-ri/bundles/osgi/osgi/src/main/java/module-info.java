@@ -50,6 +50,9 @@ module com.sun.xml.bind.osgi {
     exports org.glassfish.jaxb.runtime.v2.model.impl;
     exports org.glassfish.jaxb.runtime.v2.model.runtime;
     exports org.glassfish.jaxb.runtime.v2.runtime;
+    exports org.glassfish.jaxb.runtime.v2.runtime.reflect;
+    exports org.glassfish.jaxb.runtime.v2.runtime.output;
+    exports org.glassfish.jaxb.runtime.v2.runtime.property;
     exports org.glassfish.jaxb.runtime.v2.runtime.unmarshaller;
     exports org.glassfish.jaxb.runtime.v2.schemagen;
     exports org.glassfish.jaxb.runtime.v2.schemagen.xmlschema;
