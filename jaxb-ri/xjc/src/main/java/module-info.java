@@ -26,7 +26,7 @@ module org.glassfish.jaxb.xjc {
     requires transitive jakarta.xml.bind;
     requires transitive org.glassfish.jaxb.core;
     requires com.sun.istack.runtime;
-    requires com.sun.istack.tools;
+    requires transitive com.sun.istack.tools;
     requires transitive com.sun.xml.xsom;
     requires transitive com.sun.tools.rngom;
     requires com.sun.xml.dtdparser;

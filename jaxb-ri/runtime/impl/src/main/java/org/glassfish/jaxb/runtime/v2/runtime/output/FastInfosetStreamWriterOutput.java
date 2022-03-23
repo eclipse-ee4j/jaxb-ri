@@ -85,7 +85,7 @@ public final class FastInfosetStreamWriterOutput extends XMLStreamWriterOutput {
         
         /**
          * Create a new set of tables for a JAXB context.
-         * <p>
+         *
          * @param context the JAXB context.
          * @param initialIndexOffset the initial index offset to calculate
          *                           the maximum possible index
@@ -110,7 +110,7 @@ public final class FastInfosetStreamWriterOutput extends XMLStreamWriterOutput {
         
         /**
          * Clear or reset the tables.
-         * <p>
+         *
          * @param intialIndexOffset the initial index offset to calculate
          *                           the maximum possible index
          */
