@@ -28,6 +28,7 @@ import java.util.logging.Logger;
  *
  * Has *package private* access to avoid inappropriate usage.
  */
+@SuppressWarnings({"unchecked"})
 final class Utils {
 
     private static final Logger LOGGER = Logger.getLogger(Utils.class.getName());
@@ -39,7 +40,7 @@ final class Utils {
 
     static { // we statically initializing REFLECTION_NAVIGATOR property
         try {
-            final Class refNav = Class.forName("org.glassfish.jaxb.core.v2.model.nav.ReflectionNavigator");
+            final Class<?> refNav = Class.forName("org.glassfish.jaxb.core.v2.model.nav.ReflectionNavigator");
 
             // requires accessClassInPackage privilege
             final Method getInstance = AccessController.doPrivileged(

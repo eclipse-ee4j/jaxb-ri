@@ -32,6 +32,12 @@ import com.sun.xml.xsom.XSWildcard;
  * @author Kohsuke Kawaguchi
  */
 public class BindPurple extends ColorBinder {
+
+    /**
+     * Default constructor.
+     */
+    public BindPurple() {}
+
     @Override
     public void attGroupDecl(XSAttGroupDecl xsAttGroupDecl) {
         // TODO

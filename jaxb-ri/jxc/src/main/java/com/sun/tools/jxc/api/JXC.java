@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2017, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,7 +17,10 @@ import com.sun.tools.jxc.api.impl.j2s.JavaCompilerImpl;
  * User: Iaroslav Savytskyi
  * Date: 25/05/12
  */
-public class JXC {
+public final class JXC {
+
+    private JXC() {}
+
     /**
      * Gets a fresh {@link JavaCompiler}.
      *

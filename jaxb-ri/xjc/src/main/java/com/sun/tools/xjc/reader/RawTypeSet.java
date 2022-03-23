@@ -184,6 +184,10 @@ public final class RawTypeSet {
      */
     public static abstract class Ref {
         /**
+         * Default constructor.
+         */
+        protected Ref() {}
+        /**
          * @param ep
          *      the property to which the returned {@link CTypeRef} will be
          *      added to.

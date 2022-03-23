@@ -34,7 +34,10 @@ import org.w3c.dom.NodeList;
  * @version 1.0
  *
  */
-public class DOMUtils {
+public final class DOMUtils {
+
+    private DOMUtils() {}
+
     /** Gets the fist child of the given name, or null. */
     public static Element getFirstChildElement( Element parent, String nsUri, String localPart ) {
         NodeList children = parent.getChildNodes();

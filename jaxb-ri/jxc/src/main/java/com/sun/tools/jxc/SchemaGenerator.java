@@ -41,9 +41,11 @@ import java.util.logging.Logger;
  *
  * @author Bhakti Mehta
  */
-public class SchemaGenerator {
+public final class SchemaGenerator {
 
     private static final Logger LOGGER = Logger.getLogger(SchemaGenerator.class.getName());
+
+    private SchemaGenerator() {}
 
     /**
      * Runs the schema generator.
@@ -223,6 +225,7 @@ public class SchemaGenerator {
     }
 
     public static final class Runner {
+        private Runner() {}
         public static boolean compile(String[] args, File episode) throws Exception {
 
             JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();

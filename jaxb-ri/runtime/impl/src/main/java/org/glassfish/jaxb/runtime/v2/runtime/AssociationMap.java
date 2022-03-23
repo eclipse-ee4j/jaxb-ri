@@ -28,14 +28,15 @@ import java.util.Set;
  *     Kohsuke Kawaguchi (kohsuke.kawaguchi@sun.com)
  */
 public final class AssociationMap<XmlNode> {
-    final static class Entry<XmlNode> {
+    public final static class Entry<XmlNode> {
         /** XML element. */
     	private XmlNode element;
         /** inner peer, or null. */
         private Object inner;
         /** outer peer, or null. */
         private Object outer;
-        
+
+        private Entry() {}
         public XmlNode element() {
         	return element;
         }
@@ -117,13 +118,13 @@ public final class AssociationMap<XmlNode> {
     }
     
     public Object getInnerPeer( XmlNode element ) {
-        Entry e = byElement(element);
+        Entry<XmlNode> e = byElement(element);
         if(e==null)     return null;
         else            return e.inner;
     }
     
     public Object getOuterPeer( XmlNode element ) {
-        Entry e = byElement(element);
+        Entry<XmlNode> e = byElement(element);
         if(e==null)     return null;
         else            return e.outer;
     }

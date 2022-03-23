@@ -12,6 +12,11 @@ package org.glassfish.jaxb.runtime.v2.model.impl;
 
 import com.sun.istack.NotNull;
 import org.glassfish.jaxb.core.annotation.XmlLocation;
+import org.glassfish.jaxb.core.v2.model.core.AttributePropertyInfo;
+import org.glassfish.jaxb.core.v2.model.core.ElementPropertyInfo;
+import org.glassfish.jaxb.core.v2.model.core.MapPropertyInfo;
+import org.glassfish.jaxb.core.v2.model.core.ReferencePropertyInfo;
+import org.glassfish.jaxb.core.v2.model.core.ValuePropertyInfo;
 import org.glassfish.jaxb.runtime.AccessorFactory;
 import org.glassfish.jaxb.runtime.AccessorFactoryImpl;
 import org.glassfish.jaxb.runtime.InternalAccessorFactory;
@@ -123,27 +128,27 @@ class RuntimeClassInfoImpl extends ClassInfoImpl<Type,Class,Field,Method>
     }
 
     @Override
-    protected ReferencePropertyInfoImpl<Type,Class,Field,Method> createReferenceProperty(PropertySeed<Type,Class,Field,Method> seed) {
+    protected ReferencePropertyInfo<Type,Class> createReferenceProperty(PropertySeed<Type,Class,Field,Method> seed) {
         return new RuntimeReferencePropertyInfoImpl(this,seed);
     }
 
     @Override
-    protected AttributePropertyInfoImpl<Type,Class,Field,Method> createAttributeProperty(PropertySeed<Type,Class,Field,Method> seed) {
+    protected AttributePropertyInfo<Type,Class> createAttributeProperty(PropertySeed<Type,Class,Field,Method> seed) {
         return new RuntimeAttributePropertyInfoImpl(this,seed);
     }
 
     @Override
-    protected ValuePropertyInfoImpl<Type,Class,Field,Method> createValueProperty(PropertySeed<Type,Class,Field,Method> seed) {
+    protected ValuePropertyInfo<Type,Class> createValueProperty(PropertySeed<Type,Class,Field,Method> seed) {
         return new RuntimeValuePropertyInfoImpl(this,seed);
     }
 
     @Override
-    protected ElementPropertyInfoImpl<Type,Class,Field,Method> createElementProperty(PropertySeed<Type,Class,Field,Method> seed) {
+    protected ElementPropertyInfo<Type,Class> createElementProperty(PropertySeed<Type,Class,Field,Method> seed) {
         return new RuntimeElementPropertyInfoImpl(this,seed);
     }
 
     @Override
-    protected MapPropertyInfoImpl<Type,Class,Field,Method> createMapProperty(PropertySeed<Type,Class,Field,Method> seed) {
+    protected MapPropertyInfo<Type,Class> createMapProperty(PropertySeed<Type,Class,Field,Method> seed) {
         return new RuntimeMapPropertyInfoImpl(this,seed);
     }
 

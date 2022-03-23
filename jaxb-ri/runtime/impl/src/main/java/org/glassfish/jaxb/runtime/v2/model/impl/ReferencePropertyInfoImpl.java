@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -350,7 +350,8 @@ class ReferencePropertyInfoImpl<T,C,F,M>
     }
 
     @Override
-    public final void addType(PropertyInfoImpl<T,C,F,M> info) {
+    @SuppressWarnings({"unchecked"})
+    public void addType(PropertyInfo<T, C> info) {
         //noinspection unchecked
         subTypes.add((ReferencePropertyInfoImpl)info);
     }

@@ -23,9 +23,11 @@ import java.lang.reflect.Method;
  *
  * @author Kohsuke Kawaguchi
  */
-public class XJCFacade {
+public final class XJCFacade {
 
     private static final String JDK_REQUIRED = "XJC requires Java SE 8 or later. Please download it from http://www.oracle.com/technetwork/java/javase/downloads";
+
+    private XJCFacade() {}
 
     public static void main(String[] args) throws Throwable {
         String v = "3.0";      // by default, we go 3.0

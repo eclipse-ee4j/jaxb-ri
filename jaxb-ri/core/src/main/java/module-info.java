@@ -11,8 +11,6 @@
 /**
  * The XML Binding implementation.
  *
- * @uses jakarta.xml.bind.JAXBContextFactory
- *
  */
 module org.glassfish.jaxb.core {
     requires transitive jakarta.xml.bind;

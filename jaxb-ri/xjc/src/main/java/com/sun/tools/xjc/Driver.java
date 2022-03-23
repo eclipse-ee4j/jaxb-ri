@@ -50,9 +50,11 @@ import org.xml.sax.SAXParseException;
 /**
  * Command Line Interface of XJC.
  */
-public class Driver {
+public final class Driver {
 
     private static final String SYSTEM_PROXY_PROPERTY = "java.net.useSystemProxies";
+
+    private Driver() {}
 
     public static void main(final String[] args) throws Exception {
         // use the platform default proxy if available.

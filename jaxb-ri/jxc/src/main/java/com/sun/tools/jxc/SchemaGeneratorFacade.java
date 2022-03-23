@@ -17,7 +17,9 @@ import java.lang.reflect.Method;
  * CLI entry point to schemagen that checks for JDK 5.0
  * @author Kohsuke Kawaguchi
  */
-public class SchemaGeneratorFacade {
+public final class SchemaGeneratorFacade {
+
+    private SchemaGeneratorFacade() {}
 
     public static void main(String[] args) throws Throwable {
         try {

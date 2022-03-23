@@ -62,7 +62,7 @@ public class UnionSimpleTypeImpl extends SimpleTypeImpl implements XSUnionSimple
     public void visit( XSSimpleTypeVisitor visitor ) {
         visitor.unionSimpleType(this);
     }
-    public Object apply( XSSimpleTypeFunction function ) {
+    public <T> T apply( XSSimpleTypeFunction<T> function ) {
         return function.unionSimpleType(this);
     }
 
@@ -72,7 +72,7 @@ public class UnionSimpleTypeImpl extends SimpleTypeImpl implements XSUnionSimple
 
     // union type by itself doesn't have any facet. */
     public XSFacet getFacet( String name ) { return null; }
-    public List<XSFacet> getFacets( String name ) { return Collections.EMPTY_LIST; }
+    public List<XSFacet> getFacets( String name ) { return Collections.emptyList(); }
 
     public XSVariety getVariety() { return XSVariety.UNION; }
 

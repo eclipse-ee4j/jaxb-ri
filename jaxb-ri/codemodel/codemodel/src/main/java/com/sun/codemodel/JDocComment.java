@@ -28,13 +28,13 @@ public class JDocComment extends JCommentPart implements JGenerable {
 	private static final long serialVersionUID = 1L;
 
 	/** list of @param tags */
-    private final Map<String,JCommentPart> atParams = new HashMap<>();
+    private final transient Map<String,JCommentPart> atParams = new HashMap<>();
     
     /** list of xdoclets */
-    private final Map<String,Map<String,String>> atXdoclets = new HashMap<>();
+    private final transient Map<String,Map<String,String>> atXdoclets = new HashMap<>();
     
     /** list of @throws tags */
-    private final Map<JClass,JCommentPart> atThrows = new HashMap<>();
+    private final transient Map<JClass,JCommentPart> atThrows = new HashMap<>();
     
     /**
      * The @return tag part.
@@ -44,7 +44,7 @@ public class JDocComment extends JCommentPart implements JGenerable {
     /** The @deprecated tag */
     private JCommentPart atDeprecated = null;
 
-    private final JCodeModel owner;
+    private final transient JCodeModel owner;
 
 
     public JDocComment(JCodeModel owner) {

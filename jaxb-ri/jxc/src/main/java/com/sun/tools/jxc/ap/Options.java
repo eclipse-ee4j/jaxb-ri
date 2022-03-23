@@ -40,6 +40,11 @@ public class Options  {
 
     public final List<String> arguments = new ArrayList<>();
 
+    /**
+     * Default constructor.
+     */
+    public Options() {}
+
     public void parseArguments(String[] args) throws BadCommandLineException {
         for (int i = 0 ; i <args.length; i++) {
             if (args[i].charAt(0)== '-') {

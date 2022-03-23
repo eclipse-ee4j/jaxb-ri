@@ -51,6 +51,7 @@ public class SchemaImpl implements XSSchema
         this.locator = loc;
     }
 
+    @SuppressWarnings({"deprecation"})
     public SchemaDocument getSourceDocument() {
         return null;
     }
@@ -243,7 +244,7 @@ public class SchemaImpl implements XSSchema
         visitor.schema(this);
     }
 
-    public Object apply(XSFunction function) {
+    public <T> T apply(XSFunction<T> function) {
         return function.schema(this);
     }
 
@@ -262,7 +263,7 @@ public class SchemaImpl implements XSSchema
     public List<ForeignAttributes> getForeignAttributes() {
         if(readOnlyForeignAttributes==null) {
             if(foreignAttributes==null)
-                readOnlyForeignAttributes = Collections.EMPTY_LIST;
+                readOnlyForeignAttributes = Collections.emptyList();
             else
                 readOnlyForeignAttributes = Collections.unmodifiableList(foreignAttributes);
         }

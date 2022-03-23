@@ -672,6 +672,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
      *      {@code seed.readAllAnnotation()}, but taken as a parameter
      *      because the caller should know it already.
      */
+    @SuppressWarnings({"unchecked"})
     private void addProperty( PropertySeed<T,C,F,M> seed, Annotation[] annotations, boolean dummy ) {
         // since typically there's a very few annotations on a method,
         // this runs faster than checking for each annotation via readAnnotation(A)
@@ -824,19 +825,19 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
 
                 return;
             case ATTRIBUTE:
-                properties.add(createAttributeProperty(seed));
+                properties.add((PropertyInfoImpl<T, C, F, M>) createAttributeProperty(seed));
                 return;
             case VALUE:
-                properties.add(createValueProperty(seed));
+                properties.add((PropertyInfoImpl<T, C, F, M>) createValueProperty(seed));
                 return;
             case ELEMENT:
-                properties.add(createElementProperty(seed));
+                properties.add((PropertyInfoImpl<T, C, F, M>) createElementProperty(seed));
                 return;
             case ELEMENT_REF:
-                properties.add(createReferenceProperty(seed));
+                properties.add((PropertyInfoImpl<T, C, F, M>) createReferenceProperty(seed));
                 return;
             case MAP:
-                properties.add(createMapProperty(seed));
+                properties.add((PropertyInfoImpl<T, C, F, M>) createMapProperty(seed));
                 return;
             default:
                 assert false;
@@ -862,23 +863,23 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
         }
     }
 
-    protected ReferencePropertyInfoImpl<T,C,F,M> createReferenceProperty(PropertySeed<T,C,F,M> seed) {
+    protected ReferencePropertyInfo<T,C> createReferenceProperty(PropertySeed<T,C,F,M> seed) {
         return new ReferencePropertyInfoImpl<>(this,seed);
     }
 
-    protected AttributePropertyInfoImpl<T,C,F,M> createAttributeProperty(PropertySeed<T,C,F,M> seed) {
+    protected AttributePropertyInfo<T,C> createAttributeProperty(PropertySeed<T,C,F,M> seed) {
         return new AttributePropertyInfoImpl<>(this,seed);
     }
 
-    protected ValuePropertyInfoImpl<T,C,F,M> createValueProperty(PropertySeed<T,C,F,M> seed) {
+    protected ValuePropertyInfo<T,C> createValueProperty(PropertySeed<T,C,F,M> seed) {
         return new ValuePropertyInfoImpl<>(this,seed);
     }
 
-    protected ElementPropertyInfoImpl<T,C,F,M> createElementProperty(PropertySeed<T,C,F,M> seed) {
+    protected ElementPropertyInfo<T,C> createElementProperty(PropertySeed<T,C,F,M> seed) {
         return new ElementPropertyInfoImpl<>(this,seed);
     }
 
-    protected MapPropertyInfoImpl<T,C,F,M> createMapProperty(PropertySeed<T,C,F,M> seed) {
+    protected MapPropertyInfo<T,C> createMapProperty(PropertySeed<T,C,F,M> seed) {
         return new MapPropertyInfoImpl<>(this,seed);
     }
 

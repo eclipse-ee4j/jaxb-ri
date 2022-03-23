@@ -96,7 +96,7 @@ public class RestrictionSimpleTypeImpl extends SimpleTypeImpl implements XSRestr
     public void visit( XSSimpleTypeVisitor visitor ) {
         visitor.restrictionSimpleType(this);
     }
-    public Object apply( XSSimpleTypeFunction function ) {
+    public <T> T apply( XSSimpleTypeFunction<T> function ) {
         return function.restrictionSimpleType(this);
     }
 

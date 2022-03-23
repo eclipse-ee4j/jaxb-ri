@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -44,6 +44,10 @@ public final class ErrorReporter extends BindingComponent {
      */
     private final ErrorReceiver errorReceiver = Ring.get(ErrorReceiver.class);
 
+    /**
+     * Default constructor.
+     */
+    public ErrorReporter() {}
 
     //
     // helper methods for classes in this package.

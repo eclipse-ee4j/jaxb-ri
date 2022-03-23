@@ -113,7 +113,7 @@ public interface XSSchema extends XSComponent
      *      this method from  and not from {@link XSComponent},
      *      there's something wrong with your code.
      */
-    @Deprecated(since="2.3", forRemoval=true)
+    @Deprecated(since="2.3")
     SchemaDocument getSourceDocument();
 
     /**

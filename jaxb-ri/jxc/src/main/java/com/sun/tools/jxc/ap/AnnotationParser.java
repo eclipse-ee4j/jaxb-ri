@@ -53,6 +53,11 @@ public final class AnnotationParser extends AbstractProcessor {
 
     private ErrorReceiver errorListener;
 
+    /**
+     * Default constructor.
+     */
+    public AnnotationParser() {}
+
     @Override
     public void init(ProcessingEnvironment processingEnv) {
         super.init(processingEnv);

@@ -28,6 +28,7 @@ import java.util.logging.Logger;
  *
  * Has *package private* access to avoid inappropriate usage.
  */
+@SuppressWarnings({"unchecked"})
 final class Utils {
 
     private static final Logger LOGGER = Logger.getLogger(Utils.class.getName());

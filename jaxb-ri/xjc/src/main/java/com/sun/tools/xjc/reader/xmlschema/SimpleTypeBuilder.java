@@ -129,6 +129,10 @@ public final class SimpleTypeBuilder extends BindingComponent {
     /** {@link TypeUse}s for the built-in types. Read-only. */
     public static final Map<String,TypeUse> builtinConversions;
 
+    /**
+     * Default constructor.
+     */
+    public SimpleTypeBuilder() {}
 
     /**
      * Entry point from outside. Builds a BGM type expression

@@ -29,6 +29,11 @@ import com.sun.xml.xsom.XSComponent;
 public class BIInlineBinaryData extends AbstractDeclarationImpl {
 
     /**
+     * Default constructor.
+     */
+    public BIInlineBinaryData() {}
+
+    /**
      * If the given component has  customization,
      * reflect that to the specified property.
      */

@@ -79,7 +79,7 @@ public abstract class ComponentImpl implements XSComponent
         Object t = foreignAttributes;
 
         if(t==null)
-            return Collections.EMPTY_LIST;
+            return Collections.emptyList();
 
         if(t instanceof List)
             return (List)t;

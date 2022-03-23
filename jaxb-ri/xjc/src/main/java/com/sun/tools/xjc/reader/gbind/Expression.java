@@ -18,6 +18,11 @@ package com.sun.tools.xjc.reader.gbind;
 public abstract class Expression {
 
     /**
+     * Default constructor.
+     */
+    protected Expression() {}
+
+    /**
      * Computes {@code LAST(exp)}
      */
     abstract ElementSet lastSet();

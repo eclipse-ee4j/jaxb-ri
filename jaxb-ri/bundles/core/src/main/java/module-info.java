@@ -8,10 +8,14 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
+/**
+ * The XML Binding implementation.
+ *
+ */
 module com.sun.xml.bind.core {
     requires transitive jakarta.xml.bind;
     requires java.compiler;
-    requires java.logging;
+    requires transitive java.logging;
 
     requires transitive jakarta.activation;
     requires transitive java.xml;

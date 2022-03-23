@@ -29,6 +29,11 @@ public final class ConnectedComponent implements Iterable<Element> {
     /*package*/ boolean isRequired;
 
     /**
+     * Default constructor.
+     */
+    public ConnectedComponent() {}
+
+    /**
      * Returns true iff this
      * can match a substring whose length is greater than 1.
      *

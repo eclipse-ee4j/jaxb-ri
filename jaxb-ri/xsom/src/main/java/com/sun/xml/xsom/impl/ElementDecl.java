@@ -227,7 +227,7 @@ public class ElementDecl extends DeclarationImpl implements XSElementDecl, Ref.T
         visitor.elementDecl(this);
     }
     @Override
-    public Object apply( XSTermFunction function ) {
+    public <T> T apply( XSTermFunction<T> function ) {
         return function.elementDecl(this);
     }
 
@@ -237,7 +237,7 @@ public class ElementDecl extends DeclarationImpl implements XSElementDecl, Ref.T
     }
 
     @Override
-    public Object apply( XSFunction function ) {
+    public <T> T apply( XSFunction<T> function ) {
         return function.elementDecl(this);
     }
     

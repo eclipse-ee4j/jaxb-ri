@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,6 +23,7 @@ import com.sun.codemodel.JVar;
 import com.sun.tools.xjc.generator.bean.ClassOutlineImpl;
 import com.sun.tools.xjc.model.CPropertyInfo;
 import com.sun.tools.xjc.model.CReferencePropertyInfo;
+import com.sun.tools.xjc.outline.FieldAccessor;
 import org.glassfish.jaxb.core.annotation.OverrideAnnotationOf;
 
 /**
@@ -112,7 +113,7 @@ public class DummyListField extends AbstractListField {
     public void generateAccessors() { }
 
     @Override
-    public Accessor create(JExpression targetObject) {
+    public FieldAccessor create(JExpression targetObject) {
         return new Accessor(targetObject);
     }
 
