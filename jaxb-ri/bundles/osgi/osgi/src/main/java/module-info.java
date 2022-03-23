@@ -56,9 +56,17 @@ module com.sun.xml.bind.osgi {
     exports org.glassfish.jaxb.runtime.v2.util;
 
     exports com.sun.tools.xjc;
-    exports com.sun.tools.xjc.reader;
-    exports com.sun.tools.xjc.reader.internalizer;
     exports com.sun.tools.xjc.api;
+    exports com.sun.tools.xjc.generator.bean;
+    exports com.sun.tools.xjc.generator.bean.field;
+    exports com.sun.tools.xjc.model;
+    exports com.sun.tools.xjc.model.nav;
+    exports com.sun.tools.xjc.outline;
+    exports com.sun.tools.xjc.reader;
+    exports com.sun.tools.xjc.reader.gbind;
+    exports com.sun.tools.xjc.reader.internalizer;
+    exports com.sun.tools.xjc.reader.xmlschema;
+    exports com.sun.tools.xjc.reader.xmlschema.bindinfo;
     exports com.sun.tools.xjc.util;
 
     exports com.sun.tools.jxc;
@@ -95,6 +103,8 @@ module com.sun.xml.bind.osgi {
     exports com.sun.xml.xsom;
     exports com.sun.xml.xsom.util;
     exports com.sun.xml.xsom.visitor;
+    exports com.sun.xml.xsom.impl;
+    exports com.sun.xml.xsom.impl.parser;
     exports com.sun.xml.xsom.impl.util;
     exports com.sun.xml.xsom.parser;
 
