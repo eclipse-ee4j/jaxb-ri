@@ -37,7 +37,12 @@ import com.sun.xml.xsom.XSType;
  * @author Kohsuke Kawaguchi (kohsuke.kawaguchi@sun.com)
  */
 public abstract class Ref {
-    
+
+    /**
+     * Default constructor.
+     */
+    protected Ref() {}
+
     public interface Term {
         /** Obtains a reference as a term. */
         XSTerm getTerm();

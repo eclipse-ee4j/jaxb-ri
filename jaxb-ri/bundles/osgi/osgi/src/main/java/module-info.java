@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2019, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,9 +13,9 @@ module com.sun.xml.bind.osgi {
     requires transitive jakarta.xml.bind;
     requires transitive jakarta.activation;
     requires transitive java.xml;
-    requires java.compiler;
+    requires transitive java.compiler;
     requires java.desktop;
-    requires java.logging;
+    requires transitive java.logging;
     requires static jdk.compiler;
 
     exports com.sun.istack;

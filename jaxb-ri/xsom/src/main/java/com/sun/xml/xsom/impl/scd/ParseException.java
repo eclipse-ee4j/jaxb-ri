@@ -24,6 +24,8 @@ import java.util.List;
  */
 public class ParseException extends Exception {
 
+    private static final long serialVersionUID = -1892857266151029978L;
+
   /**
    * This constructor is used by the method "generateParseException"
    * in the generated parser.  Calling this constructor generates

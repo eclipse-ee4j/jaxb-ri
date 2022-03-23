@@ -42,7 +42,12 @@ import javax.xml.transform.sax.TransformerHandler;
  * @author Kohsuke Kawaguchi
  */
 public class DomAnnotationParserFactory implements AnnotationParserFactory {
-    
+
+    /**
+     * Default constructor.
+     */
+    public DomAnnotationParserFactory() {}
+
     public AnnotationParser create() {
         return new AnnotationParserImpl();
     }

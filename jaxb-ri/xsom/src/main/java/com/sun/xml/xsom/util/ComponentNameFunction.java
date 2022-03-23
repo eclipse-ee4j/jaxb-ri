@@ -38,7 +38,12 @@ public class ComponentNameFunction implements XSFunction<String> {
 
     // delegate to this object to get the localized name of the component type
     private NameGetter nameGetter = new NameGetter(null);
-    
+
+    /**
+     * Default constructor.
+     */
+    public ComponentNameFunction() {}
+
     public String annotation(XSAnnotation ann) {
         // unnamed component
         return nameGetter.annotation( ann );

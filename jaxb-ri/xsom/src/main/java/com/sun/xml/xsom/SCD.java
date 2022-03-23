@@ -39,6 +39,11 @@ import java.util.List;
 public abstract class SCD {
 
     /**
+     * Default constructor.
+     */
+    protected SCD () {}
+
+    /**
      * Parses the string representation of SCD.
      *
      * <p>

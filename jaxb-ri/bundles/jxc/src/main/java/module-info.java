@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2019, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,7 +10,7 @@
 
 module com.sun.tools.jxc {
     requires transitive jakarta.xml.bind;
-    requires java.compiler;
+    requires transitive java.compiler;
     requires jdk.compiler;
     requires java.logging;
     requires transitive com.sun.xml.bind;
