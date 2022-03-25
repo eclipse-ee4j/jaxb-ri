@@ -22,8 +22,6 @@ import jakarta.xml.bind.annotation.XmlRegistry;
  * {@link org.glassfish.jaxb.core.v2.model.impl.ModelBuilderI}.
  *
  * @author Kohsuke Kawaguchi
- * @param <T>
- * @param <C>
  */
 public interface RegistryInfo<T,C> {
     /**

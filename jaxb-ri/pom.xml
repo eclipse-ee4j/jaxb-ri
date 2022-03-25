@@ -81,10 +81,10 @@
         <spotbugs.exclude/>
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>Low</spotbugs.threshold>
-        <spotbugs.version>4.5.3.0</spotbugs.version>
+        <spotbugs.version>4.6.0.0</spotbugs.version>
 
         <maven.compiler.release>11</maven.compiler.release>
-        <maven.compiler.testRelease>11</maven.compiler.testRelease>
+        <maven.compiler.testRelease>${maven.compiler.release}</maven.compiler.testRelease>
 
         <junit.version>4.13.2</junit.version>
 
@@ -102,7 +102,7 @@
         <comp.xlint>-Xlint:all,-rawtypes,-unchecked</comp.xlint>
         <!-- -Xdoclint:-missing does not seem to work properly on the infra -->
         <comp.xdoclint>-Xdoclint:all,-missing</comp.xdoclint>
-        <warn.limit>150000</warn.limit>
+        <warn.limit>150</warn.limit>
         <!-- too many to fix -->
         <jdoc.doclint>all,-missing</jdoc.doclint>
         <!-- not interested in warnings from tests (yet) -->
@@ -554,6 +554,7 @@
                         </manifest>
                     </archive>
                     <notimestamp>true</notimestamp>
+                    <failOnWarnings>true</failOnWarnings>
                 </configuration>
             </plugin>
         </plugins>
@@ -660,15 +661,6 @@
                                 <goals>
                                     <goal>report</goal>
                                 </goals>
-                                <!-- configuration should be removed once this bug https://github.com/jacoco/jacoco/issues/407 is fixed -->
-                                <configuration>
-                                    <excludes>
-                                        <!-- istack-runtime -->
-                                        <exclude>com/sun/istack/logging/StackHelper.class</exclude>
-                                        <!-- istack-tools -->
-                                        <exclude>com/sun/istack/tools/Utils.class</exclude>
-                                    </excludes>
-                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
