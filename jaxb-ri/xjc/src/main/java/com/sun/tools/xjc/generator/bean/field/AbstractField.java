@@ -396,7 +396,7 @@ abstract class AbstractField implements FieldOutline {
     }
 
     /**
-     * Case from {@link #exposedType} to {@link #implType} if necessary.
+     * Cast from {@code exposedType} to {@code implType} if necessary.
      */
     protected final JExpression castToImplType( JExpression exp ) {
         if(implType==exposedType)

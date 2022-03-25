@@ -64,10 +64,10 @@
         <spotbugs.exclude>${project.basedir}/exclude-xsom.xml</spotbugs.exclude>
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>Low</spotbugs.threshold>
-        <spotbugs.version>4.5.3.0</spotbugs.version>
+        <spotbugs.version>4.6.0.0</spotbugs.version>
 
         <maven.compiler.release>11</maven.compiler.release>
-        <maven.compiler.testRelease>11</maven.compiler.testRelease>
+        <maven.compiler.testRelease>${maven.compiler.release}</maven.compiler.testRelease>
 
         <relaxng.version>${project.version}</relaxng.version>
         <junit.version>4.13.2</junit.version>
@@ -75,7 +75,7 @@
         <comp.xlint>-Xlint:all,-rawtypes,-unchecked</comp.xlint>
         <!-- -Xdoclint:-missing does not seem to work properly on the infra -->
         <comp.xdoclint>-Xdoclint:all,-missing</comp.xdoclint>
-        <warn.limit>150000</warn.limit>
+        <warn.limit>150</warn.limit>
         <!-- too many to fix -->
         <jdoc.doclint>all,-missing</jdoc.doclint>
         <!-- not interested in warnings from tests (yet) -->

@@ -12,6 +12,7 @@ package com.sun.tools.xjc.generator.bean.field;
 
 import com.sun.tools.xjc.Options;
 import com.sun.codemodel.JClass;
+import com.sun.tools.xjc.Plugin;
 
 /**
  * Factory for {@link FieldRenderer}.
@@ -23,7 +24,7 @@ import com.sun.codemodel.JClass;
  * used.
  *
  * <p>
- * See {@link Options#fieldRendererFactory}
+ * See {@link Options#setFieldRendererFactory(FieldRendererFactory, Plugin)}
  *
  * <p>
  * To be more precise, since {@link FieldRenderer} is just a strategy pattern
