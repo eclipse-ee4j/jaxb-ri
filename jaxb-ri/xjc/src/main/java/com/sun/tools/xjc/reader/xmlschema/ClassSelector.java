@@ -20,7 +20,6 @@ import java.util.Stack;
 import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.JJavaName;
 import com.sun.codemodel.JPackage;
-import com.sun.codemodel.util.JavadocEscapeWriter;
 import com.sun.istack.NotNull;
 import com.sun.tools.xjc.model.CBuiltinLeafInfo;
 import com.sun.tools.xjc.model.CClassInfo;
@@ -391,10 +390,10 @@ public final class ClassSelector extends BindingComponent {
 
         // then schema fragment
         StringWriter out = new StringWriter();
-        out.write("<pre>\n");
-        SchemaWriter sw = new SchemaWriter(new JavadocEscapeWriter(out));
+        out.write("<pre>{@code\n");
+        SchemaWriter sw = new SchemaWriter(out);
         sc.visit(sw);
-        out.write("</pre>");
+        out.write("}</pre>");
         append(bean,out.toString());
     }
 
