@@ -27,7 +27,6 @@ import jakarta.activation.MimeTypeParseException;
 import jakarta.xml.bind.DatatypeConverter;
 
 import com.sun.codemodel.JJavaName;
-import com.sun.codemodel.util.JavadocEscapeWriter;
 import org.glassfish.jaxb.core.v2.WellKnownNamespace;
 import com.sun.tools.xjc.ErrorReceiver;
 import com.sun.tools.xjc.model.CBuiltinLeafInfo;
@@ -552,14 +551,14 @@ public final class SimpleTypeBuilder extends BindingComponent {
 
         {// compute Javadoc
             StringWriter out = new StringWriter();
-            SchemaWriter sw = new SchemaWriter(new JavadocEscapeWriter(out));
+            SchemaWriter sw = new SchemaWriter(out);
             type.visit((XSVisitor)sw);
 
             if(javadoc!=null)   javadoc += "\n\n";
             else                javadoc = "";
 
             javadoc += Messages.format( Messages.JAVADOC_HEADING, type.getName() )
-                +"\n<pre>\n"+out.getBuffer()+"</pre>";
+                +"\n<pre>{@code\n"+out.getBuffer()+"}</pre>";
 
         }
 
