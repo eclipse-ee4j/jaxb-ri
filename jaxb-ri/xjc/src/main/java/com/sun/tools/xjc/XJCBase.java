@@ -397,6 +397,17 @@ public class XJCBase extends MatchingTask {
     }
 
     /**
+     * Controls whether to disable XML security features when parsing XML documents or not
+     */
+    public void setDisableXmlSecurity(boolean flg) {
+        this.options.disableXmlSecurity = flg;
+    }
+
+    public boolean getDisableXmlSecurity() {
+        return this.options.disableXmlSecurity;
+    }
+
+    /**
      * Controls whether the file header comment is generated or not.
      */
     public void setHeader(boolean flg) {
@@ -525,6 +536,10 @@ public class XJCBase extends MatchingTask {
         if (null != getPackage() && !getPackage().equals("")) {
             getCommandline().createArgument().setValue("-p");
             getCommandline().createArgument().setValue(getPackage());
+        }
+        // disableXmlSecurity flag
+        if (getDisableXmlSecurity()) {
+            getCommandline().createArgument().setValue("-disableXmlSecurity");
         }
         // extension flag
         if (getExtension()) {
