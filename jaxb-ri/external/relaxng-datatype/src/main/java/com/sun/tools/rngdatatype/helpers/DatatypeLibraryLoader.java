@@ -1,4 +1,5 @@
-/**
+/*
+ * Copyright (c) 2022 Eclipse Foundation
  * Copyright (c) 2001, Thai Open Source Software Center Ltd
  * All rights reserved.
  *
