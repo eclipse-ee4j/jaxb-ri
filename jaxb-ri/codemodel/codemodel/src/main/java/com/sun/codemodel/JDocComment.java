@@ -10,8 +10,11 @@
 
 package com.sun.codemodel;
 
+import com.sun.codemodel.util.ClassNameComparator;
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * JavaDoc comment.
@@ -28,13 +31,13 @@ public class JDocComment extends JCommentPart implements JGenerable {
 	private static final long serialVersionUID = 1L;
 
 	/** list of @param tags */
-    private final transient Map<String,JCommentPart> atParams = new HashMap<>();
+    private final transient Map<String,JCommentPart> atParams = new TreeMap<>();
     
     /** list of xdoclets */
-    private final transient Map<String,Map<String,String>> atXdoclets = new HashMap<>();
+    private final transient Map<String,Map<String,String>> atXdoclets = new TreeMap<>();
     
     /** list of @throws tags */
-    private final transient Map<JClass,JCommentPart> atThrows = new HashMap<>();
+    private final transient Map<JClass,JCommentPart> atThrows = new TreeMap<>(ClassNameComparator.theInstance);
     
     /**
      * The @return tag part.
