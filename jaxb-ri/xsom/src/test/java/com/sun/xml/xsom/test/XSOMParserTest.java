@@ -1,7 +1,7 @@
 package com.sun.xml.xsom.test;
 
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,6 +20,7 @@ package com.sun.xml.xsom.test;
 import com.sun.xml.xsom.XSSchemaSet;
 import com.sun.xml.xsom.parser.XSOMParser;
 import com.sun.xml.xsom.parser.SchemaDocument;
+import com.sun.xml.xsom.parser.XmlFactory;
 import junit.framework.*;
 import org.xml.sax.InputSource;
 
@@ -45,7 +46,7 @@ public class XSOMParserTest extends TestCase {
         if (docURL == null) {
             docURL = new URL(docURLStr);
 
-            instance = new XSOMParser();
+            instance = new XSOMParser(XmlFactory.createParserFactory(false));
         }
     }
 

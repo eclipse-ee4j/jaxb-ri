@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -28,14 +28,15 @@ import java.util.Set;
  *     Kohsuke Kawaguchi (kohsuke.kawaguchi@sun.com)
  */
 public final class AssociationMap<XmlNode> {
-    final static class Entry<XmlNode> {
+    public final static class Entry<XmlNode> {
         /** XML element. */
     	private XmlNode element;
         /** inner peer, or null. */
         private Object inner;
         /** outer peer, or null. */
         private Object outer;
-        
+
+        private Entry() {}
         public XmlNode element() {
         	return element;
         }
@@ -50,6 +51,11 @@ public final class AssociationMap<XmlNode> {
     private final Map<XmlNode,Entry<XmlNode>> byElement = new IdentityHashMap<>();
     private final Map<Object,Entry<XmlNode>> byPeer = new IdentityHashMap<>();
     private final Set<XmlNode> usedNodes = new HashSet<>();
+
+    /**
+     * Default constructor.
+     */
+    public AssociationMap() {}
 
     /** Records the new {@code element <->inner} peer association. */
     public void addInner( XmlNode element, Object inner ) {
@@ -81,13 +87,12 @@ public final class AssociationMap<XmlNode> {
         if(e!=null) {
             if(e.outer!=null)
                 byPeer.remove(e.outer);
-            e.outer = outer;
         } else {
             e = new Entry<>();
             e.element = element;
-            e.outer = outer;
         }
-        
+        e.outer = outer;
+
         byElement.put(element,e);
         
         Entry<XmlNode> old = byPeer.put(outer,e);
@@ -113,13 +118,13 @@ public final class AssociationMap<XmlNode> {
     }
     
     public Object getInnerPeer( XmlNode element ) {
-        Entry e = byElement(element);
+        Entry<XmlNode> e = byElement(element);
         if(e==null)     return null;
         else            return e.inner;
     }
     
     public Object getOuterPeer( XmlNode element ) {
-        Entry e = byElement(element);
+        Entry<XmlNode> e = byElement(element);
         if(e==null)     return null;
         else            return e.outer;
     }

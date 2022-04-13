@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -38,10 +38,7 @@ final class MixedComplexTypeBuilder extends CTBuilder {
             !bt.asComplexType().isMixed() &&
             ct.isMixed() &&
             ct.getDerivationMethod() == XSType.EXTENSION) {
-                if (!bgmBuilder.isGenerateMixedExtensions() && (ct.getContentType().asParticle() == null)) {
-                    return false;
-                }
-                return true;
+            return bgmBuilder.isGenerateMixedExtensions() || (ct.getContentType().asParticle() != null);
         }
 
         return false;

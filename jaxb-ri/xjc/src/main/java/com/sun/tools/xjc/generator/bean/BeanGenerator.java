@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import com.sun.tools.xjc.outline.ElementOutline;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.annotation.XmlAttachmentRef;
@@ -53,7 +54,6 @@ import com.sun.codemodel.JVar;
 import com.sun.codemodel.fmt.JStaticJavaFile;
 import com.sun.tools.xjc.AbortException;
 import com.sun.tools.xjc.ErrorReceiver;
-import com.sun.tools.xjc.api.SpecVersion;
 import com.sun.tools.xjc.generator.annotation.spec.XmlAnyAttributeWriter;
 import com.sun.tools.xjc.generator.annotation.spec.XmlEnumValueWriter;
 import com.sun.tools.xjc.generator.annotation.spec.XmlEnumWriter;
@@ -218,7 +218,7 @@ public final class BeanGenerator implements Outline {
             }
 
             CClassInfoParent base = cc.target.parent();
-            if ((base != null) && (base instanceof CClassInfo)) {
+            if ((base instanceof CClassInfo)) {
                 String pkg = base.getOwnerPackage().name();
                 String shortName = base.fullName().substring(base.fullName().indexOf(pkg)+pkg.length()+1);
                 if (cc.target.shortName.equals(shortName)) {
@@ -325,11 +325,11 @@ public final class BeanGenerator implements Outline {
     }
 
     @Override
-    public final JType resolve(CTypeRef ref, Aspect a) {
+    public JType resolve(CTypeRef ref, Aspect a) {
         return ref.getTarget().getType().toType(this, a);
     }
     private final CClassInfoParent.Visitor<JClassContainer> exposedContainerBuilder =
-            new CClassInfoParent.Visitor<JClassContainer>() {
+            new CClassInfoParent.Visitor<>() {
 
                 @Override
                 public JClassContainer onBean(CClassInfo bean) {
@@ -348,7 +348,7 @@ public final class BeanGenerator implements Outline {
                 }
             };
     private final CClassInfoParent.Visitor<JClassContainer> implContainerBuilder =
-            new CClassInfoParent.Visitor<JClassContainer>() {
+            new CClassInfoParent.Visitor<>() {
 
                 @Override
                 public JClassContainer onBean(CClassInfo bean) {
@@ -379,7 +379,7 @@ public final class BeanGenerator implements Outline {
      *         Given the same input, the order of packages in the array
      *         is always the same regardless of the environment.
      */
-    public final JPackage[] getUsedPackages(Aspect aspect) {
+    public JPackage[] getUsedPackages(Aspect aspect) {
         Set<JPackage> s = new TreeSet<>();
 
         for (CClassInfo bean : model.beans().values()) {
@@ -397,7 +397,7 @@ public final class BeanGenerator implements Outline {
             s.add(e._package());
         }
 
-        return s.toArray(new JPackage[s.size()]);
+        return s.toArray(new JPackage[0]);
     }
 
     @Override
@@ -465,8 +465,8 @@ public final class BeanGenerator implements Outline {
     }
 
     @Override
-    public ElementOutlineImpl getElement(CElementInfo ei) {
-        ElementOutlineImpl def = elements.get(ei);
+    public ElementOutline getElement(CElementInfo ei) {
+        ElementOutline def = elements.get(ei);
         if (def == null && ei.hasClass()) {
             // create one. in the constructor it adds itself to the elements.
             def = new ElementOutlineImpl(this, ei);
@@ -778,7 +778,7 @@ public final class BeanGenerator implements Outline {
      * Also generates other per-property annotations
      * (such as {@link XmlID}, {@link XmlIDREF}, and {@link XmlMimeType} if necessary.
      */
-    public final void generateAdapterIfNecessary(CPropertyInfo prop, JAnnotatable field) {
+    public void generateAdapterIfNecessary(CPropertyInfo prop, JAnnotatable field) {
         CAdapter adapter = prop.getAdapter();
         if (adapter != null) {
             if (adapter.getAdapterIfKnown() == SwaRefAdapterMarker.class) {
@@ -806,7 +806,7 @@ public final class BeanGenerator implements Outline {
     }
 
     @Override
-    public final JClass addRuntime(Class<?> clazz) {
+    public JClass addRuntime(Class<?> clazz) {
         JClass g = generatedRuntime.get(clazz);
         if (g == null) {
             // put code into a separate package to avoid name conflicts.

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2017, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -19,7 +19,6 @@ module org.glassfish.jaxb.xjc {
     requires java.logging;
     requires transitive java.compiler;
     requires transitive java.xml;
-    requires jdk.compiler;
     requires java.desktop;
 
     requires com.sun.tools.rngdatatype;
@@ -27,9 +26,9 @@ module org.glassfish.jaxb.xjc {
     requires transitive jakarta.xml.bind;
     requires transitive org.glassfish.jaxb.core;
     requires com.sun.istack.runtime;
-    requires com.sun.istack.tools;
+    requires transitive com.sun.istack.tools;
     requires transitive com.sun.xml.xsom;
-    requires com.sun.tools.rngom;
+    requires transitive com.sun.tools.rngom;
     requires com.sun.xml.dtdparser;
     requires com.sun.xml.txw2;
 

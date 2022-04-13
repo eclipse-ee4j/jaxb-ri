@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -21,7 +21,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import com.sun.codemodel.writer.FileCodeWriter;
 import com.sun.codemodel.writer.ProgressCodeWriter;
@@ -32,7 +31,7 @@ import com.sun.codemodel.writer.ProgressCodeWriter;
  * <p>
  * Here's your typical CodeModel application.
  *
- * <pre>
+ * <pre>{@code
  * JCodeModel cm = new JCodeModel();
  *
  * // generate source code by populating the 'cm' tree.
@@ -41,7 +40,7 @@ import com.sun.codemodel.writer.ProgressCodeWriter;
  *
  * // write them out
  * cm.build(new File("."));
- * </pre>
+ * }</pre>
  *
  * <p>
  * Every CodeModel node is always owned by one {@link JCodeModel} object
@@ -93,7 +92,7 @@ public final class JCodeModel {
      * If the flag is true, we will consider two classes "Foo" and "foo"
      * as a collision.
      */
-    protected static final boolean isCaseSensitiveFileSystem = getFileSystemCaseSensitivity();
+    /* package */ static final boolean isCaseSensitiveFileSystem = getFileSystemCaseSensitivity();
 
     private static boolean getFileSystemCaseSensitivity() {
         try {
@@ -171,7 +170,7 @@ public final class JCodeModel {
         module._requires(requires);
     }
 
-    public final JPackage rootPackage() {
+    public JPackage rootPackage() {
         return _package("");
     }
 
@@ -325,7 +324,7 @@ public final class JCodeModel {
      * Generates Java source code.
      */
     public void build( CodeWriter source, CodeWriter resource ) throws IOException {
-        JPackage[] pkgs = packages.values().toArray(new JPackage[packages.size()]);
+        JPackage[] pkgs = packages.values().toArray(new JPackage[0]);
         // avoid concurrent modification exception
         for( JPackage pkg : pkgs ) {
             pkg.build(source,resource);
@@ -343,7 +342,7 @@ public final class JCodeModel {
      */
     public int countArtifacts() {
         int r = 0;
-        JPackage[] pkgs = packages.values().toArray(new JPackage[packages.size()]);
+        JPackage[] pkgs = packages.values().toArray(new JPackage[0]);
         // avoid concurrent modification exception
         for( JPackage pkg : pkgs )
             r += pkg.countArtifacts();
@@ -457,7 +456,6 @@ public final class JCodeModel {
         try {
             return JType.parse(this,name);
         } catch (IllegalArgumentException e) {
-            ;
         }
 
         // existing class
@@ -508,10 +506,8 @@ public final class JCodeModel {
                 }
                 node.jClass =  new TypeNameParser(node.value).parseTypeName();
                 if (!node.childs.isEmpty()) {
-                    List<JClass> args = node.childs.stream().map(n -> n.jClass).collect(Collectors.toList());
-                    JClass[] argsA = args.toArray(new JClass[args.size()]);
-                    JClass clazz = node.jClass.narrow(argsA);
-                    node.jClass = clazz;
+                    JClass[] argsA = node.childs.stream().map(n -> n.jClass).toArray(JClass[]::new);
+                    node.jClass = node.jClass.narrow(argsA);
                 }
             }
         }
@@ -535,7 +531,7 @@ public final class JCodeModel {
 
         @Override
         public String toString() {
-            StringBuilder builder = new StringBuilder(value.toString());
+            StringBuilder builder = new StringBuilder(value);
             boolean hasChilds = !childs.isEmpty();
             if (hasChilds) {
                 builder.append("<");
@@ -561,8 +557,8 @@ public final class JCodeModel {
         }
 
         /**
-         * Parses a type name token T (which can be potentially of the form Tr&ly;T1,T2,...>,
-         * or "? extends/super T".)
+         * Parses a type name token T (which can be potentially of the form {@code T<T1,T2,...>},
+         * or {@code ? extends/super T}.)
          *
          * @return the index of the character next to T.
          */
@@ -635,9 +631,9 @@ public final class JCodeModel {
         }
 
         /**
-         * Parses '&lt;T1,T2,...,Tn>'
+         * Parses {@code '&lt;T1,T2,...,Tn>'}
          *
-         * @return the index of the character next to '>'
+         * @return the index of the character next to '{@literal >}'
          */
         private JClass parseArguments(JClass rawType) throws ClassNotFoundException {
             if(s.charAt(idx)!='<')
@@ -652,7 +648,7 @@ public final class JCodeModel {
                     throw new IllegalArgumentException("Missing '>' in "+s);
                 char ch = s.charAt(idx);
                 if(ch=='>')
-                    return rawType.narrow(args.toArray(new JClass[args.size()]));
+                    return rawType.narrow(args.toArray(new JClass[0]));
 
                 if(ch!=',')
                     throw new IllegalArgumentException(s);
@@ -735,16 +731,19 @@ public final class JCodeModel {
         @Override
         public Iterator<JClass> _implements() {
             final Class<?>[] interfaces = _class.getInterfaces();
-            return new Iterator<JClass>() {
+            return new Iterator<>() {
                 private int idx = 0;
+
                 @Override
                 public boolean hasNext() {
                     return idx < interfaces.length;
                 }
+
                 @Override
                 public JClass next() {
                     return JCodeModel.this.ref(interfaces[idx++]);
                 }
+
                 @Override
                 public void remove() {
                     throw new UnsupportedOperationException();

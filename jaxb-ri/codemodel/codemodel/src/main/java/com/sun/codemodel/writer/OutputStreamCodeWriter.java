@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -8,14 +8,6 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-/**
- * Output all source files into a single stream.
- * 
- * This is primarily for test purposes.
- * 
- * @author
- * 	Aleksei Valikov (valikov@gmx.net)
- */
 package com.sun.codemodel.writer;
 
 import java.io.FilterOutputStream;
@@ -27,6 +19,13 @@ import java.io.UnsupportedEncodingException;
 import com.sun.codemodel.CodeWriter;
 import com.sun.codemodel.JPackage;
 
+/**
+ * Output all source files into a single stream.
+ *
+ * This is primarily for test purposes.
+ *
+ * @author Aleksei Valikov (valikov@gmx.net)
+ */
 public class OutputStreamCodeWriter extends CodeWriter {
 	private final PrintStream out;
 

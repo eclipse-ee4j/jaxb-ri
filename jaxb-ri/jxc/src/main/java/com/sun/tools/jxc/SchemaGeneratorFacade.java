@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,7 +17,9 @@ import java.lang.reflect.Method;
  * CLI entry point to schemagen that checks for JDK 5.0
  * @author Kohsuke Kawaguchi
  */
-public class SchemaGeneratorFacade {
+public final class SchemaGeneratorFacade {
+
+    private SchemaGeneratorFacade() {}
 
     public static void main(String[] args) throws Throwable {
         try {
@@ -25,11 +27,9 @@ public class SchemaGeneratorFacade {
             if(cl==null)    cl = SecureLoader.getSystemClassLoader();
 
             Class<?> driver = cl.loadClass("com.sun.tools.jxc.SchemaGenerator");
-            Method mainMethod = driver.getDeclaredMethod("main", new Class<?>[]{String[].class});
+            Method mainMethod = driver.getDeclaredMethod("main", String[].class);
             try {
                 mainMethod.invoke(null,new Object[]{args});
-            } catch (IllegalAccessException e) {
-                throw e;
             } catch (InvocationTargetException e) {
                 if(e.getTargetException()!=null)
                     throw e.getTargetException();

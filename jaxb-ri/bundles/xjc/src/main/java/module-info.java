@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2019, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -29,17 +29,21 @@ module com.sun.tools.xjc {
     exports com.sun.tools.xjc;
     exports com.sun.tools.xjc.api;
     exports com.sun.tools.xjc.generator.bean;
+    exports com.sun.tools.xjc.generator.bean.field;
     exports com.sun.tools.xjc.model;
     exports com.sun.tools.xjc.model.nav;
     exports com.sun.tools.xjc.outline;
     exports com.sun.tools.xjc.reader;
+    exports com.sun.tools.xjc.reader.gbind;
     exports com.sun.tools.xjc.reader.internalizer;
+    exports com.sun.tools.xjc.reader.xmlschema;
     exports com.sun.tools.xjc.reader.xmlschema.bindinfo;
     exports com.sun.tools.xjc.util;
 
     exports com.sun.xml.xsom;
     exports com.sun.xml.xsom.util;
     exports com.sun.xml.xsom.visitor;
+    exports com.sun.xml.xsom.impl;
     exports com.sun.xml.xsom.impl.parser;
     exports com.sun.xml.xsom.impl.util;
     exports com.sun.xml.xsom.parser;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2015, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -53,10 +53,9 @@ public final class SchemaGeneratorTest {
         new MockUp<URLClassLoader>() {
             @Mock
             URL[] getURLs() {
-                URL[] urls = {
+                return new URL[]{
                     cUrl
                 };
-                return urls;
             }
         };
 

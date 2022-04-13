@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,7 +11,6 @@
 package org.glassfish.jaxb.runtime.v2.runtime.unmarshaller;
 
 import org.glassfish.jaxb.runtime.DatatypeConverterImpl;
-import org.glassfish.jaxb.core.v2.WellKnownNamespace;
 import org.glassfish.jaxb.runtime.v2.runtime.ClassBeanInfoImpl;
 import org.glassfish.jaxb.runtime.v2.runtime.JaxBeanInfo;
 import org.glassfish.jaxb.runtime.v2.runtime.reflect.Accessor;
@@ -44,6 +43,7 @@ public final class LeafPropertyXsiLoader extends Loader {
         loader.startElement(state, ea);
     }
 
+    @SuppressWarnings({"deprecation"})
     protected Loader selectLoader(UnmarshallingContext.State state, TagName ea) throws SAXException {
 
         UnmarshallingContext context = state.getContext();

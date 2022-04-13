@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -30,14 +30,14 @@ import java.util.Map.Entry;
  */
 public final class JFormatter {
 
-    /** all classes and ids encountered during the collection mode **/
-    /** map from short type name to ReferenceList (list of JClass and ids sharing that name) **/
+    /* all classes and ids encountered during the collection mode */
+    /* map from short type name to ReferenceList (list of JClass and ids sharing that name) */
     private HashMap<String,ReferenceList> collectedReferences;
 
     /** set of imported types (including package java types, eventhough we won't generate imports for them) */
     private HashSet<JClass> importedClasses;
 
-    private static enum Mode {
+    private enum Mode {
         /**
          * Collect all the type names and identifiers.
          * In this mode we don't actually generate anything.
@@ -169,17 +169,14 @@ public final class JFormatter {
         if (c1 == ';') return true;
         if (c1 == CLOSE_TYPE_ARGS) {
             // e.g., "public Foo<Bar> test;"
-            if(c2=='(') // but not "new Foo<Bar>()"
-                return false;
-            return true;
+            // but not "new Foo<Bar>()"
+            return c2 != '(';
         }
         if ((c1 == ')') && (c2 == '{')) return true;
         if ((c1 == ',') || (c1 == '=')) return true;
         if (c2 == '=') return true;
         if (Character.isDigit(c1)) {
-            if ((c2 == '(') || (c2 == ')') || (c2 == ';') || (c2 == ','))
-                return false;
-            return true;
+            return (c2 != '(') && (c2 != ')') && (c2 != ';') && (c2 != ',');
         }
         if (Character.isJavaIdentifierPart(c1)) {
             switch (c2) {
@@ -205,8 +202,7 @@ public final class JFormatter {
             }
         }
         if (Character.isDigit(c2)) {
-            if (c1 == '(') return false;
-            return true;
+            return c1 != '(';
         }
         return false;
     }
@@ -442,7 +438,7 @@ public final class JFormatter {
         }
 
         // generate import statements
-        JClass[] imports = importedClasses.toArray(new JClass[importedClasses.size()]);
+        JClass[] imports = importedClasses.toArray(new JClass[0]);
         Arrays.sort(imports);
         for (JClass clazz : imports) {
             // suppress import statements for primitive types, built-in types,
@@ -486,9 +482,7 @@ public final class JFormatter {
             // inner classes require an import stmt.
             // All other pkg local classes do not need an
             // import stmt for ref.
-            if(clazz.outer()==null) {
-                return true;    // no need to explicitly import a class into itself
-            }
+            return clazz.outer() == null;    // no need to explicitly import a class into itself
         }
         return false;
     }
@@ -498,8 +492,8 @@ public final class JFormatter {
 
 
     /**
-     * Special character token we use to differenciate '>' as an operator and
-     * '>' as the end of the type arguments. The former uses '>' and it requires
+     * Special character token we use to differentiate '{@literal >}' as an operator and
+     * '{@literal >}' as the end of the type arguments. The former uses '{@literal >}' and it requires
      * a preceding whitespace. The latter uses this, and it does not have a preceding
      * whitespace.
      */

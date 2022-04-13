@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,6 +15,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.util.Arrays;
+import java.util.Objects;
 
 
 /**
@@ -108,12 +109,8 @@ class ParameterizedTypeImpl implements ParameterizedType {
 
 
             return
-                    (ownerType == null ?
-                    thatOwner == null :
-                    ownerType.equals(thatOwner)) &&
-                    (rawType == null ?
-                    thatRawType == null :
-                    rawType.equals(thatRawType)) &&
+                    (Objects.equals(ownerType, thatOwner)) &&
+                    (Objects.equals(rawType, thatRawType)) &&
                     Arrays.equals(actualTypeArguments, // avoid clone
                             that.getActualTypeArguments());
         } else
@@ -135,7 +132,7 @@ class ParameterizedTypeImpl implements ParameterizedType {
             if (ownerType instanceof Class)
                 sb.append(((Class) ownerType).getName());
             else
-                sb.append(ownerType.toString());
+                sb.append(ownerType);
 
             sb.append(".");
 

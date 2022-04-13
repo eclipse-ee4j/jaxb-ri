@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -72,7 +72,7 @@ public class SignatureWriter {
     private void dump() throws IOException {
         
         // collect packages used in the class.
-        Set<JPackage> packages = new TreeSet<>(new Comparator<JPackage>() {
+        Set<JPackage> packages = new TreeSet<>(new Comparator<>() {
             @Override
             public int compare(JPackage lhs, JPackage rhs) {
                 return lhs.name().compareTo(rhs.name());

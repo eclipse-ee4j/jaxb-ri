@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -118,9 +118,7 @@ import java.io.InputStream;
                  // a proper schemaLocation.
                  parserFactory.setValidating(false);
                  reader = parserFactory.newSAXParser().getXMLReader();
-             } catch (ParserConfigurationException e) {
-                 throw new JAXBException(e);
-             } catch (SAXException e) {
+             } catch (ParserConfigurationException | SAXException e) {
                  throw new JAXBException(e);
              }
          }
@@ -148,7 +146,7 @@ import java.io.InputStream;
      *      Also, returned handler expects all the XML names to be interned.
      *
      */
-    public final XmlVisitor createUnmarshallerHandler(InfosetScanner scanner, boolean inplace, JaxBeanInfo expectedType ) {
+    public XmlVisitor createUnmarshallerHandler(InfosetScanner scanner, boolean inplace, JaxBeanInfo expectedType ) {
 
         coordinator.reset(scanner,inplace,expectedType,idResolver);
         XmlVisitor unmarshaller = coordinator;
@@ -284,7 +282,7 @@ import java.io.InputStream;
 
 
     @Override
-    public final ValidationEventHandler getEventHandler() {
+    public ValidationEventHandler getEventHandler() {
         try {
             return super.getEventHandler();
         } catch (JAXBException e) {
@@ -298,7 +296,7 @@ import java.io.InputStream;
      * <p>
      * The default handler ignores any errors, and for that this method returns false.
      */
-    public final boolean hasEventHandler() {
+    public boolean hasEventHandler() {
         return getEventHandler()!=this;
     }
 
@@ -311,17 +309,17 @@ import java.io.InputStream;
     }
 
     @Override
-    public final Object unmarshal( Node node ) throws JAXBException {
+    public Object unmarshal(Node node ) throws JAXBException {
         return unmarshal0(node,null);
     }
 
     // just to make the the test harness happy by making this method accessible
     @Deprecated
-    public final Object unmarshal( SAXSource source ) throws JAXBException {
+    public Object unmarshal(SAXSource source ) throws JAXBException {
         return super.unmarshal(source);
     }
 
-    public final Object unmarshal0( Node node, JaxBeanInfo expectedType ) throws JAXBException {
+    public Object unmarshal0(Node node, JaxBeanInfo expectedType ) throws JAXBException {
         try {
             final DOMScanner scanner = new DOMScanner();
 
@@ -589,7 +587,6 @@ import java.io.InputStream;
 
     /**
      *  Must be called from same thread which created the UnmarshallerImpl instance.
-     * @throws IOException 
      */
     @Override
     public void close() throws IOException {

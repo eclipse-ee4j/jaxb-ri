@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -28,18 +28,18 @@ public interface TopLevelElement
 
 
     @XmlAttribute("final")
-    public TopLevelElement _final(String[] value);
+    TopLevelElement _final(String[] value);
 
     @XmlAttribute("final")
-    public TopLevelElement _final(String value);
+    TopLevelElement _final(String value);
 
     @XmlAttribute("abstract")
-    public TopLevelElement _abstract(boolean value);
+    TopLevelElement _abstract(boolean value);
 
     @XmlAttribute
-    public TopLevelElement substitutionGroup(QName value);
+    TopLevelElement substitutionGroup(QName value);
 
     @XmlAttribute
-    public TopLevelElement name(String value);
+    TopLevelElement name(String value);
 
 }

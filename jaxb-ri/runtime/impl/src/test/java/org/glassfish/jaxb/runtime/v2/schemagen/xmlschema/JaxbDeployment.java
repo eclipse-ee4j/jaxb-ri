@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,6 +17,8 @@ import jakarta.xml.bind.annotation.XmlID;
 import jakarta.xml.bind.annotation.XmlSeeAlso;
 import jakarta.xml.bind.annotation.XmlType;
 
+import java.util.Objects;
+
 /**
  */
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -33,9 +35,6 @@ public abstract class JaxbDeployment {
     @XmlElement(required = true)
     private String contextRoot;
 
-    /**
-     * {@inheritDoc}
-     */
     public String getContextRoot() {
         return this.contextRoot;
     }
@@ -55,7 +54,7 @@ public abstract class JaxbDeployment {
 
         JaxbDeployment that = (JaxbDeployment) o;
 
-        return contextRoot != null ? contextRoot.equals(that.contextRoot) : that.contextRoot == null;
+        return Objects.equals(contextRoot, that.contextRoot);
     }
 
     @Override

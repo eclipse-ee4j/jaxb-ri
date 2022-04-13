@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,7 +14,6 @@ import com.sun.tools.xjc.reader.internalizer.AbstractReferenceFinderImpl;
 import com.sun.tools.xjc.reader.internalizer.DOMForest;
 import com.sun.tools.xjc.reader.internalizer.InternalizationLogic;
 import com.sun.tools.xjc.util.DOMUtils;
-import org.glassfish.jaxb.core.v2.WellKnownNamespace;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;

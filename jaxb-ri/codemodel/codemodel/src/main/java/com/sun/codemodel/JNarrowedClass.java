@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,7 +17,7 @@ import java.util.Collections;
 import java.util.ArrayList;
 
 /**
- * Represents X&lt;Y>.
+ * Represents {@code X<Y>}.
  *
  * TODO: consider separating the decl and the use.
  * 
@@ -144,16 +144,19 @@ class JNarrowedClass extends JClass {
 
     @Override
     public Iterator<JClass> _implements() {
-        return new Iterator<JClass>() {
+        return new Iterator<>() {
             private final Iterator<JClass> core = basis._implements();
+
             @Override
             public void remove() {
                 core.remove();
             }
+
             @Override
             public JClass next() {
-                return core.next().substituteParams(basis.typeParams(),args);
+                return core.next().substituteParams(basis.typeParams(), args);
             }
+
             @Override
             public boolean hasNext() {
                 return core.hasNext();

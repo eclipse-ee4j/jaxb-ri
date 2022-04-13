@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,6 +18,12 @@ import jakarta.xml.bind.annotation.adapters.XmlAdapter;
  * @author Kohsuke Kawaguchi
  */
 public abstract class ReadOnlyAdapter<OnTheWire,InMemory> extends XmlAdapter<OnTheWire,InMemory> {
+
+    /**
+     * Default constructor.
+     */
+    protected ReadOnlyAdapter() {}
+
     @Override
     public final OnTheWire marshal(InMemory onTheWire) {
         // the unmarshaller uses this method

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -47,7 +47,7 @@ public abstract class WildcardImpl extends ComponentImpl implements XSWildcard, 
             return new Any(owner,null,null,null,mode);
         
         if(this instanceof Finite && rhs instanceof Finite) {
-            Set<String> values = new HashSet<String>();
+            Set<String> values = new HashSet<>();
             values.addAll( ((Finite)this).names );
             values.addAll( ((Finite)rhs ).names );
             return new Finite(owner,null,null,null,values,mode);
@@ -90,7 +90,7 @@ public abstract class WildcardImpl extends ComponentImpl implements XSWildcard, 
         public void visit( XSWildcardVisitor visitor ) {
             visitor.any(this);
         }
-        public Object apply( XSWildcardFunction function ) {
+        public <T> T apply( XSWildcardFunction<T> function ) {
             return function.any(this);
         }
     }
@@ -113,7 +113,7 @@ public abstract class WildcardImpl extends ComponentImpl implements XSWildcard, 
         public void visit( XSWildcardVisitor visitor ) {
             visitor.other(this);
         }
-        public Object apply( XSWildcardFunction function ) {
+        public <T> T apply( XSWildcardFunction<T> function ) {
             return function.other(this);
         }
     }
@@ -144,7 +144,7 @@ public abstract class WildcardImpl extends ComponentImpl implements XSWildcard, 
         public void visit( XSWildcardVisitor visitor ) {
             visitor.union(this);
         }
-        public Object apply( XSWildcardFunction function ) {
+        public <T> T apply( XSWildcardFunction<T> function ) {
             return function.union(this);
         }
     }
@@ -155,7 +155,7 @@ public abstract class WildcardImpl extends ComponentImpl implements XSWildcard, 
     public final void visit( XSTermVisitor visitor ) {
         visitor.wildcard(this);
     }
-    public Object apply( XSTermFunction function ) {
+    public <T> T apply( XSTermFunction<T> function ) {
         return function.wildcard(this);
     }
 
@@ -163,7 +163,7 @@ public abstract class WildcardImpl extends ComponentImpl implements XSWildcard, 
         return function.wildcard(this,param);
     }
 
-    public Object apply( XSFunction function ) {
+    public <T> T apply( XSFunction<T> function ) {
         return function.wildcard(this);
     }
 

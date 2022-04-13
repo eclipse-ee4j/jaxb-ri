@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,7 +18,7 @@ import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimePropertyInfo;
 /**
  * Exposes the core information that forms a {@link PropertyInfo}.
  */
-interface PropertySeed<T,C,F,M> extends Locatable, AnnotationSource {
+public interface PropertySeed<T,C,F,M> extends Locatable, AnnotationSource {
 
     /**
      * The name of the property is a spec defined concept --- although it doesn't do

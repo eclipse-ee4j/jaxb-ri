@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -38,69 +38,50 @@ public class ComponentNameFunction implements XSFunction<String> {
 
     // delegate to this object to get the localized name of the component type
     private NameGetter nameGetter = new NameGetter(null);
-    
+
     /**
-     * @see com.sun.xml.xsom.visitor.XSFunction#annotation(XSAnnotation)
+     * Default constructor.
      */
+    public ComponentNameFunction() {}
+
     public String annotation(XSAnnotation ann) {
         // unnamed component
         return nameGetter.annotation( ann );
     }
 
-    /**
-     * @see com.sun.xml.xsom.visitor.XSFunction#attGroupDecl(XSAttGroupDecl)
-     */
     public String attGroupDecl(XSAttGroupDecl decl) {
         String name = decl.getName();
         if( name == null ) name = "";
         return name + " " + nameGetter.attGroupDecl( decl );
     }
 
-    /**
-     * @see com.sun.xml.xsom.visitor.XSFunction#attributeDecl(XSAttributeDecl)
-     */
     public String attributeDecl(XSAttributeDecl decl) {
         String name = decl.getName();
         if( name == null ) name = "";
         return name + " " + nameGetter.attributeDecl( decl );
     }
 
-    /**
-     * @see com.sun.xml.xsom.visitor.XSFunction#attributeUse(XSAttributeUse)
-     */
     public String attributeUse(XSAttributeUse use) {
         // unnamed component
         return nameGetter.attributeUse( use );
     }
 
-    /**
-     * @see com.sun.xml.xsom.visitor.XSFunction#complexType(XSComplexType)
-     */
     public String complexType(XSComplexType type) {
         String name = type.getName();
         if( name == null ) name = "anonymous";
         return name + " " + nameGetter.complexType( type );
     }
 
-    /**
-     * @see com.sun.xml.xsom.visitor.XSFunction#schema(XSSchema)
-     */
     public String schema(XSSchema schema) {
         return nameGetter.schema( schema ) + " \"" + schema.getTargetNamespace()+"\"";
     }
 
-    /**
-     * @see com.sun.xml.xsom.visitor.XSFunction#facet(XSFacet)
-     */
     public String facet(XSFacet facet) {
         String name = facet.getName();
         if( name == null ) name = "";
         return name + " " + nameGetter.facet( facet );
     }
 
-    /**
-     * @see com.sun.xml.xsom.visitor.XSFunction#notation(XSNotation)
-     */
     public String notation(XSNotation notation) {
         String name = notation.getName();
         if( name == null ) name = "";

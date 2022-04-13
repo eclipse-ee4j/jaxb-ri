@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,18 +17,18 @@ import org.glassfish.jaxb.runtime.v2.runtime.reflect.Accessor;
  *
  * @author Kohsuke Kawaguchi
  */
-public class MethodAccessor_Ref extends Accessor {
+public class MethodAccessor_Ref<B> extends Accessor<B, Ref> {
     public MethodAccessor_Ref() {
         super(Ref.class);
     }
 
     @Override
-    public Object get(Object bean) {
+    public Ref get(B bean) {
         return ((Bean)bean).get_ref();
     }
 
     @Override
-    public void set(Object bean, Object value) {
-        ((Bean)bean).set_ref((Ref)value);
+    public void set(B bean, Ref value) {
+        ((Bean)bean).set_ref(value);
     }
 }

@@ -25,9 +25,6 @@ import com.sun.tools.rngom.ast.om.Location;
 import com.sun.tools.rngom.ast.om.ParsedElementAnnotation;
 import com.sun.tools.rngom.ast.om.ParsedPattern;
 import com.sun.tools.rngom.nc.NameClass;
-import com.sun.tools.rngom.parse.Context;
-import com.sun.tools.rngom.parse.IllegalSchemaException;
-import com.sun.tools.rngom.parse.Parseable;
 import com.sun.tools.rngom.ast.om.ParsedNameClass;
 import com.sun.tools.rngom.parse.*;
 
@@ -44,9 +41,9 @@ public interface SchemaBuilder<
 
     /**
      * Returns the {@link NameClassBuilder}, which is used to build name
-     * classes for this {@link SchemaBuilder}. The
+     * classes for this . The
      * {@link NameClass}es that are built will then be
-     * fed into this {@link SchemaBuilder}to further build RELAX NG patterns.
+     * fed into this to further build RELAX NG patterns.
      * 
      * @return always return a non-null valid object. This method can (and
      *         probably should) always return the same object.
@@ -161,7 +158,7 @@ public interface SchemaBuilder<
     P makeErrorPattern();
 
     /**
-     * If this {@link SchemaBuilder}is interested in actually parsing
+     * If this is interested in actually parsing
      * comments, this method returns true.
      * <p>
      * Returning false allows the schema parser to speed up the processing by
@@ -173,7 +170,7 @@ public interface SchemaBuilder<
      * Called after all the parsing is done.
      * 
      * <p>
-     * This hook typically allows as {@link SchemaBuilder} to expand
+     * This hook typically allows as  to expand
      * notAllowed (if it's following the simplification as in the spec.)
      */
     P expandPattern( P p ) throws BuildException, IllegalSchemaException;

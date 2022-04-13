@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -143,7 +143,7 @@ public final class PackageOutlineImpl implements PackageOutline {
         }
 
         // used to visit properties
-        CPropertyVisitor<Void> propVisitor = new CPropertyVisitor<Void>() {
+        CPropertyVisitor<Void> propVisitor = new CPropertyVisitor<>() {
             @Override
             public Void onElement(CElementPropertyInfo p) {
                 for (CTypeRef tr : p.getTypes()) {
@@ -185,8 +185,7 @@ public final class PackageOutlineImpl implements PackageOutline {
         elementFormDefault = getFormDefault();
         attributeFormDefault = XmlNsForm.UNQUALIFIED;
         try {
-            XmlNsForm modelValue = _model.getAttributeFormDefault(mostUsedNamespaceURI);
-            attributeFormDefault = modelValue;
+            attributeFormDefault = _model.getAttributeFormDefault(mostUsedNamespaceURI);
         } catch (Exception e) {
             // ignore and accept default
         }
@@ -216,7 +215,6 @@ public final class PackageOutlineImpl implements PackageOutline {
      * pull the uri out of the specified QName and keep track of it in the
      * specified hash map
      *
-     * @param qname
      */
     private void countURI(HashMap<String, Integer> map, QName qname) {
         if (qname == null) return;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -29,13 +29,18 @@ public final class ConnectedComponent implements Iterable<Element> {
     /*package*/ boolean isRequired;
 
     /**
-     * Returns true iff this {@link ConnectedComponent}
+     * Default constructor.
+     */
+    public ConnectedComponent() {}
+
+    /**
+     * Returns true iff this
      * can match a substring whose length is greater than 1.
      *
      * <p>
      * That means this property will become a collection property.
      */
-    public final boolean isCollection() {
+    public boolean isCollection() {
         assert !elements.isEmpty();
 
         // a strongly connected component by definition has a cycle,
@@ -49,14 +54,14 @@ public final class ConnectedComponent implements Iterable<Element> {
     }
 
     /**
-     * Returns true iff this {@link ConnectedComponent}
+     * Returns true iff this
      * forms a cut set of a graph.
      *
      * <p>
      * That means any valid element sequence must have at least
      * one value for this property.
      */
-    public final boolean isRequired() {
+    public boolean isRequired() {
         return isRequired;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -39,7 +39,7 @@ public class JDefinedClass
     implements JDeclaration, JClassContainer, JGenerifiable, JAnnotatable, JDocCommentable {
 
     /** Name of this class. Null if anonymous. */
-    private String name = null;
+    private String name;
     
     /** Modifiers for the class declaration */
     private JMods mods;
@@ -105,7 +105,7 @@ public class JDefinedClass
      * If this is a nested class, this is {@link JDefinedClass}.
      * If this is an anonymous class, this constructor shouldn't be used.
      */
-    private JClassContainer outer = null;
+    private JClassContainer outer;
 
     
     /** Default value is class or interface
@@ -115,7 +115,7 @@ public class JDefinedClass
      */
     private final ClassType classType;
     
-    /** List containing the enum value declarations
+    /* List containing the enum value declarations
      *  
      */
 //    private List enumValues = new ArrayList();
@@ -648,7 +648,7 @@ public class JDefinedClass
     }
 
     /**
-     * {@inheritDoc}
+     *
      *
      * @deprecated
      */
@@ -749,7 +749,7 @@ public class JDefinedClass
     @Override
     public final Iterator<JDefinedClass> classes() {
         if(classes==null)
-            return Collections.<JDefinedClass>emptyList().iterator();
+            return Collections.emptyIterator();
         else
             return classes.values().iterator();
     }
@@ -768,7 +768,7 @@ public class JDefinedClass
         if(classes==null)
             return new JClass[0];
         else
-            return classes.values().toArray(new JClass[classes.values().size()]);
+            return classes.values().toArray(new JClass[0]);
     }
 
     @Override
@@ -925,9 +925,6 @@ public class JDefinedClass
         return this.annotations.remove(annotation);
     }
 
-    /**
-     * {@link JAnnotatable#annotations()}
-     */
     @Override
     public Collection<JAnnotationUse> annotations() {
         if (annotations == null)

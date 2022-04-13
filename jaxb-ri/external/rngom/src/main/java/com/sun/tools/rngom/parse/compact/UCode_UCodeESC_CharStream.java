@@ -37,7 +37,7 @@ public final class UCode_UCodeESC_CharStream {
 
     public static final boolean staticFlag = false;
 
-    static final int hexval(char c) {
+    static int hexval(char c) {
         switch (c) {
             case '0':
                 return 0;
@@ -85,8 +85,8 @@ public final class UCode_UCodeESC_CharStream {
     int bufsize;
     int available;
     int tokenBegin;
-    private int bufline[];
-    private int bufcolumn[];
+    private int[] bufline;
+    private int[] bufcolumn;
     private int column = 0;
     private int line = 1;
     private java.io.Reader inputStream;
@@ -98,10 +98,10 @@ public final class UCode_UCodeESC_CharStream {
     private int nextCharInd = -1;
     private int inBuf = 0;
 
-    private final void ExpandBuff(boolean wrapAround) {
+    private void ExpandBuff(boolean wrapAround) {
         char[] newbuffer = new char[bufsize + 2048];
-        int newbufline[] = new int[bufsize + 2048];
-        int newbufcolumn[] = new int[bufsize + 2048];
+        int[] newbufline = new int[bufsize + 2048];
+        int[] newbufcolumn = new int[bufsize + 2048];
 
         if (wrapAround) {
             System.arraycopy(buffer, tokenBegin, newbuffer, 0, bufsize - tokenBegin);
@@ -135,7 +135,7 @@ public final class UCode_UCodeESC_CharStream {
         tokenBegin = 0;
     }
 
-    private final void FillBuff() throws EOFException {
+    private void FillBuff() throws EOFException {
         int i;
         if (maxNextCharInd == 4096) {
             maxNextCharInd = nextCharInd = 0;
@@ -157,7 +157,7 @@ public final class UCode_UCodeESC_CharStream {
         }
     }
 
-    private final char ReadChar() throws EOFException {
+    private char ReadChar() throws EOFException {
         if (++nextCharInd >= maxNextCharInd) {
             FillBuff();
         }
@@ -165,13 +165,13 @@ public final class UCode_UCodeESC_CharStream {
         return nextCharBuf[nextCharInd];
     }
 
-    private final char PeekChar() throws EOFException {
+    private char PeekChar() throws EOFException {
         char c = ReadChar();
         --nextCharInd;
         return c;
     }
 
-    public final char BeginToken() throws EOFException {
+    public char BeginToken() throws EOFException {
         if (inBuf > 0) {
             --inBuf;
             return buffer[tokenBegin = (bufpos == bufsize - 1) ? (bufpos = 0)
@@ -184,7 +184,7 @@ public final class UCode_UCodeESC_CharStream {
         return readChar();
     }
 
-    private final void AdjustBuffSize() {
+    private void AdjustBuffSize() {
         if (available == bufsize) {
             if (tokenBegin > 2048) {
                 bufpos = 0;
@@ -201,7 +201,7 @@ public final class UCode_UCodeESC_CharStream {
         }
     }
 
-    private final void UpdateLineColumn(char c) {
+    private void UpdateLineColumn(char c) {
         column++;
 
         if (prevCharIsLF) {
@@ -226,7 +226,7 @@ public final class UCode_UCodeESC_CharStream {
     }
     private static final char NEWLINE_MARKER = '\u0000';
 
-    public final char readChar() throws EOFException {
+    public char readChar() throws EOFException {
         if (inBuf > 0) {
             --inBuf;
             return buffer[(bufpos == bufsize - 1) ? (bufpos = 0) : ++bufpos];
@@ -387,34 +387,36 @@ public final class UCode_UCodeESC_CharStream {
     /**
      * @deprecated @see #getEndColumn
      */
-    public final int getColumn() {
+    @Deprecated
+    public int getColumn() {
         return bufcolumn[bufpos];
     }
 
     /**
      * @deprecated @see #getEndLine
      */
-    public final int getLine() {
+    @Deprecated
+    public int getLine() {
         return bufline[bufpos];
     }
 
-    public final int getEndColumn() {
+    public int getEndColumn() {
         return bufcolumn[bufpos];
     }
 
-    public final int getEndLine() {
+    public int getEndLine() {
         return bufline[bufpos];
     }
 
-    public final int getBeginColumn() {
+    public int getBeginColumn() {
         return bufcolumn[tokenBegin];
     }
 
-    public final int getBeginLine() {
+    public int getBeginLine() {
         return bufline[tokenBegin];
     }
 
-    public final void backup(int amount) {
+    public void backup(int amount) {
 
         inBuf += amount;
         if ((bufpos -= amount) < 0) {
@@ -496,7 +498,7 @@ public final class UCode_UCodeESC_CharStream {
         }
     }
 
-    public final String GetImage() {
+    public String GetImage() {
         if (bufpos >= tokenBegin) {
             return new String(buffer, tokenBegin, bufpos - tokenBegin + 1);
         } else {
@@ -505,7 +507,7 @@ public final class UCode_UCodeESC_CharStream {
         }
     }
 
-    public final char[] GetSuffix(int len) {
+    public char[] GetSuffix(int len) {
         char[] ret = new char[len];
 
         if ((bufpos + 1) >= len) {

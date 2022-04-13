@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -26,8 +26,14 @@ import com.sun.tools.xjc.reader.Const;
  */
 @XmlRootElement(name="substitutable",namespace= Const.XJC_EXTENSION_URI)
 public final class BIXSubstitutable extends AbstractDeclarationImpl {
+
+    /**
+     * Default constructor.
+     */
+    public BIXSubstitutable() {}
+
     @Override
-    public final QName getName() { return NAME; }
+    public QName getName() { return NAME; }
 
     /** Name of the conversion declaration. */
     public static final QName NAME = new QName(Const.XJC_EXTENSION_URI,"substitutable");

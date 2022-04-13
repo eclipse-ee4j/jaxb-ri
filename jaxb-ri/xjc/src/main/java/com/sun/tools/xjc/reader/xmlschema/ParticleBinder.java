@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -49,7 +49,7 @@ public abstract class ParticleBinder {
      * {@link ClassSelector#getCurrentBean()}.
      */
     public final void build( XSParticle p ) {
-        build(p, Collections.<XSParticle>emptySet());
+        build(p, Collections.emptySet());
     }
 
     /**
@@ -94,9 +94,7 @@ public abstract class ParticleBinder {
 
         // if not, the term might have one.
         cust = builder.getBindInfo(p.getTerm()).get(type);
-        if(cust!=null)  return cust;
-
-        return null;
+        return cust;
     }
 
     /**

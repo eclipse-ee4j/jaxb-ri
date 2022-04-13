@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -31,9 +31,9 @@ public class IllegalAnnotationException extends JAXBException {
     /**
      * Read-only list of {@link Location}s.
      */
-    private final List<List<Location>> pos;
+    private transient final List<List<Location>> pos;
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 407680563506515709L;
 
     public IllegalAnnotationException(String message, Locatable src) {
         super(message);
@@ -154,7 +154,7 @@ public class IllegalAnnotationException extends JAXBException {
      * together in one string.
      *
      * <p>
-     * Overriding this method (instead of {@link #printStackTrace} allows
+     * Overriding this method (instead of {@link #printStackTrace()} allows
      * this crucial detail to show up even when this exception is nested
      * inside other exceptions.
      */

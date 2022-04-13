@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2022 Eclipse Foundation
  * Copyright (C) 2004-2011
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -77,8 +78,6 @@ public class DXMLPrinter {
     /**
      * Prints grammar enclosed by start/end document.
      *
-     * @param grammar
-     * @throws XMLStreamException
      */
     public void printDocument(DGrammarPattern grammar) throws XMLStreamException {
         try {
@@ -97,7 +96,6 @@ public class DXMLPrinter {
     /**
      * Prints XML fragment for the given pattern.
      *
-     * @throws XMLStreamException
      */
     public void print(DPattern pattern) throws XMLStreamException {
         try {
@@ -114,7 +112,6 @@ public class DXMLPrinter {
     /**
      * Prints XML fragment for the given name class.
      *
-     * @throws XMLStreamException
      */
     public void print(NameClass nc) throws XMLStreamException {
         try {
@@ -133,6 +130,7 @@ public class DXMLPrinter {
     }
 
     protected class XMLWriterException extends RuntimeException {
+        private static final long serialVersionUID = -6182580269873640348L;
         protected XMLWriterException(Throwable cause) {
             super(cause);
         }

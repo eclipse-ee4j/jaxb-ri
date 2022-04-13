@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2005, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -40,7 +40,7 @@ public class NodeSet extends LinkedHashSet<WriterNode> {
     /**
      * Set of all the {@link Element}s that can be root.
      */
-    private final Set<Element> rootElements = new HashSet<Element>();
+    private final Set<Element> rootElements = new HashSet<>();
 
     /** The namespace URI declared in {@link XmlNamespace}. */
     /*package*/ final String defaultNamespace;
@@ -52,7 +52,7 @@ public class NodeSet extends LinkedHashSet<WriterNode> {
         markRoot(entry.siblings(),rootElements);
 
         // decide what to put in @XmlNamespace
-        Set<String> ns = new HashSet<String>();
+        Set<String> ns = new HashSet<>();
         for( Element e : rootElements )
             ns.add(e.name.getNamespaceURI());
 
@@ -114,7 +114,7 @@ public class NodeSet extends LinkedHashSet<WriterNode> {
 
     @SuppressWarnings("unchecked")
     public <T extends WriterNode> Collection<T> subset(Class<T> t) {
-        List<T> r = new ArrayList<T>(size());
+        List<T> r = new ArrayList<>(size());
         for( WriterNode n : this )
             if(t.isInstance(n))
                 r.add((T)n);
@@ -141,7 +141,7 @@ public class NodeSet extends LinkedHashSet<WriterNode> {
             for( int i=2; true; i++ ) {
                 try {
                     return opts._package._class(
-                        JMod.PUBLIC, NameUtil.toClassName(name+String.valueOf(i)), ClassType.INTERFACE );
+                        JMod.PUBLIC, NameUtil.toClassName(name+ i), ClassType.INTERFACE );
                 } catch (JClassAlreadyExistsException e1) {
                     ; // continue
                 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -117,11 +117,13 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
      * This ugly entry point is only used by JAX-WS.
      * See {@link JAXBRIContext#getElementPropertyAccessor}
      */
+    @SuppressWarnings({"unchecked"})
     public void setUnadapted(BeanT bean, Object value) throws AccessorException {
         set(bean, (ValueT) value);
     }
 
     @Override
+    @SuppressWarnings({"unchecked"})
     public void receive(UnmarshallingContext.State state, Object o) throws SAXException {
         try {
             set((BeanT) state.getTarget(), (ValueT) o);
@@ -164,13 +166,14 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
     }
 
     /**
-     * Wraps this  {@link Accessor} into another {@link Accessor}
+     * Wraps this   into another
      * and performs the type adaption as necessary.
      */
     public final <T> Accessor<BeanT, T> adapt(Class<T> targetType, final Class<? extends XmlAdapter<T, ValueT>> adapter) {
         return new AdaptedAccessor<>(targetType, this, adapter);
     }
 
+    @SuppressWarnings({"unchecked"})
     public final <T> Accessor<BeanT, T> adapt(Adapter<Type, Class> adapter) {
         return new AdaptedAccessor<>(
                 (Class<T>) Utils.REFLECTION_NAVIGATOR.erasure(adapter.defaultType),
@@ -197,6 +200,7 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
             this(f, false);
         }
 
+        @SuppressWarnings({"unchecked"})
         public FieldReflection(Field f, boolean supressAccessorWarnings) {
             super((Class<ValueT>) f.getType());
             this.f = f;
@@ -221,6 +225,7 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
         }
 
         @Override
+        @SuppressWarnings({"unchecked"})
         public ValueT get(BeanT bean) {
             try {
                 return (ValueT) f.get(bean);
@@ -230,6 +235,7 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
         }
 
         @Override
+        @SuppressWarnings({"unchecked"})
         public void set(BeanT bean, ValueT value) {
             try {
                 if (value == null)
@@ -278,6 +284,7 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
 
         private static final Logger logger = org.glassfish.jaxb.core.Utils.getClassLogger();
 
+        @SuppressWarnings({"unchecked"})
         public GetterSetterReflection(Method getter, Method setter) {
             super(
                     (Class<ValueT>) (getter != null ?
@@ -309,6 +316,7 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
         }
 
         @Override
+        @SuppressWarnings({"unchecked"})
         public ValueT get(BeanT bean) throws AccessorException {
             try {
                 return (ValueT) getter.invoke(bean);
@@ -320,6 +328,7 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
         }
 
         @Override
+        @SuppressWarnings({"unchecked"})
         public void set(BeanT bean, ValueT value) throws AccessorException {
             try {
                 if (value == null)
@@ -387,14 +396,14 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
     }
 
     /**
-     * Gets the special {@link Accessor} used to recover from errors.
+     * Gets the special  used to recover from errors.
      */
     @SuppressWarnings("unchecked")
     public static <A, B> Accessor<A, B> getErrorInstance() {
         return ERROR;
     }
 
-    private static final Accessor ERROR = new Accessor<Object, Object>(Object.class) {
+    private static final Accessor ERROR = new Accessor<>(Object.class) {
         @Override
         public Object get(Object o) {
             return null;
@@ -408,7 +417,7 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
     /**
      * {@link Accessor} for {@link JAXBElement#getValue()}.
      */
-    public static final Accessor<JAXBElement, Object> JAXB_ELEMENT_VALUE = new Accessor<JAXBElement, Object>(Object.class) {
+    public static final Accessor<JAXBElement, Object> JAXB_ELEMENT_VALUE = new Accessor<>(Object.class) {
         @Override
         public Object get(JAXBElement jaxbElement) {
             return jaxbElement.getValue();
@@ -423,7 +432,7 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
     /**
      * Uninitialized map keyed by their classes.
      */
-    private static final Map<Class, Object> uninitializedValues = new HashMap<Class, Object>();
+    private static final Map<Class<?>, Object> uninitializedValues = new HashMap<>();
 
     static {
 /*
@@ -436,14 +445,14 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
     static long default_value_long = 0;
     static short default_value_short = 0;
 */
-        uninitializedValues.put(byte.class, Byte.valueOf((byte) 0));
+        uninitializedValues.put(byte.class, (byte) 0);
         uninitializedValues.put(boolean.class, false);
-        uninitializedValues.put(char.class, Character.valueOf((char) 0));
-        uninitializedValues.put(float.class, Float.valueOf(0));
-        uninitializedValues.put(double.class, Double.valueOf(0));
-        uninitializedValues.put(int.class, Integer.valueOf(0));
-        uninitializedValues.put(long.class, Long.valueOf(0));
-        uninitializedValues.put(short.class, Short.valueOf((short) 0));
+        uninitializedValues.put(char.class, (char) 0);
+        uninitializedValues.put(float.class, (float) 0);
+        uninitializedValues.put(double.class, (double) 0);
+        uninitializedValues.put(int.class, 0);
+        uninitializedValues.put(long.class, 0L);
+        uninitializedValues.put(short.class, (short) 0);
     }
 
 }

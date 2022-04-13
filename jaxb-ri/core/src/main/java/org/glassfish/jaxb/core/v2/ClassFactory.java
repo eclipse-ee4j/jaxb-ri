@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -45,9 +45,9 @@ public final class ClassFactory {
      *
      * To avoid synchronization among threads, we use {@link ThreadLocal}.
      */
-    private static final ThreadLocal<Map<Class, WeakReference<Constructor>>> tls = new ThreadLocal<Map<Class,WeakReference<Constructor>>>() {
+    private static final ThreadLocal<Map<Class, WeakReference<Constructor>>> tls = new ThreadLocal<>() {
         @Override
-        public Map<Class,WeakReference<Constructor>> initialValue() {
+        public Map<Class, WeakReference<Constructor>> initialValue() {
             return new WeakHashMap<>();
         }
     };
@@ -77,7 +77,7 @@ public final class ClassFactory {
             if (System.getSecurityManager() == null) {
                 cons = tryGetDeclaredConstructor(clazz);
             } else {
-                cons = AccessController.doPrivileged(new PrivilegedAction<Constructor<T>>() {
+                cons = AccessController.doPrivileged(new PrivilegedAction<>() {
                     @Override
                     public Constructor<T> run() {
                         return tryGetDeclaredConstructor(clazz);
@@ -173,15 +173,9 @@ public final class ClassFactory {
         } catch (IllegalAccessException e) {
             logger.log(Level.INFO,"failed to create a new instance of "+method.getReturnType().getName(),e);
             throw new IllegalAccessError(e.toString());
-        } catch (IllegalArgumentException iae){
+        } catch (IllegalArgumentException | NullPointerException | ExceptionInInitializerError iae){
             logger.log(Level.INFO,"failed to create a new instance of "+method.getReturnType().getName(),iae);
             errorMsg = iae;
-        } catch (NullPointerException npe){
-            logger.log(Level.INFO,"failed to create a new instance of "+method.getReturnType().getName(),npe);
-            errorMsg = npe;
-        } catch (ExceptionInInitializerError eie){
-            logger.log(Level.INFO,"failed to create a new instance of "+method.getReturnType().getName(),eie);
-            errorMsg = eie;
         }
 
         NoSuchMethodError exp;

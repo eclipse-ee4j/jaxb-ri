@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -9,7 +9,7 @@
  */
 
 /**
- * Implementation of the {@link org.glassfish.jaxb.core.v2.model.core} package for XJC.
+ * Implementation of the {@code org.glassfish.jaxb.core.v2.model.core} package for XJC.
  *
  * <p>
  * This model is the recipes for the code generation.
@@ -19,7 +19,7 @@
  *
  * <p>
  * Most of the classes/interfaces in this package has one-to-one relationship
- * with the parameterized core model in the {@link org.glassfish.jaxb.core.v2.model.core} package.
+ * with the parameterized core model in the {@code org.glassfish.jaxb.core.v2.model.core} package.
  * Refer to the core model for better documentation.
  *
  * <p>

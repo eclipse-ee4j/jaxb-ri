@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -93,6 +93,7 @@ public final class SchemaCompilerImpl extends ErrorReceiver implements SchemaCom
 
     @NotNull
     @Override
+    @SuppressWarnings({"deprecation"})
     public Options getOptions() {
         return opts;
     }
@@ -229,10 +230,7 @@ public final class SchemaCompilerImpl extends ErrorReceiver implements SchemaCom
                             // we do the same here .
                             InputSource is = opts.entityResolver.resolveEntity(namespaceURI, systemId == null ? "" : systemId);
                             return isExists(is) ? new LSInputSAXWrapper(is) : null;
-                        } catch (SAXException e) {
-                            // TODO: is this sufficient?
-                            return null;
-                        } catch (IOException e) {
+                        } catch (SAXException | IOException e) {
                             // TODO: is this sufficient?
                             return null;
                         }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -28,15 +28,12 @@ public class Iterators {
         }
     }
 
-    // we need to run on JDK 1.4
-    private static final Iterator EMPTY = Collections.EMPTY_LIST.iterator();
-
     public static <T> Iterator<T> empty() {
-        return EMPTY;
+        return Collections.emptyIterator();
     }
 
     public static <T> Iterator<T> singleton(T value) {
-        return new Singleton<T>(value);
+        return new Singleton<>(value);
     }
 
     /**
@@ -148,7 +145,7 @@ public class Iterators {
      * Only return unique items.
      */
     static final class Unique<T> extends Filter<T> {
-        private Set<T> values = new HashSet<T>();
+        private Set<T> values = new HashSet<>();
         public Unique(Iterator<? extends T> core) {
             super(core);
         }

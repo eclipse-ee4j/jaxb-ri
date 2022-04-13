@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -59,6 +59,12 @@ import jakarta.xml.bind.annotation.XmlAnyElement;
  * @since 2.1
  */
 public abstract class ClassResolver {
+
+    /**
+     * Default constructor.
+     */
+    protected ClassResolver() {}
+
     /**
      * JAXB calls this method when it sees an unknown element.
      *
@@ -73,7 +79,7 @@ public abstract class ClassResolver {
      * @return
      *      If a non-null class is returned, it will be used to unmarshal this element.
      *      If null is returned, the resolution is assumed to be failed, and
-     *      the unmarshaller will behave as if there was no {@link ClassResolver}
+     *      the unmarshaller will behave as if there was no
      *      to begin with (that is, to report it to {@link ValidationEventHandler},
      *      then move on.)
      *

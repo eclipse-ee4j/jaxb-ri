@@ -32,6 +32,8 @@ public class Issue1505Test {
         } 
     }
 
+    public Issue1505Test() {}
+
     @Test
     public void test1() {
         checks("Map<K,Pair<X,Y>>");

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,6 +12,7 @@ package com.sun.tools.xjc.reader;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -33,9 +34,10 @@ import org.xml.sax.SAXParseException;
  * @author
  *    <a href="mailto:kohsuke.kawaguchi@sun.com">Kohsuke KAWAGUCHI</a>
  */
-public class TypeUtil {
+public final class TypeUtil {
     
-    
+    private TypeUtil() {}
+
     /**
      * Computes the common base type of two types.
      * 
@@ -43,7 +45,7 @@ public class TypeUtil {
      *      set of {@link JType} objects.
      */
     public static JType getCommonBaseType( JCodeModel codeModel, Collection<? extends JType> types ) {
-        return getCommonBaseType( codeModel, types.toArray(new JType[types.size()]) );
+        return getCommonBaseType( codeModel, types.toArray(new JType[0]) );
     }
 
     /**
@@ -59,8 +61,7 @@ public class TypeUtil {
     public static JType getCommonBaseType(JCodeModel codeModel, JType... t) {
         // first, eliminate duplicates.
         Set<JType> uniqueTypes = new TreeSet<>(typeComparator);
-        for (JType type : t)
-            uniqueTypes.add(type);
+        Collections.addAll(uniqueTypes, t);
 
         // if this yields only one type. return now.
         // this is the only case where we can return a primitive type
@@ -93,7 +94,7 @@ public class TypeUtil {
         // for example, if we have both java.lang.Object and
         // java.io.InputStream, then we don't want to use java.lang.Object.
 
-        JClass[] raw = s.toArray(new JClass[s.size()]);
+        JClass[] raw = s.toArray(new JClass[0]);
         s.clear();
 
         for (int i = 0; i < raw.length; i++) { // for each raw[i]
@@ -243,7 +244,7 @@ public class TypeUtil {
     /**
      * Compares {@link JType} objects by their names.
      */
-    private static final Comparator<JType> typeComparator = new Comparator<JType>() {
+    private static final Comparator<JType> typeComparator = new Comparator<>() {
         @Override
         public int compare(JType t1, JType t2) {
             return t1.fullName().compareTo(t2.fullName());

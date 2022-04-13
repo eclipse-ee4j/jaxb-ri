@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,8 +17,10 @@ import java.net.URL;
 
 import org.xml.sax.InputSource;
 
-public class Util
-{
+public final class Util  {
+
+    private Util() {}
+
     /**
      * Parses the specified string either as an {@link URL} or as a {@link File}.
      *
@@ -52,7 +54,7 @@ public class Util
 
     public static String escapeSpace( String url ) {
         // URLEncoder didn't work.
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         for (int i = 0; i < url.length(); i++) {
             // TODO: not sure if this is the only character that needs to be escaped.
             if (url.charAt(i) == ' ')

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -26,39 +26,39 @@ public interface Schema
 
 
     @XmlElement
-    public Annotation annotation();
+    Annotation annotation();
 
     @XmlElement("import")
-    public Import _import();
+    Import _import();
 
     @XmlAttribute
-    public Schema targetNamespace(String value);
+    Schema targetNamespace(String value);
 
     @XmlAttribute(ns = "http://www.w3.org/XML/1998/namespace")
-    public Schema lang(String value);
+    Schema lang(String value);
 
     @XmlAttribute
-    public Schema id(String value);
+    Schema id(String value);
 
     @XmlAttribute
-    public Schema elementFormDefault(String value);
+    Schema elementFormDefault(String value);
 
     @XmlAttribute
-    public Schema attributeFormDefault(String value);
+    Schema attributeFormDefault(String value);
 
     @XmlAttribute
-    public Schema blockDefault(String[] value);
+    Schema blockDefault(String[] value);
 
     @XmlAttribute
-    public Schema blockDefault(String value);
+    Schema blockDefault(String value);
 
     @XmlAttribute
-    public Schema finalDefault(String[] value);
+    Schema finalDefault(String[] value);
 
     @XmlAttribute
-    public Schema finalDefault(String value);
+    Schema finalDefault(String value);
 
     @XmlAttribute
-    public Schema version(String value);
+    Schema version(String value);
 
 }

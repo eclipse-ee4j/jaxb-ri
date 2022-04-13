@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -97,7 +97,7 @@ public interface XmlOutput {
      * @param fragment
      *      true if we are marshalling a fragment.
      */
-    public void startDocument(XMLSerializer serializer, boolean fragment, int[] nsUriIndex2prefixIndex, NamespaceContextImpl nsContext) throws IOException, SAXException, XMLStreamException;
+    void startDocument(XMLSerializer serializer, boolean fragment, int[] nsUriIndex2prefixIndex, NamespaceContextImpl nsContext) throws IOException, SAXException, XMLStreamException;
 
     /**
      * Called at the very end. This is the last method to be invoked.
@@ -105,7 +105,7 @@ public interface XmlOutput {
      * @param fragment
      *      false if we are writing the whole document.
      */
-    public void endDocument(boolean fragment) throws IOException, SAXException, XMLStreamException;
+    void endDocument(boolean fragment) throws IOException, SAXException, XMLStreamException;
     
     /**
      * Writes a start tag.
@@ -117,24 +117,24 @@ public interface XmlOutput {
      * <p>
      * This method is used for writing tags that are indexed.
      */
-    public void beginStartTag(Name name) throws IOException, XMLStreamException;
+    void beginStartTag(Name name) throws IOException, XMLStreamException;
     
-    public void beginStartTag(int prefix, String localName) throws IOException, XMLStreamException;
+    void beginStartTag(int prefix, String localName) throws IOException, XMLStreamException;
 
-    public void attribute( Name name, String value ) throws IOException, XMLStreamException;
+    void attribute(Name name, String value) throws IOException, XMLStreamException;
     
     /**
      * @param prefix
      *      -1 if this attribute does not have a prefix
      *      (this handling differs from that of elements.)
      */
-    public void attribute( int prefix, String localName, String value ) throws IOException, XMLStreamException;
+    void attribute(int prefix, String localName, String value) throws IOException, XMLStreamException;
 
-    public void endStartTag() throws IOException, SAXException;
+    void endStartTag() throws IOException, SAXException;
 
-    public void endTag(Name name) throws IOException, SAXException, XMLStreamException;
+    void endTag(Name name) throws IOException, SAXException, XMLStreamException;
     
-    public void endTag(int prefix, String localName) throws IOException, SAXException, XMLStreamException;
+    void endTag(int prefix, String localName) throws IOException, SAXException, XMLStreamException;
 
     /**
      * Writes XML text with character escaping, if necessary.
@@ -142,9 +142,8 @@ public interface XmlOutput {
      * @param value
      *      this string can contain characters that might need escaping
      *      (such as {@code '&' or '>'})
-     * @param needsSeparatingWhitespace
      */
-    public void text( String value, boolean needsSeparatingWhitespace ) throws IOException, SAXException, XMLStreamException;
+    void text(String value, boolean needsSeparatingWhitespace) throws IOException, SAXException, XMLStreamException;
 
     /**
      * Writes XML text with character escaping, if necessary.
@@ -152,7 +151,6 @@ public interface XmlOutput {
      * @param value
      *      this string can contain characters that might need escaping
      *      (such as {@code '&' or '>'})
-     * @param needsSeparatingWhitespace
      */
-    public void text( Pcdata value, boolean needsSeparatingWhitespace ) throws IOException, SAXException, XMLStreamException;
+    void text(Pcdata value, boolean needsSeparatingWhitespace) throws IOException, SAXException, XMLStreamException;
 }

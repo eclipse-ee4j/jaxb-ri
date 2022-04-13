@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,6 +20,8 @@ import com.sun.tools.xjc.outline.Outline;
 import org.glassfish.jaxb.core.v2.ClassFactory;
 import org.glassfish.jaxb.core.v2.model.core.ID;
 import com.sun.xml.xsom.XmlString;
+
+import java.util.Objects;
 
 
 /**
@@ -77,10 +79,8 @@ final class TypeUseImpl implements TypeUse {
 
         if (collection != that.collection) return false;
         if (this.id != that.id ) return false;
-        if (adapter != null ? !adapter.equals(that.adapter) : that.adapter != null) return false;
-        if (coreType != null ? !coreType.equals(that.coreType) : that.coreType != null) return false;
-
-        return true;
+        if (!Objects.equals(adapter, that.adapter)) return false;
+        return coreType != null ? coreType.equals(that.coreType) : that.coreType == null;
     }
 
     @Override
@@ -94,6 +94,7 @@ final class TypeUseImpl implements TypeUse {
 
 
     @Override
+    @SuppressWarnings({"unchecked", "rawtypes"})
     public JExpression createConstant(Outline outline, XmlString lexical) {
         if(isCollection())  return null;
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -146,11 +146,7 @@ final class RefererFinder implements XSVisitor {
      * So far we only care about references to types.
      */
     private void refer(XSComponent source, XSType target) {
-        Set<XSComponent> r = referers.get(target);
-        if(r==null) {
-            r = new HashSet<>();
-            referers.put(target,r);
-        }
+        Set<XSComponent> r = referers.computeIfAbsent(target, k -> new HashSet<>());
         r.add(source);
     }
 }

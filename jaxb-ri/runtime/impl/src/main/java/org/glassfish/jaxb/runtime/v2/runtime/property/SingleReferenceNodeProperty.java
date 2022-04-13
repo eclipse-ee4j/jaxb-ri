@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -31,7 +31,6 @@ import org.xml.sax.SAXException;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 
 /**
  * @author Kohsuke Kawaguchi
@@ -129,11 +128,7 @@ final class SingleReferenceNodeProperty<BeanT,ValueT> extends PropertyImpl<BeanT
                         if(value!=null) {
                             try {
                                 value = ebi.createInstanceFromValue(value);
-                            } catch (IllegalAccessException e) {
-                                throw new AccessorException(e);
-                            } catch (InvocationTargetException e) {
-                                throw new AccessorException(e);
-                            } catch (InstantiationException e) {
+                            } catch (ReflectiveOperationException e) {
                                 throw new AccessorException(e);
                             }
                         }

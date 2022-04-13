@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -64,21 +64,21 @@ public abstract class JaxBeanInfo<BeanT> {
     protected boolean isNilIncluded = false;
 
     /**
-     * For {@link JaxBeanInfo} that has multiple type names.
+     * For  that has multiple type names.
      */
     protected JaxBeanInfo(JAXBContextImpl grammar, RuntimeTypeInfo rti, Class<BeanT> jaxbType, QName[] typeNames, boolean isElement, boolean isImmutable, boolean hasLifecycleEvents) {
         this(grammar,rti,jaxbType,(Object)typeNames,isElement,isImmutable,hasLifecycleEvents);
     }
 
     /**
-     * For {@link JaxBeanInfo} that has one type name.
+     * For  that has one type name.
      */
     protected JaxBeanInfo(JAXBContextImpl grammar, RuntimeTypeInfo rti, Class<BeanT> jaxbType, QName typeName, boolean isElement,boolean isImmutable, boolean hasLifecycleEvents) {
         this(grammar,rti,jaxbType,(Object)typeName,isElement,isImmutable,hasLifecycleEvents);
     }
 
     /**
-     * For {@link JaxBeanInfo} that has no type names.
+     * For  that has no type names.
      */
     protected JaxBeanInfo(JAXBContextImpl grammar, RuntimeTypeInfo rti, Class<BeanT> jaxbType, boolean isElement,boolean isImmutable, boolean hasLifecycleEvents) {
         this(grammar,rti,jaxbType,(Object)null,isElement,isImmutable,hasLifecycleEvents);
@@ -254,7 +254,6 @@ public abstract class JaxBeanInfo<BeanT> {
      * <p>
      * null if the class is not bound to a named schema type.
      *
-     * <p>
      */
     public Collection<QName> getTypeNames() {
         if(typeName==null)  return Collections.emptyList();
@@ -359,7 +358,7 @@ public abstract class JaxBeanInfo<BeanT> {
      *
      * @param context
      *      The {@link JAXBContextImpl} object that governs this object.
-     *      This object is taken as a parameter so that {@link JaxBeanInfo} doesn't have
+     *      This object is taken as a parameter so that  doesn't have
      *      to store them on its own.
      *
      *      When this method is invoked from within the unmarshaller, tihs parameter can be
@@ -384,8 +383,7 @@ public abstract class JaxBeanInfo<BeanT> {
 
 
     /**
-     * Called after all the {@link JaxBeanInfo}s are created.
-     * @param grammar
+     * Called after all the s are created.
      */
     protected  void link(JAXBContextImpl grammar) {
     }
@@ -401,7 +399,7 @@ public abstract class JaxBeanInfo<BeanT> {
     private static Class[] marshalEventParams = { Marshaller.class };
 
     private Method[] getDeclaredMethods(final Class<BeanT> c) {
-        return AccessController.doPrivileged(new PrivilegedAction<Method[]>() {
+        return AccessController.doPrivileged(new PrivilegedAction<>() {
             @Override
             public Method[] run() {
                 return c.getDeclaredMethods();
@@ -413,6 +411,7 @@ public abstract class JaxBeanInfo<BeanT> {
      * use reflection to determine which of the 4 object lifecycle methods exist on
      * the JAXB bound type.
      */
+    @SuppressWarnings({"unchecked"})
     protected final void setLifecycleFlags() {
         try {
             Class<BeanT> jt = jaxbType;
@@ -510,7 +509,7 @@ public abstract class JaxBeanInfo<BeanT> {
      * jaxbType if it exists, else return null.
      *
      */
-    public final LifecycleMethods getLifecycleMethods() {
+    final LifecycleMethods getLifecycleMethods() {
         return lcm;
     }
 
@@ -533,9 +532,7 @@ public abstract class JaxBeanInfo<BeanT> {
     private void invokeUnmarshallCallback(Method m, Object child, UnmarshallerImpl unm, Object parent) throws SAXException {
         try {
             m.invoke(child,unm,parent);
-        } catch (IllegalAccessException e) {
-            UnmarshallingContext.getInstance().handleError(e, false);
-        } catch (InvocationTargetException e) {
+        } catch (IllegalAccessException | InvocationTargetException e) {
             UnmarshallingContext.getInstance().handleError(e, false);
         }
     }

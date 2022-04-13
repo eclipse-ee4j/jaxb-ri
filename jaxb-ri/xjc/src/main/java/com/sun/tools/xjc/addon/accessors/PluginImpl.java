@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -64,13 +64,7 @@ public class PluginImpl extends Plugin {
                         a.param("value", XmlAccessType.PROPERTY);
                         break;
                     }
-                } catch (IllegalArgumentException ex) {
-                    Logger.getLogger(PluginImpl.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IllegalAccessException ex) {
-                    Logger.getLogger(PluginImpl.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (NoSuchFieldException ex) {
-                    Logger.getLogger(PluginImpl.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (SecurityException ex) {
+                } catch (IllegalArgumentException | ReflectiveOperationException | SecurityException ex) {
                     Logger.getLogger(PluginImpl.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }

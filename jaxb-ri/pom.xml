@@ -81,7 +81,10 @@
         <spotbugs.exclude/>
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>Low</spotbugs.threshold>
-        <spotbugs.version>4.5.3.0</spotbugs.version>
+        <spotbugs.version>4.6.0.0</spotbugs.version>
+
+        <maven.compiler.release>11</maven.compiler.release>
+        <maven.compiler.testRelease>${maven.compiler.release}</maven.compiler.testRelease>
 
         <junit.version>4.13.2</junit.version>
 
@@ -92,12 +95,20 @@
         <felix.osgi.core>6.0.0</felix.osgi.core>
         <jmockit.version>1.34</jmockit.version>
         <compiler.version>2.4.0</compiler.version>
-        <upper.java.level>11</upper.java.level>
         <oss.disallow.snapshots>true</oss.disallow.snapshots>
         <vendor.name>Eclipse Foundation</vendor.name>
         <vendor.id>org.eclipse</vendor.id>
+        <!-- exclude big groups from the Xlint -->
+        <comp.xlint>-Xlint:all,-rawtypes,-unchecked</comp.xlint>
+        <!-- -Xdoclint:-missing does not seem to work properly on the infra -->
+        <comp.xdoclint>-Xdoclint:all,-missing</comp.xdoclint>
+        <warn.limit>150</warn.limit>
         <!-- too many to fix -->
-        <jdoc.doclint>-missing</jdoc.doclint>
+        <jdoc.doclint>all,-missing</jdoc.doclint>
+        <!-- not interested in warnings from tests (yet) -->
+        <comp.test.xlint>-Xlint:none</comp.test.xlint>
+        <comp.test.xdoclint>-Xdoclint:none</comp.test.xdoclint>
+        <warn.test.limit>10</warn.test.limit>
     </properties>
 
     <dependencyManagement>
@@ -176,10 +187,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.10.0</version>
-                    <configuration>
-                        <release>11</release>
-                    </configuration>
+                    <version>3.10.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -241,15 +249,6 @@
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>3.3.2</version>
                     <configuration>
-                        <doclint>${jdoc.doclint}</doclint>
-                        <quiet>true</quiet>
-                        <archive>
-                            <manifest>
-                                <addDefaultEntries>false</addDefaultEntries>
-                            </manifest>
-                        </archive>
-                        <release>11</release>
-                        <notimestamp>true</notimestamp>
                         <dependencySourceExcludes>
                             <dependencySourceExclude>com.sun.xml.bind:*</dependencySourceExclude>
                             <dependencySourceExclude>com.sun.tools.xjc:*</dependencySourceExclude>
@@ -460,13 +459,37 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <release>11</release>
-                    <testRelease>11</testRelease>
-                    <compilerArgument>-Xlint:all</compilerArgument>
-                    <!--<XDignore.symbol.file/>-->
                     <showDeprecation>true</showDeprecation>
                     <showWarnings>true</showWarnings>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>default-compile</id>
+                        <configuration>
+                            <compilerArgs combine.children="append">
+                                <arg>${comp.xlint}</arg>
+                                <arg>${comp.xdoclint}</arg>
+                                <arg>-Xmaxwarns</arg>
+                                <arg>${warn.limit}</arg>
+                                <arg>-Xmaxerrs</arg>
+                                <arg>${warn.limit}</arg>
+                            </compilerArgs>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>default-testCompile</id>
+                        <configuration>
+                            <compilerArgs combine.children="append">
+                                <arg>${comp.test.xlint}</arg>
+                                <arg>${comp.test.xdoclint}</arg>
+                                <arg>-Xmaxwarns</arg>
+                                <arg>${warn.test.limit}</arg>
+                                <arg>-Xmaxerrs</arg>
+                                <arg>${warn.test.limit}</arg>
+                            </compilerArgs>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -518,6 +541,21 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <doclint>${jdoc.doclint}</doclint>
+                    <quiet>true</quiet>
+                    <archive>
+                        <manifest>
+                            <addDefaultEntries>false</addDefaultEntries>
+                        </manifest>
+                    </archive>
+                    <notimestamp>true</notimestamp>
+                    <failOnWarnings>true</failOnWarnings>
+                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -623,15 +661,6 @@
                                 <goals>
                                     <goal>report</goal>
                                 </goals>
-                                <!-- configuration should be removed once this bug https://github.com/jacoco/jacoco/issues/407 is fixed -->
-                                <configuration>
-                                    <excludes>
-                                        <!-- istack-runtime -->
-                                        <exclude>com/sun/istack/logging/StackHelper.class</exclude>
-                                        <!-- istack-tools -->
-                                        <exclude>com/sun/istack/tools/Utils.class</exclude>
-                                    </excludes>
-                                </configuration>
                             </execution>
                         </executions>
                     </plugin>

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -152,9 +152,8 @@ final class DefaultClassBinder implements ClassBinder
             CClassInfoParent scope;
 
 
-            if( parentType!=null
-             && parentType instanceof CElementInfo
-             && ((CElementInfo)parentType).hasClass() ) {
+            if(parentType instanceof CElementInfo
+                    && ((CElementInfo) parentType).hasClass()) {
                 // special case where we put a nested 'Type' element
                 scope = (CElementInfo)parentType;
                 className = "Type";
@@ -216,10 +215,7 @@ final class DefaultClassBinder implements ClassBinder
             }
         }
 
-        if(!type.isLocal() || !type.isComplexType())
-            return false;
-
-        return true;
+        return type.isLocal() && type.isComplexType();
     }
 
     /**
@@ -550,11 +546,11 @@ final class DefaultClassBinder implements ClassBinder
      * deriving a default name.
      */
     private String deriveName( XSComplexType comp ) {
-        String seed = builder.deriveName( comp.getName(), comp );
+        StringBuilder seed = new StringBuilder(builder.deriveName(comp.getName(), comp));
         int cnt = comp.getRedefinedCount();
         for( ; cnt>0; cnt-- )
-            seed = "Original"+seed;
-        return seed;
+            seed.insert(0, "Original");
+        return seed.toString();
     }
 
 }

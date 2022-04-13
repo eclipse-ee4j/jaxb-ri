@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -21,7 +21,6 @@ import org.glassfish.jaxb.core.v2.ClassFactory;
 import org.glassfish.jaxb.runtime.v2.runtime.AssociationMap;
 import org.glassfish.jaxb.runtime.v2.runtime.Coordinator;
 import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
-import org.glassfish.jaxb.runtime.v2.runtime.ElementBeanInfoImpl;
 import org.glassfish.jaxb.runtime.v2.runtime.JaxBeanInfo;
 import org.glassfish.jaxb.core.v2.runtime.unmarshaller.LocatorEx;
 import jakarta.xml.bind.*;
@@ -34,7 +33,6 @@ import org.xml.sax.helpers.LocatorImpl;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.namespace.QName;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.concurrent.Callable;
@@ -195,7 +193,7 @@ public final class UnmarshallingContext extends Coordinator
          * requires that we have two objects unmarshalled (a JAXBElement X and a value object Y bound to an XML type.)
          *
          * <p>
-         * So to make room for storing both, this {@link #backup} field is used. When we create X instance
+         * So to make room for storing both, this {@code backup} field is used. When we create X instance
          * in the above example, we set that to {@code state.prev.target} and displace its old value to
          * {@code state.prev.backup} (where Y goes to {@code state.target}.) Upon the completion of the unmarshalling
          * of Y, we revert this.
@@ -208,8 +206,8 @@ public final class UnmarshallingContext extends Coordinator
          * <p>
          * Yes, I know this is a hack, and no, I'm not proud of it.
          *
-         * @see ElementBeanInfoImpl.IntercepterLoader#startElement(State, TagName)
-         * @see ElementBeanInfoImpl.IntercepterLoader#intercept(State, Object)
+         * see ElementBeanInfoImpl.IntercepterLoader#startElement(State, TagName)
+         * see ElementBeanInfoImpl.IntercepterLoader#intercept(State, Object)
          */
         private Object backup;
 
@@ -365,9 +363,7 @@ public final class UnmarshallingContext extends Coordinator
         public Object createInstance() throws SAXException {
             try {
                 return method.invoke(factorInstance);
-            } catch (IllegalAccessException e) {
-                getInstance().handleError(e,false);
-            } catch (InvocationTargetException e) {
+            } catch (ReflectiveOperationException e) {
                 getInstance().handleError(e,false);
             }
             return null; // can never be executed
@@ -475,7 +471,7 @@ public final class UnmarshallingContext extends Coordinator
             // look for methods whose signature is T createXXX()
             if(!m.getName().startsWith("create"))
                 continue;
-            if(m.getParameterTypes().length>0)
+            if(m.getParameterCount()>0)
                 continue;
 
             Class type = m.getReturnType();
@@ -551,7 +547,7 @@ public final class UnmarshallingContext extends Coordinator
     }
 
     @Override
-    public final void endElement(TagName tagName) throws SAXException {
+    public void endElement(TagName tagName) throws SAXException {
         pushCoordinator();
         try {
             State child = current;
@@ -657,11 +653,7 @@ public final class UnmarshallingContext extends Coordinator
         }
         try {
             return beanInfo.createInstance(this);
-        } catch (IllegalAccessException e) {
-            Loader.reportError("Unable to create an instance of "+beanInfo.jaxbType.getName(),e,false);
-        } catch (InvocationTargetException e) {
-            Loader.reportError("Unable to create an instance of "+beanInfo.jaxbType.getName(),e,false);
-        } catch (InstantiationException e) {
+        } catch (ReflectiveOperationException e) {
             Loader.reportError("Unable to create an instance of "+beanInfo.jaxbType.getName(),e,false);
         }
         return null;    // can never be here
@@ -1241,7 +1233,7 @@ public final class UnmarshallingContext extends Coordinator
 
     /**
      * When called from within the realm of the unmarshaller, this method
-     * returns the current {@link UnmarshallingContext} in charge.
+     * returns the current  in charge.
      */
     public static UnmarshallingContext getInstance() {
         return (UnmarshallingContext) Coordinator._getInstance();
@@ -1251,7 +1243,6 @@ public final class UnmarshallingContext extends Coordinator
      * Allows to access elements which are expected in current state.
      * Useful for getting elements for current parent.
      *
-     * @return
      */
     public Collection<QName> getCurrentExpectedElements() {
         pushCoordinator();
@@ -1268,7 +1259,6 @@ public final class UnmarshallingContext extends Coordinator
      * Allows to access attributes which are expected in current state.
      * Useful for getting attributes for current parent.
      *
-     * @return
      */
     public Collection<QName> getCurrentExpectedAttributes() {
         pushCoordinator();

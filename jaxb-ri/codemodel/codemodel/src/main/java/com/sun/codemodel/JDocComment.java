@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,8 +10,11 @@
 
 package com.sun.codemodel;
 
+import com.sun.codemodel.util.ClassNameComparator;
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * JavaDoc comment.
@@ -28,13 +31,13 @@ public class JDocComment extends JCommentPart implements JGenerable {
 	private static final long serialVersionUID = 1L;
 
 	/** list of @param tags */
-    private final Map<String,JCommentPart> atParams = new HashMap<>();
+    private final transient Map<String,JCommentPart> atParams = new TreeMap<>();
     
     /** list of xdoclets */
-    private final Map<String,Map<String,String>> atXdoclets = new HashMap<>();
+    private final transient Map<String,Map<String,String>> atXdoclets = new TreeMap<>();
     
     /** list of @throws tags */
-    private final Map<JClass,JCommentPart> atThrows = new HashMap<>();
+    private final transient Map<JClass,JCommentPart> atThrows = new TreeMap<>(ClassNameComparator.theInstance);
     
     /**
      * The @return tag part.
@@ -44,7 +47,7 @@ public class JDocComment extends JCommentPart implements JGenerable {
     /** The @deprecated tag */
     private JCommentPart atDeprecated = null;
 
-    private final JCodeModel owner;
+    private final transient JCodeModel owner;
 
 
     public JDocComment(JCodeModel owner) {
@@ -114,19 +117,14 @@ public class JDocComment extends JCommentPart implements JGenerable {
      * add an xdoclet.
      */
     public Map<String,String> addXdoclet(String name) {
-        Map<String,String> p = atXdoclets.get(name);
-        if(p==null)
-            atXdoclets.put(name,p=new HashMap<>());
-        return p;
+        return atXdoclets.computeIfAbsent(name, k -> new HashMap<>());
     }
 
     /**
      * add an xdoclet.
      */
     public Map<String,String> addXdoclet(String name, Map<String,String> attributes) {
-        Map<String,String> p = atXdoclets.get(name);
-        if(p==null)
-            atXdoclets.put(name,p=new HashMap<>());
+        Map<String, String> p = atXdoclets.computeIfAbsent(name, k -> new HashMap<>());
         p.putAll(attributes);
         return p;
     }
@@ -135,9 +133,7 @@ public class JDocComment extends JCommentPart implements JGenerable {
      * add an xdoclet.
      */
     public Map<String,String> addXdoclet(String name, String attribute, String value) {
-        Map<String,String> p = atXdoclets.get(name);
-        if(p==null)
-            atXdoclets.put(name,p=new HashMap<>());
+        Map<String, String> p = atXdoclets.computeIfAbsent(name, k -> new HashMap<>());
         p.put(attribute, value);
         return p;
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -61,6 +61,11 @@ public final class Base64Data extends Pcdata {
      */
     private @Nullable
     String mimeType;
+
+    /**
+     * Default constructor.
+     */
+    public Base64Data() {}
 
     /**
      * Fills in the data object by a portion of the byte[].
@@ -206,6 +211,7 @@ public final class Base64Data extends Pcdata {
      * and returns the character at the specified position.
      */
     @Override
+    @SuppressWarnings({"deprecation"})
     public char charAt(int index) {
         // we assume that the length() method is called before this method
         // (otherwise how would the caller know that the index is valid?)
@@ -273,12 +279,14 @@ public final class Base64Data extends Pcdata {
      * Returns the base64 encoded string of this data.
      */
     @Override
+    @SuppressWarnings({"deprecation"})
     public String toString() {
         get();  // fill in the buffer
         return DatatypeConverterImpl._printBase64Binary(data, 0, dataLen);
     }
 
     @Override
+    @SuppressWarnings({"deprecation"})
     public void writeTo(char[] buf, int start) {
         get();
         DatatypeConverterImpl._printBase64Binary(data, 0, dataLen, buf, start);
@@ -291,6 +299,7 @@ public final class Base64Data extends Pcdata {
         output.text(data, dataLen);
     }
 
+    @SuppressWarnings({"deprecation"})
     public void writeTo(XMLStreamWriter output) throws IOException, XMLStreamException {
         get();
         DatatypeConverterImpl._printBase64Binary(data, 0, dataLen, output);

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -37,7 +37,6 @@ import com.sun.tools.xjc.reader.Ring;
 import com.sun.tools.xjc.reader.xmlschema.SimpleTypeBuilder;
 import com.sun.tools.xjc.util.ReadOnlyAdapter;
 import org.glassfish.jaxb.core.api.impl.NameConverter;
-import org.glassfish.jaxb.core.v2.WellKnownNamespace;
 import com.sun.xml.xsom.XSDeclaration;
 import com.sun.xml.xsom.XSSchemaSet;
 import com.sun.xml.xsom.XSSimpleType;
@@ -164,7 +163,7 @@ public final class BIGlobalBinding extends AbstractDeclarationImpl {
         }
     }
 
-    private static enum UnderscoreBinding {
+    private enum UnderscoreBinding {
         @XmlEnumValue("asWordSeparator")
         WORD_SEPARATOR(NameConverter.standard),
         @XmlEnumValue("asCharInWord")
@@ -420,8 +419,7 @@ public final class BIGlobalBinding extends AbstractDeclarationImpl {
     /**
      * Checks if the given XML Schema built-in type can be mapped to
      * a type-safe enum class.
-     * 
-     * @param typeName
+     *
      */
     public boolean canBeMappedToTypeSafeEnum( QName typeName ) {
         return enumBaseTypes.contains(typeName);

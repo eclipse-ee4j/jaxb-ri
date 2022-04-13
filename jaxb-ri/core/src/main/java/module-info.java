@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2020, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,13 +11,10 @@
 /**
  * The XML Binding implementation.
  *
- * @uses jakarta.xml.bind.JAXBContextFactory
- *
  */
 module org.glassfish.jaxb.core {
     requires transitive jakarta.xml.bind;
     requires java.compiler;
-    requires java.desktop;
     requires java.logging;
 
     requires transitive jakarta.activation;

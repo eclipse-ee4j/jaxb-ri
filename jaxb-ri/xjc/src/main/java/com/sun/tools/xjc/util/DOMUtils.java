@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -34,7 +34,10 @@ import org.w3c.dom.NodeList;
  * @version 1.0
  *
  */
-public class DOMUtils {
+public final class DOMUtils {
+
+    private DOMUtils() {}
+
     /** Gets the fist child of the given name, or null. */
     public static Element getFirstChildElement( Element parent, String nsUri, String localPart ) {
         NodeList children = parent.getChildNodes();
@@ -61,7 +64,7 @@ public class DOMUtils {
             && localPart.equals(item.getLocalName()) )
                 a.add((Element) item);
         }
-        return a.toArray(new Element[a.size()]);
+        return a.toArray(new Element[0]);
     }
     
     /** Gets all the child elements. */
@@ -74,7 +77,7 @@ public class DOMUtils {
             
             a.add((Element) item);
         }
-        return a.toArray(new Element[a.size()]);
+        return a.toArray(new Element[0]);
     }
     
     

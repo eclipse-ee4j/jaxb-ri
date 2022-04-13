@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -43,7 +43,12 @@ import com.sun.xml.xsom.visitor.XSFunction;
  *     Kohsuke Kawaguchi (kohsuke.kawaguchi@sun.com)
  */
 public class XSFinder implements XSFunction<Boolean> {
-    
+
+    /**
+     * Default constructor.
+     */
+    public XSFinder() {}
+
     /**
      * Invokes this object as a visitor with the specified component.
      */
@@ -51,58 +56,34 @@ public class XSFinder implements XSFunction<Boolean> {
         return c.apply(this);
     }
     
-    /**
-     * @see com.sun.xml.xsom.visitor.XSFunction#annotation(com.sun.xml.xsom.XSAnnotation)
-     */
     public Boolean annotation(XSAnnotation ann) {
         return Boolean.FALSE;
     }
 
-    /**
-     * @see com.sun.xml.xsom.visitor.XSFunction#attGroupDecl(com.sun.xml.xsom.XSAttGroupDecl)
-     */
     public Boolean attGroupDecl(XSAttGroupDecl decl) {
         return Boolean.FALSE;
     }
 
-    /**
-     * @see com.sun.xml.xsom.visitor.XSFunction#attributeDecl(com.sun.xml.xsom.XSAttributeDecl)
-     */
     public Boolean attributeDecl(XSAttributeDecl decl) {
         return Boolean.FALSE;
     }
 
-    /**
-     * @see com.sun.xml.xsom.visitor.XSFunction#attributeUse(com.sun.xml.xsom.XSAttributeUse)
-     */
     public Boolean attributeUse(XSAttributeUse use) {
         return Boolean.FALSE;
     }
 
-    /**
-     * @see com.sun.xml.xsom.visitor.XSFunction#complexType(com.sun.xml.xsom.XSComplexType)
-     */
     public Boolean complexType(XSComplexType type) {
         return Boolean.FALSE;
     }
 
-    /**
-     * @see com.sun.xml.xsom.visitor.XSFunction#schema(com.sun.xml.xsom.XSSchema)
-     */
     public Boolean schema(XSSchema schema) {
         return Boolean.FALSE;
     }
 
-    /**
-     * @see com.sun.xml.xsom.visitor.XSFunction#facet(com.sun.xml.xsom.XSFacet)
-     */
     public Boolean facet(XSFacet facet) {
         return Boolean.FALSE;
     }
 
-    /**
-     * @see com.sun.xml.xsom.visitor.XSFunction#notation(com.sun.xml.xsom.XSNotation)
-     */
     public Boolean notation(XSNotation notation) {
         return Boolean.FALSE;
     }

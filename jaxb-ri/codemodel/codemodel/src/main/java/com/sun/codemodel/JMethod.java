@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -32,12 +32,12 @@ public class JMethod extends JGenerifiableImpl implements JDeclaration, JAnnotat
     /**
      * Return type for this method
      */
-    private JType type = null;
+    private JType type;
 
     /**
      * Name of this method
      */
-    private String name = null;
+    private String name;
 
     /**
      * List of parameters for this method's declaration
@@ -139,7 +139,7 @@ public class JMethod extends JGenerifiableImpl implements JDeclaration, JAnnotat
      * @return List of parameters of this method. This list is not modifiable.
      */
     public List<JVar> params() {
-        return Collections.<JVar>unmodifiableList(params);
+        return Collections.unmodifiableList(params);
     }
 
     /**
@@ -317,7 +317,7 @@ public class JMethod extends JGenerifiableImpl implements JDeclaration, JAnnotat
      * @return If there's no parameter, an empty array will be returned.
      */
     public JVar[] listParams() {
-        return params.toArray(new JVar[params.size()]);
+        return params.toArray(new JVar[0]);
     }
 
     /**

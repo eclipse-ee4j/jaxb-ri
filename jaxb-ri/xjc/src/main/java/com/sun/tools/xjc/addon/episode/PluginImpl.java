@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -196,7 +196,7 @@ public class PluginImpl extends Plugin {
      * Computes SCD.
      * This is fairly limited as JAXB can only map a certain kind of components to classes.
      */
-    private static final XSFunction<String> SCD = new XSFunction<String>() {
+    private static final XSFunction<String> SCD = new XSFunction<>() {
         private String name(XSDeclaration decl) {
             if (decl.getTargetNamespace().equals(""))
                 return decl.getName();
@@ -310,7 +310,7 @@ public class PluginImpl extends Plugin {
 
             private final BindingsBuilder bindingsBuilder;
 
-            private OutlineType(BindingsBuilder bindingsBuilder) {
+            OutlineType(BindingsBuilder bindingsBuilder) {
                 this.bindingsBuilder = bindingsBuilder;
             }
 

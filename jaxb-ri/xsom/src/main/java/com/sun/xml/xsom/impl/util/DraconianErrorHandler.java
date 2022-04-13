@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,6 +18,12 @@ import org.xml.sax.SAXParseException;
  * Aborts on the first error.
  */
 public class DraconianErrorHandler implements ErrorHandler {
+
+    /**
+     * Default constructor.
+     */
+    public DraconianErrorHandler() {}
+
     public void error( SAXParseException e ) throws SAXException {
         throw e;
     }

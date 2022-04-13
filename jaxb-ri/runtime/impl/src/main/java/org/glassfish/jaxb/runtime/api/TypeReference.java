@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -79,8 +79,8 @@ public final class TypeReference {
     }
 
     /**
-     * Creates a {@link TypeReference} for the item type,
-     * if this {@link TypeReference} represents a collection type.
+     * Creates a  for the item type,
+     * if this  represents a collection type.
      * Otherwise returns an identical type.
      */
     public TypeReference toItemType() {
@@ -103,9 +103,7 @@ public final class TypeReference {
 
         if (!Arrays.equals(annotations, that.annotations)) return false;
         if (!tagName.equals(that.tagName)) return false;
-        if (!type.equals(that.type)) return false;
-
-        return true;
+        return type.equals(that.type);
     }
 
     @Override

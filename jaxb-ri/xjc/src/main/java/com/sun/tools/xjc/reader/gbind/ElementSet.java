@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,13 +18,13 @@ import java.util.Iterator;
  *
  * @author Kohsuke Kawaguchi
  */
-interface ElementSet extends Iterable<Element> {
+public interface ElementSet extends Iterable<Element> {
     /**
      * For each element in this set, adds an edge to the given element.
      */
     void addNext(Element element);
 
-    public static final ElementSet EMPTY_SET = new ElementSet() {
+    ElementSet EMPTY_SET = new ElementSet() {
         @Override
         public void addNext(Element element) {
             // noop
@@ -37,7 +37,7 @@ interface ElementSet extends Iterable<Element> {
 
         @Override
         public Iterator<Element> iterator() {
-            return Collections.<Element>emptySet().iterator();
+            return Collections.emptyIterator();
         }
     };
 

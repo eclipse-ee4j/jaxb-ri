@@ -47,7 +47,7 @@ final class PatternParseable implements Parseable {
     }
 
     public ParsedPattern parse(SchemaBuilder sb) throws BuildException {
-        return (ParsedPattern)pattern.accept(new Parser(sb));
+        return pattern.accept(new Parser(sb));
     }
 
     public ParsedPattern parseInclude(String uri, SchemaBuilder f, IncludedGrammar g, String inheritedNs) throws BuildException {
@@ -86,15 +86,15 @@ final class PatternParseable implements Parseable {
         public ParsedPattern onAttribute(DAttributePattern p) {
             return sb.makeAttribute(
                 parseNameClass(p.getName()),
-                (ParsedPattern)p.getChild().accept(this),
+                    p.getChild().accept(this),
                 parseLocation(p),
                 parseAnnotation(p) );
         }
 
         public ParsedPattern onChoice(DChoicePattern p) {
-            List<ParsedPattern> kids = new ArrayList<ParsedPattern>();
+            List<ParsedPattern> kids = new ArrayList<>();
             for( DPattern c=p.firstChild(); c!=null; c=c.next )
-                kids.add( (ParsedPattern)c.accept(this) );
+                kids.add(c.accept(this));
             return sb.makeChoice(kids,parseLocation(p),null);
         }
 
@@ -106,7 +106,7 @@ final class PatternParseable implements Parseable {
         public ParsedPattern onElement(DElementPattern p) {
             return sb.makeElement(
                 parseNameClass(p.getName()),
-                (ParsedPattern)p.getChild().accept(this),
+                    p.getChild().accept(this),
                 parseLocation(p),
                 parseAnnotation(p) );
         }
@@ -123,29 +123,29 @@ final class PatternParseable implements Parseable {
         }
 
         public ParsedPattern onGroup(DGroupPattern p) {
-            List<ParsedPattern> kids = new ArrayList<ParsedPattern>();
+            List<ParsedPattern> kids = new ArrayList<>();
             for( DPattern c=p.firstChild(); c!=null; c=c.next )
-                kids.add( (ParsedPattern)c.accept(this) );
+                kids.add(c.accept(this));
             return sb.makeGroup(kids,parseLocation(p),null);
         }
 
         public ParsedPattern onInterleave(DInterleavePattern p) {
-            List<ParsedPattern> kids = new ArrayList<ParsedPattern>();
+            List<ParsedPattern> kids = new ArrayList<>();
             for( DPattern c=p.firstChild(); c!=null; c=c.next )
-                kids.add( (ParsedPattern)c.accept(this) );
+                kids.add(c.accept(this));
             return sb.makeInterleave(kids,parseLocation(p),null);
         }
 
         public ParsedPattern onList(DListPattern p) {
             return sb.makeList(
-                (ParsedPattern)p.getChild().accept(this),
+                    p.getChild().accept(this),
                 parseLocation(p),
                 parseAnnotation(p) );
         }
 
         public ParsedPattern onMixed(DMixedPattern p) {
             return sb.makeMixed(
-                (ParsedPattern)p.getChild().accept(this),
+                    p.getChild().accept(this),
                 parseLocation(p),
                 parseAnnotation(p) );
         }
@@ -158,14 +158,14 @@ final class PatternParseable implements Parseable {
 
         public ParsedPattern onOneOrMore(DOneOrMorePattern p) {
             return sb.makeOneOrMore(
-                (ParsedPattern)p.getChild().accept(this),
+                    p.getChild().accept(this),
                 parseLocation(p),
                 parseAnnotation(p) );
         }
 
         public ParsedPattern onOptional(DOptionalPattern p) {
             return sb.makeOptional(
-                (ParsedPattern)p.getChild().accept(this),
+                    p.getChild().accept(this),
                 parseLocation(p),
                 parseAnnotation(p) );
         }
@@ -194,7 +194,7 @@ final class PatternParseable implements Parseable {
 
         public ParsedPattern onZeroOrMore(DZeroOrMorePattern p) {
             return sb.makeZeroOrMore(
-                (ParsedPattern)p.getChild().accept(this),
+                    p.getChild().accept(this),
                 parseLocation(p),
                 parseAnnotation(p) );
         }

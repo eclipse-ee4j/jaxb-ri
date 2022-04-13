@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,6 +10,7 @@
 
 package com.sun.xml.xsom.impl;
 
+import com.sun.xml.xsom.ForeignAttributes;
 import com.sun.xml.xsom.XSContentType;
 import com.sun.xml.xsom.XSParticle;
 import com.sun.xml.xsom.XSSimpleType;
@@ -77,10 +78,10 @@ public class ParticleImpl extends ComponentImpl implements XSParticle, ContentTy
     public XSContentType asEmpty()      { return null; }
     
     
-    public final Object apply( XSFunction function ) {
+    public final <T> T apply( XSFunction<T> function ) {
         return function.particle(this);
     }
-    public final Object apply( XSContentTypeFunction function ) {
+    public final <T> T apply( XSContentTypeFunction<T> function ) {
         return function.particle(this);
     }
     public final void visit( XSVisitor visitor ) {
@@ -98,7 +99,8 @@ public class ParticleImpl extends ComponentImpl implements XSParticle, ContentTy
      *
      * REVISIT: is this a good design?
      */
-    public List getForeignAttributes() {
-        return getTerm().getForeignAttributes();
+    @Override
+    public List<ForeignAttributesImpl> getForeignAttributes() {
+        return super.getForeignAttributes();
     }
 }

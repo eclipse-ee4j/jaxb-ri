@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -9,8 +9,6 @@
  */
 
 package com.sun.codemodel.tests;
-
-import java.io.IOException;
 
 import org.junit.Test;
 
@@ -88,12 +86,6 @@ public class VarArgsTest {
             main.body().directStatement("new Test().foo(new String(\"Param1\"),new Integer(5),null,new String(\"Param3\"),new String(\"Param4\"));" );//new String("Param1"))"");//                "new Integer(5),+//                "null," +//                "new String("first")," +//                " new String("Second"))");
             
             cm.build(new SingleStreamCodeWriter(System.out));
-        } catch (JClassAlreadyExistsException e) {
-            
-            e.printStackTrace();
-        } catch (IOException e) {
-            
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }

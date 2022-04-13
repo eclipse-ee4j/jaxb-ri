@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,17 +10,17 @@
 
 package com.sun.xml.xsom.impl.parser;
 
+import com.sun.tools.rngdatatype.ValidationContext;
 import com.sun.xml.xsom.XSDeclaration;
-import com.sun.xml.xsom.XmlString;
 import com.sun.xml.xsom.XSSimpleType;
+import com.sun.xml.xsom.XmlString;
+import com.sun.xml.xsom.impl.Const;
 import com.sun.xml.xsom.impl.ForeignAttributesImpl;
 import com.sun.xml.xsom.impl.SchemaImpl;
 import com.sun.xml.xsom.impl.UName;
-import com.sun.xml.xsom.impl.Const;
 import com.sun.xml.xsom.impl.parser.state.NGCCRuntime;
 import com.sun.xml.xsom.impl.parser.state.Schema;
 import com.sun.xml.xsom.parser.AnnotationParser;
-import com.sun.tools.rngdatatype.ValidationContext;
 import org.xml.sax.Attributes;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.ErrorHandler;
@@ -87,7 +87,7 @@ public class NGCCRuntimeEx extends NGCCRuntime implements PatcherManager {
      * This information is passed to AnnotationParser as
      * context information
      */
-    private final Stack<String> elementNames = new Stack<String>();
+    private final Stack<String> elementNames = new Stack<>();
 
     /**
      * Points to the schema document (the parser of it) that included/imported
@@ -123,12 +123,12 @@ public class NGCCRuntimeEx extends NGCCRuntime implements PatcherManager {
     }
 
     public static boolean ignorableDuplicateComponent(XSDeclaration c) {
-        if(c.getTargetNamespace().equals(Const.schemaNamespace)) {
-            if(c instanceof XSSimpleType)
+        if(Const.schemaNamespace.equals(c.getTargetNamespace())) {
+            if(c instanceof XSSimpleType) {
                 // hide artificial "double definitions" on simple types
                 return true;
-            if(c.isGlobal() && c.getName().equals("anyType"))
-                return true; // ditto for anyType
+            }
+            return c.isGlobal() && "anyType".equals(c.getName()); // ditto for anyType
         }
         return false;
     }
@@ -180,11 +180,11 @@ public class NGCCRuntimeEx extends NGCCRuntime implements PatcherManager {
             if (relativeUri!=null) {
                 if (isAbsolute(relativeUri)) {
                     systemId = relativeUri;
-                }
-                if (baseUri == null || !isAbsolute(baseUri)) {
+                } else if (baseUri == null || !isAbsolute(baseUri)) {
                     throw new IOException("Unable to resolve relative URI " + relativeUri + " because base URI is not absolute: " + baseUri);
+                } else {
+                    systemId = new URL(new URL(baseUri), relativeUri).toString();
                 }
-                systemId = new URL(new URL(baseUri), relativeUri).toString();
             }
 
             if (er!=null) {
@@ -225,9 +225,7 @@ public class NGCCRuntimeEx extends NGCCRuntime implements PatcherManager {
 
     /**
      * Includes the specified schema.
-     *
-     * @param schemaLocation
-     * @throws org.xml.sax.SAXException */
+     *    */
     public void includeSchema( String schemaLocation ) throws SAXException {
         NGCCRuntimeEx runtime = new NGCCRuntimeEx(parser,chameleonMode,this);
         runtime.currentSchema = this.currentSchema;
@@ -247,10 +245,7 @@ public class NGCCRuntimeEx extends NGCCRuntime implements PatcherManager {
 
     /**
      * Imports the specified schema.
-     *
-     * @param ns
-     * @param schemaLocation
-     * @throws org.xml.sax.SAXException */
+     *     */
     public void importSchema( String ns, String schemaLocation ) throws SAXException {
         NGCCRuntimeEx newRuntime = new NGCCRuntimeEx(parser,false,this);
         InputSource source = resolveRelativeURL(ns,schemaLocation);
@@ -332,13 +327,9 @@ public class NGCCRuntimeEx extends NGCCRuntime implements PatcherManager {
     /**
      * Parses the specified entity.
      *
-     * @param source
      * @param importLocation
      *      The source location of the import/include statement.
      *      Used for reporting errors.
-     * @param includeMode
-     * @param expectedNamespace
-     * @throws org.xml.sax.SAXException
      */
     public void parseEntity( InputSource source, boolean includeMode, String expectedNamespace, Locator importLocation )
             throws SAXException {
@@ -479,7 +470,6 @@ public class NGCCRuntimeEx extends NGCCRuntime implements PatcherManager {
      * Parses UName under the given context.
      * @param qname Attribute name.
      * @return New {@link UName} instance based on attribute name.
-     * @throws org.xml.sax.SAXException
      */
     public UName parseUName(final String qname ) throws SAXException {
         int idx = qname.indexOf(':');
@@ -519,7 +509,7 @@ public class NGCCRuntimeEx extends NGCCRuntime implements PatcherManager {
     /**
      * returns true if the specified char is a white space character.
      */
-    private final boolean isWhiteSpace(char ch) {
+    private boolean isWhiteSpace(char ch) {
         // most of the characters are non-control characters.
         // so check that first to quickly return false for most of the cases.
         if (ch > 0x20) {
@@ -628,7 +618,4 @@ public class NGCCRuntimeEx extends NGCCRuntime implements PatcherManager {
 
         return impl;
     }
-
-
-    public static final String XMLSchemaNSURI = "http://www.w3.org/2001/XMLSchema";
 }

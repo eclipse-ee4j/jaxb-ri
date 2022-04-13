@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -59,14 +59,17 @@ class identityConstraint extends NGCCHandler {
 }
 
     private void action2()throws SAXException {
-        if($localName.equals("key"))
-        category = XSIdentityConstraint.KEY;
-      else
-      if($localName.equals("keyref"))
-        category = XSIdentityConstraint.KEYREF;
-      else
-      if($localName.equals("unique"))
-        category = XSIdentityConstraint.UNIQUE;
+        switch ($localName) {
+            case "key":
+                category = XSIdentityConstraint.KEY;
+                break;
+            case "keyref":
+                category = XSIdentityConstraint.KEYREF;
+                break;
+            case "unique":
+                category = XSIdentityConstraint.UNIQUE;
+                break;
+        }
 }
 
     public void enterElement(String $__uri, String $__local, String $__qname, Attributes $attrs) throws SAXException {

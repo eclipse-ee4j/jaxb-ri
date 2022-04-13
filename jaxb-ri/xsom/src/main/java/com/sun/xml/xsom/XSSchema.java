@@ -103,17 +103,17 @@ public interface XSSchema extends XSComponent
     XSIdentityConstraint getIdentityConstraint(String localName);
 
     /**
-     * Sine an {@link XSSchema} is not necessarily defined in
+     * Sine an  is not necessarily defined in
      * one schema document (for example one schema can span across
      * many documents through {@code <xs:include>s}.),
      * so this method always returns null.
      *
      * @deprecated
      *      Since this method always returns null, if you are calling
-     *      this method from {@link XSSchema} and not from {@link XSComponent},
+     *      this method from  and not from {@link XSComponent},
      *      there's something wrong with your code.
      */
-    @Deprecated(since="2.3", forRemoval=true)
+    @Deprecated(since="2.3")
     SchemaDocument getSourceDocument();
 
     /**

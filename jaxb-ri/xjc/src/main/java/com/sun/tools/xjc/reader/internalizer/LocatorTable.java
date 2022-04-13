@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -29,7 +29,12 @@ public final class LocatorTable {
     
     /** Locations of the end element. */
     private final Map<Element, Locator> endLocations = new HashMap<>();
-    
+
+    /**
+     * Default constructor.
+     */
+    public LocatorTable() {}
+
     public void storeStartLocation( Element e, Locator loc ) {
         startLocations.put(e,new LocatorImpl(loc));
     }

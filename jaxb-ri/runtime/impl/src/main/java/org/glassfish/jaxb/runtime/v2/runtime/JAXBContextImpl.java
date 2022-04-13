@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -111,16 +111,18 @@ public final class JAXBContextImpl extends JAXBRIContext {
     /**
      * Pool of {@link Marshaller}s.
      */
-    public final Pool<Marshaller> marshallerPool = new Pool.Impl<Marshaller>() {
-        protected @NotNull@Override
- Marshaller create() {
+    public final Pool<Marshaller> marshallerPool = new Pool.Impl<>() {
+        protected @NotNull
+        @Override
+        Marshaller create() {
             return createMarshaller();
         }
     };
 
-    public final Pool<Unmarshaller> unmarshallerPool = new Pool.Impl<Unmarshaller>() {
-        protected @NotNull@Override
- Unmarshaller create() {
+    public final Pool<Unmarshaller> unmarshallerPool = new Pool.Impl<>() {
+        protected @NotNull
+        @Override
+        Unmarshaller create() {
             return createUnmarshaller();
         }
     };
@@ -304,11 +306,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
 
             RuntimeClassInfo scope = n.getScope();
             Class scopeClazz = scope==null?null:scope.getClazz();
-            Map<QName,ElementBeanInfoImpl> m = elements.get(scopeClazz);
-            if(m==null) {
-                m = new LinkedHashMap<>();
-                elements.put(scopeClazz,m);
-            }
+            Map<QName, ElementBeanInfoImpl> m = elements.computeIfAbsent(scopeClazz, k -> new LinkedHashMap<>());
             m.put(n.getElementName(),bi);
         }
 
@@ -513,7 +511,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
      * @return null
      *      if {@code c} isn't a JAXB-bound class and {@code fatal==false}.
      */
-    public final JaxBeanInfo getBeanInfo(Object o) {
+    public JaxBeanInfo getBeanInfo(Object o) {
         // don't allow xs:anyType beanInfo to handle all the unbound objects
         for( Class c=o.getClass(); c!=Object.class; c=c.getSuperclass()) {
             JaxBeanInfo bi = beanInfoMap.get(c);
@@ -536,7 +534,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
      *      if true, the failure to look up will throw an exception.
      *      Otherwise it will just return null.
      */
-    public final JaxBeanInfo getBeanInfo(Object o,boolean fatal) throws JAXBException {
+    public JaxBeanInfo getBeanInfo(Object o, boolean fatal) throws JAXBException {
         JaxBeanInfo bi = getBeanInfo(o);
         if(bi!=null)    return bi;
         if(fatal) {
@@ -557,7 +555,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
      * @return null
      *      if {@code c} isn't a JAXB-bound class and {@code fatal==false}.
      */
-    public final <T> JaxBeanInfo<T> getBeanInfo(Class<T> clazz) {
+    public <T> JaxBeanInfo<T> getBeanInfo(Class<T> clazz) {
         return (JaxBeanInfo<T>)beanInfoMap.get(clazz);
     }
 
@@ -569,7 +567,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
      *      if true, the failure to look up will throw an exception.
      *      Otherwise it will just return null.
      */
-    public final <T> JaxBeanInfo<T> getBeanInfo(Class<T> clazz,boolean fatal) throws JAXBException {
+    public <T> JaxBeanInfo<T> getBeanInfo(Class<T> clazz, boolean fatal) throws JAXBException {
         JaxBeanInfo<T> bi = getBeanInfo(clazz);
         if(bi!=null)    return bi;
         if(fatal)
@@ -584,7 +582,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
      * @return
      *      null if the given name pair is not recognized.
      */
-    public final Loader selectRootLoader(UnmarshallingContext.State state, TagName tag ) {
+    public Loader selectRootLoader(UnmarshallingContext.State state, TagName tag ) {
         JaxBeanInfo beanInfo = rootMap.get(tag.uri,tag.local);
         if(beanInfo==null)
             return null;
@@ -790,14 +788,10 @@ public final class JAXBContextImpl extends JAXBRIContext {
         });
 
         if (e[0]!=null) {
-            IOException x = new IOException(Messages.FAILED_TO_GENERATE_SCHEMA.format());
-            x.initCause(e[0]);
-            throw x;
+            throw new IOException(Messages.FAILED_TO_GENERATE_SCHEMA.format(), e[0]);
         }
         if (w[0]!=null) {
-            IOException x = new IOException(Messages.ERROR_PROCESSING_SCHEMA.format());
-            x.initCause(w[0]);
-            throw x;
+            throw new IOException(Messages.ERROR_PROCESSING_SCHEMA.format(), w[0]);
         }
     }
 
@@ -888,11 +882,6 @@ public final class JAXBContextImpl extends JAXBRIContext {
         return bridges.get(ref);
     }
 
-    public @NotNull@Override
- BridgeContext createBridgeContext() {
-        return new BridgeContextImpl(this);
-    }
-
     @Override
     public RawAccessor getElementPropertyAccessor(Class wrapperBean, String nsUri, String localName) throws JAXBException {
         JaxBeanInfo bi = getBeanInfo(wrapperBean,true);
@@ -968,11 +957,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
                 if(ap.attName.equals(WellKnownNamespace.XML_MIME_URI,"contentType"))
                     try {
                         return (String)ap.xacc.print(o);
-                    } catch (AccessorException e) {
-                        return null;
-                    } catch (SAXException e) {
-                        return null;
-                    } catch (ClassCastException e) {
+                    } catch (AccessorException | ClassCastException | SAXException e) {
                         return null;
                     }
             }
@@ -981,7 +966,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
     }
 
     /**
-     * Creates a {@link JAXBContextImpl} that includes the specified additional classes.
+     * Creates a  that includes the specified additional classes.
      */
     public JAXBContextImpl createAugmented(Class<?> clazz) throws JAXBException {
         Class[] newList = new Class[classes.length+1];
@@ -993,11 +978,11 @@ public final class JAXBContextImpl extends JAXBRIContext {
         return builder.build();
     }
 
-    private static final Comparator<QName> QNAME_COMPARATOR = new Comparator<QName>() {
+    private static final Comparator<QName> QNAME_COMPARATOR = new Comparator<>() {
         @Override
         public int compare(QName lhs, QName rhs) {
             int r = lhs.getLocalPart().compareTo(rhs.getLocalPart());
-            if(r!=0)    return r;
+            if (r != 0) return r;
 
             return lhs.getNamespaceURI().compareTo(rhs.getNamespaceURI());
         }
@@ -1020,7 +1005,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
         private Boolean backupWithParentNamespace = null; // null for System property to be used
         private int maxErrorsCount;
 
-        public JAXBContextBuilder() {};
+        public JAXBContextBuilder() {}
 
         public JAXBContextBuilder(JAXBContextImpl baseImpl) {
             this.supressAccessorWarnings = baseImpl.supressAccessorWarnings;
@@ -1124,7 +1109,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
             }
 
             if (this.typeRefs == null) {
-                this.typeRefs = Collections.<TypeReference>emptyList();
+                this.typeRefs = Collections.emptyList();
             }
 
             return new JAXBContextImpl(this);

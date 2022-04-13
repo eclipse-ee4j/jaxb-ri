@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -350,7 +350,7 @@ public final class DatatypeConverterImpl implements DatatypeConverterInterface {
     }
 
     public static String _printDate(Calendar val) {
-        return CalendarFormatter.doFormat((new StringBuilder("%Y-%M-%D").append("%z")).toString(),val);
+        return CalendarFormatter.doFormat("%Y-%M-%D" + "%z",val);
     }
 
     public static String _printInt(int val) {
@@ -703,16 +703,13 @@ public final class DatatypeConverterImpl implements DatatypeConverterInterface {
         if ('0' <= ch && ch <= '9') {
             return true;
         }
-        if (ch == '+' || ch == '-' || ch == '.') {
-            return true;
-        }
-        return false;
+        return ch == '+' || ch == '-' || ch == '.';
     }
 
-    private static final Map<ClassLoader, DatatypeFactory> DF_CACHE = Collections.synchronizedMap(new WeakHashMap<ClassLoader, DatatypeFactory>());
+    private static final Map<ClassLoader, DatatypeFactory> DF_CACHE = Collections.synchronizedMap(new WeakHashMap<>());
 
     public static DatatypeFactory getDatatypeFactory() {
-        ClassLoader tccl = AccessController.doPrivileged(new PrivilegedAction<ClassLoader>() {
+        ClassLoader tccl = AccessController.doPrivileged(new PrivilegedAction<>() {
             @Override
             public ClassLoader run() {
                 return Thread.currentThread().getContextClassLoader();
@@ -832,9 +829,9 @@ public final class DatatypeConverterImpl implements DatatypeConverterInterface {
             if (cal.isSet(Calendar.MILLISECOND)) { // milliseconds
                 int n = cal.get(Calendar.MILLISECOND);
                 if (n != 0) {
-                    String ms = Integer.toString(n);
+                    StringBuilder ms = new StringBuilder(Integer.toString(n));
                     while (ms.length() < 3) {
-                        ms = '0' + ms; // left 0 paddings.
+                        ms.insert(0, '0'); // left 0 paddings.
                     }
                     buf.append('.');
                     buf.append(ms);
@@ -954,7 +951,7 @@ public final class DatatypeConverterImpl implements DatatypeConverterInterface {
     @Override
     public boolean parseBoolean(String lexicalXSDBoolean) {
         Boolean b = _parseBoolean(lexicalXSDBoolean);
-        return (b == null) ? false : b.booleanValue();
+        return b != null && b;
     }
 
     @Deprecated

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2005, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,10 +20,10 @@ import org.xml.sax.SAXParseException;
  */
 public interface ErrorListener extends ErrorHandler {
     @Override
-    abstract void error (SAXParseException exception);
+    void error(SAXParseException exception);
     @Override
-    abstract void fatalError (SAXParseException exception);
+    void fatalError(SAXParseException exception);
     @Override
-    abstract void warning (SAXParseException exception);
+    void warning(SAXParseException exception);
 
 }

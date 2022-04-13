@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,6 +12,7 @@ package com.sun.tools.xjc.generator.bean.field;
 
 import com.sun.tools.xjc.Options;
 import com.sun.codemodel.JClass;
+import com.sun.tools.xjc.Plugin;
 
 /**
  * Factory for {@link FieldRenderer}.
@@ -23,7 +24,7 @@ import com.sun.codemodel.JClass;
  * used.
  *
  * <p>
- * See {@link Options#fieldRendererFactory}
+ * See {@link Options#setFieldRendererFactory(FieldRendererFactory, Plugin)}
  *
  * <p>
  * To be more precise, since {@link FieldRenderer} is just a strategy pattern
@@ -34,6 +35,11 @@ import com.sun.codemodel.JClass;
  * @author Kohsuke Kawaguchi
  */
 public class FieldRendererFactory {
+
+    /**
+     * Default constructor.
+     */
+    public FieldRendererFactory() {}
 
     public FieldRenderer getDefault() {
         return DEFAULT;

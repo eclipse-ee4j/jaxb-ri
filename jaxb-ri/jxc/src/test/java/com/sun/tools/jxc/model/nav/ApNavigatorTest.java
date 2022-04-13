@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2015, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2015, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,7 +15,6 @@ import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
-import javax.lang.model.type.PrimitiveType;
 import javax.lang.model.type.TypeKind;
 import mockit.Expectations;
 import mockit.Mocked;
@@ -43,7 +42,7 @@ public final class ApNavigatorTest {
         new Expectations() {
             {
                 //The primitiveType is irrelevant for getEnumConstants() operations
-                env.getTypeUtils().getPrimitiveType(TypeKind.BYTE); result = (PrimitiveType) null;
+                env.getTypeUtils().getPrimitiveType(TypeKind.BYTE); result = null;
                 //enumElements needs to return ENUM_CONSTANT for getEnumConstants() to work properly
                 enumElement1.getKind(); result = ElementKind.ENUM_CONSTANT;
                 enumElement2.getKind(); result = ElementKind.ENUM_CONSTANT;

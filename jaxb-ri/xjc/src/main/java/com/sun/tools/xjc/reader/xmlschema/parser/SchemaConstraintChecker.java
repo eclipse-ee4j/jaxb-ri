@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -33,7 +33,6 @@ import static javax.xml.XMLConstants.W3C_XML_SCHEMA_NS_URI;
 /**
  * Checks XML Schema XML representation constraints and
  * schema component constraints by using JAXP 1.3 validation framework.
- * <p>
  *
  * @author Kohsuke Kawaguchi (kohsuke.kawaguchi@sun.com)
  * @author Ryan Shoemaker (ryan.shoemaker@sun.com)
@@ -66,10 +65,7 @@ public class SchemaConstraintChecker {
                         InputSource is = entityResolver.resolveEntity(namespaceURI, systemId == null ? "" : systemId);
                         if(is==null)    return null;
                         return new LSInputSAXWrapper(is);
-                    } catch (SAXException e) {
-                        // TODO: is this sufficient?
-                        return null;
-                    } catch (IOException e) {
+                    } catch (SAXException | IOException e) {
                         // TODO: is this sufficient?
                         return null;
                     }

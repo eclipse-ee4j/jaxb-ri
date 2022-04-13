@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -254,13 +254,13 @@ public final class ApNavigator implements Navigator<TypeMirror, TypeElement, Var
     @Override
     public VariableElement[] getEnumConstants(TypeElement clazz) {
         List<? extends Element> elements = env.getElementUtils().getAllMembers(clazz);
-        Collection<VariableElement> constants = new ArrayList<VariableElement>();
+        Collection<VariableElement> constants = new ArrayList<>();
         for (Element element : elements) {
             if (element.getKind().equals(ElementKind.ENUM_CONSTANT)) {
                 constants.add((VariableElement) element);
             }
         }
-        return constants.toArray(new VariableElement[constants.size()]);
+        return constants.toArray(new VariableElement[0]);
     }
 
     @Override
@@ -349,7 +349,7 @@ public final class ApNavigator implements Navigator<TypeMirror, TypeElement, Var
     public TypeMirror getTypeArgument(TypeMirror typeMirror, int i) {
         if (typeMirror != null && typeMirror.getKind().equals(TypeKind.DECLARED)) {
             DeclaredType declaredType = (DeclaredType) typeMirror;
-            TypeMirror[] args = declaredType.getTypeArguments().toArray(new TypeMirror[declaredType.getTypeArguments().size()]);
+            TypeMirror[] args = declaredType.getTypeArguments().toArray(new TypeMirror[0]);
             return args[i];
         } else throw new IllegalArgumentException();
     }
@@ -499,7 +499,7 @@ public final class ApNavigator implements Navigator<TypeMirror, TypeElement, Var
     /**
      * Implements {@link #getBaseClass}.
      */
-    private final SimpleTypeVisitor8<TypeMirror, TypeElement> baseClassFinder = new SimpleTypeVisitor8<TypeMirror, TypeElement>() {
+    private final SimpleTypeVisitor8<TypeMirror, TypeElement> baseClassFinder = new SimpleTypeVisitor8<>() {
         @Override
         public TypeMirror visitDeclared(DeclaredType t, TypeElement sup) {
             if (t.asElement().equals(sup))

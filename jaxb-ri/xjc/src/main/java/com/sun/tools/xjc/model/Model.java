@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -78,7 +78,7 @@ public final class Model implements TypeInfoSet<NType,NClass,Void,Void>, CCustom
             new LinkedHashMap<>();
 
     private final Iterable<? extends CElementInfo> allElements =
-            new Iterable<CElementInfo>() {
+            new Iterable<>() {
                 @Override
                 public Iterator<CElementInfo> iterator() {
                     return new FlattenIterator<>(elementMappings.values());
@@ -154,7 +154,7 @@ public final class Model implements TypeInfoSet<NType,NClass,Void,Void>, CCustom
     /**
      * Gets the name converter that shall be used to parse XML names into Java names.
      */
-    public final NameConverter getNameConverter() {
+    public NameConverter getNameConverter() {
         return nameConverter;
     }
 
@@ -311,7 +311,7 @@ public final class Model implements TypeInfoSet<NType,NClass,Void,Void>, CCustom
      * <p>
      * This needs to be filled by the front-end.
      */
-    public final Map<QName,CClassInfo> createTopLevelBindings() {
+    public Map<QName,CClassInfo> createTopLevelBindings() {
         Map<QName,CClassInfo> r = new HashMap<>();
         for( CClassInfo b : beans().values() ) {
             if(b.isElement())
@@ -470,9 +470,7 @@ public final class Model implements TypeInfoSet<NType,NClass,Void,Void>, CCustom
         if(ei.getScope()!=null)
             clazz = ei.getScope().getClazz();
 
-        Map<QName,CElementInfo> m = elementMappings.get(clazz);
-        if(m==null)
-            elementMappings.put(clazz, m = new LinkedHashMap<>());
+        Map<QName, CElementInfo> m = elementMappings.computeIfAbsent(clazz, k -> new LinkedHashMap<>());
         m.put(ei.getElementName(),ei);
     }
 

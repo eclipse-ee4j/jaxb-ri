@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -208,7 +208,7 @@ public interface SchemaCompiler {
      * Obtains the compiled schema object model.
      * 
      * Once this method is called, no other method should be
-     * invoked on the {@link SchemaCompiler}.
+     * invoked on the .
      * 
      * @return
      *      null if the compilation fails. The errors should have been

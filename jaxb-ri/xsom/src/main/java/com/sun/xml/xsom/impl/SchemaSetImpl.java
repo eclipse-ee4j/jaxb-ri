@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -55,9 +55,14 @@ import java.util.Vector;
 
 public class SchemaSetImpl implements XSSchemaSet
 {
-    private final Map<String,XSSchema> schemas = new HashMap<String,XSSchema>();
-    private final Vector<XSSchema> schemas2 = new Vector<XSSchema>();
+    private final Map<String,XSSchema> schemas = new HashMap<>();
+    private final Vector<XSSchema> schemas2 = new Vector<>();
     private final List<XSSchema> readonlySchemaList = Collections.unmodifiableList(schemas2);
+
+    /**
+     * Default constructor.
+     */
+    public SchemaSetImpl() {}
 
     /**
      * Gets a reference to the existing schema or creates a new one
@@ -147,7 +152,7 @@ public class SchemaSetImpl implements XSSchemaSet
     }
 
     public Iterator<XSElementDecl> iterateElementDecls() {
-        return new Iterators.Map<XSElementDecl,XSSchema>(iterateSchema()) {
+        return new Iterators.Map<>(iterateSchema()) {
             protected Iterator<XSElementDecl> apply(XSSchema u) {
                 return u.iterateElementDecls();
             }
@@ -155,7 +160,7 @@ public class SchemaSetImpl implements XSSchemaSet
     }
 
     public Iterator<XSType> iterateTypes() {
-        return new Iterators.Map<XSType,XSSchema>(iterateSchema()) {
+        return new Iterators.Map<>(iterateSchema()) {
             protected Iterator<XSType> apply(XSSchema u) {
                 return u.iterateTypes();
             }
@@ -163,42 +168,42 @@ public class SchemaSetImpl implements XSSchemaSet
     }
 
     public Iterator<XSAttributeDecl> iterateAttributeDecls() {
-        return new Iterators.Map<XSAttributeDecl,XSSchema>(iterateSchema()) {
+        return new Iterators.Map<>(iterateSchema()) {
             protected Iterator<XSAttributeDecl> apply(XSSchema u) {
                 return u.iterateAttributeDecls();
             }
         };
     }
     public Iterator<XSAttGroupDecl> iterateAttGroupDecls() {
-        return new Iterators.Map<XSAttGroupDecl,XSSchema>(iterateSchema()) {
+        return new Iterators.Map<>(iterateSchema()) {
             protected Iterator<XSAttGroupDecl> apply(XSSchema u) {
                 return u.iterateAttGroupDecls();
             }
         };
     }
     public Iterator<XSModelGroupDecl> iterateModelGroupDecls() {
-        return new Iterators.Map<XSModelGroupDecl,XSSchema>(iterateSchema()) {
+        return new Iterators.Map<>(iterateSchema()) {
             protected Iterator<XSModelGroupDecl> apply(XSSchema u) {
                 return u.iterateModelGroupDecls();
             }
         };
     }
     public Iterator<XSSimpleType> iterateSimpleTypes() {
-        return new Iterators.Map<XSSimpleType,XSSchema>(iterateSchema()) {
+        return new Iterators.Map<>(iterateSchema()) {
             protected Iterator<XSSimpleType> apply(XSSchema u) {
                 return u.iterateSimpleTypes();
             }
         };
     }
     public Iterator<XSComplexType> iterateComplexTypes() {
-        return new Iterators.Map<XSComplexType,XSSchema>(iterateSchema()) {
+        return new Iterators.Map<>(iterateSchema()) {
             protected Iterator<XSComplexType> apply(XSSchema u) {
                 return u.iterateComplexTypes();
             }
         };
     }
     public Iterator<XSNotation> iterateNotations() {
-        return new Iterators.Map<XSNotation,XSSchema>(iterateSchema()) {
+        return new Iterators.Map<>(iterateSchema()) {
             protected Iterator<XSNotation> apply(XSSchema u) {
                 return u.iterateNotations();
             }
@@ -206,7 +211,7 @@ public class SchemaSetImpl implements XSSchemaSet
     }
 
     public Iterator<XSIdentityConstraint> iterateIdentityConstraints() {
-        return new Iterators.Map<XSIdentityConstraint,XSSchema>(iterateSchema()) {
+        return new Iterators.Map<>(iterateSchema()) {
             protected Iterator<XSIdentityConstraint> apply(XSSchema u) {
                 return u.getIdentityConstraints().values().iterator();
             }
@@ -235,7 +240,7 @@ public class SchemaSetImpl implements XSSchemaSet
 
     public XSSimpleType getAnySimpleType() { return anySimpleType; }
     public final AnySimpleType anySimpleType = new AnySimpleType();
-    private class AnySimpleType extends DeclarationImpl
+    public class AnySimpleType extends DeclarationImpl
         implements XSRestrictionSimpleType, Ref.SimpleType {
 
         AnySimpleType() {
@@ -259,7 +264,7 @@ public class SchemaSetImpl implements XSSchemaSet
         public XSSimpleType getSimpleBaseType() { return null; }
         public int getDerivationMethod() { return RESTRICTION; }
         public Iterator<XSFacet> iterateDeclaredFacets() { return Iterators.empty(); }
-        public Collection<? extends XSFacet> getDeclaredFacets() { return Collections.EMPTY_LIST; }
+        public Collection<? extends XSFacet> getDeclaredFacets() { return Collections.emptyList(); }
         public void visit( XSSimpleTypeVisitor visitor ) {visitor.restrictionSimpleType(this); }
         public void visit( XSContentTypeVisitor visitor ) {visitor.simpleType(this); }
         public void visit( XSVisitor visitor ) {visitor.simpleType(this); }
@@ -272,9 +277,9 @@ public class SchemaSetImpl implements XSSchemaSet
         public XSListSimpleType getBaseListType() {return null;}
         public XSUnionSimpleType getBaseUnionType() {return null;}
         public XSFacet getFacet(String name) { return null; }
-        public List<XSFacet> getFacets( String name ) { return Collections.EMPTY_LIST; }
+        public List<XSFacet> getFacets( String name ) { return Collections.emptyList(); }
         public XSFacet getDeclaredFacet(String name) { return null; }
-        public List<XSFacet> getDeclaredFacets(String name) { return Collections.EMPTY_LIST; }
+        public List<XSFacet> getDeclaredFacets(String name) { return Collections.emptyList(); }
 
         public boolean isRestriction() { return true; }
         public boolean isList() { return false; }
@@ -294,7 +299,7 @@ public class SchemaSetImpl implements XSSchemaSet
 
     public XSComplexType getAnyType() { return anyType; }
     public final AnyType anyType = new AnyType();
-    private class AnyType extends DeclarationImpl implements XSComplexType, Ref.Type {
+    public class AnyType extends DeclarationImpl implements XSComplexType, Ref.Type {
         AnyType() {
             super(null,null,null,null,"http://www.w3.org/2001/XMLSchema","anyType",false);
         }
@@ -308,9 +313,9 @@ public class SchemaSetImpl implements XSSchemaSet
         public XSAttributeUse getDeclaredAttributeUse( String nsURI, String localName ) { return null; }
         public Iterator<XSAttributeUse> iterateDeclaredAttributeUses() { return Iterators.empty(); }
         public Iterator<XSAttGroupDecl> iterateAttGroups() { return Iterators.empty(); }
-        public Collection<XSAttributeUse> getAttributeUses() { return Collections.EMPTY_LIST; }
-        public Collection<? extends XSAttributeUse> getDeclaredAttributeUses() { return Collections.EMPTY_LIST; }
-        public Collection<? extends XSAttGroupDecl> getAttGroups() { return Collections.EMPTY_LIST; }
+        public Collection<XSAttributeUse> getAttributeUses() { return Collections.emptyList(); }
+        public Collection<? extends XSAttributeUse> getDeclaredAttributeUses() { return Collections.emptyList(); }
+        public Collection<? extends XSAttGroupDecl> getAttGroups() { return Collections.emptyList(); }
         public boolean isFinal( int i ) { return false; }
         public boolean isSubstitutionProhibited( int i ) { return false; }
         public boolean isMixed() { return true; }
@@ -351,7 +356,7 @@ public class SchemaSetImpl implements XSSchemaSet
                 })
                 ,null,1,1);
         public List<XSComplexType> getSubtypes() {
-            ArrayList subtypeList = new ArrayList();
+            ArrayList<XSComplexType> subtypeList = new ArrayList<>();
             Iterator<XSComplexType> cTypes = getRoot().iterateComplexTypes();
             while (cTypes.hasNext()) {
                 XSComplexType cType= cTypes.next();
@@ -364,7 +369,7 @@ public class SchemaSetImpl implements XSSchemaSet
         }
 
         public List<XSElementDecl> getElementDecls() {
-            ArrayList declList = new ArrayList();
+            ArrayList<XSElementDecl> declList = new ArrayList<>();
             XSSchemaSet schemaSet = getRoot();
             for (XSSchema sch : schemaSet.getSchemas()) {
                 for (XSElementDecl decl : sch.getElementDecls().values()) {

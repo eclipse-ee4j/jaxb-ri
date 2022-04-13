@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,7 +23,6 @@ import java.text.ParseException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
 
 import com.sun.istack.SAXParseException2;
 import com.sun.istack.NotNull;
@@ -52,7 +51,7 @@ import org.xml.sax.SAXParseException;
  * Internalizes external binding declarations.
  *
  * <p>
- * The {@link #transform(DOMForest,boolean)} method is the entry point.
+ * The {@link #transform(DOMForest, boolean, boolean)} method is the entry point.
  * 
  * @author
  *     Kohsuke Kawaguchi (kohsuke.kawaguchi@sun.com)
@@ -174,8 +173,7 @@ class Internalizer {
             // enhancement - schemaLocation="*" = bind to all schemas..
             if(schemaLocation.equals("*")) {
                 for(String systemId : forest.listSystemIDs()) {
-                    if (result.get(bindings) == null)
-                        result.put(bindings, new ArrayList<>());
+                    result.computeIfAbsent(bindings, k -> new ArrayList<>());
                     result.get(bindings).add(forest.get(systemId).getDocumentElement());
 
                     Element[] children = DOMUtils.getChildElements(bindings, Const.JAXB_NSURI, "bindings");
@@ -228,10 +226,8 @@ class Internalizer {
                 if(required) {
                     reportError( bindings,
                         Messages.format(Messages.ERR_XPATH_EVAL,e.getMessage()), e );
-                    return; // abort processing this <jaxb:bindings>
-                } else {
-                    return;
                 }
+                return; // abort processing this <jaxb:bindings>
             }
             
             if( nlst.getLength()==0 ) {
@@ -314,13 +310,11 @@ class Internalizer {
         if (inheritedSCD != null) {
             inheritedSCD.addBinidng(bindings);
         } else if (!multiple || targetMultiple == null) {
-            if (result.get(bindings) == null)
-                result.put(bindings, new ArrayList<>());
+            result.computeIfAbsent(bindings, k -> new ArrayList<>());
             result.get(bindings).add(target);
         } else {
             for (Node rnode : targetMultiple) {
-                if (result.get(bindings) == null)
-                    result.put(bindings, new ArrayList<>());
+                result.computeIfAbsent(bindings, k -> new ArrayList<>());
                 
                 result.get(bindings).add(rnode);
             }
@@ -504,7 +498,7 @@ class Internalizer {
         }
         
         String prefix = allocatePrefix(root,nsUri);
-        if( att.getValue().indexOf(prefix)==-1 )
+        if(!att.getValue().contains(prefix))
             // avoid redeclaring the same namespace twice.
             att.setValue( att.getValue()+' '+prefix);
     }

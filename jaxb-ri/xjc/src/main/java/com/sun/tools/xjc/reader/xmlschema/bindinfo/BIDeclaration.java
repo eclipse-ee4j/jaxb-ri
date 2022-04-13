@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -39,7 +39,7 @@ public interface BIDeclaration {
      * This method can be only called from {@link BindInfo},
      * and only once. This is a good opportunity to do some
      * follow-up initialization after JAXB unmarshalling
-     * populated {@link BIDeclaration}.
+     * populated .
      */
     void setParent( BindInfo parent );
     
@@ -81,7 +81,7 @@ public interface BIDeclaration {
     void onSetOwner();
 
     /**
-     * Gets child {@link BIDeclaration}s if any.
+     * Gets child s if any.
      *
      * @return
      *      can be empty but always non-null. read-only.

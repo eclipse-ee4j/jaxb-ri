@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -1067,7 +1067,7 @@ class elementDeclBody extends NGCCHandler {
             break;
         case 40:
             {
-                form = ((Boolean)$__result__).booleanValue();
+                form = (Boolean) $__result__;
                 action3();
                 $_ngcc_current_state = 25;
             }
@@ -1109,9 +1109,9 @@ class elementDeclBody extends NGCCHandler {
 
       private ElementDecl makeResult() {
         if(finalValue==null)
-          finalValue = Integer.valueOf($runtime.finalDefault);
+          finalValue = $runtime.finalDefault;
         if(blockValue==null)
-          blockValue = Integer.valueOf($runtime.blockDefault);
+          blockValue = $runtime.blockDefault;
 
         if(!formSpecified)
           form = $runtime.elementFormDefault;
@@ -1142,11 +1142,11 @@ class elementDeclBody extends NGCCHandler {
             $runtime.createXmlString(fixedValue),
             $runtime.parseBoolean(nillable),
             $runtime.parseBoolean(abstractValue),
-            (java.lang.Boolean)(formSpecified ? form : null),
+                formSpecified ? form : null,
             type,
             substHeadRef,
-            blockValue.intValue(),
-            finalValue.intValue(),
+                blockValue,
+                finalValue,
             idcs);
 
         // if this element has anonymous complex type, it will be set here.

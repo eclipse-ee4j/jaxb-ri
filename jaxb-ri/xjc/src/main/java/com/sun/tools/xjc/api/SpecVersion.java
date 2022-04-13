@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,7 +20,7 @@ public enum SpecVersion {
 
     private final String version;
 
-    private SpecVersion(String version) {
+    SpecVersion(String version) {
         this.version = version;
     }
 
@@ -32,7 +32,7 @@ public enum SpecVersion {
     }
 
     /**
-     * Parses "3.0" into the {@link SpecVersion} object.
+     * Parses "3.0" into the  object.
      *
      * @return null for parsing failure.
      */
@@ -46,7 +46,7 @@ public enum SpecVersion {
     }
 
     /**
-     * Gives the String representation of the {@link SpecVersion}
+     * Gives the String representation of the
      */
     public String getVersion(){
         return version;

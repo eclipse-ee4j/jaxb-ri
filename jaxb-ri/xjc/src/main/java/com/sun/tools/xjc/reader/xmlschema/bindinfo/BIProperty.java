@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -127,7 +127,7 @@ public final class BIProperty extends AbstractDeclarationImpl {
         if(conv==null)
             return super.getChildren();
         else
-            return Collections.<BIDeclaration>singleton(conv);
+            return Collections.singleton(conv);
     }
 
     @Override
@@ -393,8 +393,8 @@ public final class BIProperty extends AbstractDeclarationImpl {
         CReferencePropertyInfo prop = wrapUp(
                                             new CReferencePropertyInfo(
                                                 name,
-                                                (types == null) ? true : types.getCollectionMode().isRepeated()||isMixed,
-                                                (types == null) ? false : types.isRequired(),
+                                                    types == null || types.getCollectionMode().isRepeated() || isMixed,
+                                                    types != null && types.isRequired(),
                                                 isMixed,
                                                 source,
                                                 getCustomizations(source), source.getLocator(), dummy, content, isMixedExtended),
@@ -667,7 +667,7 @@ public final class BIProperty extends AbstractDeclarationImpl {
         return getDefault(builder,c);
     }
     
-    private final static XSFunction<XSComponent> defaultCustomizationFinder = new XSFunction<XSComponent>() {
+    private final static XSFunction<XSComponent> defaultCustomizationFinder = new XSFunction<>() {
 
         @Override
         public XSComponent attributeUse(XSAttributeUse use) {
@@ -780,6 +780,7 @@ public final class BIProperty extends AbstractDeclarationImpl {
     }
 
     public static final class BaseTypeBean {
+        public BaseTypeBean() {}
         /**
          * If there's a nested javaType customization, this field
          * will keep that customization. Otherwise null.

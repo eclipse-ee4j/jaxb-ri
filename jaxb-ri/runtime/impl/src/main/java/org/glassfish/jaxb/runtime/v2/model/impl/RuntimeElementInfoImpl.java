@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,6 +11,7 @@
 package org.glassfish.jaxb.runtime.v2.model.impl;
 
 import org.glassfish.jaxb.core.v2.model.core.Adapter;
+import org.glassfish.jaxb.core.v2.model.core.RegistryInfo;
 import org.glassfish.jaxb.core.v2.runtime.IllegalAnnotationException;
 import org.glassfish.jaxb.runtime.v2.runtime.Transducer;
 import org.glassfish.jaxb.runtime.v2.runtime.reflect.Accessor;
@@ -30,9 +31,10 @@ import java.util.List;
  */
 final class RuntimeElementInfoImpl extends ElementInfoImpl<Type,Class,Field,Method>
     implements RuntimeElementInfo {
-    
-    public RuntimeElementInfoImpl(RuntimeModelBuilder modelBuilder, RegistryInfoImpl registry, Method method) throws IllegalAnnotationException {
-        super(modelBuilder, registry, method);
+
+    @SuppressWarnings({"unchecked"})
+    public RuntimeElementInfoImpl(RuntimeModelBuilder modelBuilder, RegistryInfo registry, Method method) throws IllegalAnnotationException {
+        super(modelBuilder, (RegistryInfoImpl<Type, Class, Field, Method>) registry, method);
 
         Adapter<Type,Class> a = getProperty().getAdapter();
 
@@ -49,6 +51,7 @@ final class RuntimeElementInfoImpl extends ElementInfoImpl<Type,Class,Field,Meth
 
     class RuntimePropertyImpl extends PropertyImpl implements RuntimeElementPropertyInfo, RuntimeTypeRef {
         @Override
+        @SuppressWarnings({"unchecked"})
         public Accessor getAccessor() {
             if(adapterType==null)
                 return Accessor.JAXB_ELEMENT_VALUE;
@@ -79,6 +82,7 @@ final class RuntimeElementInfoImpl extends ElementInfoImpl<Type,Class,Field,Meth
         }
 
         @Override
+        @SuppressWarnings({"unchecked"})
         public List<? extends RuntimeNonElement> ref() {
             return (List<? extends RuntimeNonElement>)super.ref();
         }
@@ -94,7 +98,7 @@ final class RuntimeElementInfoImpl extends ElementInfoImpl<Type,Class,Field,Meth
         }
 
         @Override
-        public Transducer getTransducer() {
+        public <V> Transducer<V> getTransducer() {
             return RuntimeModelBuilder.createTransducer(this);
         }
     }
@@ -110,6 +114,7 @@ final class RuntimeElementInfoImpl extends ElementInfoImpl<Type,Class,Field,Meth
     }
 
     @Override
+    @SuppressWarnings({"unchecked"})
     public Class<? extends JAXBElement> getType() {
         //noinspection unchecked
         return (Class<? extends JAXBElement>) Utils.REFLECTION_NAVIGATOR.erasure(super.getType());

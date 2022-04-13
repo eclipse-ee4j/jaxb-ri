@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -38,7 +38,12 @@ public class Options  {
     // encoding is not required for JDK5, 6, but JDK 7 javac is much more strict - see issue 6859289
     public String encoding = null;
 
-    public final List<String> arguments = new ArrayList<String>();
+    public final List<String> arguments = new ArrayList<>();
+
+    /**
+     * Default constructor.
+     */
+    public Options() {}
 
     public void parseArguments(String[] args) throws BadCommandLineException {
         for (int i = 0 ; i <args.length; i++) {

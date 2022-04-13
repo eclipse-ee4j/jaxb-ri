@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -30,7 +30,7 @@ public interface XSIdentityConstraint extends XSComponent {
     /**
      * Name of the identity constraint.
      *
-     * A name uniquely identifies this {@link XSIdentityConstraint} within
+     * A name uniquely identifies this  within
      * the namespace.
      *
      * @return
@@ -53,9 +53,9 @@ public interface XSIdentityConstraint extends XSComponent {
      */
     short getCategory();
 
-    final short KEY = 0;
-    final short KEYREF = 1;
-    final short UNIQUE = 2;
+    short KEY = 0;
+    short KEYREF = 1;
+    short UNIQUE = 2;
 
     /**
      * Returns the selector XPath expression as string.
@@ -75,7 +75,7 @@ public interface XSIdentityConstraint extends XSComponent {
     List<XSXPath> getFields();
 
     /**
-     * If this is {@link #KEYREF}, returns the key {@link XSIdentityConstraint}
+     * If this is {@link #KEYREF}, returns the key
      * being referenced.
      *
      * @return

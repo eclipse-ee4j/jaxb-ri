@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,6 +12,11 @@ package org.glassfish.jaxb.runtime.v2.model.impl;
 
 import com.sun.istack.NotNull;
 import org.glassfish.jaxb.core.annotation.XmlLocation;
+import org.glassfish.jaxb.core.v2.model.core.AttributePropertyInfo;
+import org.glassfish.jaxb.core.v2.model.core.ElementPropertyInfo;
+import org.glassfish.jaxb.core.v2.model.core.MapPropertyInfo;
+import org.glassfish.jaxb.core.v2.model.core.ReferencePropertyInfo;
+import org.glassfish.jaxb.core.v2.model.core.ValuePropertyInfo;
 import org.glassfish.jaxb.runtime.AccessorFactory;
 import org.glassfish.jaxb.runtime.AccessorFactoryImpl;
 import org.glassfish.jaxb.runtime.InternalAccessorFactory;
@@ -123,32 +128,33 @@ class RuntimeClassInfoImpl extends ClassInfoImpl<Type,Class,Field,Method>
     }
 
     @Override
-    protected ReferencePropertyInfoImpl createReferenceProperty(PropertySeed<Type,Class,Field,Method> seed) {
+    protected ReferencePropertyInfo<Type,Class> createReferenceProperty(PropertySeed<Type,Class,Field,Method> seed) {
         return new RuntimeReferencePropertyInfoImpl(this,seed);
     }
 
     @Override
-    protected AttributePropertyInfoImpl createAttributeProperty(PropertySeed<Type,Class,Field,Method> seed) {
+    protected AttributePropertyInfo<Type,Class> createAttributeProperty(PropertySeed<Type,Class,Field,Method> seed) {
         return new RuntimeAttributePropertyInfoImpl(this,seed);
     }
 
     @Override
-    protected ValuePropertyInfoImpl createValueProperty(PropertySeed<Type,Class,Field,Method> seed) {
+    protected ValuePropertyInfo<Type,Class> createValueProperty(PropertySeed<Type,Class,Field,Method> seed) {
         return new RuntimeValuePropertyInfoImpl(this,seed);
     }
 
     @Override
-    protected ElementPropertyInfoImpl createElementProperty(PropertySeed<Type,Class,Field,Method> seed) {
+    protected ElementPropertyInfo<Type,Class> createElementProperty(PropertySeed<Type,Class,Field,Method> seed) {
         return new RuntimeElementPropertyInfoImpl(this,seed);
     }
 
     @Override
-    protected MapPropertyInfoImpl createMapProperty(PropertySeed<Type,Class,Field,Method> seed) {
+    protected MapPropertyInfo<Type,Class> createMapProperty(PropertySeed<Type,Class,Field,Method> seed) {
         return new RuntimeMapPropertyInfoImpl(this,seed);
     }
 
 
     @Override
+    @SuppressWarnings({"unchecked"})
     public List<? extends RuntimePropertyInfo> getProperties() {
         return (List<? extends RuntimePropertyInfo>)super.getProperties();
     }
@@ -168,6 +174,7 @@ class RuntimeClassInfoImpl extends ClassInfoImpl<Type,Class,Field,Method>
     private Accessor<?,Map<QName,String>> attributeWildcardAccessor;
 
     @Override
+    @SuppressWarnings({"unchecked"})
     public <B> Accessor<B,Map<QName,String>> getAttributeWildcard() {
         for( RuntimeClassInfoImpl c=this; c!=null; c=c.getBaseClass() ) {
             if(c.attributeWildcard!=null) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -50,9 +50,11 @@ import org.xml.sax.SAXParseException;
 /**
  * Command Line Interface of XJC.
  */
-public class Driver {
+public final class Driver {
 
     private static final String SYSTEM_PROXY_PROPERTY = "java.net.useSystemProxies";
+
+    private Driver() {}
 
     public static void main(final String[] args) throws Exception {
         // use the platform default proxy if available.
@@ -93,7 +95,7 @@ public class Driver {
      * Set useSystemProxies if needed
      */
     private static void setupProxies() {
-        Object setProperty = AccessController.doPrivileged(new PrivilegedAction<Object>() {
+        Object setProperty = AccessController.doPrivileged(new PrivilegedAction<>() {
             @Override
             public Object run() {
                 return System.getProperty(SYSTEM_PROXY_PROPERTY);
@@ -320,7 +322,7 @@ public class Driver {
                         System.out.println("Graph for "+ct.getName());
                         System.out.println(tree.toString());
                         Graph g = new Graph(tree);
-                        System.out.println(g.toString());
+                        System.out.println(g);
                         System.out.println();
                     }
                     return 0;
@@ -438,7 +440,7 @@ public class Driver {
     /**
      * Operation mode.
      */
-    private static enum Mode {
+    private enum Mode {
         // normal mode. compile the code
         CODE,
 
@@ -515,7 +517,9 @@ public class Driver {
     /**
      * Used to signal that we've finished processing.
      */
-    private static final class WeAreDone extends BadCommandLineException {}
+    private static final class WeAreDone extends BadCommandLineException {
+        private static final long serialVersionUID = 3924802008556012395L;
+    }
 
 
     /**

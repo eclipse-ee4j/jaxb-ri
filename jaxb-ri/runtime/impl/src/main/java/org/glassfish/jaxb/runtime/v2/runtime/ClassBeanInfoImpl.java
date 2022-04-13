@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,7 +13,6 @@ package org.glassfish.jaxb.runtime.v2.runtime;
 import com.sun.istack.FinalArrayList;
 import org.glassfish.jaxb.runtime.api.AccessorException;
 import org.glassfish.jaxb.core.v2.ClassFactory;
-import org.glassfish.jaxb.core.v2.WellKnownNamespace;
 import org.glassfish.jaxb.core.v2.model.core.ID;
 import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimeClassInfo;
 import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimePropertyInfo;
@@ -222,12 +221,12 @@ public final class ClassBeanInfoImpl<BeanT> extends JaxBeanInfo<BeanT> implement
         if(attProps.isEmpty())
             attributeProperties = EMPTY_PROPERTIES;
         else
-            attributeProperties = attProps.toArray(new AttributeProperty[attProps.size()]);
+            attributeProperties = attProps.toArray(new AttributeProperty[0]);
 
         if(uriProps.isEmpty())
             uriProperties = EMPTY_PROPERTIES;
         else
-            uriProperties = uriProps.toArray(new Property[uriProps.size()]);
+            uriProperties = uriProps.toArray(new Property[0]);
     }
 
     @Override

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -166,11 +166,11 @@ class UnusedCustomizationChecker extends BindingComponent implements XSVisitor, 
     }
     
     private void attContainer( XSAttContainer cont ) {
-        for( Iterator itr = cont.iterateAttGroups(); itr.hasNext(); )
-            ((XSAttGroupDecl)itr.next()).visit(this);
+        for(Iterator<? extends XSAttGroupDecl> itr = cont.iterateAttGroups(); itr.hasNext(); )
+            itr.next().visit(this);
             
-        for( Iterator itr = cont.iterateDeclaredAttributeUses(); itr.hasNext(); )
-            ((XSAttributeUse)itr.next()).visit(this);
+        for(Iterator<? extends XSAttributeUse> itr = cont.iterateDeclaredAttributeUses(); itr.hasNext(); )
+            itr.next().visit(this);
         
         XSWildcard wc = cont.getAttributeWildcard();
         if(wc!=null)        wc.visit(this);

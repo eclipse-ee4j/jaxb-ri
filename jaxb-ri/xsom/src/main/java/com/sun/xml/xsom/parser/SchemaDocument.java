@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -59,7 +59,7 @@ public interface SchemaDocument {
      *
      * <p>
      * The returned {@link XSSchema} contains not just components
-     * defined in this {@link SchemaDocument} but all the other components
+     * defined in this  but all the other components
      * defined in all the schemas that collectively define this namespace.
      *
      * @return
@@ -68,7 +68,7 @@ public interface SchemaDocument {
     XSSchema getSchema();
 
     /**
-     * Set of {@link SchemaDocument}s that are included/imported from this document.
+     * Set of s that are included/imported from this document.
      *
      * @return
      *      can be empty but never null. read-only.
@@ -76,7 +76,7 @@ public interface SchemaDocument {
     Set<SchemaDocument> getReferencedDocuments();
 
     /**
-     * Gets the {@link SchemaDocument}s that are included from this document.
+     * Gets the s that are included from this document.
      *
      * @return
      *      can be empty but never null. read-only.
@@ -85,11 +85,11 @@ public interface SchemaDocument {
     Set<SchemaDocument> getIncludedDocuments();
 
     /**
-     * Gets the {@link SchemaDocument}s that are imported from this document.
+     * Gets the s that are imported from this document.
      *
      * @param targetNamespace
      *      The namespace URI of the import that you want to
-     *      get {@link SchemaDocument}s for.
+     *      get s for.
      * @return
      *      can be empty but never null. read-only.
      *      this set is always a subset of {@link #getReferencedDocuments()}.
@@ -115,7 +115,7 @@ public interface SchemaDocument {
     boolean imports(SchemaDocument doc);
 
     /**
-     * Set of {@link SchemaDocument}s that include/import this document.
+     * Set of s that include/import this document.
      *
      * <p>
      * This works as the opposite of {@link #getReferencedDocuments()}.

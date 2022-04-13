@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,7 +14,6 @@ import jakarta.xml.bind.annotation.XmlTransient;
 import jakarta.xml.bind.annotation.XmlValue;
 
 import com.sun.tools.xjc.generator.bean.field.FieldRenderer;
-import com.sun.tools.xjc.generator.bean.field.UntypedListFieldRenderer;
 import com.sun.tools.xjc.generator.bean.field.FieldRendererFactory;
 import com.sun.tools.xjc.model.Model;
 
@@ -31,6 +30,11 @@ public final class CollectionTypeAttribute {
      */
     @XmlTransient
     private FieldRenderer fr;
+
+    /**
+     * Default constructor.
+     */
+    public CollectionTypeAttribute() {}
 
     FieldRenderer get(Model m) {
         if(fr==null)

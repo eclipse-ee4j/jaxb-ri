@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -69,7 +69,7 @@ public final class CTypeRef implements TypeRef<NType,NClass> {
      * Recursively search for type name.
      *
      * This is needed to find correct type for refs like:
-     *
+     *<pre>{@code
      *<xs:simpleType name="parent">
      *  <xs:restriction base="xs:date"/>
      *</xs:simpleType>
@@ -78,7 +78,7 @@ public final class CTypeRef implements TypeRef<NType,NClass> {
      *</xs:simpleType>
      *
      *<xs:element name="testField" type="child"/>
-     *
+     *}</pre>
      * @param declType given type
      * @return simpleTypeName or null
      */

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,8 +12,13 @@ package org.glassfish.jaxb.runtime.v2.model.impl;
 
 import com.sun.istack.Nullable;
 import org.glassfish.jaxb.core.WhiteSpaceProcessor;
+import org.glassfish.jaxb.core.v2.model.core.ArrayInfo;
+import org.glassfish.jaxb.core.v2.model.core.ClassInfo;
+import org.glassfish.jaxb.core.v2.model.core.ElementInfo;
+import org.glassfish.jaxb.core.v2.model.core.EnumLeafInfo;
+import org.glassfish.jaxb.core.v2.model.core.RegistryInfo;
+import org.glassfish.jaxb.core.v2.model.core.TypeInfoSet;
 import org.glassfish.jaxb.runtime.api.AccessorException;
-import org.glassfish.jaxb.core.v2.WellKnownNamespace;
 import org.glassfish.jaxb.core.v2.model.annotation.Locatable;
 import org.glassfish.jaxb.runtime.v2.model.annotation.RuntimeAnnotationReader;
 import org.glassfish.jaxb.core.v2.model.core.ID;
@@ -68,27 +73,27 @@ public class RuntimeModelBuilder extends ModelBuilder<Type,Class,Field,Method> {
     }
 
     @Override
-    protected RuntimeEnumLeafInfoImpl createEnumLeafInfo(Class clazz, Locatable upstream) {
-        return new RuntimeEnumLeafInfoImpl(this,upstream,clazz);
+    protected EnumLeafInfo<Type,Class> createEnumLeafInfo(Class clazz, Locatable upstream) {
+        return new RuntimeEnumLeafInfoImpl<>(this,upstream,clazz);
     }
 
     @Override
-    protected RuntimeClassInfoImpl createClassInfo( Class clazz, Locatable upstream ) {
+    protected ClassInfo<Type, Class> createClassInfo(Class clazz, Locatable upstream ) {
         return new RuntimeClassInfoImpl(this,upstream,clazz);
     }
 
     @Override
-    public RuntimeElementInfoImpl createElementInfo(RegistryInfoImpl<Type,Class,Field,Method> registryInfo, Method method) throws IllegalAnnotationException {
+    public ElementInfo<Type, Class> createElementInfo(RegistryInfo<Type,Class> registryInfo, Method method) throws IllegalAnnotationException {
         return new RuntimeElementInfoImpl(this,registryInfo, method);
     }
 
     @Override
-    public RuntimeArrayInfoImpl createArrayInfo(Locatable upstream, Type arrayType) {
+    public ArrayInfo<Type, Class> createArrayInfo(Locatable upstream, Type arrayType) {
         return new RuntimeArrayInfoImpl(this, upstream, (Class)arrayType);
     }
 
     @Override
-    protected RuntimeTypeInfoSetImpl createTypeInfoSet() {
+    protected TypeInfoSet<Type, Class, Field, Method> createTypeInfoSet() {
         return new RuntimeTypeInfoSetImpl(reader);
     }
 
@@ -105,29 +110,30 @@ public class RuntimeModelBuilder extends ModelBuilder<Type,Class,Field,Method> {
      *
      * TODO: this is not the proper place for this class to be in.
      */
-    public static Transducer createTransducer(RuntimeNonElementRef ref) {
-        Transducer t = ref.getTarget().getTransducer();
+    @SuppressWarnings({"unchecked"})
+    public static <V> Transducer<V> createTransducer(RuntimeNonElementRef ref) {
+        Transducer<V> t = ref.getTarget().getTransducer();
         RuntimePropertyInfo src = ref.getSource();
         ID id = src.id();
 
         if(id==ID.IDREF)
-            return RuntimeBuiltinLeafInfoImpl.STRING;
+            return (Transducer<V>) RuntimeBuiltinLeafInfoImpl.STRING;
 
         if(id==ID.ID)
-            t = new IDTransducerImpl(t);
+            t = new IDTransducerImpl<>(t);
 
         MimeType emt = src.getExpectedMimeType();
         if(emt!=null)
-            t = new MimeTypedTransducer(t,emt);
+            t = new MimeTypedTransducer<>(t,emt);
 
         if(src.inlineBinaryData())
-            t = new InlineBinaryTransducer(t);
+            t = new InlineBinaryTransducer<>(t);
 
         if(src.getSchemaType()!=null) {
             if (src.getSchemaType().equals(createXSSimpleType())) {
-                return RuntimeBuiltinLeafInfoImpl.STRING;
+                return (Transducer<V>) RuntimeBuiltinLeafInfoImpl.STRING;
             }
-            t = new SchemaTypeTransducer(t,src.getSchemaType());
+            t = new SchemaTypeTransducer<>(t,src.getSchemaType());
         }
         
         return t;

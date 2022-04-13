@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2017, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -397,6 +397,17 @@ public class XJCBase extends MatchingTask {
     }
 
     /**
+     * Controls whether to disable XML security features when parsing XML documents or not
+     */
+    public void setDisableXmlSecurity(boolean flg) {
+        this.options.disableXmlSecurity = flg;
+    }
+
+    public boolean getDisableXmlSecurity() {
+        return this.options.disableXmlSecurity;
+    }
+
+    /**
      * Controls whether the file header comment is generated or not.
      */
     public void setHeader(boolean flg) {
@@ -525,6 +536,10 @@ public class XJCBase extends MatchingTask {
         if (null != getPackage() && !getPackage().equals("")) {
             getCommandline().createArgument().setValue("-p");
             getCommandline().createArgument().setValue(getPackage());
+        }
+        // disableXmlSecurity flag
+        if (getDisableXmlSecurity()) {
+            getCommandline().createArgument().setValue("-disableXmlSecurity");
         }
         // extension flag
         if (getExtension()) {
@@ -907,7 +922,7 @@ public class XJCBase extends MatchingTask {
             lst.add(getInputSource(new File(baseDir, value)));
         }
 
-        return lst.toArray(new InputSource[lst.size()]);
+        return lst.toArray(new InputSource[0]);
     }
 
     /**

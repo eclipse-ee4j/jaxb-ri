@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2010, Thai Open Source Software Center Ltd
+ * Copyright (c) 2005, 2022, Thai Open Source Software Center Ltd
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -184,7 +184,7 @@ public interface Datatype {
 	 * This value is one of the possible return values of the
 	 * {@link #getIdType} method.
 	 */
-	public static final int ID_TYPE_NULL = 0;
+    int ID_TYPE_NULL = 0;
 	
 	/**
 	 * Indicates that RELAX NG compatibility processors should
@@ -193,7 +193,7 @@ public interface Datatype {
 	 * This value is one of the possible return values of the
 	 * {@link #getIdType} method.
 	 */
-	public static final int ID_TYPE_ID = 1;
+    int ID_TYPE_ID = 1;
 	
 	/**
 	 * Indicates that RELAX NG compatibility processors should
@@ -202,7 +202,7 @@ public interface Datatype {
 	 * This value is one of the possible return values of the
 	 * {@link #getIdType} method.
 	 */
-	public static final int ID_TYPE_IDREF = 2;
+    int ID_TYPE_IDREF = 2;
 	
 	/**
 	 * Indicates that RELAX NG compatibility processors should
@@ -211,7 +211,7 @@ public interface Datatype {
 	 * This value is one of the possible return values of the
 	 * {@link #getIdType} method.
 	 */
-	public static final int ID_TYPE_IDREFS = 3;
+    int ID_TYPE_IDREFS = 3;
 	
 	/**
 	 * Checks if the ID/IDREF semantics is associated with this
@@ -234,7 +234,7 @@ public interface Datatype {
 	 *		it returns {@link #ID_TYPE_ID}, {@link #ID_TYPE_IDREF} or
 	 *		{@link #ID_TYPE_IDREFS}.
 	 */
-	public int getIdType();
+    int getIdType();
 	
 	
 	/**
@@ -267,5 +267,5 @@ public interface Datatype {
 	 *		<b>false</b> if this datatype is context-<b>in</b>dependent
 	 *		(it never needs a context object).
 	 */
-	public boolean isContextDependent();
+    boolean isContextDependent();
 }

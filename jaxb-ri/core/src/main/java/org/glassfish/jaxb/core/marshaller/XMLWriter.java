@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2021, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -504,7 +504,7 @@ public class XMLWriter extends XMLFilterImpl
                         write(p);
                         write("=\"");
                     }
-                    char ch[] = u.toCharArray();
+                    char[] ch = u.toCharArray();
                     writeEsc(ch, 0, ch.length, true);
                     write('\"');
                 }
@@ -577,7 +577,7 @@ public class XMLWriter extends XMLFilterImpl
      * @see org.xml.sax.ContentHandler#characters(char[], int, int)
      */
     @Override
-    public void characters (char ch[], int start, int len)
+    public void characters (char[] ch, int start, int len)
         throws SAXException
     {
         try {
@@ -607,7 +607,7 @@ public class XMLWriter extends XMLFilterImpl
      * @see org.xml.sax.ContentHandler#ignorableWhitespace(char[], int, int)
      */
     @Override
-    public void ignorableWhitespace (char ch[], int start, int length)
+    public void ignorableWhitespace (char[] ch, int start, int length)
         throws SAXException
     {
         try {
@@ -867,7 +867,7 @@ public class XMLWriter extends XMLFilterImpl
                 write('>');
                 startTagIsClosed = true;
             }
-            char ch[] = data.toCharArray();
+            char[] ch = data.toCharArray();
             characters(ch, 0, ch.length);
         } catch( IOException e ) {
             throw new SAXException(e);
@@ -911,7 +911,7 @@ public class XMLWriter extends XMLFilterImpl
     private void writeAttributes (Attributes atts) throws IOException {
         int len = atts.getLength();
         for (int i = 0; i < len; i++) {
-            char ch[] = atts.getValue(i).toCharArray();
+            char[] ch = atts.getValue(i).toCharArray();
             write(' ');
             write(atts.getQName(i));
             write("=\"");
@@ -929,8 +929,8 @@ public class XMLWriter extends XMLFilterImpl
      * @param length The number of characters to use.
      * @param isAttVal true if this is an attribute value literal.
      */
-    private void writeEsc (char ch[], int start,
-                             int length, boolean isAttVal)
+    private void writeEsc (char[] ch, int start,
+                           int length, boolean isAttVal)
         throws IOException
     {
         escapeHandler.escape(ch, start, length, isAttVal, output);

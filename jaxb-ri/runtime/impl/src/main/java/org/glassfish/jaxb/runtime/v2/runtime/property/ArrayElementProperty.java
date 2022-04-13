@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -184,14 +184,12 @@ abstract class ArrayElementProperty<BeanT,ListT,ItemT> extends ArrayERProperty<B
      * Creates a loader handler that unmarshals the body of the item.
      *
      * <p>
-     * This will be sandwiched into <item> ... </item>.
+     * This will be sandwiched into {@code <item> ... </item>}.
      *
      * <p>
      * When unmarshalling the body of item, the Pack of {@link Lister} is available
      * as the handler state.
      *
-     * @param chain
-     * @param typeRef
      */
     private Loader createItemUnmarshaller(UnmarshallerChain chain, RuntimeTypeRef typeRef) {
         if(PropertyFactory.isLeaf(typeRef.getSource())) {

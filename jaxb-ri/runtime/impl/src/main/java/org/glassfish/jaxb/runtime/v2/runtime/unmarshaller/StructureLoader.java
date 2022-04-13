@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,7 +13,6 @@ package org.glassfish.jaxb.runtime.v2.runtime.unmarshaller;
 import org.glassfish.jaxb.core.Utils;
 import org.glassfish.jaxb.runtime.api.AccessorException;
 import org.glassfish.jaxb.runtime.api.JAXBRIContext;
-import org.glassfish.jaxb.core.v2.WellKnownNamespace;
 import org.glassfish.jaxb.runtime.v2.runtime.ClassBeanInfoImpl;
 import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
 import org.glassfish.jaxb.runtime.v2.runtime.JaxBeanInfo;
@@ -95,7 +94,7 @@ public final class StructureLoader extends Loader {
      *
      * <p>
      * To fix the cyclic reference issue, the main part of the initialization needs to be done
-     * after a {@link StructureLoader} is set to {@link ClassBeanInfoImpl#loader}.
+     * after a  is set to {@link ClassBeanInfoImpl#loader}.
      */
     public void init( JAXBContextImpl context, ClassBeanInfoImpl beanInfo, Accessor<?,Map<QName,String>> attWildcard) {
         UnmarshallerChain chain = new UnmarshallerChain(context);
@@ -266,7 +265,7 @@ public final class StructureLoader extends Loader {
         fireAfterUnmarshal(beanInfo, state.getTarget(), state.getPrev());
     }
 
-    private static final QNameMap<TransducedAccessor> EMPTY = new QNameMap<TransducedAccessor>();
+    private static final QNameMap<TransducedAccessor> EMPTY = new QNameMap<>();
 
     public JaxBeanInfo getBeanInfo() {
         return beanInfo;

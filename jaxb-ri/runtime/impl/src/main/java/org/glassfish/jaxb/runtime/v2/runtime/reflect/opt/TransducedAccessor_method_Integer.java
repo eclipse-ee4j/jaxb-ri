@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,30 +25,31 @@ import java.io.IOException;
  * Template {@link TransducedAccessor} for a byte field.
  *
  * <p>
- * All the TransducedAccessor_field are generated from <code>TransducedAccessor_field_B y t e</code>
+ * All the TransducedAccessor_field are generated from <code>TransducedAccessor_field_Byte</code>
  *
  * @author Kohsuke Kawaguchi
  *
  * @see TransducedAccessor#get
  */
-public final class TransducedAccessor_method_Integer extends DefaultTransducedAccessor {
+@SuppressWarnings({"deprecation"})
+public final class TransducedAccessor_method_Integer<T> extends DefaultTransducedAccessor<T> {
     @Override
-    public String print(Object o) {
+    public String print(T o) {
         return DatatypeConverterImpl._printInt( ((Bean)o).get_int() );
     }
 
     @Override
-    public void parse(Object o, CharSequence lexical) {
+    public void parse(T o, CharSequence lexical) {
         ((Bean)o).set_int(DatatypeConverterImpl._parseInt(lexical));
     }
 
     @Override
-    public boolean hasValue(Object o) {
+    public boolean hasValue(T o) {
         return true;
     }
 
     @Override
-    public void writeLeafElement(XMLSerializer w, Name tagName, Object o, String fieldName) throws SAXException, AccessorException, IOException, XMLStreamException {
+    public void writeLeafElement(XMLSerializer w, Name tagName, T o, String fieldName) throws SAXException, AccessorException, IOException, XMLStreamException {
         w.leafElement(tagName, ((Bean)o).get_int(), fieldName );
     }
 }

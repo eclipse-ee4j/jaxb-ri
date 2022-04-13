@@ -159,7 +159,7 @@ class SchemaParser {
         }
     }
 
-    static interface CommentHandler {
+    interface CommentHandler {
 
         void comment(String value);
     }
@@ -447,7 +447,7 @@ class SchemaParser {
             }
         }
 
-        public void characters(char ch[], int start, int length) {
+        public void characters(char[] ch, int start, int length) {
             if (textBuf == null) {
                 textBuf = new StringBuffer();
             }
@@ -547,7 +547,7 @@ class SchemaParser {
         @Override
         void endChild(ParsedPattern pattern) {
             if (childPatterns == null) {
-                childPatterns = new ArrayList<ParsedPattern>(INIT_CHILD_ALLOC);
+                childPatterns = new ArrayList<>(INIT_CHILD_ALLOC);
             }
             childPatterns.add(pattern);
         }
@@ -671,7 +671,7 @@ class SchemaParser {
         }
     }
 
-    static interface NameClassRef {
+    interface NameClassRef {
 
         void setNameClass(ParsedNameClass nc);
     }
@@ -1746,9 +1746,7 @@ class SchemaParser {
         if (schemaBuilder.usesComments()) {
             try {
                 xr.setProperty("http://xml.org/sax/properties/lexical-handler", new LexicalHandlerImpl());
-            } catch (SAXNotRecognizedException e) {
-                warning("no_comment_support", xr.getClass().getName());
-            } catch (SAXNotSupportedException e) {
+            } catch (SAXNotRecognizedException | SAXNotSupportedException e) {
                 warning("no_comment_support", xr.getClass().getName());
             }
         }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -248,7 +248,7 @@ public class SchemaWriter implements XSVisitor, XSSimpleTypeVisitor {
 
     public void unionSimpleType( XSUnionSimpleType type ) {
         final int len = type.getMemberSize();
-        StringBuffer ref = new StringBuffer();
+        StringBuilder ref = new StringBuilder();
 
         for( int i=0; i<len; i++ ) {
             XSSimpleType member = type.getMember(i);
@@ -555,7 +555,7 @@ public class SchemaWriter implements XSVisitor, XSSimpleTypeVisitor {
         println(MessageFormat.format("<{0}{1}{2}{3}/>",tagName, proessContents, wc.apply(WILDCARD_NS), extraAtts));
     }
 
-    private static final XSWildcardFunction<String> WILDCARD_NS = new XSWildcardFunction<String>() {
+    private static final XSWildcardFunction<String> WILDCARD_NS = new XSWildcardFunction<>() {
         public String any(Any wc) {
             return ""; // default
         }
@@ -568,8 +568,8 @@ public class SchemaWriter implements XSVisitor, XSSimpleTypeVisitor {
             StringBuilder buf = new StringBuilder(" namespace='");
             boolean first = true;
             for (String s : wc.getNamespaces()) {
-                if(first)   first=false;
-                else        buf.append(' ');
+                if (first) first = false;
+                else buf.append(' ');
                 buf.append(s);
             }
             return buf.append('\'').toString();

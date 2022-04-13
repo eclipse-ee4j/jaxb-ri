@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2005, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -131,7 +131,7 @@ public class Element extends XmlNode {
 
         @Override
         public void generate(NodeSet nset) {
-            HashSet<Prop> props = new HashSet<Prop>();
+            HashSet<Prop> props = new HashSet<>();
             for( Leaf l : Element.this )
                 l.generate(clazz,nset, props);
         }
@@ -178,7 +178,7 @@ public class Element extends XmlNode {
         // TODO: code share with Attribute
         @Override
         public void generate(JDefinedClass clazz, NodeSet nset, Set<Prop> props) {
-            Set<JType> types = new HashSet<JType>();
+            Set<JType> types = new HashSet<>();
 
             for( Leaf l : collectChildren() ) {
                 if (l instanceof Text) {

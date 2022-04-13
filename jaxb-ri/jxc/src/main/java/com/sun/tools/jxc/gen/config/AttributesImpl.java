@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -100,7 +100,6 @@ public class AttributesImpl implements Attributes
      * Return the number of attributes in the list.
      *
      * @return The number of attributes in the list.
-     * @see org.xml.sax.Attributes#getLength
      */
     @Override
     public int getLength ()
@@ -115,7 +114,6 @@ public class AttributesImpl implements Attributes
      * @param index The attribute's index (zero-based).
      * @return The Namespace URI, the empty string if none is
      *         available, or null if the index is out of range.
-     * @see org.xml.sax.Attributes#getURI
      */
     @Override
     public String getURI (int index)
@@ -134,7 +132,6 @@ public class AttributesImpl implements Attributes
      * @param index The attribute's index (zero-based).
      * @return The attribute's local name, the empty string if 
      *         none is available, or null if the index if out of range.
-     * @see org.xml.sax.Attributes#getLocalName
      */
     @Override
     public String getLocalName (int index)
@@ -153,7 +150,6 @@ public class AttributesImpl implements Attributes
      * @param index The attribute's index (zero-based).
      * @return The attribute's qualified name, the empty string if 
      *         none is available, or null if the index is out of bounds.
-     * @see org.xml.sax.Attributes#getQName
      */
     @Override
     public String getQName (int index)
@@ -172,7 +168,6 @@ public class AttributesImpl implements Attributes
      * @param index The attribute's index (zero-based).
      * @return The attribute's type, "CDATA" if the type is unknown, or null
      *         if the index is out of bounds.
-     * @see org.xml.sax.Attributes#getType(int)
      */
     @Override
     public String getType (int index)
@@ -190,7 +185,6 @@ public class AttributesImpl implements Attributes
      *
      * @param index The attribute's index (zero-based).
      * @return The attribute's value or null if the index is out of bounds.
-     * @see org.xml.sax.Attributes#getValue(int)
      */
     @Override
     public String getValue (int index)
@@ -214,7 +208,6 @@ public class AttributesImpl implements Attributes
      *        string if none is available.
      * @param localName The attribute's local name.
      * @return The attribute's index, or -1 if none matches.
-     * @see org.xml.sax.Attributes#getIndex(java.lang.String,java.lang.String)
      */
     @Override
     public int getIndex (String uri, String localName)
@@ -234,7 +227,6 @@ public class AttributesImpl implements Attributes
      *
      * @param qName The qualified name.
      * @return The attribute's index, or -1 if none matches.
-     * @see org.xml.sax.Attributes#getIndex(java.lang.String)
      */
     @Override
     public int getIndex (String qName)
@@ -257,7 +249,6 @@ public class AttributesImpl implements Attributes
      * @param localName The local name.
      * @return The attribute's type, or null if there is no
      *         matching attribute.
-     * @see org.xml.sax.Attributes#getType(java.lang.String,java.lang.String)
      */
     @Override
     public String getType (String uri, String localName)
@@ -278,7 +269,6 @@ public class AttributesImpl implements Attributes
      * @param qName The qualified name.
      * @return The attribute's type, or null if there is no
      *         matching attribute.
-     * @see org.xml.sax.Attributes#getType(java.lang.String)
      */
     @Override
     public String getType (String qName)
@@ -301,7 +291,6 @@ public class AttributesImpl implements Attributes
      * @param localName The local name.
      * @return The attribute's value, or null if there is no
      *         matching attribute.
-     * @see org.xml.sax.Attributes#getValue(java.lang.String,java.lang.String)
      */
     @Override
     public String getValue (String uri, String localName)
@@ -322,7 +311,6 @@ public class AttributesImpl implements Attributes
      * @param qName The qualified name.
      * @return The attribute's value, or null if there is no
      *         matching attribute.
-     * @see org.xml.sax.Attributes#getValue(java.lang.String)
      */
     @Override
     public String getValue (String qName)
@@ -592,7 +580,7 @@ public class AttributesImpl implements Attributes
     while (max < n * 5) {
         max *= 2;
     }
-    String newData[] = new String[max];
+    String[] newData = new String[max];
     System.arraycopy(data, 0, newData, 0, length*5);
     data = newData;
     }
@@ -619,7 +607,7 @@ public class AttributesImpl implements Attributes
     ////////////////////////////////////////////////////////////////////
 
     int length;
-    String data [];
+    String[] data;
 
 }
 

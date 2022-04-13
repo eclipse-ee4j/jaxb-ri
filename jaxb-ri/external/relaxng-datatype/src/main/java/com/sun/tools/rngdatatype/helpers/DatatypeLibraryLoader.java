@@ -1,4 +1,5 @@
-/**
+/*
+ * Copyright (c) 2022 Eclipse Foundation
  * Copyright (c) 2001, Thai Open Source Software Center Ltd
  * All rights reserved.
  *
@@ -44,6 +45,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
 import java.util.NoSuchElementException;
 import java.util.Vector;
@@ -57,6 +59,11 @@ import java.util.Vector;
  */
 public class DatatypeLibraryLoader implements DatatypeLibraryFactory {
   private final Service service = new Service(DatatypeLibraryFactory.class);
+
+	/**
+	 * Default constructor.
+	 */
+	public DatatypeLibraryLoader() {}
 
   public DatatypeLibrary createDatatypeLibrary(String uri) {
     for (Enumeration e = service.getProviders();
@@ -188,18 +195,15 @@ public class DatatypeLibraryLoader implements DatatypeLibraryFactory {
 	      while (classNames.hasMoreElements()) {
 		String className = (String)classNames.nextElement();
 		try {
-		  Class cls = loader.loadClass(className);
-		  Object obj = cls.newInstance();
+		  Class<?> cls = loader.loadClass(className);
+		  Object obj = cls.getConstructor().newInstance();
 		  if (serviceClass.isInstance(obj)) {
 		    providers.addElement(obj);
 		    return true;
 		  }
 		}
-		catch (ClassNotFoundException e) { }
-		catch (InstantiationException e) { }
-		catch (IllegalAccessException e) { }
-		catch (LinkageError e) { }
-	      }
+		catch (ReflectiveOperationException | LinkageError e) { }
+		  }
 	      classNames = null;
 	    }
 	  }
@@ -212,15 +216,10 @@ public class DatatypeLibraryLoader implements DatatypeLibraryFactory {
 	    try {
 	      InputStream in = url.openStream();
 	      Reader r;
-	      try {
-		r = new InputStreamReader(in, "UTF-8");
-	      }
-	      catch (UnsupportedEncodingException e) {
-		r = new InputStreamReader(in, "UTF8");
-	      }
-	      r = new BufferedReader(r);
+            r = new InputStreamReader(in, StandardCharsets.UTF_8);
+            r = new BufferedReader(r);
 	      Vector tokens = new Vector();
-	      StringBuffer tokenBuf = new StringBuffer();
+	      StringBuilder tokenBuf = new StringBuilder();
 	      int state = START;
 	      for (;;) {
 		int n = r.read();

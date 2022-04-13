@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,7 +13,6 @@ package com.sun.tools.xjc;
 import java.io.Closeable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.net.URLClassLoader;
 
 /**
  * A shabby driver to invoke XJC1 or XJC2 depending on the command line switch.
@@ -24,9 +23,11 @@ import java.net.URLClassLoader;
  *
  * @author Kohsuke Kawaguchi
  */
-public class XJCFacade {
+public final class XJCFacade {
 
     private static final String JDK_REQUIRED = "XJC requires Java SE 8 or later. Please download it from http://www.oracle.com/technetwork/java/javase/downloads";
+
+    private XJCFacade() {}
 
     public static void main(String[] args) throws Throwable {
         String v = "3.0";      // by default, we go 3.0
@@ -44,7 +45,7 @@ public class XJCFacade {
             ClassLoader cl = SecureLoader.getClassClassLoader(XJCFacade.class);
             SecureLoader.setContextClassLoader(cl);
             Class<?> driver = cl.loadClass("com.sun.tools.xjc.Driver");
-            Method mainMethod = driver.getDeclaredMethod("main", new Class<?>[]{String[].class});
+            Method mainMethod = driver.getDeclaredMethod("main", String[].class);
             try {
                 mainMethod.invoke(null, new Object[]{args});
             } catch (InvocationTargetException e) {
@@ -63,19 +64,6 @@ public class XJCFacade {
                 if (cl instanceof Closeable) {
                     //JDK7+, ParallelWorldClassLoader
                     ((Closeable) cl).close();
-                } else {
-                    if (cl instanceof URLClassLoader) {
-                        //JDK6 - API jars are loaded by instance of URLClassLoader
-                        //so use proprietary API to release holded resources
-                        try {
-                            Class<?> clUtil = oldContextCl.loadClass("sun.misc.ClassLoaderUtil");
-                            Method release = clUtil.getDeclaredMethod("releaseLoader", URLClassLoader.class);
-                            release.invoke(null, cl);
-                        } catch (ClassNotFoundException ex) {
-                            //not Sun JDK 6, ignore
-                            System.err.println(JDK_REQUIRED);
-                        }
-                    }
                 }
                 cl = SecureLoader.getParentClassLoader(cl);
             }

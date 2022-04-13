@@ -123,8 +123,8 @@ public class SchemaBuilderHost extends Base implements SchemaBuilder {
     public ParsedPattern makeChoice(List patterns,
         Location _loc, Annotations _anno) throws BuildException {
 
-        List<ParsedPattern> lp = new ArrayList<ParsedPattern>();
-        List<ParsedPattern> rp = new ArrayList<ParsedPattern>();
+        List<ParsedPattern> lp = new ArrayList<>();
+        List<ParsedPattern> rp = new ArrayList<>();
         for( int i=0; i<patterns.size(); i++ ) {
             lp.add( ((ParsedPatternHost)patterns.get(i)).lhs);
             rp.add( ((ParsedPatternHost)patterns.get(i)).rhs);
@@ -215,8 +215,8 @@ public class SchemaBuilderHost extends Base implements SchemaBuilder {
     public ParsedPattern makeGroup(List patterns,
         Location _loc, Annotations _anno) throws BuildException {
 
-        List<ParsedPattern> lp = new ArrayList<ParsedPattern>();
-        List<ParsedPattern> rp = new ArrayList<ParsedPattern>();
+        List<ParsedPattern> lp = new ArrayList<>();
+        List<ParsedPattern> rp = new ArrayList<>();
         for( int i=0; i<patterns.size(); i++ ) {
             lp.add( ((ParsedPatternHost)patterns.get(i)).lhs);
             rp.add( ((ParsedPatternHost)patterns.get(i)).rhs);
@@ -232,8 +232,8 @@ public class SchemaBuilderHost extends Base implements SchemaBuilder {
     public ParsedPattern makeInterleave(List patterns,
         Location _loc, Annotations _anno) throws BuildException {
 
-        List<ParsedPattern> lp = new ArrayList<ParsedPattern>();
-        List<ParsedPattern> rp = new ArrayList<ParsedPattern>();
+        List<ParsedPattern> lp = new ArrayList<>();
+        List<ParsedPattern> rp = new ArrayList<>();
         for( int i=0; i<patterns.size(); i++ ) {
             lp.add( ((ParsedPatternHost)patterns.get(i)).lhs);
             rp.add( ((ParsedPatternHost)patterns.get(i)).rhs);

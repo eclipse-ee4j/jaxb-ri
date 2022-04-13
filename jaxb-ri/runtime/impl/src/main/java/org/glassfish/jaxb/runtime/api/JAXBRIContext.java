@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -43,7 +43,7 @@ public abstract class JAXBRIContext extends JAXBContext {
     protected JAXBRIContext() {}
 
     /**
-     * Creates a new {@link JAXBRIContext}.
+     * Creates a new .
      *
      * <p>
      * {@link JAXBContext#newInstance(Class[]) JAXBContext.newInstance()} methods may
@@ -78,7 +78,7 @@ public abstract class JAXBRIContext extends JAXBContext {
     }
 
     /**
-     * Creates a new {@link JAXBRIContext}.
+     * Creates a new .
      *
      * <p>
      * {@link JAXBContext#newInstance(Class[]) JAXBContext.newInstance()} methods may
@@ -133,18 +133,6 @@ public abstract class JAXBRIContext extends JAXBContext {
     }
 
     /**
-     * @deprecated
-     *      Compatibility with older versions.
-     */
-    @Deprecated
-    public static JAXBRIContext newInstance(@NotNull Class[] classes,
-        @Nullable Collection<TypeReference> typeRefs,
-        @Nullable String defaultNamespaceRemap, boolean c14nSupport ) throws JAXBException {
-        return newInstance(classes,typeRefs, Collections.<Class,Class>emptyMap(),
-                defaultNamespaceRemap,c14nSupport,null);
-    }
-
-    /**
      * Returns true if this context includes a class
      * that has {@link XmlAttachmentRef}.
      *
@@ -167,9 +155,6 @@ public abstract class JAXBRIContext extends JAXBContext {
 
     /**
      * Allows to retrieve the element name based on Class.
-     * @param o
-     * @return
-     * @throws jakarta.xml.bind.JAXBException
      * @since 2.1.10
      */
     public abstract @Nullable QName getElementName(@NotNull Class o) throws JAXBException;
@@ -183,16 +168,6 @@ public abstract class JAXBRIContext extends JAXBContext {
      * @since 2.0 EA1
      */
     public abstract Bridge createBridge(@NotNull TypeReference ref);
-
-    /**
-     * Creates a new {@link BridgeContext} instance.
-     *
-     * @return
-     *      always a valid non-null instance.
-     *
-     * @since 2.0 EA1
-     */
-    public abstract @NotNull BridgeContext createBridgeContext();
 
     /**
      * Gets a {@link RawAccessor} for the specified element property of the specified wrapper bean class.

@@ -1,7 +1,7 @@
 package com.sun.xml.xsom.test;
 
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,6 +11,7 @@ package com.sun.xml.xsom.test;
  */
 
 import com.sun.xml.xsom.parser.XSOMParser;
+import com.sun.xml.xsom.parser.XmlFactory;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -24,7 +25,7 @@ import java.io.IOException;
  */
 public class ERDriver {
     public static void main(String[] args) throws Exception {
-        XSOMParser p = new XSOMParser();
+        XSOMParser p = new XSOMParser(XmlFactory.createParserFactory(false));
         p.setEntityResolver(new EntityResolverImpl());
 
         // SAX parser -> XSOM ContentHandler

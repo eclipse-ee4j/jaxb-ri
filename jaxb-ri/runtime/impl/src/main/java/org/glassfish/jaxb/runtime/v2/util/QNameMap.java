@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -33,7 +33,7 @@ public final class QNameMap<V> {
     /**
      * The maximum capacity, used if a higher value is implicitly specified
      * by either of the constructors with arguments.
-     * MUST be a power of two <= 1<<30.
+     * MUST be a power of two {@literal <= 1<<30}.
      */
     private static final int MAXIMUM_CAPACITY = 1 << 30;
 
@@ -213,14 +213,15 @@ public final class QNameMap<V> {
      * number of keys in this map reaches its threshold.
      */
     private void resize(int newCapacity) {
-        Entry[] oldTable = table;
+        Entry<V>[] oldTable = table;
         int oldCapacity = oldTable.length;
         if (oldCapacity == MAXIMUM_CAPACITY) {
             threshold = Integer.MAX_VALUE;
             return;
         }
 
-        Entry[] newTable = new Entry[newCapacity];
+        @SuppressWarnings({"unchecked"})
+        Entry<V>[] newTable = (Entry<V>[]) new Entry[newCapacity];
         transfer(newTable);
         table = newTable;
         threshold = newCapacity;
@@ -373,11 +374,10 @@ public final class QNameMap<V> {
             String k3 = localName;
             String k4 = e.localName;
             if (k1 == k2 || (k1 != null && k1.equals(k2)) &&
-                    (k3 == k4 ||(k3 !=null && k3.equals(k4)))) {
+                    (Objects.equals(k3, k4))) {
                 Object v1 = getValue();
                 Object v2 = e.getValue();
-                if (v1 == v2 || (v1 != null && v1.equals(v2)))
-                    return true;
+                return Objects.equals(v1, v2);
             }
             return false;
         }

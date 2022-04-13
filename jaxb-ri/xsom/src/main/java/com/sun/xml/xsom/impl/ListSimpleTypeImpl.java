@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -42,13 +42,13 @@ public class ListSimpleTypeImpl extends SimpleTypeImpl implements XSListSimpleTy
     public void visit( XSSimpleTypeVisitor visitor ) {
         visitor.listSimpleType(this);
     }
-    public Object apply( XSSimpleTypeFunction function ) {
+    public <T> T apply( XSSimpleTypeFunction<T> function ) {
         return function.listSimpleType(this);
     }
 
     // list type by itself doesn't have any facet. */
     public XSFacet getFacet( String name ) { return null; }
-    public List<XSFacet> getFacets( String name ) { return Collections.EMPTY_LIST; }
+    public List<XSFacet> getFacets( String name ) { return Collections.emptyList(); }
 
     public XSVariety getVariety() { return XSVariety.LIST; }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,7 +27,6 @@ import jakarta.activation.MimeTypeParseException;
 import jakarta.xml.bind.DatatypeConverter;
 
 import com.sun.codemodel.JJavaName;
-import com.sun.codemodel.util.JavadocEscapeWriter;
 import org.glassfish.jaxb.core.v2.WellKnownNamespace;
 import com.sun.tools.xjc.ErrorReceiver;
 import com.sun.tools.xjc.model.CBuiltinLeafInfo;
@@ -129,6 +128,10 @@ public final class SimpleTypeBuilder extends BindingComponent {
     /** {@link TypeUse}s for the built-in types. Read-only. */
     public static final Map<String,TypeUse> builtinConversions;
 
+    /**
+     * Default constructor.
+     */
+    public SimpleTypeBuilder() {}
 
     /**
      * Entry point from outside. Builds a BGM type expression
@@ -272,7 +275,7 @@ public final class SimpleTypeBuilder extends BindingComponent {
         return t.apply(composer);
     }
 
-    public final XSSimpleTypeFunction<TypeUse> composer = new XSSimpleTypeFunction<TypeUse>() {
+    public final XSSimpleTypeFunction<TypeUse> composer = new XSSimpleTypeFunction<>() {
 
         @Override
         public TypeUse listSimpleType(XSListSimpleType type) {
@@ -394,7 +397,7 @@ public final class SimpleTypeBuilder extends BindingComponent {
         if(type.isRestriction() && !noAutoEnum) {
             XSRestrictionSimpleType rst = type.asRestriction();
             if(shouldBeMappedToTypeSafeEnumByDefault(rst)) {
-                r = bindToTypeSafeEnum(rst,null,null, Collections.<String, BIEnumMember>emptyMap(),
+                r = bindToTypeSafeEnum(rst,null,null, Collections.emptyMap(),
                             getEnumMemberMode(),null);
                 if(r!=null)
                     return r;
@@ -461,13 +464,12 @@ public final class SimpleTypeBuilder extends BindingComponent {
     private static final Set<String> builtinTypeSafeEnumCapableTypes;
 
     static {
-        Set<String> s = new HashSet<>();
 
         // see a bullet of 6.5.1 of the spec.
         String[] typeNames = new String[] {
             "string", "boolean", "float", "decimal", "double", "anyURI"
         };
-        s.addAll(Arrays.asList(typeNames));
+        Set<String> s = new HashSet<>(Arrays.asList(typeNames));
 
         builtinTypeSafeEnumCapableTypes = Collections.unmodifiableSet(s);
     }
@@ -549,14 +551,14 @@ public final class SimpleTypeBuilder extends BindingComponent {
 
         {// compute Javadoc
             StringWriter out = new StringWriter();
-            SchemaWriter sw = new SchemaWriter(new JavadocEscapeWriter(out));
+            SchemaWriter sw = new SchemaWriter(out);
             type.visit((XSVisitor)sw);
 
             if(javadoc!=null)   javadoc += "\n\n";
             else                javadoc = "";
 
             javadoc += Messages.format( Messages.JAVADOC_HEADING, type.getName() )
-                +"\n<pre>\n"+out.getBuffer()+"</pre>";
+                +"\n<pre>{@code\n"+out.getBuffer()+"}</pre>";
 
         }
 
@@ -789,13 +791,10 @@ public final class SimpleTypeBuilder extends BindingComponent {
                 }
 
                 return CBuiltinLeafInfo.DATA_HANDLER.makeMimeTyped(mt.toMimeType());
-            } catch (ParseException e) {
+            } catch (ParseException | MimeTypeParseException e) {
                 getErrorReporter().error( referer.getLocator(),
                     Messages.format(Messages.ERR_ILLEGAL_EXPECTED_MIME_TYPE,emt, e.getMessage()) );
                 // recover by using the default
-            } catch (MimeTypeParseException e) {
-                getErrorReporter().error( referer.getLocator(),
-                    Messages.format(Messages.ERR_ILLEGAL_EXPECTED_MIME_TYPE,emt, e.getMessage()) );
             }
         }
         // default
@@ -828,8 +827,7 @@ public final class SimpleTypeBuilder extends BindingComponent {
         XSFacet enumf = initiatingType.getFacet(XSFacet.FACET_ENUMERATION);
         if(enumf!=null) {
             String v = enumf.getValue().value;
-            if(v.equals("0") || v.equals("1"))
-                return true;
+            return v.equals("0") || v.equals("1");
         }
         return false;
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2017, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,7 +14,6 @@
  */
 module org.glassfish.jaxb.runtime {
     requires transitive jakarta.xml.bind;
-    requires java.compiler;
     requires java.desktop;
     requires java.logging;
 
@@ -36,6 +35,8 @@ module org.glassfish.jaxb.runtime {
     exports org.glassfish.jaxb.runtime.v2.model.runtime;
     exports org.glassfish.jaxb.runtime.v2.runtime;
     exports org.glassfish.jaxb.runtime.v2.runtime.reflect;
+    exports org.glassfish.jaxb.runtime.v2.runtime.output;
+    exports org.glassfish.jaxb.runtime.v2.runtime.property;
     exports org.glassfish.jaxb.runtime.v2.runtime.unmarshaller;
     exports org.glassfish.jaxb.runtime.v2.schemagen;
     exports org.glassfish.jaxb.runtime.v2.schemagen.xmlschema;

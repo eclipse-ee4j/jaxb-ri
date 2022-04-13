@@ -74,7 +74,7 @@ public abstract class Lister<BeanT,PropT,ItemT,PackT> {
 
 
     /**
-     * Gets a reference to the appropriate {@link Lister} object
+     * Gets a reference to the appropriate  object
      * if the field is a multi-value field. Otherwise null.
      *
      * @param fieldType
@@ -122,7 +122,7 @@ public abstract class Lister<BeanT,PropT,ItemT,PackT> {
      * Cache instances of {@link ArrayLister}s.
      */
     private static final Map<Class,WeakReference<Lister>> arrayListerCache =
-        Collections.synchronizedMap(new WeakHashMap<Class,WeakReference<Lister>>());
+        Collections.synchronizedMap(new WeakHashMap<>());
 
     /**
      * Creates a lister for array type.
@@ -161,11 +161,12 @@ public abstract class Lister<BeanT,PropT,ItemT,PackT> {
 
         @Override
         public org.glassfish.jaxb.runtime.v2.runtime.reflect.ListIterator<ItemT> iterator(final ItemT[] objects, XMLSerializer context) {
-            return new org.glassfish.jaxb.runtime.v2.runtime.reflect.ListIterator<ItemT>() {
-                int idx=0;
+            return new org.glassfish.jaxb.runtime.v2.runtime.reflect.ListIterator<>() {
+                int idx = 0;
+
                 @Override
                 public boolean hasNext() {
-                    return idx<objects.length;
+                    return idx < objects.length;
                 }
 
                 @Override
@@ -176,7 +177,7 @@ public abstract class Lister<BeanT,PropT,ItemT,PackT> {
         }
 
         @Override
-        public Pack startPacking(BeanT current, Accessor<BeanT, ItemT[]> acc) {
+        public Pack<ItemT> startPacking(BeanT current, Accessor<BeanT, ItemT[]> acc) {
             return new Pack<>(itemType);
         }
 
@@ -198,6 +199,7 @@ public abstract class Lister<BeanT,PropT,ItemT,PackT> {
     }
 
     public static final class Pack<ItemT> extends ArrayList<ItemT> {
+        private static final long serialVersionUID = 8543908122652908717L;
         private final Class<ItemT> itemType;
 
         public Pack(Class<ItemT> itemType) {
@@ -242,9 +244,9 @@ public abstract class Lister<BeanT,PropT,ItemT,PackT> {
         }
 
         @Override
-        public org.glassfish.jaxb.runtime.v2.runtime.reflect.ListIterator iterator(T collection, XMLSerializer context) {
-            final Iterator itr = collection.iterator();
-            return new org.glassfish.jaxb.runtime.v2.runtime.reflect.ListIterator() {
+        public org.glassfish.jaxb.runtime.v2.runtime.reflect.ListIterator<Object> iterator(T collection, XMLSerializer context) {
+            final Iterator<?> itr = collection.iterator();
+            return new org.glassfish.jaxb.runtime.v2.runtime.reflect.ListIterator<Object>() {
                 @Override
                 public boolean hasNext() {
                     return itr.hasNext();
@@ -442,7 +444,7 @@ public abstract class Lister<BeanT,PropT,ItemT,PackT> {
     }
 
     /**
-     * Gets the special {@link Lister} used to recover from an error.
+     * Gets the special  used to recover from an error.
      */
     @SuppressWarnings("unchecked")
     public static <A,B,C,D> Lister<A,B,C,D> getErrorInstance() {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,6 +15,12 @@ package com.sun.tools.xjc.reader.gbind;
  * @author Kohsuke Kawaguchi
  */
 public final class SinkNode extends Element {
+
+    /**
+     * Default constructor.
+     */
+    public SinkNode() {}
+
     @Override
     public String toString() {
         return "#sink";

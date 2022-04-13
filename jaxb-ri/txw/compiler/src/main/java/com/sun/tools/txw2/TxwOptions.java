@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2005, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -76,6 +76,16 @@ public class TxwOptions {
     public Language language;
 
     /**
+     * If true XML security features when parsing XML documents will be disabled.
+     * The default value is false.
+     * <p>
+     * Boolean
+     *
+     * @since 2.2.6
+     */
+    public boolean disableXmlSecurity;
+
+    /**
      * Type of the schema language.
      */
     public enum Language {
@@ -149,6 +159,10 @@ public class TxwOptions {
         }
         if (args[i].equals("-h")) {
             chainMethod = true;
+            return 1;
+        }
+        if (args[i].equals("-disableXmlSecurity")) {
+            disableXmlSecurity = true;
             return 1;
         }
         return 0;   // unrecognized

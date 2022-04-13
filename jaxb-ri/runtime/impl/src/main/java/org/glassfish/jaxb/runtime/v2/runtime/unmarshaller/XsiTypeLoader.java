@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,7 +12,6 @@ package org.glassfish.jaxb.runtime.v2.runtime.unmarshaller;
 
 import com.sun.istack.Nullable;
 import org.glassfish.jaxb.runtime.DatatypeConverterImpl;
-import org.glassfish.jaxb.core.v2.WellKnownNamespace;
 import org.glassfish.jaxb.runtime.v2.runtime.JaxBeanInfo;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -51,13 +50,14 @@ public class XsiTypeLoader extends Loader {
         loader.startElement(state,ea);
     }
 
+    @SuppressWarnings({"deprecation"})
     /*pacakge*/ static JaxBeanInfo parseXsiType(UnmarshallingContext.State state, TagName ea, @Nullable JaxBeanInfo defaultBeanInfo) throws SAXException {
         UnmarshallingContext context = state.getContext();
         JaxBeanInfo beanInfo = null;
 
         // look for @xsi:type
         Attributes atts = ea.atts;
-        int idx = atts.getIndex(WellKnownNamespace.XML_SCHEMA_INSTANCE,"type");
+        int idx = atts.getIndex(XMLConstants.W3C_XML_SCHEMA_INSTANCE_NS_URI,"type");
 
         if(idx>=0) {
             // we'll consume the value only when it's a recognized value,
@@ -105,8 +105,7 @@ public class XsiTypeLoader extends Loader {
 
     @Override
     public Collection<QName> getExpectedAttributes() {
-        final Collection<QName> expAttrs =  new HashSet<>();
-        expAttrs.addAll(super.getExpectedAttributes());
+        final Collection<QName> expAttrs = new HashSet<>(super.getExpectedAttributes());
         expAttrs.add(XsiTypeQNAME);
         return Collections.unmodifiableCollection(expAttrs);
     }

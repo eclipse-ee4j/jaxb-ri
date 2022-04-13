@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2005, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -47,7 +47,7 @@ public class Attribute extends XmlNode {
 
     @Override
     void generate(JDefinedClass clazz, NodeSet nset, Set<Prop> props) {
-        Set<JType> types = new HashSet<JType>();
+        Set<JType> types = new HashSet<>();
 
         for( Leaf l : collectChildren() ) {
             if (l instanceof Text) {

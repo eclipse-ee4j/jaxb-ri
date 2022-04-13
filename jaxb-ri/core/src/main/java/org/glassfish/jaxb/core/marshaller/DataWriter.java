@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2018, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -174,7 +174,6 @@ public class DataWriter extends XMLWriter
      * <p>This method is especially useful if the writer failed
      * with an exception the last time through.</p>
      *
-     * @see XMLWriter#reset()
      */
     @Override
     public void reset ()
@@ -312,7 +311,7 @@ public class DataWriter extends XMLWriter
      * @see XMLWriter#characters(char[], int, int)
      */
     @Override
-    public void characters (char ch[], int start, int length)
+    public void characters (char[] ch, int start, int length)
         throws SAXException
     {
         state = SEEN_DATA;

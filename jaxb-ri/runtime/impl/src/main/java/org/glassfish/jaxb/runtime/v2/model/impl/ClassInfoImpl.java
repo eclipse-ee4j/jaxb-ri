@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -67,7 +67,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
     /**
      * Lazily computed.
      *
-     * To avoid the cyclic references of the form C1 --base--> C2 --property--> C1.
+     * To avoid the cyclic references of the form C1 --base--{@literal >} C2 --property--{@literal >} C1.
      */
     private ClassInfoImpl<T,C,F,M> baseClass;
 
@@ -148,6 +148,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
     }        
 
     @Override
+    @SuppressWarnings({"unchecked"})
     public ClassInfoImpl<T,C,F,M> getBaseClass() {
         if (!baseClassComputed) {
             // compute the base class
@@ -191,7 +192,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
      * so this method always return null.
      *
      * @deprecated
-     *      you shouldn't be invoking this method on {@link ClassInfoImpl}.
+     *      you shouldn't be invoking this method on .
      */
     @Override
     @Deprecated
@@ -421,6 +422,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
      * extends {@link HashMap} to save memory.
      */
     private final class PropertySorter extends HashMap<String,Integer> implements Comparator<PropertyInfoImpl> {
+        private static final long serialVersionUID = 8074459976041391290L;
         /**
          * Mark property names that are used, so that we can report unused property names in the propOrder array.
          */
@@ -487,7 +489,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
             for( int i=0; i<used.length; i++ )
                 if(used[i]==null) {
                     String unusedName = propOrder[i];
-                    String nearest = EditDistance.findNearest(unusedName, new AbstractList<String>() {
+                    String nearest = EditDistance.findNearest(unusedName, new AbstractList<>() {
                         @Override
                         public String get(int index) {
                             return properties.get(index).getName();
@@ -498,7 +500,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
                             return properties.size();
                         }
                     });
-                    boolean isOverriding = (i > (properties.size()-1)) ? false : properties.get(i).hasAnnotation(OverrideAnnotationOf.class);
+                    boolean isOverriding = i <= (properties.size() - 1) && properties.get(i).hasAnnotation(OverrideAnnotationOf.class);
                     if (!isOverriding) {
                         builder.reportError(new IllegalAnnotationException(
                         Messages.PROPERTY_ORDER_CONTAINS_UNUSED_ENTRY.format(unusedName,nearest),ClassInfoImpl.this));
@@ -516,14 +518,16 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
     /**
      * Picks the first non-null argument, or null if all arguments are null.
      */
-    private static <T> T pickOne( T... args ) {
+    @SafeVarargs
+    private static <T> T pickOne(T... args ) {
         for( T arg : args )
             if(arg!=null)
                 return arg;
         return null;
     }
 
-    private static <T> List<T> makeSet( T... args ) {
+    @SafeVarargs
+    private static <T> List<T> makeSet(T... args ) {
         List<T> l = new FinalArrayList<>();
         for( T arg : args )
             if(arg!=null)   l.add(arg);
@@ -531,6 +535,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
     }
 
     private static final class ConflictException extends Exception {
+        private static final long serialVersionUID = -8261248191127673032L;
         final List<Annotation> annotations;
 
         public ConflictException(List<Annotation> one) {
@@ -539,6 +544,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
     }
 
     private static final class DuplicateException extends Exception {
+        private static final long serialVersionUID = -2996855754364938240L;
         final Annotation a1,a2;
         public DuplicateException(Annotation a1, Annotation a2) {
             this.a1 = a1;
@@ -549,13 +555,14 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
     /**
      * Represents 6 groups of secondary annotations
      */
-    private static enum SecondaryAnnotation {
-        JAVA_TYPE       (0x01, XmlJavaTypeAdapter.class),
-        ID_IDREF        (0x02, XmlID.class, XmlIDREF.class),
-        BINARY          (0x04, XmlInlineBinaryData.class, XmlMimeType.class, XmlAttachmentRef.class),
-        ELEMENT_WRAPPER (0x08, XmlElementWrapper.class),
-        LIST            (0x10, XmlList.class),
-        SCHEMA_TYPE     (0x20, XmlSchemaType.class);
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    private enum SecondaryAnnotation {
+        JAVA_TYPE       (0x01, new Class[] {XmlJavaTypeAdapter.class}),
+        ID_IDREF        (0x02, new Class[] {XmlID.class, XmlIDREF.class}),
+        BINARY          (0x04, new Class[] {XmlInlineBinaryData.class, XmlMimeType.class, XmlAttachmentRef.class}),
+        ELEMENT_WRAPPER (0x08, new Class[] {XmlElementWrapper.class}),
+        LIST            (0x10, new Class[] {XmlList.class}),
+        SCHEMA_TYPE     (0x20, new Class[] {XmlSchemaType.class});
 
         /**
          * Each constant gets an unique bit mask so that the presence/absence
@@ -567,7 +574,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
          */
         final Class<? extends Annotation>[] members;
 
-        SecondaryAnnotation(int bitMask, Class<? extends Annotation>... members) {
+        SecondaryAnnotation(int bitMask, Class<? extends Annotation>[] members) {
             this.bitMask = bitMask;
             this.members = members;
         }
@@ -581,7 +588,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
      * Each instance is also responsible for rejecting annotations
      * that are not allowed on that kind.
      */
-    private static enum PropertyGroup {
+    private enum PropertyGroup {
         TRANSIENT       (false,false,false,false,false,false),
         ANY_ATTRIBUTE   (true, false,false,false,false,false),
         ATTRIBUTE       (true, true, true, false,true, true ),
@@ -617,7 +624,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
     /**
      * All the annotations in JAXB to their internal index.
      */
-    private static final HashMap<Class,Integer> ANNOTATION_NUMBER_MAP = new HashMap<Class,Integer>();
+    private static final HashMap<Class,Integer> ANNOTATION_NUMBER_MAP = new HashMap<>();
     static {
         Class[] annotations = {
             XmlTransient.class,     // 0
@@ -666,6 +673,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
      *      {@code seed.readAllAnnotation()}, but taken as a parameter
      *      because the caller should know it already.
      */
+    @SuppressWarnings({"unchecked"})
     private void addProperty( PropertySeed<T,C,F,M> seed, Annotation[] annotations, boolean dummy ) {
         // since typically there's a very few annotations on a method,
         // this runs faster than checking for each annotation via readAnnotation(A)
@@ -818,19 +826,19 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
 
                 return;
             case ATTRIBUTE:
-                properties.add(createAttributeProperty(seed));
+                properties.add((PropertyInfoImpl<T, C, F, M>) createAttributeProperty(seed));
                 return;
             case VALUE:
-                properties.add(createValueProperty(seed));
+                properties.add((PropertyInfoImpl<T, C, F, M>) createValueProperty(seed));
                 return;
             case ELEMENT:
-                properties.add(createElementProperty(seed));
+                properties.add((PropertyInfoImpl<T, C, F, M>) createElementProperty(seed));
                 return;
             case ELEMENT_REF:
-                properties.add(createReferenceProperty(seed));
+                properties.add((PropertyInfoImpl<T, C, F, M>) createReferenceProperty(seed));
                 return;
             case MAP:
-                properties.add(createMapProperty(seed));
+                properties.add((PropertyInfoImpl<T, C, F, M>) createMapProperty(seed));
                 return;
             default:
                 assert false;
@@ -856,23 +864,23 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
         }
     }
 
-    protected ReferencePropertyInfoImpl<T,C,F,M> createReferenceProperty(PropertySeed<T,C,F,M> seed) {
+    protected ReferencePropertyInfo<T,C> createReferenceProperty(PropertySeed<T,C,F,M> seed) {
         return new ReferencePropertyInfoImpl<>(this,seed);
     }
 
-    protected AttributePropertyInfoImpl<T,C,F,M> createAttributeProperty(PropertySeed<T,C,F,M> seed) {
+    protected AttributePropertyInfo<T,C> createAttributeProperty(PropertySeed<T,C,F,M> seed) {
         return new AttributePropertyInfoImpl<>(this,seed);
     }
 
-    protected ValuePropertyInfoImpl<T,C,F,M> createValueProperty(PropertySeed<T,C,F,M> seed) {
+    protected ValuePropertyInfo<T,C> createValueProperty(PropertySeed<T,C,F,M> seed) {
         return new ValuePropertyInfoImpl<>(this,seed);
     }
 
-    protected ElementPropertyInfoImpl<T,C,F,M> createElementProperty(PropertySeed<T,C,F,M> seed) {
+    protected ElementPropertyInfo<T,C> createElementProperty(PropertySeed<T,C,F,M> seed) {
         return new ElementPropertyInfoImpl<>(this,seed);
     }
 
-    protected MapPropertyInfoImpl<T,C,F,M> createMapProperty(PropertySeed<T,C,F,M> seed) {
+    protected MapPropertyInfo<T,C> createMapProperty(PropertySeed<T,C,F,M> seed) {
         return new MapPropertyInfoImpl<>(this,seed);
     }
 
@@ -1001,12 +1009,8 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
             // is this a set method?
             propName = getPropertyNameFromSetMethod(name);
             if(propName!=null && arity==1) {
-                    List<M> propSetters = allSetters.get(propName);
-                    if(null == propSetters){
-                        propSetters = new ArrayList<>();
-                        allSetters.put(propName, propSetters);
-                    }
-                    propSetters.add(method);
+                List<M> propSetters = allSetters.computeIfAbsent(propName, k -> new ArrayList<>());
+                propSetters.add(method);
                 used = true; // used check performed later
             }
 

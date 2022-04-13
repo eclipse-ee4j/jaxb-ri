@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -376,7 +376,7 @@ public final class XmlSchemaGenerator<T,C,F,M> {
 
         if(logger.isLoggable(Level.FINE)) {
             // debug logging to see what's going on.
-            logger.log(Level.FINE,"Writing XML Schema for "+toString(),new StackRecorder());
+            logger.log(Level.FINE,"Writing XML Schema for "+ this, new StackRecorder());
         }
 
         // make it fool-proof
@@ -1351,7 +1351,7 @@ public final class XmlSchemaGenerator<T,C,F,M> {
             buf.append(",elementDecls=").append(elementDecls);
             buf.append(",enums=").append(enums);
             buf.append("]");
-            return super.toString();
+            return buf.toString();
         }
 
         /**
@@ -1370,7 +1370,7 @@ public final class XmlSchemaGenerator<T,C,F,M> {
          */
         abstract class ElementDeclaration {
             /**
-             * Returns true if two {@link ElementDeclaration}s are representing
+             * Returns true if two s are representing
              * the same schema fragment.
              */
             @Override
@@ -1427,7 +1427,6 @@ public final class XmlSchemaGenerator<T,C,F,M> {
 
     /**
      * Examine the specified element ref and determine if a swaRef attribute needs to be generated
-     * @param typeRef
      */
     private boolean generateSwaRefAdapter(NonElementRef<T,C> typeRef) {
         return generateSwaRefAdapter(typeRef.getSource());
@@ -1445,7 +1444,7 @@ public final class XmlSchemaGenerator<T,C,F,M> {
     }
 
     /**
-     * Debug information of what's in this {@link XmlSchemaGenerator}.
+     * Debug information of what's in this .
      */
     @Override
     public String toString() {
@@ -1563,7 +1562,7 @@ public final class XmlSchemaGenerator<T,C,F,M> {
      * JAX-RPC wants the namespaces to be sorted in the reverse order
      * so that the empty namespace "" comes to the very end. Don't ask me why.
      */
-    private static final Comparator<String> NAMESPACE_COMPARATOR = new Comparator<String>() {
+    private static final Comparator<String> NAMESPACE_COMPARATOR = new Comparator<>() {
         @Override
         public int compare(String lhs, String rhs) {
             return -lhs.compareTo(rhs);

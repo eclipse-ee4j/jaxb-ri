@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -59,9 +59,9 @@ public abstract class JModuleDirective {
 
     /**
      * Compares this module directive to the specified object.
-     * @param other The object to compare this {@link JModuleDirective} against.
+     * @param other The object to compare this  against.
      * @return {@code true} if the argument is not {@code null}
-     *         and is a {@link JModuleDirective} object with the same type
+     *         and is a  object with the same type
      *         and equal name.
      */
     @Override

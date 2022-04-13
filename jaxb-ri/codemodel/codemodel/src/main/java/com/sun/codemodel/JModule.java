@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2016, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -39,7 +39,6 @@ public class JModule {
     /**
      * Creates an instance of Java module.
      * @param name Java module name. Value can not be {@code null}
-     * @param version Java module version.
      */
     JModule(final String name) {
         if (name == null) {

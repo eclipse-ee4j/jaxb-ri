@@ -30,7 +30,7 @@ public class CompactSyntaxTokenManager implements CompactSyntaxConstants
   public  java.io.PrintStream debugStream = System.out;
   /** Set debug output. */
   public  void setDebugStream(java.io.PrintStream ds) { debugStream = ds; }
-private final int jjStopStringLiteralDfa_0(int pos, long active0)
+private int jjStopStringLiteralDfa_0(int pos, long active0)
 {
    switch (pos)
    {
@@ -137,7 +137,7 @@ private final int jjStopStringLiteralDfa_0(int pos, long active0)
          return -1;
    }
 }
-private final int jjStartNfa_0(int pos, long active0)
+private int jjStartNfa_0(int pos, long active0)
 {
    return jjMoveNfa_0(jjStopStringLiteralDfa_0(pos, active0), pos + 1);
 }
@@ -1002,7 +1002,7 @@ private int jjMoveNfa_0(int startState, int curPos)
       }
       else
       {
-         int hiByte = (int)(curChar >> 8);
+         int hiByte = curChar >> 8;
          int i1 = hiByte >> 6;
          long l1 = 1L << (hiByte & 077);
          int i2 = (curChar & 0xff) >> 6;
@@ -1256,7 +1256,7 @@ private int jjMoveNfa_1(int startState, int curPos)
       }
       else
       {
-         int hiByte = (int)(curChar >> 8);
+         int hiByte = curChar >> 8;
          int i1 = hiByte >> 6;
          long l1 = 1L << (hiByte & 077);
          int i2 = (curChar & 0xff) >> 6;
@@ -1396,7 +1396,7 @@ private int jjMoveNfa_2(int startState, int curPos)
       }
       else
       {
-         int hiByte = (int)(curChar >> 8);
+         int hiByte = curChar >> 8;
          int i1 = hiByte >> 6;
          long l1 = 1L << (hiByte & 077);
          int i2 = (curChar & 0xff) >> 6;
@@ -1437,7 +1437,7 @@ static final int[] jjnextStates = {
    16, 17, 18, 19, 21, 25, 26, 27, 28, 30, 35, 36, 38, 39, 40, 10, 
    11, 13, 14, 3, 6, 7, 8, 
 };
-private static final boolean jjCanMove_0(int hiByte, int i1, int i2, long l1, long l2)
+private static boolean jjCanMove_0(int hiByte, int i1, int i2, long l1, long l2)
 {
    switch(hiByte)
    {
@@ -1449,7 +1449,7 @@ private static final boolean jjCanMove_0(int hiByte, int i1, int i2, long l1, lo
          return false;
    }
 }
-private static final boolean jjCanMove_1(int hiByte, int i1, int i2, long l1, long l2)
+private static boolean jjCanMove_1(int hiByte, int i1, int i2, long l1, long l2)
 {
    switch(hiByte)
    {
@@ -1505,7 +1505,7 @@ private static final boolean jjCanMove_1(int hiByte, int i1, int i2, long l1, lo
          return false;
    }
 }
-private static final boolean jjCanMove_2(int hiByte, int i1, int i2, long l1, long l2)
+private static boolean jjCanMove_2(int hiByte, int i1, int i2, long l1, long l2)
 {
    switch(hiByte)
    {

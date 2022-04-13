@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -34,12 +34,12 @@ public final class SchemaDocumentImpl implements SchemaDocument
     /**
      * {@link SchemaDocumentImpl}s that are referenced from this document.
      */
-    final Set<SchemaDocumentImpl> references = new HashSet<SchemaDocumentImpl>();
+    final Set<SchemaDocumentImpl> references = new HashSet<>();
 
     /**
      * {@link SchemaDocumentImpl}s that are referencing this document.
      */
-    final Set<SchemaDocumentImpl> referers = new HashSet<SchemaDocumentImpl>();
+    final Set<SchemaDocumentImpl> referers = new HashSet<>();
 
     protected SchemaDocumentImpl(SchemaImpl schema, String _schemaDocumentURI) {
         this.schema = schema;
@@ -59,7 +59,7 @@ public final class SchemaDocumentImpl implements SchemaDocument
     }
 
     public Set<SchemaDocument> getReferencedDocuments() {
-        return Collections.<SchemaDocument>unmodifiableSet(references);
+        return Collections.unmodifiableSet(references);
     }
 
     public Set<SchemaDocument> getIncludedDocuments() {
@@ -69,7 +69,7 @@ public final class SchemaDocumentImpl implements SchemaDocument
     public Set<SchemaDocument> getImportedDocuments(String targetNamespace) {
         if(targetNamespace==null)
             throw new IllegalArgumentException();
-        Set<SchemaDocument> r = new HashSet<SchemaDocument>();
+        Set<SchemaDocument> r = new HashSet<>();
         for (SchemaDocumentImpl doc : references) {
             if(doc.getTargetNamespace().equals(targetNamespace))
                 r.add(doc);
@@ -90,7 +90,7 @@ public final class SchemaDocumentImpl implements SchemaDocument
     }
 
     public Set<SchemaDocument> getReferers() {
-        return Collections.<SchemaDocument>unmodifiableSet(referers);
+        return Collections.unmodifiableSet(referers);
     }
 
     @Override

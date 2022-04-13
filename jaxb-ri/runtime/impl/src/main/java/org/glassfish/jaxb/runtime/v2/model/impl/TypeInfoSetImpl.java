@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -69,7 +69,7 @@ class TypeInfoSetImpl<T,C,F,M> implements TypeInfoSet<T,C,F,M> {
      */
     @XmlJavaTypeAdapter(RuntimeUtil.ToStringAdapter.class)
     private final Map<C,ClassInfoImpl<T,C,F,M>> beans
-            = new LinkedHashMap<C,ClassInfoImpl<T,C,F,M>>();
+            = new LinkedHashMap<>();
 
     @XmlTransient
     private final Map<C,ClassInfoImpl<T,C,F,M>> beansView =
@@ -82,12 +82,12 @@ class TypeInfoSetImpl<T,C,F,M> implements TypeInfoSet<T,C,F,M> {
         new LinkedHashMap<>();
     
     private final Iterable<? extends ElementInfoImpl<T,C,F,M>> allElements =
-        new Iterable<ElementInfoImpl<T,C,F,M>>() {
-            @Override
-            public Iterator<ElementInfoImpl<T,C,F,M>> iterator() {
-                return new FlattenIterator<>(elementMappings.values());
-            }
-        };
+            new Iterable<>() {
+                @Override
+                public Iterator<ElementInfoImpl<T, C, F, M>> iterator() {
+                    return new FlattenIterator<>(elementMappings.values());
+                }
+            };
 
     /**
      * {@link TypeInfo} for {@code xs:anyType}.
@@ -261,9 +261,7 @@ class TypeInfoSetImpl<T,C,F,M> implements TypeInfoSet<T,C,F,M> {
         if(ei.getScope()!=null)
             scope = ei.getScope().getClazz();
 
-        Map<QName,ElementInfoImpl<T,C,F,M>> m = elementMappings.get(scope);
-        if(m==null)
-            elementMappings.put(scope,m=new LinkedHashMap<>());
+        Map<QName, ElementInfoImpl<T, C, F, M>> m = elementMappings.computeIfAbsent(scope, k -> new LinkedHashMap<>());
 
         ElementInfoImpl<T,C,F,M> existing = m.put(ei.getElementName(),ei);
 
@@ -297,9 +295,7 @@ class TypeInfoSetImpl<T,C,F,M> implements TypeInfoSet<T,C,F,M> {
                     continue;
 
                 String uri = xs.namespace();
-                Map<String,String> m = xmlNsCache.get(uri);
-                if(m==null)
-                    xmlNsCache.put(uri,m=new HashMap<>());
+                Map<String, String> m = xmlNsCache.computeIfAbsent(uri, k -> new HashMap<>());
 
                 for( XmlNs xns : xs.xmlns() ) {
                     m.put(xns.prefix(),xns.namespaceURI());

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,7 +10,6 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime;
 
-import org.glassfish.jaxb.core.v2.WellKnownNamespace;
 import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimeTypeInfo;
 import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.DomLoader;
 import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.Loader;
@@ -136,11 +135,10 @@ final class AnyTypeBeanInfo extends JaxBeanInfo<Object> implements AttributeAcce
             if ("xmlns".equals(a.getName())) {
                 if (element instanceof org.w3c.dom.Element) {
                     context.declareNamespace(a.getValue(), null, false);
-                    continue;
                 } else {
                     context.force(a.getValue(), "");
-                    continue;
                 }
+                continue;
             }
             String nsUri = a.getNamespaceURI();
             if(nsUri!=null && nsUri.length()>0)

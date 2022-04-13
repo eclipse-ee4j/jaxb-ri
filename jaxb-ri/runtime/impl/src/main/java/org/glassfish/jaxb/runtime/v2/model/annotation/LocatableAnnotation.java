@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -32,6 +32,7 @@ public class LocatableAnnotation implements InvocationHandler, Locatable, Locati
      * Wraps the annotation into a proxy so that the returned object will also implement
      * {@link Locatable}.
      */
+    @SuppressWarnings({"unchecked"})
     public static <A extends Annotation> A create( A annotation, Locatable parentSourcePos ) {
         if(annotation==null)    return null;
         Class<? extends Annotation> type = annotation.annotationType();
@@ -106,7 +107,7 @@ public class LocatableAnnotation implements InvocationHandler, Locatable, Locati
     /**
      * List of {@link Quick} implementations keyed by their annotation type.
      */
-    private static final Map<Class,Quick> quicks = new HashMap<Class, Quick>();
+    private static final Map<Class,Quick> quicks = new HashMap<>();
 
     static {
         for( Quick q : Init.getAll() ) {

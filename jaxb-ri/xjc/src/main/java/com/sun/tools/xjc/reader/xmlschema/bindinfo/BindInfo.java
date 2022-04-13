@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -34,7 +34,6 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import com.sun.codemodel.JDocComment;
-import org.glassfish.jaxb.core.v2.WellKnownNamespace;
 import com.sun.tools.xjc.SchemaCache;
 import com.sun.tools.xjc.model.CCustomizations;
 import com.sun.tools.xjc.model.CPluginCustomization;
@@ -72,17 +71,19 @@ public final class BindInfo implements Iterable<BIDeclaration> {
     private Documentation documentation;
 
     /**
-     * Returns true if this {@link BindInfo} doesn't contain any useful
+     * Default constructor.
+     */
+    public BindInfo() {}
+
+    /**
+     * Returns true if this  doesn't contain any useful
      * information.
      *
-     * This flag is used to discard unused {@link BindInfo}s early to save memory footprint.
+     * This flag is used to discard unused s early to save memory footprint.
      */
     public boolean isPointless() {
         if(size()>0)     return false;
-        if(documentation!=null && !documentation.contents.isEmpty())
-            return false;
-
-        return true;
+        return documentation == null || documentation.contents.isEmpty();
     }
 
     private static final class Documentation {
@@ -195,7 +196,7 @@ public final class BindInfo implements Iterable<BIDeclaration> {
      * Gets all the declarations
      */ 
     public BIDeclaration[] getDecls() {
-        return decls.toArray(new BIDeclaration[decls.size()]);
+        return decls.toArray(new BIDeclaration[0]);
     }
 
     /**
@@ -210,7 +211,7 @@ public final class BindInfo implements Iterable<BIDeclaration> {
         StringBuilder buf = new StringBuilder();
         for (Object c : documentation.contents) {
             if(c instanceof String) {
-                buf.append(c.toString());
+                buf.append(c);
             }
             if(c instanceof Element) {
                 Transformer t = builder.getIdentityTransformer();

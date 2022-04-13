@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -158,7 +158,7 @@ public abstract class JExpr {
     }
 
     public static JExpression lit(long n) {
-        return new JAtom(Long.toString(n) + "L");
+        return new JAtom(n + "L");
     }
 
     public static JExpression lit(float f) {
@@ -176,7 +176,7 @@ public abstract class JExpr {
     	}
     	else
     	{
-    		return new JAtom(Float.toString(f) + "F");
+    		return new JAtom(f + "F");
     	}
     }
 
@@ -195,11 +195,11 @@ public abstract class JExpr {
     	}
     	else
     	{
-    		return new JAtom(Double.toString(d) + "D");
+    		return new JAtom(d + "D");
     	}
     }
 
-    static final String charEscape = "\b\t\n\f\r\"\'\\";
+    static final String charEscape = "\b\t\n\f\r\"'\\";
     static final String charMacro  = "btnfr\"'\\";
     
     /**

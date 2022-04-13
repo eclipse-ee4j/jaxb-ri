@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2005, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -19,7 +19,7 @@ import com.sun.codemodel.JType;
  */
 public interface Text {
     /**
-     * Obtains the Java class of this {@link Text}.
+     * Obtains the Java class of this .
      */
     JType getDatatype(NodeSet nset);
 }

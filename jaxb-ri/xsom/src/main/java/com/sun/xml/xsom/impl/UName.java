@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -78,10 +78,8 @@ public final class UName {
     /**
      * Compares {@link UName}s by their names.
      */
-    public static final Comparator comparator = new Comparator() {
-        public int compare(Object o1, Object o2) {
-            UName lhs = (UName)o1;
-            UName rhs = (UName)o2;
+    public static final Comparator<UName> comparator = new Comparator<UName>() {
+        public int compare(UName lhs, UName rhs) {
             int r = lhs.nsUri.compareTo(rhs.nsUri);
             if(r!=0)    return r;
             return lhs.localName.compareTo(rhs.localName);

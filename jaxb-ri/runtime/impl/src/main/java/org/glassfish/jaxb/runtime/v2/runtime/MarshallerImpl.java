@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -135,7 +135,7 @@ public /*to make unit tests happy*/ final class MarshallerImpl extends AbstractM
     /**
      * Creates {@link XmlOutput} from the given {@link Result} object.
      */
-    final XmlOutput createXmlOutput(Result result) throws JAXBException {
+    XmlOutput createXmlOutput(Result result) throws JAXBException {
         if (result instanceof SAXResult)
             return new SAXOutput(((SAXResult) result).getHandler());
 
@@ -184,7 +184,7 @@ public /*to make unit tests happy*/ final class MarshallerImpl extends AbstractM
     /**
      * Creates an appropriate post-init action object.
      */
-    final Runnable createPostInitAction(Result result) {
+    Runnable createPostInitAction(Result result) {
         if (result instanceof DOMResult) {
             Node node = ((DOMResult) result).getNode();
             return new DomPostInitAction(node,serializer);
@@ -201,7 +201,7 @@ public /*to make unit tests happy*/ final class MarshallerImpl extends AbstractM
     /**
      * Used by {@link BridgeImpl} to write an arbitrary object as a fragment.
      */
-    protected final <T> void write(Name rootTagName, JaxBeanInfo<T> bi, T obj, XmlOutput out,Runnable postInitAction) throws JAXBException {
+    protected <T> void write(Name rootTagName, JaxBeanInfo<T> bi, T obj, XmlOutput out, Runnable postInitAction) throws JAXBException {
         try {
             try {
                 prewrite(out, true, postInitAction);
@@ -218,11 +218,7 @@ public /*to make unit tests happy*/ final class MarshallerImpl extends AbstractM
                 }
                 serializer.endElement();
                 postwrite();
-            } catch( SAXException e ) {
-                throw new MarshalException(e);
-            } catch (IOException e) {
-                throw new MarshalException(e);
-            } catch (XMLStreamException e) {
+            } catch( SAXException | XMLStreamException | IOException e ) {
                 throw new MarshalException(e);
             } finally {
                 serializer.close();
@@ -268,11 +264,7 @@ public /*to make unit tests happy*/ final class MarshallerImpl extends AbstractM
                 prewrite(out,isFragment(),postInitAction);
                 serializer.childAsRoot(obj);
                 postwrite();
-            } catch( SAXException e ) {
-                throw new MarshalException(e);
-            } catch (IOException e) {
-                throw new MarshalException(e);
-            } catch (XMLStreamException e) {
+            } catch( SAXException | XMLStreamException | IOException e ) {
                 throw new MarshalException(e);
             } finally {
                 serializer.close();

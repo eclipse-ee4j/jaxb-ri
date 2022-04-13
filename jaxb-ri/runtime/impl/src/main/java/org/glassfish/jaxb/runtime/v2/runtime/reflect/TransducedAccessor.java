@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -51,6 +51,11 @@ import java.util.concurrent.Callable;
  * @author Kohsuke Kawaguchi (kohsuke.kawaguchi@sun.com)
  */
 public abstract class TransducedAccessor<BeanT> {
+
+    /**
+     * Default constructor.
+     */
+    protected TransducedAccessor() {}
 
     /**
      * @see Transducer#useNamespace()
@@ -113,7 +118,7 @@ public abstract class TransducedAccessor<BeanT> {
 
 
     /**
-     * Gets the {@link TransducedAccessor} appropriately configured for
+     * Gets the  appropriately configured for
      * the given property.
      *
      * <p>
@@ -283,9 +288,7 @@ public abstract class TransducedAccessor<BeanT> {
             TargetT t;
             try {
                 t = (TargetT)callable.call();
-            } catch (SAXException e) {// from callable.call
-                throw e;
-            } catch (RuntimeException e) {// from callable.call
+            } catch (SAXException | RuntimeException e) {// from callable.call
                 throw e;
             } catch (Exception e) {// from callable.call
                 throw new SAXException2(e);
@@ -307,9 +310,7 @@ public abstract class TransducedAccessor<BeanT> {
                             }
                         } catch (AccessorException e) {
                             context.handleError(e);
-                        } catch (SAXException e) {// from callable.call
-                            throw e;
-                        } catch (RuntimeException e) {// from callable.call
+                        } catch (SAXException | RuntimeException e) {// from callable.call
                             throw e;
                         } catch (Exception e) {// from callable.call
                             throw new SAXException2(e);

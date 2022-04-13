@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -29,16 +29,16 @@ public interface XSFacet extends XSComponent
     
     
     // well-known facet name constants
-    final static String FACET_LENGTH            = "length";
-    final static String FACET_MINLENGTH         = "minLength";
-    final static String FACET_MAXLENGTH         = "maxLength";
-    final static String FACET_PATTERN           = "pattern";
-    final static String FACET_ENUMERATION       = "enumeration";
-    final static String FACET_TOTALDIGITS       = "totalDigits";
-    final static String FACET_FRACTIONDIGITS    = "fractionDigits";
-    final static String FACET_MININCLUSIVE      = "minInclusive";
-    final static String FACET_MAXINCLUSIVE      = "maxInclusive";
-    final static String FACET_MINEXCLUSIVE      = "minExclusive";
-    final static String FACET_MAXEXCLUSIVE      = "maxExclusive";
-    final static String FACET_WHITESPACE        = "whiteSpace";
+    String FACET_LENGTH            = "length";
+    String FACET_MINLENGTH         = "minLength";
+    String FACET_MAXLENGTH         = "maxLength";
+    String FACET_PATTERN           = "pattern";
+    String FACET_ENUMERATION       = "enumeration";
+    String FACET_TOTALDIGITS       = "totalDigits";
+    String FACET_FRACTIONDIGITS    = "fractionDigits";
+    String FACET_MININCLUSIVE      = "minInclusive";
+    String FACET_MAXINCLUSIVE      = "maxInclusive";
+    String FACET_MINEXCLUSIVE      = "minExclusive";
+    String FACET_MAXEXCLUSIVE      = "maxExclusive";
+    String FACET_WHITESPACE        = "whiteSpace";
 }

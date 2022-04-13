@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -252,7 +252,7 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
     public void onEnterElementConsumed(
             String uri, String localName, String qname,Attributes atts) throws SAXException {
         attStack.push(currentAtts=new AttributesImpl(atts));
-        nsEffectiveStack.push( Integer.valueOf(nsEffectivePtr) );
+        nsEffectiveStack.push(nsEffectivePtr);
         nsEffectivePtr = namespaces.size();
     }
 
@@ -262,7 +262,7 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
             currentAtts = null;
         else
             currentAtts = (AttributesImpl)attStack.peek();
-        nsEffectivePtr = ((Integer)nsEffectiveStack.pop()).intValue();
+        nsEffectivePtr = (Integer) nsEffectiveStack.pop();
     }
 
     public void endElement(String uri, String localname, String qname)
@@ -508,10 +508,9 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
     protected void unexpectedX(String token) throws SAXException {
         throw new SAXParseException(MessageFormat.format(
                 "Unexpected {0} appears at line {1} column {2}",
-                new Object[]{
-                        token,
-                        Integer.valueOf(getLocator().getLineNumber()),
-                        Integer.valueOf(getLocator().getColumnNumber()) }),
+                token,
+                getLocator().getLineNumber(),
+                getLocator().getColumnNumber()),
                 getLocator());
     }
 

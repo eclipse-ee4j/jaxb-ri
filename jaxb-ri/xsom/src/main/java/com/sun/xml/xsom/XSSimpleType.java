@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -47,7 +47,7 @@ public interface XSSimpleType extends XSType, XSContentType
     XSVariety getVariety();
 
     /**
-     * Gets the ancestor primitive {@link XSSimpleType} if
+     * Gets the ancestor primitive  if
      * this type is {@link XSVariety#ATOMIC atomic}.
      *
      * @return
@@ -87,13 +87,13 @@ public interface XSSimpleType extends XSType, XSContentType
     boolean isFinal(XSVariety v);
     
     /**
-     * If this {@link XSSimpleType} is redefined by another simple type,
+     * If this  is redefined by another simple type,
      * return that component.
      *
      * @return null
      *      if this component has not been redefined.
      */
-    public XSSimpleType getRedefinedBy();
+    XSSimpleType getRedefinedBy();
 
     /**
      * Gets the effective facet object of the given name.

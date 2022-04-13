@@ -89,7 +89,7 @@ class GrammarBuilderImpl implements Grammar, Div {
     public void topLevelAnnotation(ParsedElementAnnotation ea) throws BuildException {
     	// Harshit : Fixed issue in handling of annotations
     	if (additionalElementAnnotations==null) {
-            additionalElementAnnotations = new ArrayList<Element>();
+            additionalElementAnnotations = new ArrayList<>();
         }
         additionalElementAnnotations.add(((ElementWrapper)ea).element);
         if (grammar.annotation==null) {

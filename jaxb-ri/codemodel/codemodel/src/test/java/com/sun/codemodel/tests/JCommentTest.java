@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2021, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,6 +16,8 @@ import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JDocComment;
 import com.sun.codemodel.writer.OutputStreamCodeWriter;
 import java.io.ByteArrayOutputStream;
+import java.nio.charset.StandardCharsets;
+
 import junit.framework.TestCase;
 
 /**
@@ -36,7 +38,7 @@ public class JCommentTest extends TestCase {
         OutputStreamCodeWriter fileCodeWriter = new OutputStreamCodeWriter(os, "UTF-8");
         model.build(fileCodeWriter);
 
-        String generatedClass = os.toString("UTF-8");
+        String generatedClass = os.toString(StandardCharsets.UTF_8);
         System.out.println(generatedClass);
         assertTrue(generatedClass.contains("<b>"));
         assertTrue(generatedClass.contains("</p>"));

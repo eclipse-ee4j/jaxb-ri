@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,6 +16,7 @@ import com.sun.xml.xsom.XSType;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -26,22 +27,22 @@ import java.util.Set;
  */
 class ImplUtil {
     private static XSType[] listDirectSubstitutables( XSType _this ) {
-        ArrayList r = new ArrayList();
+        List<XSType> r = new ArrayList<>();
 
         // TODO: handle @block
-        Iterator itr = ((SchemaImpl)_this.getOwnerSchema()).parent.iterateTypes();
+        Iterator<XSType> itr = ((SchemaImpl)_this.getOwnerSchema()).parent.iterateTypes();
         while( itr.hasNext() ) {
-            XSType t = (XSType)itr.next();
+            XSType t = itr.next();
             if( t.getBaseType()==_this )
                 r.add(t);
         }
-        return (XSType[]) r.toArray(new XSType[r.size()]);
+        return r.toArray(new XSType[0]);
     }
 
     public static XSType[] listSubstitutables( XSType _this ) {
-        Set substitables = new HashSet();
+        Set<XSType> substitables = new HashSet<>();
         buildSubstitutables( _this, substitables );
-        return (XSType[]) substitables.toArray(new XSType[substitables.size()]);
+        return substitables.toArray(new XSType[0]);
     }
 
     public static void buildSubstitutables( XSType _this, Set substitutables ) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,6 +13,7 @@ package org.glassfish.jaxb.runtime.v2.schemagen.xmlschema;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -48,9 +49,6 @@ public abstract class JaxbContainer {
         this.deployments = new ArrayList<>();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public List<JaxbDeployment> getDeployments() {
         return Collections.unmodifiableList(this.deployments);
     }
@@ -78,7 +76,7 @@ public abstract class JaxbContainer {
 
         JaxbContainer that = (JaxbContainer) o;
 
-        return !(deployments != null ? !deployments.equals(that.deployments) : that.deployments != null);
+        return !(!Objects.equals(deployments, that.deployments));
 
     }
 

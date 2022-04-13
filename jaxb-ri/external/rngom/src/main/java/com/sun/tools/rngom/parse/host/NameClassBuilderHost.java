@@ -74,8 +74,8 @@ final class NameClassBuilderHost extends Base implements NameClassBuilder {
     }
 
     public ParsedNameClass makeChoice(List _nameClasses, Location _loc, Annotations _anno) {
-        List<ParsedNameClass> lnc = new ArrayList<ParsedNameClass>();
-        List<ParsedNameClass> rnc = new ArrayList<ParsedNameClass>();
+        List<ParsedNameClass> lnc = new ArrayList<>();
+        List<ParsedNameClass> rnc = new ArrayList<>();
         for( int i=0; i<_nameClasses.size(); i++ ) {
             lnc.add(((ParsedNameClassHost)_nameClasses.get(i)).lhs);
             rnc.add(((ParsedNameClassHost)_nameClasses.get(i)).rhs);

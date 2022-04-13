@@ -36,7 +36,7 @@ public interface Context extends ValidationContext {
     Enumeration prefixes();
     
     /**
-     * Returns the immutable snapshot of this {@link Context}.
+     * Returns the immutable snapshot of this .
      */
     Context copy();
 }

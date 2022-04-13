@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -35,12 +35,10 @@ public class Driver {
                 cl.setPackageAssertionStatus("com.sun", true);
             }
 
-            Class driver = cl.loadClass("com.sun.tools.xjc.Driver");
-            Method mainMethod = driver.getDeclaredMethod("main", new Class[]{String[].class});
+            Class<?> driver = cl.loadClass("com.sun.tools.xjc.Driver");
+            Method mainMethod = driver.getDeclaredMethod("main", String[].class);
             try {
                 mainMethod.invoke(null,new Object[]{args});
-            } catch (IllegalAccessException e) {
-                throw e;
             } catch (InvocationTargetException e) {
                 if(e.getTargetException()!=null)
                     throw e.getTargetException();

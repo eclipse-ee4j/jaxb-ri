@@ -50,6 +50,10 @@ public abstract class Coordinator implements ErrorHandler, ValidationEventHandle
     private final HashMap<Class<? extends XmlAdapter>,XmlAdapter> adapters =
             new HashMap<>();
 
+    /**
+     * Default constructor.
+     */
+    protected Coordinator() {};
 
     public final XmlAdapter putAdapter(Class<? extends XmlAdapter> c, XmlAdapter a) {
         if(a==null)
@@ -86,7 +90,7 @@ public abstract class Coordinator implements ErrorHandler, ValidationEventHandle
     private Coordinator old;
 
     /**
-     * Called whenever an execution flow enters the realm of this {@link Coordinator}.
+     * Called whenever an execution flow enters the realm of this .
      */
     protected final void pushCoordinator() {
         old = activeTable.get();
@@ -94,7 +98,7 @@ public abstract class Coordinator implements ErrorHandler, ValidationEventHandle
     }
 
     /**
-     * Called whenever an execution flow exits the realm of this {@link Coordinator}.
+     * Called whenever an execution flow exits the realm of this .
      */
     protected final void popCoordinator() {
         if (old != null)

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2019, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,9 +13,9 @@ module com.sun.xml.bind.osgi {
     requires transitive jakarta.xml.bind;
     requires transitive jakarta.activation;
     requires transitive java.xml;
-    requires java.compiler;
+    requires transitive java.compiler;
     requires java.desktop;
-    requires java.logging;
+    requires transitive java.logging;
     requires static jdk.compiler;
 
     exports com.sun.istack;
@@ -50,15 +50,26 @@ module com.sun.xml.bind.osgi {
     exports org.glassfish.jaxb.runtime.v2.model.impl;
     exports org.glassfish.jaxb.runtime.v2.model.runtime;
     exports org.glassfish.jaxb.runtime.v2.runtime;
+    exports org.glassfish.jaxb.runtime.v2.runtime.reflect;
+    exports org.glassfish.jaxb.runtime.v2.runtime.output;
+    exports org.glassfish.jaxb.runtime.v2.runtime.property;
     exports org.glassfish.jaxb.runtime.v2.runtime.unmarshaller;
     exports org.glassfish.jaxb.runtime.v2.schemagen;
     exports org.glassfish.jaxb.runtime.v2.schemagen.xmlschema;
     exports org.glassfish.jaxb.runtime.v2.util;
 
     exports com.sun.tools.xjc;
-    exports com.sun.tools.xjc.reader;
-    exports com.sun.tools.xjc.reader.internalizer;
     exports com.sun.tools.xjc.api;
+    exports com.sun.tools.xjc.generator.bean;
+    exports com.sun.tools.xjc.generator.bean.field;
+    exports com.sun.tools.xjc.model;
+    exports com.sun.tools.xjc.model.nav;
+    exports com.sun.tools.xjc.outline;
+    exports com.sun.tools.xjc.reader;
+    exports com.sun.tools.xjc.reader.gbind;
+    exports com.sun.tools.xjc.reader.internalizer;
+    exports com.sun.tools.xjc.reader.xmlschema;
+    exports com.sun.tools.xjc.reader.xmlschema.bindinfo;
     exports com.sun.tools.xjc.util;
 
     exports com.sun.tools.jxc;
@@ -95,6 +106,8 @@ module com.sun.xml.bind.osgi {
     exports com.sun.xml.xsom;
     exports com.sun.xml.xsom.util;
     exports com.sun.xml.xsom.visitor;
+    exports com.sun.xml.xsom.impl;
+    exports com.sun.xml.xsom.impl.parser;
     exports com.sun.xml.xsom.impl.util;
     exports com.sun.xml.xsom.parser;
 

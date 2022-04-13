@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2013, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -28,6 +28,7 @@ import java.util.logging.Logger;
  *
  * Has *package private* access to avoid inappropriate usage.
  */
+@SuppressWarnings({"unchecked"})
 final class Utils {
 
     private static final Logger LOGGER = Logger.getLogger(Utils.class.getName());
@@ -39,11 +40,11 @@ final class Utils {
 
     static { // we statically initializing REFLECTION_NAVIGATOR property
         try {
-            final Class refNav = Class.forName("org.glassfish.jaxb.core.v2.model.nav.ReflectionNavigator");
+            final Class<?> refNav = Class.forName("org.glassfish.jaxb.core.v2.model.nav.ReflectionNavigator");
 
             // requires accessClassInPackage privilege
             final Method getInstance = AccessController.doPrivileged(
-                    new PrivilegedAction<Method>() {
+                    new PrivilegedAction<>() {
                         @Override
                         public Method run() {
                             try {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -30,10 +30,10 @@ public class EmptyImpl extends ComponentImpl implements ContentTypeImpl {
     public XSParticle asParticle()      { return null; }
     public XSContentType asEmpty()      { return this; }
     
-    public Object apply( XSContentTypeFunction function ) {
+    public <T> T apply( XSContentTypeFunction<T> function ) {
         return function.empty(this);
     }
-    public Object apply( XSFunction function ) {
+    public <T> T apply( XSFunction<T> function ) {
         return function.empty(this);
     }
     public void visit( XSVisitor visitor ) {

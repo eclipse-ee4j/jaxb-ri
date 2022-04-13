@@ -35,7 +35,7 @@ public class Uri {
   private static final String HEX_DIGITS = "0123456789abcdef";
 
   public static String escapeDisallowedChars(String s) {
-    StringBuffer buf = null;
+    StringBuilder buf = null;
     int len = s.length();
     int done = 0;
     for (;;) {
@@ -51,7 +51,7 @@ public class Uri {
 	i++;
       }
       if (buf == null)
-	buf = new StringBuffer();
+	buf = new StringBuilder();
       if (i > done) {
 	buf.append(s.substring(done, i));
 	done = i;

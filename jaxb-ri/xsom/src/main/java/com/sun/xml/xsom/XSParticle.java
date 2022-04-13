@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,7 +25,7 @@ public interface XSParticle extends XSContentType
      * Gets the max occurs property.
      * 
      * @return
-     *      {@link UNBOUNDED} will be returned if the value
+     *      {@link #UNBOUNDED} will be returned if the value
      *      is "unbounded".
      */
     BigInteger getMaxOccurs();
@@ -35,7 +35,7 @@ public interface XSParticle extends XSContentType
      */
     boolean isRepeated();
 
-    public static final int UNBOUNDED = -1;
+    int UNBOUNDED = -1;
 
     XSTerm getTerm();
 }
