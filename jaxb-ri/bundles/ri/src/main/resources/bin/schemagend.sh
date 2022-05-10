@@ -1,6 +1,6 @@
 #!/bin/sh +x
 #
-# Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+# Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
 #
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -9,20 +9,19 @@
 # SPDX-License-Identifier: BSD-3-Clause
 #
 
-
 #
 # Make sure that JAXB_HOME and JAVA_HOME are set
 #
 if [ -z "$JAXB_HOME" ]
 then
     # search the installation directory
-    
+
     PRG=$0
     progname=`basename $0`
     saveddir=`pwd`
-    
+
     cd `dirname $PRG`
-    
+
     while [ -h "$PRG" ] ; do
         ls=`ls -ld "$PRG"`
         link=`expr "$ls" : '.*-> \(.*\)$'`
@@ -32,30 +31,43 @@ then
             PRG="`dirname $PRG`/$link"
         fi
     done
-    
+
     JAXB_HOME=`dirname "$PRG"`/..
-    
+
     # make it fully qualified
     cd "$saveddir"
     JAXB_HOME=`cd "$JAXB_HOME" && pwd`
-    
+
     cd $saveddir
 fi
 
+#JXC module path
+JAXB_PATH=${JAXB_HOME}/mod/jakarta.xml.bind-api.jar:\
+${JAXB_HOME}/mod/jaxb-jxc.jar:\
+${JAXB_HOME}/mod/jaxb-xjc.jar:\
+${JAXB_HOME}/mod/jaxb-impl.jar:\
+${JAXB_HOME}/mod/jaxb-core.jar:\
+${JAXB_HOME}/mod/jakarta.activation-api.jar
+
+# add the api jar file
+if [ -n ${CLASSPATH} ] ; then
+    LOCALPATH=${JAXB_PATH}:"${CLASSPATH}"
+else
+    LOCALPATH=${JAXB_PATH}
+fi
 
 if [ -n "$JAVA_HOME" ]
 then
     JAVA="$JAVA_HOME"/bin/java
 else
-    JAVA=apt
+    JAVA=java
 fi
 
-DEBUG_OPTS="-J-Xdebug -J-Xnoagent -J-Djava.compiler=NONE -J-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8000'"
+DEBUG_OPTS="-J-Djava.compiler=NONE -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000'"
 
 if [ `expr \`uname\` : 'CYGWIN'` -eq 6 ]
 then
     JAXB_HOME="`cygpath -w "$JAXB_HOME"`"
 fi
 
-
-exec "$JAVA" $DEBUG_OPTS $SCHEMAGEN_OPTS -cp "$JAXB_HOME"/dist/lib/jaxb-core.jar:$JAXB_HOME"/dist/lib/jaxb-xjc.jar:$JAXB_HOME"/dist/lib/jaxb-jxc.jar:$JAXB_HOME"/dist/lib/jaxb-impl.jar com.sun.tools.jxc.SchemaGeneratorFacade "$@"
+exec "${JAVA}" $DEBUG_OPTS ${SCHEMAGEN_OPTS} --module-path "${LOCALPATH}" --add-modules com.sun.xml.bind -m com.sun.tools.jxc "$@"
