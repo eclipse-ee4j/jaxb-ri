@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!DOCTYPE book [
+        <!ENTITY % ents SYSTEM "docbook.ent">
+        %ents;
+        ]>
+
+<section version="5.0" xml:lang="en" xml:id="jaxb-changelog"
+         xmlns="http://docbook.org/ns/docbook"
+         xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Changelog</title>
+
+    <para>The &binding.impl.name; 4.x meets the requirements of the Jakarta XML Binding 4.x specifications.</para>
+    <section xml:id="a-4-0-0">
+        <title>Changes in 4.0.0 - initial release for <link xlink:href="https://jakarta.ee/">Jakarta EE 10</link></title>
+        <itemizedlist>
+            <listitem><para>Requires Java SE 11 or newer</para></listitem>
+            <listitem><para>Bug fixes:
+                <itemizedlist>
+                    <listitem><para>Fix equality on BISerializable</para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1489">#1489</link>: DOMScanner ignores default namespace at scan method
+                    </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1499">#1499</link>: xjc - NGCCRuntimeEx.resolveRelativeURL(String namespaceURI, String relativeUri ) doesn't work as it should
+                    </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1505">#1505</link>: JCodeModel.parseType(String) silently ignores type params in specific scenarios
+                    </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1590">#1590</link>: Marshalling an object that overrides the parent's method,
+                        the XML that gets created contains both child's and parent's tag
+                    </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1624">#1624</link>: Order of Exceptions in generated classes is non-deterministic
+                    </para></listitem>
+                </itemizedlist>
+            </para></listitem>
+        </itemizedlist>
+    </section>
+
+    <section xml:id="a-3-0-2">
+        <title>Changes between 3.0.1 and 3.0.2</title>
+        <itemizedlist>
+            <listitem><para>Bug fixes:
+                <itemizedlist>
+                    <listitem><para>Fixed classloading in OSGI</para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1547">#1547</link>: Running with -XX:-StackTraceInThrowable causes a index out of bounds exception
+                    </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1556">#1556</link>: xjc generates class reference with generics
+                    </para></listitem>
+                </itemizedlist>
+            </para></listitem>
+        </itemizedlist>
+    </section>
+
+    <section xml:id="a-3-0-1">
+        <title>Changes between 3.0.0 and 3.0.1</title>
+        <itemizedlist>
+            <listitem><para>Bug fixes:
+                <itemizedlist>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1105">#1105</link>: xjc mark-generated sometimes produces a wrong date value
+                    </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1466">#1466</link>: ContextFinder always load the JAXBContext from jaxb-runtime 2.3.3
+                    </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1475">#1475</link>: xjc: Option to generate old package names
+                    </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1502">#1502</link>: XJC: fails to process XSD files without systemId.
+                    </para></listitem>
+                </itemizedlist>
+            </para></listitem>
+        </itemizedlist>
+    </section>
+
+    <section xml:id="a-3-0-0">
+        <title>Changes in 3.0.0 - initial release for <link xlink:href="https://jakarta.ee/">Jakarta EE 9</link></title>
+        <itemizedlist>
+            <listitem><para>Requires Java SE 8 or newer</para></listitem>
+            <listitem><para>Adopts new API package namespace - <literal>jakarta.xml.bind.*</literal></para></listitem>
+            <listitem><para>Main implementation jar split into two parts - <literal>jaxb-core</literal> and (smaller) <literal>jaxb-impl</literal></para></listitem>
+            <listitem><para>Content of the new jaxb-impl moved from <literal>com.sun.xml.bind</literal> package to <literal>org.glassfish.jaxb.runtime</literal> package
+            </para></listitem>
+            <listitem><para>Content of the new jaxb-core moved from <literal>com.sun.xml.bind</literal> package to <literal>org.glassfish.jaxb.core package</literal></para></listitem>
+            <listitem><para>Changed prefix of all properties from <literal>com.sun.xml.bind</literal> to <literal>org.glassfish.jaxb</literal></para></listitem>
+            <listitem><para>Supports new namespace for schema customizations
+                <programlisting language="xml"><![CDATA[<bindings xmlns="https://jakarta.ee/xml/ns/jaxb" version="3.0">...</bindings>]]></programlisting>
+            </para></listitem>
+        </itemizedlist>
+    </section>
+
+    <section xml:id="a-2-3-2">
+        <title>Changes in 2.3.2 - initial release for <link xlink:href="https://jakarta.ee/">Jakarta EE 8</link></title>
+        <itemizedlist>
+            <listitem><para>First release under Eclipse Jakarta EE Platform:
+                <itemizedlist>
+                    <listitem><para>Uptake of moved Jakarta APIs.</para></listitem>
+                </itemizedlist>
+            </para></listitem>
+        </itemizedlist>
+    </section>
+
+</section>

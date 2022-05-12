@@ -29,7 +29,7 @@
         for additional information.
     </para>
 
-    <para>The most up-to-date version of this document can be found<link
+    <para>The most up-to-date version of this document can be found <link
             xlink:href="https://eclipse-ee4j.github.io/jaxb-ri">on-line</link>.
     </para>
 
@@ -109,5 +109,5 @@
         </para>
     </section>
 
-    <xi:include href="jaxb-2-0-changelog.xml"/>
+    <xi:include href="jaxb-changelog.xml"/>
 </chapter>
