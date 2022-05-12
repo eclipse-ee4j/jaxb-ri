@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -56,6 +56,10 @@ class Messages
         "Internalizer.VersionNotPresent";
     static final String TWO_VERSION_ATTRIBUTES = // arg:0
         "Internalizer.TwoVersionAttributes";
+    static final String OLD_CUSTOMIZATION = // arg:0
+        "Internalizer.OldCustomizationNS";
+    static final String OLD_CUSTOMIZATION_VERSION = // arg:0
+        "Internalizer.OldCustomizationVersion";
     static final String ORPHANED_CUSTOMIZATION = // arg:1
         "Internalizer.OrphanedCustomization";
     static final String ERR_UNABLE_TO_PARSE = // arg:2
