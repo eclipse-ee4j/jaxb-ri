@@ -27,7 +27,7 @@ import org.xml.sax.helpers.XMLFilterImpl;
  * to version 3.0 and prints warnings.
  *
  */
-final class CustomHandler extends XMLFilterImpl {
+final class JAXBv2NSHandler extends XMLFilterImpl {
 
     private Locator locator;
 
@@ -45,7 +45,7 @@ final class CustomHandler extends XMLFilterImpl {
     /** Will be set to true once we hit a JAXB 2.x binding version attribute declaration. */
     private boolean seenOldBindingsVersion = false;
 
-    public CustomHandler(ContentHandler handler, ErrorHandler eh, EntityResolver er) {
+    public JAXBv2NSHandler(ContentHandler handler, ErrorHandler eh, EntityResolver er) {
         setContentHandler(handler);
         if(eh!=null)    setErrorHandler(eh);
         if(er!=null)    setEntityResolver(er);
