@@ -28,6 +28,7 @@
         <title>Changes in 4.0.0 - initial release for <link xlink:href="https://jakarta.ee/">Jakarta EE 10</link></title>
         <itemizedlist>
             <listitem><para>Requires Java SE 11 or newer</para></listitem>
+            <listitem><para>Supports usage of JAXB 2.x schema bindings customizations</para></listitem>
             <listitem><para>Bug fixes:
                 <itemizedlist>
                     <listitem><para>Fix equality on BISerializable</para></listitem>

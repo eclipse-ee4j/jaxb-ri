@@ -304,6 +304,7 @@ public final class DOMForest {
     private ContentHandler getParserHandler( Document dom ) {
         ContentHandler handler = new DOMBuilder(dom,locatorTable,outerMostBindings);
         handler = new WhitespaceStripper(handler,errorReceiver,entityResolver);
+        handler = new CustomHandler(handler, errorReceiver, entityResolver);
         handler = new VersionChecker(handler,errorReceiver,entityResolver);
 
         // insert the reference finder so that

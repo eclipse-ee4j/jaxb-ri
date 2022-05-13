@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2021, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -39,6 +39,28 @@ public class CodeGenTest extends TestCase {
         S2JJAXBModel model = sc.bind();
         JCodeModel code = model.generateCode(null, null);
         String method = toString(code._getClass("ghbugs.b1460.Gh1460Type").getMethod("setBinaryAttr", new JType[]{code.parseType("byte[][]")}));
+//        com.sun.tools.xjc.api.Driver.dumpCode(code);
+//        System.out.println(method);
+
+        // wrong initialization of multi-dim array
+        // https://github.com/eclipse-ee4j/jaxb-ri/issues/1460
+        assertTrue(method, method.contains("new byte[len][]"));
+
+        // null check in setter
+        // https://github.com/eclipse-ee4j/jaxb-ri/issues/1064
+        assertTrue(method, method.contains("if (values == null) {"));
+        assertTrue(method, method.contains("this.binaryAttr = null;"));
+        assertTrue(method, method.contains("return ;"));
+    }
+
+    public void testGh1460_Gh1064_jaxb21() throws Throwable {
+        SchemaCompiler sc = XJC.createSchemaCompiler();
+        sc.setErrorListener(new ConsoleErrorReporter());
+        sc.forcePackageName("ghbugs.b1460.jaxb21");
+        sc.parseSchema(getInputSource("/schemas/ghbugs-jaxb21.xsd"));
+        S2JJAXBModel model = sc.bind();
+        JCodeModel code = model.generateCode(null, null);
+        String method = toString(code._getClass("ghbugs.b1460.jaxb21.Gh1460Type").getMethod("setBinaryAttr", new JType[]{code.parseType("byte[][]")}));
 //        com.sun.tools.xjc.api.Driver.dumpCode(code);
 //        System.out.println(method);
 
