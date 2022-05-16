@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -41,9 +41,9 @@ final class DTDExtensionBindingChecker extends AbstractExtensionBindingChecker {
     private boolean needsToBePruned( String uri ) {
         if( uri.equals(schemaLanguage) )
             return false;
-        if( uri.equals(Const.JAXB_NSURI) )
+        if( Const.JAXB_NSURI.equals(uri) )
             return false;
-        if( uri.equals(Const.XJC_EXTENSION_URI) )
+        if( Const.XJC_EXTENSION_URI.equals(uri) )
             return false;
         // we don't want validator to see extensions that we understand ,
         // because they will complain.

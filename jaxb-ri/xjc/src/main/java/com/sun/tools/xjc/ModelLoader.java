@@ -256,8 +256,9 @@ public final class ModelLoader {
         DOMForest forest = new DOMForest(logic, opt);
 
         forest.setErrorHandler(errorReceiver);
-        if(opt.entityResolver!=null)
-        forest.setEntityResolver(opt.entityResolver);
+        if(opt.entityResolver!=null) {
+            forest.setEntityResolver(opt.entityResolver);
+        }
 
         // parse source grammars
         for (InputSource value : opt.getGrammars()) {
@@ -273,8 +274,8 @@ public final class ModelLoader {
             Element root = dom.getDocumentElement();
             // TODO: it somehow doesn't feel right to do a validation in the Driver class.
             // think about moving it to somewhere else.
-            if (!fixNull(root.getNamespaceURI()).equals(Const.JAXB_NSURI)
-                    || !root.getLocalName().equals("bindings"))
+            if (!Const.JAXB_NSURI.equals(fixNull(root.getNamespaceURI()))
+                    || !"bindings".equals(root.getLocalName()))
                 errorReceiver.error(new SAXParseException(Messages.format(Messages.ERR_NOT_A_BINDING_FILE,
                         root.getNamespaceURI(),
                         root.getLocalName()),
@@ -413,7 +414,7 @@ public final class ModelLoader {
     private static final class SpeculationChecker extends XMLFilterImpl {
         @Override
         public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-            if(localName.equals("bindings") && uri.equals(Const.JAXB_NSURI))
+            if("bindings".equals(localName) && Const.JAXB_NSURI.equals(uri))
                 throw new SpeculationFailure();
             super.startElement(uri,localName,qName,attributes);
         }
@@ -476,7 +477,7 @@ public final class ModelLoader {
         for (String systemId : forest.getRootDocuments()) {
             errorReceiver.pollAbort();
             Document dom = forest.get(systemId);
-            if (!dom.getDocumentElement().getNamespaceURI().equals(Const.JAXB_NSURI)) {
+            if (!Const.JAXB_NSURI.equals(dom.getDocumentElement().getNamespaceURI())) {
                 reader.parse(systemId);
             }
         }

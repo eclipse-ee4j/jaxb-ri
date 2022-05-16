@@ -188,7 +188,7 @@ public final class DOMForest {
      */
     public Document getOneDocument() {
         for (Document dom : core.values()) {
-            if (!dom.getDocumentElement().getNamespaceURI().equals(Const.JAXB_NSURI))
+            if (!Const.JAXB_NSURI.equals(dom.getDocumentElement().getNamespaceURI()))
                 return dom;
         }
         // we should have caught this error very early on
@@ -454,7 +454,7 @@ public final class DOMForest {
         List<SAXSource> sources = new ArrayList<>();
         for( String systemId : getRootDocuments() ) {
             Document dom = get(systemId);
-            if (dom.getDocumentElement().getNamespaceURI().equals(Const.JAXB_NSURI))
+            if (Const.JAXB_NSURI.equals(dom.getDocumentElement().getNamespaceURI()))
                 continue;   // this isn't a schema. we have to do a negative check because if we see completely unrelated ns, we want to report that as an error
 
             SAXSource ss = createSAXSource(systemId);

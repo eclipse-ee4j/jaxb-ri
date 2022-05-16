@@ -63,7 +63,7 @@ else
     JAVA=java
 fi
 
-DEBUG_OPTS="-J-Djava.compiler=NONE -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000'"
+DEBUG_OPTS="-Djava.compiler=NONE -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=8000"
 
 if [ `expr \`uname\` : 'CYGWIN'` -eq 6 ]
 then

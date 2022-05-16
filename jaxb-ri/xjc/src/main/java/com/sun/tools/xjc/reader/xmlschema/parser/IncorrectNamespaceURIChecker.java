@@ -79,9 +79,9 @@ public class IncorrectNamespaceURIChecker extends XMLFilterImpl {
     @Override
     public void startPrefixMapping(String prefix, String uri) throws SAXException {
         if (XMLConstants.XML_NS_URI.equals(uri)) return; //xml prefix shall not be declared based on jdk api javadoc
-        if( prefix.equals("jaxb") )
+        if( "jaxb".equals(prefix) )
             isJAXBPrefixUsed = true;
-        if( uri.equals(Const.JAXB_NSURI) )
+        if( Const.JAXB_NSURI.equals(uri) )
             isCustomizationUsed = true;
         
         super.startPrefixMapping(prefix, uri);
@@ -103,7 +103,7 @@ public class IncorrectNamespaceURIChecker extends XMLFilterImpl {
         // 
         // but better safe than sorry.
         
-        if( namespaceURI.equals(Const.JAXB_NSURI) )
+        if( Const.JAXB_NSURI.equals(namespaceURI) )
             isCustomizationUsed = true;
     }
 

@@ -73,7 +73,7 @@ final class JAXBv2NSHandler extends XMLFilterImpl {
                 as.addAttribute(atts.getURI(i), atts.getLocalName(i), atts.getQName(i), atts.getType(i), atts.getValue(i));
             }
         }
-        if ("http://java.sun.com/xml/ns/jaxb".equalsIgnoreCase(uri)) {
+        if ("http://java.sun.com/xml/ns/jaxb".equals(uri)) {
             super.startElement(Const.JAXB_NSURI, localName, qName, as);
             seenOldBindings = true;
         } else {
