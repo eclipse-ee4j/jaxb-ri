@@ -415,7 +415,7 @@ class Internalizer {
             NamedNodeMap atts = p.getAttributes();
             for( int i=0; i<atts.getLength(); i++ ) {
                 Attr a = (Attr)atts.item(i);
-                if( Const.XMLNS_URI.equals(a.getNamespaceURI()) ) {
+                if( XMLConstants.XMLNS_ATTRIBUTE_NS_URI.equals(a.getNamespaceURI()) ) {
                     String prefix;
                     if( a.getName().indexOf(':')==-1 )  prefix = "";
                     else                                prefix = a.getLocalName();
@@ -441,7 +441,7 @@ class Internalizer {
             // if the default namespace was undeclared in the context of decl,
             // it must be explicitly set to "" since the new environment might
             // have a different default namespace URI.
-            decl.setAttributeNS(Const.XMLNS_URI,"xmlns","");
+            decl.setAttributeNS(XMLConstants.XMLNS_ATTRIBUTE_NS_URI,"xmlns","");
         }
 
 
@@ -515,7 +515,7 @@ class Internalizer {
         NamedNodeMap atts = e.getAttributes();
         for( int i=0; i<atts.getLength(); i++ ) {
             Attr a = (Attr)atts.item(i);
-            if( Const.XMLNS_URI.equals(a.getNamespaceURI()) ) {
+            if( XMLConstants.XMLNS_ATTRIBUTE_NS_URI.equals(a.getNamespaceURI()) ) {
                 if( a.getName().indexOf(':')==-1 )  continue;
                 
                 if( a.getValue().equals(nsUri) )
@@ -526,10 +526,10 @@ class Internalizer {
         // none found. allocate new.
         while(true) {
             String prefix = "p"+(int)(Math.random()*1000000)+'_';
-            if(e.getAttributeNodeNS(Const.XMLNS_URI,prefix)!=null)
+            if(e.getAttributeNodeNS(XMLConstants.XMLNS_ATTRIBUTE_NS_URI,prefix)!=null)
                 continue;   // this prefix is already allocated.
             
-            e.setAttributeNS(Const.XMLNS_URI,"xmlns:"+prefix,nsUri);
+            e.setAttributeNS(XMLConstants.XMLNS_ATTRIBUTE_NS_URI,"xmlns:"+prefix,nsUri);
             return prefix;
         }
     }

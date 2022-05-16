@@ -79,7 +79,7 @@ public class VersionChecker extends XMLFilterImpl {
             rootTagStart = new LocatorImpl(locator);
 
             version = atts.getValue(Const.JAXB_NSURI,"version");
-            if( namespaceURI.equals(Const.JAXB_NSURI) ) {
+            if( Const.JAXB_NSURI.equals(namespaceURI) ) {
                 String version2 = atts.getValue("","version");
                 if( version!=null && version2!=null ) {
                     // we have both @version and @jaxb:version. error.
