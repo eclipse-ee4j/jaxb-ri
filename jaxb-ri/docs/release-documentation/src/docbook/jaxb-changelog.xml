@@ -51,6 +51,9 @@
                     <listitem><para>
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1624">#1624</link>: Order of Exceptions in generated classes is non-deterministic
                     </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1631">#1631</link>: Support setting (un)marshaller listener on binder
+                    </para></listitem>
                 </itemizedlist>
             </para></listitem>
         </itemizedlist>

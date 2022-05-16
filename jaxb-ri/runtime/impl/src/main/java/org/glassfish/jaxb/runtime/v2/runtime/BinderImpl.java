@@ -200,6 +200,22 @@ public class BinderImpl<XmlNode> extends Binder<XmlNode> {
         return getUnmarshaller().getEventHandler();
     }
 
+    public void setMarshallerListener(Marshaller.Listener listener) {
+        getMarshaller().setListener(listener);
+    }
+
+    public Marshaller.Listener getMarshallerListener() {
+        return getMarshaller().getListener();
+    }
+
+    public void setUnmarshallerListener(Unmarshaller.Listener listener) {
+        getUnmarshaller().setListener(listener);
+    }
+
+    public Unmarshaller.Listener getUnmarshallerListener() {
+        return getUnmarshaller().getListener();
+    }
+
     @Override
     public Object getProperty(String name) throws PropertyException {
         if (name == null)
