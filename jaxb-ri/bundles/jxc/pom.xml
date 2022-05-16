@@ -275,6 +275,9 @@
                                 <jaxb.spec.version>${jaxb-api.version}</jaxb.spec.version>
                                 <osgi.dist>${project.build.directory}/${project.build.finalName}</osgi.dist>
                             </systemProperties>
+                            <classpathDependencyExcludes>
+                                <classpathDependencyExclude>org.glassfish.jaxb:*</classpathDependencyExclude>
+                            </classpathDependencyExcludes>
                         </configuration>
                     </execution>
                 </executions>
