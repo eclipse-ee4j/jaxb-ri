@@ -757,7 +757,7 @@ public final class BeanGenerator implements Outline {
      * Determines the FieldRenderer used for the given FieldUse,
      * then generates the field declaration and accessor methods.
      *
-     * The <code>fields</code> map will be updated with the newly
+     * The {@code fields} map will be updated with the newly
      * created FieldRenderer.
      */
     private FieldOutline generateFieldDecl(ClassOutlineImpl cc, CPropertyInfo prop) {
