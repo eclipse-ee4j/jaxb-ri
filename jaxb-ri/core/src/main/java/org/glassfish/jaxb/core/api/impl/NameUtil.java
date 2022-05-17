@@ -131,20 +131,16 @@ class NameUtil {
      * the classification of the preceding character 't0' and
      * the classification of the next character 't1'.
      */
-    private static byte decideAction( int t0, int t1 ) {
-        if(t0==OTHER && t1==OTHER)  return ACTION_CHECK_PUNCT;
-        if(!xor(t0==DIGIT,t1==DIGIT))  return ACTION_BREAK;
-        if(t0==LOWER_LETTER && t1!=LOWER_LETTER)    return ACTION_BREAK;
-        if(!xor(t0<=OTHER_LETTER,t1<=OTHER_LETTER)) return ACTION_BREAK;
-        if(!xor(t0==OTHER_LETTER,t1==OTHER_LETTER)) return ACTION_BREAK;
+    private static byte decideAction(int t0, int t1) {
+        if (t0 == OTHER && t1 == OTHER) return ACTION_CHECK_PUNCT;
+        if ((t0 == DIGIT) ^ (t1 == DIGIT)) return ACTION_BREAK;
+        if (t0 == LOWER_LETTER && t1 != LOWER_LETTER) return ACTION_BREAK;
+        if ((t0 <= OTHER_LETTER) ^ (t1 <= OTHER_LETTER)) return ACTION_BREAK;
+        if ((t0 == OTHER_LETTER) ^ (t1 == OTHER_LETTER)) return ACTION_BREAK;
 
-        if(t0==UPPER_LETTER && t1==UPPER_LETTER)    return ACTION_CHECK_C2;
+        if (t0 == UPPER_LETTER && t1 == UPPER_LETTER) return ACTION_CHECK_C2;
 
         return ACTION_NOBREAK;
-    }
-
-    private static boolean xor(boolean x,boolean y) {
-        return (x&&y) || (!x&&!y);
     }
 
     static {

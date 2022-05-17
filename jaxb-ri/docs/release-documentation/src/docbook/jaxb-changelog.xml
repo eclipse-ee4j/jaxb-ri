@@ -49,6 +49,9 @@
                         the XML that gets created contains both child's and parent's tag
                     </para></listitem>
                     <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1599">#1599</link>: XNOR implementation in NameUtil is called "xor"
+                    </para></listitem>
+                    <listitem><para>
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1624">#1624</link>: Order of Exceptions in generated classes is non-deterministic
                     </para></listitem>
                     <listitem><para>
