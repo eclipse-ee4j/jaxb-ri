@@ -36,6 +36,9 @@
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/936">#936</link>: problem with XMLMixed in a tag annotated XmlAnyElement
                     </para></listitem>
                     <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1053">#1053</link>: Use Java 7 diamond operator
+                    </para></listitem>
+                    <listitem><para>
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1489">#1489</link>: DOMScanner ignores default namespace at scan method
                     </para></listitem>
                     <listitem><para>
