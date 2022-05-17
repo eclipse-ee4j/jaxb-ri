@@ -323,7 +323,7 @@ public class BGMBuilder extends BindingComponent {
     }
 
     /**
-     * Generates <code>package.html</code> if the customization
+     * Generates {@code package.html} if the customization
      * says so.
      */
     private void processPackageJavadoc( XSSchema s ) {

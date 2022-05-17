@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -42,7 +42,7 @@ import com.sun.tools.xjc.outline.FieldOutline;
 import org.glassfish.jaxb.core.v2.TODO;
 
 /**
- * Generates <code>ObjectFactory</code> then wraps it and provides
+ * Generates {@code ObjectFactory} then wraps it and provides
  * access to it.
  *
  * <p>
@@ -294,6 +294,9 @@ abstract class ObjectFactoryGeneratorImpl extends ObjectFactoryGenerator {
             m.javadoc()
                 .append("Create an instance of ")
                 .append(cc.ref);
+            m.javadoc().addReturn()
+                .append("the new instance of ")
+                .append(cc.ref);
         }
 
 
@@ -336,6 +339,9 @@ abstract class ObjectFactoryGeneratorImpl extends ObjectFactoryGenerator {
                 .append( "Create an instance of " )
                 .append( cc.ref )
                 .addThrows(JAXBException.class).append("if an error occurs");
+            m.javadoc().addReturn()
+                    .append("the new instance of ")
+                    .append(cc.ref);
 
             // constructor
             // [RESULT]
@@ -358,10 +364,16 @@ abstract class ObjectFactoryGeneratorImpl extends ObjectFactoryGenerator {
 
                 // declare a parameter on this factory method and set
                 // it to the field
-                inv.arg(m.param( fo.getRawType(), fieldName ));
+                JVar $var = m.param(fo.getRawType(), fieldName);
+                inv.arg($var);
+                m.javadoc().addParam($var)
+                        .append("Java instance representing xml element's value.");
 
-                JVar $var = c.param( fo.getRawType(), fieldName );
+                $var = c.param( fo.getRawType(), fieldName );
                 accessor.fromRawValue(c.body(),'_'+fieldName,$var);
+                // describe a parameter in a javadoc
+                c.javadoc().addParam($var)
+                        .append("Java instance representing xml element's value.");
             }
         }
     }

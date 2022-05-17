@@ -14,7 +14,7 @@ import com.sun.codemodel.JDefinedClass;
 import com.sun.tools.xjc.model.CElementInfo;
 
 /**
- * Generates <code>ObjectFactory</code> then wraps it and provides
+ * Generates {@code ObjectFactory} then wraps it and provides
  * access to it.
  *
  * <p>

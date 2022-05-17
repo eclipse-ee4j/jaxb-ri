@@ -68,8 +68,8 @@ import org.xml.sax.Locator;
  * into a Java property (some restrictions apply.)
  * 
  * <p>
- * All the getter methods (such as <code>getBaseType</code> or
- * <code>getBindStyle</code>) honors the delegation chain of
+ * All the getter methods (such as {@code getBaseType} or
+ * {@code getBindStyle}) honors the delegation chain of
  * property customization specified in the spec. Namely,
  * if two property customizations are attached to an attribute
  * use and an attribute decl, then anything unspecified in the

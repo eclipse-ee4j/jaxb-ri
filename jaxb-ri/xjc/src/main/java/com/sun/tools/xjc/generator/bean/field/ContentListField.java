@@ -112,7 +112,7 @@ public class ContentListField extends AbstractListField {
             "This accessor method returns a reference to the live list,\n" +
             "not a snapshot. Therefore any modification you make to the\n" +
             "returned list will be present inside the Jakarta XML Binding object.\n" +
-            "This is why there is not a <CODE>set</CODE> method for the " +pname+ " property.\n" +
+            "This is why there is not a {@code set} method for the " +pname+ " property.\n" +
             "\n"+
             "<p>\n" +
             "For example, to add a new item, do as follows:\n"+
@@ -126,6 +126,8 @@ public class ContentListField extends AbstractListField {
             "<p>\n" +
             "Objects of the following type(s) are allowed in the list\n")
             .append(listPossibleTypes(prop));
+
+        writer.javadoc().addReturn().append("The value of the "+pname+" property.");
     }
 
     @Override
