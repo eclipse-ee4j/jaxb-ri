@@ -140,9 +140,15 @@ public final class JInvocation extends JExpressionImpl implements JStatement {
             // [RESULT] new T[]{arg1,arg2,arg3,...};
             f.p("new").g(type).p('{');
         } else {
-            if (isConstructor)
-                f.p("new").g(type).p('(');
-            else {
+            if (isConstructor) {
+                if (type instanceof JNarrowedClass) {
+                    JNarrowedClass jc = (JNarrowedClass) type;
+                    f.p("new").t(jc.basis).p('<').p(JFormatter.CLOSE_TYPE_ARGS).p('(');
+
+                } else {
+                    f.p("new").g(type).p('(');
+                }
+            } else {
                 String name = this.name;
                 if(name==null)  name=this.method.name();
 

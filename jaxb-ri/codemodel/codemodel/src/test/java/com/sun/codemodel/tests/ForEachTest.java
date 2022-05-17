@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,8 +10,11 @@
 
 package com.sun.codemodel.tests;
 
+import java.io.ByteArrayOutputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.sun.codemodel.JClass;
@@ -44,9 +47,7 @@ public class ForEachTest {
 		JMethod m = cls.method(JMod.PUBLIC, cm.VOID, "foo");
 		m.body().decl(cm.INT, "getCount");
 
-		// This is not exactly right because we need to
-		// support generics
-		JClass arrayListclass = cm.ref(ArrayList.class);
+		JClass arrayListclass = cm.ref(ArrayList.class).narrow(Integer.class);
 		JVar $list = m.body().decl(arrayListclass, "alist",
 				JExpr._new(arrayListclass));
 
@@ -60,6 +61,10 @@ public class ForEachTest {
 		// JInvocation invocation =
 		foreach.body().invoke(out1, "println").arg($count1);
 
-		cm.build(new SingleStreamCodeWriter(System.out));
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		cm.build(new SingleStreamCodeWriter(baos));
+		String result = baos.toString(StandardCharsets.UTF_8);
+		System.out.println(result);
+		Assert.assertTrue(result.contains("ArrayList<Integer> alist = new ArrayList<>();"));
 	}
 }
