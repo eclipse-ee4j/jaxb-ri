@@ -83,6 +83,8 @@
         <spotbugs.threshold>Low</spotbugs.threshold>
         <spotbugs.version>4.6.0.0</spotbugs.version>
         <findsecbugs.version>1.11.0</findsecbugs.version>
+        <timestamp>${maven.build.timestamp}</timestamp>
+        <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
 
         <maven.compiler.release>11</maven.compiler.release>
         <maven.compiler.testRelease>${maven.compiler.release}</maven.compiler.testRelease>
@@ -206,16 +208,16 @@
                             </manifest>
                             <manifestEntries>
                                 <Specification-Title>Jakarta XML Binding</Specification-Title>
-                                <Specification-Version>${jaxb-api.majorVersion}.${jaxb-api.minorVersion}</Specification-Version>
-                                <Implementation-Title>Jakarta XML Binding Implementation</Implementation-Title>
-                                <Implementation-Version>${project.version}</Implementation-Version>
+                                <Specification-Version>${xml.bind-api.majorVersion}.${xml.bind-api.minorVersion}</Specification-Version>
+                                <Specification-Vendor>Eclipse Foundation</Specification-Vendor>
+                                <Implementation-Title>Eclipse Implementation of JAXB</Implementation-Title>
+                                <Implementation-Version>${project.version} - ${buildNumber}</Implementation-Version>
                                 <Implementation-Vendor>${vendor.name}</Implementation-Vendor>
                                 <Implementation-Vendor-Id>${vendor.id}</Implementation-Vendor-Id>
                                 <Git-Revision>${buildNumber}</Git-Revision>
                                 <Git-Url>${project.scm.connection}</Git-Url>
-                                <Build-Id>${project.version}</Build-Id>
-                                <Build-Version>JAXB RI ${project.version}</Build-Version>
-                                <Major-Version>${jaxb.majorVersion}.${jaxb.minorVersion}.${jaxb.incrementalVersion}</Major-Version>
+                                <Build-Id>${timestamp}</Build-Id>
+                                <Build-Version>${project.version}</Build-Version>
                             </manifestEntries>
                         </archive>
                     </configuration>
@@ -231,16 +233,16 @@
                             </manifest>
                             <manifestEntries>
                                 <Specification-Title>Jakarta XML Binding</Specification-Title>
-                                <Specification-Version>${jaxb-api.majorVersion}.${jaxb-api.minorVersion}</Specification-Version>
-                                <Implementation-Title>Jakarta XML Binding Implementation</Implementation-Title>
-                                <Implementation-Version>${project.version}</Implementation-Version>
+                                <Specification-Version>${xml.bind-api.majorVersion}.${xml.bind-api.minorVersion}</Specification-Version>
+                                <Specification-Vendor>Eclipse Foundation</Specification-Vendor>
+                                <Implementation-Title>Eclipse Implementation of JAXB</Implementation-Title>
+                                <Implementation-Version>${project.version} - ${buildNumber}</Implementation-Version>
                                 <Implementation-Vendor>${vendor.name}</Implementation-Vendor>
                                 <Implementation-Vendor-Id>${vendor.id}</Implementation-Vendor-Id>
                                 <Git-Revision>${buildNumber}</Git-Revision>
                                 <Git-Url>${project.scm.connection}</Git-Url>
-                                <Build-Id>${project.version}</Build-Id>
-                                <Build-Version>JAXB RI ${project.version}</Build-Version>
-                                <Major-Version>${jaxb.majorVersion}.${jaxb.minorVersion}.${jaxb.incrementalVersion}</Major-Version>
+                                <Build-Id>${timestamp}</Build-Id>
+                                <Build-Version>${project.version}</Build-Version>
                             </manifestEntries>
                         </archive>
                     </configuration>
@@ -364,14 +366,14 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>jaxb-api.version</id>
+                        <id>xml.bind-api.version</id>
                         <goals>
                             <goal>parse-version</goal>
                         </goals>
                         <phase>validate</phase>
                         <configuration>
-                            <propertyPrefix>jaxb-api</propertyPrefix>
-                            <versionString>${jaxb-api.version}</versionString>
+                            <propertyPrefix>xml.bind-api</propertyPrefix>
+                            <versionString>${xml.bind-api.version}</versionString>
                         </configuration>
                     </execution>
                     <execution>
@@ -524,16 +526,16 @@
                                 </manifest>
                                 <manifestEntries>
                                     <Specification-Title>Jakarta XML Binding</Specification-Title>
-                                    <Specification-Version>${jaxb-api.majorVersion}.${jaxb-api.minorVersion}</Specification-Version>
-                                    <Implementation-Title>Jakarta XML Binding Implementation</Implementation-Title>
-                                    <Implementation-Version>${project.version}</Implementation-Version>
+                                    <Specification-Version>${xml.bind-api.majorVersion}.${xml.bind-api.minorVersion}</Specification-Version>
+                                    <Specification-Vendor>Eclipse Foundation</Specification-Vendor>
+                                    <Implementation-Title>Eclipse Implementation of JAXB</Implementation-Title>
+                                    <Implementation-Version>${project.version} - ${buildNumber}</Implementation-Version>
                                     <Implementation-Vendor>${vendor.name}</Implementation-Vendor>
                                     <Implementation-Vendor-Id>${vendor.id}</Implementation-Vendor-Id>
                                     <Git-Revision>${buildNumber}</Git-Revision>
                                     <Git-Url>${project.scm.connection}</Git-Url>
-                                    <Build-Id>${project.version}</Build-Id>
-                                    <Build-Version>JAXB RI ${project.version}</Build-Version>
-                                    <Major-Version>${jaxb.majorVersion}.${jaxb.minorVersion}.${jaxb.incrementalVersion}</Major-Version>
+                                    <Build-Id>${timestamp}</Build-Id>
+                                    <Build-Version>${project.version}</Build-Version>
                                 </manifestEntries>
                             </archive>
                             <excludes>

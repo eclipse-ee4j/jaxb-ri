@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2021 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -128,7 +128,7 @@
         <!-- 'bar' in the http://example.com/myns namespace -->
         <class name="BarType"/>
     </bindings>
-</bindings>  ]]></programlisting>
+</bindings>]]></programlisting>
             </informalexample>
 
             <para>Compared to the standard XPath based approach, SCD allows
@@ -333,8 +333,7 @@
             <xs:element name="c" type="xs:int"/>
         </xs:sequence>
     </xs:choice>
-</xs:complexType>
-]]></programlisting>
+</xs:complexType>]]></programlisting>
 
                             <programlisting language="java"><![CDATA[// before
 class Foo {
@@ -361,8 +360,7 @@ class Foo {
         <xs:element name="parent" type="xs:string"
                     maxOccurs="unbounded"/>
     </xs:sequence>
-</xs:complexType>
-]]></programlisting>
+</xs:complexType>]]></programlisting>
 
                             <programlisting language="java"><![CDATA[// before
 public class Person {

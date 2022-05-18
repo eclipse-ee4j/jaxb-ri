@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2021 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -82,12 +82,15 @@ Note: Writing schema1.xsd]]></programlisting>
             <programlisting><![CDATA[Usage: schemagen [-options ...] <java files> 
 
 Options: 
-    -d <path>         :  Specify where to place processor and javac generated class files 
-    -cp <path>        :  Specify where to find user specified files  
-    -classpath <path> :  Specify where to find user specified files  
-    -episode <file>   :  generate episode file for separate compilation
-    -version          :  display version information
-    -help             :  Display this usage message]]></programlisting>
+    -d <path>             : specify where to place processor and javac generated class files
+    -cp <path>            : specify where to find user specified files
+    -classpath <path>     : specify where to find user specified files
+    -encoding <encoding>  : specify encoding to be used for annotation processing/javac invocation
+    -episode <file>       : generate episode file for separate compilation
+    -disableXmlSecurity   : disables XML security features when parsing XML documents
+    -version              : display version information
+    -fullversion          : display full version information
+    -help                 : display this usage message]]></programlisting>
         </informalexample>
 
         <section xml:id="switches-1">
@@ -95,19 +98,80 @@ Options:
 
             <variablelist>
                 <varlistentry>
+                    <term><emphasis role="bold">-d
+                        &lt;dir&gt;</emphasis></term>
+
+                    <listitem>
+                        <para>By default, the schema generator will
+                            generate the content in the current
+                            directory. Use this option to specify an alternate
+                            output directory. The output directory must already
+                            exist, the schema generator will not create it for
+                            you.</para>
+                    </listitem>
+                </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis role="bold">-encoding
+                        &lt;encoding&gt;</emphasis></term>
+
+                    <listitem>
+                        <para>Set the encoding name for generated sources,
+                            such as EUC-JP or UTF-8. If <option>-encoding</option> is
+                            not specified, the platform default encoding is
+                            used.</para>
+                    </listitem>
+                </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis role="bold">-classpath
+                        &lt;arg&gt;</emphasis></term>
+
+                    <listitem>
+                        <para>Specify where to find client application class
+                            files.</para>
+                    </listitem>
+                </varlistentry>
+
+                <varlistentry>
                     <term xml:id="episode"><emphasis
                     role="bold">-episode</emphasis></term>
 
                     <listitem>
                         <para>Generates the "episode file", which is really
                         just a &binding.spec.name; customization file (but with vendor
-                        extensions specific to the &binding.impl.name;, as of 2.1.) When
-                        people develop additional schemas that depend on what
-                        this schemagen invocation produces, they can use this
+                        extensions). When people develop additional schemas that
+                        depend on what this schemagen invocation produces, they can use this
                         episode file to have their generated code refer to
                         your classes.</para>
                     </listitem>
                 </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis role="bold">-help</emphasis></term>
+
+                    <listitem>
+                        <para>Display a brief summary of the generator
+                            switches.</para>
+                    </listitem>
+                </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis role="bold">-version</emphasis></term>
+
+                    <listitem>
+                        <para>Display the compiler version information.</para>
+                    </listitem>
+                </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis role="bold">-fullversion</emphasis></term>
+
+                    <listitem>
+                        <para>Display the compiler full version information.</para>
+                    </listitem>
+                </varlistentry>
+
             </variablelist>
         </section>
     </section>

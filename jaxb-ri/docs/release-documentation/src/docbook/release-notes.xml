@@ -48,52 +48,105 @@
             <tgroup cols="3" colsep="1" rowsep="1">
                 <thead>
                     <row>
-                        <entry>
-                            <para>Use</para>
-                        </entry>
-
-                        <entry>
-                            <para>Description</para>
-                        </entry>
-
-                        <entry>
-                            <para>Jars</para>
-                        </entry>
+                        <entry><para>Use</para></entry>
+                        <entry><para>Description</para></entry>
+                        <entry><para>Jar</para></entry>
                     </row>
                 </thead>
 
                 <tbody>
                     <row>
-                        <entry>
-                            <emphasis role="bold">Runtime</emphasis>
-                        </entry>
+                        <entry morerows="4" valign="top"><emphasis role="bold">Runtime</emphasis></entry>
+                        <entry morerows="4" valign="top"><para>Jars required to deploy a &binding.spec.name; client</para></entry>
 
-                        <entry><para>Jars required to deploy a &binding.spec.name; client</para></entry>
-
-                        <entry>
-                            <para>
-                                <filename>jakarta.activation-api.jar</filename>,
-                                <filename>angus-activation.jar</filename>,
-                                <filename>jakarta.xml.bind-api.jar</filename>,
-                                <filename>jaxb-core.jar</filename>,
-                                <filename>jaxb-impl.jar</filename>
-                            </para>
-                        </entry>
+                        <entry><para><filename>jakarta.activation-api.jar</filename></para></entry>
                     </row>
 
                     <row>
-                        <entry><emphasis role="bold">Compiler</emphasis></entry>
+                        <entry><para><filename>angus-activation.jar</filename></para></entry>
+                    </row>
 
-                        <entry>
-                            <para>Jars required at your development environment (but not runtime)</para>
-                        </entry>
+                    <row>
+                        <entry><para><filename>jakarta.xml.bind-api.jar</filename></para></entry>
+                    </row>
 
-                        <entry>
-                            <para>
-                                <filename>jaxb-jxc.jar</filename>,
-                                <filename>jaxb-xjc.jar</filename>
-                            </para>
-                        </entry>
+                    <row>
+                        <entry><para><filename>jaxb-core.jar</filename></para></entry>
+                    </row>
+
+                    <row>
+                        <entry><para><filename>jaxb-impl.jar</filename></para></entry>
+                    </row>
+
+                    <row>
+                        <entry morerows="1" valign="top"><emphasis role="bold">Compiler</emphasis></entry>
+                        <entry morerows="1" valign="top"><para>Jars required at your development environment (but not runtime)</para></entry>
+
+                        <entry><para><filename>jaxb-jxc.jar</filename></para></entry>
+                    </row>
+
+                    <row>
+                        <entry><para><filename>jaxb-xjc.jar</filename></para></entry>
+                    </row>
+                </tbody>
+            </tgroup>
+        </informaltable>
+    </section>
+
+    <section xml:id="modules">
+        <title>Identifying the JPMS module names</title>
+
+        <informaltable frame="all">
+            <tgroup cols="3" colsep="1" rowsep="1">
+                <thead>
+                    <row>
+                        <entry><para>Jar</para></entry>
+                        <entry><para>Module name</para></entry>
+                        <entry><para>Maven GAV</para></entry>
+                    </row>
+                </thead>
+
+                <tbody>
+                    <row>
+                        <entry><para><filename>jakarta.activation-api.jar</filename></para></entry>
+                        <entry><para><literal>jakarta.activation</literal></para></entry>
+                        <entry><para><literal>jakarta.activation:jakarta.activation-api</literal></para></entry>
+                    </row>
+
+                    <row>
+                        <entry><para><filename>angus-activation.jar</filename></para></entry>
+                        <entry><para><literal>com.sun.activation.registries</literal></para></entry>
+                        <entry><para><literal>org.eclipse.angus:angus-activation</literal></para></entry>
+                    </row>
+
+                    <row>
+                        <entry><para><filename>jakarta.xml.bind-api.jar</filename></para></entry>
+                        <entry><para><literal>jakarta.xml.bind</literal></para></entry>
+                        <entry><para><literal>jakarta.xml.bind:jakarta.xml.bind-api</literal></para></entry>
+                    </row>
+
+                    <row>
+                        <entry><para><filename>jaxb-core.jar</filename></para></entry>
+                        <entry><para><literal>com.sun.xml.bind.core</literal></para></entry>
+                        <entry><para><literal>com.sun.xml.bind:jaxb-core</literal></para></entry>
+                    </row>
+
+                    <row>
+                        <entry><para><filename>jaxb-impl.jar</filename></para></entry>
+                        <entry><para><literal>com.sun.xml.bind</literal></para></entry>
+                        <entry><para><literal>com.sun.xml.bind:jaxb-impl</literal></para></entry>
+                    </row>
+
+                    <row>
+                        <entry><para><filename>jaxb-jxc.jar</filename></para></entry>
+                        <entry><para><literal>com.sun.tools.jxc</literal></para></entry>
+                        <entry><para><literal>com.sun.xml.bind:jaxb-jxc</literal></para></entry>
+                    </row>
+
+                    <row>
+                        <entry><para><filename>jaxb-xjc.jar</filename></para></entry>
+                        <entry><para><literal>com.sun.tools.xjc</literal></para></entry>
+                        <entry><para><literal>com.sun.xml.bind:jaxb-xjc</literal></para></entry>
                     </row>
                 </tbody>
             </tgroup>

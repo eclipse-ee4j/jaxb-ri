@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2021 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -39,7 +39,7 @@
         <informalexample>
             <programlisting language=""><![CDATA[In-memory objects  <===>  Intermediate objects   <===>
 XML
-                  adapter                         &binding.spec.name;]]></programlisting>
+                  adapter                         XMLBinding]]></programlisting>
         </informalexample>
 
         <para>Your adapter code will be responsible for converting in-memory
@@ -166,7 +166,7 @@ class Person {
     this.age = age;
   }
 
-  // This property is for &binding.spec.name;
+  // This property is for Jakarta XML Binding
   @XmlAttribute(name="age")
   private String getAge_() {
     if(age==-1)  return "dead";

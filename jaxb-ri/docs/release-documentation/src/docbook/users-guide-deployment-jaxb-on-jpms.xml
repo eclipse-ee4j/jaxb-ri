@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2018, 2021 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2018, 2022 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,8 +25,8 @@
          xmlns:m="http://www.w3.org/1998/Math/MathML">
     <title>Using &binding.impl.name; on JPMS</title>
 
-    <para>JavaSE 11 features <link xmlns:xlink="http://openjdk.java.net/projects/jigsaw/spec/">JSR 376 Java Platform Module System</link>.
-        Starting from &binding.impl.name.full; supports JPMS and can be loaded and used from module path.
+    <para>Java SE 11 features <link xmlns:xlink="http://openjdk.java.net/projects/jigsaw/spec/">JSR 376 Java Platform Module System</link>.
+        Starting from version 2.3.2 &binding.impl.name; supports JPMS and can be loaded and used from module path.
         There are only a few things to be aware of.
     </para>
 
@@ -38,17 +38,16 @@
             having different module names, &binding.spec.name; requires pojo classes to be open only to API module.
         <example><title>JPMS module descriptor opening &binding.spec.name; pojo classes to &binding.spec.name; API</title>
 
-            <programlisting language="java"><![CDATA[
-                //JPMS module descriptor
-                module com.example.jaxbclasses {
+            <programlisting language="java">
+//JPMS module descriptor
+module com.example.jaxbclasses {
 
-                //Jakarta XML Binding module name
-                requires jakarta.xml.bind;
+    //Jakarta XML Binding module name
+    requires jakarta.xml.bind;
 
-                //open jaxb pojo package to make accessing private members possible for &binding.spec.name;.
-                opens com.example.jaxbclasses.pojos to jakarta.xml.bind;
-
-             ]]></programlisting>
+    //open pojo package to make accessing private members possible for &binding.spec.name;.
+    opens com.example.jaxbclasses.pojos to jakarta.xml.bind;
+}</programlisting>
         </example>
         &binding.spec.name; API will delegate openness to implementation module after resolving it with service discovery mechanism.
         </para>
@@ -58,19 +57,15 @@
 
         <para>
             <example><title>&binding.impl.name; on JPMS Command line examples</title>
-                <programlisting language="java"><![CDATA[
-                #Both client and &binding.impl.name; on module path:
-                user@host: java -m com.example.jaxbclasses/com.example.jaxb.Main
-                --module-path jaxbclient.jar:jakarta.xml.bind-api.jar:jaxb-impl.jar
+                <programlisting language="java">
+#Both client and &binding.impl.name; on module path:
+$ java -m com.example.jaxbclasses/com.example.jaxb.Main --module-path jaxbclient.jar:jakarta.xml.bind-api.jar:jakarta.activation-api.jar:jaxb-core.jar:jaxb-impl.jar
 
-                #Both client and &binding.impl.name; on classpath:
-                java com.example.jaxb.Main -cp jaxbclient.jar:jakarta.xml.bind-api.jar:jaxb-impl.jar
+#Both client and &binding.impl.name; on classpath:
+$ java com.example.jaxb.Main -cp jaxbclient.jar:jakarta.xml.bind-api.jar:jakarta.activation-api.jar:jaxb-core.jar:jaxb-impl.jar
 
-                #Client on classpath, &binding.impl.name; on module path:
-                user@host: java com.example.jaxb.Main -cp jaxbclient.jar --module-path jakarta.xml.bind-api.jar:jaxb-impl.jar
-                --add-modules jakarta.xml.bind
-
-             ]]></programlisting>
+#Client on classpath, &binding.impl.name; on module path:
+$ java com.example.jaxb.Main -cp jaxbclient.jar --module-path jakarta.xml.bind-api.jar:jakarta.activation-api.jar:jaxb-core.jar:jaxb-impl.jar --add-modules jakarta.xml.bind</programlisting>
             </example>
             &binding.spec.name; API will delegate openness to implementation module after resolving it with service discovery mechanism.
         </para>
