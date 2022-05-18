@@ -11,20 +11,66 @@
 package org.glassfish.jaxb.runtime.v2.model.impl;
 
 import com.sun.istack.FinalArrayList;
+import jakarta.xml.bind.annotation.XmlAccessOrder;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorOrder;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAnyAttribute;
+import jakarta.xml.bind.annotation.XmlAnyElement;
+import jakarta.xml.bind.annotation.XmlAttachmentRef;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElementRef;
+import jakarta.xml.bind.annotation.XmlElementRefs;
+import jakarta.xml.bind.annotation.XmlElementWrapper;
+import jakarta.xml.bind.annotation.XmlElements;
+import jakarta.xml.bind.annotation.XmlID;
+import jakarta.xml.bind.annotation.XmlIDREF;
+import jakarta.xml.bind.annotation.XmlInlineBinaryData;
+import jakarta.xml.bind.annotation.XmlList;
+import jakarta.xml.bind.annotation.XmlMimeType;
+import jakarta.xml.bind.annotation.XmlMixed;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlSchemaType;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlValue;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapters;
 import org.glassfish.jaxb.core.annotation.OverrideAnnotationOf;
 import org.glassfish.jaxb.core.v2.model.annotation.Locatable;
-import org.glassfish.jaxb.runtime.v2.model.annotation.MethodLocatable;
-import org.glassfish.jaxb.core.v2.model.core.*;
+import org.glassfish.jaxb.core.v2.model.core.AttributePropertyInfo;
+import org.glassfish.jaxb.core.v2.model.core.ClassInfo;
+import org.glassfish.jaxb.core.v2.model.core.Element;
+import org.glassfish.jaxb.core.v2.model.core.ElementPropertyInfo;
+import org.glassfish.jaxb.core.v2.model.core.ID;
+import org.glassfish.jaxb.core.v2.model.core.MapPropertyInfo;
+import org.glassfish.jaxb.core.v2.model.core.NonElement;
+import org.glassfish.jaxb.core.v2.model.core.PropertyInfo;
+import org.glassfish.jaxb.core.v2.model.core.PropertyKind;
+import org.glassfish.jaxb.core.v2.model.core.ReferencePropertyInfo;
+import org.glassfish.jaxb.core.v2.model.core.ValuePropertyInfo;
 import org.glassfish.jaxb.core.v2.runtime.IllegalAnnotationException;
 import org.glassfish.jaxb.core.v2.runtime.Location;
 import org.glassfish.jaxb.core.v2.util.EditDistance;
-import jakarta.xml.bind.annotation.*;
-import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import org.glassfish.jaxb.runtime.v2.model.annotation.MethodLocatable;
 
 import javax.xml.namespace.QName;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.AbstractList;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 
 /**
@@ -762,13 +808,17 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
                 assert groupCount==0;
 
                 // UGLY: the presence of XmlJavaTypeAdapter makes it an element property. ARGH.
-                if(nav().isSubClassOf( seed.getRawType(), nav().ref(Map.class) )
-                && !seed.hasAnnotation(XmlJavaTypeAdapter.class))
+                if (nav().isSubClassOf(seed.getRawType(), nav().ref(Map.class))
+                        && !hasApplicableAdapter(seed, seed.getRawType())) {
                     group = PropertyGroup.MAP;
-                else
+                } else {
                     group = PropertyGroup.ELEMENT;
-            } else if (group.equals(PropertyGroup.ELEMENT)) { // see issue 791 - make sure @XmlElement annotated map property is mapped to map
-                if (nav().isSubClassOf( seed.getRawType(), nav().ref(Map.class)) && !seed.hasAnnotation(XmlJavaTypeAdapter.class)) {
+                }
+            } else if (group.equals(PropertyGroup.ELEMENT)) {
+                // see issue 791 - make sure @XmlElement annotated map property is mapped to map
+                // see issue 971 - unless it has applicable XmlJavaTypeAdapter
+                if (nav().isSubClassOf( seed.getRawType(), nav().ref(Map.class))
+                        && !hasApplicableAdapter(seed, seed.getRawType())) {
                     group = PropertyGroup.MAP;
                 }
             }
@@ -1285,6 +1335,53 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
 
     public Method getFactoryMethod(){
         return (Method) factoryMethod;
+    }
+
+    private boolean hasApplicableAdapter(PropertySeed<T, C, F, M> seed, T type) {
+        XmlJavaTypeAdapter jta = seed.readAnnotation(XmlJavaTypeAdapter.class);
+        if (jta != null && isApplicable(jta, type)) {
+            return true;
+        }
+        // check the applicable adapters on the package
+        XmlJavaTypeAdapters jtas = reader().getPackageAnnotation(XmlJavaTypeAdapters.class, clazz, seed);
+        if (jtas != null) {
+            for (XmlJavaTypeAdapter xjta : jtas.value()) {
+                if (isApplicable(xjta, type)) {
+                    return true;
+                }
+            }
+        }
+        jta = reader().getPackageAnnotation(XmlJavaTypeAdapter.class, clazz, seed);
+        if (isApplicable(jta, type)) {
+            return true;
+        }
+        // then on the target class
+        C refType = nav().asDecl(type);
+        if (refType != null) {
+            jta = reader().getClassAnnotation(XmlJavaTypeAdapter.class, refType, seed);
+            if (jta != null && isApplicable(jta, type)) {// the one on the type always apply.
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean isApplicable(XmlJavaTypeAdapter jta, T declaredType) {
+        if (jta == null) {return false; }
+
+        T type = reader().getClassValue(jta, "type");
+        if (nav().isSameType(declaredType, type)) {
+            return true;    // for types explicitly marked in XmlJavaTypeAdapter.type()
+        }
+        T ad = reader().getClassValue(jta, "value");
+        T ba = nav().getBaseClass(ad, nav().asDecl(XmlAdapter.class));
+        if (!nav().isParameterizedType(ba)) {
+            return true;   // can't check type applicability. assume Object, which means applicable to any.
+        }
+        T inMemType = nav().getTypeArgument(ba, 1);
+
+        return nav().isSubClassOf(declaredType, inMemType);
     }
 
     @Override
