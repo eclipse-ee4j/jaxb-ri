@@ -248,7 +248,7 @@
                         <configuration>
                             <skip>false</skip>
                             <systemProperties>
-                                <jaxb.spec.version>${jaxb-api.version}</jaxb.spec.version>
+                                <jaxb.spec.version>${xml.bind-api.version}</jaxb.spec.version>
                                 <osgi.dist>${project.build.directory}/${project.build.finalName}</osgi.dist>
                             </systemProperties>
                         </configuration>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2018, 2021 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2018, 2022 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -34,6 +34,10 @@
                     Required to compile against &binding.spec.name;.</para>
             </listitem>
             <listitem>
+                <para><emphasis role="bold">org.glassfish.jaxb:jaxb-core:</emphasis> Contains sources required by XJC,
+                    JXC and Runtime modules.</para>
+            </listitem>
+            <listitem>
                 <para><emphasis role="bold">org.glassfish.jaxb:jaxb-runtime:</emphasis> Contains the main runtime used
                     for serialization and deserialization java objects to/from xml.</para>
             </listitem>
@@ -46,12 +50,15 @@
                     &binding.spec.name; java sources.</para>
             </listitem>
         </itemizedlist>
-        <para>In general <literal>com.sun.xml.bind</literal> artifacts are supposed to be used instead.</para>
     </section>
 
     <section xml:id="Fat-jar">
         <title>JAXB RI bundles</title>
         <itemizedlist>
+            <listitem>
+                <para><emphasis role="bold">com.sun.xml.bind:jaxb-core:</emphasis> Contains sources required by XJC,
+                    JXC and Runtime modules with dependencies.</para>
+            </listitem>
             <listitem>
                 <para><emphasis role="bold">com.sun.xml.bind:jaxb-impl:</emphasis> &binding.impl.name; runtime jar.</para>
             </listitem>
@@ -79,41 +86,39 @@
     <section xml:id="Api_and_runtime">
         <title>&binding.spec.name; API and Runtime</title>
         <para>
-            Minimum requirement to compile is jakarta.xml.bind-api.jar. If a client application is running on an environment
+            Minimum requirement to compile is <literal>jakarta.xml.bind-api.jar</literal>. If a client application is running on an environment
             where &binding.spec.name;
             runtime is provided, <literal>jakarta.xml.bind-api.jar</literal> is all that is needed.
                 <example><title>API only</title>
 
-                <programlisting language="xml"><![CDATA[
-                <!-- API -->
-                <dependency>
-                    <groupId>jakarta.xml.bind</groupId>
-                    <artifactId>jakarta.xml.bind-api</artifactId>
-                    <version>${jakarta.xml.bind-api.version}</version>
-                </dependency>
-             ]]></programlisting>
+                <programlisting language="xml">
+                &lt;!-- API --&gt;
+                &lt;dependency&gt;
+                    &lt;groupId&gt;jakarta.xml.bind&lt;/groupId&gt;
+                    &lt;artifactId&gt;jakarta.xml.bind-api&lt;/artifactId&gt;
+                    &lt;version&gt;&binding.spec.impl.version;&lt;/version&gt;
+                &lt;/dependency&gt;</programlisting>
             </example></para>
 
         <para>
-            If client application needs to include the runtime, e.g. running standalone on JavaSE
+            If client application needs to include the runtime, e.g. running standalone on Java SE
             <literal>jaxb-impl</literal> should be also included.
             <example><title>API + Runtime</title>
 
-            <programlisting language="xml"><![CDATA[
-                <!-- API -->
-                <dependency>
-                    <groupId>jakarta.xml.bind</groupId>
-                    <artifactId>jakarta.xml.bind-api</artifactId>
-                    <version>${jakarta.xml.bind-api.version}</version>
-                </dependency>
+            <programlisting language="xml">
+                &lt;!-- API --&gt;
+                &lt;dependency&gt;
+                    &lt;groupId&gt;jakarta.xml.bind&lt;/groupId&gt;
+                    &lt;artifactId&gt;jakarta.xml.bind-api&lt;/artifactId&gt;
+                    &lt;version&gt;&binding.spec.impl.version;&lt;/version&gt;
+                &lt;/dependency&gt;
 
-                <!-- Runtime -->
-                <dependency>
-                    <groupId>com.sun.xml.bind</groupId>
-                    <artifactId>jaxb-impl</artifactId>
-                    <version>${impl.version}</version>
-                </dependency>
-    ]]></programlisting>
+                &lt;!-- Runtime --&gt;
+                &lt;dependency&gt;
+                    &lt;groupId&gt;com.sun.xml.bind&lt;/groupId&gt;
+                    &lt;artifactId&gt;jaxb-impl&lt;/artifactId&gt;
+                    &lt;version&gt;&version;&lt;/version&gt;
+                &lt;/dependency&gt;</programlisting>
         </example></para>
     </section>
 
@@ -122,23 +127,40 @@
         <title>Using &binding.impl.name; tools for java sources and XML schema generation</title>
 
         <para>
-            To generate &binding.spec.name; classes from schema in Maven project, there are two community plugins
+            To generate &binding.spec.name; classes from schema in Maven project, there are multiple community plugins
             available:
             <itemizedlist>
                 <listitem>
-                    <para>A Maven plugin originating from MojoHaus which has been updated for JAXB 3 by Evolved Binary:
-                        <link xlink:href="https://github.com/evolvedbinary/mojohaus-jaxb-maven-plugin">MojoHaus jaxb-maven-plugin</link>
+                    <para>The most advanced and feature-full Maven plugin for XML Schema compilation:
+                        <link xlink:href="https://github.com/highsource/maven-jaxb2-plugin">highsource maven-jaxb2-plugin</link>
+                        <example><title>Using highsource maven-jaxb2-plugin</title>
+
+                            <programlisting language="xml"><![CDATA[
+                <build>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.jvnet.jaxb2.maven2</groupId>
+                            <artifactId>maven-jaxb2-plugin</artifactId>
+                            <executions>
+                                <execution>
+                                    <goals>
+                                        <goal>generate</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                        </plugin>
+                    </plugins>
+                </build>]]></programlisting>
+                        </example>
+                        See the <link xlink:href="https://github.com/highsource/maven-jaxb2-plugin/wiki/User-Guide">maven-jaxb2-plugin user guide</link> for configuration details.
                     </para>
                 </listitem>
                 <listitem>
-                    <para>A Maven plugin originating from java.net which has been updated for JAXB 3 by Evolved Binary:
-                        <link xlink:href="https://github.com/evolvedbinary/jvnet-jaxb-maven-plugin">jvnet jaxb-maven-plugin</link>
-                    </para>
-                </listitem>
-            </itemizedlist>
-            <example><title>Using MojoHaus jaxb-maven-plugin</title>
+                    <para>A Maven plugin originating from MojoHaus which has been updated for &binding.spec.name; 3+ by Evolved Binary:
+                        <link xlink:href="https://github.com/evolvedbinary/mojohaus-jaxb-maven-plugin">MojoHaus jaxb-maven-plugin</link>
+                        <example><title>Using MojoHaus jaxb-maven-plugin</title>
 
-                <programlisting language="xml"><![CDATA[
+                            <programlisting language="xml"><![CDATA[
                 <build>
                     <plugins>
                         <plugin>
@@ -154,13 +176,17 @@
                             </executions>
                         </plugin>
                     </plugins>
-                </build>
-    ]]></programlisting>
-            </example>
-            See the <link xlink:href="https://evolvedbinary.github.io/mojohaus-jaxb-maven-plugin/">MojoHaus jaxb-maven-plugin documentation</link> for configuration details.
+                </build>]]></programlisting>
+                        </example>
+                        See the <link xlink:href="https://evolvedbinary.github.io/mojohaus-jaxb-maven-plugin/">MojoHaus jaxb-maven-plugin documentation</link> for configuration details.
+                    </para>
+                </listitem>
+                <listitem>
+                    <para>A Maven plugin originating from java.net which has been updated for &binding.spec.name; 3+ by Evolved Binary:
+                        <link xlink:href="https://github.com/evolvedbinary/jvnet-jaxb-maven-plugin">jvnet jaxb-maven-plugin</link>
+                        <example><title>Using jvnet jaxb-maven-plugin</title>
 
-        <example><title>Using jvnet jaxb-maven-plugin</title>
-            <programlisting language="xml"><![CDATA[
+                            <programlisting language="xml"><![CDATA[
                 <build>
                     <plugins>
                         <plugin>
@@ -176,10 +202,13 @@
                             </executions>
                         </plugin>
                     </plugins>
-                </build>
-    ]]></programlisting>
-        </example>
-        See the <link xlink:href="https://github.com/evolvedbinary/jvnet-jaxb-maven-plugin">jvnet jaxb-maven-plugin documentation</link> for configuration details.</para>
+                </build>]]></programlisting>
+                        </example>
+                        See the <link xlink:href="https://github.com/evolvedbinary/jvnet-jaxb-maven-plugin">jvnet jaxb-maven-plugin documentation</link> for configuration details.
+                    </para>
+                </listitem>
+            </itemizedlist>
+        </para>
 
     <para>
         Alternatively to community plugins, there are tooling artifacts jaxb-xjc and jaxb-jxc,
@@ -187,74 +216,73 @@
         java from XML schema generation and vice versa.
         <example><title>Using &binding.impl.name; tooling artifacts</title>
 
-            <programlisting language="xml"><![CDATA[
-            <!-- Tooling dependencies -->
-            <dependency>
-                <groupId>com.sun.xml.bind</groupId>
-                <artifactId>jaxb-xjc</artifactId>
-                <version>${xjc.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.sun.xml.bind</groupId>
-                <artifactId>jaxb-jxc</artifactId>
-                <version>${jxc.version}</version>
-            </dependency>
+            <programlisting language="xml">
+            &lt;!-- Tooling dependencies --&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;com.sun.xml.bind&lt;/groupId&gt;
+                &lt;artifactId&gt;jaxb-xjc&lt;/artifactId&gt;
+                &lt;version&gt;&version;&lt;/version&gt;
+            &lt;/dependency&gt;
+            &lt;dependency&gt;
+                &lt;groupId&gt;com.sun.xml.bind&lt;/groupId&gt;
+                &lt;artifactId&gt;jaxb-jxc&lt;/artifactId&gt;
+                &lt;version&gt;&version;&lt;/version&gt;
+            &lt;/dependency&gt;
 
-            <!-- Invoke tooling API (Java 11) -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                    <!-- Generate java sources from schema -->
-                    <execution>
-                        <id>xjc</id>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>java</executable>
-                            <arguments>
-                                <argument>--module-path</argument>
-                                <modulepath/>
-                                <argument>-m</argument>
-                                <argument>com.sun.tools.xjc</argument>
-                                <argument>-p</argument>
-                                <argument>com.example</argument>
-                                <argument>-d</argument>
-                                <argument>${project.build.directory}/generated-sources</argument>
-                                <argument>${project.build.directory}/classes/schema.xsd</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
+            &lt;!-- Invoke tooling API (Java 11) --&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+                &lt;artifactId&gt;exec-maven-plugin&lt;/artifactId&gt;
+                    &lt;!-- Generate java sources from schema --&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;xjc&lt;/id&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;exec&lt;/goal&gt;
+                        &lt;/goals&gt;
+                        &lt;configuration&gt;
+                            &lt;executable&gt;java&lt;/executable&gt;
+                            &lt;arguments&gt;
+                                &lt;argument&gt;--module-path&lt;/argument&gt;
+                                &lt;modulepath/&gt;
+                                &lt;argument&gt;-m&lt;/argument&gt;
+                                &lt;argument&gt;com.sun.tools.xjc&lt;/argument&gt;
+                                &lt;argument&gt;-p&lt;/argument&gt;
+                                &lt;argument&gt;com.example&lt;/argument&gt;
+                                &lt;argument&gt;-d&lt;/argument&gt;
+                                &lt;argument&gt;${project.build.directory}/generated-sources&lt;/argument&gt;
+                                &lt;argument&gt;${project.build.directory}/classes/schema.xsd&lt;/argument&gt;
+                            &lt;/arguments&gt;
+                        &lt;/configuration&gt;
+                    &lt;/execution&gt;
 
-                    <!-- Generate XML Schema from sources -->
-                    <execution>
-                        <id>jxc</id>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>java</executable>
-                            <arguments>
-                                <argument>--module-path</argument>
-                                <modulepath/>
-                                <argument>-m</argument>
-                                <argument>com.sun.tools.jxc</argument>
-                                <argument>-d</argument>
-                                <argument>${project.build.directory}/generated-sources</argument>
-                                <argument>${project.build.directory}/classes/com/example/Author.java</argument>
-                                <argument>${project.build.directory}/classes/com/example/Book.java</argument>
-                            </arguments>
-                            <longModulepath>false</longModulepath>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-]]></programlisting>
+                    &lt;!-- Generate XML Schema from sources --&gt;
+                    &lt;execution&gt;
+                        &lt;id&gt;jxc&lt;/id&gt;
+                        &lt;goals&gt;
+                            &lt;goal&gt;exec&lt;/goal&gt;
+                        &lt;/goals&gt;
+                        &lt;configuration&gt;
+                            &lt;executable&gt;java&lt;/executable&gt;
+                            &lt;arguments&gt;
+                                &lt;argument&gt;--module-path&lt;/argument&gt;
+                                &lt;modulepath/&gt;
+                                &lt;argument&gt;-m&lt;/argument&gt;
+                                &lt;argument&gt;com.sun.tools.jxc&lt;/argument&gt;
+                                &lt;argument&gt;-d&lt;/argument&gt;
+                                &lt;argument&gt;${project.build.directory}/generated-sources&lt;/argument&gt;
+                                &lt;argument&gt;${project.build.directory}/classes/com/example/Author.java&lt;/argument&gt;
+                                &lt;argument&gt;${project.build.directory}/classes/com/example/Book.java&lt;/argument&gt;
+                            &lt;/arguments&gt;
+                            &lt;longModulepath&gt;false&lt;/longModulepath&gt;
+                        &lt;/configuration&gt;
+                    &lt;/execution&gt;
+                &lt;/executions&gt;
+            &lt;/plugin&gt;</programlisting>
         </example>
     See also <link linkend='schema-generation-invoking-schemagen-programatically'>xml schema compiler usage</link>.</para>
 
-    <para>Where are schemagen and xjc command line scripts available in JavaSE prior to 11?
-        These are included only in the <link linkend="Maven_artifacts">zip distribution.</link></para>
+        <para><literal>schemagen</literal> and <literal>xjc</literal> command line scripts are available
+        only in the <link linkend="Maven_artifacts">zip distribution.</link></para>
     </section>
 
 </section>

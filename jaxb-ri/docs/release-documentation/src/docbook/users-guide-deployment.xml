@@ -28,6 +28,5 @@
 
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="users-guide-deployment-maven-coordinates.xml" />
 <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="users-guide-deployment-jaxb-on-jpms.xml" />
-<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="users-guide-deployment-which-jaxb-ri-is-included-in-which-jdk.xml" />
 
 </section>

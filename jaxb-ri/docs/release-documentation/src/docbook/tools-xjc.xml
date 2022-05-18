@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2021 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -418,6 +418,14 @@ xjc schema1.xsd schema2.xsd schema3.xsd -b bindings1.xjb -b bindings2.xjb -b bin
 
                     <listitem>
                         <para>Display the compiler version information.</para>
+                    </listitem>
+                </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis role="bold">-fullversion</emphasis></term>
+
+                    <listitem>
+                        <para>Display the compiler full version information.</para>
                     </listitem>
                 </varlistentry>
 
