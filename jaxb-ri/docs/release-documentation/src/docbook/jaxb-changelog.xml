@@ -36,6 +36,9 @@
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/936">#936</link>: problem with XMLMixed in a tag annotated XmlAnyElement
                     </para></listitem>
                     <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/971">#971</link>: annotation @XmlJavaTypeAdapters on package is ignored since JAXB v2.2.4-1
+                    </para></listitem>
+                    <listitem><para>
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1053">#1053</link>: Use Java 7 diamond operator
                     </para></listitem>
                     <listitem><para>
