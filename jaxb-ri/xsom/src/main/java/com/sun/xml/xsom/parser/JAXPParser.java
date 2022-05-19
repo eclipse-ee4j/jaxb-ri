@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,6 +15,7 @@ import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -32,28 +33,25 @@ import com.sun.xml.xsom.impl.parser.Messages;
  */
 public class JAXPParser implements XMLParser {
 
-    // not in older JDK, so must be duplicated here, otherwise javax.xml.XMLConstants should be used
-    private static final String ACCESS_EXTERNAL_SCHEMA = "http://javax.xml.XMLConstants/property/accessExternalSchema";
-
     private static final Logger LOGGER = Logger.getLogger(JAXPParser.class.getName());
 
     private final SAXParserFactory factory;
-    
+
+    /**
+     * Creates a new JAXPParser that uses the given SAXParserFactory
+     * for creating new XMLReaders.
+     * <p>
+     * The caller needs to configure
+     * it properly with security features initialized by setting
+     * XMLConstants.FEATURE_SECURE_PROCESSING feature.
+     * Also don't forget to call <code>setNamespaceAware(true)</code>
+     * or you'll see some strange errors.
+     */
     public JAXPParser( SAXParserFactory factory ) {
         factory.setNamespaceAware(true);    // just in case
         this.factory = factory;
     }
     
-    /**
-     * @deprecated Unsafe, use JAXPParser(factory) instead with 
-     * security features initialized by setting 
-     * XMLConstants.FEATURE_SECURE_PROCESSING feature.
-     */
-    @Deprecated
-    public JAXPParser() {
-        this( SAXParserFactory.newInstance());
-    }
-
     public void parse( InputSource source, ContentHandler handler,
         ErrorHandler errorHandler, EntityResolver entityResolver )
         
@@ -86,11 +84,11 @@ public class JAXPParser implements XMLParser {
         }
 
         try {
-            saxParser.setProperty(ACCESS_EXTERNAL_SCHEMA, "file");
-            LOGGER.log(Level.FINE, Messages.format(Messages.JAXP_SUPPORTED_PROPERTY, ACCESS_EXTERNAL_SCHEMA));
+            saxParser.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "file");
+            LOGGER.log(Level.FINE, Messages.format(Messages.JAXP_SUPPORTED_PROPERTY, XMLConstants.ACCESS_EXTERNAL_SCHEMA));
         } catch (SAXException ignored) {
             // nothing to do; support depends on version JDK or SAX implementation
-            LOGGER.log(Level.CONFIG, Messages.format(Messages.JAXP_UNSUPPORTED_PROPERTY, ACCESS_EXTERNAL_SCHEMA), ignored);
+            LOGGER.log(Level.CONFIG, Messages.format(Messages.JAXP_UNSUPPORTED_PROPERTY, XMLConstants.ACCESS_EXTERNAL_SCHEMA), ignored);
         }
         return saxParser;
     }

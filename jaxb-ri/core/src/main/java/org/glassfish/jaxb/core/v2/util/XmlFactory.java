@@ -38,10 +38,6 @@ import org.xml.sax.SAXNotSupportedException;
  */
 public class XmlFactory {
 
-    // not in older JDK, so must be duplicated here, otherwise javax.xml.XMLConstants should be used
-    public static final String ACCESS_EXTERNAL_SCHEMA = "http://javax.xml.XMLConstants/property/accessExternalSchema";
-    public static final String ACCESS_EXTERNAL_DTD = "http://javax.xml.XMLConstants/property/accessExternalDTD";
-
     private static final Logger LOGGER = Logger.getLogger(XmlFactory.class.getName());
 
     /**
@@ -196,14 +192,14 @@ public class XmlFactory {
         }
 
         try {
-            sf.setProperty(ACCESS_EXTERNAL_SCHEMA, value);
+            sf.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, value);
             if (LOGGER.isLoggable(Level.FINE)) {
-                LOGGER.log(Level.FINE, Messages.JAXP_SUPPORTED_PROPERTY.format(ACCESS_EXTERNAL_SCHEMA));
+                LOGGER.log(Level.FINE, Messages.JAXP_SUPPORTED_PROPERTY.format(XMLConstants.ACCESS_EXTERNAL_SCHEMA));
             }
         } catch (SAXException se) {
             // nothing to do; support depends on version JDK or SAX implementation
             if (LOGGER.isLoggable(Level.CONFIG)) {
-                LOGGER.log(Level.CONFIG, Messages.JAXP_UNSUPPORTED_PROPERTY.format(ACCESS_EXTERNAL_SCHEMA), se);
+                LOGGER.log(Level.CONFIG, Messages.JAXP_UNSUPPORTED_PROPERTY.format(XMLConstants.ACCESS_EXTERNAL_SCHEMA), se);
             }
         }
         return sf;
@@ -227,14 +223,14 @@ public class XmlFactory {
         }
 
         try {
-            sf.setProperty(ACCESS_EXTERNAL_DTD, value);
+            sf.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, value);
             if (LOGGER.isLoggable(Level.FINE)) {
-                LOGGER.log(Level.FINE, Messages.JAXP_SUPPORTED_PROPERTY.format(ACCESS_EXTERNAL_DTD));
+                LOGGER.log(Level.FINE, Messages.JAXP_SUPPORTED_PROPERTY.format(XMLConstants.ACCESS_EXTERNAL_DTD));
             }
         } catch (SAXException se) {
             // nothing to do; support depends on version JDK or SAX implementation
             if (LOGGER.isLoggable(Level.CONFIG)) {
-                LOGGER.log(Level.CONFIG, Messages.JAXP_UNSUPPORTED_PROPERTY.format(ACCESS_EXTERNAL_DTD), se);
+                LOGGER.log(Level.CONFIG, Messages.JAXP_UNSUPPORTED_PROPERTY.format(XMLConstants.ACCESS_EXTERNAL_DTD), se);
             }
         }
         return sf;
