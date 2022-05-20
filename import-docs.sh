@@ -11,7 +11,7 @@
 
 # utility to help importing release documentation
 
-VERSION=3.0.0
+VERSION=4.0.0
 ARTIFACT=https://jakarta.oss.sonatype.org/content/groups/staging/com/sun/xml/bind/jaxb-release-documentation//$VERSION/jaxb-release-documentation-$VERSION-docbook.zip
 
 wget -O release-documentation.zip $ARTIFACT

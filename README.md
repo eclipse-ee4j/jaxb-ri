@@ -27,7 +27,7 @@ as well as for consumption through maven.
             <dependency>
                 <groupId>jakarta.xml.bind</groupId>
                 <artifactId>jakarta.xml.bind-api</artifactId>
-                <version>3.0.0</version>
+                <version>4.0.0</version>
             </dependency>
         </dependencies>
 
@@ -35,7 +35,7 @@ as well as for consumption through maven.
             <dependency>
                 <groupId>com.sun.xml.bind</groupId>
                 <artifactId>jaxb-impl</artifactId>
-                <version>3.0.0</version>
+                <version>4.0.0</version>
                 <scope>runtime</scope>
             </dependency>
         </dependencies>
@@ -43,17 +43,24 @@ as well as for consumption through maven.
 
 ## Documentation
 The release includes the following documentation:
-- [Release Notes](3.0.0/docs/ch02.html)
-- [Users Guide](3.0.0/docs/ch03.html)
-- [Tools](3.0.0/docs/ch04.html)
-- [Samples](3.0.0/docs/ch01.html#jaxb-2-0-sample-apps)
-- [Change log](https://github.com/eclipse-ee4j/jaxb-ri/releases/tag/3.0.0-RI)
+- [Release Notes](4.0.0/docs/ch02.html)
+- [Users Guide](4.0.0/docs/ch03.html)
+- [Tools](4.0.0/docs/ch04.html)
+- [Samples](4.0.0/docs/ch01.html#jaxb-2-0-sample-apps)
+- [Change log](https://github.com/eclipse-ee4j/jaxb-ri/releases/tag/4.0.0-RI)
 
 
 # <a name="Download_Archive"></a>Download previous versions
 
 Previous versions of Eclipse Implementation of JAXB are available for download
 as well as for consumption [through maven](https://repo1.maven.org/maven2/com/sun/xml/bind/jaxb-ri/).
+
+## Documentation for version 3.0.x
+The release includes the following documentation:
+- [Release Notes](3.0.0/docs/ch02.html)
+- [Users Guide](3.0.0/docs/ch03.html)
+- [Tools](3.0.0/docs/ch04.html)
+- [Samples](3.0.0/docs/ch01.html#jaxb-2-0-sample-apps)
 
 ## Documentation for version 2.3.x
 The release includes the following documentation:
