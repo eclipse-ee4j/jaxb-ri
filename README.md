@@ -20,7 +20,7 @@ This project is part of [Eclipse Implementation of JAXB](https://projects.eclips
 # <a name="Download_Jakarta_Release"></a>Download Jakarta XML Binding Release
 
 The latest stable release of Eclipse Implementation of JAXB is available for
-[download](https://repo1.maven.org/maven2/com/sun/xml/bind/jaxb-ri/3.0.0/jaxb-ri-3.0.0.zip)
+[download](https://repo1.maven.org/maven2/com/sun/xml/bind/jaxb-ri/4.0.0/jaxb-ri-4.0.0.zip)
 as well as for consumption through maven.
 ```
         <dependencies>
