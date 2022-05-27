@@ -1400,144 +1400,14 @@ context.generateSchema(<span class="ReservedWord">new</span> MySchemaOutputResol
                     <span class="ReservedWord">&lt;groupId&gt;</span>com.sun.xml.bind<span class="ReservedWord">&lt;/groupId&gt;</span>
                     <span class="ReservedWord">&lt;artifactId&gt;</span>jaxb-impl<span class="ReservedWord">&lt;/artifactId&gt;</span>
                     <span class="ReservedWord">&lt;version&gt;</span>4.0.0<span class="ReservedWord">&lt;/version&gt;</span>
-                <span class="ReservedWord">&lt;/dependency&gt;</span></pre></div></div><p><br class="example-break"></p></div><div class="section" id="Jaxb_tooling"><div class="titlepage"><div><div><h4 class="title">7.1.5.&nbsp;Using Eclipse Implementation of JAXB tools for java sources and XML schema generation</h4></div></div></div><p>
-            To generate Jakarta XML Binding classes from schema in Maven project, there are multiple community plugins
-            available:
-            </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>The most advanced and feature-full Maven plugin for XML Schema compilation:
-                        <a class="link" href="https://github.com/highsource/maven-jaxb2-plugin" target="_top">highsource maven-jaxb2-plugin</a>
-                        </p><div class="example" id="d0e3309"><p class="title"><b>Example&nbsp;90.&nbsp;Using highsource maven-jaxb2-plugin</b></p><div class="example-contents"><pre class="programlisting">
-                <span class="ReservedWord">&lt;build&gt;</span>
-                    <span class="ReservedWord">&lt;plugins&gt;</span>
-                        <span class="ReservedWord">&lt;plugin&gt;</span>
-                            <span class="ReservedWord">&lt;groupId&gt;</span>org.jvnet.jaxb2.maven2<span class="ReservedWord">&lt;/groupId&gt;</span>
-                            <span class="ReservedWord">&lt;artifactId&gt;</span>maven-jaxb2-plugin<span class="ReservedWord">&lt;/artifactId&gt;</span>
-                            <span class="ReservedWord">&lt;executions&gt;</span>
-                                <span class="ReservedWord">&lt;execution&gt;</span>
-                                    <span class="ReservedWord">&lt;goals&gt;</span>
-                                        <span class="ReservedWord">&lt;goal&gt;</span>generate<span class="ReservedWord">&lt;/goal&gt;</span>
-                                    <span class="ReservedWord">&lt;/goals&gt;</span>
-                                <span class="ReservedWord">&lt;/execution&gt;</span>
-                            <span class="ReservedWord">&lt;/executions&gt;</span>
-                        <span class="ReservedWord">&lt;/plugin&gt;</span>
-                    <span class="ReservedWord">&lt;/plugins&gt;</span>
-                <span class="ReservedWord">&lt;/build&gt;</span></pre></div></div><p><br class="example-break">
-                        See the <a class="link" href="https://github.com/highsource/maven-jaxb2-plugin/wiki/User-Guide" target="_top">maven-jaxb2-plugin user guide</a> for configuration details.
-                    </p></li><li class="listitem"><p>A Maven plugin originating from MojoHaus which has been updated for Jakarta XML Binding 3+ by Evolved Binary:
-                        <a class="link" href="https://github.com/evolvedbinary/mojohaus-jaxb-maven-plugin" target="_top">MojoHaus jaxb-maven-plugin</a>
-                        </p><div class="example" id="d0e3324"><p class="title"><b>Example&nbsp;91.&nbsp;Using MojoHaus jaxb-maven-plugin</b></p><div class="example-contents"><pre class="programlisting">
-                <span class="ReservedWord">&lt;build&gt;</span>
-                    <span class="ReservedWord">&lt;plugins&gt;</span>
-                        <span class="ReservedWord">&lt;plugin&gt;</span>
-                            <span class="ReservedWord">&lt;groupId&gt;</span>com.evolvedbinary.maven.mojohaus<span class="ReservedWord">&lt;/groupId&gt;</span>
-                            <span class="ReservedWord">&lt;artifactId&gt;</span>jaxb-maven-plugin<span class="ReservedWord">&lt;/artifactId&gt;</span>
-                            <span class="ReservedWord">&lt;executions&gt;</span>
-                                <span class="ReservedWord">&lt;execution&gt;</span>
-                                    <span class="ReservedWord">&lt;id&gt;</span>schemagen<span class="ReservedWord">&lt;/id&gt;</span>
-                                    <span class="ReservedWord">&lt;goals&gt;</span>
-                                        <span class="ReservedWord">&lt;goal&gt;</span>schemagen<span class="ReservedWord">&lt;/goal&gt;</span>
-                                    <span class="ReservedWord">&lt;/goals&gt;</span>
-                                <span class="ReservedWord">&lt;/execution&gt;</span>
-                            <span class="ReservedWord">&lt;/executions&gt;</span>
-                        <span class="ReservedWord">&lt;/plugin&gt;</span>
-                    <span class="ReservedWord">&lt;/plugins&gt;</span>
-                <span class="ReservedWord">&lt;/build&gt;</span></pre></div></div><p><br class="example-break">
-                        See the <a class="link" href="https://evolvedbinary.github.io/mojohaus-jaxb-maven-plugin/" target="_top">MojoHaus jaxb-maven-plugin documentation</a> for configuration details.
-                    </p></li><li class="listitem"><p>A Maven plugin originating from java.net which has been updated for Jakarta XML Binding 3+ by Evolved Binary:
-                        <a class="link" href="https://github.com/evolvedbinary/jvnet-jaxb-maven-plugin" target="_top">jvnet jaxb-maven-plugin</a>
-                        </p><div class="example" id="d0e3339"><p class="title"><b>Example&nbsp;92.&nbsp;Using jvnet jaxb-maven-plugin</b></p><div class="example-contents"><pre class="programlisting">
-                <span class="ReservedWord">&lt;build&gt;</span>
-                    <span class="ReservedWord">&lt;plugins&gt;</span>
-                        <span class="ReservedWord">&lt;plugin&gt;</span>
-                            <span class="ReservedWord">&lt;groupId&gt;</span>com.evolvedbinary.maven.jvnet<span class="ReservedWord">&lt;/groupId&gt;</span>
-                            <span class="ReservedWord">&lt;artifactId&gt;</span>jaxb-maven-plugin<span class="ReservedWord">&lt;/artifactId&gt;</span>
-                            <span class="ReservedWord">&lt;executions&gt;</span>
-                                <span class="ReservedWord">&lt;execution&gt;</span>
-                                    <span class="ReservedWord">&lt;id&gt;</span>generate<span class="ReservedWord">&lt;/id&gt;</span>
-                                    <span class="ReservedWord">&lt;goals&gt;</span>
-                                        <span class="ReservedWord">&lt;goal&gt;</span>generate<span class="ReservedWord">&lt;/goal&gt;</span>
-                                    <span class="ReservedWord">&lt;/goals&gt;</span>
-                                <span class="ReservedWord">&lt;/execution&gt;</span>
-                            <span class="ReservedWord">&lt;/executions&gt;</span>
-                        <span class="ReservedWord">&lt;/plugin&gt;</span>
-                    <span class="ReservedWord">&lt;/plugins&gt;</span>
-                <span class="ReservedWord">&lt;/build&gt;</span></pre></div></div><p><br class="example-break">
-                        See the <a class="link" href="https://github.com/evolvedbinary/jvnet-jaxb-maven-plugin" target="_top">jvnet jaxb-maven-plugin documentation</a> for configuration details.
-                    </p></li></ul></div><p>
-        </p><p>
-        Alternatively to community plugins, there are tooling artifacts jaxb-xjc and jaxb-jxc,
-        which can be used for
-        java from XML schema generation and vice versa.
-        </p><div class="example" id="d0e3351"><p class="title"><b>Example&nbsp;93.&nbsp;Using Eclipse Implementation of JAXB tooling artifacts</b></p><div class="example-contents"><pre class="programlisting">
-            <span class="Comment">&lt;!-- Tooling dependencies --&gt;</span>
-            <span class="ReservedWord">&lt;dependency&gt;</span>
-                <span class="ReservedWord">&lt;groupId&gt;</span>com.sun.xml.bind<span class="ReservedWord">&lt;/groupId&gt;</span>
-                <span class="ReservedWord">&lt;artifactId&gt;</span>jaxb-xjc<span class="ReservedWord">&lt;/artifactId&gt;</span>
-                <span class="ReservedWord">&lt;version&gt;</span>4.0.0<span class="ReservedWord">&lt;/version&gt;</span>
-            <span class="ReservedWord">&lt;/dependency&gt;</span>
-            <span class="ReservedWord">&lt;dependency&gt;</span>
-                <span class="ReservedWord">&lt;groupId&gt;</span>com.sun.xml.bind<span class="ReservedWord">&lt;/groupId&gt;</span>
-                <span class="ReservedWord">&lt;artifactId&gt;</span>jaxb-jxc<span class="ReservedWord">&lt;/artifactId&gt;</span>
-                <span class="ReservedWord">&lt;version&gt;</span>4.0.0<span class="ReservedWord">&lt;/version&gt;</span>
-            <span class="ReservedWord">&lt;/dependency&gt;</span>
-
-            <span class="Comment">&lt;!-- Invoke tooling API (Java 11) --&gt;</span>
-            <span class="ReservedWord">&lt;plugin&gt;</span>
-                <span class="ReservedWord">&lt;groupId&gt;</span>org.codehaus.mojo<span class="ReservedWord">&lt;/groupId&gt;</span>
-                <span class="ReservedWord">&lt;artifactId&gt;</span>exec-maven-plugin<span class="ReservedWord">&lt;/artifactId&gt;</span>
-                    <span class="Comment">&lt;!-- Generate java sources from schema --&gt;</span>
-                    <span class="ReservedWord">&lt;execution&gt;</span>
-                        <span class="ReservedWord">&lt;id&gt;</span>xjc<span class="ReservedWord">&lt;/id&gt;</span>
-                        <span class="ReservedWord">&lt;goals&gt;</span>
-                            <span class="ReservedWord">&lt;goal&gt;</span>exec<span class="ReservedWord">&lt;/goal&gt;</span>
-                        <span class="ReservedWord">&lt;/goals&gt;</span>
-                        <span class="ReservedWord">&lt;configuration&gt;</span>
-                            <span class="ReservedWord">&lt;executable&gt;</span>java<span class="ReservedWord">&lt;/executable&gt;</span>
-                            <span class="ReservedWord">&lt;arguments&gt;</span>
-                                <span class="ReservedWord">&lt;argument&gt;</span>--module-path<span class="ReservedWord">&lt;/argument&gt;</span>
-                                <span class="ReservedWord">&lt;modulepath/&gt;</span>
-                                <span class="ReservedWord">&lt;argument&gt;</span>-m<span class="ReservedWord">&lt;/argument&gt;</span>
-                                <span class="ReservedWord">&lt;argument&gt;</span>com.sun.tools.xjc<span class="ReservedWord">&lt;/argument&gt;</span>
-                                <span class="ReservedWord">&lt;argument&gt;</span>-p<span class="ReservedWord">&lt;/argument&gt;</span>
-                                <span class="ReservedWord">&lt;argument&gt;</span>com.example<span class="ReservedWord">&lt;/argument&gt;</span>
-                                <span class="ReservedWord">&lt;argument&gt;</span>-d<span class="ReservedWord">&lt;/argument&gt;</span>
-                                <span class="ReservedWord">&lt;argument&gt;</span>${project.build.directory}/generated-sources<span class="ReservedWord">&lt;/argument&gt;</span>
-                                <span class="ReservedWord">&lt;argument&gt;</span>${project.build.directory}/classes/schema.xsd<span class="ReservedWord">&lt;/argument&gt;</span>
-                            <span class="ReservedWord">&lt;/arguments&gt;</span>
-                        <span class="ReservedWord">&lt;/configuration&gt;</span>
-                    <span class="ReservedWord">&lt;/execution&gt;</span>
-
-                    <span class="Comment">&lt;!-- Generate XML Schema from sources --&gt;</span>
-                    <span class="ReservedWord">&lt;execution&gt;</span>
-                        <span class="ReservedWord">&lt;id&gt;</span>jxc<span class="ReservedWord">&lt;/id&gt;</span>
-                        <span class="ReservedWord">&lt;goals&gt;</span>
-                            <span class="ReservedWord">&lt;goal&gt;</span>exec<span class="ReservedWord">&lt;/goal&gt;</span>
-                        <span class="ReservedWord">&lt;/goals&gt;</span>
-                        <span class="ReservedWord">&lt;configuration&gt;</span>
-                            <span class="ReservedWord">&lt;executable&gt;</span>java<span class="ReservedWord">&lt;/executable&gt;</span>
-                            <span class="ReservedWord">&lt;arguments&gt;</span>
-                                <span class="ReservedWord">&lt;argument&gt;</span>--module-path<span class="ReservedWord">&lt;/argument&gt;</span>
-                                <span class="ReservedWord">&lt;modulepath/&gt;</span>
-                                <span class="ReservedWord">&lt;argument&gt;</span>-m<span class="ReservedWord">&lt;/argument&gt;</span>
-                                <span class="ReservedWord">&lt;argument&gt;</span>com.sun.tools.jxc<span class="ReservedWord">&lt;/argument&gt;</span>
-                                <span class="ReservedWord">&lt;argument&gt;</span>-d<span class="ReservedWord">&lt;/argument&gt;</span>
-                                <span class="ReservedWord">&lt;argument&gt;</span>${project.build.directory}/generated-sources<span class="ReservedWord">&lt;/argument&gt;</span>
-                                <span class="ReservedWord">&lt;argument&gt;</span>${project.build.directory}/classes/com/example/Author.java<span class="ReservedWord">&lt;/argument&gt;</span>
-                                <span class="ReservedWord">&lt;argument&gt;</span>${project.build.directory}/classes/com/example/Book.java<span class="ReservedWord">&lt;/argument&gt;</span>
-                            <span class="ReservedWord">&lt;/arguments&gt;</span>
-                            <span class="ReservedWord">&lt;longModulepath&gt;</span>false<span class="ReservedWord">&lt;/longModulepath&gt;</span>
-                        <span class="ReservedWord">&lt;/configuration&gt;</span>
-                    <span class="ReservedWord">&lt;/execution&gt;</span>
-                <span class="ReservedWord">&lt;/executions&gt;</span>
-            <span class="ReservedWord">&lt;/plugin&gt;</span></pre></div></div><p><br class="example-break">
-    See also <a class="link" href="ch03.html#schema-generation-invoking-schemagen-programatically" title="6.1.&nbsp;Invoking schemagen programatically">xml schema compiler usage</a>.</p><p><code class="literal">schemagen</code> and <code class="literal">xjc</code> command line scripts are available
-        only in the <a class="link" href="ch03.html#Maven_artifacts" title="7.1.1.&nbsp;Maven coordinates for Eclipse Implementation of JAXB artifacts">zip distribution.</a></p></div></div><div lang="en" class="section" id="deployment-jaxb-on-jpms"><div class="titlepage"><div><div><h3 class="title">7.2.&nbsp;Using Eclipse Implementation of JAXB on JPMS</h3></div></div></div><p>Java SE 11 features JSR 376 Java Platform Module System.
+                <span class="ReservedWord">&lt;/dependency&gt;</span></pre></div></div><p><br class="example-break"></p></div></div><div lang="en" class="section" id="deployment-jaxb-on-jpms"><div class="titlepage"><div><div><h3 class="title">7.2.&nbsp;Using Eclipse Implementation of JAXB on JPMS</h3></div></div></div><p>Java SE 11 features JSR 376 Java Platform Module System.
         Starting from version 2.3.2 Eclipse Implementation of JAXB supports JPMS and can be loaded and used from module path.
         There are only a few things to be aware of.
     </p><div class="section" id="Jaxb_pojo_openness"><div class="titlepage"><div><div><h4 class="title">7.2.1.&nbsp;Eclipse Implementation of JAXB classes openness</h4></div></div></div><p>
         Eclipse Implementation of JAXB does reflectively access private members of the class, so client application if loaded from module path
             needs to "open" packages containing jaxb classes to Jakarta XML Binding. There are alternative Jakarta XML Binding implementations,
             having different module names, Jakarta XML Binding requires pojo classes to be open only to API module.
-        </p><div class="example" id="d0e3383"><p class="title"><b>Example&nbsp;94.&nbsp;JPMS module descriptor opening Jakarta XML Binding pojo classes to Jakarta XML Binding API</b></p><div class="example-contents"><pre class="programlisting">
+        </p><div class="example" id="d0e3311"><p class="title"><b>Example&nbsp;90.&nbsp;JPMS module descriptor opening Jakarta XML Binding pojo classes to Jakarta XML Binding API</b></p><div class="example-contents"><pre class="programlisting">
 <span class="Comment">//JPMS module descriptor</span>
 module com.example.jaxbclasses {
 
@@ -1549,7 +1419,7 @@ module com.example.jaxbclasses {
 }</pre></div></div><p><br class="example-break">
         Jakarta XML Binding API will delegate openness to implementation module after resolving it with service discovery mechanism.
         </p></div><div class="section" id="Command-line-examples"><div class="titlepage"></div><p>
-            </p><div class="example" id="d0e3392"><p class="title"><b>Example&nbsp;95.&nbsp;Eclipse Implementation of JAXB on JPMS Command line examples</b></p><div class="example-contents"><pre class="programlisting">
+            </p><div class="example" id="d0e3320"><p class="title"><b>Example&nbsp;91.&nbsp;Eclipse Implementation of JAXB on JPMS Command line examples</b></p><div class="example-contents"><pre class="programlisting">
 #Both client and Eclipse Implementation of JAXB on module path:
 $ java -m com.example.jaxbclasses/com.example.jaxb.Main --module-path jaxbclient.jar:jakarta.xml.bind-api.jar:jakarta.activation-api.jar:jaxb-core.jar:jaxb-impl.jar
 
@@ -1563,7 +1433,7 @@ $ java com.example.jaxb.Main -cp jaxbclient.jar --module-path jakarta.xml.bind-a
     Unmarshaller, and Validator classes are not thread safe.</p><p>For example, suppose you have a multi-thread server application that
     processes incoming XML documents by Jakarta XML Binding. In this case, for the best
     performance you should have just one instance of JAXBContext in your whole
-    application like this:</p><div class="example" id="d0e3410"><p class="title"><b>Example&nbsp;96.&nbsp;Singleton JAXBContext</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">class</span> MyServlet <span class="ReservedWord">extends</span> HttpServlet {
+    application like this:</p><div class="example" id="d0e3338"><p class="title"><b>Example&nbsp;92.&nbsp;Singleton JAXBContext</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">class</span> MyServlet <span class="ReservedWord">extends</span> HttpServlet {
     <span class="ReservedWord">static</span> <span class="ReservedWord">final</span> JAXBContext context = initContext();
 
     <span class="ReservedWord">private</span> <span class="ReservedWord">static</span> JAXBContext initContext() {
@@ -1571,7 +1441,7 @@ $ java com.example.jaxb.Main -cp jaxbclient.jar --module-path jakarta.xml.bind-a
     }
 }</pre></div></div><br class="example-break"><p>And each time you need to unmarshal/marshal/validate a document.
     Just create a new Unmarshaller/Marshaller/Validator from this context,
-    like this:</p><div class="example" id="d0e3417"><p class="title"><b>Example&nbsp;97.&nbsp;Thread local Unmarshaller</b></p><div class="example-contents"><pre class="programlisting">    <span class="ReservedWord">public</span> <span class="ReservedWord">void</span> doGet( HttpServletRequest req, HttpServletResponse ) {
+    like this:</p><div class="example" id="d0e3345"><p class="title"><b>Example&nbsp;93.&nbsp;Thread local Unmarshaller</b></p><div class="example-contents"><pre class="programlisting">    <span class="ReservedWord">public</span> <span class="ReservedWord">void</span> doGet( HttpServletRequest req, HttpServletResponse ) {
         Unmarshaller u = context.createUnmarshaller();
         u.unmarshal(...);
     }</pre></div></div><br class="example-break"><p>This is the simplest safe way to use the Eclipse Implementation of JAXB from multi-threaded
@@ -1584,7 +1454,7 @@ $ java com.example.jaxb.Main -cp jaxbclient.jar --module-path jakarta.xml.bind-a
     let's you compile XML DTDs. It is marked "experimental" not because the
     feature is unstable nor unreliable, but rather because it's not a part of
     the JAXB specification and therefore the level of commitment to
-    compatibility is lower.</p><div class="example" id="d0e3432"><p class="title"><b>Example&nbsp;98.&nbsp;To compile a DTD, run the XJC binding compiler as
+    compatibility is lower.</p><div class="example" id="d0e3360"><p class="title"><b>Example&nbsp;94.&nbsp;To compile a DTD, run the XJC binding compiler as
         follows:</b></p><div class="example-contents"><pre class="programlisting">$ xjc.sh -dtd test.dtd</pre></div></div><br class="example-break"><p>All the other command-line options of the XJC binding compiler can
     be applied. Similarly, the XJC ant task supports DTD. The generated code
     will be no different from what is generated from W3C XML Schema. You'll
@@ -1605,7 +1475,7 @@ $ java com.example.jaxb.Main -cp jaxbclient.jar --module-path jakarta.xml.bind-a
                 <code class="literal">collapse</code>" instead of " <code class="literal">preserve</code>", "
                 <code class="literal">normalize</code>", and " <code class="literal">collapse</code>" as
                 specified in the document.</p></li><li class="listitem"><p>The <code class="literal">interface</code> customization just generates
-                marker interfaces with no method.</p></li></ul></div></div><div class="section" id="Compiling_DTD_from_Maven2"><div class="titlepage"><div><div><h4 class="title">8.2.2.&nbsp;Compiling DTD from Maven</h4></div></div></div><div class="example" id="d0e3489"><p class="title"><b>Example&nbsp;99.&nbsp;The following POM snippest describes how to invoke XJC to
+                marker interfaces with no method.</p></li></ul></div></div><div class="section" id="Compiling_DTD_from_Maven2"><div class="titlepage"><div><div><h4 class="title">8.2.2.&nbsp;Compiling DTD from Maven</h4></div></div></div><div class="example" id="d0e3417"><p class="title"><b>Example&nbsp;95.&nbsp;The following POM snippest describes how to invoke XJC to
             compile DTD from a Maven project:</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;plugin&gt;</span>
   <span class="ReservedWord">&lt;groupId&gt;</span>org.jvnet.jaxb2.maven2<span class="ReservedWord">&lt;/groupId&gt;</span>
   <span class="ReservedWord">&lt;artifactId&gt;</span>maven-jaxb2-plugin<span class="ReservedWord">&lt;/artifactId&gt;</span>
@@ -1639,7 +1509,7 @@ $ java com.example.jaxb.Main -cp jaxbclient.jar --module-path jakarta.xml.bind-a
       <span class="ReservedWord">&lt;version&gt;</span>1.0<span class="ReservedWord">&lt;/version&gt;</span>
     <span class="ReservedWord">&lt;/dependency&gt;</span>
   <span class="ReservedWord">&lt;/dependencies&gt;</span>
-<span class="ReservedWord">&lt;/plugin&gt;</span></pre></div></div><br class="example-break"><div class="example" id="d0e3494"><p class="title"><b>Example&nbsp;100.&nbsp;The dependencies section inside the plugin element can be
+<span class="ReservedWord">&lt;/plugin&gt;</span></pre></div></div><br class="example-break"><div class="example" id="d0e3422"><p class="title"><b>Example&nbsp;96.&nbsp;The dependencies section inside the plugin element can be
             used to specify additional XJC plugins. If you'd like to use more
             recent version of the Eclipse Implementation of JAXB, you can specify a dependency to XJC
             here to do so, like this:</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;dependency&gt;</span>
@@ -1653,7 +1523,7 @@ $ java com.example.jaxb.Main -cp jaxbclient.jar --module-path jakarta.xml.bind-a
     of the stream (because a parser needs to handle documents like
     <code class="literal">&lt;root/&gt;&lt;!-- post root comment --&gt;</code>). As a result,
     a naive attempt to keep one <code class="literal">OutputStream</code> open and marshal
-    objects multiple times fails.</p><div class="example" id="d0e3513"><p class="title"><b>Example&nbsp;101.&nbsp;One easy way to work around this limitation is to design your
+    objects multiple times fails.</p><div class="example" id="d0e3441"><p class="title"><b>Example&nbsp;97.&nbsp;One easy way to work around this limitation is to design your
         protocol so that the data on the wire will look like the
         following:</b></p><div class="example-contents"><pre class="programlisting"><span class="ReservedWord">&lt;conversation&gt;</span>
   <span class="Comment">&lt;!-- message 1 --&gt;</span>
