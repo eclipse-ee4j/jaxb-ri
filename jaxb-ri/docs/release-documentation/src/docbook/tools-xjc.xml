@@ -166,9 +166,8 @@ Extensions:
                     <listitem>
                         <para>By default, the XJC binding compiler strictly
                         enforces the rules outlined in the Compatibility
-                        chapter of the &binding.spec.name; Specification. Appendix E.2
-                        defines a set of W3C XML Schema features that are not
-                        completely supported by JAXB v1.0. In some cases, you
+                        chapter of the &binding.spec.name; Specification.
+                        In some cases, you
                         may be allowed to use them in the "-extension" mode
                         enabled by this switch. In the default (strict) mode,
                         you are also limited to using only the binding

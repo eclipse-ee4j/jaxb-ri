@@ -87,7 +87,7 @@
 
             <listitem>
                 <para><link
-                xlink:href="https://jakarta.ee/specifications/xml-binding/3.0/apidocs/">Javadoc
+                xlink:href="https://jakarta.ee/specifications/xml-binding/&binding.spec.version;/apidocs/">Javadoc
                 API documentation (jakarta.xml.bind.*)</link></para>
             </listitem>
 
