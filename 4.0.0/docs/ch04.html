@@ -13,14 +13,14 @@ layout: content
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
-</script></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Tools</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch03.html">Prev</a>&nbsp;</td><th width="60%" align="center">&nbsp;</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch05.html">Next</a></td></tr></table><hr></div><small xmlns:fo="http://www.w3.org/1999/XSL/Format" class="small">Links: <a href="index.html">Table of Contents</a> | <a href="release-documentation.html">Single HTML</a> | <a href="release-documentation.pdf">Single PDF</a></small><div lang="en" class="chapter" id="tools"><div class="titlepage"><div><div><h1 class="title">Tools</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="ch04.html#tools-xjc">1. XJC</a></span></dt><dd><dl><dt><span class="section"><a href="ch04.html#d0e3555">1.1. <span class="command"><strong>xjc</strong></span> Overview</a></span></dt><dt><span class="section"><a href="ch04.html#section-7316528525821393">1.2. Launching <span class="command"><strong>xjc</strong></span></a></span></dt><dt><span class="section"><a href="ch04.html#d0e3622">1.3. <span class="command"><strong>xjc</strong></span> Syntax</a></span></dt><dt><span class="section"><a href="ch04.html#restrictions">1.4. Compiler Restrictions</a></span></dt><dt><span class="section"><a href="ch04.html#xjcresources">1.5. Generated Resource Files</a></span></dt></dl></dd><dt><span class="section"><a href="ch04.html#tools-xjc-ant-task">2. XJC Ant Task</a></span></dt><dd><dl><dt><span class="section"><a href="ch04.html#d0e3998">2.1. <span class="command"><strong>xjc</strong></span> Task Overview</a></span></dt><dt><span class="section"><a href="ch04.html#section-356252324237826">2.2. <span class="command"><strong>xjc</strong></span> Task Attributes</a></span></dt><dt><span class="section"><a href="ch04.html#section-837075444051632">2.3. Generated Resource Files</a></span></dt><dt><span class="section"><a href="ch04.html#section-767416326934949">2.4. Up-to-date Check</a></span></dt><dt><span class="section"><a href="ch04.html#section-31739621133682">2.5. Schema Language Support</a></span></dt><dt><span class="section"><a href="ch04.html#section-607840891098334">2.6. <span class="command"><strong>xjc</strong></span> Examples</a></span></dt></dl></dd><dt><span class="section"><a href="ch04.html#tools-schemagen">3. SchemaGen</a></span></dt><dd><dl><dt><span class="section"><a href="ch04.html#d0e4570">3.1. <span class="command"><strong>schemagen</strong></span> Overview</a></span></dt><dt><span class="section"><a href="ch04.html#section-182504251480881">3.2. Launching <span class="command"><strong>schemagen</strong></span></a></span></dt><dt><span class="section"><a href="ch04.html#d0e4615">3.3. <span class="command"><strong>schemagen</strong></span> Syntax</a></span></dt><dt><span class="section"><a href="ch04.html#section-906211973953818">3.4. Generated Resource Files</a></span></dt></dl></dd><dt><span class="section"><a href="ch04.html#tools-schemagen-ant-task">4. SchemaGen Ant Task</a></span></dt><dd><dl><dt><span class="section"><a href="ch04.html#d0e4698">4.1. <span class="command"><strong>schemagen</strong></span> Task Overview</a></span></dt><dt><span class="section"><a href="ch04.html#section-417846742205862">4.2. <span class="command"><strong>schemagen</strong></span> Task Attributes</a></span></dt><dt><span class="section"><a href="ch04.html#section-9298229576523986">4.3. <span class="command"><strong>schemagen</strong></span> Examples</a></span></dt></dl></dd><dt><span class="section"><a href="ch04.html#tools-3rd-party-tools">5. 3rd Party Tools</a></span></dt><dd><dl><dt><span class="section"><a href="ch04.html#section-954928396024079">5.1. Maven JAXB Plugin</a></span></dt><dt><span class="section"><a href="ch04.html#section-2642114715432213">5.2. XJC Plugins</a></span></dt><dt><span class="section"><a href="ch04.html#section-926973453240119">5.3. RDBMS Persistence</a></span></dt></dl></dd></dl></div><div lang="en" class="section" id="tools-xjc"><div class="titlepage"><div><div><h2 class="title" style="clear: both">1.&nbsp;XJC</h2></div></div></div><div class="section" id="d0e3555"><div class="titlepage"><div><div><h3 class="title">1.1.&nbsp;<span class="command"><strong>xjc</strong></span> Overview</h3></div></div></div><p>Eclipse Implementation of JAXB also provides an Ant task to run the binding complier -
+</script></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Tools</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch03.html">Prev</a>&nbsp;</td><th width="60%" align="center">&nbsp;</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch05.html">Next</a></td></tr></table><hr></div><small xmlns:fo="http://www.w3.org/1999/XSL/Format" class="small">Links: <a href="index.html">Table of Contents</a> | <a href="release-documentation.html">Single HTML</a> | <a href="release-documentation.pdf">Single PDF</a></small><div lang="en" class="chapter" id="tools"><div class="titlepage"><div><div><h1 class="title">Tools</h1></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl class="toc"><dt><span class="section"><a href="ch04.html#tools-xjc">1. XJC</a></span></dt><dd><dl><dt><span class="section"><a href="ch04.html#d0e3483">1.1. <span class="command"><strong>xjc</strong></span> Overview</a></span></dt><dt><span class="section"><a href="ch04.html#section-7316528525821393">1.2. Launching <span class="command"><strong>xjc</strong></span></a></span></dt><dt><span class="section"><a href="ch04.html#d0e3550">1.3. <span class="command"><strong>xjc</strong></span> Syntax</a></span></dt><dt><span class="section"><a href="ch04.html#restrictions">1.4. Compiler Restrictions</a></span></dt><dt><span class="section"><a href="ch04.html#xjcresources">1.5. Generated Resource Files</a></span></dt></dl></dd><dt><span class="section"><a href="ch04.html#tools-xjc-ant-task">2. XJC Ant Task</a></span></dt><dd><dl><dt><span class="section"><a href="ch04.html#d0e3926">2.1. <span class="command"><strong>xjc</strong></span> Task Overview</a></span></dt><dt><span class="section"><a href="ch04.html#section-356252324237826">2.2. <span class="command"><strong>xjc</strong></span> Task Attributes</a></span></dt><dt><span class="section"><a href="ch04.html#section-837075444051632">2.3. Generated Resource Files</a></span></dt><dt><span class="section"><a href="ch04.html#section-767416326934949">2.4. Up-to-date Check</a></span></dt><dt><span class="section"><a href="ch04.html#section-31739621133682">2.5. Schema Language Support</a></span></dt><dt><span class="section"><a href="ch04.html#section-607840891098334">2.6. <span class="command"><strong>xjc</strong></span> Examples</a></span></dt></dl></dd><dt><span class="section"><a href="ch04.html#tools-schemagen">3. SchemaGen</a></span></dt><dd><dl><dt><span class="section"><a href="ch04.html#d0e4498">3.1. <span class="command"><strong>schemagen</strong></span> Overview</a></span></dt><dt><span class="section"><a href="ch04.html#section-182504251480881">3.2. Launching <span class="command"><strong>schemagen</strong></span></a></span></dt><dt><span class="section"><a href="ch04.html#d0e4543">3.3. <span class="command"><strong>schemagen</strong></span> Syntax</a></span></dt><dt><span class="section"><a href="ch04.html#section-906211973953818">3.4. Generated Resource Files</a></span></dt></dl></dd><dt><span class="section"><a href="ch04.html#tools-schemagen-ant-task">4. SchemaGen Ant Task</a></span></dt><dd><dl><dt><span class="section"><a href="ch04.html#d0e4626">4.1. <span class="command"><strong>schemagen</strong></span> Task Overview</a></span></dt><dt><span class="section"><a href="ch04.html#section-417846742205862">4.2. <span class="command"><strong>schemagen</strong></span> Task Attributes</a></span></dt><dt><span class="section"><a href="ch04.html#section-9298229576523986">4.3. <span class="command"><strong>schemagen</strong></span> Examples</a></span></dt></dl></dd><dt><span class="section"><a href="ch04.html#tools-3rd-party-tools">5. 3rd Party Tools</a></span></dt><dd><dl><dt><span class="section"><a href="ch04.html#Jaxb_tooling">5.1. Maven Plugins</a></span></dt><dt><span class="section"><a href="ch04.html#section-2642114715432213">5.2. XJC Plugins</a></span></dt><dt><span class="section"><a href="ch04.html#section-926973453240119">5.3. RDBMS Persistence</a></span></dt></dl></dd></dl></div><div lang="en" class="section" id="tools-xjc"><div class="titlepage"><div><div><h2 class="title" style="clear: both">1.&nbsp;XJC</h2></div></div></div><div class="section" id="d0e3483"><div class="titlepage"><div><div><h3 class="title">1.1.&nbsp;<span class="command"><strong>xjc</strong></span> Overview</h3></div></div></div><p>Eclipse Implementation of JAXB also provides an Ant task to run the binding complier -
         see the instructions for <a class="xref" href="ch04.html#tools-xjc-ant-task" title="2.&nbsp;XJC Ant Task">XJC Ant Task</a>.</p></div><div class="section" id="section-7316528525821393"><div class="titlepage"><div><div><h3 class="title">1.2.&nbsp;Launching <span class="command"><strong>xjc</strong></span></h3></div></div></div><p>The binding compiler can be launched using the appropriate
         <code class="literal">xjc</code> shell script in the <code class="literal">bin</code>
         directory for your platform.</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><span class="bold"><strong>Solaris/Linux</strong></span></p><pre class="programlisting">% /path/to/jaxb/bin/xjc.sh -help</pre></li><li class="listitem"><p><span class="bold"><strong>Windows</strong></span></p><pre class="programlisting">&gt; c:\path\to\jaxb\bin\xjc.bat -help</pre></li></ul></div><div class="section" id="section-445618689309685"><div class="titlepage"><div><div><h4 class="title">1.2.1.&nbsp;Execute the <code class="filename">jaxb-xjc.jar</code> JAR
             File</h4></div></div></div><p>If all else fails, you should be able to execute the
             <code class="literal">jaxb-xjc.jar</code> file:</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><span class="bold"><strong>Solaris/Linux</strong></span></p><pre class="programlisting">% java -jar $JAXB_HOME/lib/jaxb-xjc.jar -help</pre></li><li class="listitem"><p><span class="bold"><strong>Windows</strong></span></p><pre class="programlisting">&gt; java -jar %JAXB_HOME%\lib\jaxb-xjc.jar -help</pre></li></ul></div><p>This is equivalent of running <span class="command"><strong>xjc.sh</strong></span> or
             <span class="command"><strong>xjc.bat</strong></span>, and it allows you to set the JVM
-            parameters.</p></div></div><div class="section" id="d0e3622"><div class="titlepage"><div><div><h3 class="title">1.3.&nbsp;<span class="command"><strong>xjc</strong></span> Syntax</h3></div></div></div><div class="cmdsynopsis"><p id="d0e3627"><code class="command">xjc</code>   [OPTION]...  &lt;schema file/URL/dir/jar&gt; [<code class="option">-b</code> &lt;binding&gt;...]</p></div><div class="informalexample"><pre class="programlisting">Usage: xjc [-options ...] &lt;schema file/URL/dir/jar&gt; ... [-b &lt;bindinfo&gt;] ...
+            parameters.</p></div></div><div class="section" id="d0e3550"><div class="titlepage"><div><div><h3 class="title">1.3.&nbsp;<span class="command"><strong>xjc</strong></span> Syntax</h3></div></div></div><div class="cmdsynopsis"><p id="d0e3555"><code class="command">xjc</code>   [OPTION]...  &lt;schema file/URL/dir/jar&gt; [<code class="option">-b</code> &lt;binding&gt;...]</p></div><div class="informalexample"><pre class="programlisting">Usage: xjc [-options ...] &lt;schema file/URL/dir/jar&gt; ... [-b &lt;bindinfo&gt;] ...
 If dir is specified, all schema files in it will be compiled.
 If jar is specified, /META-INF/sun-jaxb.episode binding file will be compiled.
 Options:
@@ -69,9 +69,8 @@ Extensions:
                         means that it will perform less-strict
                         validation.</p></dd><dt><span class="term"><span class="bold"><strong>-extension</strong></span></span></dt><dd><p>By default, the XJC binding compiler strictly
                         enforces the rules outlined in the Compatibility
-                        chapter of the Jakarta XML Binding Specification. Appendix E.2
-                        defines a set of W3C XML Schema features that are not
-                        completely supported by JAXB v1.0. In some cases, you
+                        chapter of the Jakarta XML Binding Specification.
+                        In some cases, you
                         may be allowed to use them in the "-extension" mode
                         enabled by this switch. In the default (strict) mode,
                         you are also limited to using only the binding
@@ -194,7 +193,7 @@ xjc schema1.xsd schema2.xsd schema3.xsd -b bindings1.xjb -b bindings2.xjb -b bin
         options you used for compilation. When generated,
         <code class="literal">jaxb.properties</code> files must be kept with the compiled
         source code and made available on the runtime classpath of your client
-        applications:</p></div></div><div lang="en" class="section" id="tools-xjc-ant-task"><div class="titlepage"><div><div><h2 class="title" style="clear: both">2.&nbsp;XJC Ant Task</h2></div></div></div><div class="section" id="d0e3998"><div class="titlepage"><div><div><h3 class="title">2.1.&nbsp;<span class="command"><strong>xjc</strong></span> Task Overview</h3></div></div></div><p>The <code class="literal">jaxb-xjc.jar</code> file contains the
+        applications:</p></div></div><div lang="en" class="section" id="tools-xjc-ant-task"><div class="titlepage"><div><div><h2 class="title" style="clear: both">2.&nbsp;XJC Ant Task</h2></div></div></div><div class="section" id="d0e3926"><div class="titlepage"><div><div><h3 class="title">2.1.&nbsp;<span class="command"><strong>xjc</strong></span> Task Overview</h3></div></div></div><p>The <code class="literal">jaxb-xjc.jar</code> file contains the
         <code class="literal">XJCTask.class</code> file, which allows the XJC binding
         compiler to be invoked from the <a class="link" href="http://ant.apache.org/" target="_top">Ant</a> build tool. To
         use <code class="literal">XJCTask</code>, include the following statement in
@@ -375,7 +374,7 @@ xjc schema1.xsd schema2.xsd schema3.xsd -b bindings1.xjb -b bindings2.xjb -b bin
         containing the appropriate <code class="literal">java</code> options. For
         example, from DOS:</p><div class="informalexample"><pre class="programlisting">&gt; set ANT_OPTS=-Dhttp.proxyHost=webcache.east
 &gt; set ANT_OPTS=%ANT_OPTS% -Dhttp.proxyPort=8080
-&gt; ant</pre></div></div></div><div lang="en" class="section" id="tools-schemagen"><div class="titlepage"><div><div><h2 class="title" style="clear: both">3.&nbsp;SchemaGen</h2></div></div></div><div class="section" id="d0e4570"><div class="titlepage"><div><div><h3 class="title">3.1.&nbsp;<span class="command"><strong>schemagen</strong></span> Overview</h3></div></div></div><p>The current schema generator can process either Java source
+&gt; ant</pre></div></div></div><div lang="en" class="section" id="tools-schemagen"><div class="titlepage"><div><div><h2 class="title" style="clear: both">3.&nbsp;SchemaGen</h2></div></div></div><div class="section" id="d0e4498"><div class="titlepage"><div><div><h3 class="title">3.1.&nbsp;<span class="command"><strong>schemagen</strong></span> Overview</h3></div></div></div><p>The current schema generator can process either Java source
         files or class files.</p><p>We also provide an Ant task to run the schema generator - see
         the instructions for <a class="xref" href="ch04.html#tools-schemagen-ant-task" title="4.&nbsp;SchemaGen Ant Task">SchemaGen Ant Task</a>.</p></div><div class="section" id="section-182504251480881"><div class="titlepage"><div><div><h3 class="title">3.2.&nbsp;Launching <span class="command"><strong>schemagen</strong></span></h3></div></div></div><p>The schema generator can be launched using the appropriate
         <code class="literal">schemagen</code> shell script in the
@@ -385,7 +384,7 @@ xjc schema1.xsd schema2.xsd schema3.xsd -b bindings1.xjb -b bindings2.xjb -b bin
         <code class="option">-cp</code> options. Otherwise you will see errors when
         generating your schema.</p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><span class="bold"><strong>Solaris/Linux</strong></span></p><pre class="programlisting">% path/to/jaxb/bin/schemagen.sh Foo.java Bar.java ...
 Note: Writing schema1.xsd</pre></li><li class="listitem"><p><span class="bold"><strong>Windows</strong></span></p><pre class="programlisting">&gt; path\to\jaxb\bin\schemagen.bat Foo.java Bar.java ...
-Note: Writing schema1.xsd</pre></li></ul></div></div><div class="section" id="d0e4615"><div class="titlepage"><div><div><h3 class="title">3.3.&nbsp;<span class="command"><strong>schemagen</strong></span> Syntax</h3></div></div></div><div class="cmdsynopsis"><p id="d0e4620"><code class="command">schemagen</code>   [OPTION]...  &lt;java files&gt;</p></div><div class="informalexample"><pre class="programlisting">Usage: schemagen [-options ...] &lt;java files&gt; 
+Note: Writing schema1.xsd</pre></li></ul></div></div><div class="section" id="d0e4543"><div class="titlepage"><div><div><h3 class="title">3.3.&nbsp;<span class="command"><strong>schemagen</strong></span> Syntax</h3></div></div></div><div class="cmdsynopsis"><p id="d0e4548"><code class="command">schemagen</code>   [OPTION]...  &lt;java files&gt;</p></div><div class="informalexample"><pre class="programlisting">Usage: schemagen [-options ...] &lt;java files&gt; 
 
 Options: 
     -d &lt;path&gt;             : specify where to place processor and javac generated class files
@@ -417,7 +416,7 @@ Options:
                             switches.</p></dd><dt><span class="term"><span class="bold"><strong>-version</strong></span></span></dt><dd><p>Display the compiler version information.</p></dd><dt><span class="term"><span class="bold"><strong>-fullversion</strong></span></span></dt><dd><p>Display the compiler full version information.</p></dd></dl></div></div></div><div class="section" id="section-906211973953818"><div class="titlepage"><div><div><h3 class="title">3.4.&nbsp;Generated Resource Files</h3></div></div></div><p>The current schema generator simply creates a schema file for
         each namespace referenced in your Java classes. There is no way to
         control the name of the generated schema files at this time. Use <a class="xref" href="ch04.html#tools-schemagen-ant-task" title="4.&nbsp;SchemaGen Ant Task">SchemaGen Ant Task</a> for
-        that purpose.</p></div></div><div lang="en" class="section" id="tools-schemagen-ant-task"><div class="titlepage"><div><div><h2 class="title" style="clear: both">4.&nbsp;SchemaGen Ant Task</h2></div></div></div><div class="section" id="d0e4698"><div class="titlepage"><div><div><h3 class="title">4.1.&nbsp;<span class="command"><strong>schemagen</strong></span> Task Overview</h3></div></div></div><p>The <code class="literal">jaxb-jxc.jar</code> file contains the
+        that purpose.</p></div></div><div lang="en" class="section" id="tools-schemagen-ant-task"><div class="titlepage"><div><div><h2 class="title" style="clear: both">4.&nbsp;SchemaGen Ant Task</h2></div></div></div><div class="section" id="d0e4626"><div class="titlepage"><div><div><h3 class="title">4.1.&nbsp;<span class="command"><strong>schemagen</strong></span> Task Overview</h3></div></div></div><p>The <code class="literal">jaxb-jxc.jar</code> file contains the
         <code class="literal">SchemaGenTask.class</code> file, which allows the schema
         generator to be invoked from the <a class="link" href="http://ant.apache.org" target="_top">Ant</a> build tool. To
         use <code class="literal">SchemaGenTask</code>, include the following statement
@@ -459,11 +458,141 @@ Options:
             <span class="Identifier">file</span>=<span class="String">"myschema-common.xsd"</span><span class="ReservedWord">/&gt;</span>
     <span class="ReservedWord">&lt;schema</span> <span class="Identifier">namespace</span>=<span class="String">"http://myschema.acme.org/onion"</span>
             <span class="Identifier">file</span>=<span class="String">"myschema-onion.xsd"</span><span class="ReservedWord">/&gt;</span>
-<span class="ReservedWord">&lt;/schemagen&gt;</span></pre></div></div></div><div lang="en" class="section" id="tools-3rd-party-tools"><div class="titlepage"><div><div><h2 class="title" style="clear: both">5.&nbsp;3rd Party Tools</h2></div></div></div><div class="section" id="section-954928396024079"><div class="titlepage"><div><div><h3 class="title">5.1.&nbsp;Maven JAXB Plugin</h3></div></div></div><p>If you are using Maven, JAXB
-    jars are available in 
-    <a class="link" href="https://search.maven.org/search?q=g:org.glassfish.jaxb" target="_top">the maven central repository</a>.</p></div><div class="section" id="section-2642114715432213"><div class="titlepage"><div><div><h3 class="title">5.2.&nbsp;XJC Plugins</h3></div></div></div><p>Various people in the community have developed plugins for
-    XJC that you can use today. These plugins allow you to
-    enhance/alter the code generation of XJC in many different
-    ways.</p></div><div class="section" id="section-926973453240119"><div class="titlepage"><div><div><h3 class="title">5.3.&nbsp;RDBMS Persistence</h3></div></div></div><p>Lexi has developed the 
-    <a class="link" href="http://confluence.highsource.org/display/HJ3/Home" target="_top">HyperJAXB3
-    project</a> for RDBMS persistence support for the Eclipse Implementation of JAXB. </p></div></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch03.html">Prev</a>&nbsp;</td><td width="20%" align="center">&nbsp;</td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch05.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Eclipse Implementation of JAXB Users Guide&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;Eclipse Implementation of JAXB Extensions</td></tr></table></div></body></html>
+<span class="ReservedWord">&lt;/schemagen&gt;</span></pre></div></div></div><div lang="en" class="section" id="tools-3rd-party-tools"><div class="titlepage"><div><div><h2 class="title" style="clear: both">5.&nbsp;3rd Party Tools</h2></div></div></div><div class="section" id="Jaxb_tooling"><div class="titlepage"><div><div><h3 class="title">5.1.&nbsp;Maven Plugins</h3></div></div></div><p>
+            To generate Jakarta XML Binding classes from an XML schema in Maven project, there are multiple community plugins
+            available:
+            </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>The most advanced and feature-full Maven plugin for XML Schema compilation:
+                        <a class="link" href="https://github.com/highsource/maven-jaxb2-plugin" target="_top">highsource maven-jaxb2-plugin</a>
+                        </p><div class="example" id="d0e4812"><p class="title"><b>Example&nbsp;98.&nbsp;Using highsource maven-jaxb2-plugin</b></p><div class="example-contents"><pre class="programlisting">
+<span class="ReservedWord">&lt;build&gt;</span>
+    <span class="ReservedWord">&lt;plugins&gt;</span>
+        <span class="ReservedWord">&lt;plugin&gt;</span>
+            <span class="ReservedWord">&lt;groupId&gt;</span>org.jvnet.jaxb2.maven2<span class="ReservedWord">&lt;/groupId&gt;</span>
+            <span class="ReservedWord">&lt;artifactId&gt;</span>maven-jaxb2-plugin<span class="ReservedWord">&lt;/artifactId&gt;</span>
+            <span class="ReservedWord">&lt;executions&gt;</span>
+                <span class="ReservedWord">&lt;execution&gt;</span>
+                    <span class="ReservedWord">&lt;goals&gt;</span>
+                        <span class="ReservedWord">&lt;goal&gt;</span>generate<span class="ReservedWord">&lt;/goal&gt;</span>
+                    <span class="ReservedWord">&lt;/goals&gt;</span>
+                <span class="ReservedWord">&lt;/execution&gt;</span>
+            <span class="ReservedWord">&lt;/executions&gt;</span>
+        <span class="ReservedWord">&lt;/plugin&gt;</span>
+    <span class="ReservedWord">&lt;/plugins&gt;</span>
+<span class="ReservedWord">&lt;/build&gt;</span></pre></div></div><p><br class="example-break">
+                        See the <a class="link" href="https://github.com/highsource/maven-jaxb2-plugin/wiki/User-Guide" target="_top">maven-jaxb2-plugin user guide</a> for configuration details.
+                    </p></li><li class="listitem"><p>A Maven plugin originating from MojoHaus which has been updated for Jakarta XML Binding 3+ by Evolved Binary:
+                        <a class="link" href="https://github.com/evolvedbinary/mojohaus-jaxb-maven-plugin" target="_top">MojoHaus jaxb-maven-plugin</a>
+                        </p><div class="example" id="d0e4827"><p class="title"><b>Example&nbsp;99.&nbsp;Using MojoHaus jaxb-maven-plugin</b></p><div class="example-contents"><pre class="programlisting">
+<span class="ReservedWord">&lt;build&gt;</span>
+    <span class="ReservedWord">&lt;plugins&gt;</span>
+        <span class="ReservedWord">&lt;plugin&gt;</span>
+            <span class="ReservedWord">&lt;groupId&gt;</span>com.evolvedbinary.maven.mojohaus<span class="ReservedWord">&lt;/groupId&gt;</span>
+            <span class="ReservedWord">&lt;artifactId&gt;</span>jaxb-maven-plugin<span class="ReservedWord">&lt;/artifactId&gt;</span>
+            <span class="ReservedWord">&lt;executions&gt;</span>
+                <span class="ReservedWord">&lt;execution&gt;</span>
+                    <span class="ReservedWord">&lt;id&gt;</span>schemagen<span class="ReservedWord">&lt;/id&gt;</span>
+                    <span class="ReservedWord">&lt;goals&gt;</span>
+                        <span class="ReservedWord">&lt;goal&gt;</span>schemagen<span class="ReservedWord">&lt;/goal&gt;</span>
+                    <span class="ReservedWord">&lt;/goals&gt;</span>
+                <span class="ReservedWord">&lt;/execution&gt;</span>
+            <span class="ReservedWord">&lt;/executions&gt;</span>
+        <span class="ReservedWord">&lt;/plugin&gt;</span>
+    <span class="ReservedWord">&lt;/plugins&gt;</span>
+<span class="ReservedWord">&lt;/build&gt;</span></pre></div></div><p><br class="example-break">
+                        See the <a class="link" href="https://evolvedbinary.github.io/mojohaus-jaxb-maven-plugin/" target="_top">MojoHaus jaxb-maven-plugin documentation</a> for configuration details.
+                    </p></li><li class="listitem"><p>A Maven plugin originating from java.net which has been updated for Jakarta XML Binding 3+ by Evolved Binary:
+                        <a class="link" href="https://github.com/evolvedbinary/jvnet-jaxb-maven-plugin" target="_top">jvnet jaxb-maven-plugin</a>
+                        </p><div class="example" id="d0e4842"><p class="title"><b>Example&nbsp;100.&nbsp;Using jvnet jaxb-maven-plugin</b></p><div class="example-contents"><pre class="programlisting">
+<span class="ReservedWord">&lt;build&gt;</span>
+    <span class="ReservedWord">&lt;plugins&gt;</span>
+        <span class="ReservedWord">&lt;plugin&gt;</span>
+            <span class="ReservedWord">&lt;groupId&gt;</span>com.evolvedbinary.maven.jvnet<span class="ReservedWord">&lt;/groupId&gt;</span>
+            <span class="ReservedWord">&lt;artifactId&gt;</span>jaxb-maven-plugin<span class="ReservedWord">&lt;/artifactId&gt;</span>
+            <span class="ReservedWord">&lt;executions&gt;</span>
+                <span class="ReservedWord">&lt;execution&gt;</span>
+                    <span class="ReservedWord">&lt;id&gt;</span>generate<span class="ReservedWord">&lt;/id&gt;</span>
+                    <span class="ReservedWord">&lt;goals&gt;</span>
+                        <span class="ReservedWord">&lt;goal&gt;</span>generate<span class="ReservedWord">&lt;/goal&gt;</span>
+                    <span class="ReservedWord">&lt;/goals&gt;</span>
+                <span class="ReservedWord">&lt;/execution&gt;</span>
+            <span class="ReservedWord">&lt;/executions&gt;</span>
+        <span class="ReservedWord">&lt;/plugin&gt;</span>
+    <span class="ReservedWord">&lt;/plugins&gt;</span>
+<span class="ReservedWord">&lt;/build&gt;</span></pre></div></div><p><br class="example-break">
+                        See the <a class="link" href="https://github.com/evolvedbinary/jvnet-jaxb-maven-plugin" target="_top">jvnet jaxb-maven-plugin documentation</a> for configuration details.
+                    </p></li></ul></div><p>
+        </p><p>
+        Alternatively to community plugins, there are tooling artifacts jaxb-xjc and jaxb-jxc,
+        which can be used for
+        java from XML schema generation and vice versa.
+        </p><div class="example" id="d0e4854"><p class="title"><b>Example&nbsp;101.&nbsp;Using Eclipse Implementation of JAXB tooling artifacts</b></p><div class="example-contents"><pre class="programlisting">
+<span class="Comment">&lt;!-- Tooling dependencies --&gt;</span>
+<span class="ReservedWord">&lt;dependency&gt;</span>
+    <span class="ReservedWord">&lt;groupId&gt;</span>com.sun.xml.bind<span class="ReservedWord">&lt;/groupId&gt;</span>
+    <span class="ReservedWord">&lt;artifactId&gt;</span>jaxb-xjc<span class="ReservedWord">&lt;/artifactId&gt;</span>
+    <span class="ReservedWord">&lt;version&gt;</span>4.0.0<span class="ReservedWord">&lt;/version&gt;</span>
+<span class="ReservedWord">&lt;/dependency&gt;</span>
+<span class="ReservedWord">&lt;dependency&gt;</span>
+    <span class="ReservedWord">&lt;groupId&gt;</span>com.sun.xml.bind<span class="ReservedWord">&lt;/groupId&gt;</span>
+    <span class="ReservedWord">&lt;artifactId&gt;</span>jaxb-jxc<span class="ReservedWord">&lt;/artifactId&gt;</span>
+    <span class="ReservedWord">&lt;version&gt;</span>4.0.0<span class="ReservedWord">&lt;/version&gt;</span>
+<span class="ReservedWord">&lt;/dependency&gt;</span>
+
+<span class="Comment">&lt;!-- Invoke tooling API (Java 11) --&gt;</span>
+<span class="ReservedWord">&lt;plugin&gt;</span>
+    <span class="ReservedWord">&lt;groupId&gt;</span>org.codehaus.mojo<span class="ReservedWord">&lt;/groupId&gt;</span>
+    <span class="ReservedWord">&lt;artifactId&gt;</span>exec-maven-plugin<span class="ReservedWord">&lt;/artifactId&gt;</span>
+        <span class="Comment">&lt;!-- Generate java sources from schema --&gt;</span>
+        <span class="ReservedWord">&lt;execution&gt;</span>
+            <span class="ReservedWord">&lt;id&gt;</span>xjc<span class="ReservedWord">&lt;/id&gt;</span>
+            <span class="ReservedWord">&lt;goals&gt;</span>
+                <span class="ReservedWord">&lt;goal&gt;</span>exec<span class="ReservedWord">&lt;/goal&gt;</span>
+            <span class="ReservedWord">&lt;/goals&gt;</span>
+            <span class="ReservedWord">&lt;configuration&gt;</span>
+                <span class="ReservedWord">&lt;executable&gt;</span>java<span class="ReservedWord">&lt;/executable&gt;</span>
+                <span class="ReservedWord">&lt;arguments&gt;</span>
+                    <span class="ReservedWord">&lt;argument&gt;</span>--module-path<span class="ReservedWord">&lt;/argument&gt;</span>
+                    <span class="ReservedWord">&lt;modulepath/&gt;</span>
+                    <span class="ReservedWord">&lt;argument&gt;</span>-m<span class="ReservedWord">&lt;/argument&gt;</span>
+                    <span class="ReservedWord">&lt;argument&gt;</span>com.sun.tools.xjc<span class="ReservedWord">&lt;/argument&gt;</span>
+                    <span class="ReservedWord">&lt;argument&gt;</span>-p<span class="ReservedWord">&lt;/argument&gt;</span>
+                    <span class="ReservedWord">&lt;argument&gt;</span>com.example<span class="ReservedWord">&lt;/argument&gt;</span>
+                    <span class="ReservedWord">&lt;argument&gt;</span>-d<span class="ReservedWord">&lt;/argument&gt;</span>
+                    <span class="ReservedWord">&lt;argument&gt;</span>${project.build.directory}/generated-sources<span class="ReservedWord">&lt;/argument&gt;</span>
+                    <span class="ReservedWord">&lt;argument&gt;</span>${project.build.directory}/classes/schema.xsd<span class="ReservedWord">&lt;/argument&gt;</span>
+                <span class="ReservedWord">&lt;/arguments&gt;</span>
+            <span class="ReservedWord">&lt;/configuration&gt;</span>
+        <span class="ReservedWord">&lt;/execution&gt;</span>
+
+        <span class="Comment">&lt;!-- Generate XML Schema from sources --&gt;</span>
+        <span class="ReservedWord">&lt;execution&gt;</span>
+            <span class="ReservedWord">&lt;id&gt;</span>jxc<span class="ReservedWord">&lt;/id&gt;</span>
+            <span class="ReservedWord">&lt;goals&gt;</span>
+                <span class="ReservedWord">&lt;goal&gt;</span>exec<span class="ReservedWord">&lt;/goal&gt;</span>
+            <span class="ReservedWord">&lt;/goals&gt;</span>
+            <span class="ReservedWord">&lt;configuration&gt;</span>
+                <span class="ReservedWord">&lt;executable&gt;</span>java<span class="ReservedWord">&lt;/executable&gt;</span>
+                <span class="ReservedWord">&lt;arguments&gt;</span>
+                    <span class="ReservedWord">&lt;argument&gt;</span>--module-path<span class="ReservedWord">&lt;/argument&gt;</span>
+                    <span class="ReservedWord">&lt;modulepath/&gt;</span>
+                    <span class="ReservedWord">&lt;argument&gt;</span>-m<span class="ReservedWord">&lt;/argument&gt;</span>
+                    <span class="ReservedWord">&lt;argument&gt;</span>com.sun.tools.jxc<span class="ReservedWord">&lt;/argument&gt;</span>
+                    <span class="ReservedWord">&lt;argument&gt;</span>-d<span class="ReservedWord">&lt;/argument&gt;</span>
+                    <span class="ReservedWord">&lt;argument&gt;</span>${project.build.directory}/generated-sources<span class="ReservedWord">&lt;/argument&gt;</span>
+                    <span class="ReservedWord">&lt;argument&gt;</span>${project.build.directory}/classes/com/example/Author.java<span class="ReservedWord">&lt;/argument&gt;</span>
+                    <span class="ReservedWord">&lt;argument&gt;</span>${project.build.directory}/classes/com/example/Book.java<span class="ReservedWord">&lt;/argument&gt;</span>
+                <span class="ReservedWord">&lt;/arguments&gt;</span>
+                <span class="ReservedWord">&lt;longModulepath&gt;</span>false<span class="ReservedWord">&lt;/longModulepath&gt;</span>
+            <span class="ReservedWord">&lt;/configuration&gt;</span>
+        <span class="ReservedWord">&lt;/execution&gt;</span>
+    <span class="ReservedWord">&lt;/executions&gt;</span>
+<span class="ReservedWord">&lt;/plugin&gt;</span></pre></div></div><p><br class="example-break">
+    See also <a class="link" href="ch03.html#schema-generation-invoking-schemagen-programatically" title="6.1.&nbsp;Invoking schemagen programatically">xml schema compiler usage</a>.</p><p><code class="literal">schemagen</code> and <code class="literal">xjc</code> command line scripts are available
+        only in the <a class="link" href="ch03.html#Maven_artifacts" title="7.1.1.&nbsp;Maven coordinates for Eclipse Implementation of JAXB artifacts">zip distribution.</a></p></div><div class="section" id="section-2642114715432213"><div class="titlepage"><div><div><h3 class="title">5.2.&nbsp;XJC Plugins</h3></div></div></div><p>Various people in the community have developed plugins for
+            XJC that you can use today. These plugins allow you to
+            enhance/alter the code generation of XJC in many different
+            ways. See for example <a class="link" href="https://github.com/highsource/jaxb2-basics/wiki" target="_top">JAXB2 Basics Pligins</a>.
+        </p></div><div class="section" id="section-926973453240119"><div class="titlepage"><div><div><h3 class="title">5.3.&nbsp;RDBMS Persistence</h3></div></div></div><p>Lexi has developed the
+            <a class="link" href="https://github.com/highsource/hyperjaxb3/wiki" target="_top">HyperJAXB3 project</a>
+            for RDBMS persistence support for the Eclipse Implementation of JAXB.
+        </p></div></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch03.html">Prev</a>&nbsp;</td><td width="20%" align="center">&nbsp;</td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch05.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Eclipse Implementation of JAXB Users Guide&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;Eclipse Implementation of JAXB Extensions</td></tr></table></div></body></html>
