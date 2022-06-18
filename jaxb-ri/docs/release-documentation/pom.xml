@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2021 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -45,12 +45,10 @@
                                 <copy todir="${src.dir}">
                                     <fileset dir="src/docbook"/>
                                 </copy>
-                                <replace file="${src.dir}/docbook.ent" token="$version" value="${project.version}"/>
-                                <replace file="${src.dir}/docbook.ent" token="$repository" value="${javanet.repository.id}"/>
 
-                                <replace file="${src.dir}/docbook.ent" token="$release.spec.version" value="${release.spec.version}"/>
-                                <replace file="${src.dir}/docbook.ent" token="$release.impl.version.suffix" value="${release.impl.version.suffix}"/>
-                                <replace file="${src.dir}/docbook.ent" token="$release.impl.version" value="${release.impl.version}"/>
+                                <replace file="${src.dir}/docbook.ent" token="$version" value="${project.version}"/>
+                                <replace file="${src.dir}/docbook.ent" token="$spec.version" value="${xml.bind-api.majorVersion}.${xml.bind-api.minorVersion}"/>
+                                <replace file="${src.dir}/docbook.ent" token="$spec.impl.version" value="${xml.bind-api.version}"/>
                             </target>
                         </configuration>
                         <id>process-entities</id>
@@ -177,7 +175,6 @@
         <assembly.directory>${project.build.directory}/assembly</assembly.directory>
         <src.dir>${project.basedir}/target/gen-src</src.dir>
         <resources.dir>${project.basedir}/src/main/resources</resources.dir>
-        <javanet.repository.id>snapshots</javanet.repository.id>
     </properties>
 
 </project>

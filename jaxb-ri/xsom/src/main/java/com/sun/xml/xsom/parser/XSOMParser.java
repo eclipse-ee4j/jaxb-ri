@@ -49,7 +49,9 @@ public final class XSOMParser {
      * for creating new SAX parsers.
      * <p>
      * The caller needs to configure
-     * it properly. Don't forget to call <code>setNamespaceAware(true)</code>
+     * it properly with security features initialized by setting
+     * XMLConstants.FEATURE_SECURE_PROCESSING feature.
+     * Also don't forget to call <code>setNamespaceAware(true)</code>
      * or you'll see some strange errors.
      */
     public XSOMParser(SAXParserFactory factory) {

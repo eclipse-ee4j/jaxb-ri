@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2021 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -31,36 +31,45 @@
 
             <qandaentry>
                 <question>
-                    <para>Which version of J2SE does JAXB 2.0 require?</para>
+                    <para>Which version of Java SE does &binding.impl.name; &version; require?</para>
                 </question>
                 
                 <answer>
-                    <para>Java SE 6 or higher.</para>
+                    <para>Java SE 11 or higher.</para>
                 </answer>
             </qandaentry>
 
             <qandaentry>
                 <question>
-                    <para>Can I run my existing JAXB 1.0.x applications on the
-                    JAXB 2.0 runtime?</para>
+                    <para>Can I run my existing JAXB 1.x/2.x applications on the
+                        &binding.impl.name; runtime?</para>
                 </question>
 
                 <answer>
-                    <para>This is no longer supported. However, you should be able to deploy 
-                    <filename>http://search.maven.org/remotecontent?filepath=com/sun/xml/bind/jaxb1-impl/2.2.5-1/jaxb1-impl-2.2.5-1.jar</filename> with your
-                    with your application application.</para>
+                    <para>This is not supported.</para>
                 </answer>
             </qandaentry>
 
             <qandaentry>
                 <question>
-                    <para>What if I want to port my JAXB 1.0.x application to JAXB 2.0?</para>
+                    <para>What if I want to port my JAXB 1.x/2.x application to &binding.spec.name; runtime?</para>
                 </question>
 
                 <answer>
-                    <para>You need to recompile your schema with the newer
-                    JAXB 2.0 xjc and modify your application code to work with
-                    the new bindings.</para>
+                    <para>You need to replace references to <literal>javax.xml.bind</literal>
+                        package by <literal>jakarta.xml.bind</literal> package, recompile your schema
+                        with the newer xjc and modify your application code to work with
+                        the new bindings.</para>
+                </answer>
+            </qandaentry>
+
+            <qandaentry>
+                <question>
+                    <para>Where are <literal>schemagen</literal> and <literal>xjc</literal> command line scripts available?</para>
+                </question>
+
+                <answer>
+                    <para>They are included only in the <link linkend="Maven_artifacts">zip distribution.</link></para>
                 </answer>
             </qandaentry>
 
@@ -139,7 +148,7 @@
                     was used to load your application (see the picture <xref
                     linkend="faq-figure-1" xrefstyle="select:title" />). In
                     this case, you'll see the above error. This problem is
-                    often seen with application servers, J2EE containers, Ant,
+                    often seen with application servers, Jakarta EE containers, Ant,
                     JUnit, and other applications that use sophisticated class
                     loading mechanisms.</para>
 
@@ -187,13 +196,16 @@
                 </question>
 
                 <answer>
-                    <para>For &binding.spec.name; 2.3.x:</para>
-
+                    <para>
                     <informalexample>
                         <programlisting><![CDATA[
 $JAXB_HOME/mod/jakarta.xml.bind-api.jar
+$JAXB_HOME/mod/jakarta.activation-api.jar
+$JAXB_HOME/mod/angus-activation.jar
+$JAXB_HOME/mod/jaxb-core.jar
 $JAXB_HOME/mod/jaxb-impl.jar]]></programlisting>
                     </informalexample>
+                    </para>
                 </answer>
             </qandaentry>
 
@@ -266,7 +278,7 @@ $JAXB_HOME/mod/jaxb-impl.jar]]></programlisting>
 
             <qandaentry>
                 <question>
-                    <para>How do I find out which version of the &binding.impl.name;/JAXB RI I'm
+                    <para>How do I find out which version of the &binding.impl.name; I'm
                     using?</para>
                 </question>
 
@@ -277,24 +289,21 @@ $JAXB_HOME/mod/jaxb-impl.jar]]></programlisting>
                         <programlisting language="cli"><![CDATA[$ java -jar jaxb-xjc.jar -version]]></programlisting>
                     </informalexample>
 
-                    <para>Alternatively, each &binding.impl.name;/JAXB RI jar has version information
+                    <para>Alternatively, each &binding.impl.name; jar has version information
                     in its <literal>META-INF/MANIFEST.MF</literal>, such as
                     this:</para>
 
                     <informalexample>
-                        <programlisting><![CDATA[Manifest-Version: 1.0
-Ant-Version: Apache Ant 1.8.2
-Created-By: 1.6.0_29-b11 (Sun Microsystems Inc.)
-Specification-Title: Java Architecture for XML Binding
-Specification-Version: 2.2.6
-Specification-Vendor: Oracle Corporation
-Implementation-Title: JAXB Reference Implementation 
-Implementation-Version: 2.2.5-SNAPSHOT
-Implementation-Vendor: Oracle Corporation
-Implementation-Vendor-Id: com.sun
-Extension-Name: com.sun.xml.bind
-Build-Id: 02/09/2012 01:42PM (hudson)
-Class-Path: jakarta.xml.bind-api.jar]]></programlisting>
+                        <programlisting>Manifest-Version: 1.0
+Specification-Title: &binding.spec.name;
+Specification-Version: &binding.spec.version;
+Specification-Vendor: Eclipse Foundation
+Implementation-Title: &binding.impl.name;
+Implementation-Version: &version;
+Implementation-Vendor: Eclipse Foundation
+Implementation-Vendor-Id: org.eclipse
+Build-Id: 2022-05-18 22:33
+Class-Path: jaxb-core.jar jaxb-impl.jar</programlisting>
                     </informalexample>
                 </answer>
             </qandaentry>

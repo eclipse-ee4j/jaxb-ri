@@ -17,6 +17,7 @@ import org.apache.tools.ant.taskdefs.compilers.DefaultCompilerAdapter;
 import org.apache.tools.ant.types.Commandline;
 
 import javax.annotation.processing.Processor;
+import javax.tools.Diagnostic;
 import javax.tools.DiagnosticCollector;
 import javax.tools.JavaCompiler;
 import javax.tools.JavaFileObject;
@@ -103,7 +104,11 @@ public abstract class ApBasedTask extends Javac {
                         null,
                         compilationUnits);
                 task.setProcessors(Collections.singleton(getProcessor()));
-                return task.call();
+                final Boolean result = task.call();
+                for( Diagnostic<? extends JavaFileObject> d : diagnostics.getDiagnostics() ) {
+                    log(d.toString());
+                }
+                return result;
             } catch (BuildException e) {
                 throw e;
             } catch (Exception ex) {

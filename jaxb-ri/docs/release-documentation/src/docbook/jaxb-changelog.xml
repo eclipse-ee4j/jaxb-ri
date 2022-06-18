@@ -33,6 +33,18 @@
                 <itemizedlist>
                     <listitem><para>Fix equality on BISerializable</para></listitem>
                     <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/936">#936</link>: problem with XMLMixed in a tag annotated XmlAnyElement
+                    </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/971">#971</link>: annotation @XmlJavaTypeAdapters on package is ignored since JAXB v2.2.4-1
+                    </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1053">#1053</link>: Use Java 7 diamond operator
+                    </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1117">#1117</link>: xjc-generated classes may have methods with missing @param or @return
+                    </para></listitem>
+                    <listitem><para>
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1489">#1489</link>: DOMScanner ignores default namespace at scan method
                     </para></listitem>
                     <listitem><para>
@@ -46,7 +58,13 @@
                         the XML that gets created contains both child's and parent's tag
                     </para></listitem>
                     <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1599">#1599</link>: XNOR implementation in NameUtil is called "xor"
+                    </para></listitem>
+                    <listitem><para>
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1624">#1624</link>: Order of Exceptions in generated classes is non-deterministic
+                    </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1631">#1631</link>: Support setting (un)marshaller listener on binder
                     </para></listitem>
                 </itemizedlist>
             </para></listitem>

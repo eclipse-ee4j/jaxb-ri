@@ -69,8 +69,8 @@ public abstract class Plugin {
     public abstract String getUsage();
 
     /**
-     * Parses an option <code>args[i]</code> and augment
-     * the <code>opt</code> object appropriately, then return
+     * Parses an option {@code args[i]} and augment
+     * the {@code opt} object appropriately, then return
      * the number of tokens consumed.
      *
      * <p>

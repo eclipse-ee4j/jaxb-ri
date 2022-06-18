@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2013, 2021 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2013, 2022 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -272,9 +272,12 @@
                         <phase>integration-test</phase>
                         <configuration>
                             <systemProperties>
-                                <jaxb.spec.version>${jaxb-api.version}</jaxb.spec.version>
+                                <jaxb.spec.version>${xml.bind-api.version}</jaxb.spec.version>
                                 <osgi.dist>${project.build.directory}/${project.build.finalName}</osgi.dist>
                             </systemProperties>
+                            <classpathDependencyExcludes>
+                                <classpathDependencyExclude>org.glassfish.jaxb:*</classpathDependencyExclude>
+                            </classpathDependencyExcludes>
                         </configuration>
                     </execution>
                 </executions>

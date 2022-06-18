@@ -23,10 +23,6 @@ public final class Const {
 
     private Const() {}
     
-    /** XML namespace URI. */
-    public final static String XMLNS_URI =
-        "http://www.w3.org/2000/xmlns/";
-    
     /** JAXB customization URI. */
     public final static String JAXB_NSURI =
         "https://jakarta.ee/xml/ns/jaxb";

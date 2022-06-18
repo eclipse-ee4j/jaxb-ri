@@ -368,7 +368,7 @@ final class DefaultClassBinder implements ClassBinder
      *      return value is unused. Since most of the caller needs to
      *      return null, to make the code a little bit shorter, this
      *      method always return null (so that the caller can always
-     *      say <code>return never(sc);</code>.
+     *      say {@code return never(sc);}.
      */
     private CClassInfo never() {
         // all we need to do here is just not to acknowledge

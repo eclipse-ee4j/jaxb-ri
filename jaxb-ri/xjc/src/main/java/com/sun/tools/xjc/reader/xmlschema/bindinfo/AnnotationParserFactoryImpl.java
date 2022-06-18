@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -83,7 +83,7 @@ public class AnnotationParserFactoryImpl implements AnnotationParserFactory {
                     @Override
                     public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
                         super.startElement(uri, localName, qName, atts);
-                        if((uri.equals(Const.JAXB_NSURI) || uri.equals(Const.XJC_EXTENSION_URI))
+                        if((Const.JAXB_NSURI.equals(uri) || Const.XJC_EXTENSION_URI.equals(uri))
                         && getSideHandler()==null) {
                             // set up validator
                             if(validator==null)
@@ -94,8 +94,8 @@ public class AnnotationParserFactoryImpl implements AnnotationParserFactory {
 
                         // check for xmime:expectedContentTypes attributes in annotations and report them
                         for( int i=atts.getLength()-1; i>=0; i-- ) {
-                            if(atts.getURI(i).equals(WellKnownNamespace.XML_MIME_URI)
-                            && atts.getLocalName(i).equals(Const.EXPECTED_CONTENT_TYPES))
+                            if(WellKnownNamespace.XML_MIME_URI.equals(atts.getURI(i))
+                            && Const.EXPECTED_CONTENT_TYPES.equals(atts.getLocalName(i)))
                                 errorHandler.warning(new SAXParseException(
                                     com.sun.tools.xjc.reader.xmlschema.Messages.format(
                                         com.sun.tools.xjc.reader.xmlschema.Messages.WARN_UNUSED_EXPECTED_CONTENT_TYPES),

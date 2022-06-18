@@ -306,22 +306,23 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
                 <executions>
                     <execution>
-                        <id>integration-test</id>
-                        <goals>
-                            <goal>test</goal>
-                        </goals>
+                        <id>default-test</id>
                         <phase>integration-test</phase>
                         <configuration>
-                            <skip>false</skip>
-                            <systemProperties>
-                                <jaxb.spec.version>${jaxb-api.version}</jaxb.spec.version>
+                            <systemPropertyVariables>
+                                <jaxb.spec.version>${xml.bind-api.version}</jaxb.spec.version>
                                 <osgi.dist>${project.build.directory}/${project.build.finalName}</osgi.dist>
-                            </systemProperties>
+                            </systemPropertyVariables>
+                            <classpathDependencyExcludes>
+                                <classpathDependencyExclude>com.sun.istack:*</classpathDependencyExclude>
+                                <classpathDependencyExclude>com.sun.xml.bind.external:*</classpathDependencyExclude>
+                                <classpathDependencyExclude>com.sun.xml.dtd-parser:*</classpathDependencyExclude>
+                                <classpathDependencyExclude>com.sun.xml.fastinfoset:*</classpathDependencyExclude>
+                                <classpathDependencyExclude>org.glassfish.jaxb:*</classpathDependencyExclude>
+                                <classpathDependencyExclude>org.jvnet.staxex:*</classpathDependencyExclude>
+                            </classpathDependencyExcludes>
                         </configuration>
                     </execution>
                 </executions>
