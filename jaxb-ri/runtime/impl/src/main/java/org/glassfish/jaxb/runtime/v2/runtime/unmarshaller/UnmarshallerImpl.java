@@ -500,7 +500,7 @@ import java.io.InputStream;
     /**
      * @deprecated since 2.0
      */
-    @Deprecated
+    @Deprecated(since="2.0", forRemoval=true)
     public boolean isValidating() {
         throw new UnsupportedOperationException();
     }
@@ -508,7 +508,7 @@ import java.io.InputStream;
     /**
      * @deprecated since 2.0
      */
-    @Deprecated
+    @Deprecated(since="2.0", forRemoval=true)
     public void setValidating(boolean validating) {
         throw new UnsupportedOperationException();
     }

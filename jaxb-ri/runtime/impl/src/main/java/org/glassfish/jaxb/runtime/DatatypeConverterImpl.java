@@ -43,7 +43,7 @@ import java.util.*;
  * @deprecated in JAXB 2.2.4 - use jakarta.xml.bind.DatatypeConverterImpl instead
  * or let us know why you can't
  */
-@Deprecated
+@Deprecated(since="4.0.0", forRemoval=true)
 public final class DatatypeConverterImpl implements DatatypeConverterInterface {
 
     @Deprecated

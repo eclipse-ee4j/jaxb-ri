@@ -120,7 +120,7 @@ public class ElementDecl extends DeclarationImpl implements XSElementDecl, Ref.T
      * @deprecated 
      */
     @Override
-    @Deprecated
+    @Deprecated(since="4.0.0", forRemoval=true)
     public XSElementDecl[] listSubstitutables() {
         Set<? extends XSElementDecl> s = getSubstitutables();
         return s.toArray(new XSElementDecl[0]);

@@ -338,7 +338,7 @@ public class XJCBase extends MatchingTask {
      *
      * @deprecated not much need for JAXB2, as we now use much less stack.
      */
-    @Deprecated
+    @Deprecated(since="4.0.0", forRemoval=true)
     public void setStackSize(String ss) {
         try {
             stackSize = Long.parseLong(ss);

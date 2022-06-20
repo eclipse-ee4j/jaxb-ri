@@ -61,7 +61,7 @@ public class IndentingXMLFilter extends XMLFilterImpl implements LexicalHandler 
      * @deprecated
      *      Only return the length of the indent string.
      */
-    @Deprecated
+    @Deprecated(since="4.0.0", forRemoval=true)
     public int getIndentStep ()
     {
         return indentStep.length();
@@ -78,7 +78,7 @@ public class IndentingXMLFilter extends XMLFilterImpl implements LexicalHandler 
      * @deprecated
      *      Should use the version that takes string.
      */
-    @Deprecated
+    @Deprecated(since="4.0.0", forRemoval=true)
     public void setIndentStep (int indentStep)
     {
         StringBuilder s = new StringBuilder();

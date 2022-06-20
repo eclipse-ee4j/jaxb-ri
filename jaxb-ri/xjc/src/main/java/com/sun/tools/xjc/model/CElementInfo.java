@@ -193,7 +193,7 @@ public final class CElementInfo extends AbstractCElement
     /**
      * @deprecated why are you calling a method that returns this?
      */
-    @Deprecated
+    @Deprecated(since="4.0.0", forRemoval=true)
     @Override
     public NType getType() {
         return this;

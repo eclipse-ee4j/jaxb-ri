@@ -48,7 +48,7 @@ public class BuiltinLeafInfoImpl<TypeT,ClassDeclT> extends LeafInfoImpl<TypeT,Cl
      * @deprecated always return false at this level.
      */
     @Override
-    @Deprecated
+    @Deprecated(since="4.0.0", forRemoval=true)
     public final boolean isElement() {
         return false;
     }
@@ -57,7 +57,7 @@ public class BuiltinLeafInfoImpl<TypeT,ClassDeclT> extends LeafInfoImpl<TypeT,Cl
      * @deprecated always return null at this level.
      */
     @Override
-    @Deprecated
+    @Deprecated(since="4.0.0", forRemoval=true)
     public final QName getElementName() {
         return null;
     }
@@ -66,7 +66,7 @@ public class BuiltinLeafInfoImpl<TypeT,ClassDeclT> extends LeafInfoImpl<TypeT,Cl
      * @deprecated always return null at this level.
      */
     @Override
-    @Deprecated
+    @Deprecated(since="4.0.0", forRemoval=true)
     public final Element<TypeT,ClassDeclT> asElement() {
         return null;
     }

@@ -32,7 +32,7 @@ import java.io.IOException;
  * @author
  *     Kohsuke Kawaguchi (kohsuke.kawaguchi@sun.com)
  */
-@Deprecated
+@Deprecated(since="4.0.0", forRemoval=true)
 public class SAXParserFactoryAdaptor extends SAXParserFactory {
     
     private final XMLParser parser;
@@ -60,7 +60,7 @@ public class SAXParserFactoryAdaptor extends SAXParserFactory {
         /**
          * @deprecated
          */
-        @Deprecated
+        @Deprecated(since="4.0.0", forRemoval=true)
         public org.xml.sax.Parser getParser() throws SAXException {
             return new XMLReaderAdapter(reader);
         }

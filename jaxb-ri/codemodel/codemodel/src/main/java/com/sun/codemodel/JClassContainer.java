@@ -80,7 +80,7 @@ public interface JClassContainer {
      * @deprecated
      *      use {@link #_class(int, String, ClassType)} 
      */
-    @Deprecated
+    @Deprecated(since="4.0.0", forRemoval=true)
     JDefinedClass _class(int mods, String name, boolean isInterface)
         throws JClassAlreadyExistsException;
 

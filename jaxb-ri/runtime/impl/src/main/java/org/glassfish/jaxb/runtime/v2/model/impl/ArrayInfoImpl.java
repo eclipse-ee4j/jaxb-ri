@@ -82,7 +82,7 @@ class ArrayInfoImpl<TypeT,ClassDeclT,FieldT,MethodT>
      *      why are you calling a method whose return value is always known?
      */
     @Override
-    @Deprecated
+    @Deprecated(since="4.0.0", forRemoval=true)
     public final boolean canBeReferencedByIDREF() {
         return false;
     }

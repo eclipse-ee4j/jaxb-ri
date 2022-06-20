@@ -241,7 +241,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
      *      you shouldn't be invoking this method on .
      */
     @Override
-    @Deprecated
+    @Deprecated(since="4.0.0", forRemoval=true)
     public ClassInfoImpl<T,C,F,M> getScope() {
         return null;
     }
