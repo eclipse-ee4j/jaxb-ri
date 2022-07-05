@@ -10,6 +10,22 @@
 
 package com.sun.xml.xsom.impl.parser;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.URL;
+import java.text.MessageFormat;
+import java.util.LinkedList;
+import java.util.regex.Pattern;
+
+import org.xml.sax.Attributes;
+import org.xml.sax.EntityResolver;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.InputSource;
+import org.xml.sax.Locator;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
+import org.xml.sax.helpers.LocatorImpl;
+
 import com.sun.tools.rngdatatype.ValidationContext;
 import com.sun.xml.xsom.XSDeclaration;
 import com.sun.xml.xsom.XSSimpleType;
@@ -21,21 +37,6 @@ import com.sun.xml.xsom.impl.UName;
 import com.sun.xml.xsom.impl.parser.state.NGCCRuntime;
 import com.sun.xml.xsom.impl.parser.state.Schema;
 import com.sun.xml.xsom.parser.AnnotationParser;
-import org.xml.sax.Attributes;
-import org.xml.sax.EntityResolver;
-import org.xml.sax.ErrorHandler;
-import org.xml.sax.InputSource;
-import org.xml.sax.Locator;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
-import org.xml.sax.helpers.LocatorImpl;
-
-import java.io.IOException;
-import java.net.URI;
-import java.net.URL;
-import java.text.MessageFormat;
-import java.util.Stack;
-import java.util.regex.Pattern;
 
 /**
  * NGCCRuntime extended with various utility methods for
@@ -87,7 +88,7 @@ public class NGCCRuntimeEx extends NGCCRuntime implements PatcherManager {
      * This information is passed to AnnotationParser as
      * context information
      */
-    private final Stack<String> elementNames = new Stack<>();
+    private final LinkedList<String> elementNames = new LinkedList<>();
 
     /**
      * Points to the schema document (the parser of it) that included/imported

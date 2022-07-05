@@ -14,6 +14,8 @@ package com.sun.xml.xsom.impl.scd;
 import java.util.*;
 import java.io.*;
 import com.sun.xml.xsom.impl.UName;
+import java.util.LinkedList;
+import java.util.List;
 import javax.xml.namespace.*;
 
 public class SCDParser implements SCDParserConstants {
@@ -498,12 +500,12 @@ public class SCDParser implements SCDParserConstants {
       return (jj_ntk = jj_nt.kind);
   }
 
-  private java.util.Vector jj_expentries = new java.util.Vector();
+  private List jj_expentries = new java.util.LinkedList();
   private int[] jj_expentry;
   private int jj_kind = -1;
 
   public ParseException generateParseException() {
-    jj_expentries.removeAllElements();
+    jj_expentries.clear();
     boolean[] la1tokens = new boolean[47];
     for (int i = 0; i < 47; i++) {
       la1tokens[i] = false;
@@ -528,12 +530,12 @@ public class SCDParser implements SCDParserConstants {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;
-        jj_expentries.addElement(jj_expentry);
+        jj_expentries.add(jj_expentry);
       }
     }
     int[][] exptokseq = new int[jj_expentries.size()][];
     for (int i = 0; i < jj_expentries.size(); i++) {
-      exptokseq[i] = (int[])jj_expentries.elementAt(i);
+      exptokseq[i] = (int[])jj_expentries.get(i);
     }
     return new ParseException(token, exptokseq, tokenImage);
   }
