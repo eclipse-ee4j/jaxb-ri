@@ -21,7 +21,6 @@
  */
 package com.sun.tools.rngom.binary;
 
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 

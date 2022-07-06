@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2010, Thai Open Source Software Center Ltd
+ * Copyright (c) 2005, 2010, 2022, Thai Open Source Software Center Ltd
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -64,7 +64,7 @@ import com.sun.tools.rngdatatype.ValidationContext;
 public final class StreamingValidatorImpl implements DatatypeStreamingValidator {
 	
 	/** This buffer accumulates characters. */
-	private final StringBuffer buffer = new StringBuffer();
+	private final StringBuilder buffer = new StringBuilder();
 	
 	/** Datatype obejct that creates this streaming validator. */
 	private final Datatype baseType;

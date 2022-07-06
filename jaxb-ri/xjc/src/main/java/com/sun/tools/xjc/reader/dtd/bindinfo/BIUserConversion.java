@@ -15,6 +15,7 @@ import java.io.StringReader;
 import java.util.Map;
 
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -75,6 +76,9 @@ public class BIUserConversion implements BIConversion
             //this is parsing well known schemas, do not configure secure processing - always true
             DocumentBuilderFactory dbf = XmlFactory.createDocumentBuilderFactory(false);
             InputSource is = new InputSource(new StringReader(text));
+            //https://rules.sonarsource.com/java/RSPEC-2755
+            dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            dbf.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
             return dbf.newDocumentBuilder().parse(is).getDocumentElement();
         } catch (SAXException | IOException | ParserConfigurationException x) {
             throw new Error(x);

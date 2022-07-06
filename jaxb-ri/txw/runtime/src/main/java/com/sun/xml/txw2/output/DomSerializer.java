@@ -10,6 +10,8 @@
 
 package com.sun.xml.txw2.output;
 
+import java.util.Deque;
+import java.util.LinkedList;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -25,7 +27,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.dom.DOMResult;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 import com.sun.xml.txw2.TxwException;
 
@@ -131,7 +132,7 @@ public class DomSerializer implements XmlSerializer {
 class Dom2SaxAdapter implements ContentHandler, LexicalHandler {
 
     private final Node _node;
-    private final Stack<Node> _nodeStk = new Stack<>();
+    private final Deque<Node> _nodeStk = new LinkedList<>();
     private boolean inCDATA;
 
     public final Element getCurrentElement() {

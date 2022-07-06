@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2005, 2021, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,13 +11,14 @@
 package com.sun.xml.txw2.output;
 
 import com.sun.xml.txw2.TxwException;
+import java.util.Deque;
+import java.util.LinkedList;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.ext.LexicalHandler;
 import org.xml.sax.helpers.AttributesImpl;
 
 import javax.xml.transform.sax.SAXResult;
-import java.util.Stack;
 
 /**
  * {@link XmlSerializer} for {@link SAXResult} and {@link ContentHandler}.
@@ -75,7 +76,7 @@ public class SaxSerializer implements XmlSerializer {
 
     // namespace prefix bindings
     // add in #writeXmlns and fired in #endStartTag
-    private final Stack<String> prefixBindings = new Stack<>();
+    private final Deque<String> prefixBindings = new LinkedList<>();
 
     @Override
     public void writeXmlns(String prefix, String uri) {
@@ -93,7 +94,7 @@ public class SaxSerializer implements XmlSerializer {
     }
 
     // element stack
-    private final Stack<String> elementBindings = new Stack<>();
+    private final Deque<String> elementBindings = new LinkedList<>();
 
     @Override
     public void beginStartTag(String uri, String localName, String prefix) {

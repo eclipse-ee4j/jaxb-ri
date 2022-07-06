@@ -59,7 +59,12 @@ public class DomAnnotationParserFactory implements AnnotationParserFactory {
     private static final ContextClassloaderLocal<SAXTransformerFactory> stf = new ContextClassloaderLocal<>() {
         @Override
         protected SAXTransformerFactory initialValue() throws Exception {
-            return (SAXTransformerFactory) SAXTransformerFactory.newInstance();
+            final SAXTransformerFactory xmlParserFactory = (SAXTransformerFactory) SAXTransformerFactory.newInstance();
+            //https://rules.sonarsource.com/java/RSPEC-2755
+            xmlParserFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            //ACCESS_EXTERNAL_SCHEMA not supported in several TransformerFactory implementations
+            xmlParserFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+            return xmlParserFactory;
         }
     };
 

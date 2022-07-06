@@ -10,9 +10,10 @@
 
 package com.sun.xml.txw2.output;
 
+import java.util.Deque;
+import java.util.LinkedList;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
-import java.util.Stack;
 
 /**
  * @author Kohsuke Kawaguchi
@@ -23,7 +24,7 @@ public class IndentingXMLStreamWriter extends DelegatingXMLStreamWriter {
     private final static Object SEEN_DATA = new Object();
 
     private Object state = SEEN_NOTHING;
-    private Stack<Object> stateStack = new Stack<>();
+    private Deque<Object> stateLinkedList = new LinkedList<>();
 
     private String indentStep = "  ";
     private int depth = 0;
@@ -74,7 +75,7 @@ public class IndentingXMLStreamWriter extends DelegatingXMLStreamWriter {
     }
 
     private void onStartElement() throws XMLStreamException {
-        stateStack.push(SEEN_ELEMENT);
+        stateLinkedList.push(SEEN_ELEMENT);
         state = SEEN_NOTHING;
         if (depth > 0) {
             super.writeCharacters("\n");
@@ -89,7 +90,7 @@ public class IndentingXMLStreamWriter extends DelegatingXMLStreamWriter {
             super.writeCharacters("\n");
             doIndent();
         }
-        state = stateStack.pop();
+        state = stateLinkedList.pop();
     }
 
     private void onEmptyElement() throws XMLStreamException {

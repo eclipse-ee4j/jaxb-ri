@@ -72,6 +72,9 @@ public class XmlFactory {
     public static SchemaFactory createSchemaFactory(final String language, boolean disableSecureProcessing) throws IllegalStateException {
         try {
             SchemaFactory factory = SchemaFactory.newInstance(language);
+            //https://rules.sonarsource.com/java/RSPEC-2755
+            factory.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            factory.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
             if (LOGGER.isLoggable(Level.FINE)) {
                 LOGGER.log(Level.FINE, "SchemaFactory instance: {0}", factory);
             }
@@ -94,6 +97,9 @@ public class XmlFactory {
     public static SAXParserFactory createParserFactory(boolean disableSecureProcessing) throws IllegalStateException {
         try {
             SAXParserFactory factory = SAXParserFactory.newInstance();
+            //https://rules.sonarsource.com/java/RSPEC-2755
+            factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+            factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
             if (LOGGER.isLoggable(Level.FINE)) {
                 LOGGER.log(Level.FINE, "SAXParserFactory instance: {0}", factory);
             }
@@ -137,6 +143,10 @@ public class XmlFactory {
     public static TransformerFactory createTransformerFactory(boolean disableSecureProcessing) throws IllegalStateException {
         try {
             TransformerFactory factory = TransformerFactory.newInstance();
+            //https://rules.sonarsource.com/java/RSPEC-2755
+            factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            //ACCESS_EXTERNAL_SCHEMA not supported in several TransformerFactory implementations
+            factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
             if (LOGGER.isLoggable(Level.FINE)) {
                 LOGGER.log(Level.FINE, "TransformerFactory instance: {0}", factory);
             }
@@ -159,6 +169,9 @@ public class XmlFactory {
     public static DocumentBuilderFactory createDocumentBuilderFactory(boolean disableSecureProcessing) throws IllegalStateException {
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            //https://rules.sonarsource.com/java/RSPEC-2755
+            factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            factory.setAttribute(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
             if (LOGGER.isLoggable(Level.FINE)) {
                 LOGGER.log(Level.FINE, "DocumentBuilderFactory instance: {0}", factory);
             }

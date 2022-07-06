@@ -65,6 +65,9 @@ public final class XmlFactory {
     public static SAXParserFactory createParserFactory(boolean disableSecureProcessing) throws IllegalStateException {
         try {
             SAXParserFactory factory = SAXParserFactory.newInstance();
+            //https://rules.sonarsource.com/java/RSPEC-2755
+            factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+            factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
             if (LOGGER.isLoggable(Level.FINE)) {
                 LOGGER.log(Level.FINE, "SAXParserFactory instance: {0}", factory);
             }
