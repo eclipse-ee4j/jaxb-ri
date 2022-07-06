@@ -10,24 +10,29 @@
 
 package com.sun.tools.xjc.reader.xmlschema;
 
+import static org.glassfish.jaxb.core.v2.WellKnownNamespace.XML_MIME_URI;
+
 import java.io.StringWriter;
 import java.math.BigInteger;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Stack;
+import java.util.concurrent.ConcurrentLinkedDeque;
 
-import jakarta.activation.MimeTypeParseException;
-import jakarta.xml.bind.DatatypeConverter;
+import javax.xml.XMLConstants;
+
+import org.glassfish.jaxb.core.v2.WellKnownNamespace;
+import org.glassfish.jaxb.core.v2.runtime.SwaRefAdapterMarker;
+import org.xml.sax.Locator;
 
 import com.sun.codemodel.JJavaName;
-import org.glassfish.jaxb.core.v2.WellKnownNamespace;
 import com.sun.tools.xjc.ErrorReceiver;
 import com.sun.tools.xjc.model.CBuiltinLeafInfo;
 import com.sun.tools.xjc.model.CClassInfo;
@@ -48,10 +53,6 @@ import com.sun.tools.xjc.reader.xmlschema.bindinfo.BIProperty;
 import com.sun.tools.xjc.reader.xmlschema.bindinfo.BindInfo;
 import com.sun.tools.xjc.reader.xmlschema.bindinfo.EnumMemberMode;
 import com.sun.tools.xjc.util.MimeTypeRange;
-
-import static org.glassfish.jaxb.core.v2.WellKnownNamespace.XML_MIME_URI;
-
-import org.glassfish.jaxb.core.v2.runtime.SwaRefAdapterMarker;
 import com.sun.xml.xsom.XSAttributeDecl;
 import com.sun.xml.xsom.XSComplexType;
 import com.sun.xml.xsom.XSComponent;
@@ -66,9 +67,8 @@ import com.sun.xml.xsom.impl.util.SchemaWriter;
 import com.sun.xml.xsom.visitor.XSSimpleTypeFunction;
 import com.sun.xml.xsom.visitor.XSVisitor;
 
-import org.xml.sax.Locator;
-
-import javax.xml.XMLConstants;
+import jakarta.activation.MimeTypeParseException;
+import jakarta.xml.bind.DatatypeConverter;
 
 /**
  * Builds {@link TypeUse} from simple types.
@@ -108,9 +108,9 @@ public final class SimpleTypeBuilder extends BindingComponent {
      * its point of reference. See my comment at the header
      * of this class for details.
      *
-     * UGLY: Implemented as a Stack of XSComponent to fix a bug
+     * UGLY: Implemented as a ConcrrentLinkedList of XSComponent to fix a bug
      */
-    public final Stack<XSComponent> refererStack = new Stack<>();
+    public final Deque<XSComponent> refererStack = new ConcurrentLinkedDeque<>();
 
     /**
      * Records what xmime:expectedContentTypes annotations we honored and processed,

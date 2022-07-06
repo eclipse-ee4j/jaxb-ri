@@ -46,6 +46,8 @@ import java.io.Reader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Vector;
 
@@ -80,7 +82,7 @@ public class DatatypeLibraryLoader implements DatatypeLibraryFactory {
 	  private final Class serviceClass;
 	  private final Enumeration configFiles;
 	  private Enumeration classNames = null;
-	  private final Vector providers = new Vector();
+	  private final List providers = new LinkedList();
 	  private Loader loader;
 
 	  private class ProviderEnumeration implements Enumeration {
@@ -92,7 +94,7 @@ public class DatatypeLibraryLoader implements DatatypeLibraryFactory {
 
 	    public Object nextElement() {
 	      try {
-		return providers.elementAt(nextIndex++);
+		return providers.get(nextIndex++);
 	      }
 	      catch (ArrayIndexOutOfBoundsException e) {
 		throw new NoSuchElementException();
@@ -197,7 +199,7 @@ public class DatatypeLibraryLoader implements DatatypeLibraryFactory {
 		  Class<?> cls = loader.loadClass(className);
 		  Object obj = cls.getConstructor().newInstance();
 		  if (serviceClass.isInstance(obj)) {
-		    providers.addElement(obj);
+		    providers.add(obj);
 		    return true;
 		  }
 		}
@@ -217,7 +219,7 @@ public class DatatypeLibraryLoader implements DatatypeLibraryFactory {
 	      Reader r;
             r = new InputStreamReader(in, StandardCharsets.UTF_8);
             r = new BufferedReader(r);
-	      Vector tokens = new Vector();
+	      List tokens = new LinkedList();
 	      StringBuilder tokenBuf = new StringBuilder();
 	      int state = START;
 	      for (;;) {
@@ -244,13 +246,13 @@ public class DatatypeLibraryLoader implements DatatypeLibraryFactory {
 		  break;
 		}
 		if (tokenBuf.length() != 0 && state != IN_NAME) {
-		  tokens.addElement(tokenBuf.toString());
+		  tokens.add(tokenBuf.toString());
 		  tokenBuf.setLength(0);
 		}
 	      }
 	      if (tokenBuf.length() != 0)
-		tokens.addElement(tokenBuf.toString());
-	      return tokens.elements();
+		tokens.add(tokenBuf.toString());
+	      return new Vector<>(tokens).elements();//NOSONAR
 	    }
 	    catch (IOException e) {
 	      return null;

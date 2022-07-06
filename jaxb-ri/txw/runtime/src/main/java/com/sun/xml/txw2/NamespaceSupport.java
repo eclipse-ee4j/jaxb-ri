@@ -6,9 +6,13 @@
 
 package com.sun.xml.txw2;
 
+import java.util.Collections;
 import java.util.EmptyStackException;
 import java.util.Enumeration;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 
@@ -114,7 +118,7 @@ final class NamespaceSupport
      * An empty enumeration.
      */
     private final static Enumeration<String> EMPTY_ENUMERATION =
-	new Vector<String>().elements();
+    		new Vector(Collections.emptyList()).elements();
 
 
     ////////////////////////////////////////////////////////////////////
@@ -438,15 +442,15 @@ final class NamespaceSupport
      */
     public Enumeration<String> getPrefixes (String uri)
     {
-	Vector<String> prefixes = new Vector<>();
+	List<String> prefixes = new LinkedList<>();
 	Enumeration<String> allPrefixes = getPrefixes();
 	while (allPrefixes.hasMoreElements()) {
 	    String prefix = allPrefixes.nextElement();
 	    if (uri.equals(getURI(prefix))) {
-		prefixes.addElement(prefix);
+		prefixes.add(prefix);
 	    }
 	}
-	return prefixes.elements();
+	return new Vector(prefixes).elements();
     }
 
 
@@ -594,7 +598,7 @@ final class NamespaceSupport
 		copyTables();
 	    }
 	    if (declarations == null) {
-		declarations = new Vector<>();
+		declarations = new LinkedList<>();
 	    }
 
 	    prefix = prefix.intern();
@@ -605,7 +609,7 @@ final class NamespaceSupport
 		prefixTable.put(prefix, uri);
 		uriTable.put(uri, prefix); // may wipe out another prefix
 	    }
-	    declarations.addElement(prefix);
+	    declarations.add(prefix);
 	}
 
 
@@ -623,7 +627,7 @@ final class NamespaceSupport
 	String [] processName (String qName, boolean isAttribute)
 	{
 	    String[] name;
-	    Hashtable<String, String[]> table;
+	    HashMap<String, String[]> table;
 
 				// Select the appropriate table.
 	    if (isAttribute) {
@@ -741,7 +745,7 @@ final class NamespaceSupport
 	    if (declarations == null) {
 		return EMPTY_ENUMERATION;
 	    } else {
-		return declarations.elements();
+		return new Vector(declarations).elements();
 	    }
 	}
 
@@ -760,7 +764,7 @@ final class NamespaceSupport
 	    if (prefixTable == null) {
 		return EMPTY_ENUMERATION;
 	    } else {
-		return prefixTable.keys();
+		return new Vector(prefixTable.keySet()).elements();
 	    }
 	}
 
@@ -781,17 +785,17 @@ final class NamespaceSupport
 	private void copyTables ()
 	{
 	    if (prefixTable != null) {
-		prefixTable = (Hashtable<String, String>)prefixTable.clone();
+		prefixTable = (Map<String, String>)((HashMap<String, String>)prefixTable) .clone();
 	    } else {
-		prefixTable = new Hashtable<>();
+		prefixTable = new HashMap<>();
 	    }
 	    if (uriTable != null) {
-		uriTable = (Hashtable<String, String>)uriTable.clone();
+		uriTable = (Map<String, String>)((HashMap<String, String>)uriTable).clone();
 	    } else {
-		uriTable = new Hashtable<>();
+		uriTable = new HashMap<>();
 	    }
-	    elementNameTable = new Hashtable<>();
-	    attributeNameTable = new Hashtable<>();
+	    elementNameTable = new HashMap<>();
+	    attributeNameTable = new HashMap<>();
 	    declSeen = true;
 	}
 
@@ -801,10 +805,10 @@ final class NamespaceSupport
 	// Protected state.
 	////////////////////////////////////////////////////////////////
 
-	Hashtable<String, String> prefixTable;
-	Hashtable<String, String> uriTable;
-	Hashtable<String, String[]> elementNameTable;
-	Hashtable<String, String[]> attributeNameTable;
+	Map<String, String> prefixTable;
+	Map<String, String> uriTable;
+	HashMap<String, String[]> elementNameTable;
+	HashMap<String, String[]> attributeNameTable;
 	String defaultNS = "";
 
 
@@ -813,7 +817,7 @@ final class NamespaceSupport
 	// Internal state.
 	////////////////////////////////////////////////////////////////
 
-	private Vector<String> declarations = null;
+	private List<String> declarations = null;
 	private boolean declSeen = false;
 	private Context parent = null;
     }

@@ -11,13 +11,11 @@
 package com.sun.tools.xjc.reader.xmlschema.parser;
 
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Set;
-import java.util.Stack;
 
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
-
-import com.sun.tools.xjc.reader.Const;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.ErrorHandler;
@@ -25,6 +23,8 @@ import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.XMLFilterImpl;
+
+import com.sun.tools.xjc.reader.Const;
 
 /**
  * Checks if binding declarations are placed where they are allowed.
@@ -100,7 +100,7 @@ import org.xml.sax.helpers.XMLFilterImpl;
 public class CustomizationContextChecker extends XMLFilterImpl {
     
     /** Keep names of all the ancestor elements. */
-    private final Stack<QName> elementNames = new Stack<>();
+    private final LinkedList<QName> elementNames = new LinkedList<>();
     
     private final ErrorHandler errorHandler;
     
