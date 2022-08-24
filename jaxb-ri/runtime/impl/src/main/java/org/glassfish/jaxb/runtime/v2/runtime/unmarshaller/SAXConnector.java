@@ -140,7 +140,7 @@ public final class SAXConnector implements UnmarshallerHandler {
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
         if (logger.isLoggable(Level.FINER)) {
-            logger.log(Level.FINER, "SAXConnector.startElement: {0}:{1}:{2}", new Object[]{uri, localName, qName});
+            logger.log(Level.FINER, "SAXConnector.endElement: {0}:{1}:{2}", new Object[]{uri, localName, qName});
         }
         processText(false);
         tagName.uri = uri;
@@ -162,7 +162,7 @@ public final class SAXConnector implements UnmarshallerHandler {
     @Override
     public void ignorableWhitespace(char[] buf, int start, int len ) {
         if (logger.isLoggable(Level.FINEST)) {
-            logger.log(Level.FINEST, "SAXConnector.characters{0}", buf);
+            logger.log(Level.FINEST, "SAXConnector.ignorableWhitespace: {0}", buf);
         }
         characters(buf,start,len);
     }
