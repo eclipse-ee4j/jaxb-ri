@@ -668,7 +668,7 @@ public final class XmlSchemaGenerator<T,C,F,M> {
                     schema._import().namespace(WellKnownNamespace.SWA_URI).schemaLocation("http://ws-i.org/profiles/basic/1.1/swaref.xsd");
                 }
                 if(useMimeNs) {
-                    schema._import().namespace(WellKnownNamespace.XML_MIME_URI).schemaLocation("http://www.w3.org/2005/05/xmlmime");
+                    schema._import().namespace(WellKnownNamespace.XML_MIME_URI).schemaLocation("https://www.w3.org/2005/05/xmlmime");
                 }
 
                 // then write each component
