@@ -24,7 +24,7 @@
 
     <groupId>org.glassfish.jaxb</groupId>
     <artifactId>jaxb-bom</artifactId>
-    <version>4.0.1</version>
+    <version>4.0.2-SNAPSHOT</version>
 
     <packaging>pom</packaging>
     <name>JAXB BOM</name>
