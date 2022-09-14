@@ -22,7 +22,7 @@
 
     <groupId>com.sun.xml.bind.mvn</groupId>
     <artifactId>jaxb-codemodel-parent</artifactId>
-    <version>4.0.1</version>
+    <version>4.0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Codemodel</name>
     <description>Java source code generation library</description>
