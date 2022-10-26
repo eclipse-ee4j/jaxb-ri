@@ -11,7 +11,6 @@
 package com.sun.codemodel;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -24,12 +23,8 @@ public class Issue1505Test {
 
     private void checks(String expected, String test) {
         JCodeModel model = new JCodeModel();
-        try {
-            JType type = model.parseType(test);
-            assertEquals(expected, type.fullName());
-        } catch (ClassNotFoundException e) {
-            fail(e.getMessage());
-        } 
+        JType type = model.parseType(test);
+        assertEquals(expected, type.fullName());
     }
 
     public Issue1505Test() {}
