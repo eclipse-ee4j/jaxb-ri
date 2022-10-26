@@ -447,7 +447,7 @@ public final class JCodeModel {
      * @exception ClassNotFoundException
      *      If the specified type is not found.
      */
-    public JType parseType(String name) throws ClassNotFoundException {
+    public JType parseType(String name) {
         // array
         if(name.endsWith("[]"))
             return parseType(name.substring(0,name.length()-2)).array();
@@ -499,7 +499,7 @@ public final class JCodeModel {
             return root;
         }
 
-        private void postOrderCreateJClass(Node node) throws ClassNotFoundException {
+        private void postOrderCreateJClass(Node node) {
             if (node != null) {
                 for (Node child : node.childs) {
                     postOrderCreateJClass(child);
@@ -512,7 +512,7 @@ public final class JCodeModel {
             }
         }
 
-        private JClass parseTypeName(String str) throws ClassNotFoundException {
+        private JClass parseTypeName(String str) {
             Node root = buildTree(str);
             postOrderCreateJClass(root);
             return root.jClass;
@@ -562,7 +562,7 @@ public final class JCodeModel {
          *
          * @return the index of the character next to T.
          */
-        JClass parseTypeName() throws ClassNotFoundException {
+        JClass parseTypeName() {
             int start = idx;
 
             if(s.charAt(idx)=='?') {
@@ -602,7 +602,7 @@ public final class JCodeModel {
          * Parses additional left-associative suffixes, like type arguments
          * and array specifiers.
          */
-        private JClass parseSuffix(JClass clazz) throws ClassNotFoundException {
+        private JClass parseSuffix(JClass clazz) {
             if(idx==s.length())
                 return clazz; // hit EOL
 
@@ -635,7 +635,7 @@ public final class JCodeModel {
          *
          * @return the index of the character next to '{@literal >}'
          */
-        private JClass parseArguments(JClass rawType) throws ClassNotFoundException {
+        private JClass parseArguments(JClass rawType) {
             if(s.charAt(idx)!='<')
                 throw new IllegalArgumentException();
             idx++;
