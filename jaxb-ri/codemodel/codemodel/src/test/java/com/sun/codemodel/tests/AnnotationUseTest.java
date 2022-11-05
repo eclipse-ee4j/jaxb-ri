@@ -90,6 +90,10 @@ public class AnnotationUseTest {
 
 		// test typed annotation writer
 		XmlElementW w = cls.annotate2(XmlElementW.class);
+		Assert.assertEquals(w, w);
+		Assert.assertEquals(System.identityHashCode(w), w.hashCode());
+		w.toString();
+		Assert.assertEquals(XmlElement.class, w.getAnnotationType());
 		w.ns("##default").value("foobar");
 
 		// adding an annotation as a member value pair
@@ -117,9 +121,13 @@ public class AnnotationUseTest {
 	}
 
 	interface XmlElementW extends JAnnotationWriter<XmlElement> {
+		@Override default Class<XmlElement> getAnnotationType() { return XmlElement.class; }
+
 		XmlElementW value(String s);
 
 		XmlElementW ns(String s);
+
+		@Override boolean equals(Object obj);
 	}
 }
 
@@ -130,6 +138,7 @@ public class AnnotationUseTest {
  * 
  * @java.lang.annotation.Retention(value1 =
  * java.lang.annotation.RetentionPolicy.RUNTIME, value = Test.Iamenum.GOOD)
+ * @XmlElement(ns = "##default", value = "foobar")
  * public class Test {
  * 
  * @java.lang.annotation.Retention(foo = @java.lang.annotation.Target(junk = 7)
