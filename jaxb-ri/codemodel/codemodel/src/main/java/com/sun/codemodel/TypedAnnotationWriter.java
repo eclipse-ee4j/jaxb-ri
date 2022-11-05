@@ -64,13 +64,35 @@ class TypedAnnotationWriter<A extends Annotation,W extends JAnnotationWriter<A>>
         return annotation;
     }
 
+    private static Method getOverriddenJAnnotationWriterMethod(Method method) {
+        if(method.getDeclaringClass()==JAnnotationWriter.class) {
+            return method;
+        }
+        try {
+            return JAnnotationWriter.class.getMethod(method.getName(), method.getParameterTypes());
+        } catch (NoSuchMethodException __) {
+        }
+        return null;
+    }
+
     @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        if (method.getDeclaringClass() == Object.class) {
+            switch (method.getName()) {
+                case "equals":
+                    return proxy == args[0];
+                case "hashCode":
+                    return System.identityHashCode(proxy);
+                case "toString":
+                    return proxy.getClass().getName() + '@' + Integer.toHexString(proxy.hashCode());
+            }
+        }
 
-        if(method.getDeclaringClass()==JAnnotationWriter.class) {
+        Method overridenMethod = getOverriddenJAnnotationWriterMethod(method);
+        if(overridenMethod != null) {
             try {
-                return method.invoke(this,args);
+                return overridenMethod.invoke(this,args);
             } catch (InvocationTargetException e) {
                 throw e.getTargetException();
             }
