@@ -15,7 +15,7 @@ package com.sun.codemodel;
  * JClass for generating expressions containing operators
  */
 
-abstract public class JOp {
+public abstract class JOp {
 
     private JOp() {
     }
