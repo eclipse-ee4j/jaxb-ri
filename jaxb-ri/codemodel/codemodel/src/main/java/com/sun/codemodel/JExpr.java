@@ -229,7 +229,7 @@ public abstract class JExpr {
                 // the escaping here (regardless of the actual file encoding)
                 //
                 // see bug 
-                if( c<0x20 || 0x7E<c ) {
+                if( c<0x20 || (0x7E<c && 0x410>c) || 0x44f<c) {
                     // not printable. use Unicode escape
                     sb.append("\\u");
                     String hex = Integer.toHexString(((int)c)&0xFFFF);
