@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2011, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,6 +20,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import junit.framework.TestCase;
@@ -51,51 +53,57 @@ public class OptionsJUTest extends TestCase {
     }
 
     public void testCreateCodeWriter() throws JClassAlreadyExistsException, IOException {
-        JCodeModel jcm = new JCodeModel();
-        JDefinedClass c = jcm._class("test.TestClass");
-        c.constructor(JMod.PUBLIC);
-        o.readOnly = false;
+        Locale locale = Locale.getDefault();
+        try {
+            Locale.setDefault(Locale.US);
+            JCodeModel jcm = new JCodeModel();
+            JDefinedClass c = jcm._class("test.TestClass");
+            c.constructor(JMod.PUBLIC);
+            o.readOnly = false;
 
-        //test UTF-8
-        o.encoding = "UTF-8";
-        jcm.build(o.createCodeWriter());
-        File cls = new File(o.targetDir, "test/TestClass.java");
-        FileInputStream fis = new FileInputStream(cls);
-        //same string in UTF-8 is 1byte shorter on JDK6 than on JDK5
-        //therefore final check is for 'contains' and not for 'endsWith'
-        byte[] in = new byte[13];
-        fis.read(in);
-        fis.close();
-        cls.delete();
-        String inStr = new String(in, "UTF-8");
-        assertTrue("Got: '" + inStr + "'", inStr.contains("// This f"));
+            //test UTF-8
+            o.encoding = "UTF-8";
+            jcm.build(o.createCodeWriter());
+            File cls = new File(o.targetDir, "test/TestClass.java");
+            FileInputStream fis = new FileInputStream(cls);
+            //same string in UTF-8 is 1byte shorter on JDK6 than on JDK5
+            //therefore final check is for 'contains' and not for 'endsWith'
+            byte[] in = new byte[13];
+            fis.read(in);
+            fis.close();
+            cls.delete();
+            String inStr = new String(in, StandardCharsets.UTF_8);
+            assertTrue("Got: '" + inStr + "'", inStr.contains("// This f"));
 
-        //test UTF-16
-        o.noFileHeader = true;
-        o.encoding = "UTF-16";
-        jcm.build(o.createCodeWriter());
-        cls = new File(o.targetDir, "test/TestClass.java");
-        fis = new FileInputStream(cls);
-        in = new byte[26];
-        fis.read(in);
-        fis.close();
-        cls.delete();
-        inStr = new String(in, "UTF-16");
-        assertTrue("Got: '" + inStr + "'", inStr.contains("package t"));
+            //test UTF-16
+            o.noFileHeader = true;
+            o.encoding = "UTF-16";
+            jcm.build(o.createCodeWriter());
+            cls = new File(o.targetDir, "test/TestClass.java");
+            fis = new FileInputStream(cls);
+            in = new byte[26];
+            fis.read(in);
+            fis.close();
+            cls.delete();
+            inStr = new String(in, StandardCharsets.UTF_16);
+            assertTrue("Got: '" + inStr + "'", inStr.contains("package t"));
 
-        //test default encoding
-        o.noFileHeader = false;
-        o.encoding = null;
-        jcm.build(o.createCodeWriter());
-        cls = new File(o.targetDir, "test/TestClass.java");
-        fis = new FileInputStream(cls);
-        //this should handle also UTF-32...
-        in = new byte[84];
-        fis.read(in);
-        fis.close();
-        cls.delete();
-        inStr = new String(in, Charset.defaultCharset().name());
-        assertTrue("Got: '" + inStr + "'", inStr.contains("// This f"));
+            //test default encoding
+            o.noFileHeader = false;
+            o.encoding = null;
+            jcm.build(o.createCodeWriter());
+            cls = new File(o.targetDir, "test/TestClass.java");
+            fis = new FileInputStream(cls);
+            //this should handle also UTF-32...
+            in = new byte[84];
+            fis.read(in);
+            fis.close();
+            cls.delete();
+            inStr = new String(in, Charset.defaultCharset().name());
+            assertTrue("Got: '" + inStr + "'", inStr.contains("// This f"));
+        } finally {
+            Locale.setDefault(locale);
+        }
     }
 
     public void testProxySettings() throws Exception {
