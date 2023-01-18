@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2013, 2022 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2013, 2023 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -38,7 +38,7 @@
         <dtd-parser.version>1.5.0</dtd-parser.version>
         <relaxng.version>${project.version}</relaxng.version>
         <xsom.version>${project.version}</xsom.version>
-        <ant.version>1.10.12</ant.version>
+        <ant.version>1.10.13</ant.version>
     </properties>
 
     <dependencyManagement>

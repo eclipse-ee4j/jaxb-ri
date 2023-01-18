@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2023 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,6 +24,36 @@
     <title>Changelog</title>
 
     <para>The &binding.impl.name; 4.x meets the requirements of the Jakarta XML Binding 4.x specifications.</para>
+    <section xml:id="a-4-0-2">
+        <title>Changes between 4.0.1 and 4.0.2</title>
+        <itemizedlist>
+            <listitem><para>Bug fixes:
+                <itemizedlist>
+                    <listitem><para>nnn</para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/pull/1669">#1669</link>: [codemodel] Support Object and overridden JAnnotationWriter methods
+                    </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1680">#1680</link>: Avoid eager initialization of Scope objects.
+                    </para></listitem>
+                </itemizedlist>
+            </para></listitem>
+        </itemizedlist>
+    </section>
+
+    <section xml:id="a-4-0-1">
+        <title>Changes between 4.0.0 and 4.0.1</title>
+        <itemizedlist>
+            <listitem><para>Bug fixes:
+                <itemizedlist>
+                    <listitem>
+                        <para>Switched protocol for W3C schemas to https, see <link xlink:href="https://www.w3.org/blog/2022/07/redirecting-to-https-on-www-w3-org/">the announcement</link> for details</para>
+                    </listitem>
+                </itemizedlist>
+            </para></listitem>
+        </itemizedlist>
+    </section>
+
     <section xml:id="a-4-0-0">
         <title>Changes in 4.0.0 - initial release for <link xlink:href="https://jakarta.ee/">Jakarta EE 10</link></title>
         <itemizedlist>
