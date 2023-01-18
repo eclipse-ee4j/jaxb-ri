@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -26,7 +26,6 @@ import com.sun.codemodel.JType;
 import com.sun.tools.xjc.ErrorReceiver;
 
 import org.xml.sax.Locator;
-import org.xml.sax.SAXParseException;
 
 /**
  * Type-related utility methods.
@@ -226,19 +225,7 @@ public final class TypeUtil {
      */
     public static JType getType( JCodeModel codeModel,
         String typeName, ErrorReceiver errorHandler, Locator errorSource ) {
-
-        try {
-            return codeModel.parseType(typeName);
-        } catch( ClassNotFoundException ee ) {
-
-            // make it a warning
-            errorHandler.warning( new SAXParseException(
-                Messages.ERR_CLASS_NOT_FOUND.format(typeName)
-                ,errorSource));
-
-            // recover by assuming that it's a class that derives from Object
-            return codeModel.directClass(typeName);
-        }
+        return codeModel.parseType(typeName);
     }
     
     /**
