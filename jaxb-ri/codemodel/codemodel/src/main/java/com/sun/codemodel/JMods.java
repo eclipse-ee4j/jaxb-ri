@@ -33,7 +33,7 @@ public class JMods implements JGenerable {
     /** bit-packed representation of modifiers. */
     private int mods;
 
-    private JMods(int mods) {
+    JMods(int mods) {
         this.mods = mods;
     }
 
@@ -125,14 +125,16 @@ public class JMods implements JGenerable {
         if ((mods & JMod.PUBLIC) != 0)        f.p("public");
         if ((mods & JMod.PROTECTED) != 0)     f.p("protected");
         if ((mods & JMod.PRIVATE) != 0)       f.p("private");
-        if ((mods & JMod.FINAL) != 0)         f.p("final");
-        if ((mods & JMod.STATIC) != 0)        f.p("static");
+
+        // Match canonical order in java.lang.reflect.Modifier::toString
         if ((mods & JMod.ABSTRACT) != 0)      f.p("abstract");
-        if ((mods & JMod.NATIVE) != 0)        f.p("native");
-        if ((mods & JMod.SYNCHRONIZED) != 0)  f.p("synchronized");
+        if ((mods & JMod.STATIC) != 0)        f.p("static");
+        if ((mods & JMod.FINAL) != 0)         f.p("final");
         if ((mods & JMod.TRANSIENT) != 0)     f.p("transient");
         if ((mods & JMod.VOLATILE) != 0)      f.p("volatile");
-        }
+        if ((mods & JMod.SYNCHRONIZED) != 0)  f.p("synchronized");
+        if ((mods & JMod.NATIVE) != 0)        f.p("native");
+    }
 
     @Override
     public String toString() {

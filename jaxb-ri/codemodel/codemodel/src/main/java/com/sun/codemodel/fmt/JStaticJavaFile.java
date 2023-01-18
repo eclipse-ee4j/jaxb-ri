@@ -151,7 +151,7 @@ public final class JStaticJavaFile extends JResourceFile {
     /**
      * A {@link LineFilter} that combines two {@link LineFilter}s.
      */
-    public final static class ChainFilter implements LineFilter {
+    public static final class ChainFilter implements LineFilter {
         private final LineFilter first,second;
         public ChainFilter( LineFilter first, LineFilter second ) {
             this.first=first;

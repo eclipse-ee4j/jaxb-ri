@@ -39,13 +39,13 @@ public abstract class JClass extends JType {
      *  {@code java.lang.String}.
      */
     @Override
-    abstract public String name();
+    public abstract String name();
 	
 	/**
      * Gets the package to which this class belongs.
      * TODO: shall we move move this down?
      */
-    abstract public JPackage _package();
+    public abstract JPackage _package();
 
     /**
      * Returns the class in which this class is nested, or {@code null} if
@@ -71,7 +71,7 @@ public abstract class JClass extends JType {
      *       for {@link Object}.
      *      If this JClass represents {@link Object}, return null.
      */
-    abstract public JClass _extends();
+    public abstract JClass _extends();
     
     /**
      * Iterates all super interfaces directly implemented by
@@ -82,7 +82,7 @@ public abstract class JClass extends JType {
      *         objects that represents those interfaces
      *		implemented by this object.
      */
-    abstract public Iterator<JClass> _implements();
+    public abstract Iterator<JClass> _implements();
     
     /**
      * Iterates all the type parameters of this class/interface.
@@ -104,12 +104,12 @@ public abstract class JClass extends JType {
     /**
      * Checks if this object represents an interface.
      */
-    abstract public boolean isInterface();
+    public abstract boolean isInterface();
 
     /**
      * Checks if this class is an abstract class.
      */
-    abstract public boolean isAbstract();
+    public abstract boolean isAbstract();
 
     /**
      * If this class represents one of the wrapper classes
