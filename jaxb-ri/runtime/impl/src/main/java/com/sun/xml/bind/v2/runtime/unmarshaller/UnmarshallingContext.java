@@ -1010,11 +1010,6 @@ public final class UnmarshallingContext extends Coordinator
      */
     private int scopeTop=0;
 
-    {
-        for( int i=0; i<scopes.length; i++ )
-            scopes[i] = new Scope(this);
-    }
-
     /**
      * Starts a new packing scope.
      *
@@ -1055,8 +1050,11 @@ public final class UnmarshallingContext extends Coordinator
      */
     public void endScope(int frameSize) throws SAXException {
         try {
-            for( ; frameSize>0; frameSize--, scopeTop-- )
-                scopes[scopeTop].finish();
+            for( ; frameSize>0; frameSize--, scopeTop-- ) {
+                Scope scope = scopes[scopeTop];
+                if (scope != null)
+                    scope.finish();
+            }
         } catch (AccessorException e) {
             handleError(e);
 
@@ -1077,7 +1075,13 @@ public final class UnmarshallingContext extends Coordinator
      *      always a valid {@link Scope} object.
      */
     public Scope getScope(int offset) {
-        return scopes[scopeTop-offset];
+        int position = scopeTop-offset;
+        Scope scope = scopes[position];
+        if (scope == null) {
+            scope = new Scope( this );
+            scopes[position] = scope;
+        }
+        return scope;
     }
 
 //
