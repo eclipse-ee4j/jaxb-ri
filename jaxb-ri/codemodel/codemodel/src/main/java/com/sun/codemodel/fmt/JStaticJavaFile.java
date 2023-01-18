@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -148,7 +148,7 @@ public final class JStaticJavaFile extends JResourceFile {
     /**
      * A {@link LineFilter} that combines two {@link LineFilter}s.
      */
-    public final static class ChainFilter implements LineFilter {
+    public static final class ChainFilter implements LineFilter {
         private final LineFilter first,second;
         public ChainFilter( LineFilter first, LineFilter second ) {
             this.first=first;
