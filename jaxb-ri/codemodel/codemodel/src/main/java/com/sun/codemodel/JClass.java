@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,8 +24,8 @@ import java.util.List;
  * To be exact, this object represents an "use" of a reference type,
  * not necessarily a declaration of it, which is modeled as {@link JDefinedClass}.
  */
-public abstract class JClass extends JType
-{
+public abstract class JClass extends JType {
+
     protected JClass( JCodeModel _owner ) {
         this._owner = _owner;
     }
@@ -38,13 +38,14 @@ public abstract class JClass extends JType
      *	For example, this method returns "String" for
      *  {@code java.lang.String}.
      */
-    abstract public String name();
+    @Override
+    public abstract String name();
 	
 	/**
      * Gets the package to which this class belongs.
      * TODO: shall we move move this down?
      */
-    abstract public JPackage _package();
+    public abstract JPackage _package();
 
     /**
      * Returns the class in which this class is nested, or {@code null} if
@@ -56,6 +57,7 @@ public abstract class JClass extends JType
 	
     private final JCodeModel _owner;
     /** Gets the JCodeModel object to which this object belongs. */
+    @Override
     public final JCodeModel owner() { return _owner; }
     
     /**
@@ -69,7 +71,7 @@ public abstract class JClass extends JType
      *      {@link JClass} for {@link Object}.
      *      If this JClass represents {@link Object}, return null.
      */
-    abstract public JClass _extends();
+    public abstract JClass _extends();
     
     /**
      * Iterates all super interfaces directly implemented by
@@ -80,13 +82,13 @@ public abstract class JClass extends JType
      *		{@link JClass} objects that represents those interfaces
      *		implemented by this object.
      */
-    abstract public Iterator<JClass> _implements();
+    public abstract Iterator<JClass> _implements();
     
     /**
      * Iterates all the type parameters of this class/interface.
      * 
      * <p>
-     * For example, if this {@link JClass} represents 
+     * For example, if this {@link JClass} represents
      * {@code Set<T>}, this method returns an array
      * that contains single {@link JTypeVar} for 'T'.
      */
@@ -102,12 +104,12 @@ public abstract class JClass extends JType
     /**
      * Checks if this object represents an interface.
      */
-    abstract public boolean isInterface();
+    public abstract boolean isInterface();
 
     /**
      * Checks if this class is an abstract class.
      */
-    abstract public boolean isAbstract();
+    public abstract boolean isAbstract();
 
     /**
      * If this class represents one of the wrapper classes
@@ -116,19 +118,17 @@ public abstract class JClass extends JType
      */
     public JPrimitiveType getPrimitiveType() { return null; }
 
-    /**
-     * @deprecated calling this method from {@link JClass}
-     * would be meaningless, since it's always guaranteed to
-     * return {@code this}.
-     */
     @Deprecated
+    @Override
     public JClass boxify() { return this; }
 
+    @Override
     public JType unboxify() {
         JPrimitiveType pt = getPrimitiveType();
-        return pt==null ? (JType)this : pt;
+        return pt==null ? this : pt;
     }
 
+    @Override
     public JClass erasure() {
         return this;
     }
@@ -216,6 +216,7 @@ public abstract class JClass extends JType
 
 
     private JClass arrayClass;
+    @Override
     public JClass array() {
         if(arrayClass==null)
             arrayClass = new JArrayClass(owner(),this);
@@ -300,6 +301,7 @@ public abstract class JClass extends JType
      */
     protected abstract JClass substituteParams( JTypeVar[] variables, List<JClass> bindings );
     
+    @Override
     public String toString() {
         return this.getClass().getName() + '(' + name() + ')';
     }
@@ -329,6 +331,7 @@ public abstract class JClass extends JType
         return new JFieldRef(this, field);
     }
 
+    @Override
     public void generate(JFormatter f) {
         f.t(this);
     }
