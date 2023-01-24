@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -149,6 +149,13 @@ public class JVar extends JExpressionImpl implements JDeclaration, JAssignmentTa
         return a;
     }
 
+    public void annotate(JAnnotationUse annotation) {
+        if (annotations == null)
+            annotations = new ArrayList<>();
+
+        annotations.add(annotation);
+    }
+
     /**
      * Adds an annotation to this variable.
      *
@@ -178,7 +185,7 @@ public class JVar extends JExpressionImpl implements JDeclaration, JAssignmentTa
     }
 
     protected boolean isAnnotated() {
-        return annotations!=null;
+        return annotations != null && !annotations.isEmpty();
     }
 
     public void bind(JFormatter f) {
