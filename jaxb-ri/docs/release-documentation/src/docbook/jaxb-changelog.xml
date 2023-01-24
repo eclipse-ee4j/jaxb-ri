@@ -34,6 +34,9 @@
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/pull/1669">#1669</link>: [codemodel] Support Object and overridden JAnnotationWriter methods
                     </para></listitem>
                     <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1674">#1674</link>: com.sun.tools.xjc should run on JRE
+                    </para></listitem>
+                    <listitem><para>
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1676">#1676</link>: Impossible to build with non-english system
                     </para></listitem>
                     <listitem><para>
