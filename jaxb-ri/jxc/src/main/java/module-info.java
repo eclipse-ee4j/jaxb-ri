@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2017, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,7 +14,7 @@
 module org.glassfish.jaxb.jxc {
 
     requires transitive java.xml.bind;
-    requires java.compiler;
+    requires transitive java.compiler;
     requires jdk.compiler;
     requires java.logging;
     requires transitive org.glassfish.jaxb.runtime;
@@ -24,6 +24,7 @@ module org.glassfish.jaxb.jxc {
 
     exports com.sun.tools.jxc;
     exports com.sun.tools.jxc.ap;
-    exports com.sun.tools.jxc.model.nav;
     exports com.sun.tools.jxc.api;
+    exports com.sun.tools.jxc.gen.config;
+    exports com.sun.tools.jxc.model.nav;
 }
