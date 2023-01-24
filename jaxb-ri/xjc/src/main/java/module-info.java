@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2017, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,9 +17,8 @@ module org.glassfish.jaxb.xjc {
     requires transitive jakarta.activation;
 
     requires java.logging;
-    requires transitive java.compiler;
+    requires static java.compiler; // required by com.sun.tools.xjc.api.Reference used by jxc
     requires transitive java.xml;
-    requires jdk.compiler;
     requires java.desktop;
 
     requires com.sun.tools.rngdatatype;
@@ -27,9 +26,9 @@ module org.glassfish.jaxb.xjc {
     requires transitive java.xml.bind;
     requires transitive org.glassfish.jaxb.runtime;
     requires com.sun.istack.runtime;
-    requires com.sun.istack.tools;
+    requires transitive com.sun.istack.tools;
     requires transitive com.sun.xml.xsom;
-    requires com.sun.tools.rngom;
+    requires transitive com.sun.tools.rngom;
     requires com.sun.xml.dtdparser;
     requires com.sun.xml.txw2;
 
@@ -39,10 +38,14 @@ module org.glassfish.jaxb.xjc {
     exports com.sun.tools.xjc;
     exports com.sun.tools.xjc.api;
     exports com.sun.tools.xjc.generator.bean;
+    exports com.sun.tools.xjc.generator.bean.field;
     exports com.sun.tools.xjc.model;
+    exports com.sun.tools.xjc.model.nav;
     exports com.sun.tools.xjc.outline;
     exports com.sun.tools.xjc.reader;
+    exports com.sun.tools.xjc.reader.gbind;
     exports com.sun.tools.xjc.reader.internalizer;
+    exports com.sun.tools.xjc.reader.xmlschema;
     exports com.sun.tools.xjc.reader.xmlschema.bindinfo;
     exports com.sun.tools.xjc.util;
 
@@ -57,4 +60,3 @@ module org.glassfish.jaxb.xjc {
             com.sun.tools.xjc.addon.sync.SynchronizedMethodAddOn;
 
 }
-
