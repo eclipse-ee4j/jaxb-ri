@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2019, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,8 +15,7 @@
 module com.sun.tools.xjc {
 
     requires java.logging;
-    requires transitive java.compiler;
-    requires jdk.compiler;
+    requires static java.compiler; // required by com.sun.tools.xjc.api.Reference used by jxc
     requires transitive java.desktop;
 
     requires transitive jakarta.activation;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2013, 2022 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2013, 2023 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -41,7 +41,6 @@
             --add-exports org.glassfish.jaxb.xjc/com.sun.tools.xjc.outline=ALL-UNNAMED
             --add-exports org.glassfish.jaxb.xjc/com.sun.tools.xjc.generator.bean=ALL-UNNAMED
             --add-opens org.glassfish.jaxb.xjc/com.sun.tools.xjc.addon.code_injector=ALL-UNNAMED
-            --add-opens org.glassfish.jaxb.xjc/com.sun.tools.xjc.reader.xmlschema.bindinfo=org.glassfish.jaxb.core
             --add-opens org.glassfish.jaxb.core/org.glassfish.jaxb.core.v2.model.nav=ALL-UNNAMED
             -Djdk.attach.allowAttachSelf
         </argLine>
@@ -160,6 +159,7 @@
                 </configuration>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
                     <archive>
