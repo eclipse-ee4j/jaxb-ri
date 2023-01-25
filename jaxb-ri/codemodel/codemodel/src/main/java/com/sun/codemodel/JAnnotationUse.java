@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -297,6 +297,23 @@ public final class JAnnotationUse extends JAnnotationValue {
     public JAnnotationUse param(String name, final Class<?> value) {
         addValue(name, new JAnnotationClassValue(owner().ref(value)));
          return this;
+    }
+
+    /**
+     * Adds a member value pair to this annotation
+     * @param name
+     *        The simple name for this annotation
+     *
+     * @param value
+     *        The JAnnotationValue member value for this annotation
+     * @return
+     *         The JAnnotationUse. More member value pairs can
+     *         be added to it using the same or the overloaded methods.
+     *
+     */
+    public JAnnotationUse param(String name, JAnnotationValue value) {
+        addValue(name, value);
+        return this;
     }
 
     /**

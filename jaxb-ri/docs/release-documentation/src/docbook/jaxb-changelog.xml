@@ -45,6 +45,9 @@
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1677">#1677</link>: Add/implement JVar.annotate(JAnnotationUse annotation)
                     </para></listitem>
                     <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1679">#1679</link>: Add/implement JAnnotationUse.param(String name, JAnnotationValue annotationValue)
+                    </para></listitem>
+                    <listitem><para>
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1680">#1680</link>: Avoid eager initialization of Scope objects.
                     </para></listitem>
                 </itemizedlist>
