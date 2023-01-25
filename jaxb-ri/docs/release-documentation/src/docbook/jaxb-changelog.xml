@@ -29,7 +29,9 @@
         <itemizedlist>
             <listitem><para>Bug fixes:
                 <itemizedlist>
-                    <listitem><para>nnn</para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1654">#1654</link>: update xjc section in the userguide
+                    </para></listitem>
                     <listitem><para>
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/pull/1669">#1669</link>: [codemodel] Support Object and overridden JAnnotationWriter methods
                     </para></listitem>

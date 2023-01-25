@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2023 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -109,6 +109,7 @@ Options:
                         If a directory is given, **/*.xjb is searched
   -d <dir>           :  generated files will go into this directory
   -p <pkg>           :  specifies the target package
+  -m <name>          :  generate module-info.java with given Java module name
   -httpproxy <proxy> :  set HTTP/HTTPS proxy. Format is [user[:password]@]proxyHost:proxyPort
   -httpproxyfile <f> :  Works like -httpproxy but takes the argument in a file to protect password 
   -classpath <arg>   :  specify where to find user class files
@@ -117,14 +118,12 @@ Options:
   -readOnly          :  generated files will be in read-only mode
   -npa               :  suppress generation of package level annotations (**/package-info.java)
   -no-header         :  suppress generation of a file header with timestamp
-  -target (2.0|2.1)  :  behave like XJC 2.0 or 2.1 and generate code that doesn't use any 2.2 features.
+  -target 3.0        :  behave like XJC 3.0 and generate code that doesn't use any new features
   -encoding <encoding> :  specify character encoding for generated source files
   -enableIntrospection :  enable correct generation of Boolean getters/setters to enable Bean Introspection apis 
   -disableXmlSecurity  :  disables XML security features when parsing XML documents 
   -contentForWildcard  :  generates content property for types with multiple xs:any derived elements 
   -xmlschema         :  treat input as W3C XML Schema (default)
-  -relaxng           :  treat input as RELAX NG (experimental,unsupported)
-  -relaxng-compact   :  treat input as RELAX NG compact syntax (experimental,unsupported)
   -dtd               :  treat input as XML DTD (experimental,unsupported)
   -wsdl              :  treat input as WSDL and compile schemas inside it (experimental,unsupported)
   -verbose           :  be extra verbose
@@ -134,11 +133,13 @@ Options:
   -fullversion       :  display full version information
 
 Extensions:
-  -Xinject-code      :  inject specified Java code fragments into the generated code
-  -Xlocator          :  enable source location support for generated code
-  -Xsync-methods     :  generate accessor methods with the 'synchronized' keyword
-  -mark-generated    :  mark the generated code as @javax.annotation.Generated
-  -episode           :  generate the episode file for separate compilation
+  -Xinject-code       :  inject specified Java code fragments into the generated code
+  -Xlocator           :  enable source location support for generated code
+  -Xsync-methods      :  generate accessor methods with the 'synchronized' keyword
+  -mark-generated     :  mark the generated code as @jakarta.annotation.Generated
+                      -noDate            : do not add date
+                      -Xann <annotation> : generate <annotation> instead of @jakarta.annotation.Generated
+  -episode            :  generate the episode file for separate compilation
   -Xpropertyaccessors :  Use XmlAccessType PROPERTY instead of FIELD for generated classes]]></programlisting>
         </informalexample>
 
@@ -337,30 +338,6 @@ xjc schema1.xsd schema2.xsd schema3.xsd -b bindings1.xjb -b bindings2.xjb -b bin
                         <para>treat input schemas as W3C XML Schema (default).
                         If you do not specify this switch, your input schemas
                         will be treated as W3C XML Schema.</para>
-                    </listitem>
-                </varlistentry>
-
-                <varlistentry>
-                    <term><emphasis role="bold">-relaxng</emphasis></term>
-
-                    <listitem>
-                        <para>Treat input schemas as RELAX NG (experimental,
-                        unsupported). Support for RELAX NG schemas is provided
-                        as a <xref linkend="jaxb-ri-extensions-overview"
-                        xrefstyle="select:title" />.</para>
-                    </listitem>
-                </varlistentry>
-
-                <varlistentry>
-                    <term><emphasis
-                    role="bold">-relaxng-compact</emphasis></term>
-
-                    <listitem>
-                        <para>Treat input schemas as RELAX NG compact
-                        syntax(experimental, unsupported). Support for RELAX
-                        NG schemas is provided as a <xref
-                        linkend="jaxb-ri-extensions-overview"
-                        xrefstyle="select:title" />.</para>
                     </listitem>
                 </varlistentry>
 
