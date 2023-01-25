@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2022 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2023 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -310,10 +310,6 @@
                     </listitem>
 
                     <listitem>
-                        <para><option>-relaxng</option></para>
-                    </listitem>
-
-                    <listitem>
                         <para><option>-Xlocator</option></para>
                     </listitem>
 
@@ -417,7 +413,7 @@
         RELAX NG, DTD, and WSDL. To compile anything other than W3C XML Schema
         from the <command>xjc</command> Ant task, you must use the nested &lt;
         <literal>arg</literal>&gt; element to specify the appropriate command line
-        switch, such as <option>-dtd</option>, <option>-relaxng</option>, or <option>-wsdl</option>. Otherwise, your input schemas will be treated as
+        switch, such as <option>-dtd</option>, or <option>-wsdl</option>. Otherwise, your input schemas will be treated as
         W3C XML Schema and the binding compiler will fail.</para>
     </section>
 
