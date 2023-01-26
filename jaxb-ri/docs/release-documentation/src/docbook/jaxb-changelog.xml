@@ -48,7 +48,10 @@
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1679">#1679</link>: Add/implement JAnnotationUse.param(String name, JAnnotationValue annotationValue)
                     </para></listitem>
                     <listitem><para>
-                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1680">#1680</link>: Avoid eager initialization of Scope objects.
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1680">#1680</link>: Avoid eager initialization of Scope objects
+                    </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1682">#1682</link>: Non-deterministic definition of default namespace @XmlSchema(namespace=...) in package-info.java
                     </para></listitem>
                 </itemizedlist>
             </para></listitem>
