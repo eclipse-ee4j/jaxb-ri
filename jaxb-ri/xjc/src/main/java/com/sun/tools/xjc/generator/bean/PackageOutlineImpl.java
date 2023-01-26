@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -9,16 +9,6 @@
  */
 
 package com.sun.tools.xjc.generator.bean;
-
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
-import jakarta.xml.bind.annotation.XmlNsForm;
-import jakarta.xml.bind.annotation.XmlSchema;
-import javax.xml.namespace.QName;
 
 import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JPackage;
@@ -33,8 +23,17 @@ import com.sun.tools.xjc.model.CReferencePropertyInfo;
 import com.sun.tools.xjc.model.CTypeRef;
 import com.sun.tools.xjc.model.CValuePropertyInfo;
 import com.sun.tools.xjc.model.Model;
-import com.sun.tools.xjc.outline.PackageOutline;
 import com.sun.tools.xjc.outline.Aspect;
+import com.sun.tools.xjc.outline.PackageOutline;
+import jakarta.xml.bind.annotation.XmlNsForm;
+import jakarta.xml.bind.annotation.XmlSchema;
+
+import javax.xml.namespace.QName;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * {@link PackageOutline} enhanced with schema2java specific
@@ -48,7 +47,7 @@ public final class PackageOutlineImpl implements PackageOutline {
     private final JPackage _package;
     private final ObjectFactoryGenerator objectFactoryGenerator;
 
-    /*package*/ final Set<ClassOutlineImpl> classes = new HashSet<>();
+    /*package*/ final Set<ClassOutlineImpl> classes = new LinkedHashSet<>();
     private final Set<ClassOutlineImpl> classesView = Collections.unmodifiableSet(classes);
 
     private String mostUsedNamespaceURI;
@@ -205,18 +204,18 @@ public final class PackageOutlineImpl implements PackageOutline {
 
     // Map to keep track of how often each type or element uri is used in this package
     // mostly used to calculate mostUsedNamespaceURI
-    private HashMap<String, Integer> uriCountMap = new HashMap<>();
+    private Map<String, Integer> uriCountMap = new LinkedHashMap<>();
 
     // Map to keep track of how often each property uri is used in this package
     // used to calculate elementFormDefault
-    private HashMap<String, Integer> propUriCountMap = new HashMap<>();
+    private Map<String, Integer> propUriCountMap = new LinkedHashMap<>();
 
     /**
      * pull the uri out of the specified QName and keep track of it in the
      * specified hash map
      *
      */
-    private void countURI(HashMap<String, Integer> map, QName qname) {
+    private void countURI(Map<String, Integer> map, QName qname) {
         if (qname == null) return;
 
         String uri = qname.getNamespaceURI();
@@ -238,7 +237,7 @@ public final class PackageOutlineImpl implements PackageOutline {
      * and when that happens it unintentionally also renames (normally
      * unqualified) local elements, prefer non-"" URI when there's a tie. 
      */
-    private String getMostUsedURI(HashMap<String, Integer> map) {
+    private String getMostUsedURI(Map<String, Integer> map) {
         String mostPopular = null;
         int count = 0;
 
