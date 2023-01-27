@@ -17,13 +17,13 @@
     <parent>
         <groupId>org.eclipse.ee4j</groupId>
         <artifactId>project</artifactId>
-        <version>1.0.7</version>
+        <version>1.0.8</version>
         <relativePath/>
     </parent>
 
     <groupId>org.glassfish.jaxb</groupId>
     <artifactId>xsom</artifactId>
-    <version>4.0.2-SNAPSHOT</version>
+    <version>4.0.2</version>
 
     <name>XSOM</name>
     <description>XML Schema Object Model (XSOM) is a Java library that allows applications to easily parse XML Schema
