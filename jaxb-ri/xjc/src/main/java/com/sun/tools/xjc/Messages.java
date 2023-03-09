@@ -115,6 +115,9 @@ public class Messages
     static final String COMPILING_SCHEMA = // 0 args
         "Driver.CompilingSchema";
 
+    static final String GENERATING_CODE = // 0 args
+    	"Driver.GeneratingCode";
+    
     static final String FAILED_TO_GENERATE_CODE = // 0 args
         "Driver.FailedToGenerateCode";
         

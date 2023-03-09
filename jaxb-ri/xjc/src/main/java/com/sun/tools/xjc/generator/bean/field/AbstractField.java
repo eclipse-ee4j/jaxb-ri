@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.W3CDomHandler;
@@ -289,7 +290,7 @@ abstract class AbstractField implements FieldOutline {
         // when generating code for 1.4, the runtime can't infer that ArrayList<Foo> derives
         // from Collection<Foo> (because List isn't parameterized), so always expclitly
         // generate @XmlElement(type=...)
-        if( !jtype.equals(exposedType) || (getOptions().runtime14 && prop.isCollection())) {
+        if( (null != jtype && !jtype.equals(exposedType)) || (getOptions().runtime14 && prop.isCollection())) {
             if(xew == null) xew = getXew(checkWrapper, field);
             xew.type(jtype);
         }
@@ -431,7 +432,7 @@ abstract class AbstractField implements FieldOutline {
 
             void add( Collection<? extends CTypeInfo> col ) {
                 for (CTypeInfo typeInfo : col)
-                    add(typeInfo);
+                	if (null != typeInfo) add(typeInfo);
             }
         }
         TypeList r = new TypeList();
@@ -459,6 +460,7 @@ abstract class AbstractField implements FieldOutline {
     protected final List<Object> listPossibleTypes( CPropertyInfo prop ) {
         List<Object> r = new ArrayList<Object>();
         List<JType> refs = prop.ref().stream()
+        		.filter(Objects::nonNull)
                 .map(tt -> tt.toType(outline.parent(), Aspect.EXPOSED))
                 .sorted(comparing(JType::fullName))
                 .collect(toList());
