@@ -360,7 +360,7 @@ public final class Driver {
             case ZIP :
                 {
                     // generate actual code
-                    receiver.debug("generating code");
+                	receiver.debug(Messages.format(Messages.GENERATING_CODE));
                     {// don't want to hold outline in memory for too long.
                         Outline outline = model.generateCode(opt,receiver);
                         if(outline==null) {
