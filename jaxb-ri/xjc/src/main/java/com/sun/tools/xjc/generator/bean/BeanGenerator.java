@@ -326,7 +326,7 @@ public final class BeanGenerator implements Outline {
 
     @Override
     public JType resolve(CTypeRef ref, Aspect a) {
-        return ref.getTarget().getType().toType(this, a);
+    	return (null != ref.getTarget()) ? ref.getTarget().getType().toType(this, a) : null;
     }
     private final CClassInfoParent.Visitor<JClassContainer> exposedContainerBuilder =
             new CClassInfoParent.Visitor<>() {
