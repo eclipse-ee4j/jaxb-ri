@@ -33,7 +33,8 @@
 
     <properties>
         <xml.bind-api.version>4.0.0</xml.bind-api.version>
-        <istack.version>4.1.1</istack.version>
+        <!-- 4.2.0+ comes with no SecurityManager support -->
+        <istack.version>4.1.2</istack.version>
         <fastinfoset.version>2.1.0</fastinfoset.version>
         <stax-ex.version>2.1.0</stax-ex.version>
         <activation-api.version>2.1.1</activation-api.version>
@@ -253,17 +254,38 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>3.1.0</version>
+                    <version>3.3.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>3.4.1</version>
+                    <version>3.5.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>3.1.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>versions-maven-plugin</artifactId>
+                    <version>2.15.0</version>
+                    <configuration>
+                        <ruleSet>
+                            <rules>
+                                <rule>
+                                    <!-- 4.2.0+ comes with no SecurityManager support -->
+                                    <groupId>com.sun.istack</groupId>
+                                    <ignoreVersions>
+                                        <ignoreVersion>
+                                            <type>regex</type>
+                                            <version>4.[2-9]+.*</version>
+                                        </ignoreVersion>
+                                    </ignoreVersions>
+                                </rule>
+                            </rules>
+                        </ruleSet>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
