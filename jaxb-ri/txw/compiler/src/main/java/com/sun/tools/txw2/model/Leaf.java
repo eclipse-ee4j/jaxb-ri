@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2005, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -87,7 +87,7 @@ public abstract class Leaf implements ParsedPattern {
      * Populate the body of the writer class.
      *
      * @param props
-     *      captures the generatesd {@link Prop}s to
+     *      captures the generated {@link Prop}s to
      */
     abstract void generate(JDefinedClass clazz, NodeSet nset, Set<Prop> props);
 
@@ -101,8 +101,8 @@ public abstract class Leaf implements ParsedPattern {
         if(!props.add(new ValueProp(valueType)))
             return;
 
-        JMethod m = clazz.method(JMod.PUBLIC,
-            nset.opts.chainMethod? (JType)clazz : nset.codeModel.VOID,
+        JMethod m = clazz.method(clazz.isInterface() ? JMod.NONE : JMod.PUBLIC,
+            nset.opts.chainMethod? clazz : nset.codeModel.VOID,
             "_text");
         m.annotate(XmlValue.class);
         m.param(valueType,"value");
