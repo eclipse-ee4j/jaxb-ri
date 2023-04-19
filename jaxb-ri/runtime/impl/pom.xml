@@ -71,6 +71,39 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>com.sun.istack</groupId>
+                <artifactId>istack-commons-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>quick-gen</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>quick-gen</goal>
+                        </goals>
+                        <configuration>
+                            <packageName>org.glassfish.jaxb.runtime.v2.model.annotation</packageName>
+                            <classes>
+                                <class>jakarta.xml.bind.annotation.*</class>
+                                <class>jakarta.xml.bind.annotation.adapters.*</class>
+<!--                                <class>jakarta.xml.bind.annotation.XmlAttribute</class>-->
+<!--                                <class>jakarta.xml.bind.annotation.XmlElement</class>-->
+<!--                                <class>jakarta.xml.bind.annotation.XmlElementDecl</class>-->
+<!--                                <class>jakarta.xml.bind.annotation.XmlElementRef</class>-->
+<!--                                <class>jakarta.xml.bind.annotation.XmlElementRefs</class>-->
+<!--                                <class>jakarta.xml.bind.annotation.XmlEnum</class>-->
+<!--                                <class>jakarta.xml.bind.annotation.XmlRootElement</class>-->
+<!--                                <class>jakarta.xml.bind.annotation.XmlSchema</class>-->
+<!--                                <class>jakarta.xml.bind.annotation.XmlSchemaType</class>-->
+<!--                                <class>jakarta.xml.bind.annotation.XmlTransient</class>-->
+<!--                                <class>jakarta.xml.bind.annotation.XmlType</class>-->
+<!--                                <class>jakarta.xml.bind.annotation.XmlValue</class>-->
+                            </classes>
+                            <license>${copyright.template}</license>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
                 <configuration>
@@ -97,6 +130,7 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
                     <archive>
