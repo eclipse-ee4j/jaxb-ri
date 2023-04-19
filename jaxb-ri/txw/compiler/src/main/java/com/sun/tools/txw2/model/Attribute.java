@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2005, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2005, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -61,7 +61,7 @@ public class Attribute extends XmlNode {
             if(!props.add(new AttributeProp(name,t)))
                 continue;
 
-            JMethod m = clazz.method(JMod.PUBLIC,
+            JMethod m = clazz.method(clazz.isInterface() ? JMod.NONE : JMod.PUBLIC,
                 nset.opts.chainMethod? clazz : nset.codeModel.VOID,
                 methodName);
             m.param(t,"value");
