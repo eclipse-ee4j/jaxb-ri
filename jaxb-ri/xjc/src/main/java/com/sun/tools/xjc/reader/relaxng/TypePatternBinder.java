@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2021, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,9 +10,10 @@
 
 package com.sun.tools.xjc.reader.relaxng;
 
+import java.util.Deque;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Set;
-import java.util.Stack;
 
 import com.sun.tools.rngom.digested.DAttributePattern;
 import com.sun.tools.rngom.digested.DChoicePattern;
@@ -32,7 +33,7 @@ import com.sun.tools.rngom.digested.DZeroOrMorePattern;
  */
 final class TypePatternBinder extends DPatternWalker {
     private boolean canInherit;
-    private final Stack<Boolean> stack = new Stack<>();
+    private final Deque<Boolean> stack = new LinkedList<>();
 
     /**
      * Patterns that are determined not to be bindable to inheritance.

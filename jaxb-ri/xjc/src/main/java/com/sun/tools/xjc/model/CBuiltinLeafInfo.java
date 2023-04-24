@@ -181,7 +181,7 @@ public abstract class CBuiltinLeafInfo implements CNonElement, BuiltinLeafInfo<N
     /**
      * @deprecated always return false at this level.
      */
-    @Deprecated
+    @Deprecated(since="4.0.0", forRemoval=true)
     @Override
     public final boolean isElement() {
         return false;
@@ -190,7 +190,7 @@ public abstract class CBuiltinLeafInfo implements CNonElement, BuiltinLeafInfo<N
     /**
      * @deprecated always return null at this level.
      */
-    @Deprecated
+    @Deprecated(since="4.0.0", forRemoval=true)
     @Override
     public final QName getElementName() {
         return null;
@@ -199,7 +199,7 @@ public abstract class CBuiltinLeafInfo implements CNonElement, BuiltinLeafInfo<N
     /**
      * @deprecated always return null at this level.
      */
-    @Deprecated
+    @Deprecated(since="4.0.0", forRemoval=true)
     @Override
     public final Element<NType,NClass> asElement() {
         return null;
@@ -229,7 +229,7 @@ public abstract class CBuiltinLeafInfo implements CNonElement, BuiltinLeafInfo<N
      * @deprecated
      *      why are you calling a method whose return value is always known?
      */
-    @Deprecated
+    @Deprecated(since="4.0.0", forRemoval=true)
     @Override
     public final boolean canBeReferencedByIDREF() {
         return false;

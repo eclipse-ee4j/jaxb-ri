@@ -176,7 +176,7 @@ public final class XMLSerializer extends Coordinator {
      *      {@link Base64Data} is no longer cached, so that
      *      XMLStreamWriterEx impl can retain the data, like JAX-WS does.
      */
-    @Deprecated
+    @Deprecated(since="4.0.0", forRemoval=true)
     public Base64Data getCachedBase64DataInstance() {
         return new Base64Data();
     }

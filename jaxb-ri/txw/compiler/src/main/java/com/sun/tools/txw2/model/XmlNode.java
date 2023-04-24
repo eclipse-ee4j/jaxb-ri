@@ -10,12 +10,13 @@
 
 package com.sun.tools.txw2.model;
 
+import java.util.Deque;
+import java.util.LinkedList;
 import org.xml.sax.Locator;
 
 import javax.xml.namespace.QName;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Stack;
 
 /**
  * Either an {@link Element} or {@link Attribute}.
@@ -42,7 +43,7 @@ public abstract class XmlNode extends WriterNode {
     protected final Set<Leaf> collectChildren() {
         Set<Leaf> result = new HashSet<>();
 
-        Stack<Node> work = new Stack<>();
+        Deque<Node> work = new LinkedList<>();
         work.push(this);
 
         while(!work.isEmpty()) {

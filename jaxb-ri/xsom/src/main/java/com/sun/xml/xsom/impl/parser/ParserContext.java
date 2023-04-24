@@ -17,6 +17,8 @@ import com.sun.xml.xsom.impl.SchemaSetImpl;
 import com.sun.xml.xsom.parser.AnnotationParserFactory;
 import com.sun.xml.xsom.parser.XMLParser;
 import com.sun.xml.xsom.parser.XSOMParser;
+import java.util.LinkedList;
+import java.util.List;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
@@ -29,7 +31,6 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Vector;
 
 /**
  * Provides context information to be used by {@link NGCCRuntimeEx}s.
@@ -51,8 +52,8 @@ public class ParserContext {
     final XMLParser parser;
 
 
-    private final Vector<Patch> patchers = new Vector<>();
-    private final Vector<Patch> errorCheckers = new Vector<>();
+    private final List<Patch> patchers = new LinkedList<>();
+    private final List<Patch> errorCheckers = new LinkedList<>();
 
     /**
      * Documents that are parsed already. Used to avoid cyclic inclusion/double

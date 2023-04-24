@@ -10,7 +10,6 @@
 
 package com.sun.xml.xsom.impl;
 
-import com.sun.xml.xsom.ForeignAttributes;
 import com.sun.xml.xsom.XSContentType;
 import com.sun.xml.xsom.XSParticle;
 import com.sun.xml.xsom.XSSimpleType;

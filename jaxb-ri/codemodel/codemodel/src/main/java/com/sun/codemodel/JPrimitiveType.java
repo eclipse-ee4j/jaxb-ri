@@ -79,7 +79,7 @@ public final class JPrimitiveType extends JType {
      * @deprecated
      *      Use {@link #boxify()}.
      */
-    @Deprecated
+    @Deprecated(since="4.0.0", forRemoval=true)
     public JClass getWrapperClass() {
         return boxify();
     }

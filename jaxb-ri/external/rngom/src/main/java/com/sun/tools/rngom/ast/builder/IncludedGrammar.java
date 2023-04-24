@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2015
+ * Copyright (C) 2004-2022
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,7 +24,6 @@ package com.sun.tools.rngom.ast.builder;
 import com.sun.tools.rngom.ast.om.ParsedElementAnnotation;
 import com.sun.tools.rngom.ast.om.Location;
 import com.sun.tools.rngom.ast.om.ParsedPattern;
-import com.sun.tools.rngom.parse.Parseable;
 
 /**
  * {@link Scope} for {@code <grammar>} element of the {@code <include>}d grammar.

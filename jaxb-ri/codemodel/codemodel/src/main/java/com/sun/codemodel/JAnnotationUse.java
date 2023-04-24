@@ -390,7 +390,7 @@ public final class JAnnotationUse extends JAnnotationValue {
      * @deprecated
      *      use {@link JAnnotationArrayMember#annotate}
      */
-    @Deprecated
+    @Deprecated(since="4.0.0", forRemoval=true)
     public JAnnotationUse annotate(Class <? extends Annotation> clazz) {
         return new JAnnotationUse(owner().ref(clazz));
     }

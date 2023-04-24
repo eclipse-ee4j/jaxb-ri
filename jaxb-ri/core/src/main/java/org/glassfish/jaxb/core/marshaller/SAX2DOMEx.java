@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,7 +10,8 @@
 
 package org.glassfish.jaxb.core.marshaller;
 
-import java.util.Stack;
+import java.util.Deque;
+import java.util.LinkedList;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -37,7 +38,7 @@ public class SAX2DOMEx implements ContentHandler {
 
     private Node node = null;
     private boolean isConsolidate;
-    protected final Stack<Node> nodeStack = new Stack<>();
+    protected final Deque<Node> nodeLinkedList = new LinkedList<>();
     private final FinalArrayList<String> unprocessedNamespaces = new FinalArrayList<>();
     /**
      * Document object that owns the specified node.
@@ -59,7 +60,7 @@ public class SAX2DOMEx implements ContentHandler {
     public SAX2DOMEx(Node node, boolean isConsolidate) {
         this.node = node;
         this.isConsolidate = isConsolidate;
-        nodeStack.push(this.node);
+        nodeLinkedList.push(this.node);
 
         if (node instanceof Document) {
             this.document = (Document) node;
@@ -75,25 +76,25 @@ public class SAX2DOMEx implements ContentHandler {
         f.setValidating(false);
         document = f.newDocumentBuilder().newDocument();
         node = document;
-        nodeStack.push(document);
+        nodeLinkedList.push(document);
     }
 
     /**
      * Creates a fresh empty DOM document and adds nodes under this document.
      * @deprecated
      */
-    @Deprecated
+    @Deprecated(since="4.0.0", forRemoval=true)
     public SAX2DOMEx() throws ParserConfigurationException {
         DocumentBuilderFactory factory = XmlFactory.createDocumentBuilderFactory(false);
         factory.setValidating(false);
 
         document = factory.newDocumentBuilder().newDocument();
         node = document;
-        nodeStack.push(document);
+        nodeLinkedList.push(document);
     }
 
     public final Element getCurrentElement() {
-        return (Element) nodeStack.peek();
+        return (Element) nodeLinkedList.peek();
     }
 
     public Node getDOM() {
@@ -136,7 +137,7 @@ public class SAX2DOMEx implements ContentHandler {
 
     @Override
     public void startElement(String namespace, String localName, String qName, Attributes attrs) {
-        Node parent = nodeStack.peek();
+        Node parent = nodeLinkedList.peek();
 
         // some broken DOM implementation (we confirmed it with SAXON)
         // return null from this method.
@@ -173,12 +174,12 @@ public class SAX2DOMEx implements ContentHandler {
         // append this new node onto current stack node
         parent.appendChild(element);
         // push this node onto stack
-        nodeStack.push(element);
+        nodeLinkedList.push(element);
     }
 
     @Override
     public void endElement(String namespace, String localName, String qName) {
-        nodeStack.pop();
+        nodeLinkedList.pop();
     }
 
     @Override
@@ -187,7 +188,7 @@ public class SAX2DOMEx implements ContentHandler {
     }
 
     protected Text characters(String s) {
-        Node parent = nodeStack.peek();
+        Node parent = nodeLinkedList.peek();
         Node lastChild = parent.getLastChild();
         Text text;
         if (isConsolidate && lastChild != null && lastChild.getNodeType() == Node.TEXT_NODE) {
@@ -206,7 +207,7 @@ public class SAX2DOMEx implements ContentHandler {
 
     @Override
     public void processingInstruction(String target, String data) throws org.xml.sax.SAXException {
-        Node parent = nodeStack.peek();
+        Node parent = nodeLinkedList.peek();
         Node n = document.createProcessingInstruction(target, data);
         parent.appendChild(n);
     }

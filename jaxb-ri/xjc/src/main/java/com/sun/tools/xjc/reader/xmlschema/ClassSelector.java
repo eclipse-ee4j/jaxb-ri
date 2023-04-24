@@ -11,11 +11,12 @@
 package com.sun.tools.xjc.reader.xmlschema;
 
 import java.io.StringWriter;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
-import java.util.Stack;
 
 import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.JJavaName;
@@ -89,7 +90,7 @@ public final class ClassSelector extends BindingComponent {
     /**
      * A list of {@link Binding}s object that needs to be built.
      */
-    private final Stack<Binding> bindQueue = new Stack<>();
+    private final Deque<Binding> bindQueue = new LinkedList<>();
 
     /**
      * {@link CClassInfo}s that are already {@link Binding#build() built}.
@@ -106,7 +107,7 @@ public final class ClassSelector extends BindingComponent {
      * {@link CClassInfoParent}s that determines where a new class
      * should be created.
      */
-    private final Stack<CClassInfoParent> classScopes = new Stack<>();
+    private final Deque<CClassInfoParent> classScopes = new LinkedList<>();
 
     /**
      * The component that is being bound to {@link #currentBean}.

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -35,7 +35,7 @@ public interface XSDeclaration extends XSComponent
      * @deprecated use the isGlobal method, which always returns
      * the opposite of this function. Or the isLocal method.
      */
-    @Deprecated
+    @Deprecated(since="4.0.0", forRemoval=true)
     boolean isAnonymous();
 
     /**

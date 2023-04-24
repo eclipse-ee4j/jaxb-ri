@@ -162,7 +162,7 @@ public class ContextFactory {
      *
      * @deprecated use {@code createContext(Class[] classes, Map<String,Object> properties)} method instead
      */
-    @Deprecated
+    @Deprecated(since="4.0.0", forRemoval=true)
     public static JAXBRIContext createContext( Class[] classes,
             Collection<TypeReference> typeRefs, Map<Class,Class> subclassReplacements,
             String defaultNsUri, boolean c14nSupport, RuntimeAnnotationReader ar,
@@ -177,7 +177,7 @@ public class ContextFactory {
      *
      * @deprecated use {@code createContext( Class[] classes, Map<String,Object> properties)} method instead
      */
-    @Deprecated
+    @Deprecated(since="4.0.0", forRemoval=true)
     public static JAXBRIContext createContext( Class[] classes,
             Collection<TypeReference> typeRefs, Map<Class,Class> subclassReplacements,
             String defaultNsUri, boolean c14nSupport, RuntimeAnnotationReader ar,

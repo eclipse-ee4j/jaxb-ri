@@ -148,7 +148,7 @@ class EnumLeafInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
      *      why are you calling a method whose return value is always known?
      */
     @Override
-    @Deprecated
+    @Deprecated(since="4.0.0", forRemoval=true)
     public final boolean canBeReferencedByIDREF() {
         return false;
     }
@@ -198,7 +198,7 @@ class EnumLeafInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
      * @deprecated if you are invoking this method directly, there's something wrong.
      */
     @Override
-    @Deprecated
+    @Deprecated(since="4.0.0", forRemoval=true)
     public Element<T, C> getSubstitutionHead() {
         return null;
     }
@@ -229,7 +229,7 @@ class EnumLeafInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
      *      you shouldn't be invoking this method on {@link ClassInfoImpl}.
      */
     @Override
-    @Deprecated
+    @Deprecated(since="4.0.0", forRemoval=true)
     public ClassInfo<T,C> getScope() {
         return null;
     }

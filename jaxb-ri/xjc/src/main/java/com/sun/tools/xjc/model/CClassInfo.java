@@ -320,7 +320,7 @@ public final class CClassInfo extends AbstractCElement implements ClassInfo<NTyp
      * @deprecated
      *      if you are calling this method directly, you must be doing something wrong.
      */
-    @Deprecated
+    @Deprecated(since="4.0.0", forRemoval=true)
     @Override
     public boolean isFinal() {
         return false;

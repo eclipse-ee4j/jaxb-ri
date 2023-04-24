@@ -12,8 +12,9 @@ package com.sun.tools.jxc.gen.config;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Stack;
 import java.util.StringTokenizer;
 
 import org.xml.sax.Attributes;
@@ -80,7 +81,7 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
      * as the runtime resets itself after the endDocument method.
      */
     public void reset() {
-        attStack.clear();
+        attLinkedList.clear();
         currentAtts = null;
         currentHandler = null;
         indent=0;
@@ -89,10 +90,10 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
         needIndent = true;
         redirect = null;
         redirectionDepth = 0;
-        text = new StringBuffer();
+        text = new StringBuilder();
 
         // add a dummy attributes at the bottom as a "centinel."
-        attStack.push(new AttributesImpl());
+        attLinkedList.push(new AttributesImpl());
     }
 
     // current content handler can be acccessed via set/getContentHandler.
@@ -112,8 +113,8 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
 
 
     /** stack of {@link Attributes}. */
-    private final Stack<AttributesImpl> attStack = new Stack<>();
-    /** current attributes set. always equal to attStack.peek() */
+    private final Deque<AttributesImpl> attLinkedList = new LinkedList<>();
+    /** current attributes set. always equal to attLinkedList.peek() */
     private AttributesImpl currentAtts;
 
     /**
@@ -130,12 +131,12 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
     }
 
     /** accumulated text. */
-    private StringBuffer text = new StringBuffer();
+    private StringBuilder text = new StringBuilder();
 
 
 
 
-    /** The current NGCCHandler. Always equals to handlerStack.peek() */
+    /** The current NGCCHandler. Always equals to handlerLinkedList.peek() */
     private NGCCEventReceiver currentHandler;
 
     @Override
@@ -215,8 +216,8 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
         else
             currentHandler.text(text.toString());   // otherwise consume this token
 
-        // truncate StringBuffer, but avoid excessive allocation.
-        if(text.length()>1024)  text = new StringBuffer();
+        // truncate StringBuilder, but avoid excessive allocation.
+        if(text.length()>1024)  text = new StringBuilder();
         else                    text.setLength(0);
     }
 
@@ -235,7 +236,7 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
             redirectionDepth++;
         } else {
             processPendingText(true);
-            //        System.out.println("startElement:"+localname+"->"+_attrStack.size());
+            //        System.out.println("startElement:"+localname+"->"+_attrLinkedList.size());
             currentHandler.enterElement(uri, localname, qname, atts);
         }
     }
@@ -263,8 +264,8 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
      */
     public void onEnterElementConsumed(
             String uri, String localName, String qname,Attributes atts) throws SAXException {
-        attStack.push(currentAtts=new AttributesImpl(atts));
-        nsEffectiveStack.push(nsEffectivePtr);
+        attLinkedList.push(currentAtts=new AttributesImpl(atts));
+        nsEffectiveLinkedList.push(nsEffectivePtr);
         nsEffectivePtr = namespaces.size();
     }
 
@@ -275,12 +276,12 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
      * @throws SAXException for errors
      */
     public void onLeaveElementConsumed(String uri, String localName, String qname) throws SAXException {
-        attStack.pop();
-        if(attStack.isEmpty())
+        attLinkedList.pop();
+        if(attLinkedList.isEmpty())
             currentAtts = null;
         else
-            currentAtts = attStack.peek();
-        nsEffectivePtr = nsEffectiveStack.pop();
+            currentAtts = attLinkedList.peek();
+        nsEffectivePtr = nsEffectiveLinkedList.pop();
     }
 
     @Override
@@ -527,9 +528,9 @@ public class NGCCRuntime implements ContentHandler, NGCCEventSource {
     private int nsEffectivePtr=0;
 
     /**
-     * Stack to preserve old nsEffectivePtr values.
+     * LinkedList to preserve old nsEffectivePtr values.
      */
-    private final Stack<Integer> nsEffectiveStack = new Stack<>();
+    private final Deque<Integer> nsEffectiveLinkedList = new LinkedList<>();
 
     public String resolveNamespacePrefix( String prefix ) {
         for( int i = nsEffectivePtr-2; i>=0; i-=2 )

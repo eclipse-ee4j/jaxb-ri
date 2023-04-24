@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2012
+ * Copyright (C) 2004-2012, 2022
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,8 +21,7 @@
  */
 package com.sun.tools.rngom.binary;
 
-import java.util.Enumeration;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 
 import com.sun.tools.rngom.ast.builder.Annotations;
@@ -58,6 +57,7 @@ import com.sun.tools.rngdatatype.DatatypeLibrary;
 import com.sun.tools.rngdatatype.DatatypeLibraryFactory;
 import com.sun.tools.rngdatatype.ValidationContext;
 import com.sun.tools.rngdatatype.helpers.DatatypeLibraryLoader;
+import java.util.Map;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
@@ -425,14 +425,14 @@ public class SchemaBuilderImpl implements SchemaBuilder, ElementAnnotationBuilde
     static class GrammarImpl implements Grammar, Div, IncludedGrammar {
 
         private final SchemaBuilderImpl sb;
-        private final Hashtable defines;
+        private final Map<String, RefPattern> defines;
         private final RefPattern startRef;
         private final Scope parent;
 
         private GrammarImpl(SchemaBuilderImpl sb, Scope parent) {
             this.sb = sb;
             this.parent = parent;
-            this.defines = new Hashtable();
+            this.defines = new HashMap();
             this.startRef = new RefPattern(null);
         }
 
@@ -444,15 +444,14 @@ public class SchemaBuilderImpl implements SchemaBuilder, ElementAnnotationBuilde
         }
 
         public ParsedPattern endGrammar(Location loc, Annotations anno) throws BuildException {
-            for (Enumeration e = defines.keys();
-                    e.hasMoreElements();) {
-                String name = (String) e.nextElement();
-                RefPattern rp = (RefPattern) defines.get(name);
+        	for (Map.Entry<String, RefPattern> entry : defines.entrySet()) {
+				String name = entry.getKey();
+				RefPattern rp = entry.getValue();
                 if (rp.getPattern() == null) {
                     sb.error("reference_to_undefined", name, rp.getRefLocator());
                     rp.setPattern(sb.pb.makeError());
                 }
-            }
+			}
             Pattern start = startRef.getPattern();
             if (start == null) {
                 sb.error("missing_start_element", (Locator) loc);

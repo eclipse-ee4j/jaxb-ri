@@ -10,13 +10,14 @@
 
 package com.sun.xml.txw2.output;
 
+import java.util.Deque;
+import java.util.LinkedList;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.ext.LexicalHandler;
 import org.xml.sax.helpers.XMLFilterImpl;
 
-import java.util.Stack;
 
 /**
  * {@link XMLFilterImpl} that does indentation to SAX events.
@@ -61,7 +62,7 @@ public class IndentingXMLFilter extends XMLFilterImpl implements LexicalHandler 
      * @deprecated
      *      Only return the length of the indent string.
      */
-    @Deprecated
+    @Deprecated(since="4.0.0", forRemoval=true)
     public int getIndentStep ()
     {
         return indentStep.length();
@@ -78,7 +79,7 @@ public class IndentingXMLFilter extends XMLFilterImpl implements LexicalHandler 
      * @deprecated
      *      Should use the version that takes string.
      */
-    @Deprecated
+    @Deprecated(since="4.0.0", forRemoval=true)
     public void setIndentStep (int indentStep)
     {
         StringBuilder s = new StringBuilder();
@@ -119,7 +120,7 @@ public class IndentingXMLFilter extends XMLFilterImpl implements LexicalHandler 
     public void startElement (String uri, String localName,
                               String qName, Attributes atts)
         throws SAXException {
-        stateStack.push(SEEN_ELEMENT);
+        stateLinkedList.push(SEEN_ELEMENT);
         state = SEEN_NOTHING;
         if (depth > 0) {
             writeNewLine();
@@ -164,7 +165,7 @@ public class IndentingXMLFilter extends XMLFilterImpl implements LexicalHandler 
             doIndent();
         }
         super.endElement(uri, localName, qName);
-        state = stateStack.pop();
+        state = stateLinkedList.pop();
     }
 
 
@@ -302,7 +303,7 @@ public class IndentingXMLFilter extends XMLFilterImpl implements LexicalHandler 
     ////////////////////////////////////////////////////////////////////
 
     private Object state = SEEN_NOTHING;
-    private Stack<Object> stateStack = new Stack<>();
+    private Deque<Object> stateLinkedList = new LinkedList<>();
 
     private String indentStep = "";
     private int depth = 0;

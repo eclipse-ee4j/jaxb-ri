@@ -12,9 +12,10 @@ package com.sun.tools.xjc.reader.dtd;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
-import java.util.Stack;
 
 import javax.xml.namespace.QName;
 
@@ -347,7 +348,7 @@ public class TDTDReader extends DTDHandlerBase
     }
 
 
-    private final Stack<ModelGroup> modelGroups = new Stack<>();
+    private final Deque<ModelGroup> modelGroups = new LinkedList<>();
 
     @Override
     public void startModelGroup() throws SAXException {

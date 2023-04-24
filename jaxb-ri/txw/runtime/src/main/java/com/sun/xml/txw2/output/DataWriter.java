@@ -14,11 +14,12 @@
 
 package com.sun.xml.txw2.output;
 
+import java.util.Deque;
+import java.util.LinkedList;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
 import java.io.Writer;
-import java.util.Stack;
 
 
 /**
@@ -135,7 +136,7 @@ public class DataWriter extends XMLWriter
      * @deprecated
      *      Only return the length of the indent string.
      */
-    @Deprecated
+    @Deprecated(since="4.0.0", forRemoval=true)
     public int getIndentStep ()
     {
         return indentStep.length();
@@ -152,7 +153,7 @@ public class DataWriter extends XMLWriter
      * @deprecated
      *      Should use the version that takes string.
      */
-    @Deprecated
+    @Deprecated(since="4.0.0", forRemoval=true)
     public void setIndentStep (int indentStep)
     {
         StringBuilder s = new StringBuilder();
@@ -183,7 +184,7 @@ public class DataWriter extends XMLWriter
     {
         depth = 0;
         state = SEEN_NOTHING;
-        stateStack = new Stack<>();
+        stateLinkedList = new LinkedList<>();
         super.reset();
     }
 
@@ -212,7 +213,7 @@ public class DataWriter extends XMLWriter
                               String qName, Attributes atts)
         throws SAXException
     {
-        stateStack.push(SEEN_ELEMENT);
+        stateLinkedList.push(SEEN_ELEMENT);
         state = SEEN_NOTHING;
         if (depth > 0) {
             super.characters("\n");
@@ -251,7 +252,7 @@ public class DataWriter extends XMLWriter
             doIndent();
         }
         super.endElement(uri, localName, qName);
-        state = stateStack.pop();
+        state = stateLinkedList.pop();
     }
 
 
@@ -356,7 +357,7 @@ public class DataWriter extends XMLWriter
     ////////////////////////////////////////////////////////////////////
 
     private Object state = SEEN_NOTHING;
-    private Stack<Object> stateStack = new Stack<>();
+    private Deque<Object> stateLinkedList = new LinkedList<>();
 
     private String indentStep = "";
     private int depth = 0;

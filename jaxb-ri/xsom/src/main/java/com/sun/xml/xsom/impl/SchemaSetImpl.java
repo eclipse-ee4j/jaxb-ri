@@ -40,6 +40,7 @@ import com.sun.xml.xsom.visitor.XSFunction;
 import com.sun.xml.xsom.visitor.XSSimpleTypeFunction;
 import com.sun.xml.xsom.visitor.XSSimpleTypeVisitor;
 import com.sun.xml.xsom.visitor.XSVisitor;
+import java.util.LinkedList;
 import org.xml.sax.Locator;
 
 import javax.xml.namespace.NamespaceContext;
@@ -51,12 +52,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Vector;
 
 public class SchemaSetImpl implements XSSchemaSet
 {
     private final Map<String,XSSchema> schemas = new HashMap<>();
-    private final Vector<XSSchema> schemas2 = new Vector<>();
+    private final List<XSSchema> schemas2 = new LinkedList<>();
     private final List<XSSchema> readonlySchemaList = Collections.unmodifiableList(schemas2);
 
     /**

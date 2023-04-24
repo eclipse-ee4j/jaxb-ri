@@ -34,7 +34,7 @@ final class ContentHandlerAdaptor extends DefaultHandler {
     /** Events will be sent to this object. */
     private final XMLSerializer serializer;
     
-    private final StringBuffer text = new StringBuffer();
+    private final StringBuilder text = new StringBuilder();
     
     
     ContentHandlerAdaptor( XMLSerializer _serializer ) {

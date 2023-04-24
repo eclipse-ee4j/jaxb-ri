@@ -108,7 +108,7 @@ public abstract class Element extends Expression implements ElementSet {
      * @deprecated
      *      if you statically call this method, there's something wrong.
      */
-    @Deprecated
+    @Deprecated(since="4.0.0", forRemoval=true)
     @Override
     public Iterator<Element> iterator() {
         return Collections.singleton(this).iterator();

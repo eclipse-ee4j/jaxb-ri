@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011
+ * Copyright (C) 2004-2011, 2022
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,19 +21,20 @@
  */
 package com.sun.tools.rngom.parse.xml;
 
+import java.util.HashMap;
+import java.util.Map;
 import org.xml.sax.DTDHandler;
 import org.xml.sax.SAXException;
 import com.sun.tools.rngdatatype.ValidationContext;
 
-import java.util.Hashtable;
 
 public abstract class DtdContext implements DTDHandler, ValidationContext {
-    private final Hashtable notationTable;
-    private final Hashtable unparsedEntityTable;
+    private final Map notationTable;
+    private final Map unparsedEntityTable;
 
     public DtdContext() {
-        notationTable = new Hashtable();
-        unparsedEntityTable = new Hashtable();
+        notationTable = new HashMap();
+        unparsedEntityTable = new HashMap();
     }
 
     public DtdContext(DtdContext dc) {

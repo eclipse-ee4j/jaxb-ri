@@ -30,7 +30,7 @@ import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.List;
 
 import com.sun.tools.rngom.ast.builder.Annotations;
@@ -55,6 +55,9 @@ import com.sun.tools.rngom.ast.builder.DataPatternBuilder;
 import com.sun.tools.rngom.ast.builder.ElementAnnotationBuilder;
 import com.sun.tools.rngom.ast.builder.SchemaBuilder;
 import com.sun.tools.rngom.ast.om.ParsedNameClass;
+import java.util.Map;
+import java.util.Vector;
+
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
@@ -77,11 +80,11 @@ public class CompactSyntax implements Context, CompactSyntaxConstants {
    */
   private CompactParseable parseable;
   private ErrorHandler eh;
-  private final Hashtable namespaceTable = new Hashtable();
-  private final Hashtable datatypesTable = new Hashtable();
+  private final Map namespaceTable = new HashMap();
+  private final Map datatypesTable = new HashMap();
   private boolean hadError = false;
   private static final Localizer localizer = new Localizer(new Localizer(Parseable.class),CompactSyntax.class);
-  private final Hashtable attributeNameTable = new Hashtable();
+  private final Map attributeNameTable = new HashMap();
   private boolean annotationsIncludeElements = false;
 
   /**
@@ -255,7 +258,7 @@ public class CompactSyntax implements Context, CompactSyntaxConstants {
   }
 
   public Enumeration prefixes() {
-    return namespaceTable.keys();
+    return new Vector<>(namespaceTable.keySet()).elements(); //NOSONAR
   }
 
   public String getBaseUri() {

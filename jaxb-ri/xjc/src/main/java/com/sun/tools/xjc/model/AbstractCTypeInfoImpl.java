@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -66,7 +66,7 @@ abstract class AbstractCTypeInfoImpl implements CTypeInfo {
      * @deprecated
      *      why are you calling an unimplemented method?
      */
-    @Deprecated
+    @Deprecated(since="4.0.0", forRemoval=true)
     @Override
     public final boolean canBeReferencedByIDREF() {
         // we aren't doing any error check in XJC, so no point in implementing this method.

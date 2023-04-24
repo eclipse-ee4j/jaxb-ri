@@ -143,7 +143,7 @@ public final class JPackage implements JDeclaration, JGenerable, JClassContainer
      *
      * @deprecated
      */
-    @Deprecated
+    @Deprecated(since="4.0.0", forRemoval=true)
     @Override
     public JDefinedClass _class( int mods, String name, boolean isInterface ) throws JClassAlreadyExistsException {
         return _class(mods,name, isInterface?ClassType.INTERFACE:ClassType.CLASS );

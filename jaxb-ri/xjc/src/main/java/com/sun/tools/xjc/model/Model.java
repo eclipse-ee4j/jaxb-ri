@@ -401,7 +401,7 @@ public final class Model implements TypeInfoSet<NType,NClass,Void,Void>, CCustom
      * @deprecated
      *      Always return null. Perhaps you are interested in {@link #schemaComponent}?
      */
-    @Deprecated
+    @Deprecated(since="4.0.0", forRemoval=true)
     @Override
     public XSComponent getSchemaComponent() {
         return null;
@@ -411,7 +411,7 @@ public final class Model implements TypeInfoSet<NType,NClass,Void,Void>, CCustom
      * @deprecated
      *      No line number available for the "root" component.
      */
-    @Deprecated
+    @Deprecated(since="4.0.0", forRemoval=true)
     @Override
     public Locator getLocator() {
         LocatorImpl r = new LocatorImpl();

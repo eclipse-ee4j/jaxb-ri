@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
@@ -279,7 +278,7 @@ final class DefaultParticleBinder extends ParticleBinder {
 
 
         /** Keep the computed label names for particles. */
-        private final Map<XSParticle,String> labelCache = new Hashtable<>();
+        private final Map<XSParticle,String> labelCache = new HashMap<>();
 
         /**
          * Hides the computeLabel method of the outer class

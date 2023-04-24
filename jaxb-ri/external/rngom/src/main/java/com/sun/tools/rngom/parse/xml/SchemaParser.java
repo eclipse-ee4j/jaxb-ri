@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2012
+ * Copyright (C) 2004-2012, 2022
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,9 +21,11 @@
  */
 package com.sun.tools.rngom.parse.xml;
 
+import java.util.Deque;
 import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.Stack;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
 import java.util.Vector;
 import java.util.List;
 import java.util.ArrayList;
@@ -85,8 +87,8 @@ class SchemaParser {
     private final XmlBaseHandler xmlBaseHandler = new XmlBaseHandler();
     private final ContextImpl context = new ContextImpl();
     private boolean hadError = false;
-    private Hashtable patternTable;
-    private Hashtable nameClassTable;
+    private Map patternTable;
+    private Map nameClassTable;
 
     static class PrefixMapping {
 
@@ -124,13 +126,13 @@ class SchemaParser {
         }
 
         public Enumeration prefixes() {
-            Vector v = new Vector();
+            List v = new LinkedList();
             for (PrefixMapping p = prefixMapping; p != null; p = p.next) {
                 if (!v.contains(p.prefix)) {
-                    v.addElement(p.prefix);
+                    v.add(p.prefix);
                 }
             }
-            return v.elements();
+            return new Vector<>(v).elements(); //NOSONAR
         }
 
         public Context copy() {
@@ -401,8 +403,8 @@ class SchemaParser {
 
         final State nextState;
         ElementAnnotationBuilder builder;
-        final Stack builderStack = new Stack();
-        StringBuffer textBuf;
+        final Deque builderLinkedList = new LinkedList();
+        StringBuilder textBuf;
         Location textLoc;
 
         ForeignElementHandler(State nextState, CommentList comments) {
@@ -414,7 +416,7 @@ class SchemaParser {
                 String qName, Attributes atts) {
             flushText();
             if (builder != null) {
-                builderStack.push(builder);
+                builderLinkedList.push(builder);
             }
             Location loc = makeLocation();
             builder = schemaBuilder.makeElementAnnotationBuilder(namespaceURI,
@@ -438,18 +440,18 @@ class SchemaParser {
                 builder.addComment(getComments());
             }
             ParsedElementAnnotation ea = builder.makeElementAnnotation();
-            if (builderStack.empty()) {
+            if (builderLinkedList.isEmpty()) {
                 nextState.endForeignChild(ea);
                 nextState.set();
             } else {
-                builder = (ElementAnnotationBuilder) builderStack.pop();
+                builder = (ElementAnnotationBuilder) builderLinkedList.pop();
                 builder.addElement(ea);
             }
         }
 
         public void characters(char[] ch, int start, int length) {
             if (textBuf == null) {
-                textBuf = new StringBuffer();
+                textBuf = new StringBuilder();
             }
             textBuf.append(ch, start, length);
             if (textLoc == null) {
@@ -810,7 +812,7 @@ class SchemaParser {
 
     class ValueState extends EmptyContentState {
 
-        final StringBuffer buf = new StringBuffer();
+        final StringBuilder buf = new StringBuilder();
         String type;
 
         State create() {
@@ -929,7 +931,7 @@ class SchemaParser {
 
     class ParamState extends State {
 
-        private final StringBuffer buf = new StringBuffer();
+        private final StringBuilder buf = new StringBuilder();
         private final DataPatternBuilder dpb;
         private String name;
 
@@ -1448,7 +1450,7 @@ class SchemaParser {
 
     class NameState extends NameClassBaseState {
 
-        final StringBuffer buf = new StringBuffer();
+        final StringBuilder buf = new StringBuilder();
 
         State createChildState(String localName) throws SAXException {
             error("expected_name", localName);
@@ -1627,7 +1629,7 @@ class SchemaParser {
     }
 
     private void initPatternTable() {
-        patternTable = new Hashtable();
+        patternTable = new HashMap();
         patternTable.put("zeroOrMore", new ZeroOrMoreState());
         patternTable.put("oneOrMore", new OneOrMoreState());
         patternTable.put("optional", new OptionalState());
@@ -1650,7 +1652,7 @@ class SchemaParser {
     }
 
     private void initNameClassTable() {
-        nameClassTable = new Hashtable();
+        nameClassTable = new HashMap();
         nameClassTable.put("name", new NameState());
         nameClassTable.put("anyName", new AnyNameState());
         nameClassTable.put("nsName", new NsNameState());

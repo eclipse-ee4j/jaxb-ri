@@ -249,7 +249,7 @@ public final class JCodeModel {
      *      The naming convention doesn't match the rest of the CodeModel.
      *      Use {@link #anonymousClass(JClass)} instead.
      */
-    @Deprecated
+    @Deprecated(since="4.0.0", forRemoval=true)
     public JDefinedClass newAnonymousClass(JClass baseType) {
         return new JAnonymousClass(baseType);
     }

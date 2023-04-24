@@ -185,15 +185,15 @@ public class NameUtil {
      * printed by only using US-ASCII characters.
      *
      * The escaped characters will be appended to the given
-     * StringBuffer.
+     * StringBuilder.
      *
      * @param sb
-     *      StringBuffer that receives escaped string.
+     *      StringBuilder that receives escaped string.
      * @param s
      *      String to be escaped. <code>s.substring(start)</code>
      *      will be escaped and copied to the string buffer.
      */
-    public static void escape(StringBuffer sb, String s, int start) {
+    public static void escape(StringBuilder sb, String s, int start) {
         int n = s.length();
         for (int i = start; i < n; i++) {
             char c = s.charAt(i);
@@ -217,7 +217,7 @@ public class NameUtil {
         int n = s.length();
         for (int i = 0; i < n; i++)
             if (!Character.isJavaIdentifierPart(s.charAt(i))) {
-                StringBuffer sb = new StringBuffer(s.substring(0, i));
+                StringBuilder sb = new StringBuilder(s.substring(0, i));
                 escape(sb, s, i);
                 return sb.toString();
             }

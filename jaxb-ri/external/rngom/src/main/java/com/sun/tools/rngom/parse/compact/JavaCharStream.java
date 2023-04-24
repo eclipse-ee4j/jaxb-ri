@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011
+ * Copyright (C) 2004-2022
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -372,7 +372,7 @@ class JavaCharStream
    * @deprecated
    * @see #getEndColumn
    */
-  @Deprecated
+  @Deprecated(since="4.0.0", forRemoval=true)
   public int getColumn() {
     return bufcolumn[bufpos];
   }
@@ -381,7 +381,7 @@ class JavaCharStream
    * @deprecated
    * @see #getEndLine
    */
-  @Deprecated
+  @Deprecated(since="4.0.0", forRemoval=true)
   public int getLine() {
     return bufline[bufpos];
   }
