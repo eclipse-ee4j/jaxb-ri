@@ -116,6 +116,12 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- internal non re-distributed dependencies-->
+            <dependency>
+                <groupId>com.github.relaxng</groupId>
+                <artifactId>relaxngDatatype</artifactId>
+                <version>2011.1</version>
+            </dependency>
             <!-- Test -->
             <dependency>
                 <groupId>org.jmockit</groupId>

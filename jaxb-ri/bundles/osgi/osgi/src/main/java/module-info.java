@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2019, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -143,6 +143,7 @@ module com.sun.xml.bind.osgi {
     opens com.sun.tools.xjc.reader.xmlschema.bindinfo to jakarta.xml.bind;
 
     uses com.sun.tools.xjc.Plugin;
+    uses com.sun.tools.rngdatatype.DatatypeLibraryFactory;
 
     provides com.sun.tools.xjc.Plugin with
         com.sun.tools.xjc.addon.accessors.PluginImpl,
@@ -151,4 +152,7 @@ module com.sun.xml.bind.osgi {
         com.sun.tools.xjc.addon.episode.PluginImpl,
         com.sun.tools.xjc.addon.locator.SourceLocationAddOn,
         com.sun.tools.xjc.addon.sync.SynchronizedMethodAddOn;
+
+    provides com.sun.tools.rngdatatype.DatatypeLibraryFactory with
+            com.sun.tools.rngdatatype.helpers.ProxyDatatypeLibraryFactory;
 }

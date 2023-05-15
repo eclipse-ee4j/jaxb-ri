@@ -71,7 +71,7 @@
         <maven.compiler.testRelease>${maven.compiler.release}</maven.compiler.testRelease>
 
         <!-- exclude big groups from the Xlint -->
-        <comp.xlint>-Xlint:all,-rawtypes,-unchecked</comp.xlint>
+        <comp.xlint>-Xlint:all</comp.xlint>
         <!-- -Xdoclint:-missing does not seem to work properly on the infra -->
         <comp.xdoclint>-Xdoclint:all,-missing</comp.xdoclint>
         <warn.limit>150</warn.limit>
@@ -95,7 +95,11 @@
                 <artifactId>relaxng-datatype</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>com.github.relaxng</groupId>
+                <artifactId>relaxngDatatype</artifactId>
+                <version>2011.1</version>
+            </dependency>
             <!-- Test -->
             <dependency>
                 <groupId>junit</groupId>
@@ -106,6 +110,11 @@
                 <groupId>xmlunit</groupId>
                 <artifactId>xmlunit</artifactId>
                 <version>1.6</version>
+            </dependency>
+            <dependency>
+                <groupId>net.java.dev.msv</groupId>
+                <artifactId>xsdlib</artifactId>
+                <version>2022.7</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

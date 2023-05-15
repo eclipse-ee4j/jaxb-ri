@@ -42,6 +42,7 @@
             --add-opens java.base/java.lang.reflect=org.glassfish.jaxb.runtime
             --add-opens org.glassfish.jaxb.runtime/org.glassfish.jaxb.runtime.v2.runtime.reflect.opt=org.glassfish.jaxb.core
         </argLine>
+        <txwc2.sources>${project.build.directory}/generated-sources/txwc2</txwc2.sources>
     </properties>
 
     <dependencies>
@@ -99,6 +100,71 @@
 <!--                                <class>jakarta.xml.bind.annotation.XmlValue</class>-->
                             </classes>
                             <license>${copyright.template}</license>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.glassfish.jaxb</groupId>
+                        <artifactId>txwc2</artifactId>
+                        <version>${project.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.github.relaxng</groupId>
+                        <artifactId>relaxngDatatype</artifactId>
+                        <version>2011.1</version>
+                        <scope>runtime</scope>
+                    </dependency>
+                    <dependency>
+                        <groupId>net.java.dev.msv</groupId>
+                        <artifactId>xsdlib</artifactId>
+                        <version>2022.7</version>
+                        <scope>runtime</scope>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <taskdef name="txwc" classname="com.sun.tools.txw2.TxwTask">
+                                    <classpath refid="maven.plugin.classpath"/>
+                                </taskdef>
+                                <property name="gen.out" value="${txwc2.sources}"/>
+                                <property name="runtime.src" value="${project.build.sourceDirectory}/../resources"/>
+                                <mkdir dir="${gen.out}"/>
+                                <txwc schema="${runtime.src}/org/glassfish/jaxb/runtime/v2/schemagen/xmlschema/xmlschema-for-jaxb.rng"
+                                      destdir="${gen.out}"
+                                      package="org.glassfish.jaxb.runtime.v2.schemagen.xmlschema"
+                                      methodChaining="true"
+                                      license="${copyright.template}"
+                                />
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-sources</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${txwc2.sources}</source>
+                            </sources>
                         </configuration>
                     </execution>
                 </executions>
