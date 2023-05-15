@@ -84,6 +84,13 @@
         </dependency>
 
         <dependency>
+            <groupId>com.github.relaxng</groupId>
+            <artifactId>relaxngDatatype</artifactId>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
@@ -337,6 +344,7 @@
                             </systemProperties>
                             <classpathDependencyExcludes>
                                 <classpathDependencyExclude>org.glassfish.jaxb:*</classpathDependencyExclude>
+                                <classpathDependencyExclude>com.sun.xml.bind.external:*</classpathDependencyExclude>
                             </classpathDependencyExcludes>
                         </configuration>
                     </execution>

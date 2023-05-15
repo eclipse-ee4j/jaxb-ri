@@ -73,6 +73,7 @@ module com.sun.tools.xjc {
     exports com.sun.tools.rngdatatype.helpers;
 
     uses com.sun.tools.xjc.Plugin;
+    uses com.sun.tools.rngdatatype.DatatypeLibraryFactory;
 
     provides com.sun.tools.xjc.Plugin with
             com.sun.tools.xjc.addon.accessors.PluginImpl,
@@ -81,4 +82,8 @@ module com.sun.tools.xjc {
             com.sun.tools.xjc.addon.episode.PluginImpl,
             com.sun.tools.xjc.addon.locator.SourceLocationAddOn,
             com.sun.tools.xjc.addon.sync.SynchronizedMethodAddOn;
+
+    provides com.sun.tools.rngdatatype.DatatypeLibraryFactory with
+            com.sun.tools.rngdatatype.helpers.ProxyDatatypeLibraryFactory;
+
 }

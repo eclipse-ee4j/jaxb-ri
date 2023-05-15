@@ -44,6 +44,7 @@
             --add-opens org.glassfish.jaxb.core/org.glassfish.jaxb.core.v2.model.nav=ALL-UNNAMED
             -Djdk.attach.allowAttachSelf
         </argLine>
+        <cac.sources>${project.build.directory}/generated-sources/cac</cac.sources>
     </properties>
 
     <dependencies>
@@ -169,6 +170,67 @@
                         </manifest>
                     </archive>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.glassfish.jaxb</groupId>
+                        <artifactId>codemodel-annotation-compiler</artifactId>
+                        <version>${project.version}</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <taskdef name="cac" classname="com.sun.codemodel.ac.ACTask">
+                                    <classpath refid="maven.plugin.classpath"/>
+                                </taskdef>
+                                <property name="gen.out" value="${cac.sources}"/>
+                                <property name="runtime.src" value="${project.build.sourceDirectory}/../resources"/>
+                                <mkdir dir="${gen.out}"/>
+                                <cac destdir="${gen.out}"
+                                     license="${copyright.template}"
+                                     silent="true"
+                                     package="com.sun.tools.xjc.generator.annotation.spec">
+                                    <classes includes="jakarta.xml.bind.annotation.*" />
+                                    <classes includes="jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter" />
+                                    <classpath refid="maven.compile.classpath"/>
+                                </cac>
+                                <cac destdir="${gen.out}"
+                                     license="${copyright.template}"
+                                     package="com.sun.tools.xjc.generator.annotation.ri">
+                                    <classes includes="org.glassfish.jaxb.core.annotation.*" />
+                                    <classpath refid="maven.compile.classpath"/>
+                                </cac>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-sources</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${cac.sources}</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

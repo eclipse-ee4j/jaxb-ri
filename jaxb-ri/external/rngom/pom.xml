@@ -33,6 +33,7 @@
 
     <properties>
         <spotbugs.exclude>${project.basedir}/exclude-rngom.xml</spotbugs.exclude>
+        <comp.xlint>-Xlint:all,-rawtypes,-unchecked</comp.xlint>
     </properties>
 
     <build>

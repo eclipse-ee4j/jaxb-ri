@@ -277,6 +277,7 @@
                             </systemProperties>
                             <classpathDependencyExcludes>
                                 <classpathDependencyExclude>org.glassfish.jaxb:*</classpathDependencyExclude>
+                                <classpathDependencyExclude>com.sun.xml.bind.external:*</classpathDependencyExclude>
                             </classpathDependencyExcludes>
                         </configuration>
                     </execution>

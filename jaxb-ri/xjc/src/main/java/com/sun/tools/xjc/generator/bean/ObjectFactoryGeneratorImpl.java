@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -122,7 +122,7 @@ abstract class ObjectFactoryGeneratorImpl extends ObjectFactoryGenerator {
             "This object contains factory methods for each \n" +
             "Java content interface and Java element interface \n" +
             "generated in the " + targetPackage.name() + " package. \n" +
-            "<p>An ObjectFactory allows you to programatically \n" +
+            "<p>An ObjectFactory allows you to programmatically \n" +
             "construct new instances of the Java representation \n" +
             "for XML content. The Java representation of XML \n" +
             "content can consist of schema derived interfaces \n" +

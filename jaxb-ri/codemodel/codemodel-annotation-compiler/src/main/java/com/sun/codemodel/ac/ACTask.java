@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,6 +11,7 @@
 package com.sun.codemodel.ac;
 
 import com.sun.codemodel.ClassType;
+import com.sun.codemodel.CodeWriter;
 import com.sun.codemodel.JAnnotationWriter;
 import com.sun.codemodel.JClassAlreadyExistsException;
 import com.sun.codemodel.JCodeModel;
@@ -18,6 +19,8 @@ import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JMod;
 import com.sun.codemodel.JPackage;
 import com.sun.codemodel.JType;
+import com.sun.codemodel.writer.FileCodeWriter;
+import com.sun.codemodel.writer.LicenseCodeWriter;
 import org.apache.tools.ant.AntClassLoader;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
@@ -34,6 +37,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -80,6 +84,10 @@ public class ACTask extends Task {
      * Output directory
      */
     private File output = new File(".");
+
+    private String encoding;
+    private File license;
+    private boolean silent;
 
     /**
      * Map from annotation classes to their writers.
@@ -229,6 +237,7 @@ public class ACTask extends Task {
                 Class<?> ann = e.getKey();
                 JDefinedClass w = e.getValue();
 
+                w.javadoc().add("<p><b>Auto-generated, do not edit.</b></p>");
                 w._implements(codeModel.ref(JAnnotationWriter.class).narrow(ann));
 
                 for (Method m : ann.getDeclaredMethods()) {
@@ -259,7 +268,12 @@ public class ACTask extends Task {
             }
 
             try {
-                codeModel.build(output);
+                encoding = encoding != null ? encoding : StandardCharsets.UTF_8.name();
+                CodeWriter writer = new FileCodeWriter(output, encoding);
+                if (license != null) {
+                    writer = new LicenseCodeWriter(writer, license, encoding);
+                }
+                codeModel.build(writer);
             } catch (IOException e) {
                 throw new BuildException("Unable to queue code to " + output, e);
             }
@@ -357,7 +371,7 @@ public class ACTask extends Task {
         }
 
         if (!Annotation.class.isAssignableFrom(ann)) {
-            log("Skipping " + className + ". Not an annotation", Project.MSG_WARN);
+            log("Skipping " + className + ". Not an annotation", silent ? Project.MSG_VERBOSE : Project.MSG_WARN);
             return;
         }
 
