@@ -124,6 +124,18 @@ public class ACTask extends Task {
         this.output = output;
     }
 
+    public void setEncoding(String encoding) {
+        this.encoding = encoding;
+    }
+
+    public void setLicense(File license) {
+        this.license = license;
+    }
+
+    public void setSilent(boolean silent) {
+        this.silent = silent;
+    }
+
     /**
      * Nested {@code <classes>} elements.
      */
