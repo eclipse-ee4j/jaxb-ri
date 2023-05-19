@@ -124,6 +124,8 @@ Options:
   -disableXmlSecurity  :  disables XML security features when parsing XML documents 
   -contentForWildcard  :  generates content property for types with multiple xs:any derived elements 
   -xmlschema         :  treat input as W3C XML Schema (default)
+  -relaxng           :  treat input as RELAX NG (experimental,unsupported)
+  -relaxng-compact   :  treat input as RELAX NG compact syntax (experimental,unsupported)
   -dtd               :  treat input as XML DTD (experimental,unsupported)
   -wsdl              :  treat input as WSDL and compile schemas inside it (experimental,unsupported)
   -verbose           :  be extra verbose
@@ -338,6 +340,30 @@ xjc schema1.xsd schema2.xsd schema3.xsd -b bindings1.xjb -b bindings2.xjb -b bin
                         <para>treat input schemas as W3C XML Schema (default).
                         If you do not specify this switch, your input schemas
                         will be treated as W3C XML Schema.</para>
+                    </listitem>
+                </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis role="bold">-relaxng</emphasis></term>
+
+                    <listitem>
+                        <para>Treat input schemas as RELAX NG (experimental,
+                            unsupported). Support for RELAX NG schemas is provided
+                            as a <xref linkend="jaxb-ri-extensions-overview"
+                                       xrefstyle="select:title" />.</para>
+                    </listitem>
+                </varlistentry>
+
+                <varlistentry>
+                    <term><emphasis
+                            role="bold">-relaxng-compact</emphasis></term>
+
+                    <listitem>
+                        <para>Treat input schemas as RELAX NG compact
+                            syntax(experimental, unsupported). Support for RELAX
+                            NG schemas is provided as a <xref
+                                    linkend="jaxb-ri-extensions-overview"
+                                    xrefstyle="select:title" />.</para>
                     </listitem>
                 </varlistentry>
 
