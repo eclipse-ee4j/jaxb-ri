@@ -338,10 +338,10 @@
                         <id>default-test</id>
                         <phase>integration-test</phase>
                         <configuration>
-                            <systemProperties>
+                            <systemPropertyVariables>
                                 <jaxb.spec.version>${xml.bind-api.version}</jaxb.spec.version>
                                 <osgi.dist>${project.build.directory}/${project.build.finalName}</osgi.dist>
-                            </systemProperties>
+                            </systemPropertyVariables>
                             <classpathDependencyExcludes>
                                 <classpathDependencyExclude>org.glassfish.jaxb:*</classpathDependencyExclude>
                                 <classpathDependencyExclude>com.sun.xml.bind.external:*</classpathDependencyExclude>
