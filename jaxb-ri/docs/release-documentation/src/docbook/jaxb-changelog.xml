@@ -24,6 +24,28 @@
     <title>Changelog</title>
 
     <para>The &binding.impl.name; 4.x meets the requirements of the Jakarta XML Binding 4.x specifications.</para>
+    <section xml:id="a-4-0-3">
+        <title>Changes between 4.0.2 and 4.0.3</title>
+        <itemizedlist>
+            <listitem><para>Bug fixes:
+                <itemizedlist>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/574">#574</link>: Nullpointer Exception in DTD parsing
+                    </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1065">#1065</link>: XJC fails on RELAXNG_COMPACT compilation with datatype library "http://www.w3.org/2001/XMLSchema-datatypes" not recognized
+                    </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1066">#1066</link>: XJC fails on RELAXNG_COMPACT with NPE
+                    </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1450">#1450</link>: XJC -relaxng still supported
+                    </para></listitem>
+                </itemizedlist>
+            </para></listitem>
+        </itemizedlist>
+    </section>
+
     <section xml:id="a-4-0-2">
         <title>Changes between 4.0.1 and 4.0.2</title>
         <itemizedlist>

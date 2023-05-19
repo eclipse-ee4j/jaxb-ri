@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -30,6 +30,7 @@ import com.sun.tools.xjc.model.CNonElement;
 import com.sun.tools.xjc.model.CTypeInfo;
 import com.sun.tools.xjc.model.Model;
 import com.sun.tools.xjc.model.TypeUse;
+import com.sun.tools.xjc.reader.Ring;
 import org.glassfish.jaxb.core.api.impl.NameConverter;
 
 import com.sun.tools.rngom.digested.DChoicePattern;
@@ -90,8 +91,15 @@ public final class RELAXNGCompiler {
 
     public static Model build(DPattern grammar, JCodeModel codeModel, Options opts ) {
         RELAXNGCompiler compiler = new RELAXNGCompiler(grammar, codeModel, opts);
-        compiler.compile();
-        return compiler.model;
+        Ring ring = Ring.begin();
+        try {
+            Ring.add(compiler.model);
+            Ring.add(codeModel);
+            compiler.compile();
+            return compiler.model;
+        } finally {
+            Ring.end(ring);
+        }
     }
 
     public RELAXNGCompiler(DPattern grammar, JCodeModel codeModel, Options opts) {

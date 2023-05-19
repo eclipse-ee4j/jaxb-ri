@@ -310,6 +310,10 @@
                     </listitem>
 
                     <listitem>
+                        <para><option>-relaxng</option></para>
+                    </listitem>
+
+                    <listitem>
                         <para><option>-Xlocator</option></para>
                     </listitem>
 
@@ -413,7 +417,7 @@
         RELAX NG, DTD, and WSDL. To compile anything other than W3C XML Schema
         from the <command>xjc</command> Ant task, you must use the nested &lt;
         <literal>arg</literal>&gt; element to specify the appropriate command line
-        switch, such as <option>-dtd</option>, or <option>-wsdl</option>. Otherwise, your input schemas will be treated as
+        switch, such as <option>-dtd</option>, <option>-relaxng</option>, or <option>-wsdl</option>. Otherwise, your input schemas will be treated as
         W3C XML Schema and the binding compiler will fail.</para>
     </section>
 
