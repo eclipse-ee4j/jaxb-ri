@@ -247,10 +247,10 @@
                         <phase>integration-test</phase>
                         <configuration>
                             <skip>false</skip>
-                            <systemProperties>
+                            <systemPropertyVariables>
                                 <jaxb.spec.version>${xml.bind-api.version}</jaxb.spec.version>
                                 <osgi.dist>${project.build.directory}/${project.build.finalName}</osgi.dist>
-                            </systemProperties>
+                            </systemPropertyVariables>
                         </configuration>
                     </execution>
                 </executions>
