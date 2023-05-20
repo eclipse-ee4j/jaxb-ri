@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -122,8 +122,9 @@ public class C14nXmlOutput extends UTF8XmlOutput {
             int newLen = len*2;
             StaticAttribute[] newbuf = new StaticAttribute[newLen];
             System.arraycopy(staticAttributes,0,newbuf,0,len);
-            for(int i=len;i<newLen;i++)
-                staticAttributes[i] = new StaticAttribute();
+            for(int i=len;i<newLen;i++) {
+                newbuf[i] = new StaticAttribute();
+            }
             staticAttributes = newbuf;
         }
 
