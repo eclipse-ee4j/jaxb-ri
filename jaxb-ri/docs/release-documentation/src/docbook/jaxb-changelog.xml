@@ -41,6 +41,9 @@
                     <listitem><para>
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1450">#1450</link>: XJC -relaxng still supported
                     </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1700">#1700</link>: ArrayIndexOutOfBoundsException when using com.sun.xml.bind.v2.runtime.output.C14nXmlOutput
+                    </para></listitem>
                 </itemizedlist>
             </para></listitem>
         </itemizedlist>
