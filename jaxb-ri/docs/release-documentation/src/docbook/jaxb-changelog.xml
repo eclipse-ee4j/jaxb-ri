@@ -78,6 +78,9 @@
                     <listitem><para>
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1682">#1682</link>: Non-deterministic definition of default namespace @XmlSchema(namespace=...) in package-info.java
                     </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1701">#1701</link>: xjc with WSDL emits erroneous warning
+                    </para></listitem>
                 </itemizedlist>
             </para></listitem>
         </itemizedlist>
