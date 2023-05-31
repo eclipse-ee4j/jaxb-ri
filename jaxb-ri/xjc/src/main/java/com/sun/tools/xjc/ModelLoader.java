@@ -160,7 +160,7 @@ public final class ModelLoader {
      * should abort.
      */
     private boolean sanityCheck() {
-        if( opt.getSchemaLanguage()!=Language.XMLSCHEMA ) {
+        if( opt.getSchemaLanguage() == Language.XMLSCHEMA ) {
             Language guess = opt.guessSchemaLanguage();
 
             String[] msg = null;
