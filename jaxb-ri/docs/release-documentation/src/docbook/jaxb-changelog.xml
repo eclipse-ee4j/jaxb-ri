@@ -45,6 +45,9 @@
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1700">#1700</link>: ArrayIndexOutOfBoundsException when using com.sun.xml.bind.v2.runtime.output.C14nXmlOutput
                     </para></listitem>
                     <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1701">#1701</link>: xjc with WSDL emits erroneous warning
+                    </para></listitem>
+                    <listitem><para>
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1715">#1715</link>: marshalling does not apply defaultNamespaceRemap setting to nested elements
                     </para></listitem>
                 </itemizedlist>
@@ -80,9 +83,6 @@
                     </para></listitem>
                     <listitem><para>
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1682">#1682</link>: Non-deterministic definition of default namespace @XmlSchema(namespace=...) in package-info.java
-                    </para></listitem>
-                    <listitem><para>
-                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1701">#1701</link>: xjc with WSDL emits erroneous warning
                     </para></listitem>
                 </itemizedlist>
             </para></listitem>
