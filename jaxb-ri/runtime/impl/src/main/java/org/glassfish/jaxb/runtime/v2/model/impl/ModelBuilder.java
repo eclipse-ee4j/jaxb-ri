@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,18 +10,31 @@
 
 package org.glassfish.jaxb.runtime.v2.model.impl;
 
-import org.glassfish.jaxb.core.WhiteSpaceProcessor;
-import org.glassfish.jaxb.core.util.Which;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.annotation.XmlAttachmentRef;
+import jakarta.xml.bind.annotation.XmlRegistry;
+import jakarta.xml.bind.annotation.XmlSeeAlso;
+import jakarta.xml.bind.annotation.XmlTransient;
 import org.glassfish.jaxb.core.v2.model.annotation.AnnotationReader;
-import org.glassfish.jaxb.runtime.v2.model.annotation.ClassLocatable;
 import org.glassfish.jaxb.core.v2.model.annotation.Locatable;
-import org.glassfish.jaxb.core.v2.model.core.*;
+import org.glassfish.jaxb.core.v2.model.core.ArrayInfo;
+import org.glassfish.jaxb.core.v2.model.core.ClassInfo;
+import org.glassfish.jaxb.core.v2.model.core.ElementInfo;
+import org.glassfish.jaxb.core.v2.model.core.EnumLeafInfo;
+import org.glassfish.jaxb.core.v2.model.core.ErrorHandler;
+import org.glassfish.jaxb.core.v2.model.core.LeafInfo;
+import org.glassfish.jaxb.core.v2.model.core.NonElement;
+import org.glassfish.jaxb.core.v2.model.core.PropertyInfo;
+import org.glassfish.jaxb.core.v2.model.core.PropertyKind;
+import org.glassfish.jaxb.core.v2.model.core.Ref;
+import org.glassfish.jaxb.core.v2.model.core.RegistryInfo;
+import org.glassfish.jaxb.core.v2.model.core.TypeInfo;
+import org.glassfish.jaxb.core.v2.model.core.TypeInfoSet;
 import org.glassfish.jaxb.core.v2.model.impl.ModelBuilderI;
 import org.glassfish.jaxb.core.v2.model.nav.Navigator;
-import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimePropertyInfo;
 import org.glassfish.jaxb.core.v2.runtime.IllegalAnnotationException;
-import jakarta.xml.bind.JAXBElement;
-import jakarta.xml.bind.annotation.*;
+import org.glassfish.jaxb.runtime.v2.model.annotation.ClassLocatable;
+import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimePropertyInfo;
 
 import javax.xml.namespace.QName;
 import java.lang.reflect.ParameterizedType;
@@ -118,48 +131,6 @@ public class ModelBuilder<T,C,F,M> implements ModelBuilderI<T,C,F,M> {
         this.defaultNsUri = defaultNamespaceRemap;
         reader.setErrorHandler(proxyErrorHandler);
         typeInfoSet = (TypeInfoSetImpl<T, C, F, M>) createTypeInfoSet();
-    }
-
-    /*
-     * Makes sure that we are running with 2.1 JAXB API,
-     * and report an error if not.
-     */
-    static {
-        try {
-            XmlSchema s = null;
-            s.location();
-        } catch (NullPointerException e) {
-            // as epxected
-        } catch (NoSuchMethodError e) {
-            // this is not a 2.1 API. Where is it being loaded from?
-            Messages res;
-            if (SecureLoader.getClassClassLoader(XmlSchema.class) == null) {
-                res = Messages.INCOMPATIBLE_API_VERSION_MUSTANG;
-            } else {
-                res = Messages.INCOMPATIBLE_API_VERSION;
-            }
-
-            throw new LinkageError( res.format(
-                Which.which(XmlSchema.class),
-                Which.which(ModelBuilder.class)
-            ));
-        }
-    }
-
-    /*
-     * Makes sure that we don't have conflicting 1.0 runtime,
-     * and report an error if we do.
-     */
-    static {
-        try {
-            WhiteSpaceProcessor.isWhiteSpace("xyz");
-        } catch (NoSuchMethodError e) {
-            // we seem to be getting 1.0 runtime
-            throw new LinkageError( Messages.RUNNING_WITH_1_0_RUNTIME.format(
-                Which.which(WhiteSpaceProcessor.class),
-                Which.which(ModelBuilder.class)
-            ));
-        }
     }
 
     /*
