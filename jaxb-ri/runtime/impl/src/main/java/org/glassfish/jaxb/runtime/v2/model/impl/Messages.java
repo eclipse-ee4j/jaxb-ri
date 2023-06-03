@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -67,10 +67,6 @@ enum Messages {
     NO_FACTORY_METHOD, // 2 args
     FACTORY_CLASS_NEEDS_FACTORY_METHOD, // 1 arg
 
-    INCOMPATIBLE_API_VERSION, // 2 args
-    INCOMPATIBLE_API_VERSION_MUSTANG, // 2 args
-    RUNNING_WITH_1_0_RUNTIME, // 2 args
-    
     MISSING_JAXB_PROPERTIES, // 1arg
     TRANSIENT_FIELD_NOT_BINDABLE, // 1 arg
     THERE_MUST_BE_VALUE_IN_XMLVALUE, // 1 arg
