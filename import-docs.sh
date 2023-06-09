@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright (c) 2020 Oracle and/or its affiliates.
+# Copyright (c) 2020, 2023 Oracle and/or its affiliates.
 #
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,7 +11,7 @@
 
 # utility to help importing release documentation
 
-VERSION=4.0.1
+VERSION=4.0.3
 ARTIFACT=https://jakarta.oss.sonatype.org/content/groups/staging/com/sun/xml/bind/jaxb-release-documentation//$VERSION/jaxb-release-documentation-$VERSION-docbook.zip
 
 wget -O release-documentation.zip $ARTIFACT

@@ -10,9 +10,9 @@ links:
   source: https://github.com/eclipse-ee4j/jaxb-ri
   api: https://javadoc.io/doc/jakarta.xml.bind/jakarta.xml.bind-api/4.0.0/
   spec: https://jakarta.ee/specifications/xml-binding/
-  guide: https://eclipse-ee4j.github.io/jaxb-ri/4.0.1/docs/
-  javadocsrt: https://javadoc.io/doc/com.sun.xml.bind/jaxb-impl/4.0.1/
-  javadocsxjc:  https://javadoc.io/doc/com.sun.xml.bind/jaxb-xjc/4.0.1/
-  javadocsjxc:  https://javadoc.io/doc/com.sun.xml.bind/jaxb-jxc/4.0.1/
-  download: https://repo1.maven.org/maven2/com/sun/xml/bind/jaxb-ri/4.0.1/jaxb-ri-4.0.1.zip
+  guide: https://eclipse-ee4j.github.io/jaxb-ri/4.0.3/docs/
+  javadocsrt: https://javadoc.io/doc/com.sun.xml.bind/jaxb-impl/4.0.3/
+  javadocsxjc:  https://javadoc.io/doc/com.sun.xml.bind/jaxb-xjc/4.0.3/
+  javadocsjxc:  https://javadoc.io/doc/com.sun.xml.bind/jaxb-jxc/4.0.3/
+  download: https://repo1.maven.org/maven2/com/sun/xml/bind/jaxb-ri/4.0.3/jaxb-ri-4.0.3.zip
   mailinglist: https://accounts.eclipse.org/mailing-list/jaxb-impl-dev

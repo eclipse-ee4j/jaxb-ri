@@ -1,0 +1,118 @@
+---
+layout: content
+---
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Frequently Asked Questions</title><link rel="stylesheet" type="text/css" href="style/documentation.css"><meta name="generator" content="DocBook XSL Stylesheets V1.79.1"><link rel="home" href="index.html" title="Eclipse Implementation of JAXB Release Documentation"><link rel="up" href="index.html" title="Eclipse Implementation of JAXB Release Documentation"><link rel="prev" href="ch05.html" title="Eclipse Implementation of JAXB Extensions"><link rel="next" href="ch07.html" title="Related Articles"><script xmlns:fo="http://www.w3.org/1999/XSL/Format" type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-2105126-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Frequently Asked Questions</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="ch05.html">Prev</a>&nbsp;</td><th width="60%" align="center">&nbsp;</th><td width="20%" align="right">&nbsp;<a accesskey="n" href="ch07.html">Next</a></td></tr></table><hr></div><small xmlns:fo="http://www.w3.org/1999/XSL/Format" class="small">Links: <a href="index.html">Table of Contents</a> | <a href="release-documentation.html">Single HTML</a> | <a href="release-documentation.pdf">Single PDF</a></small><div lang="en" class="chapter" id="faq"><div class="titlepage"><div><div><h1 class="title">Frequently Asked Questions</h1></div></div></div><div class="qandaset" id="d0e5751"><dl><dt>1.  <a href="ch06.html#d0e5752">JAXB 2.0</a></dt><dd><dl><dt>Q: <a href="ch06.html#d0e5755">Which version of Java SE does Eclipse Implementation of JAXB 4.0.3 require?</a></dt><dt>Q: <a href="ch06.html#d0e5762">Can I run my existing JAXB 1.x/2.x applications on the
+                        Eclipse Implementation of JAXB runtime?</a></dt><dt>Q: <a href="ch06.html#d0e5769">What if I want to port my JAXB 1.x/2.x application to Jakarta XML Binding runtime?</a></dt><dt>Q: <a href="ch06.html#d0e5782">Where are schemagen and xjc command line scripts available?</a></dt><dt>Q: <a href="ch06.html#d0e5797">Are the Jakarta XML Binding runtime API's thread safe?</a></dt><dt>Q: <a href="ch06.html#d0e5857">Why can't I cast the unmarshalled object into the
+                    generated type.</a></dt><dt>Q: <a href="ch06.html#d0e5893">Which jar files do I need to distribute with my
+                    application that uses the Eclipse Implementation of JAXB?</a></dt><dt>Q: <a href="ch06.html#d0e5904">How can I cause the Marshaller to
+                    generate CDATA blocks?</a></dt><dt>Q: <a href="ch06.html#d0e5926">Can I access &lt;xs:any/&gt; as a DOM node?</a></dt><dt>Q: <a href="ch06.html#d0e5987">How do I find out which version of the Eclipse Implementation of JAXB I'm
+                    using?</a></dt></dl></dd></dl><table border="0" style="width: 100%;"><colgroup><col align="left" width="1%"><col></colgroup><tbody><tr class="qandadiv"><td align="left" valign="top" colspan="2"><h3 class="title" id="d0e5752">1. JAXB 2.0</h3></td></tr><tr class="question" id="d0e5755"><td align="left" valign="top" id="d0e5756"><p><b>Q:</b></p></td><td align="left" valign="top"><p>Which version of Java SE does Eclipse Implementation of JAXB 4.0.3 require?</p></td></tr><tr class="answer"><td align="left" valign="top"><p><b>A:</b></p></td><td align="left" valign="top"><p>Java SE 11 or higher.</p></td></tr><tr class="question" id="d0e5762"><td align="left" valign="top" id="d0e5763"><p><b>Q:</b></p></td><td align="left" valign="top"><p>Can I run my existing JAXB 1.x/2.x applications on the
+                        Eclipse Implementation of JAXB runtime?</p></td></tr><tr class="answer"><td align="left" valign="top"><p><b>A:</b></p></td><td align="left" valign="top"><p>This is not supported.</p></td></tr><tr class="question" id="d0e5769"><td align="left" valign="top" id="d0e5770"><p><b>Q:</b></p></td><td align="left" valign="top"><p>What if I want to port my JAXB 1.x/2.x application to Jakarta XML Binding runtime?</p></td></tr><tr class="answer"><td align="left" valign="top"><p><b>A:</b></p></td><td align="left" valign="top"><p>You need to replace references to <code class="literal">javax.xml.bind</code>
+                        package by <code class="literal">jakarta.xml.bind</code> package, recompile your schema
+                        with the newer xjc and modify your application code to work with
+                        the new bindings.</p></td></tr><tr class="question" id="d0e5782"><td align="left" valign="top" id="d0e5783"><p><b>Q:</b></p></td><td align="left" valign="top"><p>Where are <code class="literal">schemagen</code> and <code class="literal">xjc</code> command line scripts available?</p></td></tr><tr class="answer"><td align="left" valign="top"><p><b>A:</b></p></td><td align="left" valign="top"><p>They are included only in the <a class="link" href="ch03.html#Maven_artifacts" title="7.1.1.&nbsp;Maven coordinates for Eclipse Implementation of JAXB artifacts">zip distribution.</a></p></td></tr><tr class="question" id="d0e5797"><td align="left" valign="top" id="d0e5798"><p><b>Q:</b></p></td><td align="left" valign="top"><p>Are the Jakarta XML Binding runtime API's thread safe?</p></td></tr><tr class="answer"><td align="left" valign="top"><p><b>A:</b></p></td><td align="left" valign="top"><p>The Jakarta XML Binding Specification currently does not address
+                    the thread safety of any of the runtime classes. In the
+                    case of the Eclipse Implementation of JAXB, the
+                    <code class="literal">JAXBContext</code> class <span class="bold"><strong>is</strong></span> thread safe, but the
+                    <code class="literal">Marshaller</code>,
+                    <code class="literal">Unmarshaller</code>, and
+                    <code class="literal">Validator</code> classes <span class="bold"><strong>are not</strong></span> thread safe.</p><p>For example, suppose you have a multi-thread server
+                    application that processes incoming XML documents by Jakarta XML Binding.
+                    In this case, for the best performance you should have
+                    just one instance of <code class="literal">JAXBContext</code> in
+                    your whole application like this:</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">class</span> MyServlet <span class="ReservedWord">extends</span> HttpServlet {
+    <span class="ReservedWord">static</span> <span class="ReservedWord">final</span> JAXBContext context = initContext();
+
+    <span class="ReservedWord">private</span> <span class="ReservedWord">static</span> JAXBContext initContext() {
+        <span class="ReservedWord">return</span> JAXBContext.newInstance(<span class="String">"...."</span>, MyServlet.<span class="ReservedWord">class</span>.getClassLoader());
+    }
+}</pre></div><p>And each time you need to unmarshal/marshal/validate
+                    a document. Just create a new
+                    <code class="literal">Unmarshaller</code>/<code class="literal">Marshaller</code>/<code class="literal">Validator</code>
+                    from this context, like this:</p><div class="informalexample"><pre class="programlisting"><span class="ReservedWord">public</span> <span class="ReservedWord">void</span> doGet(HttpServletRequest req, HttpServletResponse resp) {
+    Unmarshaller u = context.createUnmarshaller();
+    u.unmarshal(...);
+}</pre></div><p>This is the simplest safe way to use the Eclipse Implementation of JAXB
+                    from multi-threaded applications.</p><p>If you really care about the performance, and/or
+                    your application is going to read a lot of small
+                    documents, then creating <code class="literal">Unmarshaller</code>
+                    could be relatively an expensive operation. In that case,
+                    consider pooling <code class="literal">Unmarshaller</code> objects.
+                    Different threads may reuse one
+                    <code class="literal">Unmarshaller</code> instance, as long as you
+                    don't use one instance from two threads at the same
+                    time.</p></td></tr><tr class="question" id="d0e5857"><td align="left" valign="top" id="d0e5858"><p><b>Q:</b></p></td><td align="left" valign="top"><p>Why can't I cast the unmarshalled object into the
+                    generated type.</p></td></tr><tr class="answer"><td align="left" valign="top"><p><b>A:</b></p></td><td align="left" valign="top"><p>When you invoke
+                    <code class="literal">JAXBContext.newInstance("aaa.bbb.ccc")</code>,
+                    it tries to load classes and resources using the same
+                    classloader used to load the
+                    <code class="literal">JAXBContext</code> class itself. This
+                    classloader may be different from the classloader which
+                    was used to load your application (see the picture <a class="xref" href="ch06.html#faq-figure-1" title="Figure&nbsp;1.&nbsp;Parent/Child classloader">Parent/Child classloader</a>). In
+                    this case, you'll see the above error. This problem is
+                    often seen with application servers, Jakarta EE containers, Ant,
+                    JUnit, and other applications that use sophisticated class
+                    loading mechanisms.</p><div class="figure" id="faq-figure-1"><p class="title"><b>Figure&nbsp;1.&nbsp;Parent/Child classloader</b></p><div class="figure-contents"><div class="mediaobject"><table border="0" summary="manufactured viewport for HTML img" style="cellpadding: 0; cellspacing: 0;" width="100%"><tr><td><img src="figures/classLoaderFAQ.gif" height="360" alt="Parent/Child classloader"></td></tr></table></div></div></div><br class="figure-break"><p>With some applications, things get even more
+                    complicated when the Jakarta XML Binding-generated code can be loaded by
+                    either classloader. In this case,
+                    <code class="literal">JAXBContext.newInstance("aaa.bbb.ccc")</code>
+                    will work but the JVM ends up loading two copies of the
+                    generated classes for each class loader. As a result,
+                    unmarshalling works but an attempt to cast the returned
+                    object into the expected type will fail, even though its
+                    <code class="literal">getClass().getName()</code> returns the
+                    expected name.</p><p>The solution for both situations is to pass your
+                    curent class loader like this:</p><div class="informalexample"><pre class="programlisting">JAXBContext.newInstance(<span class="String">"aaa.bbb.ccc"</span>, <span class="ReservedWord">this</span>.getClass().getClassLoader());</pre></div><p>In general, if you are writing code that uses Jakarta XML Binding,
+                    it is always better to explicitly pass in a class loader,
+                    so that your code will work no matter where it is
+                    deployed.</p></td></tr><tr class="question" id="d0e5893"><td align="left" valign="top" id="d0e5894"><p><b>Q:</b></p></td><td align="left" valign="top"><p>Which jar files do I need to distribute with my
+                    application that uses the Eclipse Implementation of JAXB?</p></td></tr><tr class="answer"><td align="left" valign="top"><p><b>A:</b></p></td><td align="left" valign="top"><p>
+                    </p><div class="informalexample"><pre class="programlisting">
+$JAXB_HOME/mod/jakarta.xml.bind-api.jar
+$JAXB_HOME/mod/jakarta.activation-api.jar
+$JAXB_HOME/mod/angus-activation.jar
+$JAXB_HOME/mod/jaxb-core.jar
+$JAXB_HOME/mod/jaxb-impl.jar</pre></div><p>
+                    </p></td></tr><tr class="question" id="d0e5904"><td align="left" valign="top" id="d0e5905"><p><b>Q:</b></p></td><td align="left" valign="top"><p>How can I cause the <code class="literal">Marshaller</code> to
+                    generate <code class="literal">CDATA</code> blocks?</p></td></tr><tr class="answer"><td align="left" valign="top"><p><b>A:</b></p></td><td align="left" valign="top"><p>This functionality is not available from Eclipse Implementation of JAXB
+                    directly, but you can configure an Apache Xerces-J
+                    <code class="literal">XMLSerializer</code> to produce
+                    <code class="literal">CDATA</code> blocks. Please review the <a class="link" href="download/JaxbCDATASample.java" target="_top">JaxbCDATASample.java</a>
+                    sample app for more detail.</p></td></tr><tr class="question" id="d0e5926"><td align="left" valign="top" id="d0e5927"><p><b>Q:</b></p></td><td align="left" valign="top"><p>Can I access &lt;xs:any/&gt; as a DOM node?</p></td></tr><tr class="answer"><td align="left" valign="top"><p><b>A:</b></p></td><td align="left" valign="top"><p>In Eclipse Implementation of JAXB, &lt;xs:any/&gt; is handled correctly
+                    without any customization.</p><div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem"><p>If it's <code class="literal">strict</code>, it will map
+                            to <code class="literal">Object</code> or
+                            <code class="literal">List&lt;Object&gt;</code> and when you
+                            unmarshal documents, you'll get objects that map to
+                            elements (such as <code class="literal">JAXBElements</code> or
+                            classes that are annotated with
+                            <code class="literal">XmlRootElement</code>).</p></li><li class="listitem"><p>If it's <code class="literal">skip</code>, it will map
+                            to <code class="literal">org.w3c.dom.Element</code> or
+                            <code class="literal">List&lt;Element&gt;</code> and when you
+                            unmarshal documents, you'll get DOM elements.</p></li><li class="listitem"><p>If it's <code class="literal">lax</code>, it will map to
+                            the same as with <code class="literal">strict</code>, and when
+                            you unmarshal documents, you'll get either:</p><div class="orderedlist"><ol class="orderedlist" type="a"><li class="listitem"><p><code class="literal">JAXBElement</code>s</p></li><li class="listitem"><p>classes that are annotated with
+                                    <code class="literal">XmlRootElement</code></p></li><li class="listitem"><p>DOM elements</p></li></ol></div></li></ol></div></td></tr><tr class="question" id="d0e5987"><td align="left" valign="top" id="d0e5988"><p><b>Q:</b></p></td><td align="left" valign="top"><p>How do I find out which version of the Eclipse Implementation of JAXB I'm
+                    using?</p></td></tr><tr class="answer"><td align="left" valign="top"><p><b>A:</b></p></td><td align="left" valign="top"><p>Run the following command</p><div class="informalexample"><pre class="programlisting">$ java -jar jaxb-xjc.jar -version</pre></div><p>Alternatively, each Eclipse Implementation of JAXB jar has version information
+                    in its <code class="literal">META-INF/MANIFEST.MF</code>, such as
+                    this:</p><div class="informalexample"><pre class="programlisting">Manifest-Version: 1.0
+Specification-Title: Jakarta XML Binding
+Specification-Version: 4.0
+Specification-Vendor: Eclipse Foundation
+Implementation-Title: Eclipse Implementation of JAXB
+Implementation-Version: 4.0.3
+Implementation-Vendor: Eclipse Foundation
+Implementation-Vendor-Id: org.eclipse
+Build-Id: 2022-05-18 22:33
+Class-Path: jaxb-core.jar jaxb-impl.jar</pre></div></td></tr></tbody></table></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="ch05.html">Prev</a>&nbsp;</td><td width="20%" align="center">&nbsp;</td><td width="40%" align="right">&nbsp;<a accesskey="n" href="ch07.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Eclipse Implementation of JAXB Extensions&nbsp;</td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top">&nbsp;Related Articles</td></tr></table></div></body></html>
