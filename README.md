@@ -20,7 +20,7 @@ This project is part of [Eclipse Implementation of JAXB](https://projects.eclips
 # <a name="Download_Jakarta_Release"></a>Download Jakarta XML Binding Release
 
 The latest stable release of Eclipse Implementation of JAXB is available for
-[download](https://repo1.maven.org/maven2/com/sun/xml/bind/jaxb-ri/4.0.1/jaxb-ri-4.0.1.zip)
+[download](https://repo1.maven.org/maven2/com/sun/xml/bind/jaxb-ri/4.0.3/jaxb-ri-4.0.3.zip)
 as well as for consumption through maven.
 ```
         <dependencies>
@@ -35,7 +35,7 @@ as well as for consumption through maven.
             <dependency>
                 <groupId>com.sun.xml.bind</groupId>
                 <artifactId>jaxb-impl</artifactId>
-                <version>4.0.1</version>
+                <version>4.0.3</version>
                 <scope>runtime</scope>
             </dependency>
         </dependencies>
@@ -43,11 +43,11 @@ as well as for consumption through maven.
 
 ## Documentation
 The release includes the following documentation:
-- [Release Notes](4.0.1/docs/ch02.html)
-- [Users Guide](4.0.1/docs/ch03.html)
-- [Tools](4.0.1/docs/ch04.html)
-- [Samples](4.0.1/docs/ch01.html#jaxb-2-0-sample-apps)
-- [Change log](https://github.com/eclipse-ee4j/jaxb-ri/releases/tag/4.0.1-RI)
+- [Release Notes](4.0.3/docs/ch02.html)
+- [Users Guide](4.0.3/docs/ch03.html)
+- [Tools](4.0.3/docs/ch04.html)
+- [Samples](4.0.3/docs/ch01.html#jaxb-2-0-sample-apps)
+- [Change log](https://github.com/eclipse-ee4j/jaxb-ri/releases/tag/4.0.3-RI)
 
 
 # <a name="Download_Archive"></a>Download previous versions
@@ -64,7 +64,7 @@ The release includes the following documentation:
 
 ## Documentation for version 2.3.x
 The release includes the following documentation:
-- [Release Notes](2.3.7/docs/ch02.html)
-- [Users Guide](2.3.7/docs/ch03.html)
-- [Tools](2.3.7/docs/ch04.html)
-- [Samples](2.3.7/docs/ch01.html#jaxb-2-0-sample-apps)
+- [Release Notes](2.3.8/docs/ch02.html)
+- [Users Guide](2.3.8/docs/ch03.html)
+- [Tools](2.3.8/docs/ch04.html)
+- [Samples](2.3.8/docs/ch01.html#jaxb-2-0-sample-apps)
