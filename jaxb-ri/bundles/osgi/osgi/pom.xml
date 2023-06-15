@@ -292,6 +292,7 @@
                                     *
                                 </Import-Package>
                                 <DynamicImport-Package>*</DynamicImport-Package>
+                                <_noimportjava>true</_noimportjava>
                             </instructions>
                         </configuration>
                     </execution>
