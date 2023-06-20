@@ -24,6 +24,19 @@
     <title>Changelog</title>
 
     <para>The &binding.impl.name; 4.x meets the requirements of the Jakarta XML Binding 4.x specifications.</para>
+    <section xml:id="a-4-0-4">
+        <title>Changes between 4.0.3 and 4.0.4</title>
+        <itemizedlist>
+            <listitem><para>Bug fixes:
+                <itemizedlist>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1073">#1073</link>: jaxb:globalBindings optionalProperty="primitive" causes NullPointer in xjc
+                    </para></listitem>
+                </itemizedlist>
+            </para></listitem>
+        </itemizedlist>
+    </section>
+
     <section xml:id="a-4-0-3">
         <title>Changes between 4.0.2 and 4.0.3</title>
         <itemizedlist>

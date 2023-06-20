@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -458,7 +458,7 @@ public final class BIProperty extends AbstractDeclarationImpl {
             switch(opm) {
                 // the property type can be primitive type if we are to ignore absence
                 case PRIMITIVE:
-                    r = frf.getRequiredUnboxed();
+                    r = frf.getSinglePrimitiveAccess();
                     break;
                 case WRAPPER:
                     // force the wrapper type
