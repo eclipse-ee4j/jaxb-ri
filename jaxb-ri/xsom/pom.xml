@@ -64,7 +64,7 @@
         <spotbugs.exclude>${project.basedir}/exclude-xsom.xml</spotbugs.exclude>
         <spotbugs.skip>false</spotbugs.skip>
         <spotbugs.threshold>Low</spotbugs.threshold>
-        <spotbugs.version>4.7.3.4</spotbugs.version>
+        <spotbugs.version>4.7.3.5</spotbugs.version>
         <findsecbugs.version>1.11.0</findsecbugs.version>
 
         <maven.compiler.release>11</maven.compiler.release>
@@ -136,7 +136,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>3.2.1</version>
+                    <version>3.3.0</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -204,7 +204,7 @@
                 <plugin>
                     <groupId>org.owasp</groupId>
                     <artifactId>dependency-check-maven</artifactId>
-                    <version>8.2.1</version>
+                    <version>8.3.1</version>
                     <configuration>
                         <failBuildOnCVSS>7</failBuildOnCVSS>
                         <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
