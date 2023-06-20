@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -457,7 +457,7 @@ public final class BIProperty extends AbstractDeclarationImpl {
             switch(opm) {
                 // the property type can be primitive type if we are to ignore absence
                 case PRIMITIVE:
-                    r = frf.getRequiredUnboxed();
+                    r = frf.getSinglePrimitiveAccess();
                     break;
                 case WRAPPER:
                     // force the wrapper type
@@ -583,7 +583,7 @@ public final class BIProperty extends AbstractDeclarationImpl {
         public Boolean attributeUse(XSAttributeUse use) {
             return use.getFixedValue()!=null;
         }
-        
+
         public Boolean schema(XSSchema s) {
             // we allow globalBindings to have isConstantProperty==true,
             // so this method returns true to allow this.
@@ -702,7 +702,7 @@ public final class BIProperty extends AbstractDeclarationImpl {
         if(s2==null)    return s1;
         return s1+"\n\n"+s2;
     }
-    
+
     public QName getName() { return NAME; }
     
     /** Name of this declaration. */
