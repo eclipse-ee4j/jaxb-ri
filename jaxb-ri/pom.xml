@@ -80,8 +80,14 @@
         <copyright.update>false</copyright.update>
         <spotbugs.exclude/>
         <spotbugs.skip>false</spotbugs.skip>
-        <spotbugs.threshold>High</spotbugs.threshold>
-        <spotbugs.version>4.3.0</spotbugs.version>
+        <spotbugs.threshold>Low</spotbugs.threshold>
+        <spotbugs.version>4.7.3.5</spotbugs.version>
+        <findsecbugs.version>1.11.0</findsecbugs.version>
+        <timestamp>${maven.build.timestamp}</timestamp>
+        <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
+
+        <maven.compiler.release>11</maven.compiler.release>
+        <maven.compiler.testRelease>${maven.compiler.release}</maven.compiler.testRelease>
 
         <junit.version>4.13.2</junit.version>
 
@@ -178,7 +184,12 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>3.2.0</version>
+                    <version>3.6.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>com.sun.istack</groupId>
+                    <artifactId>istack-commons-maven-plugin</artifactId>
+                    <version>4.1.2</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -201,7 +212,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>3.2.1</version>
+                    <version>3.3.0</version>
                     <configuration>
                         <archive>
                             <manifestEntries>
@@ -294,7 +305,26 @@
                         <excludeFilterFile>
                             ${spotbugs.exclude}
                         </excludeFilterFile>
-                        <fork>true</fork>
+                        <plugins>
+                            <plugin>
+                                <groupId>com.h3xstream.findsecbugs</groupId>
+                                <artifactId>findsecbugs-plugin</artifactId>
+                                <version>${findsecbugs.version}</version>
+                            </plugin>
+                        </plugins>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.owasp</groupId>
+                    <artifactId>dependency-check-maven</artifactId>
+                    <version>8.3.1</version>
+                    <configuration>
+                        <failBuildOnCVSS>7</failBuildOnCVSS>
+                        <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
+                        <formats>
+                            <format>HTML</format>
+                            <format>CSV</format>
+                        </formats>
                     </configuration>
                 </plugin>
                 <plugin>
