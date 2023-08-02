@@ -25,6 +25,7 @@ import com.sun.codemodel.JPackage;
 import com.sun.tools.xjc.AbortException;
 import com.sun.tools.xjc.ErrorReceiver;
 import com.sun.tools.xjc.Options;
+import com.sun.tools.xjc.Plugin;
 import com.sun.tools.xjc.model.CAttributePropertyInfo;
 import com.sun.tools.xjc.model.CBuiltinLeafInfo;
 import com.sun.tools.xjc.model.CClassInfo;
@@ -106,6 +107,11 @@ public class TDTDReader extends DTDHandlerBase
                 }
 
                 Ring.get(ModelChecker.class).check();
+
+                if( opts.activePlugins!=null ) {
+                    for (Plugin ma : opts.activePlugins)
+                        ma.postProcessModel(model, Ring.get(ErrorReceiver.class));
+                }
 
                 if(ef.hadError())   return null;
                 else                return model;
