@@ -121,12 +121,12 @@ public interface NameConverter
         @Override
         public String toPackageName( String nsUri ) {
             // remove scheme and :, if present
-            // spec only requires us to remove 'http' and 'urn'...
+            // spec only requires us to remove 'http', 'https' and 'urn'...
             int idx = nsUri.indexOf(':');
             String scheme = "";
             if(idx>=0) {
                 scheme = nsUri.substring(0,idx);
-                if( scheme.equalsIgnoreCase("http") || scheme.equalsIgnoreCase("urn") )
+                if( scheme.equalsIgnoreCase("http") || scheme.equalsIgnoreCase("https") || scheme.equalsIgnoreCase("urn") )
                     nsUri = nsUri.substring(idx+1);
             }
 
