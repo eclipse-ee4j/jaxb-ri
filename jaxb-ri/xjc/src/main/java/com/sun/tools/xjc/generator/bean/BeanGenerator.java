@@ -681,7 +681,12 @@ public final class BeanGenerator implements Outline {
 
             // [RESULT]
             // public <valuetype> value() { return value; }
-            type.method(JMod.PUBLIC, baseExposedType, "value").body()._return($value);
+            {
+                JMethod m = type.method(JMod.PUBLIC, baseExposedType, "value");
+                m.javadoc().add(Messages.ENUM_VALUE_METHOD.toString());
+                m.javadoc().addReturn().add(Messages.ENUM_VALUE_METHOD_RETURN.toString());
+                m.body()._return($value);
+            }
 
             // [RESULT]
             // <constructor>(<valueType> v) {
@@ -723,6 +728,12 @@ public final class BeanGenerator implements Outline {
                 } else {
                     strForm = $v.invoke("toString");
                 }
+
+                m.javadoc().add(Messages.ENUM_FROM_VALUE_METHOD.toString());
+                m.javadoc().addParam($v).add(Messages.ENUM_FROM_VALUE_METHOD_PARAM.toString());
+                m.javadoc().addReturn().add(Messages.ENUM_FROM_VALUE_METHOD_RETURN.toString());
+                m.javadoc().addThrows(IllegalArgumentException.class).add(Messages.ENUM_FROM_VALUE_METHOD_THROW.toString());
+
                 m.body()._throw(ex.arg(strForm));
             }
         } else {

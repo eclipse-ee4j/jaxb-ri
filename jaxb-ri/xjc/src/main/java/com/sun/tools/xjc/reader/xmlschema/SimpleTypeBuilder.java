@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -383,13 +383,17 @@ public final class SimpleTypeBuilder extends BindingComponent {
                 return CBuiltinLeafInfo.STRING.makeAdapted(SwaRefAdapterMarker.class,false);
         }
 
+        String documentation = "";
+        if (info.getDocumentation() != null && info.getDocumentation().length() > 0) {
+            documentation = info.getDocumentation().trim();
+        }
 
         // see if this type should be mapped to a type-safe enumeration by default.
         // if so, built a EnumXDucer from it and return it.
         if(type.isRestriction() && !noAutoEnum) {
             XSRestrictionSimpleType rst = type.asRestriction();
             if(shouldBeMappedToTypeSafeEnumByDefault(rst)) {
-                r = bindToTypeSafeEnum(rst,null,null, Collections.<String, BIEnumMember>emptyMap(),
+                r = bindToTypeSafeEnum(rst,null, documentation, Collections.emptyMap(),
                             getEnumMemberMode(),null);
                 if(r!=null)
                     return r;
@@ -637,7 +641,7 @@ public final class SimpleTypeBuilder extends BindingComponent {
 
         for( XSFacet facet : type.getDeclaredFacets(XSFacet.FACET_ENUMERATION)) {
             String name=null;
-            String mdoc=builder.getBindInfo(facet).getDocumentation();
+            String mdoc=builder.getBindInfo(facet).getDocumentation().trim();
 
             if(!enums.add(facet.getValue().value))
                 continue;   // ignore the 2nd occasion

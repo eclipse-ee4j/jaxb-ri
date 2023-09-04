@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -98,7 +98,9 @@ final class ArrayField extends AbstractListField {
         //     return (retVal);
         // }
         $getAll = writer.declareMethod( exposedType.array(),"get"+prop.getName(true));
-        writer.javadoc().append(prop.javadoc);
+        if (prop.javadoc != null && prop.javadoc.length() > 0) {
+            writer.javadoc().append(prop.javadoc).append("\n\n");
+        }
         body = $getAll.body();
 
         body._if( acc.ref(true).eq(JExpr._null()) )._then()
