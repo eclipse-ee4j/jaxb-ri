@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -98,34 +98,14 @@ public class UntypedListField extends AbstractListField {
         //     return <ref>;
         // }
         $get = writer.declareMethod(listT,"get"+prop.getName(true));
-        writer.javadoc().append(prop.javadoc);
+        if (prop.javadoc != null && prop.javadoc.length() > 0) {
+            writer.javadoc().append(prop.javadoc).append("\n\n");
+        }
         JBlock block = $get.body();
         fixNullRef(block);  // avoid using an internal getter
         block._return(acc.ref(true));
 
-        String pname = NameConverter.standard.toVariableName(prop.getName(true));
-        writer.javadoc().append(
-            "Gets the value of the "+pname+" property.\n\n"+
-            "<p>\n" +
-            "This accessor method returns a reference to the live list,\n" +
-            "not a snapshot. Therefore any modification you make to the\n" +
-            "returned list will be present inside the Jakarta XML Binding object.\n" +
-            "This is why there is not a {@code set} method for the " +pname+ " property.\n" +
-            "\n"+
-            "<p>\n" +
-            "For example, to add a new item, do as follows:\n"+
-            "<pre>\n"+
-            "   get"+prop.getName(true)+"().add(newItem);\n"+
-            "</pre>\n"+
-            "\n\n"
-        );
-
-        writer.javadoc().append(
-            "<p>\n" +
-            "Objects of the following type(s) are allowed in the list\n")
-            .append(listPossibleTypes(prop));
-
-        writer.javadoc().addReturn().append("The value of the "+pname+" property.");
+        appendJavadoc(writer);
     }
 
     @Override

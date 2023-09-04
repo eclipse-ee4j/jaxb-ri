@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,6 +25,12 @@ enum Messages {
     ILLEGAL_CONSTRUCTOR_PARAM, // 1 arg
     OBJECT_FACTORY_CONFLICT,    // 1 arg
     OBJECT_FACTORY_CONFLICT_RELATED,
+    ENUM_VALUE_METHOD, // 0 arg
+    ENUM_VALUE_METHOD_RETURN, // 0 arg
+    ENUM_FROM_VALUE_METHOD, // 0 arg
+    ENUM_FROM_VALUE_METHOD_PARAM, // 0 arg
+    ENUM_FROM_VALUE_METHOD_RETURN, // 0 arg
+    ENUM_FROM_VALUE_METHOD_THROW, // 0 arg
     ;
 
     private static final ResourceBundle rb = ResourceBundle.getBundle(Messages.class.getPackage().getName() + ".MessageBundle");

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -110,7 +110,7 @@ public class SingleField extends AbstractFieldWithVar {
 
         List<Object> possibleTypes = listPossibleTypes(prop);
         writer.javadoc().addReturn()
-            .append("possible object is\n")
+            .append(Messages.DEFAULT_GETTER_RETURN.toString())
             .append(possibleTypes);
          
         // [RESULT]
@@ -133,6 +133,9 @@ public class SingleField extends AbstractFieldWithVar {
         writer.javadoc().addParam($value)
             .append("allowed object is\n")
             .append(possibleTypes);
+        if (prop.javadoc != null && prop.javadoc.length() > 0) {
+            writer.javadoc().addXdoclet("see #" + $get.name() + "()");
+        }
     }
 
     @Override

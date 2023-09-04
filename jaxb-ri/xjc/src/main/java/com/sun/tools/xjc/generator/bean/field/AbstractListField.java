@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,7 +24,9 @@ import com.sun.codemodel.JOp;
 import com.sun.codemodel.JPrimitiveType;
 import com.sun.codemodel.JType;
 import com.sun.tools.xjc.generator.bean.ClassOutlineImpl;
+import com.sun.tools.xjc.generator.bean.MethodWriter;
 import com.sun.tools.xjc.model.CPropertyInfo;
+import org.glassfish.jaxb.core.api.impl.NameConverter;
 
 /**
  * Common code for property renderer that generates a List as
@@ -96,6 +98,10 @@ abstract class AbstractListField extends AbstractField {
         if(eagerInstanciation)
             field.init(newCoreList());
 
+        if (prop.javadoc != null && prop.javadoc.length() > 0) {
+            field.javadoc().add(prop.javadoc);
+        }
+
         annotate(field);
 
         // generate the rest of accessors
@@ -141,7 +147,16 @@ abstract class AbstractListField extends AbstractField {
     /** Generates accessor methods. */
     protected abstract void generateAccessors();
     
-    
+    protected void appendJavadoc(MethodWriter writer) {
+        String pname = NameConverter.standard.toVariableName(prop.getName(true));
+        List<Object> possibleTypes = listPossibleTypes(prop);
+        writer.javadoc().append(Messages.DEFAULT_GETTER_LIST_JAVADOC.format(pname, prop.getName(true)));
+        writer.javadoc().append(Messages.DEFAULT_GETTER_LIST_JAVADOC_TYPES.toString())
+                .append(possibleTypes)
+                .append(Messages.DEFAULT_GETTER_LIST_JAVADOC_TYPES_END.toString());
+        writer.javadoc().addReturn()
+                .append(Messages.DEFAULT_GETTER_LIST_RETURN.format(pname));
+    }
     
     /**
      * 
