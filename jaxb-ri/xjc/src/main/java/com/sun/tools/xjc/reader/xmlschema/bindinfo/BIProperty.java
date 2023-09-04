@@ -442,8 +442,11 @@ public final class BIProperty extends AbstractDeclarationImpl {
     private <T extends CPropertyInfo> T wrapUp(T prop, XSComponent source) {
         prop.javadoc = concat(javadoc,
             getBuilder().getBindInfo(source).getDocumentation());
-        if(prop.javadoc==null)
-            prop.javadoc="";
+        if (prop.javadoc == null) {
+            prop.javadoc = "";
+        } else {
+            prop.javadoc = prop.javadoc.trim();
+        }
 
         // decide the realization.
         FieldRenderer r;
