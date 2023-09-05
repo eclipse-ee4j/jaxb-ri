@@ -32,6 +32,15 @@
                     <listitem><para>
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1073">#1073</link>: jaxb:globalBindings optionalProperty="primitive" causes NullPointer in xjc
                     </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1708">#1708</link>: add javadoc from xsd documentation tags
+                    </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1736">#1736</link>: xjc: postProcessModel is not called for DTDs
+                    </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1737">#1737</link>: Add https to special handling in package name derivation
+                    </para></listitem>
                 </itemizedlist>
             </para></listitem>
         </itemizedlist>
