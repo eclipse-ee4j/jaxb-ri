@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -213,7 +213,7 @@ public final class DatatypeConverterImpl implements DatatypeConverterInterface {
         char ch;
         boolean value = false;
 
-        if (literal.length() <= 0) {
+        if (len <= 0) {
             return null;
         }
 
@@ -236,10 +236,10 @@ public final class DatatypeConverterImpl implements DatatypeConverterInterface {
                     ch = literal.charAt(i++);
                 } while ((strTrue.charAt(strIndex++) == ch) && i < len && strIndex < 3);
 
-                if (strIndex == 3) {
+                if (strIndex == 3 && strTrue.charAt(strIndex - 1) == ch) {
                     value = true;
                 } else {
-                    return false;
+                    return null;
                 }
 //                    throw new IllegalArgumentException("String \"" + literal + "\" is not valid boolean value.");
 
@@ -251,10 +251,10 @@ public final class DatatypeConverterImpl implements DatatypeConverterInterface {
                 } while ((strFalse.charAt(strIndex++) == ch) && i < len && strIndex < 4);
 
 
-                if (strIndex == 4) {
+                if (strIndex == 4 && strFalse.charAt(strIndex - 1) == ch) {
                     value = false;
                 } else {
-                    return false;
+                    return null;
                 }
 //                    throw new IllegalArgumentException("String \"" + literal + "\" is not valid boolean value.");
 
@@ -262,9 +262,9 @@ public final class DatatypeConverterImpl implements DatatypeConverterInterface {
         }
 
         if (i < len) {
-            do {
-                ch = literal.charAt(i++);
-            } while (WhiteSpaceProcessor.isWhiteSpace(ch) && i < len);
+            while (i < len && WhiteSpaceProcessor.isWhiteSpace(literal.charAt(i))) {
+              i++;
+            }
         }
 
         if (i == len) {
