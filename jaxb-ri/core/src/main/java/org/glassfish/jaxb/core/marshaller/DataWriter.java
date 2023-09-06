@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2018, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -218,7 +218,7 @@ public class DataWriter extends XMLWriter
         stateStack.push(SEEN_ELEMENT);
         state = SEEN_NOTHING;
         if (depth > 0) {
-            super.characters("\n");
+            super.characters("\n".toCharArray(), 0, 1);
         }
         doIndent();
         super.startElement(uri, localName, qName, atts);
@@ -250,7 +250,7 @@ public class DataWriter extends XMLWriter
     {
         depth--;
         if (state == SEEN_ELEMENT) {
-            super.characters("\n");
+            super.characters("\n".toCharArray(), 0, 1);
             doIndent();
         }
         super.endElement(uri, localName, qName);
@@ -314,8 +314,17 @@ public class DataWriter extends XMLWriter
     public void characters (char[] ch, int start, int length)
         throws SAXException
     {
-        state = SEEN_DATA;
-        super.characters(ch, start, length);
+        boolean hasContent = false;
+        for (int i = start; i < length; i++) {
+            if (!Character.isWhitespace(ch[i])) {
+                hasContent = true;
+                break;
+            }
+        }
+        if (hasContent) {
+            state = SEEN_DATA;
+            super.characters(ch, start, length);
+        }
     }
 
 
@@ -338,7 +347,7 @@ public class DataWriter extends XMLWriter
         if (depth > 0) {
             char[] ch = indentStep.toCharArray();
             for( int i=0; i<depth; i++ )
-                characters(ch, 0, ch.length);
+                super.characters(ch, 0, ch.length);
         }
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,10 +14,12 @@ import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.JaxbContainer;
 import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.JaxbDistribution;
 import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.JaxbEnvironmentModel;
 import org.junit.Assert;
+import org.junit.ComparisonFailure;
 import org.junit.Test;
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAnyElement;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlElementWrapper;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -25,6 +27,7 @@ import jakarta.xml.bind.annotation.XmlSeeAlso;
 import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.XmlValue;
 import javax.xml.XMLConstants;
+import jakarta.xml.bind.Element;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.Marshaller;
@@ -40,6 +43,7 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import junit.framework.TestCase;
 import junit.textui.TestRunner;
@@ -82,6 +86,14 @@ public class MarshallingAbstractTest extends TestCase {
         Collection<A> list = new ArrayList<>();
         A element1;
         A element2;
+    }
+
+    @XmlRootElement
+    static class Job {
+
+        @XmlAnyElement
+        private List<Element> content;
+
     }
 
     @Test
@@ -161,6 +173,50 @@ public class MarshallingAbstractTest extends TestCase {
         }
         catch (Throwable e) {
             Assert.fail();
+        }
+    }
+
+    @Test
+    public void testMarshallerJob() throws Exception {
+        JAXBContext jc = JAXBContext.newInstance(Job.class);
+        Unmarshaller unmarshaller = jc.createUnmarshaller();
+
+        Marshaller marshaller = jc.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        String sourceXml = "<job type=\"NewMethod\">\n" +
+                "\n" +
+                "<foo id=\"1\">\n" +
+                "<bar>\n" +
+                "<baz>\n" +
+                "<value name=\"xxx\"/>\n" +
+                "  </baz>\n" +
+                "  </bar>\n" +
+                " </foo>\n" +
+                "\n" +
+                "</job>";
+
+        String expectedOutput = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
+                "<job>\n" +
+                "    <foo id=\"1\">\n" +
+                "        <bar>\n" +
+                "            <baz>\n" +
+                "                <value name=\"xxx\"/>\n" +
+                "            </baz>\n" +
+                "        </bar>\n" +
+                "    </foo>\n" +
+                "</job>\n";
+
+        try {
+            JAXBElement<Job> job = unmarshaller.unmarshal(new StreamSource(new StringReader(sourceXml)), Job.class);
+
+            StringWriter sw = new StringWriter();
+            marshaller.marshal(job.getValue(), sw);
+            String output = sw.toString();
+            Assert.assertEquals(expectedOutput, output);
+        } catch (ComparisonFailure e) {
+            throw e;
+        } catch (Throwable t) {
+            Assert.fail("Exception is thrown " + t);
         }
     }
 
