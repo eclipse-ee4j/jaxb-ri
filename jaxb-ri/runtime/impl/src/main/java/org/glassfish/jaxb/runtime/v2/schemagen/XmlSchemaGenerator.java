@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -103,7 +103,7 @@ public final class XmlSchemaGenerator<T,C,F,M> {
     private final NonElement<T,C> anyType;
 
     /**
-     * Used to detect cycles in anonymous types.
+     * Used to detect cycles in types.
      */
     private final CollisionCheckStack<ClassInfo<T,C>> collisionChecker = new CollisionCheckStack<>();
 
@@ -405,8 +405,6 @@ public final class XmlSchemaGenerator<T,C,F,M> {
                     systemIds.put(n,output.getSystemId());
                 }
             }
-            //Clear the namespace specific set with already written classes
-            n.resetWritten();
         }
 
         // then write'em all
@@ -484,22 +482,10 @@ public final class XmlSchemaGenerator<T,C,F,M> {
          */
         private boolean useMimeNs;
 
-        /**
-         * Container for already processed classes
-         */
-        private final Set<ClassInfo> written = new HashSet<>();
-
         public Namespace(String uri) {
             this.uri = uri;
             assert !XmlSchemaGenerator.this.namespaces.containsKey(uri);
             XmlSchemaGenerator.this.namespaces.put(uri,this);
-        }
-
-        /**
-         * Clear out the set of already processed classes for this namespace
-         */
-        void resetWritten() {
-            written.clear();
         }
 
         /**
@@ -742,29 +728,19 @@ public final class XmlSchemaGenerator<T,C,F,M> {
                 e = (Element)type;
             }
             if (type.getTypeName()==null) {
-                if ((e != null) && (e.getElementName() != null)) {
-                    th.block(); // so that the caller may write other attributes
-                    if(type instanceof ClassInfo) {
+                th.block(); // so that the caller may write other attributes
+                if(type instanceof ClassInfo) {
+                    if(collisionChecker.push((ClassInfo<T,C>)type)) {
+                        errorListener.warning(new SAXParseException(
+                            Messages.ANONYMOUS_TYPE_CYCLE.format(collisionChecker.getCycleString()),
+                            null
+                        ));
+                    } else {
                         writeClass( (ClassInfo<T,C>)type, th );
-                    } else {
-                        writeEnum( (EnumLeafInfo<T,C>)type, (SimpleTypeHost)th);
                     }
+                    collisionChecker.pop();
                 } else {
-                    // anonymous
-                    th.block(); // so that the caller may write other attributes
-                    if(type instanceof ClassInfo) {
-                        if(collisionChecker.push((ClassInfo<T,C>)type)) {
-                            errorListener.warning(new SAXParseException(
-                                Messages.ANONYMOUS_TYPE_CYCLE.format(collisionChecker.getCycleString()),
-                                null
-                            ));
-                        } else {
-                            writeClass( (ClassInfo<T,C>)type, th );
-                        }
-                        collisionChecker.pop();
-                    } else {
-                        writeEnum( (EnumLeafInfo<T,C>)type, (SimpleTypeHost)th);
-                    }
+                    writeEnum( (EnumLeafInfo<T,C>)type, (SimpleTypeHost)th);
                 }
             } else {
                 th._attribute(refAttName,type.getTypeName());
@@ -807,10 +783,6 @@ public final class XmlSchemaGenerator<T,C,F,M> {
          * @param parent the writer of the parent element into which the type will be defined
          */
         private void writeClass(ClassInfo<T,C> c, TypeHost parent) {
-            if (written.contains(c)) { // to avoid cycles let's check if we haven't already processed the class
-                return;
-            }
-            written.add(c);
             // special handling for value properties
             if (containsValueProp(c)) {
                 if (c.getProperties().size() == 1) {
