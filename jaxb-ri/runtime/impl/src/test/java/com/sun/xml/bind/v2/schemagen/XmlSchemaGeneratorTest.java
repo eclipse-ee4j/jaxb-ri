@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,10 +16,15 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.SchemaOutputResolver;
+import javax.xml.bind.MarshalException;
 import javax.xml.transform.Result;
 import javax.xml.transform.stream.StreamResult;
 
@@ -30,7 +35,21 @@ public class XmlSchemaGeneratorTest extends TestCase {
     public static void main(String[] args) {
         TestRunner.run(XmlSchemaGeneratorTest.class);
     }
-    
+
+    public void testStackoverflow() throws Exception {
+        Map<String, Object> properties = new HashMap<>();
+        JAXBContext c = JAXBContext.newInstance(new Class[] {Foo.class}, properties);
+        Foo foo = new Foo();
+        foo.getFooObject().add(foo);
+        StringWriter sw = new StringWriter();
+        try {
+            c.createMarshaller().marshal(foo, sw);
+            fail("It is expected to catch MarshalException");
+        } catch (MarshalException e) {
+            // Expected
+        }
+    }
+
     public void test2() throws Exception {
         try {
             JAXBContext context = JAXBContext.newInstance(NSParent.class);
