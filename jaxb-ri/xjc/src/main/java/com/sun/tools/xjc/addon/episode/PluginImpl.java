@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -155,6 +155,7 @@ public class PluginImpl extends Plugin {
                     group._namespace(tns,"tns");
 
                 group.scd("x-schema::"+(tns.equals("")?"":"tns"));
+                group._attribute("if-exists", true);
                 SchemaBindings schemaBindings = group.schemaBindings();
 				schemaBindings.map(false);
                 if (ps.packageNames.size() == 1) {
@@ -312,6 +313,7 @@ public class PluginImpl extends Plugin {
 
         private void buildBindings(Bindings bindings) {
             bindings.scd(schemaComponent.apply(SCD));
+            bindings._attribute("if-exists", true);
             outlineType.bindingsBuilder.build(this, bindings);
         }
     }
