@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,6 +15,9 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import com.sun.tools.xjc.reader.Ring;
+import com.sun.tools.xjc.reader.xmlschema.AcknowledgePluginCustomizationBinder;
+import com.sun.xml.xsom.*;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
 import jakarta.xml.bind.UnmarshallerHandler;
@@ -27,10 +30,6 @@ import com.sun.tools.xjc.reader.xmlschema.bindinfo.BIDeclaration;
 import com.sun.tools.xjc.reader.xmlschema.bindinfo.BindInfo;
 import com.sun.tools.xjc.util.ForkContentHandler;
 import com.sun.tools.xjc.util.DOMUtils;
-import com.sun.xml.xsom.SCD;
-import com.sun.xml.xsom.XSAnnotation;
-import com.sun.xml.xsom.XSComponent;
-import com.sun.xml.xsom.XSSchemaSet;
 
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
@@ -162,6 +161,7 @@ public final class SCDBasedBindingSet {
                                 ann.setAnnotation(bi);
                             }
                             bi.addDecl(decl);
+                            target.visit(Ring.get(AcknowledgePluginCustomizationBinder.class));
                         } catch (SAXException e) {
                             // the error should have already been reported.
                         } catch (JAXBException e) {
