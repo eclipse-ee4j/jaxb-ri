@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- See https://github.com/eclipse-ee4j/jaxb-ri/issues/1748 -->
+<!-- See https://github.com/eclipse-ee4j/jaxb-ri/issues/1750 -->
+<xs:schema
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://example.org/issue1750"
+    xmlns:tns="http://example.org/issue1750"
+    xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+    jaxb:version="2.0"
+>
+
+    <xs:annotation>
+        <xs:appinfo>
+            <jaxb:globalBindings>
+                <jaxb:serializable uid="20231001" />
+            </jaxb:globalBindings>
+        </xs:appinfo>
+    </xs:annotation>
+
+    <xs:element name="someJAXBElement" type="xs:string">
+        <xs:annotation>
+            <xs:appinfo>
+                <jaxb:class name="SomeJAXBElement"/>
+            </xs:appinfo>
+        </xs:annotation>
+    </xs:element>
+
+</xs:schema>
