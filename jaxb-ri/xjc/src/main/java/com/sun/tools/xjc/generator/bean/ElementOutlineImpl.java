@@ -10,12 +10,15 @@
 
 package com.sun.tools.xjc.generator.bean;
 
-
 import jakarta.xml.bind.JAXBElement;
+
+import java.io.Serializable;
+
 import javax.xml.namespace.QName;
 
 import com.sun.codemodel.JClass;
 import com.sun.codemodel.JCodeModel;
+import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JExpr;
 import com.sun.codemodel.JExpression;
 import com.sun.codemodel.JFieldVar;
@@ -54,8 +57,9 @@ final class ElementOutlineImpl extends ElementOutline {
                 target.getContentInMemoryType().toType(parent,Aspect.EXPOSED).boxify()));
 
         if(ei.hasClass()) {
+            serializableOption(parent, implClass);
             JType implType = ei.getContentInMemoryType().toType(parent,Aspect.IMPLEMENTATION);
-            JExpression declaredType = JExpr.cast(cm.ref(Class.class),implType.boxify().dotclass()); // why do we have to cast?
+            JExpression declaredType = JExpr.cast(cm.ref(Class.class).narrow(implType),implType.boxify().dotclass()); // why do we have to cast?
             JClass scope=null;
             if(ei.getScope()!=null)
                 scope = parent.getClazz(ei.getScope()).implRef;
@@ -77,7 +81,37 @@ final class ElementOutlineImpl extends ElementOutline {
                 .arg(declaredType)
                 .arg(scopeClass)
                 .arg(JExpr._null());
+        }
+    }
 
+    /**
+     * Serializable option to implement the {@link Serializable} interface
+     * and <code>serialVersionUID</code> field.
+     *
+     * @param bg The XJC bean generator.
+     * @param implClass The implementation class.
+     *
+     * @see <a href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1750">Issue #1750</a>
+     */
+    private void serializableOption(BeanGenerator bg, JDefinedClass implClass)
+    {
+        if (bg.getModel().serializable)
+        {
+            JClass serRef = bg.getCodeModel().ref(Serializable.class);
+            if ( !serRef.isAssignableFrom(implClass) )
+                implClass._implements(Serializable.class);
+
+            if ( !implClass.fields().containsKey("serialVersionUID") )
+            {
+                if (bg.getModel().serialVersionUID != null)
+                {
+                    implClass.field(
+                        JMod.PRIVATE | JMod.STATIC | JMod.FINAL,
+                        bg.getCodeModel().LONG,
+                        "serialVersionUID",
+                        JExpr.lit(bg.getModel().serialVersionUID));
+                }
+            }
         }
     }
 
