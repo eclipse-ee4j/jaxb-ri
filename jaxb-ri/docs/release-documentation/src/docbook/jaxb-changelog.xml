@@ -36,10 +36,19 @@
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1708">#1708</link>: add javadoc from xsd documentation tags
                     </para></listitem>
                     <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1724">#1724</link>: JAXBContext having defaultNamespaceRemap after release 4.0.3 produces unexpected xml
+                    </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1731">#1731</link>: Incompatibility with namespace when marshalling WebFault with FaultInfo on call of WebService
+                    </para></listitem>
+                    <listitem><para>
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1736">#1736</link>: xjc: postProcessModel is not called for DTDs
                     </para></listitem>
                     <listitem><para>
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1737">#1737</link>: Add https to special handling in package name derivation
+                    </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1742">#1742</link>: Unexpected form=qualified Attribute in XSD Elements
                     </para></listitem>
                 </itemizedlist>
             </para></listitem>
