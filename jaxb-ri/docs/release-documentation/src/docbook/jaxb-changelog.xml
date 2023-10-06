@@ -50,6 +50,12 @@
                     <listitem><para>
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1742">#1742</link>: Unexpected form=qualified Attribute in XSD Elements
                     </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1748">#1748</link>: xjc: ElementOutlineImpl produces raw type
+                    </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1750">#1750</link>: xjc: ElementOutlineImpl omits serialVersionUID
+                    </para></listitem>
                 </itemizedlist>
             </para></listitem>
         </itemizedlist>
