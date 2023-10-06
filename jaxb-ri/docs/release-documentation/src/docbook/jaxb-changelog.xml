@@ -45,6 +45,9 @@
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1320">#1320</link>: xjc: BGMBuilder creates error for unused customizations before they can be acknowledged
                     </para></listitem>
                     <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1583">#1583</link>: XJC throws NPE when optionalProperty="primitive"
+                    </para></listitem>
+                    <listitem><para>
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1695">#1695</link>: DatatypeConverter.parseBoolean converts invalid strings to true
                     </para></listitem>
                     <listitem><para>
@@ -64,6 +67,9 @@
                     </para></listitem>
                     <listitem><para>
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1742">#1742</link>: Unexpected form=qualified Attribute in XSD Elements
+                    </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/pull/1743">#1743</link>: Rework stackoverflow handling for missing elements in xsd schemagen
                     </para></listitem>
                     <listitem><para>
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1748">#1748</link>: xjc: ElementOutlineImpl produces raw type
