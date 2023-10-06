@@ -30,7 +30,22 @@
             <listitem><para>Bug fixes:
                 <itemizedlist>
                     <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/829">#829</link>: schemagen and xjc should add 'if-exists' to bindings when generating an episode file
+                    </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/965">#965</link>: compiler was unable to honor this schemaBinding customization (in episodic compilation)
+                    </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1099">#1099</link>: Binding Customizations errors when using Episode
+                    </para></listitem>
+                    <listitem><para>
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1073">#1073</link>: jaxb:globalBindings optionalProperty="primitive" causes NullPointer in xjc
+                    </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1320">#1320</link>: xjc: BGMBuilder creates error for unused customizations before they can be acknowledged
+                    </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1695">#1695</link>: DatatypeConverter.parseBoolean converts invalid strings to true
                     </para></listitem>
                     <listitem><para>
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1708">#1708</link>: add javadoc from xsd documentation tags
