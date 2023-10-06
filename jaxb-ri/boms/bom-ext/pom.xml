@@ -38,7 +38,7 @@
         <dtd-parser.version>1.5.0</dtd-parser.version>
         <relaxng.version>${project.version}</relaxng.version>
         <xsom.version>${project.version}</xsom.version>
-        <ant.version>1.10.13</ant.version>
+        <ant.version>1.10.14</ant.version>
     </properties>
 
     <dependencyManagement>
