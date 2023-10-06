@@ -91,24 +91,19 @@ final class ElementOutlineImpl extends ElementOutline {
      *
      * @see <a href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1750">Issue #1750</a>
      */
-    private void serializableOption(BeanGenerator bg, JDefinedClass implClass)
-    {
-        if (bg.getModel().serializable)
-        {
+    private void serializableOption(BeanGenerator bg, JDefinedClass implClass) {
+        if (bg.getModel().serializable) {
             JClass serRef = bg.getCodeModel().ref(Serializable.class);
-            if ( !serRef.isAssignableFrom(implClass) )
+            if (!serRef.isAssignableFrom(implClass)) {
                 implClass._implements(Serializable.class);
-
-            if ( !implClass.fields().containsKey("serialVersionUID") )
-            {
-                if (bg.getModel().serialVersionUID != null)
-                {
+            }
+            if (!implClass.fields().containsKey("serialVersionUID") && (bg.getModel().serialVersionUID != null)) {
                     implClass.field(
-                        JMod.PRIVATE | JMod.STATIC | JMod.FINAL,
-                        bg.getCodeModel().LONG,
-                        "serialVersionUID",
-                        JExpr.lit(bg.getModel().serialVersionUID));
-                }
+                            JMod.PRIVATE | JMod.STATIC | JMod.FINAL,
+                            bg.getCodeModel().LONG,
+                            "serialVersionUID",
+                            JExpr.lit(bg.getModel().serialVersionUID));
+
             }
         }
     }

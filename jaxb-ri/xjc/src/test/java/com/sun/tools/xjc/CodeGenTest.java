@@ -60,7 +60,7 @@ public class CodeGenTest extends TestCase {
     }
 
     /**
-     * Test issues #1748 and #1750 for {@link ElementOutlineImpl}.
+     * Test issues #1748 and #1750 for {@code com.sun.tools.xjc.generator.bean.ElementOutlineImpl}.
      *
      * @throws FileNotFoundException When the test schema file cannot be read.
      * @throws URISyntaxException When the test {@link InputSource} cannot be parsed.
@@ -68,8 +68,7 @@ public class CodeGenTest extends TestCase {
      * @see <a href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1748">Issue #1748</a>
      * @see <a href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1750">Issue #1750</a>
      */
-    public void testIssue1750() throws FileNotFoundException, URISyntaxException
-    {
+    public void testIssue1750() throws FileNotFoundException, URISyntaxException {
         String schemaFileName = "/schemas/issue1750/schema.xsd";
         String packageName = "org.example.issue1750";
         String someClassName = packageName + ".SomeJAXBElement";
@@ -94,8 +93,7 @@ public class CodeGenTest extends TestCase {
 
         // Assert Class includes narrow type
         Iterator<JMethod> conIter = dc.constructors();
-        while ( conIter.hasNext() )
-        {
+        while (conIter.hasNext()) {
             JMethod con = conIter.next();
             assertTrue(toString(con).contains("java.lang.Class<java.lang.String>"));
         }
