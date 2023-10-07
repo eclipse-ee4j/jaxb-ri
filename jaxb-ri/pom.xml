@@ -96,7 +96,6 @@
         <skipOsgiTests>true</skipOsgiTests>
         <felix.junit4osgi>1.0.0</felix.junit4osgi>
         <felix.osgi.core>6.0.0</felix.osgi.core>
-        <jmockit.version>1.34</jmockit.version>
         <compiler.version>2.4.0</compiler.version>
         <oss.disallow.snapshots>true</oss.disallow.snapshots>
         <vendor.name>Eclipse Foundation</vendor.name>
@@ -123,11 +122,6 @@
                 <version>2011.1</version>
             </dependency>
             <!-- Test -->
-            <dependency>
-                <groupId>org.jmockit</groupId>
-                <artifactId>jmockit</artifactId>
-                <version>${jmockit.version}</version>
-            </dependency>
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
