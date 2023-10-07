@@ -77,6 +77,9 @@
                     <listitem><para>
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1750">#1750</link>: xjc: ElementOutlineImpl omits serialVersionUID
                     </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1757">#1757</link>: txw runtime and compiler should have different module names
+                    </para></listitem>
                 </itemizedlist>
             </para></listitem>
         </itemizedlist>

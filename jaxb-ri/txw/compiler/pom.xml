@@ -77,7 +77,7 @@
                         <configuration>
                             <compilerArgs>
                                 <arg>--add-reads</arg>
-                                <arg>com.sun.tools.txw2=ALL-UNNAMED</arg>
+                                <arg>com.sun.tools.txwc2=ALL-UNNAMED</arg>
                             </compilerArgs>
                         </configuration>
                     </execution>
@@ -104,7 +104,7 @@
                 <configuration>
                     <additionalJOptions>
                         <additionalJOption>--add-reads</additionalJOption>
-                        <additionalJOption>com.sun.tools.txw2=ALL-UNNAMED</additionalJOption>
+                        <additionalJOption>com.sun.tools.txwc2=ALL-UNNAMED</additionalJOption>
                     </additionalJOptions>
                 </configuration>
             </plugin>
