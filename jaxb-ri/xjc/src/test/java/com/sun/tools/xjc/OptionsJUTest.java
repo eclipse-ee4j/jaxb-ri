@@ -15,16 +15,16 @@ import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JMod;
 import com.sun.istack.tools.DefaultAuthenticator;
+import junit.framework.TestCase;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import junit.framework.TestCase;
 
 /**
  *
@@ -116,8 +116,10 @@ public class OptionsJUTest extends TestCase {
 
         try {
             opts.parseArguments(new String[]{"-httpproxy", "www.proxy", grammar.getAbsolutePath()});
-            assertEquals("www.proxy", getField("proxyHost", opts));
-            assertEquals("80", getField("proxyPort", opts));
+            assertEquals("www.proxy", System.getProperty("http.proxyHost"));
+            assertEquals("www.proxy", System.getProperty("https.proxyHost"));
+            assertEquals("80", System.getProperty("http.proxyPort"));
+            assertEquals("80", System.getProperty("https.proxyPort"));
             assertNull(opts.proxyAuth);
         } catch (BadCommandLineException ex) {
             Logger.getLogger(OptionsJUTest.class.getName()).log(Level.SEVERE, null, ex);
@@ -126,12 +128,18 @@ public class OptionsJUTest extends TestCase {
             if (opts.proxyAuth != null) {
                 DefaultAuthenticator.reset();
             }
+            System.clearProperty("http.proxyHost");
+            System.clearProperty("https.proxyHost");
+            System.clearProperty("http.proxyPort");
+            System.clearProperty("https.proxyPort");
         }
         opts = new Options();
         try {
             opts.parseArguments(new String[]{"-httpproxy", "www.proxy1:4321", grammar.getAbsolutePath()});
-            assertEquals("www.proxy1", getField("proxyHost", opts));
-            assertEquals("4321", getField("proxyPort", opts));
+            assertEquals("www.proxy1", System.getProperty("http.proxyHost"));
+            assertEquals("www.proxy1", System.getProperty("https.proxyHost"));
+            assertEquals("4321", System.getProperty("http.proxyPort"));
+            assertEquals("4321", System.getProperty("https.proxyPort"));
             assertNull(opts.proxyAuth);
         } catch (BadCommandLineException ex) {
             Logger.getLogger(OptionsJUTest.class.getName()).log(Level.SEVERE, null, ex);
@@ -140,12 +148,18 @@ public class OptionsJUTest extends TestCase {
             if (opts.proxyAuth != null) {
                 DefaultAuthenticator.reset();
             }
+            System.clearProperty("http.proxyHost");
+            System.clearProperty("https.proxyHost");
+            System.clearProperty("http.proxyPort");
+            System.clearProperty("https.proxyPort");
         }
         opts = new Options();
         try {
             opts.parseArguments(new String[]{"-httpproxy", "user:pwd@www.proxy3:7890", grammar.getAbsolutePath()});
-            assertEquals("www.proxy3", getField("proxyHost", opts));
-            assertEquals("7890", getField("proxyPort", opts));
+            assertEquals("www.proxy3", System.getProperty("http.proxyHost"));
+            assertEquals("www.proxy3", System.getProperty("https.proxyHost"));
+            assertEquals("7890", System.getProperty("http.proxyPort"));
+            assertEquals("7890", System.getProperty("https.proxyPort"));
             assertEquals("user:pwd", opts.proxyAuth);
         } catch (BadCommandLineException ex) {
             Logger.getLogger(OptionsJUTest.class.getName()).log(Level.SEVERE, null, ex);
@@ -154,12 +168,18 @@ public class OptionsJUTest extends TestCase {
             if (opts.proxyAuth != null) {
                 DefaultAuthenticator.reset();
             }
+            System.clearProperty("http.proxyHost");
+            System.clearProperty("https.proxyHost");
+            System.clearProperty("http.proxyPort");
+            System.clearProperty("https.proxyPort");
         }
         opts = new Options();
         try {
             opts.parseArguments(new String[]{"-httpproxy", "duke:s@cr@t@proxy98", grammar.getAbsolutePath()});
-            assertEquals("proxy98", getField("proxyHost", opts));
-            assertEquals("80", getField("proxyPort", opts));
+            assertEquals("proxy98", System.getProperty("http.proxyHost"));
+            assertEquals("proxy98", System.getProperty("https.proxyHost"));
+            assertEquals("80", System.getProperty("http.proxyPort"));
+            assertEquals("80", System.getProperty("https.proxyPort"));
             assertEquals("duke:s@cr@t", opts.proxyAuth);
         } catch (BadCommandLineException ex) {
             Logger.getLogger(OptionsJUTest.class.getName()).log(Level.SEVERE, null, ex);
@@ -168,6 +188,10 @@ public class OptionsJUTest extends TestCase {
             if (opts.proxyAuth != null) {
                 DefaultAuthenticator.reset();
             }
+            System.clearProperty("http.proxyHost");
+            System.clearProperty("https.proxyHost");
+            System.clearProperty("http.proxyPort");
+            System.clearProperty("https.proxyPort");
         }
     }
 
@@ -185,24 +209,5 @@ public class OptionsJUTest extends TestCase {
                 dir.delete();
             }
         }
-    }
-
-    private String getField(String fieldName, Object instance) {
-        Field f = null;
-        boolean reset = false;
-        try {
-            f = Options.class.getDeclaredField(fieldName);
-            if (!f.isAccessible()) {
-                f.setAccessible(reset = true);
-            }
-            return (String) f.get(instance);
-        } catch (Exception ex) {
-            Logger.getLogger(OptionsJUTest.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (reset && f != null) {
-                f.setAccessible(false);
-            }
-        }
-        return null;
     }
 }
