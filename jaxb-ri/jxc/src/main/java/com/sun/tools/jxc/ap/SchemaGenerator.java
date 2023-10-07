@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,9 +10,9 @@
 
 package com.sun.tools.jxc.ap;
 
+import com.sun.tools.jxc.api.J2SJAXBModel;
 import com.sun.tools.jxc.api.JXC;
-import com.sun.tools.xjc.api.J2SJAXBModel;
-import com.sun.tools.xjc.api.Reference;
+import com.sun.tools.jxc.api.Reference;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.Processor;
@@ -70,6 +70,7 @@ public class SchemaGenerator extends AbstractProcessor {
     }
 
     @Override
+    @SuppressWarnings({"unchecked"})
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         final ErrorReceiverImpl errorListener = new ErrorReceiverImpl(processingEnv);
 
@@ -78,7 +79,7 @@ public class SchemaGenerator extends AbstractProcessor {
         // so that users won't have to manually exclude interfaces, which is silly.
         filterClass(classesToBeBound, roundEnv.getRootElements());
 
-        J2SJAXBModel model = JXC.createJavaCompiler().bind(classesToBeBound, Collections.emptyMap(), null, processingEnv);
+        J2SJAXBModel model = JXC.createJavaCompiler().bind(classesToBeBound, Collections.emptyMap(), processingEnv, null);
         if (model == null)
             return false; // error
 

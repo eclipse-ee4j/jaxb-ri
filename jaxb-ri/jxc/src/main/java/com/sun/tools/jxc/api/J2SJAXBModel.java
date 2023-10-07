@@ -8,37 +8,38 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-package com.sun.tools.xjc.api;
+package com.sun.tools.jxc.api;
 
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Map;
+
+import com.sun.tools.xjc.api.ErrorListener;
+import com.sun.tools.xjc.api.JAXBModel;
 import jakarta.xml.bind.SchemaOutputResolver;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.xml.namespace.QName;
 import javax.xml.transform.Result;
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Map;
 
 /**
  * {@link JAXBModel} that exposes additional information available
  * only for the {@code java -> schema} direction.
  *
  * @author Kohsuke Kawaguchi
- * @deprecated Use {@code com.sun.tools.jxc.api.J2SJAXBModel} instead.
  */
-@Deprecated(since = "4.0", forRemoval = true)
 @SuppressWarnings({"removal"})
-public interface J2SJAXBModel extends JAXBModel {
+public interface J2SJAXBModel extends com.sun.tools.xjc.api.J2SJAXBModel {
     /**
      * Returns the name of the XML Type bound to the
      * specified Java type.
      *
      * @param javaType
      *      must not be null. This must be one of the {@link Reference}s specified
-     *      in the {@link JavaCompiler#bind(Collection, Map, String, ProcessingEnvironment)} method.
+     *      in the {@link JavaCompiler#bind(Collection, Map, ProcessingEnvironment, String)} method.
      *
      * @return
-     *      null if it is not a part of the input to {@link JavaCompiler#bind(Collection, Map, String, ProcessingEnvironment)}.
+     *      null if it is not a part of the input to {@link JavaCompiler#bind(Collection, Map, ProcessingEnvironment, String)}.
      *
      * @throws IllegalArgumentException
      *      if the parameter is null

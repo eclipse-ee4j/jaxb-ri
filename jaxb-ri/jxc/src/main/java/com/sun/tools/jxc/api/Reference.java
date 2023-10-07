@@ -8,7 +8,7 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-package com.sun.tools.xjc.api;
+package com.sun.tools.jxc.api;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Element;
@@ -21,8 +21,8 @@ import javax.lang.model.type.TypeMirror;
  * Reference to a JAXB type (from JAX-RPC.)
  *
  * <p>
- * A reference is a Java type (represented as a {@link TypeMirror})
- * and a set of annotations (represented as a {@link Element}).
+ * A reference is a Java type (represented as a {@link javax.lang.model.type.TypeMirror})
+ * and a set of annotations (represented as a {@link javax.lang.model.element.Element}).
  * Together they describe a root reference to a JAXB type binding.
  *
  * <p>
@@ -31,10 +31,7 @@ import javax.lang.model.type.TypeMirror;
  *
  *
  * @author Kohsuke Kawaguchi
- * @deprecated Use {@code com.sun.tools.jxc.api.Reference} instead.
  */
-@Deprecated(since = "4.0", forRemoval = true)
-@SuppressWarnings({"exports"})
 public final class Reference {
     /**
      * The JAXB type being referenced. Must not be null.

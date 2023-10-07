@@ -8,12 +8,14 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-package com.sun.tools.xjc.api;
+package com.sun.tools.jxc.api;
 
-import javax.annotation.processing.ProcessingEnvironment;
-import javax.xml.namespace.QName;
 import java.util.Collection;
 import java.util.Map;
+
+import javax.xml.namespace.QName;
+
+import javax.annotation.processing.ProcessingEnvironment;
 
 
 /**
@@ -21,11 +23,9 @@ import java.util.Map;
  *
  * @author
  *     Kohsuke Kawaguchi (kohsuke.kawaguchi@sun.com)
- * @deprecated Use {@code com.sun.tools.jxc.api.JavaCompiler} instead.
  */
-@Deprecated(since = "4.0", forRemoval = true)
-@SuppressWarnings({"exports", "removal"})
-public interface JavaCompiler {
+@SuppressWarnings({"removal"})
+public interface JavaCompiler extends com.sun.tools.xjc.api.JavaCompiler {
 
     /**
      * Compiles the given annotated Java source code.
@@ -36,7 +36,7 @@ public interface JavaCompiler {
      * closure of types that are referenced by the root types.
      *
      * <p>
-     * Errors will be sent to {@link ProcessingEnvironment#getMessager()}.
+     * Errors will be sent to {@link javax.annotation.processing.ProcessingEnvironment#getMessager()}.
      *
      * @param rootTypes
      *      The list of types that needs to be bound to XML.
@@ -64,6 +64,6 @@ public interface JavaCompiler {
     J2SJAXBModel bind(
             Collection<Reference> rootTypes,
             Map<QName, Reference> additionalElementDecls,
-            String defaultNamespaceRemap,
-            ProcessingEnvironment source);
+            ProcessingEnvironment source,
+            String defaultNamespaceRemap);
 }
