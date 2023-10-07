@@ -108,8 +108,8 @@ public final class BIProperty extends AbstractDeclarationImpl {
     public BIProperty(Locator loc, String _propName, String _javadoc,
                       BaseTypeBean _baseType, CollectionTypeAttribute collectionType, Boolean isConst,
                       OptionalPropertyMode optionalProperty, Boolean genElemProp) {
-        super(loc);
-
+        super();
+        this.loc = loc;
         this.name = _propName;
         this.javadoc = _javadoc;
         this.baseType = _baseType;

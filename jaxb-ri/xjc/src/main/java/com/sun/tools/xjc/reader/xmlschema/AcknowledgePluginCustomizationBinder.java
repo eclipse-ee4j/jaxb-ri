@@ -30,6 +30,9 @@ public class AcknowledgePluginCustomizationBinder extends BindingComponent imple
 
     private final Set<XSComponent> visitedComponents = new HashSet<>();
 
+    public AcknowledgePluginCustomizationBinder() {
+    }
+
     /**
      * Acknowledge plugin customizations on this component
      * and returns true if this is the first time this
