@@ -80,6 +80,9 @@
                     <listitem><para>
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1757">#1757</link>: txw runtime and compiler should have different module names
                     </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1761">#1761</link>: Move JavaCompiler, Reference and J2SJAXBModel from XJC API to JXC API
+                    </para></listitem>
                 </itemizedlist>
             </para></listitem>
         </itemizedlist>

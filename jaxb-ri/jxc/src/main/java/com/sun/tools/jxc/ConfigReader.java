@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,7 +10,6 @@
 
 package com.sun.tools.jxc;
 
-import com.sun.tools.jxc.ap.Options;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
@@ -22,22 +21,25 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import jakarta.xml.bind.SchemaOutputResolver;
+import javax.annotation.processing.ProcessingEnvironment;
+import javax.lang.model.element.TypeElement;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.Result;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.validation.ValidatorHandler;
 
-import javax.annotation.processing.ProcessingEnvironment;
-import javax.lang.model.element.TypeElement;
+import jakarta.xml.bind.SchemaOutputResolver;
+
+import org.glassfish.jaxb.core.v2.util.XmlFactory;
+
+import com.sun.tools.jxc.ap.Options;
+import com.sun.tools.jxc.api.Reference;
 import com.sun.tools.jxc.gen.config.Config;
 import com.sun.tools.jxc.gen.config.Schema;
 import com.sun.tools.xjc.SchemaCache;
-import com.sun.tools.xjc.api.Reference;
 import com.sun.tools.xjc.util.ForkContentHandler;
 
-import org.glassfish.jaxb.core.v2.util.XmlFactory;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,8 +13,8 @@ package com.sun.tools.jxc.ap;
 import com.sun.tools.jxc.ConfigReader;
 import com.sun.tools.jxc.api.JXC;
 import com.sun.tools.xjc.ErrorReceiver;
-import com.sun.tools.xjc.api.J2SJAXBModel;
-import com.sun.tools.xjc.api.Reference;
+import com.sun.tools.jxc.api.J2SJAXBModel;
+import com.sun.tools.jxc.api.Reference;
 import org.xml.sax.SAXException;
 
 import javax.annotation.processing.AbstractProcessor;
@@ -100,7 +100,7 @@ public final class AnnotationParser extends AbstractProcessor {
 
                     Collection<Reference> classesToBeIncluded = configReader.getClassesToBeIncluded();
                     J2SJAXBModel model = JXC.createJavaCompiler().bind(
-                            classesToBeIncluded, Collections.emptyMap(), null, processingEnv);
+                            classesToBeIncluded, Collections.emptyMap(), processingEnv, null);
 
                     SchemaOutputResolver schemaOutputResolver = configReader.getSchemaOutputResolver();
 

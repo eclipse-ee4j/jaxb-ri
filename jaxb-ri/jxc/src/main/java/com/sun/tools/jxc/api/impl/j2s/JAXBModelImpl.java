@@ -29,8 +29,8 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
 import com.sun.tools.xjc.api.ErrorListener;
-import com.sun.tools.xjc.api.J2SJAXBModel;
-import com.sun.tools.xjc.api.Reference;
+import com.sun.tools.jxc.api.J2SJAXBModel;
+import com.sun.tools.jxc.api.Reference;
 import org.glassfish.jaxb.core.v2.model.annotation.AnnotationReader;
 import org.glassfish.jaxb.core.v2.model.core.ArrayInfo;
 import org.glassfish.jaxb.core.v2.model.core.ClassInfo;
@@ -150,6 +150,12 @@ final class JAXBModelImpl implements J2SJAXBModel {
                 reader, types.getNavigator(), r.type, xjta, xl);
 
         return types.getTypeInfo(ref);
+    }
+
+    @Override
+    @SuppressWarnings({"removal"})
+    public QName getXmlTypeName(com.sun.tools.xjc.api.Reference javaType) {
+        return getXmlTypeName(new Reference(javaType.type, javaType.annotations));
     }
 
     @Override

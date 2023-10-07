@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,6 +14,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import jakarta.xml.bind.annotation.XmlList;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -27,10 +28,10 @@ import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
 import javax.tools.Diagnostic;
 import com.sun.tools.jxc.ap.InlineAnnotationReaderImpl;
+import com.sun.tools.jxc.api.J2SJAXBModel;
+import com.sun.tools.jxc.api.JavaCompiler;
+import com.sun.tools.jxc.api.Reference;
 import com.sun.tools.jxc.model.nav.ApNavigator;
-import com.sun.tools.xjc.api.J2SJAXBModel;
-import com.sun.tools.xjc.api.JavaCompiler;
-import com.sun.tools.xjc.api.Reference;
 import org.glassfish.jaxb.core.v2.model.core.ErrorHandler;
 import org.glassfish.jaxb.core.v2.model.core.Ref;
 import org.glassfish.jaxb.core.v2.model.core.TypeInfoSet;
@@ -44,9 +45,9 @@ public class JavaCompilerImpl implements JavaCompiler {
     @Override
     public J2SJAXBModel bind(
         Collection<Reference> rootClasses,
-        Map<QName,Reference> additionalElementDecls,
-        String defaultNamespaceRemap,
-        ProcessingEnvironment env) {
+        Map<QName, Reference> additionalElementDecls,
+        ProcessingEnvironment env,
+        String defaultNamespaceRemap) {
 
         ModelBuilder<TypeMirror, TypeElement, VariableElement, ExecutableElement> builder =
                 new ModelBuilder<>(
@@ -73,12 +74,31 @@ public class JavaCompilerImpl implements JavaCompiler {
             additionalElementDecls = Collections.emptyMap();
         else {
             // fool proof check
-            for (Map.Entry<QName, ? extends Reference> e : additionalElementDecls.entrySet()) {
+            for (Map.Entry<QName, Reference> e : additionalElementDecls.entrySet()) {
                 if(e.getKey()==null)
                     throw new IllegalArgumentException("nulls in additionalElementDecls");
             }
         }
         return new JAXBModelImpl(r, builder.reader, rootClasses, new HashMap<>(additionalElementDecls));
+    }
+
+    @Override
+    @SuppressWarnings({"removal"})
+    public J2SJAXBModel bind(
+            Collection<com.sun.tools.xjc.api.Reference> rootTypes,
+            Map<QName, com.sun.tools.xjc.api.Reference> additionalElementDecls,
+            String defaultNamespaceRemap,
+            ProcessingEnvironment env) {
+        Collection<Reference> types = rootTypes.stream().map(ref -> new Reference(ref.type, ref.annotations)).collect(Collectors.toList());
+        Map<QName, Reference> elements = additionalElementDecls.entrySet()
+                .stream()
+                .collect(
+                        Collectors.toMap(
+                                Map.Entry::getKey,
+                                e -> new Reference(e.getValue().type, e.getValue().annotations)
+                        )
+                );
+        return bind(types, elements, env, defaultNamespaceRemap);
     }
 
     private static final class ErrorHandlerImpl implements ErrorHandler {
