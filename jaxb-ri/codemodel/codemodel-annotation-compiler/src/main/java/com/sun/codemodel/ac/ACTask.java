@@ -56,6 +56,7 @@ import java.util.regex.PatternSyntaxException;
  *
  * @author Kohsuke Kawaguchi
  */
+@SuppressWarnings({"exports"})
 public class ACTask extends Task {
 
     /**

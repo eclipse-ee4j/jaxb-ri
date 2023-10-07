@@ -39,6 +39,7 @@ import java.util.regex.Pattern;
  *
  * @author ryan_shoemaker@dev.java.net
  */
+@SuppressWarnings({"exports"})
 public class TxwTask extends org.apache.tools.ant.Task {
 
     // txw options - reuse command line options from the main driver

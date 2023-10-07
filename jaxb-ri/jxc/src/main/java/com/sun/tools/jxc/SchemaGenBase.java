@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2017, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -29,6 +29,7 @@ import org.apache.tools.ant.types.Path;
 /**
  * @author Yan GAO (gaoyan.gao@oracle.com)
  */
+@SuppressWarnings({"exports"})
 public class SchemaGenBase extends ApBasedTask {
     private final List<SchemaGenBase.Schema>/*<Schema>*/ schemas = new ArrayList<>();
 
