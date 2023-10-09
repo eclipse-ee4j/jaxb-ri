@@ -764,15 +764,6 @@ public final class XmlSchemaGenerator<T,C,F,M> {
          *      The name of the attribute used when referencing a type by QName.
          */
         private void writeTypeRef(TypeHost th, NonElement<T,C> type, String refAttName) {
-            Element e = null;
-            if (type instanceof MaybeElement) {
-                MaybeElement me = (MaybeElement)type;
-                boolean isElement = me.isElement();
-                if (isElement) e = me.asElement();
-            }
-            if (type instanceof Element) {
-                e = (Element)type;
-            }
             if (type.getTypeName()==null) {
                 th.block(); // so that the caller may write other attributes
                 if(type instanceof ClassInfo) {
