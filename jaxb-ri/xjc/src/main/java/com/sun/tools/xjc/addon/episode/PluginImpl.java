@@ -156,6 +156,7 @@ public class PluginImpl extends Plugin {
 
                 group.scd("x-schema::"+(tns.equals("")?"":"tns"));
                 group._attribute("if-exists", true);
+                group._attribute("auto-acknowledge", true);
                 SchemaBindings schemaBindings = group.schemaBindings();
 				schemaBindings.map(false);
                 if (ps.packageNames.size() == 1) {
@@ -314,6 +315,7 @@ public class PluginImpl extends Plugin {
         private void buildBindings(Bindings bindings) {
             bindings.scd(schemaComponent.apply(SCD));
             bindings._attribute("if-exists", true);
+            bindings._attribute("auto-acknowledge", true);
             outlineType.bindingsBuilder.build(this, bindings);
         }
     }
