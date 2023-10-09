@@ -441,8 +441,7 @@ public final class BIProperty extends AbstractDeclarationImpl {
      * Common finalization of {@link CPropertyInfo} for the create***Property methods.
      */
     private <T extends CPropertyInfo> T wrapUp(T prop, XSComponent source) {
-        prop.javadoc = concat(javadoc,
-            getBuilder().getBindInfo(source).getDocumentation());
+        prop.javadoc = concat(javadoc, getBuilder().getDocumentation(source));
         if (prop.javadoc == null) {
             prop.javadoc = "";
         } else {

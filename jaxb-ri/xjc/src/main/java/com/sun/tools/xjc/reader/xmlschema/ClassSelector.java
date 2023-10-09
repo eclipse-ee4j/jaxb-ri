@@ -366,9 +366,10 @@ public final class ClassSelector extends BindingComponent {
     private void addSchemaFragmentJavadoc( CClassInfo bean, XSComponent sc ) {
 
         // first, pick it up from <documentation> if any.
-        String doc = builder.getBindInfo(sc).getDocumentation();
-        if(doc!=null)
+        String doc = builder.getDocumentation(sc);
+        if (doc != null) {
             append(bean, doc);
+        }
 
         // then the description of where this component came from
         Locator loc = sc.getLocator();
