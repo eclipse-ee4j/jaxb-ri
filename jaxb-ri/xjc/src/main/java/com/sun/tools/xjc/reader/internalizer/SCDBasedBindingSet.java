@@ -145,35 +145,43 @@ public final class SCDBasedBindingSet {
                     errorReceiver.error( itr.next().getLocator(), Messages.format(Messages.ERR_SCD_MATCHED_MULTIPLE_NODES_SECOND) );
                 }
 
-                // apply bindings to the target
-                for (Element binding : bindings) {
-                    for (Element item : DOMUtils.getChildElements(binding)) {
-                        String localName = item.getLocalName();
+                Ring old = Ring.begin();
+                try {
+                    // apply bindings to the target
+                    for (Element binding : bindings) {
+                        for (Element item : DOMUtils.getChildElements(binding)) {
+                            String localName = item.getLocalName();
 
-                        if ("bindings".equals(localName))
-                            continue;   // this should be already in Target.bindings of some SpecVersion.
+                            if ("bindings".equals(localName))
+                                continue;   // this should be already in Target.bindings of some SpecVersion.
 
-                        try {
-                            new DOMForestScanner(forest).scan(item,loader);
-                            BIDeclaration decl = (BIDeclaration)unmarshaller.getResult();
+                            try {
+                                new DOMForestScanner(forest).scan(item,loader);
+                                BIDeclaration decl = (BIDeclaration)unmarshaller.getResult();
 
-                            // add this binding to the target
-                            XSAnnotation ann = target.getAnnotation(true);
-                            BindInfo bi = (BindInfo)ann.getAnnotation();
-                            if(bi==null) {
-                                bi = new BindInfo();
-                                ann.setAnnotation(bi);
+                                // add this binding to the target
+                                XSAnnotation ann = target.getAnnotation(true);
+                                BindInfo bi = (BindInfo)ann.getAnnotation();
+                                if(bi==null) {
+                                    bi = new BindInfo();
+                                    ann.setAnnotation(bi);
+                                }
+                                bi.addDecl(decl);
+                                if (src.getAttributeNode("auto-acknowledge") != null) {
+                                    target.visit(Ring.get(AcknowledgePluginCustomizationBinder.class));
+                                }
+                            } catch (SAXException e) {
+                                // the error should have already been reported.
+                            } catch (JAXBException e) {
+                                // if validation didn't fail, then unmarshalling can't go wrong
+                                throw new AssertionError(e);
                             }
-                            bi.addDecl(decl);
-                            target.visit(Ring.get(AcknowledgePluginCustomizationBinder.class));
-                        } catch (SAXException e) {
-                            // the error should have already been reported.
-                        } catch (JAXBException e) {
-                            // if validation didn't fail, then unmarshalling can't go wrong
-                            throw new AssertionError(e);
                         }
                     }
+                } finally {
+                    Ring.end(old);
                 }
+
             }
         }
     }
