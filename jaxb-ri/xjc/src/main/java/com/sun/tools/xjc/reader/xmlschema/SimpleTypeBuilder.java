@@ -392,8 +392,9 @@ public final class SimpleTypeBuilder extends BindingComponent {
         }
 
         String documentation = "";
-        if (info.getDocumentation() != null && info.getDocumentation().length() > 0) {
-            documentation = info.getDocumentation().trim();
+        String extDocumentation = builder.getDocumentation(type);
+        if (extDocumentation != null) {
+            documentation = extDocumentation;
         }
 
         // see if this type should be mapped to a type-safe enumeration by default.
@@ -648,7 +649,7 @@ public final class SimpleTypeBuilder extends BindingComponent {
 
         for( XSFacet facet : type.getDeclaredFacets(XSFacet.FACET_ENUMERATION)) {
             String name=null;
-            String mdoc=builder.getBindInfo(facet).getDocumentation().trim();
+            String mdoc= builder.getDocumentation(facet);
 
             if(!enums.add(facet.getValue().value))
                 continue;   // ignore the 2nd occasion

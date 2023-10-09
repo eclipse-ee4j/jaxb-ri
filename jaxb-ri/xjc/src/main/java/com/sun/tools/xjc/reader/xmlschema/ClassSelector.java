@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -366,9 +366,10 @@ public final class ClassSelector extends BindingComponent {
     private void addSchemaFragmentJavadoc( CClassInfo bean, XSComponent sc ) {
 
         // first, pick it up from <documentation> if any.
-        String doc = builder.getBindInfo(sc).getDocumentation();
-        if(doc!=null)
+        String doc = builder.getDocumentation(sc);
+        if (doc != null) {
             append(bean, doc);
+        }
 
         // then the description of where this component came from
         Locator loc = sc.getLocator();

@@ -44,6 +44,7 @@ import com.sun.tools.xjc.util.ErrorReceiverFilter;
 import org.glassfish.jaxb.core.api.impl.NameConverter;
 import org.glassfish.jaxb.core.v2.util.XmlFactory;
 import com.sun.xml.xsom.XSAnnotation;
+import com.sun.xml.xsom.XSAttributeDecl;
 import com.sun.xml.xsom.XSAttributeUse;
 import com.sun.xml.xsom.XSComponent;
 import com.sun.xml.xsom.XSDeclaration;
@@ -355,7 +356,7 @@ public class BGMBuilder extends BindingComponent {
      */
     public BindInfo getOrCreateBindInfo( XSComponent schemaComponent ) {
 
-        BindInfo bi = _getBindInfoReadOnly(schemaComponent);
+        BindInfo bi = _getBindInfoReadOnly(schemaComponent, false);
         if(bi!=null)    return bi;
 
         // XSOM is read-only, so we cannot add new annotations.
@@ -382,9 +383,23 @@ public class BGMBuilder extends BindingComponent {
      *      will be returned.
      */
     public BindInfo getBindInfo( XSComponent schemaComponent ) {
-        BindInfo bi = _getBindInfoReadOnly(schemaComponent);
+        BindInfo bi = _getBindInfoReadOnly(schemaComponent, false);
         if(bi!=null)    return bi;
         else            return emptyBindInfo;
+    }
+    /**
+     * Gets the documentation object associated to a schema component.
+     *
+     * @return
+     *      return the documentation tag for the given component, null if none found
+     */
+    public String getDocumentation( XSComponent schemaComponent ) {
+        BindInfo bi = _getBindInfoReadOnly(schemaComponent, true);
+        if (bi != null) {
+            String doc = bi.getDocumentation();
+            return doc == null ? null : doc.trim();
+        }
+        return null;
     }
 
     /**
@@ -393,33 +408,44 @@ public class BGMBuilder extends BindingComponent {
      * @return
      *      null if no bind info is associated to this schema component.
      */
-    private BindInfo _getBindInfoReadOnly( XSComponent schemaComponent ) {
+    private BindInfo _getBindInfoReadOnly( XSComponent schemaComponent, boolean extended ) {
 
         BindInfo bi = externalBindInfos.get(schemaComponent);
         if(bi!=null)    return bi;
 
-        XSAnnotation annon = _getXSAnnotation(schemaComponent);
-        if(annon!=null) {
-            bi = (BindInfo)annon.getAnnotation();
-            if(bi!=null) {
-                if(bi.getOwner()==null)
-                    bi.setOwner(this,schemaComponent);
-                return bi;
-            }
+        XSAnnotation annon = _getXSAnnotation(schemaComponent, extended);
+        if (annon != null) {
+            return (BindInfo) annon.getAnnotation();
         }
 
         return null;
     }
 
-    private XSAnnotation _getXSAnnotation(XSComponent schemaComponent) {
+    private XSAnnotation _getXSAnnotation(XSComponent schemaComponent, boolean extended) {
         XSAnnotation annon = schemaComponent.getAnnotation();
         if (annon != null) {
-            return annon;
+            return enhanceBindInfo(annon, schemaComponent);
         }
-        if (schemaComponent instanceof XSParticle) {
-            annon = ((XSParticle) schemaComponent).getTerm().getAnnotation();
-        } else if (schemaComponent instanceof XSAttributeUse) {
-            annon = ((XSAttributeUse) schemaComponent).getDecl().getAnnotation();
+        if (extended) {
+            if (schemaComponent instanceof XSParticle) {
+                XSTerm term = ((XSParticle) schemaComponent).getTerm();
+                return enhanceBindInfo(term.getAnnotation(), term);
+            } else if (schemaComponent instanceof XSAttributeUse) {
+                XSAttributeDecl decl = ((XSAttributeUse) schemaComponent).getDecl();
+                return enhanceBindInfo(decl.getAnnotation(), decl);
+            }
+        }
+        return null;
+    }
+
+    private XSAnnotation enhanceBindInfo(XSAnnotation annon, XSComponent schemaComponent) {
+        if (annon != null) {
+            BindInfo bi = (BindInfo) annon.getAnnotation();
+            if (bi != null) {
+                if (bi.getOwner() == null) {
+                    bi.setOwner(this, schemaComponent);
+                }
+            }
         }
         return annon;
     }
