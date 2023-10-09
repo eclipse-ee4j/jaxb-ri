@@ -60,6 +60,9 @@
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1731">#1731</link>: Incompatibility with namespace when marshalling WebFault with FaultInfo on call of WebService
                     </para></listitem>
                     <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1732">#1732</link>: systemId resolution regression introduced in 2.3.4+
+                    </para></listitem>
+                    <listitem><para>
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1736">#1736</link>: xjc: postProcessModel is not called for DTDs
                     </para></listitem>
                     <listitem><para>
