@@ -145,6 +145,8 @@ module com.sun.xml.bind.osgi {
     uses com.sun.tools.xjc.Plugin;
     uses com.sun.tools.rngdatatype.DatatypeLibraryFactory;
 
+    provides jakarta.xml.bind.JAXBContextFactory with org.glassfish.jaxb.runtime.v2.JAXBContextFactory;
+
     provides com.sun.tools.xjc.Plugin with
         com.sun.tools.xjc.addon.accessors.PluginImpl,
         com.sun.tools.xjc.addon.at_generated.PluginImpl,
