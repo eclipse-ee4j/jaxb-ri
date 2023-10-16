@@ -183,6 +183,16 @@
                             *
                         </Import-Package>
                         <DynamicImport-Package>*</DynamicImport-Package>
+                        <Require-Capability><![CDATA[
+                            osgi.extender;filter:="(&(osgi.extender=osgi.serviceloader.registrar)
+                              (version>=1.0.0)(!(version>=2.0.0)))";resolution:=optional
+                            ]]>
+                        </Require-Capability>
+                        <Provide-Capability><![CDATA[
+                            osgi.serviceloader;
+                              osgi.serviceloader="jakarta.xml.bind.JAXBContextFactory"
+                            ]]>
+                        </Provide-Capability>
                     </instructions>
                 </configuration>
                 <executions>
