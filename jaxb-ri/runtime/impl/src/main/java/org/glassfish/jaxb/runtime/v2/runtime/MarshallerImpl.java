@@ -577,7 +577,7 @@ public /*to make unit tests happy*/ final class MarshallerImpl extends AbstractM
     protected static final String INDENT_STRING = "org.glassfish.jaxb.indentString";
     protected static final String PREFIX_MAPPER = "org.glassfish.jaxb.namespacePrefixMapper";
     protected static final String ENCODING_HANDLER = "org.glassfish.jaxb.characterEscapeHandler";
-    protected static final String ENCODING_HANDLER2 = "org.glassfish.jaxb.marshaller.CharacterEscapeHandler";
+    protected static final String ENCODING_HANDLER2 = "org.glassfish.jaxb.core.marshaller.CharacterEscapeHandler";
     protected static final String XMLDECLARATION = "org.glassfish.jaxb.xmlDeclaration";
     protected static final String XML_HEADERS = "org.glassfish.jaxb.xmlHeaders";
     protected static final String C14N = JAXBRIContext.CANONICALIZATION_SUPPORT;
