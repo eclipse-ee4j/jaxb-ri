@@ -62,8 +62,8 @@ import org.xml.sax.helpers.LocatorImpl;
  * @author
  *    <a href="mailto:kohsuke.kawaguchi@sun.com">Kohsuke KAWAGUCHI</a>
  */
-public class TDTDReader extends DTDHandlerBase
-{
+public class TDTDReader extends DTDHandlerBase {
+
     /**
      * Parses DTD grammar and a binding information into BGM.
      * 
@@ -361,8 +361,8 @@ public class TDTDReader extends DTDHandlerBase
     }
 
     @Override
-    public void endModelGroup(short occurence) throws SAXException {
-        Term t = Occurence.wrap( modelGroups.pop().wrapUp(), occurence );
+    public void endModelGroup(short occurrence) throws SAXException {
+        Term t = Occurrence.wrap( modelGroups.pop().wrapUp(), occurrence );
         modelGroups.peek().addTerm(t);
     }
 
@@ -375,9 +375,9 @@ public class TDTDReader extends DTDHandlerBase
     // and treat it as (A,B,C,....)
 
     @Override
-    public void childElement(String elementName, short occurence) throws SAXException {
+    public void childElement(String elementName, short occurrence) throws SAXException {
         Element child = getOrCreateElement(elementName);
-        modelGroups.peek().addTerm( Occurence.wrap( child, occurence ) );
+        modelGroups.peek().addTerm( Occurrence.wrap( child, occurrence ) );
         child.isReferenced = true;
     }
 
@@ -389,7 +389,7 @@ public class TDTDReader extends DTDHandlerBase
      * Mutable {@link Locator} instance that points to
      * the current source line.
      * <p>
-     * Use {@link #copyLocator()} to get a immutable clone.
+     * Use {@link #copyLocator()} to get an immutable clone.
      */
     private Locator locator;
 

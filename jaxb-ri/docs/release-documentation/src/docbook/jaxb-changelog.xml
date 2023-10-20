@@ -24,11 +24,17 @@
     <title>Changelog</title>
 
     <para>The &binding.impl.name; 4.x meets the requirements of the Jakarta XML Binding 4.x specifications.</para>
-    <section xml:id="a-4-0-4">
+    <section xml:id="a-4-0-5">
         <title>Changes between 4.0.4 and 4.0.5</title>
         <itemizedlist>
             <listitem><para>Bug fixes:
                 <itemizedlist>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-dtd-parser/issues/39">dtd-parser #39</link>: Parser parses #IMPLIED use attributes as NORMAL (and vice versa)
+                    </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-dtd-parser/issues/40">dtd-parser #40</link>: Occurrence constants are misspelled
+                    </para></listitem>
                 </itemizedlist>
             </para></listitem>
         </itemizedlist>

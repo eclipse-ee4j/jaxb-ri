@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,14 +15,14 @@ import java.math.BigInteger;
 
 
 /**
- * represents a possible number of occurence.
+ * represents a possible number of occurrence.
  *
  * Usually, denoted by a pair of integers like (1,1) or (5,10).
  * A special value "unbounded" is allowed as the upper bound.
  *
  * <p>
- * For example, (0,unbounded) corresponds to the '*' occurence of DTD.
- * (0,1) corresponds to the '?' occurence of DTD.
+ * For example, (0,unbounded) corresponds to the '*' occurrence of DTD.
+ * (0,1) corresponds to the '?' occurrence of DTD.
  *
  * @author
  *    <a href="mailto:kohsuke.kawaguchi@sun.com">Kohsuke KAWAGUCHI</a>
