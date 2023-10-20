@@ -25,6 +25,16 @@
 
     <para>The &binding.impl.name; 4.x meets the requirements of the Jakarta XML Binding 4.x specifications.</para>
     <section xml:id="a-4-0-4">
+        <title>Changes between 4.0.4 and 4.0.5</title>
+        <itemizedlist>
+            <listitem><para>Bug fixes:
+                <itemizedlist>
+                </itemizedlist>
+            </para></listitem>
+        </itemizedlist>
+    </section>
+
+    <section xml:id="a-4-0-4">
         <title>Changes between 4.0.3 and 4.0.4</title>
         <itemizedlist>
             <listitem><para>Bug fixes:
@@ -43,6 +53,9 @@
                     </para></listitem>
                     <listitem><para>
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1320">#1320</link>: xjc: BGMBuilder creates error for unused customizations before they can be acknowledged
+                    </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1507">#1507</link>: ClassNotFoundException: com.sun.xml.bind.v2.ContextFactory: missing Capability
                     </para></listitem>
                     <listitem><para>
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1583">#1583</link>: XJC throws NPE when optionalProperty="primitive"
