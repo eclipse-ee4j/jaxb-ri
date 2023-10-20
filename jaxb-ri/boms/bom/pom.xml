@@ -35,7 +35,7 @@
         <xml.bind-api.version>4.0.1</xml.bind-api.version>
         <!-- 4.2.0+ comes with no SecurityManager support -->
         <istack.version>4.1.2</istack.version>
-        <fastinfoset.version>2.1.0</fastinfoset.version>
+        <fastinfoset.version>2.1.1</fastinfoset.version>
         <stax-ex.version>2.1.0</stax-ex.version>
         <activation-api.version>2.1.2</activation-api.version>
         <angus-activation.version>2.0.1</angus-activation.version>
