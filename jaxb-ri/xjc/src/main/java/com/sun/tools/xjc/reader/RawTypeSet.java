@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -42,7 +42,7 @@ public final class RawTypeSet {
     public final Mode canBeTypeRefs;
 
     /**
-     * The occurence of the whole references.
+     * The occurrence of the whole references.
      */
     public final Multiplicity mul;
 
