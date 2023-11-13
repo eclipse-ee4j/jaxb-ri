@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,6 +15,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import com.sun.xml.xsom.XSAttributeDecl;
+import com.sun.xml.xsom.XSComponent;
+import com.sun.xml.xsom.XSElementDecl;
+import com.sun.xml.xsom.XSModelGroup;
+import com.sun.xml.xsom.XSModelGroupDecl;
+import com.sun.xml.xsom.XSType;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlEnumValue;
@@ -54,7 +60,6 @@ import com.sun.xml.xsom.XSSimpleType;
  */
 @XmlRootElement(name="globalBindings")
 public final class BIGlobalBinding extends AbstractDeclarationImpl {
-    
 
     /**
      * Gets the name converter that will govern the {@code XML -> Java}
@@ -358,6 +363,36 @@ public final class BIGlobalBinding extends AbstractDeclarationImpl {
         this.serializable = s;
     }
 
+    @XmlElement
+    private NameRules nameXmlTransform = new NameRules();
+
+    /**
+     * Transforms the default name produced from XML name
+     * by following the customization.
+     *
+     * This shouldn't be applied to a class name specified
+     * by a customization.
+     *
+     * @param cmp
+     *      The schema component from which the default name is derived.
+     */
+    public String mangleClassName( String name, XSComponent cmp ) {
+        if( cmp instanceof XSType)
+            return nameXmlTransform.typeName.mangle(name);
+        if( cmp instanceof XSElementDecl)
+            return nameXmlTransform.elementName.mangle(name);
+        if( cmp instanceof XSAttributeDecl)
+            return nameXmlTransform.attributeName.mangle(name);
+        if( cmp instanceof XSModelGroup || cmp instanceof XSModelGroupDecl)
+            return nameXmlTransform.modelGroupName.mangle(name);
+
+        // otherwise no modification
+        return name;
+    }
+
+    public String mangleAnonymousTypeClassName( String name ) {
+        return nameXmlTransform.anonymousTypeName.mangle(name);
+    }
 
 
     private static final class TypeSubstitutionElement {

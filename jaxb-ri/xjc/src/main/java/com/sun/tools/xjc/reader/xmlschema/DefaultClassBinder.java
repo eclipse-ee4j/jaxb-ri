@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -159,12 +159,20 @@ final class DefaultClassBinder implements ClassBinder
                 className = "Type";
             } else {
                 // since the parent element isn't bound to a type, merge the customizations associated to it, too.
-//                custs = CCustomizations.merge( custs, builder.getBindInfo(type.getScope()).toCustomizationList());
+                // custs = CCustomizations.merge( custs, builder.getBindInfo(type.getScope()).toCustomizationList());
                 className = builder.getNameConverter().toClassName(element.getName());
 
                 BISchemaBinding sb = builder.getBindInfo(
                     type.getOwnerSchema() ).get(BISchemaBinding.class);
-                if(sb!=null)    className = sb.mangleAnonymousTypeClassName(className);
+
+                String newClassName = className;
+                if (sb != null) {
+                    newClassName = sb.mangleAnonymousTypeClassName(className);
+                }
+                if (newClassName.equals(className) && getGlobalBinding() != null) {
+                    newClassName = getGlobalBinding().mangleAnonymousTypeClassName(className);
+                }
+                className = newClassName;
                 scope = selector.getClassScope();
             }
 

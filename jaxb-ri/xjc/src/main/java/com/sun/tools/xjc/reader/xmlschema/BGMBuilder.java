@@ -573,10 +573,17 @@ public class BGMBuilder extends BindingComponent {
 
         name = getNameConverter().toClassName(name);
 
-        if( owner!=null ) {
+        if (owner != null) {
             BISchemaBinding sb = getBindInfo(owner).get(BISchemaBinding.class);
 
-            if(sb!=null)    name = sb.mangleClassName(name,comp);
+            String newName = name;
+            if (sb != null) {
+                newName = sb.mangleClassName(name, comp);
+            }
+            if (newName.equals(name) && globalBinding != null) {
+                newName = globalBinding.mangleClassName(name, comp);
+            }
+            name = newName;
         }
 
         return name;
