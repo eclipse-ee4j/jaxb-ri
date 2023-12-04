@@ -30,6 +30,12 @@
             <listitem><para>Bug fixes:
                 <itemizedlist>
                     <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/209">#209</link>: Schema-driven XmlAdapter using xjc:javaType
+                    </para></listitem>
+                    <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/737">#737</link>: xjc:javaType does not handle generic types
+                    </para></listitem>
+                    <listitem><para>
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1783">#1783</link>: Dependency Exclusion for stax-ex in jaxb-bom is incompatible with dependency:analyze-dep-mgt
                     </para></listitem>
                     <listitem><para>

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2024 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -322,13 +322,13 @@ public abstract class BIConversion extends AbstractDeclarationImpl {
                 return typeUse;
 
             JCodeModel cm = getCodeModel();
+            JClass classType = computeClassType(type);
 
             JDefinedClass a;
             try {
                 a = cm._class(adapter);
                 a.hide();   // we assume this is given by the user
-                a._extends(cm.ref(XmlAdapter.class).narrow(String.class).narrow(
-                        cm.ref(type)));
+                a._extends(cm.ref(XmlAdapter.class).narrow(String.class).narrow(classType));
             } catch (JClassAlreadyExistsException e) {
                 a = e.getExistingClass();
             }
@@ -340,6 +340,26 @@ public abstract class BIConversion extends AbstractDeclarationImpl {
                     new CAdapter(a));
 
             return typeUse;
+        }
+
+        private JClass computeClassType(String type) {
+            if (type.indexOf('<') < 0) {
+                return getCodeModel().ref(type);
+            }
+
+            // We do assume that if type contains <, the wanted class with generics is well formed
+            JCodeModel cm = getCodeModel();
+            // Get the main class (part before the <)
+            String mainType = type.substring(0, type.indexOf('<'));
+            JClass classType = cm.ref(mainType);
+
+            // Get the narrowed class (part between < and >)
+            String subTypes = type.substring(type.indexOf('<') + 1, type.indexOf('>'));
+            for (String subType : subTypes.split(",")) {
+                JClass subClassType = computeClassType(subType.trim());
+                classType = classType.narrow(subClassType);
+            }
+            return classType;
         }
     }
 }
