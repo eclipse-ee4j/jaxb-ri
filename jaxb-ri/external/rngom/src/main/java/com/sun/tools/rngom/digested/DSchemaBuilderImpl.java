@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2011
+ * Copyright (C) 2004-2024
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -192,7 +192,7 @@ public class DSchemaBuilderImpl implements SchemaBuilder
     }
 
     public CommentListImpl makeCommentList() {
-        return null;
+        return new CommentListImpl();
     }
 
     public DPattern makeErrorPattern() {
