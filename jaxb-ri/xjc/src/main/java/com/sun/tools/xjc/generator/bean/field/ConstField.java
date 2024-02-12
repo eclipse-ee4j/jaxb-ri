@@ -54,8 +54,11 @@ final class ConstField extends AbstractField {
 
         $ref = outline.ref.field(JMod.PUBLIC|JMod.STATIC|JMod.FINAL,
             ptype!=null?ptype:implType, prop.getName(true), defaultValue );
-        $ref.javadoc().append(prop.javadoc);
         
+        // Do not append empty javadoc.
+        if ( (prop.javadoc != null) && (prop.javadoc.length() > 0) )
+            $ref.javadoc().append(prop.javadoc);
+
         annotate($ref);
     }
     
