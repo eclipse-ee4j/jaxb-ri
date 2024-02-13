@@ -21,10 +21,7 @@ import com.sun.tools.xjc.api.ErrorListener;
 import com.sun.tools.xjc.api.S2JJAXBModel;
 import com.sun.tools.xjc.api.SchemaCompiler;
 import com.sun.tools.xjc.api.XJC;
-
-import static com.sun.tools.xjc.util.Util.getSystemProperty;
-import static java.nio.charset.StandardCharsets.UTF_8;
-import static org.junit.Assert.assertNotEquals;
+import com.sun.tools.xjc.util.Util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -36,9 +33,11 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 
 import junit.framework.TestCase;
+import org.junit.Assert;
 import org.xml.sax.InputSource;
 
 /**
@@ -169,7 +168,7 @@ public class CodeGenTest extends TestCase {
         assertNotNull(suidFieldName + " value", dc.fields().get(suidFieldName));
 
         // Generate the Document classes to a directory, for review.
-        if ( getSystemProperty(XML_API_TEST) != null ) {
+        if ( Util.getSystemProperty(XML_API_TEST) != null ) {
             File codeModelDestPath = new File(codeModelDestPathName);
             if ( !codeModelDestPath.exists() )
                 codeModelDestPath.mkdirs();
@@ -179,7 +178,7 @@ public class CodeGenTest extends TestCase {
         // Generate the Document classes to single String, for assertions.
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         cm.build(new SingleStreamCodeWriter(baos));
-        String cmString = baos.toString(UTF_8);
+        String cmString = baos.toString(StandardCharsets.UTF_8);
 
         // Assert non-empty javadoc blocks.
         assertNonEmptyJavadocBlocks(cmString);
@@ -211,7 +210,7 @@ public class CodeGenTest extends TestCase {
                         int javadocLen = javadocBlock.toString().trim().length();
 
                         // Assert current javadoc block length is not zero!
-                        assertNotEquals("Empty javadoc at " + lineNo, 0, javadocLen);
+                        Assert.assertNotEquals("Empty javadoc at " + lineNo, 0, javadocLen);
                         javadocBlock = null;
                     }
                     else
