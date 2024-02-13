@@ -42,6 +42,9 @@
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1783">#1783</link>: Dependency Exclusion for stax-ex in jaxb-bom is incompatible with dependency:analyze-dep-mgt
                     </para></listitem>
                     <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1785">#1785</link>: XJC ConstField generates empty javadoc comment blocks
+                    </para></listitem>
+                    <listitem><para>
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-dtd-parser/issues/39">dtd-parser #39</link>: Parser parses #IMPLIED use attributes as NORMAL (and vice versa)
                     </para></listitem>
                     <listitem><para>
