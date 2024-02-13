@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2021, 2024 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,19 +16,28 @@ import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JFormatter;
 import com.sun.codemodel.JMethod;
 import com.sun.codemodel.JType;
+import com.sun.codemodel.writer.SingleStreamCodeWriter;
 import com.sun.tools.xjc.api.ErrorListener;
 import com.sun.tools.xjc.api.S2JJAXBModel;
 import com.sun.tools.xjc.api.SchemaCompiler;
 import com.sun.tools.xjc.api.XJC;
+import com.sun.tools.xjc.util.Util;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.LineNumberReader;
+import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 
 import junit.framework.TestCase;
+import org.junit.Assert;
 import org.xml.sax.InputSource;
 
 /**
@@ -37,6 +46,9 @@ import org.xml.sax.InputSource;
  * @author lukas
  */
 public class CodeGenTest extends TestCase {
+
+    // See com.sun.tools.xjc.api.impl.s2j.SchemaCompilerImpl
+    protected static final String XML_API_TEST = "xjc-api.test";
 
     public void testGh1460_Gh1064() throws Throwable {
         SchemaCompiler sc = XJC.createSchemaCompiler();
@@ -118,6 +130,93 @@ public class CodeGenTest extends TestCase {
         while (conIter.hasNext()) {
             JMethod con = conIter.next();
             assertTrue(toString(con).contains("java.lang.Class<java.lang.String>"));
+        }
+    }
+
+    /**
+     * Test issues #1785 for {@link com.sun.tools.xjc.generator.bean.field.ConstField}.
+     *
+     * @throws FileNotFoundException When the test schema file cannot be read.
+     * @throws URISyntaxException When the test {@link InputSource} cannot be parsed.
+     *
+     * @see <a href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1785">Issue #1785</a>
+     */
+    public void testIssue1785() throws FileNotFoundException, URISyntaxException, IOException {
+        String schemaFileName = "/schemas/issue1785/document.xsd";
+        String packageName = "org.example.issue1785";
+        String documentName = packageName + ".Document";
+        String suidFieldName = "serialVersionUID";
+        String codeModelDestPathName = "target/generated-test-sources/issue1785";
+
+        // Parse the XML schema.
+        SchemaCompiler sc = XJC.createSchemaCompiler();
+        sc.forcePackageName(packageName);
+        sc.parseSchema(getInputSource(schemaFileName));
+
+        // Generate the defined model.
+        S2JJAXBModel model = sc.bind();
+        Plugin[] extensions = null;
+        ErrorListener errorListener = new ConsoleErrorReporter();
+        JCodeModel cm = model.generateCode(extensions, errorListener);
+
+        // Assert Document class is modeled.
+        JDefinedClass dc = cm._getClass(documentName);
+        assertNotNull(documentName, dc);
+
+        // Assert serialVersionUID
+        assertTrue(suidFieldName, dc.fields().containsKey(suidFieldName));
+        assertNotNull(suidFieldName + " value", dc.fields().get(suidFieldName));
+
+        // Generate the Document classes to a directory, for review.
+        if ( Util.getSystemProperty(XML_API_TEST) != null ) {
+            File codeModelDestPath = new File(codeModelDestPathName);
+            if ( !codeModelDestPath.exists() )
+                codeModelDestPath.mkdirs();
+            cm.build(codeModelDestPath);
+        }
+
+        // Generate the Document classes to single String, for assertions.
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        cm.build(new SingleStreamCodeWriter(baos));
+        String cmString = baos.toString(StandardCharsets.UTF_8);
+
+        // Assert non-empty javadoc blocks.
+        assertNonEmptyJavadocBlocks(cmString);
+    }
+
+    private void assertNonEmptyJavadocBlocks(String cmString) throws IOException {
+        int lineNo = 0;
+        try ( LineNumberReader lnr = new LineNumberReader(new StringReader(cmString)) ) {
+            StringBuilder javadocBlock = null;
+            String line;
+            while ( (line = lnr.readLine()) != null ) {
+                String trimLine = line.trim();
+                String javadoc = null;
+                if ( trimLine.startsWith("/**") ) {
+                    lineNo = lnr.getLineNumber();
+                    javadocBlock = new StringBuilder();
+                    javadoc = trimLine.substring(3);
+                }
+                if ( javadocBlock != null ) {
+                    if ( javadoc == null ) {
+                        if ( trimLine.startsWith("*") && !trimLine.startsWith("*/") )
+                            javadoc = trimLine.substring(1);
+                        else
+                            javadoc = trimLine;
+                    }
+                    int endIndex = 0;
+                    if ( (endIndex = javadoc.lastIndexOf("*/")) != -1 ) {
+                        javadocBlock.append(javadoc.substring(0, endIndex));
+                        int javadocLen = javadocBlock.toString().trim().length();
+
+                        // Assert current javadoc block length is not zero!
+                        Assert.assertNotEquals("Empty javadoc at " + lineNo, 0, javadocLen);
+                        javadocBlock = null;
+                    }
+                    else
+                        javadocBlock.append(javadoc);
+                }
+            }
         }
     }
 

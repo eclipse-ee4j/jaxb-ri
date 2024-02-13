@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+    Copyright (c) 2024 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!-- See https://github.com/eclipse-ee4j/jaxb-ri/issues/1785 -->
+<xs:schema
+    targetNamespace="http://example.org/document"
+    xmlns:tns="http://example.org/document"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb"
+    jaxb:version="3.0"
+>
+
+    <!-- Global Bindings -->
+
+    <xs:annotation>
+        <xs:appinfo>
+            <jaxb:globalBindings fixedAttributeAsConstantProperty="true">
+                <jaxb:serializable uid="20240201" />
+            </jaxb:globalBindings>
+        </xs:appinfo>
+    </xs:annotation>
+
+    <!-- Schema Bindings -->
+
+    <xs:element name="fv_string"        type="xs:string"        fixed="text"/>
+
+    <xs:element name="document">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="tns:fv_string" />
+            </xs:sequence>
+            <xs:attribute name="fa_boolean"       type="xs:boolean"       fixed="true" >
+                <xs:annotation>
+                    <xs:appinfo>
+                        <jaxb:property>
+                            <jaxb:javadoc>A tautology!</jaxb:javadoc>
+                        </jaxb:property>
+                    </xs:appinfo>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="fa_byte"          type="xs:byte"          fixed="+1" />
+            <xs:attribute name="fa_decimal"       type="xs:decimal"       fixed="+2.1" />
+            <xs:attribute name="fa_double"        type="xs:double"        fixed="+3.1" />
+            <xs:attribute name="fa_float"         type="xs:float"         fixed="+4.1" />
+            <xs:attribute name="fa_int"           type="xs:int"           fixed="+5" />
+            <xs:attribute name="fa_integer"       type="xs:integer"       fixed="+6" />
+            <xs:attribute name="fa_long"          type="xs:long"          fixed="+7" />
+            <xs:attribute name="fa_short"         type="xs:short"         fixed="+8" />
+            <xs:attribute name="fa_string"        type="xs:string"        fixed="text" />
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
