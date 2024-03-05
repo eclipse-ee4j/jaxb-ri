@@ -39,6 +39,9 @@
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1730">#1730</link>: Error while parsing rnc
                     </para></listitem>
                     <listitem><para>
+                        <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/pull/1770">#1770</link>: Wrong property value of the property for CharacterEscapeHandler
+                    </para></listitem>
+                    <listitem><para>
                         <link xlink:href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1783">#1783</link>: Dependency Exclusion for stax-ex in jaxb-bom is incompatible with dependency:analyze-dep-mgt
                     </para></listitem>
                     <listitem><para>
