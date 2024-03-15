@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2024 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -148,7 +148,9 @@ public class PluginImpl extends Plugin {
             else
                 bindings._namespace(Const.JAXB_NSURI,"");
             bindings.version("3.0");
-            bindings._comment("\n\n"+opt.getPrologComment()+"\n  ");
+            if (!opt.noFileHeader) {
+                bindings._comment("\n\n"+opt.getPrologComment()+"\n  ");
+            }
 
             // generate listing per schema
             for (Map.Entry<XSSchema,PerSchemaOutlineAdaptors> e : perSchema.entrySet()) {
