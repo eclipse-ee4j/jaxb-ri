@@ -1,0 +1,227 @@
+/*
+ * Copyright (c) 2010, 2021 Oracle and/or its affiliates. All rights reserved.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Distribution License v. 1.0, which is available at
+ * http://www.eclipse.org/org/documents/edl-v10.php.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
+/* java.net branding */
+
+body {
+    color:  #333;
+}
+
+/*Headings*/
+
+.book h1, .chapter h1, .book h2, .chapter h2, .book h3, .chapter h3, .book h4, .chapter h4, .book h5, .chapter h5, .book h6 , .chapter h6 {
+    font-family: Arial,Helvetica,sans-serif !important;
+}
+
+/* java.net branding */
+
+.book h1 , .chapter h1 {
+    color: #E76F00;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 0.67em 0;
+}
+
+.book h2 , .chapter h2 {
+    background-color: transparent;
+    font-size: 1.4em;
+    color: #E76F00;
+}
+
+.book h3 , .chapter h3 {
+    color: #E76F00;
+    font-size: 1.3em;
+    background-color: transparent;
+}
+
+.book h4 , .chapter h4 {
+    margin-top: 0.3em;
+    margin-bottom: 0.3em;
+    font-size: 1.2em;
+}
+
+.book h5 , .chapter h5 {
+    font-size: 1.1em;
+}
+
+pre .co img {
+    height: auto !important;
+}
+
+.literal {
+    font-size: inherit !important;
+}
+
+.book .application, .chapter .application {
+    font-weight: bold;
+}
+
+/*links*/
+.book a:link, .chapter a:link, .small a:link, .navheader a:link, .navfooter a:link {
+    color: #069 !important;
+    text-decoration: none;
+}
+
+.book a:hover, .chapter a:hover, .small a:hover, .navheader a:hover, .navfooter a:hover {
+    color: #363 !important;
+    text-decoration: none;
+}
+
+.book a:link.selfref, .chapter a:link.selfref, .book a:visited.selfref, .chapter a:visited.selfref, .small a:link.selfref, .small a:visited.selfref, .navheader a:link.selfref, .navheader a:visited.selfref, .navfooter a:link.selfref, .navfooter a:visited.selfref {
+    color: #363 !important;
+    text-decoration: none !important;
+}
+
+.book a:visited, .chapter a:visited, .small a:visited, .navheader a:visited, .navfooter a:visited {
+    color: #003366;
+    text-decoration: none;
+}
+
+/* java.net font styles */
+
+body,.book th, .chapter th,.book td, .chapter td,.book p, .chapter p,.book li, .chapter li, .navheader th{
+    font-family: lucida,arial,sans-serif !important;
+    background-color: #fff;
+}
+
+body, .book input, .chapter input, .book select , .chapter select {
+    font-family: Verdana, Helvetica, Arial, sans-serif;
+}
+
+.book code, .chapter code, .book pre , .chapter pre {
+    font-family: 'Andale Mono', Courier, monospace;
+}
+
+body, .book pre, .chapter pre, .book code , .chapter code {
+    font-size: x-small;
+    voice-family: "\"}\"";
+    voice-family: inherit;
+    font-size: small;
+}
+
+/* code highlight */
+
+.book pre.programlisting , .chapter pre.programlisting {
+    background-color: rgb(255, 255, 224);
+    border-style: dashed;
+    border-width: 1px;
+    padding: 10px 10px 10px 10px;
+}
+
+.book pre.programlisting .red, .chapter pre.programlisting .red {
+    font-weight: bold;
+    color: #f00;
+}
+
+.book .qandaset .question p, .chapter .qandaset .question p {
+    font-weight: bold;
+}
+
+.book .qandaset .answer td, .chapter .qandaset .answer td {
+    padding-bottom: 1em;
+}
+
+.book img , .chapter img {
+    height: 100%;
+}
+
+.book table , .chapter table {
+    border: none;
+    border-collapse: collapse;
+    font-size: inherit !important;
+}
+
+.book .table , .chapter .table {
+
+}
+
+.book .table table , .chapter .table table {
+    border: 1px solid #000;
+}
+
+.book .example-break , .chapter .example-break {
+    display: none;
+}
+
+.book .note , .chapter .note {
+    padding: 1em;
+    border: 1px dashed black;
+    font-weight: normal;
+    text-transform: none;
+}
+
+.book .note p , .chapter .note p {
+    margin: 0;
+
+    font-style: italic;
+    font-size: 0.9em;
+
+    color: #444;
+}
+
+.book .note h3.title , .chapter .note h3.title {
+    margin: 0;
+}
+
+.book dt , .chapter dt {
+    font-weight: normal !important;
+    padding: 0;
+}
+
+.navheader tbody tr:last-child td:last-child, .navfooter tbody tr td:last-child {
+    text-align: right !important;
+}
+
+.navheader tbody tr:last-child th, .navfooter tbody tr th {
+    text-align: center !important;
+}
+
+.navheader tbody tr:last-child td:first-child, .navfooter tbody tr td:first-child {
+    text-align: left !important;
+}
+
+.book dd , .chapter dd {
+    margin-left: 40px;
+}
+
+span.Annotation {color: rgb(128, 128, 0); font-weight: normal;}
+span.Comment {color: rgb(128, 128, 128); font-weight: normal;}
+span.DocComment {color: rgb(150, 150, 150); font-weight: normal;}
+span.String {color: rgb(0, 128, 0); font-weight: normal;}
+span.EscString {color: rgb(206, 123, 0); font-weight: bold;}
+span.Character {color: rgb(206, 123, 0); font-weight: normal;}
+span.EscCharacter {color: rgb(206, 123, 0); font-weight: bold;}
+span.Numeric {color: rgb(0, 0, 255); font-weight: normal;}
+span.Identifier {color: black; font-weight: normal;}
+span.PredefinedIdentifier {color: rgb(0,0,230); font-weight: normal;}
+span.Type {color: black; font-weight: normal;}
+span.ReservedWord {color: rgb(0, 0, 128); font-weight: normal;}
+span.LibraryFunction {color: black; font-weight: normal;}
+span.Include {color: rgb(0,155,0); font-weight: normal;}
+span.Preprocessor {color: rgb(0,155,0); font-weight: normal;}
+span.Braces {color: black; font-weight: normal;}
+span.Symbol {color: black; font-weight: normal;}
+span.FunctionHeader {color: black; font-weight: normal;}
+span.FunctionHeaderName {color: black; font-weight: normal;}
+span.FunctionHeaderArgs {color: black; font-weight: normal;}
+span.RegEx {color: rgb(0,111,0); font-weight: bold;}
+span.Text {color: rgb(206, 123, 0); font-weight: normal;}
+span.Entity {color: black; font-weight: bold;}
+span.Assignment {color: black; font-weight: normal;}
+span.DependencyLine {color: black; font-weight: normal;}
+span.DependencyTarget {color: black; font-weight: bold;}
+span.DependencyContinuation {color: black; font-weight: bold;}
+span.Continuation {color: black; font-weight: bold;}
+span.Macro {color: rgb(0,153,0); font-weight: normal;}
+span.IntMacro {color: rgb(0,153,0); font-weight: normal;}
+span.EscVar {color: black; font-weight: bold;}
+/* Special coloring for HTML tags */
+span.PredefinedIdentifier > span.Braces {color: rgb(0,0,230); font-weight: normal;}
+span.PredefinedIdentifier > span.Identifier {color: rgb(0,153,0); font-weight: normal;}
