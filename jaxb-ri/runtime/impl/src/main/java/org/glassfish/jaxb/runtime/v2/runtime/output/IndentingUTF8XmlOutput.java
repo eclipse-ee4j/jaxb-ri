@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -21,7 +21,6 @@ import java.io.OutputStream;
 /**
  * {@link UTF8XmlOutput} with indentation.
  *
- * TODO: not sure if it's a good idea to move the indenting functionality to another class.
  *
  * Doesn't have to be final, but it helps the JVM.
  *
@@ -29,13 +28,14 @@ import java.io.OutputStream;
  */
 public final class IndentingUTF8XmlOutput extends UTF8XmlOutput {
 
+    private static final int MAX_DEPTH = 12;
     /**
      * Null if the writer should perform no indentation.
      *
-     * Otherwise this will keep the 8 copies of the string for indentation.
-     * (so that we can write 8 indentation at once.)
+     * Otherwise this will keep the MAX_DEPTH copies of the string for indentation.
+     * (so that we can write MAX_DEPTH indentation at once.)
      */
-    private final Encoded indent8;
+    private final Encoded indentDepth;
 
     /**
      * Length of one indentation.
@@ -57,13 +57,13 @@ public final class IndentingUTF8XmlOutput extends UTF8XmlOutput {
 
         if(indentStr!=null) {
             Encoded e = new Encoded(indentStr);
-            indent8 = new Encoded();
-            indent8.ensureSize(e.len*8);
+            indentDepth = new Encoded();
+            indentDepth.ensureSize(e.len*MAX_DEPTH);
             unitLen = e.len;
-            for( int i=0; i<8; i++ )
-                System.arraycopy(e.buf, 0, indent8.buf, unitLen*i, unitLen);
+            for( int i=0; i<MAX_DEPTH; i++ )
+                System.arraycopy(e.buf, 0, indentDepth.buf, unitLen*i, unitLen);
         } else {
-            this.indent8 = null;
+            this.indentDepth = null;
             this.unitLen = 0;
         }
     }
@@ -109,14 +109,15 @@ public final class IndentingUTF8XmlOutput extends UTF8XmlOutput {
 
     private void printIndent() throws IOException {
         write('\n');
-        int i = depth%8;
+        int i = depth%MAX_DEPTH;
 
-        write( indent8.buf, 0, i*unitLen );
+        write( indentDepth.buf, 0, i*unitLen );
 
-        i>>=3;  // really i /= 8;
+        //i>>=3;  // really i /= 8;
+        i /= MAX_DEPTH;
 
         for( ; i>0; i-- )
-            indent8.write(this);
+            indentDepth.write(this);
     }
 
     @Override
