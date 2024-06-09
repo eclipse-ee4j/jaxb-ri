@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,9 +17,11 @@ import org.glassfish.jaxb.core.v2.model.core.PropertyKind;
 import org.glassfish.jaxb.runtime.v2.model.runtime.*;
 import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.function.BiFunction;
 
 /**
  * Create {@link Property} objects.
@@ -32,33 +35,26 @@ public abstract class PropertyFactory {
     /**
      * Constructors of the {@link Property} implementation.
      */
-    private static final Constructor<? extends Property>[] propImpls;
+    private static final List<BiFunction<JAXBContextImpl, RuntimePropertyInfo, ? extends Property>> propImpls;
 
     static {
-        Class<? extends Property>[] implClasses = new Class[] {
-            SingleElementLeafProperty.class,
+        propImpls = Collections.unmodifiableList(Arrays.asList(
+            (context, prop) -> new SingleElementLeafProperty(context, (RuntimeElementPropertyInfo) prop),
             null, // single reference leaf --- but there's no such thing as "reference leaf"
             null, // no such thing as "map leaf"
 
-            ArrayElementLeafProperty.class,
+            (context, prop) -> new ArrayElementLeafProperty(context, (RuntimeElementPropertyInfo) prop),
             null, // array reference leaf --- but there's no such thing as "reference leaf"
             null, // no such thing as "map leaf"
 
-            SingleElementNodeProperty.class,
-            SingleReferenceNodeProperty.class,
-            SingleMapNodeProperty.class,
+            (context, prop) -> new SingleElementNodeProperty(context, (RuntimeElementPropertyInfo) prop),
+            (context, prop) -> new SingleReferenceNodeProperty(context, (RuntimeReferencePropertyInfo) prop),
+            (context, prop) -> new SingleMapNodeProperty(context, (RuntimeMapPropertyInfo) prop),
 
-            ArrayElementNodeProperty.class,
-            ArrayReferenceNodeProperty.class,
-            null, // map is always a single property (Map doesn't implement Collection)
-        };
-
-        propImpls = new Constructor[implClasses.length];
-        for( int i=0; i<propImpls.length; i++ ) {
-            if(implClasses[i]!=null)
-                // this pointless casting necessary for Mustang
-                propImpls[i] = (Constructor)implClasses[i].getConstructors()[0];
-        }
+            (context, prop) -> new ArrayElementNodeProperty(context, (RuntimeElementPropertyInfo) prop),
+            (context, prop) -> new ArrayReferenceNodeProperty(context, (RuntimeReferencePropertyInfo) prop),
+            null // map is always a single property (Map doesn't implement Collection)
+        ));
     }
 
     /**
@@ -89,22 +85,7 @@ public abstract class PropertyFactory {
         boolean isCollection = info.isCollection();
         boolean isLeaf = isLeaf(info);
 
-        Constructor<? extends Property> c = propImpls[(isLeaf?0:6)+(isCollection?3:0)+kind.propertyIndex];
-        try {
-            return c.newInstance( grammar, info );
-        } catch (InstantiationException e) {
-            throw new InstantiationError(e.getMessage());
-        } catch (IllegalAccessException e) {
-            throw new IllegalAccessError(e.getMessage());
-        } catch (InvocationTargetException e) {
-            Throwable t = e.getCause();
-            if(t instanceof Error)
-                throw (Error)t;
-            if(t instanceof RuntimeException)
-                throw (RuntimeException)t;
-
-            throw new AssertionError(t);
-        }
+        return propImpls.get((isLeaf?0:6)+(isCollection?3:0)+kind.propertyIndex).apply(grammar, info);
     }
 
     /**
