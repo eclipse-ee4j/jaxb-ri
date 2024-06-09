@@ -38,7 +38,7 @@ import java.io.IOException;
  *
  * @author Kohsuke Kawaguchi
  */
-final class ListElementProperty<BeanT,ListT,ItemT> extends ArrayProperty<BeanT,ListT,ItemT> {
+public final class ListElementProperty<BeanT,ListT,ItemT> extends ArrayProperty<BeanT,ListT,ItemT> {
 
     private final Name tagName;
     private final String defaultValue;

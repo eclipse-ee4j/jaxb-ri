@@ -35,7 +35,7 @@ import java.io.IOException;
 /**
  * @author Kohsuke Kawaguchi
  */
-final class SingleReferenceNodeProperty<BeanT,ValueT> extends PropertyImpl<BeanT> {
+public final class SingleReferenceNodeProperty<BeanT,ValueT> extends PropertyImpl<BeanT> {
 
     private final Accessor<BeanT,ValueT> acc;
 
