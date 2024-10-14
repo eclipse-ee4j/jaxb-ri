@@ -674,6 +674,8 @@ public final class SimpleTypeBuilder extends BindingComponent {
 
                 if(name==null) {
                     StringBuilder sb = new StringBuilder();
+                    if (facetValue.length()>0 && !Character.isJavaIdentifierStart(facetValue.charAt(0)))
+                        sb.append('_');
                     for( int i=0; i<facetValue.length(); i++) {
                         char ch = facetValue.charAt(i);
                         if(Character.isJavaIdentifierPart(ch))
