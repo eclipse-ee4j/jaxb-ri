@@ -674,6 +674,8 @@ public final class SimpleTypeBuilder extends BindingComponent {
 
                 if(name==null) {
                     StringBuilder sb = new StringBuilder();
+                    if (factValue.length()>0 && !Character.isJavaIdentifierStart(facetValue.charAt(0)))
+                        sb.append('_'); //Otherwise enum constants starting with digits will be renamed to VALUE_x
                     for( int i=0; i<facetValue.length(); i++) {
                         char ch = facetValue.charAt(i);
                         if(Character.isJavaIdentifierPart(ch))
