@@ -10,11 +10,13 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime;
 
-import java.io.StringWriter;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Marshaller;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import java.io.StringWriter;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class InheritanceTest {
 
@@ -28,6 +30,6 @@ public class InheritanceTest {
         StringWriter stringWriter = new StringWriter();
         marshaller.marshal(child, stringWriter);
         String xmlAsString = stringWriter.toString();
-        Assert.assertFalse(xmlAsString.contains("parent"));
+        assertFalse(xmlAsString.contains("parent"));
     }
 }

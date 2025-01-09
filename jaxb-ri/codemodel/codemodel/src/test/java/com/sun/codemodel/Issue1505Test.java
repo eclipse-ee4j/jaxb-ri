@@ -10,10 +10,10 @@
 
 package com.sun.codemodel;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Issue1505Test {
 
@@ -75,7 +75,7 @@ public class Issue1505Test {
     }
 
     @Test
-    @Ignore("Not supported")
+    @Disabled("Not supported")
     public void test10() {
         checks("java.util.Map<K extends ?,V extends ?>");
     }
@@ -111,7 +111,7 @@ public class Issue1505Test {
     }
 
     @Test
-    @Ignore("Not supported")
+    @Disabled("Not supported")
     public void test17() {
         checks("M<A extends Object,B extends Object>");
     }

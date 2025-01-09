@@ -10,19 +10,18 @@
 
 package com.sun.codemodel.tests;
 
-import java.util.Iterator;
-
-import org.junit.Test;
-
 import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JExpr;
 import com.sun.codemodel.JMethod;
 import com.sun.codemodel.JMod;
 import com.sun.codemodel.writer.SingleStreamCodeWriter;
+import org.junit.jupiter.api.Test;
+
+import java.util.Iterator;
 
 /**
- * 
+ *
  * @author
  * 	Kohsuke Kawaguchi (kohsuke.kawaguchi@sun.com)
  */

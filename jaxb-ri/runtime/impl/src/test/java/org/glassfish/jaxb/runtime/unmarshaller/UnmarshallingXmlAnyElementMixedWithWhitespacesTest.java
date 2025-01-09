@@ -25,8 +25,8 @@ import jakarta.xml.bind.annotation.XmlElementRefs;
 import jakarta.xml.bind.annotation.XmlMixed;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlValue;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.Element;
 
 import javax.xml.transform.stream.StreamSource;
@@ -36,8 +36,8 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 
 public class UnmarshallingXmlAnyElementMixedWithWhitespacesTest {
 
@@ -75,7 +75,7 @@ public class UnmarshallingXmlAnyElementMixedWithWhitespacesTest {
 
     private static JAXBContext context;
 
-    @BeforeClass
+    @BeforeAll
     public static void setUpBeforeClass() throws Exception {
         context = JAXBContext.newInstance(MixedContent.class);
     }
@@ -126,8 +126,8 @@ public class UnmarshallingXmlAnyElementMixedWithWhitespacesTest {
         String actual = serializeObject(element);
         // then
         assertEquals(MIXED_CONTENT_EXPECTED, actual);
-        assertTrue(element.getValue().elements.get(0) instanceof String);
-        assertTrue(element.getValue().elements.get(1) instanceof Document);
+        assertInstanceOf(String.class, element.getValue().elements.get(0));
+        assertInstanceOf(Document.class, element.getValue().elements.get(1));
     }
 
     private String serializeObject(JAXBElement<?> element) throws JAXBException {

@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2004-2011
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -21,14 +21,17 @@
  */
 package com.sun.tools.rngom.digested;
 
-import junit.framework.TestCase;
-import org.custommonkey.xmlunit.XMLAssert;
+import org.junit.jupiter.api.Test;
+import org.xmlunit.assertj3.XmlAssert;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.Reader;
 
-public class DXMLPrinterTest extends TestCase {
+import static org.junit.jupiter.api.Assertions.fail;
+
+
+public class DXMLPrinterTest {
     @SuppressWarnings("CallToThreadDumpStack")
     protected void test(String resource) throws Exception {
         System.out.println(resource);
@@ -40,16 +43,17 @@ public class DXMLPrinterTest extends TestCase {
             	in += ".rng";
             Reader input = new FileReader(in);
             Reader output = new FileReader(out);
-            XMLAssert.assertXMLEqual(input, output);
+            XmlAssert.assertThat(input).and(output).areSimilar();
             input.close();
             output.close();
             new File(out).delete();
         } catch (Exception e) {
             e.printStackTrace();
-            assertTrue("Unexpected exception", false);
+            fail("Unexpected exception", e);
         }
     }
 
+    @Test
     public void testXmlNS() throws Exception {
         test("xmlns.rng");
     }

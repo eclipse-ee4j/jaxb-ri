@@ -10,11 +10,10 @@
 
 package com.sun.codemodel.tests;
 
-import org.junit.Test;
-
 import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.writer.SingleStreamCodeWriter;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Kohsuke Kawaguchi

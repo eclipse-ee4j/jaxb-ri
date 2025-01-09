@@ -10,13 +10,6 @@
 
 package com.sun.codemodel.tests;
 
-import java.io.ByteArrayOutputStream;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-
-import org.junit.Assert;
-import org.junit.Test;
-
 import com.sun.codemodel.JClass;
 import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.JDefinedClass;
@@ -27,13 +20,20 @@ import com.sun.codemodel.JMethod;
 import com.sun.codemodel.JMod;
 import com.sun.codemodel.JVar;
 import com.sun.codemodel.writer.SingleStreamCodeWriter;
+import org.junit.jupiter.api.Test;
+
+import java.io.ByteArrayOutputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * 
+ *
  * Simple program to test the generation of the enhanced for loop in jdk 1.5
- * 
+ *
  * @author Bhakti Mehta Bhakti.Mehta@sun.com
- * 
+ *
  */
 
 public class ForEachTest {
@@ -65,6 +65,6 @@ public class ForEachTest {
 		cm.build(new SingleStreamCodeWriter(baos));
 		String result = baos.toString(StandardCharsets.UTF_8);
 		System.out.println(result);
-		Assert.assertTrue(result.contains("ArrayList<Integer> alist = new ArrayList<>();"));
+		assertTrue(result.contains("ArrayList<Integer> alist = new ArrayList<>();"));
 	}
 }
