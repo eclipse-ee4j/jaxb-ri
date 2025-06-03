@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -223,7 +224,7 @@ final class Element extends Term implements Comparable<Element> {
 
             if(ci!=null) {
                 // if this element is mapped to a class, just put one property
-                CValuePropertyInfo p = new CValuePropertyInfo("value", null,null/*TODO*/,locator,getConversion(),null);
+                CValuePropertyInfo p = new CValuePropertyInfo("Value", null,null/*TODO*/,locator,getConversion(),null);
                 ci.addProperty(p);
             }
             return;
