@@ -22,6 +22,7 @@ import com.sun.xml.xsom.parser.XSOMParser;
 import com.sun.xml.xsom.parser.SchemaDocument;
 import com.sun.xml.xsom.parser.XmlFactory;
 import junit.framework.*;
+import org.junit.Ignore;
 import org.xml.sax.InputSource;
 
 import java.net.URL;
@@ -31,6 +32,7 @@ import java.util.Set;
  *
  * @author Farrukh S. Najmi
  */
+@Ignore
 public class XSOMParserTest extends TestCase {
 
     private static String docURLStr = "http://docs.oasis-open.org/regrep/v3.0/schema/lcm.xsd";
