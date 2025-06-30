@@ -11,6 +11,7 @@
 package com.sun.tools.xjc;
 
 import com.sun.codemodel.JCodeModel;
+import com.sun.codemodel.JMethod;
 import com.sun.tools.xjc.Driver.OptionsEx;
 import com.sun.tools.xjc.model.Model;
 import com.sun.tools.xjc.outline.Outline;
@@ -80,5 +81,28 @@ public class XjcDtdPluginTest {
             "DTD model did not call postProcessModel hook of the plugin",
             wasPostProcessModelHookCalled[0]
         );
+    }
+
+    @Test
+    public void testIssue_PCDataNoCamelCase() throws Exception {
+        final OptionsEx opt = new OptionsEx();
+        opt.setSchemaLanguage(Language.DTD);
+        opt.compatibilityMode = Options.EXTENSION;
+
+        opt.addGrammar(
+                new InputSource(
+                        XjcDtdPluginTest.class.getResourceAsStream("/schemas/issue1830/pcdata_no_camelcase.dtd")
+                )
+        );
+
+        Model model = ModelLoader.load(
+                opt,
+                new JCodeModel(),
+                null
+        );
+        model.generateCode(opt, null);
+        JMethod getValueMethod = model.codeModel._getClass("generated.AnElement").methods().iterator().next();
+
+        Assert.assertEquals("getValue", getValueMethod.name());
     }
 }

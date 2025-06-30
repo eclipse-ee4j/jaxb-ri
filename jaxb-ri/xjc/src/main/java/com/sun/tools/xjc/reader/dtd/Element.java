@@ -223,7 +223,7 @@ final class Element extends Term implements Comparable<Element> {
 
             if(ci!=null) {
                 // if this element is mapped to a class, just put one property
-                CValuePropertyInfo p = new CValuePropertyInfo("value", null,null/*TODO*/,locator,getConversion(),null);
+                CValuePropertyInfo p = new CValuePropertyInfo("Value", null,null/*TODO*/,locator,getConversion(),null);
                 ci.addProperty(p);
             }
             return;
