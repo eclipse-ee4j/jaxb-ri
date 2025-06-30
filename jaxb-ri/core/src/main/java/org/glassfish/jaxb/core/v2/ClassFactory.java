@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,6 +18,7 @@ import java.lang.reflect.Modifier;
 import java.lang.ref.WeakReference;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
+import java.util.Collections;
 import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.logging.Level;
@@ -42,35 +44,25 @@ public final class ClassFactory {
 
     /**
      * Cache from a class to its default constructor.
-     *
-     * To avoid synchronization among threads, we use {@link ThreadLocal}.
      */
-    private static final ThreadLocal<Map<Class, WeakReference<Constructor>>> tls = new ThreadLocal<>() {
-        @Override
-        public Map<Class, WeakReference<Constructor>> initialValue() {
-            return new WeakHashMap<>();
-        }
-    };
+    private static final Map<Class, WeakReference<Constructor>> constructorClassCache = Collections.synchronizedMap(new WeakHashMap<>());
 
     private ClassFactory() {}
 
+    /**
+     * @deprecated this method is empty by now and will be removed in next major version
+     * @see <a href="https://github.com/eclipse-ee4j/jaxb-ri/issues/978">Issue 978</a>
+     */
+    @Deprecated(forRemoval = true)
     public static void cleanCache() {
-        if (tls != null) {
-            try {
-                tls.remove();
-            } catch (Exception e) {
-                logger.log(Level.WARNING, "Unable to clean Thread Local cache of classes used in Unmarshaller: {0}", e.getLocalizedMessage());
-            }
-        }
     }
 
     /**
      * Creates a new instance of the class but throw exceptions without catching it.
      */
     public static <T> T create0( final Class<T> clazz ) throws IllegalAccessException, InvocationTargetException, InstantiationException {
-        Map<Class,WeakReference<Constructor>> m = tls.get();
         Constructor<T> cons = null;
-        WeakReference<Constructor> consRef = m.get(clazz);
+        WeakReference<Constructor> consRef = constructorClassCache.get(clazz);
         if(consRef!=null)
             cons = consRef.get();
         if(cons==null) {
@@ -98,7 +90,7 @@ public final class ClassFactory {
                 }
             }
 
-            m.put(clazz,new WeakReference<>(cons));
+            constructorClassCache.put(clazz, new WeakReference<>(cons));
         }
 
         return cons.newInstance(emptyObject);
