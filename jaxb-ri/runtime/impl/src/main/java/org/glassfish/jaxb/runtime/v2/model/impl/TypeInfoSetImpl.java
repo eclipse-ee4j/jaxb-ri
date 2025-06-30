@@ -10,6 +10,7 @@
 
 package org.glassfish.jaxb.runtime.v2.model.impl;
 
+import java.util.concurrent.ConcurrentHashMap;
 import org.glassfish.jaxb.core.v2.model.annotation.AnnotationReader;
 import org.glassfish.jaxb.core.v2.model.core.*;
 import org.glassfish.jaxb.core.v2.model.nav.Navigator;
@@ -287,7 +288,7 @@ class TypeInfoSetImpl<T,C,F,M> implements TypeInfoSet<T,C,F,M> {
     @Override
     public Map<String,String> getXmlNs(String namespaceUri) {
         if(xmlNsCache==null) {
-            xmlNsCache = new HashMap<>();
+            xmlNsCache = new ConcurrentHashMap<>();
 
             for (ClassInfoImpl<T, C, F, M> ci : beans().values()) {
                 XmlSchema xs = reader.getPackageAnnotation( XmlSchema.class, ci.getClazz(), null );
