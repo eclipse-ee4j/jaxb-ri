@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,7 +15,6 @@ import org.glassfish.jaxb.runtime.IDResolver;
 import org.glassfish.jaxb.runtime.api.ClassResolver;
 import org.glassfish.jaxb.core.unmarshaller.DOMScanner;
 import org.glassfish.jaxb.core.unmarshaller.InfosetScanner;
-import org.glassfish.jaxb.core.v2.ClassFactory;
 import org.glassfish.jaxb.runtime.v2.runtime.AssociationMap;
 import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
 import org.glassfish.jaxb.runtime.v2.runtime.JaxBeanInfo;
@@ -58,7 +58,7 @@ import java.io.InputStream;
  * @author
  *  <a href="mailto:kohsuke.kawaguchi@sun.com">Kohsuke KAWAGUCHI</a>
  */
- public final class UnmarshallerImpl extends AbstractUnmarshallerImpl implements ValidationEventHandler, Closeable
+public final class UnmarshallerImpl extends AbstractUnmarshallerImpl implements ValidationEventHandler, Closeable
 {
     /** Owning {@link JAXBContext} */
     protected final JAXBContextImpl context;
@@ -574,23 +574,9 @@ import java.io.InputStream;
     public UnmarshallingContext getContext() {
         return coordinator;
     }
-    
-    @Override
-    @SuppressWarnings("FinalizeDeclaration")
-    protected void finalize() throws Throwable {
-        try {
-            ClassFactory.cleanCache();
-        } finally {
-            super.finalize();
-        }
-    }
 
-    /**
-     *  Must be called from same thread which created the UnmarshallerImpl instance.
-     */
     @Override
     public void close() throws IOException {
-        ClassFactory.cleanCache();
     }
-    
+
 }
