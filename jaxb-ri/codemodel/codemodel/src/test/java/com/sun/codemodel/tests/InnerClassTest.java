@@ -10,13 +10,12 @@
 
 package com.sun.codemodel.tests;
 
-import org.junit.Test;
-
 import com.sun.codemodel.JClassAlreadyExistsException;
 import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JMod;
 import com.sun.codemodel.tests.util.CodeModelTestsUtils;
+import org.junit.jupiter.api.Test;
 
 public class InnerClassTest {
 
@@ -26,9 +25,9 @@ public class InnerClassTest {
 		JDefinedClass aClass = codeModel._class("org.test.DaTestClass");
 //		JDefinedClass daInner = aClass._class("Inner");
 
-//		Assert.assertEquals("org.test.DaTestClass.Inner", daInner.fullName());
-//		Assert.assertEquals("org.test.DaTestClass$Inner", daInner.binaryName());
-//		Assert.assertEquals("Inner", daInner.name());
+//		assertEquals("org.test.DaTestClass.Inner", daInner.fullName());
+//		assertEquals("org.test.DaTestClass$Inner", daInner.binaryName());
+//		assertEquals("Inner", daInner.name());
 
 //		aClass.method(JMod.PUBLIC, daInner, "getInner");
 		final JDefinedClass otherClass = codeModel

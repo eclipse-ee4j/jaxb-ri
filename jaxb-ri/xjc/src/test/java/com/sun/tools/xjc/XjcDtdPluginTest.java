@@ -15,14 +15,15 @@ import com.sun.tools.xjc.Driver.OptionsEx;
 import com.sun.tools.xjc.model.Model;
 import com.sun.tools.xjc.outline.Outline;
 import com.sun.tools.xjc.util.ErrorReceiverFilter;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class XjcDtdPluginTest {
     @Test
@@ -76,9 +77,9 @@ public class XjcDtdPluginTest {
             new ErrorReceiverFilter()
         );
 
-        Assert.assertTrue(
-            "DTD model did not call postProcessModel hook of the plugin",
-            wasPostProcessModelHookCalled[0]
-        );
+        assertTrue(
+                wasPostProcessModelHookCalled[0],
+                "DTD model did not call postProcessModel hook of the plugin"
+                );
     }
 }

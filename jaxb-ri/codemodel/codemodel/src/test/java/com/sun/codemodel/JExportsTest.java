@@ -10,23 +10,19 @@
 
 package com.sun.codemodel;
 
-import org.junit.Test;
 import com.sun.codemodel.JModuleDirective.Type;
+import org.junit.jupiter.api.Test;
+
 import static com.sun.codemodel.JModuleTest.EOL;
 import static com.sun.codemodel.JModuleTest.PKG_NAME;
 import static com.sun.codemodel.JModuleTest.normalizeWhiteSpaces;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test Java module {@code exports} directive.
  * @author kratz
  */
 public class JExportsTest extends JTestModuleDirective {
-
-    /**
-     * Default constructor.
-     */
-    public JExportsTest() {}
 
     /**
      * Test of getType method to make sure that it returns ExportsDirective.

@@ -10,22 +10,20 @@
 
 package com.sun.tools.xjc.reader;
 
-import java.util.List;
-
 import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.JType;
+import org.junit.jupiter.api.Test;
 
-import junit.framework.TestCase;
-import junit.textui.TestRunner;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Kohsuke Kawaguchi
  */
-public class TypeUtilJUTest extends TestCase {
-    public static void main(String[] args) {
-        TestRunner.run(TypeUtilJUTest.class);
-    }
+public class TypeUtilJUTest {
 
+    @Test
     public void test1() {
         JCodeModel cm = new JCodeModel();
         JType t = TypeUtil.getCommonBaseType(cm,

@@ -10,10 +10,13 @@ package com.sun.xml.xsom.test;
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-import com.sun.xml.xsom.XSSchemaSet;
 import com.sun.xml.xsom.XSComponent;
+import com.sun.xml.xsom.XSSchemaSet;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collection;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Kohsuke Kawaguchi
@@ -22,6 +25,7 @@ public class SCDTest extends AbstractXSOMTest {
     /**
      * Taken from spec examples in section 4.2.16
      */
+    @Test
     public void testSpec() throws Exception {
         XSSchemaSet s = load("scdtest.xsd");
 

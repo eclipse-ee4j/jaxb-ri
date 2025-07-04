@@ -89,7 +89,7 @@
         <maven.compiler.release>11</maven.compiler.release>
         <maven.compiler.testRelease>${maven.compiler.release}</maven.compiler.testRelease>
 
-        <junit.version>4.13.2</junit.version>
+        <junit.version>5.11.4</junit.version>
 
         <module.path>${project.build.directory}/mods</module.path>
         <!-- This will work ONLY if mvn is run from root folder. In case of runing from submodules - fail :( -->
@@ -123,8 +123,8 @@
             </dependency>
             <!-- Test -->
             <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
                 <version>${junit.version}</version>
             </dependency>
             <!-- JDK dependencies -->
