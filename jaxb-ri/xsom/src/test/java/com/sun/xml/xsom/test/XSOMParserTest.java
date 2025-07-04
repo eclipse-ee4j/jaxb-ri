@@ -2,6 +2,7 @@ package com.sun.xml.xsom.test;
 
 /*
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -35,7 +36,7 @@ import java.util.Set;
  */
 public class XSOMParserTest {
 
-    private static String docURLStr = "http://docs.oasis-open.org/regrep/v3.0/schema/lcm.xsd";
+    private static String docURLStr = "https://docs.oasis-open.org/regrep/v3.0/schema/lcm.xsd";
     //private static String docURLStr = "http://ebxmlrr.sourceforge.net/private/sun/irs/ContactMechanism/IRS-ContactMechanismCommonAggregateComponents-1.0.xsd";
     private static URL docURL = null;
     private static XSOMParser instance = null;
