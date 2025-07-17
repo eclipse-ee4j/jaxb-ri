@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -80,5 +81,25 @@ public class XjcDtdPluginTest {
             "DTD model did not call postProcessModel hook of the plugin",
             wasPostProcessModelHookCalled[0]
         );
+    }
+
+    @Test
+    public void testIssue_cannotRenderJavadocForLists() throws Exception {
+        final OptionsEx opt = new OptionsEx();
+        opt.setSchemaLanguage(Language.DTD);
+        opt.compatibilityMode = Options.EXTENSION;
+
+        opt.addGrammar(
+            new InputSource(
+                new ByteArrayInputStream("<!ELEMENT AnElement1 (#PCDATA)>\n<!ELEMENT AnElement2 (#PCDATA)>\n<!ELEMENT AnElement (AnElement1 | AnElement2)>".getBytes())
+            )
+        );
+
+        Model model = ModelLoader.load(
+            opt,
+            new JCodeModel(),
+            null
+        );
+        model.generateCode(opt, null);
     }
 }
