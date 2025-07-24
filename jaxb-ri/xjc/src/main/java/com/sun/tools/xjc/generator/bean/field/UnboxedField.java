@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -62,10 +63,11 @@ public class UnboxedField extends AbstractFieldWithVar {
         //     return value;
         // }
         JMethod $get = writer.declareMethod( ptype, getGetterMethod() );
-        String javadoc = prop.javadoc;
-        if(javadoc.length()==0)
-            javadoc = Messages.DEFAULT_GETTER_JAVADOC.format(nc.toVariableName(prop.getName(true)));
-        writer.javadoc().append(javadoc);
+        if (prop.javadoc.isEmpty()) {
+            writer.javadoc().append(Messages.DEFAULT_GETTER_JAVADOC.format(nc.toVariableName(prop.getName(true))));
+        } else {
+            writer.javadoc().appendXML(prop.javadoc);
+        }
 
         $get.body()._return(ref());
 

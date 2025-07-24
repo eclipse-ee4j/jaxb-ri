@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,9 +11,11 @@
 
 package com.sun.codemodel;
 
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * A part is a part of a javadoc comment, and it is a list of values.
@@ -31,6 +34,13 @@ import java.util.Iterator;
 public class JCommentPart extends ArrayList<Object> {
 
     private static final long serialVersionUID = 1L;
+    private static final List<AbstractMap.SimpleImmutableEntry<String, String>> ESCAPED_XML_JAVADOC = new ArrayList<>();
+    static {
+        ESCAPED_XML_JAVADOC.add(new AbstractMap.SimpleImmutableEntry<>("&", "&amp;"));
+        ESCAPED_XML_JAVADOC.add(new AbstractMap.SimpleImmutableEntry<>("<", "&lt;"));
+        ESCAPED_XML_JAVADOC.add(new AbstractMap.SimpleImmutableEntry<>(">", "&gt;"));
+        ESCAPED_XML_JAVADOC.add(new AbstractMap.SimpleImmutableEntry<>("@", "&#064;"));
+    }
 
     protected JCommentPart() {
     }
@@ -46,7 +56,18 @@ public class JCommentPart extends ArrayList<Object> {
         return this;
     }
 
-        @Override
+    /**
+     * Appends a new value with escaped XML.
+     *
+     * If the value is {@link JType} it will be printed as a @link tag.
+     * Otherwise it will be converted to String via {@link Object#toString()}.
+     */
+    public JCommentPart appendXML(String s) {
+        add(escapeXML(s));
+        return this;
+    }
+
+    @Override
     public boolean add(Object o) {
         flattenAppend(o);
         return true;
@@ -110,6 +131,29 @@ public class JCommentPart extends ArrayList<Object> {
 
         if(!isEmpty())
             f.nl();
+    }
+
+    /**
+     * Escapes the XML tags for Javadoc compatibility
+     */
+    private String escapeXML(String s) {
+        if (s == null) {
+            return s;
+        }
+        for (AbstractMap.SimpleImmutableEntry<String, String> entry : ESCAPED_XML_JAVADOC) {
+            int entryKeyLength = entry.getKey().length();
+            int entryValueLength = entry.getValue().length();
+            int idx = -1;
+            while (true) {
+                idx = s.indexOf(entry.getKey(), idx);
+                if (idx < 0) {
+                    break;
+                }
+                s = s.substring(0, idx) + entry.getValue() + s.substring(idx + entryKeyLength);
+                idx += entryValueLength;
+            }
+        }
+        return s;
     }
 
     /**
