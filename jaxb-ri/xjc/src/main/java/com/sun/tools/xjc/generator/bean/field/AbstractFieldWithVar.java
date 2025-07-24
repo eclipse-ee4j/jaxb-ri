@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -47,7 +48,7 @@ abstract class AbstractFieldWithVar extends AbstractField {
             getFieldType(), prop.getName(false) );
 
         if (prop.javadoc != null && prop.javadoc.length() > 0) {
-            field.javadoc().add(prop.javadoc);
+            field.javadoc().appendXML(prop.javadoc);
         }
 
         annotate(field);

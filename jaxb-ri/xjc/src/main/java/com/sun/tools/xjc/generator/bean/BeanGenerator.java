@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -556,7 +557,7 @@ public final class BeanGenerator implements Outline {
         }
 
         // generate some class level javadoc
-        cc.ref.javadoc().append(target.javadoc);
+        cc.ref.javadoc().appendXML(target.javadoc);
 
         cc._package().objectFactoryGenerator().populate(cc);
     }
@@ -615,7 +616,7 @@ public final class BeanGenerator implements Outline {
 
         type = getClassFactory().createClass(
                 getContainer(e.parent, EXPOSED), e.shortName, e.getLocator(), ClassType.ENUM);
-        type.javadoc().append(e.javadoc);
+        type.javadoc().appendXML(e.javadoc);
 
         return new EnumOutline(e, type) {
 
@@ -682,7 +683,7 @@ public final class BeanGenerator implements Outline {
 
             // set javadoc
             if (mem.javadoc != null) {
-                constRef.javadoc().append(mem.javadoc);
+                constRef.javadoc().appendXML(mem.javadoc);
             }
 
             eo.constants.add(new EnumConstantOutline(mem, constRef) {

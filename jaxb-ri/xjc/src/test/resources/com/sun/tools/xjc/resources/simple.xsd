@@ -1,6 +1,7 @@
 <!--
 
     Copyright (c) 2017, 2021 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,6 +12,49 @@
 -->
 
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <xsd:element name="e" type="xsd:string"/>
+    <xsd:element name="e" type="xsd:string" />
+
+    <xsd:complexType name="testEscapeJavadoc">
+        <xsd:annotation>
+            <xsd:documentation>Test escape Javadoc &lt; &gt; &amp; &apos; &quot; */ Hello World</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="lt" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Test escape &lt;</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="gt" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Test escape &gt;</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="amp" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Test escape &amp;</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="listLtGtAmp" type="xsd:string" minOccurs="0" maxOccurs="unbounded">
+                <xsd:annotation>
+                    <xsd:documentation>Test escape list &lt; &amp; &gt;</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="apos" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Test not escape &apos;</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="quot" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Test not escape &quot;</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="comment" type="xsd:string">
+                <xsd:annotation>
+                    <xsd:documentation>Test escape */</xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
 </xsd:schema>
 

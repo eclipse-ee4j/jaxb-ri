@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -94,11 +95,11 @@ public class SingleField extends AbstractFieldWithVar {
         }
 
         JMethod $get = writer.declareMethod( getterType,getGetterMethod() );
-        String javadoc = prop.javadoc;
-        if(javadoc.length()==0)
-            javadoc = Messages.DEFAULT_GETTER_JAVADOC.format(nc.toVariableName(prop.getName(true)));
-        writer.javadoc().append(javadoc);
-
+        if (prop.javadoc.isEmpty()) {
+            writer.javadoc().append(Messages.DEFAULT_GETTER_JAVADOC.format(nc.toVariableName(prop.getName(true))));
+        } else {
+            writer.javadoc().appendXML(prop.javadoc);
+        }
 
         if(defaultValue==null) {
             $get.body()._return(ref());
