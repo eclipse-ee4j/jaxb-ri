@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -287,7 +288,7 @@ class TypeInfoSetImpl<T,C,F,M> implements TypeInfoSet<T,C,F,M> {
     @Override
     public Map<String,String> getXmlNs(String namespaceUri) {
         if(xmlNsCache==null) {
-            xmlNsCache = new HashMap<>();
+            Map<String, Map<String,String>> xmlNsCache = new HashMap<>();
 
             for (ClassInfoImpl<T, C, F, M> ci : beans().values()) {
                 XmlSchema xs = reader.getPackageAnnotation( XmlSchema.class, ci.getClazz(), null );
@@ -301,6 +302,8 @@ class TypeInfoSetImpl<T,C,F,M> implements TypeInfoSet<T,C,F,M> {
                     m.put(xns.prefix(),xns.namespaceURI());
                 }
             }
+
+            this.xmlNsCache = xmlNsCache;
         }
 
         Map<String,String> r = xmlNsCache.get(namespaceUri);
