@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -171,9 +172,14 @@ class Internalizer {
             String schemaLocation = bindings.getAttribute("schemaLocation");
 
             // enhancement - schemaLocation="*" = bind to all schemas..
-            if(schemaLocation.equals("*")) {
+            if("*".equals(schemaLocation)) {
                 for(String systemId : forest.listSystemIDs()) {
                     result.computeIfAbsent(bindings, k -> new ArrayList<>());
+                    Element doc = forest.get(systemId).getDocumentElement();
+                    if (Const.JAXB_NSURI.equals(doc.getNamespaceURI())) {
+                        // this isn't a schema, so do apply bindings here or that will fail
+                        continue;
+                    }
                     result.get(bindings).add(forest.get(systemId).getDocumentElement());
 
                     Element[] children = DOMUtils.getChildElements(bindings, Const.JAXB_NSURI, "bindings");
