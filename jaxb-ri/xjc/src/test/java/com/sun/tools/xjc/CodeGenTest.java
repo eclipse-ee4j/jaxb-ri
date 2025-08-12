@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2021, 2024 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -182,6 +183,44 @@ public class CodeGenTest extends TestCase {
 
         // Assert non-empty javadoc blocks.
         assertNonEmptyJavadocBlocks(cmString);
+    }
+
+    /**
+     * Test issues #1788 for ignoring bindings files in schemaLocation="*"
+     *
+     * @throws FileNotFoundException When the test schema or binding file cannot be read.
+     * @throws URISyntaxException When the test {@link InputSource} cannot be parsed.
+     *
+     * @see <a href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1788">Issue #1788</a>
+     */
+    public void testIssue1788() throws FileNotFoundException, URISyntaxException {
+        String schemaFileName = "/schemas/issue1788/schema.xsd";
+        String bindingFileName = "/schemas/issue1788/binding.xjb";
+        String packageName = "org.example.issue1788";
+        String someClassName = packageName + ".MyGh1788TypeDto";
+
+        ErrorListener errorListener = new ConsoleErrorReporter();
+
+        // Parse the XML schema.
+        SchemaCompiler sc = XJC.createSchemaCompiler();
+        sc.setErrorListener(errorListener);
+        sc.getOptions().addBindFile(getInputSource(bindingFileName));
+        sc.forcePackageName(packageName);
+        sc.parseSchema(getInputSource(schemaFileName));
+
+        // Generate the defined class.
+        S2JJAXBModel model = sc.bind();
+        Plugin[] extensions = null;
+        JCodeModel cm = model.generateCode(extensions, errorListener);
+        JDefinedClass dc = cm._getClass(someClassName);
+        assertNotNull(someClassName, dc);
+
+        // Assert Class includes narrow type
+        Iterator<JMethod> conIter = dc.constructors();
+        while (conIter.hasNext()) {
+            JMethod con = conIter.next();
+            assertTrue(toString(con).contains("java.lang.Class<java.lang.String>"));
+        }
     }
 
     private void assertNonEmptyJavadocBlocks(String cmString) throws IOException {
