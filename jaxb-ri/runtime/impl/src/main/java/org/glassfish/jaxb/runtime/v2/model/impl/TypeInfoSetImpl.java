@@ -102,7 +102,7 @@ class TypeInfoSetImpl<T,C,F,M> implements TypeInfoSet<T,C,F,M> {
      *
      * @see #getXmlNs(String)
      */
-    private Map<String,Map<String,String>> xmlNsCache;
+    private volatile Map<String,Map<String,String>> xmlNsCache;
 
     public TypeInfoSetImpl(Navigator<T,C,F,M> nav,
                            AnnotationReader<T,C,F,M> reader,
@@ -287,7 +287,7 @@ class TypeInfoSetImpl<T,C,F,M> implements TypeInfoSet<T,C,F,M> {
     @Override
     public Map<String,String> getXmlNs(String namespaceUri) {
         if(xmlNsCache==null) {
-            xmlNsCache = new HashMap<>();
+            final Map<String,Map<String,String>> newCache = new HashMap<>();
 
             for (ClassInfoImpl<T, C, F, M> ci : beans().values()) {
                 XmlSchema xs = reader.getPackageAnnotation( XmlSchema.class, ci.getClazz(), null );
@@ -295,12 +295,13 @@ class TypeInfoSetImpl<T,C,F,M> implements TypeInfoSet<T,C,F,M> {
                     continue;
 
                 String uri = xs.namespace();
-                Map<String, String> m = xmlNsCache.computeIfAbsent(uri, k -> new HashMap<>());
+                Map<String, String> m = newCache.computeIfAbsent(uri, k -> new HashMap<>());
 
                 for( XmlNs xns : xs.xmlns() ) {
                     m.put(xns.prefix(),xns.namespaceURI());
                 }
             }
+            this.xmlNsCache = newCache;
         }
 
         Map<String,String> r = xmlNsCache.get(namespaceUri);
