@@ -10,18 +10,17 @@
 
 package com.sun.codemodel.tests;
 
-import java.io.IOException;
-
-import org.junit.Test;
-
 import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.writer.SingleStreamCodeWriter;
+import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
 
 /**
  * @author Kohsuke Kawaguchi
  */
 public class PackageJavadocTest {
-	
+
 	@Test
     public void main() throws IOException {
         JCodeModel cm = new JCodeModel();

@@ -10,14 +10,15 @@
 
 package com.sun.codemodel.tests;
 
-import org.junit.Assert;
-import org.junit.Test;
-
 import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JMethod;
 import com.sun.codemodel.JMod;
 import com.sun.codemodel.JVar;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class JMethodTest {
 
@@ -29,7 +30,7 @@ public class JMethodTest {
 
 		JVar foo = m.param(String.class, "foo");
 
-		Assert.assertEquals(1, m.params().size());
-		Assert.assertSame(foo, m.params().get(0));
+		assertEquals(1, m.params().size());
+		assertSame(foo, m.params().get(0));
 	}
 }

@@ -10,11 +10,12 @@
 
 package com.sun.codemodel;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
 import static com.sun.codemodel.JModuleTest.EOL;
 import static com.sun.codemodel.JModuleTest.MODULE_NAME;
 import static com.sun.codemodel.JModuleTest.normalizeWhiteSpaces;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test Java module {@code requires} directive for module dependency.

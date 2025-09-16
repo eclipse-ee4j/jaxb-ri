@@ -10,14 +10,6 @@
 
 package com.sun.codemodel.tests;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-import java.util.Collection;
-
-import org.junit.Assert;
-import org.junit.Test;
-
 import com.sun.codemodel.JAnnotationArrayMember;
 import com.sun.codemodel.JAnnotationUse;
 import com.sun.codemodel.JAnnotationWriter;
@@ -27,12 +19,22 @@ import com.sun.codemodel.JEnumConstant;
 import com.sun.codemodel.JFieldVar;
 import com.sun.codemodel.JMod;
 import com.sun.codemodel.writer.SingleStreamCodeWriter;
+import org.junit.jupiter.api.Test;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.util.Collection;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * A test program for the annotation use features Note: Not all the generated
  * code would make sense but just checking in all the different ways you can use
  * an annotation
- * 
+ *
  * @author Bhakti Mehta
  */
 public class AnnotationUseTest {
@@ -90,10 +92,10 @@ public class AnnotationUseTest {
 
 		// test typed annotation writer
 		XmlElementW w = cls.annotate2(XmlElementW.class);
-		Assert.assertEquals(w, w);
-		Assert.assertEquals(System.identityHashCode(w), w.hashCode());
+		assertEquals(w, w);
+		assertEquals(System.identityHashCode(w), w.hashCode());
 		w.toString();
-		Assert.assertEquals(XmlElement.class, w.getAnnotationType());
+		assertEquals(XmlElement.class, w.getAnnotationType());
 		w.ns("##default").value("foobar");
 
 		// adding an annotation as a member value pair
@@ -105,11 +107,11 @@ public class AnnotationUseTest {
 
     private JAnnotationUse tstremoveAnnotation(JCodeModel cm, JDefinedClass cls, JAnnotationUse use) {
         Collection<JAnnotationUse> anns = cls.annotations();
-        Assert.assertTrue(anns.contains(use));
-        Assert.assertTrue(cls.removeAnnotation(use));
+        assertTrue(anns.contains(use));
+        assertTrue(cls.removeAnnotation(use));
         Collection<JAnnotationUse> annsUpdated = cls.annotations();
-        Assert.assertFalse(annsUpdated.contains(use));
-        Assert.assertFalse(cls.removeAnnotation(use));
+        assertFalse(annsUpdated.contains(use));
+        assertFalse(cls.removeAnnotation(use));
         use = cls.annotate(cm.ref(Retention.class));
         return use;
     }
@@ -135,26 +137,26 @@ public class AnnotationUseTest {
  * *********************************************************************
  * Generates this
  * **********************************************************************
- * 
+ *
  * @java.lang.annotation.Retention(value1 =
  * java.lang.annotation.RetentionPolicy.RUNTIME, value = Test.Iamenum.GOOD)
  * @XmlElement(ns = "##default", value = "foobar")
  * public class Test {
- * 
+ *
  * @java.lang.annotation.Retention(foo = @java.lang.annotation.Target(junk = 7)
- * 
+ *
  * , targetNamespace = 5, namesno = { 4, 5, 6 }, values =
  * {@java.lang.annotation.Target(type = java.lang.Integer) ,
  * @java.lang.annotation.Target(type = java.lang.Float) }, names = {"Bob",
  * "Rob", "Ted"}, name = "book") private double y;
- * 
+ *
  * public void foo() { }
- * 
+ *
  * public enum Iamenum {
- * 
+ *
  * BAD, GOOD; }
- * 
+ *
  * }
- * 
+ *
  * }
  */

@@ -10,10 +10,11 @@
 
 package com.sun.codemodel;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+
 import java.io.CharArrayWriter;
 import java.io.PrintWriter;
-import org.junit.After;
-import org.junit.Before;
 
 /**
  * Common Java module directive testing code.
@@ -35,7 +36,7 @@ public abstract class JTestModuleDirective {
     /**
      * Initialize test.
      */
-    @Before
+    @BeforeEach
     public void setUp() {
         openOutput();
     }
@@ -43,7 +44,7 @@ public abstract class JTestModuleDirective {
     /**
      * Cleanup test.
      */
-    @After
+    @AfterEach
     public void tearDown() {
         closeOutput();
     }

@@ -10,29 +10,30 @@
 
 package org.glassfish.jaxb.runtime.v2;
 
-import java.util.Arrays;
-import java.io.StringWriter;
-import java.util.Collections;
-
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.annotation.adapters.HexBinaryAdapter;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import javax.xml.namespace.QName;
-
 import org.glassfish.jaxb.runtime.api.Bridge;
 import org.glassfish.jaxb.runtime.api.CompositeStructure;
 import org.glassfish.jaxb.runtime.api.JAXBRIContext;
 import org.glassfish.jaxb.runtime.api.TypeReference;
+import org.junit.jupiter.api.Test;
 
-import junit.framework.TestCase;
+import javax.xml.namespace.QName;
+import java.io.StringWriter;
+import java.util.Arrays;
+import java.util.Collections;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Kohsuke Kawaguchi
  */
-public class CompositeStructureTest extends TestCase {
+public class CompositeStructureTest {
 
     // this annotation is just so that we can pass it to tr4.
     @XmlJavaTypeAdapter(HexBinaryAdapter.class)
+    @Test
     public void test1() throws Exception {
         TypeReference tr1 = new TypeReference(new QName("","foo"),String.class);
         TypeReference tr2 = new TypeReference(new QName("","bar"),int.class);
