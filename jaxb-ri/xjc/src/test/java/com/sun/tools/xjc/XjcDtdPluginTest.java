@@ -85,6 +85,26 @@ public class XjcDtdPluginTest {
     }
 
     @Test
+    public void testIssue_cannotRenderJavadocForLists() throws Exception {
+        final OptionsEx opt = new OptionsEx();
+        opt.setSchemaLanguage(Language.DTD);
+        opt.compatibilityMode = Options.EXTENSION;
+
+        opt.addGrammar(
+            new InputSource(
+                new ByteArrayInputStream("<!ELEMENT AnElement1 (#PCDATA)>\n<!ELEMENT AnElement2 (#PCDATA)>\n<!ELEMENT AnElement (AnElement1 | AnElement2)>".getBytes())
+            )
+        );
+
+        Model model = ModelLoader.load(
+            opt,
+            new JCodeModel(),
+            null
+        );
+        model.generateCode(opt, null);
+    }
+
+    @Test
     public void testIssue_PCDataNoCamelCase() throws Exception {
         final OptionsEx opt = new OptionsEx();
         opt.setSchemaLanguage(Language.DTD);
