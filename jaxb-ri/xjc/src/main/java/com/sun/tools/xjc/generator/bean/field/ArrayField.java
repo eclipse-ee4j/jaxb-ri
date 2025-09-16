@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -102,7 +103,7 @@ final class ArrayField extends AbstractListField {
         // }
         $getAll = writer.declareMethod( exposedType.array(),"get"+prop.getName(true));
         if (prop.javadoc != null && prop.javadoc.length() > 0) {
-            writer.javadoc().append(prop.javadoc).append("\n\n");
+            writer.javadoc().appendXML(prop.javadoc).append("\n\n");
         }
         body = $getAll.body();
 
@@ -129,7 +130,7 @@ final class ArrayField extends AbstractListField {
         $get.body()._if(acc.ref(true).eq(JExpr._null()))._then()
             ._throw(JExpr._new(codeModel.ref(IndexOutOfBoundsException.class)));
 
-        writer.javadoc().append(prop.javadoc);
+        writer.javadoc().appendXML(prop.javadoc);
         $get.body()._return(acc.ref(true).component($idx));
 
         writer.javadoc().addReturn().append("one of\n").append(returnTypes);
@@ -156,7 +157,7 @@ final class ArrayField extends AbstractListField {
             codeModel.VOID,
             "set"+prop.getName(true));
 
-        writer.javadoc().append(prop.javadoc);
+        writer.javadoc().appendXML(prop.javadoc);
         $value = writer.addParameter(exposedType.array(),"values");
 
         $setAll.body()._if( $value.eq(JExpr._null()) )._then()
@@ -189,7 +190,7 @@ final class ArrayField extends AbstractListField {
         $idx = writer.addParameter( codeModel.INT, "idx" );
         $value = writer.addParameter( exposedType, "value" );
 
-        writer.javadoc().append(prop.javadoc);
+        writer.javadoc().appendXML(prop.javadoc);
 
         body = $set.body();
         body._return( JExpr.assign(acc.ref(true).component($idx),
