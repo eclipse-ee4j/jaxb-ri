@@ -11,6 +11,10 @@
 package org.glassfish.jaxb.runtime.v2.model.runtime;
 
 import org.glassfish.jaxb.core.v2.model.core.MapPropertyInfo;
+import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
+import org.glassfish.jaxb.runtime.v2.runtime.property.AttributeProperty;
+import org.glassfish.jaxb.runtime.v2.runtime.property.Property;
+import org.glassfish.jaxb.runtime.v2.runtime.property.SingleMapNodeProperty;
 
 import java.lang.reflect.Type;
 
@@ -22,4 +26,10 @@ public interface RuntimeMapPropertyInfo extends RuntimePropertyInfo, MapProperty
     RuntimeNonElement getKeyType();
     @Override
     RuntimeNonElement getValueType();
+
+
+    @Override
+    default Property<?> create(JAXBContextImpl grammar) {
+        return new SingleMapNodeProperty<>(grammar, this);
+    }
 }

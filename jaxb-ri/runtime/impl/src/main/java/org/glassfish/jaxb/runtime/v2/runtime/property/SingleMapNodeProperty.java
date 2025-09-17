@@ -31,7 +31,7 @@ import java.util.*;
 /**
  * @author Kohsuke Kawaguchi
  */
-final class SingleMapNodeProperty<BeanT,ValueT extends Map> extends PropertyImpl<BeanT> {
+public final class SingleMapNodeProperty<BeanT,ValueT extends Map> extends PropertyImpl<BeanT> {
 
     private final Accessor<BeanT,ValueT> acc;
     /**
