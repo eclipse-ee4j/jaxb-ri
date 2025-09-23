@@ -18,7 +18,7 @@
     <parent>
         <artifactId>jaxb-external-parent</artifactId>
         <groupId>com.sun.xml.bind.mvn</groupId>
-        <version>4.0.6-SNAPSHOT</version>
+        <version>4.0.7-SNAPSHOT</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
