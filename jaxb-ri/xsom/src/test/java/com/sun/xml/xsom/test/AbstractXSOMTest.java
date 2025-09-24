@@ -10,16 +10,15 @@ package com.sun.xml.xsom.test;
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-import com.sun.xml.xsom.parser.XmlFactory;
-import junit.framework.TestCase;
 import com.sun.xml.xsom.XSSchemaSet;
 import com.sun.xml.xsom.parser.XSOMParser;
+import com.sun.xml.xsom.parser.XmlFactory;
 import org.xml.sax.SAXException;
 
 /**
  * @author Kohsuke Kawaguchi
  */
-public abstract class AbstractXSOMTest extends TestCase {
+public abstract class AbstractXSOMTest {
     /**
      * Loads a schema set from XSDs in the resource.
      */

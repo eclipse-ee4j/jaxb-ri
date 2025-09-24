@@ -10,20 +10,21 @@
 
 package org.glassfish.jaxb.runtime.v2;
 
-import java.io.StringReader;
-import java.util.HashMap;
-import java.util.Map;
-
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
-
 import org.glassfish.jaxb.runtime.api.JAXBRIContext;
+import org.junit.jupiter.api.Test;
 
-import junit.framework.TestCase;
+import java.io.StringReader;
+import java.util.HashMap;
+import java.util.Map;
 
-public class BackupWithParentNamespaceTest extends TestCase {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+public class BackupWithParentNamespaceTest {
 
     @XmlRootElement(name = "root", namespace = "http://example.org")
     static class Root {
@@ -34,7 +35,7 @@ public class BackupWithParentNamespaceTest extends TestCase {
     @XmlType(namespace = "http://example.org")
     static class Nested {
         @XmlElement(namespace = "http://example.org")
-        String bar;    
+        String bar;
     }
 
     // bug#25092248/21667799/JAXB-867: lookup loader by parent namespace also
@@ -44,15 +45,16 @@ public class BackupWithParentNamespaceTest extends TestCase {
     // by SPEC unmarshaller should fail, but due to JAXB-867 there were few releases (from 2.2.5 to 2.3 (not including)
     // that handled it gracefully, so some clients rely on this behavior and need support for this further on
     // this is fullfilled with org.glassfish.jaxb.backupWithParentNamespace system property
+    @Test
     public void test1() throws Exception {
         Map<String, Object> properties = new HashMap<>();
         properties.put(JAXBRIContext.BACKUP_WITH_PARENT_NAMESPACE, Boolean.TRUE);
         JAXBContext c = JAXBContext.newInstance(new Class[] {Root.class}, properties);
 
         Root root = (Root) c.createUnmarshaller().unmarshal(new StringReader("<root xmlns='http://example.org'><foo xmlns='http://nested.example.org'><bar>bar</bar></foo></root>"));
-        assertNotNull("root", root);
+        assertNotNull(root, "root");
         Nested foo = root.foo;
-        assertNotNull("foo", foo);
+        assertNotNull(foo, "foo");
         assertEquals("bar", foo.bar);
     }
 }

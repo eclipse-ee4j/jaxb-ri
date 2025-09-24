@@ -19,11 +19,12 @@ package com.sun.xml.xsom.test;
  */
 
 import com.sun.xml.xsom.XSSchemaSet;
-import com.sun.xml.xsom.parser.XSOMParser;
 import com.sun.xml.xsom.parser.SchemaDocument;
+import com.sun.xml.xsom.parser.XSOMParser;
 import com.sun.xml.xsom.parser.XmlFactory;
-import junit.framework.*;
-import org.junit.Ignore;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.xml.sax.InputSource;
 
 import java.net.URL;
@@ -33,17 +34,14 @@ import java.util.Set;
  *
  * @author Farrukh S. Najmi
  */
-public class XSOMParserTest extends TestCase {
+public class XSOMParserTest {
 
     private static String docURLStr = "https://docs.oasis-open.org/regrep/v3.0/schema/lcm.xsd";
     //private static String docURLStr = "http://ebxmlrr.sourceforge.net/private/sun/irs/ContactMechanism/IRS-ContactMechanismCommonAggregateComponents-1.0.xsd";
     private static URL docURL = null;
     private static XSOMParser instance = null;
 
-    public XSOMParserTest(String testName) {
-        super(testName);
-    }
-
+    @BeforeEach
     protected void setUp() throws Exception {
         if (docURL == null) {
             docURL = new URL(docURLStr);
@@ -52,18 +50,14 @@ public class XSOMParserTest extends TestCase {
         }
     }
 
+    @AfterEach
     protected void tearDown() throws Exception {
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(XSOMParserTest.class);
-
-        return suite;
     }
 
     /**
      * Test of parse method, of class com.sun.xml.xsom.parser.XSOMParser.
      */
+    @Test
     public void testParse() throws Exception {
         System.out.println("parse");
 
@@ -79,6 +73,7 @@ public class XSOMParserTest extends TestCase {
     /**
      * Test of getDocuments method, of class com.sun.xml.xsom.parser.XSOMParser.
      */
+    @Test
     public void testGetDocuments() {
         System.out.println("getDocuments");
 
@@ -100,6 +95,7 @@ public class XSOMParserTest extends TestCase {
     /**
      * Test of getResult method, of class com.sun.xml.xsom.parser.XSOMParser.
      */
+    @Test
     public void testGetResult() throws Exception {
         System.out.println("getResult");
 
