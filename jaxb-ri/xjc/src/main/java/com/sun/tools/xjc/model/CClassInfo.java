@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -374,12 +375,22 @@ public final class CClassInfo extends AbstractCElement implements ClassInfo<NTyp
      * Adds a new property.
      */
     public void addProperty(CPropertyInfo prop) {
-        if(prop.ref().isEmpty())
+        addProperty(properties.size(), prop);
+    }
+
+    /**
+     * Adds a new property at specified index.
+     */
+    public void addProperty(int index, CPropertyInfo prop) {
+        if (prop.ref().isEmpty())
             // this property isn't contributing anything
             // this happens when you try to map an empty sequence to a property
             return;
+        if (index < 0) {
+            throw new IllegalArgumentException("index out of bounds");
+        }
         prop.setParent(this);
-        properties.add(prop);
+        properties.add(index, prop);
     }
 
     /**
