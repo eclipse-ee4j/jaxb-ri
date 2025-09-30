@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -116,7 +117,7 @@ public abstract class CPropertyInfo implements PropertyInfo<NType,NClass>, CCust
     }
 
     // called from CClassInfo when added
-    final void setParent( CClassInfo parent ) {
+    public final void setParent( CClassInfo parent ) {
         assert this.parent==null;
         assert parent!=null;
         this.parent = parent;

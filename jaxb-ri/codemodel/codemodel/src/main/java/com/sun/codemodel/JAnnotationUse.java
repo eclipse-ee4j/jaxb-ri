@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -36,7 +37,7 @@ public final class JAnnotationUse extends JAnnotationValue {
      */
     private Map<String,JAnnotationValue> memberValues;
 
-    JAnnotationUse(JClass clazz){
+    public JAnnotationUse(JClass clazz){
         this.clazz = clazz;
     }
 
