@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -212,6 +213,7 @@ public class JJavaName {
                  "(.+)ch","$1ches",
                  "(.+)sh","$1shes",
               "(.*)tooth","$1teeth",
+                "(.+)sum","$1sums",
                  "(.+)um","$1a",
                  "(.+)an","$1en",
                 "(.+)ato","$1atoes",
