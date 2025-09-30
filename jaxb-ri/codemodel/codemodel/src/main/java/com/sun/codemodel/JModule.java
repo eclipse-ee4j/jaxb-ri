@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2016, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,35 +17,65 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Writer;
+import java.lang.annotation.Annotation;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 /**
  * Represents a Java module.
  * @author Tomas Kraus
  */
-public class JModule {
+public class JModule implements JGenerable, JAnnotatable, JDocCommentable{
 
     /** Java module file name. */
     private static final String FILE_NAME = "module-info.java";
 
     /** Name of this module. Mandatory value. Shall not be {@code null}. */
     private final String name;
+    private final JCodeModel owner;
 
     /** {@link Set} of Java module directives. */
     private final Set<JModuleDirective> directives;
 
     /**
-     * Creates an instance of Java module.
-     * @param name Java module name. Value can not be {@code null}
+     * Annotations on this JModule. Lazily created.
      */
+    private List<JAnnotationUse> annotations = null;
+
+    /**
+     * javadoc comments for this JModule
+     */
+    private JDocComment jdoc = null;
+
+    /**
+     * Creates an instance of Java module.
+     *
+     * @param name       Java module name. Value can not be {@code null}
+     * @deprecated use two args constructor
+     * @since 4.0.7
+     */
+    @Deprecated(forRemoval = true, since = "4.0.7")
     JModule(final String name) {
+        this(name, new JCodeModel());
+    }
+
+    /**
+     * Creates an instance of Java module.
+     *
+     * @param name       Java module name. Value can not be {@code null}
+     * @param owner      {@link JCodeModel} instance that owns this module.
+     */
+    JModule(final String name, JCodeModel owner) {
         if (name == null) {
             throw new IllegalArgumentException("Value of name is null");
         }
         this.name = name;
+        this.owner = owner;
         this.directives = new HashSet<>();
     }
 
@@ -131,12 +162,68 @@ public class JModule {
         _requires(false, false, names);
     }
 
+    @Override
+    public JAnnotationUse annotate(JClass clazz) {
+        if (annotations == null) {
+            annotations = new ArrayList<>();
+        }
+        JAnnotationUse a = new JAnnotationUse(clazz);
+        annotations.add(a);
+        return a;
+    }
+
+    @Override
+    public JAnnotationUse annotate(Class<? extends Annotation> clazz) {
+        return annotate(owner.ref(clazz));
+    }
+
+    @Override
+    public boolean removeAnnotation(JAnnotationUse annotation) {
+        return this.annotations.remove(annotation);
+    }
+
+    @Override
+    public Collection<JAnnotationUse> annotations() {
+        if (annotations == null) {
+            annotations = new ArrayList<>();
+        }
+        return Collections.unmodifiableList(annotations);
+    }
+
+    @Override
+    public <W extends JAnnotationWriter<? extends Annotation>> W annotate2(Class<W> clazz) {
+        return TypedAnnotationWriter.create(clazz, this);
+    }
+
+    /**
+     * Creates, if necessary, and returns the class javadoc for this
+     * JModule
+     *
+     * @return JDocComment containing javadocs for this class
+     */
+    @Override
+    public JDocComment javadoc() {
+        if (jdoc == null) {
+            jdoc = new JDocComment(owner);
+        }
+        return jdoc;
+    }
+
     /**
      * Print source code of Java Module declaration.
      * @param f Java code formatter.
-     * @return provided instance of Java code formatter.
      */
-    public JFormatter generate(final JFormatter f) {
+    public void generate(final JFormatter f) {
+        if (jdoc != null) {
+            f.g(jdoc);
+        }
+
+        if (annotations != null) {
+            for (JAnnotationUse a : annotations) {
+                f.g(a).nl();
+            }
+        }
+
         f.p("module").p(name);
         f.p('{').nl();
         if (!directives.isEmpty()) {
@@ -147,7 +234,6 @@ public class JModule {
             f.o();
         }
         f.p('}').nl();
-        return f;
     }
 
     /**
