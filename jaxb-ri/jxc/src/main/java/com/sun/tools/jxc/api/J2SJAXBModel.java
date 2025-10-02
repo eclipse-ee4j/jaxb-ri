@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -28,8 +29,7 @@ import javax.xml.transform.Result;
  *
  * @author Kohsuke Kawaguchi
  */
-@SuppressWarnings({"removal"})
-public interface J2SJAXBModel extends com.sun.tools.xjc.api.J2SJAXBModel {
+public interface J2SJAXBModel extends JAXBModel {
     /**
      * Returns the name of the XML Type bound to the
      * specified Java type.
