@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2017, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -17,7 +18,6 @@ module org.glassfish.jaxb.xjc {
     requires transitive jakarta.activation;
 
     requires java.logging;
-    requires static java.compiler; // required by com.sun.tools.xjc.api.Reference used by jxc
     requires transitive java.xml;
     requires java.desktop;
 
