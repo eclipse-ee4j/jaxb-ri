@@ -19,8 +19,10 @@ import com.sun.codemodel.JClass;
 import com.sun.codemodel.JExpr;
 import com.sun.codemodel.JExpression;
 import com.sun.codemodel.JMethod;
+import com.sun.codemodel.JMod;
 import com.sun.codemodel.JVar;
 import com.sun.tools.xjc.generator.bean.ClassOutlineImpl;
+import com.sun.tools.xjc.generator.bean.MethodWriter;
 import com.sun.tools.xjc.model.CPropertyInfo;
 import com.sun.tools.xjc.model.CReferencePropertyInfo;
 import com.sun.tools.xjc.outline.FieldAccessor;
@@ -110,7 +112,24 @@ public class DummyListField extends AbstractListField {
     }
 
     @Override
-    public void generateAccessors() { }
+    public void generateAccessors() {
+        final MethodWriter writer = outline.createMethodWriter();
+        final AbstractListField.Accessor acc = (AbstractListField.Accessor) create(JExpr._this());
+
+        // [RESULT]
+        // List getXXX() {
+        //     return <ref>;
+        // }
+        $get = writer.declareMethod(listT,"get"+prop.getName(true));
+        if (prop.javadoc != null && !prop.javadoc.isEmpty()) {
+            writer.javadoc().appendXML(prop.javadoc).append("\n\n");
+        }
+        JBlock block = $get.body();
+        fixNullRef(block);  // avoid using an internal getter
+        block._return(acc.ref(true));
+
+        appendJavadoc(writer);
+    }
 
     @Override
     public FieldAccessor create(JExpression targetObject) {
