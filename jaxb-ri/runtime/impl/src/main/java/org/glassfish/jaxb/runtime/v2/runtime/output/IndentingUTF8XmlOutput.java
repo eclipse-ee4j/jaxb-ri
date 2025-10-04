@@ -62,6 +62,7 @@ public final class IndentingUTF8XmlOutput extends UTF8XmlOutput {
             unitLen = e.len;
             for( int i=0; i<8; i++ )
                 System.arraycopy(e.buf, 0, indent8.buf, unitLen*i, unitLen);
+            indent8.len = e.len*8;  // Fix for issue #1645: set the length after populating the buffer
         } else {
             this.indent8 = null;
             this.unitLen = 0;
