@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1997, 2024 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -168,6 +169,8 @@ public abstract class BIConversion extends AbstractDeclarationImpl {
                 try {
                     JPackage pkg = Ring.get(ClassSelector.class).getClassScope().getOwnerPackage();
                     adapter = pkg._class("Adapter"+id);
+                    // reference adapter in the CodeModel instance
+                    pkg.owner()._adapter(adapter);
                 } catch (JClassAlreadyExistsException e) {
                     // try another name in search for an unique name.
                     // this isn't too efficient, but we expect people to usually use

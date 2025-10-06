@@ -11,6 +11,7 @@
 
 package com.sun.tools.xjc;
 
+import com.sun.codemodel.JAnnotationUse;
 import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.JDeclaration;
 import com.sun.codemodel.JDefinedClass;
@@ -221,6 +222,56 @@ public class CodeGenTest extends TestCase {
             JMethod con = conIter.next();
             assertTrue(toString(con).contains("java.lang.Class<java.lang.String>"));
         }
+    }
+
+
+    /**
+     * Test issues #1440 for mark-generated on adapters
+     *
+     * @throws FileNotFoundException When the test schema or binding file cannot be read.
+     * @throws URISyntaxException When the test {@link InputSource} cannot be parsed.
+     *
+     * @see <a href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1440">Issue #1440</a>
+     */
+    public void testIssue1440() throws FileNotFoundException, URISyntaxException, BadCommandLineException {
+        String schemaFileName = "/schemas/issue1440/schema.xsd";
+        String bindingFileName = "/schemas/issue1440/binding.xjb";
+        String packageName = "org.example.issue1440";
+        String someClassName = packageName + ".Gh1440Type";
+
+        ErrorListener errorListener = new ConsoleErrorReporter();
+
+        // Parse the XML schema.
+        SchemaCompiler sc = XJC.createSchemaCompiler();
+        sc.setErrorListener(errorListener);
+        sc.forcePackageName(packageName);
+        sc.parseSchema(getInputSource(schemaFileName));
+        sc.getOptions().addGrammar(getInputSource(schemaFileName));
+        sc.getOptions().addBindFile(getInputSource(bindingFileName));
+        sc.getOptions().parseArguments(new String[] { "-mark-generated" });
+
+        // Generate the defined class.
+        S2JJAXBModel model = sc.bind();
+        Plugin[] extensions = new Plugin[]{ new com.sun.tools.xjc.addon.at_generated.PluginImpl() };
+        JCodeModel cm = model.generateCode(extensions, errorListener);
+        JDefinedClass dc = cm._getClass(someClassName);
+        assertNotNull(someClassName, dc);
+
+        // Assert Class includes narrow type
+        Iterator<JMethod> conIter = dc.constructors();
+        while (conIter.hasNext()) {
+            JMethod con = conIter.next();
+            assertTrue(toString(con).contains("java.lang.Class<java.lang.String>"));
+        }
+
+        Iterator<JDefinedClass> adaptersIt = cm.adapters();
+        assertTrue("Should have one adapter", adaptersIt.hasNext());
+        JDefinedClass adapter = adaptersIt.next();
+        assertNotNull("Adapter should not be null", adapter);
+        assertEquals("Should have one annotations", 1, adapter.annotations().size());
+        JAnnotationUse annotation = adapter.annotations().iterator().next();
+        assertNotNull("Annotation should not be null", annotation);
+        assertEquals("Annotation should be @Generated", "jakarta.annotation.Generated", annotation.getAnnotationClass().fullName());
     }
 
     private void assertNonEmptyJavadocBlocks(String cmString) throws IOException {
