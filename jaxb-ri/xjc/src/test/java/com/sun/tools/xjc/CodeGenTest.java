@@ -223,6 +223,73 @@ public class CodeGenTest extends TestCase {
         }
     }
 
+    /**
+     * Test issues #1865 for good javadoc generation
+     *
+     * @throws FileNotFoundException When the test schema or binding file cannot be read.
+     * @throws URISyntaxException When the test {@link InputSource} cannot be parsed.
+     *
+     * @see <a href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1788">Issue #1788</a>
+     */
+    public void testIssue1865() throws FileNotFoundException, URISyntaxException {
+        String schemaFileName = "/schemas/issue1865/simple.xsd";
+        String packageName = "org.example.issue1865";
+        String someClassName = packageName + ".TestEscapeJavadoc";
+        String someEnumName = packageName + ".FooEnum";
+
+        ErrorListener errorListener = new ConsoleErrorReporter();
+
+        // Parse the XML schema.
+        SchemaCompiler sc = XJC.createSchemaCompiler();
+        sc.setErrorListener(errorListener);
+        sc.forcePackageName(packageName);
+        sc.parseSchema(getInputSource(schemaFileName));
+
+        // Generate the defined class.
+        S2JJAXBModel model = sc.bind();
+        Plugin[] extensions = null;
+        JCodeModel cm = model.generateCode(extensions, errorListener);
+        JDefinedClass dc = cm._getClass(someClassName);
+        assertNotNull(someClassName, dc);
+        StringWriter swClass = new StringWriter();
+        dc.javadoc().generate(new JFormatter(swClass));
+        assertNotNull(swClass.toString());
+        assertTrue(swClass.toString().contains("Test escape Javadoc on Class &lt; &gt; &amp; ' \" *<!---->/ Hello World"));
+        assertTrue(swClass.toString().contains(" * <pre>{@code" + System.lineSeparator() +
+                " * <complexType name=\"testEscapeJavadoc\">" + System.lineSeparator() +
+                " *   <complexContent>" + System.lineSeparator() +
+                " *     <restriction base=\"{http://www.w3.org/2001/XMLSchema}anyType\">" + System.lineSeparator() +
+                " *       <sequence>" + System.lineSeparator() +
+                " *         <element name=\"lt\" type=\"{http://www.w3.org/2001/XMLSchema}string\"/>" + System.lineSeparator() +
+                " *         <element name=\"gt\" type=\"{http://www.w3.org/2001/XMLSchema}string\"/>" + System.lineSeparator() +
+                " *         <element name=\"amp\" type=\"{http://www.w3.org/2001/XMLSchema}string\"/>" + System.lineSeparator() +
+                " *         <element name=\"listLtGtAmp\" type=\"{http://www.w3.org/2001/XMLSchema}string\" maxOccurs=\"unbounded\" minOccurs=\"0\"/>" + System.lineSeparator() +
+                " *         <element name=\"apos\" type=\"{http://www.w3.org/2001/XMLSchema}string\"/>" + System.lineSeparator() +
+                " *         <element name=\"quot\" type=\"{http://www.w3.org/2001/XMLSchema}string\"/>" + System.lineSeparator() +
+                " *         <element name=\"comment\" type=\"{http://www.w3.org/2001/XMLSchema}string\"/>" + System.lineSeparator() +
+                " *         <element name=\"enum\" type=\"{}FooEnum\"/>" + System.lineSeparator() +
+                " *       </sequence>" + System.lineSeparator() +
+                " *     </restriction>" + System.lineSeparator() +
+                " *   </complexContent>" + System.lineSeparator() +
+                " * </complexType>" + System.lineSeparator() +
+                " * }</pre>"));
+
+        JDefinedClass ec = cm._getClass(someEnumName);
+        assertNotNull(someEnumName, ec);
+        StringWriter swEnum = new StringWriter();
+        ec.javadoc().generate(new JFormatter(swEnum));
+        assertNotNull(swEnum.toString());
+        assertTrue(swEnum.toString().contains("Test escape Javadoc on Enum &lt; &gt; &amp; ' \" *<!---->/ Hello World"));
+        assertTrue(swEnum.toString().contains(" * <pre>{@code" + System.lineSeparator() +
+                " * <simpleType name=\"FooEnum\">" + System.lineSeparator() +
+                " *   <restriction base=\"{http://www.w3.org/2001/XMLSchema}string\">" + System.lineSeparator() +
+                " *     <enumeration value=\"BAR\"/>" + System.lineSeparator() +
+                " *     <enumeration value=\"BAZ\"/>" + System.lineSeparator() +
+                " *   </restriction>" + System.lineSeparator() +
+                " * </simpleType>" + System.lineSeparator() +
+                " * }</pre>"));
+    }
+
     private void assertNonEmptyJavadocBlocks(String cmString) throws IOException {
         int lineNo = 0;
         try ( LineNumberReader lnr = new LineNumberReader(new StringReader(cmString)) ) {
