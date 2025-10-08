@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -20,6 +21,7 @@ import java.util.Stack;
 import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.JJavaName;
 import com.sun.codemodel.JPackage;
+import com.sun.codemodel.util.Util;
 import com.sun.istack.NotNull;
 import com.sun.tools.xjc.model.CBuiltinLeafInfo;
 import com.sun.tools.xjc.model.CClassInfo;
@@ -368,7 +370,7 @@ public final class ClassSelector extends BindingComponent {
         // first, pick it up from <documentation> if any.
         String doc = builder.getDocumentation(sc);
         if (doc != null) {
-            append(bean, doc);
+            append(bean, Util.escapeXML(doc));
         }
 
         // then the description of where this component came from

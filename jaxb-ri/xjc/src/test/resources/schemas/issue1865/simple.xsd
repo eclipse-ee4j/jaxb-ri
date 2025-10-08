@@ -64,9 +64,7 @@
 
     <xsd:simpleType name="FooEnum">
         <xsd:annotation>
-            <xsd:appinfo>
-                <xsd:documentation>Test escape Javadoc on Enum &lt; &gt; &amp; &apos; &quot; */ Hello World</xsd:documentation>
-            </xsd:appinfo>
+            <xsd:documentation>Test escape Javadoc on Enum &lt; &gt; &amp; &apos; &quot; */ Hello World</xsd:documentation>
         </xsd:annotation>
 
         <xsd:restriction base="xsd:string">
