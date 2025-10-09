@@ -557,7 +557,7 @@ public final class BeanGenerator implements Outline {
         }
 
         // generate some class level javadoc
-        cc.ref.javadoc().appendXML(target.javadoc);
+        cc.ref.javadoc().append(target.javadoc);
 
         cc._package().objectFactoryGenerator().populate(cc);
     }
@@ -616,7 +616,7 @@ public final class BeanGenerator implements Outline {
 
         type = getClassFactory().createClass(
                 getContainer(e.parent, EXPOSED), e.shortName, e.getLocator(), ClassType.ENUM);
-        type.javadoc().appendXML(e.javadoc);
+        type.javadoc().append(e.javadoc);
 
         return new EnumOutline(e, type) {
 
@@ -683,7 +683,7 @@ public final class BeanGenerator implements Outline {
 
             // set javadoc
             if (mem.javadoc != null) {
-                constRef.javadoc().appendXML(mem.javadoc);
+                constRef.javadoc().append(mem.javadoc);
             }
 
             eo.constants.add(new EnumConstantOutline(mem, constRef) {
