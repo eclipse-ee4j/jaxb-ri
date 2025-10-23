@@ -28,11 +28,19 @@ final class StackHelper {
      *                           prevents stack introspection
      */
     static String getCallerClassName() {
-        return StackWalker.getInstance()
-                .walk(frames ->
-                        frames.map(StackFrame::getClassName)
-                                .skip(2L)
-                                .findFirst()
-                                .get());
+        try
+        {
+            return StackWalker.getInstance()
+                    .walk(frames ->
+                            frames.map(StackFrame::getClassName)
+                                    .skip(2L)
+                                    .findFirst()
+                                    .get());
+        }
+        catch (NoClassDefFoundError ignored)
+        {
+            StackTraceElement[] trace = new Exception().getStackTrace();
+            return trace[1].getClassName();
+        }
     }
 }
