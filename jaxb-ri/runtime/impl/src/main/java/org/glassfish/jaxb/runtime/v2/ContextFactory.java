@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -94,7 +95,7 @@ public class ContextFactory {
             xmlAccessorFactorySupport = false;
             Utils.getClassLogger().log(Level.FINE, "Property " +
                 JAXBRIContext.XMLACCESSORFACTORY_SUPPORT +
-                "is not active.  Using JAXB's implementation");
+                " is not active. Using JAXB's implementation.");
         }
 
         Boolean backupWithParentNamespace = getPropertyValue(properties, JAXBRIContext.BACKUP_WITH_PARENT_NAMESPACE, Boolean.class);
