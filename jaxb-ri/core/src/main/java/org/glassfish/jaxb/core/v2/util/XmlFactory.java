@@ -12,8 +12,12 @@ package org.glassfish.jaxb.core.v2.util;
 
 import org.glassfish.jaxb.core.v2.Messages;
 
+import java.lang.ref.SoftReference;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
+import java.util.Objects;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.XMLConstants;
@@ -130,17 +134,49 @@ public class XmlFactory {
         }
     }
 
+    private static final class TransformerFactoryConfig {
+        private boolean disableSecureProcessing;
+        private String factoryName;
+
+        private TransformerFactoryConfig(final boolean disableSecureProcessing, final String factoryName) {
+            this.disableSecureProcessing = disableSecureProcessing;
+            this.factoryName = factoryName;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(this.disableSecureProcessing, this.factoryName);
+        }
+
+        @Override
+        public boolean equals(final Object other) {
+            if (!(other instanceof TransformerFactoryConfig))
+                return false;
+            final TransformerFactoryConfig that = (TransformerFactoryConfig) other;
+            return this.disableSecureProcessing == that.disableSecureProcessing && Objects.equals(this.factoryName, that.factoryName);
+        }
+    }
+
+    private static final Map<TransformerFactoryConfig, SoftReference<TransformerFactory>> TRANSFORMER_FACTORY_CACHE = new ConcurrentHashMap<>();
+
     /**
      * Returns properly configured (e.g. security features) factory 
      * - securityProcessing == is set based on security processing property, default is true
      */
     public static TransformerFactory createTransformerFactory(boolean disableSecureProcessing) throws IllegalStateException {
         try {
-            TransformerFactory factory = TransformerFactory.newInstance();
+            final TransformerFactoryConfig config = new TransformerFactoryConfig(disableSecureProcessing, System.getProperty("javax.xml.transform.TransformerFactory"));
+            final SoftReference<TransformerFactory> softReference = TRANSFORMER_FACTORY_CACHE.get(config);
+            TransformerFactory factory = softReference == null ? null : softReference.get();
+            if (factory == null) {
+                factory = TransformerFactory.newInstance();
+                factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, !isXMLSecurityDisabled(disableSecureProcessing));
+                TRANSFORMER_FACTORY_CACHE.put(config, new SoftReference(factory));
+            }
+
             if (LOGGER.isLoggable(Level.FINE)) {
                 LOGGER.log(Level.FINE, "TransformerFactory instance: {0}", factory);
             }
-            factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, !isXMLSecurityDisabled(disableSecureProcessing));
             return factory;
         } catch (TransformerConfigurationException ex) {
             LOGGER.log(Level.SEVERE, null, ex);
