@@ -673,7 +673,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
      */
     static Transformer createTransformer(boolean disableSecureProcessing) {
         try {
-            SAXTransformerFactory tf = (SAXTransformerFactory)XmlFactory.createTransformerFactory(disableSecureProcessing);
+            SAXTransformerFactory tf = (SAXTransformerFactory) XmlFactory.createTransformerFactory(disableSecureProcessing, true);
             return tf.newTransformer();
         } catch (TransformerConfigurationException e) {
             throw new Error(e); // impossible
@@ -685,7 +685,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
      */
     public static TransformerHandler createTransformerHandler(boolean disableSecureProcessing) {
         try {
-            SAXTransformerFactory tf = (SAXTransformerFactory)XmlFactory.createTransformerFactory(disableSecureProcessing);
+            SAXTransformerFactory tf = (SAXTransformerFactory) XmlFactory.createTransformerFactory(disableSecureProcessing, true);
             return tf.newTransformerHandler();
         } catch (TransformerConfigurationException e) {
             throw new Error(e); // impossible
