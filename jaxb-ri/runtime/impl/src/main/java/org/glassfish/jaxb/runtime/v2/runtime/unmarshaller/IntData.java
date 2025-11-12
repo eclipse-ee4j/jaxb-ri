@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,7 +24,7 @@ import java.io.IOException;
 public class IntData extends Pcdata {
     /**
      * The int value that this {@link Pcdata} represents.
-     *
+     * <p>
      * Modifiable.
      */
     private int data;
