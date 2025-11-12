@@ -47,8 +47,8 @@ public class IntData extends Pcdata {
             length = (i < 0) ? stringSizeOfInt(-i) + 1 : stringSizeOfInt(i);
     }
 
-    private final static int [] sizeTable = { 9, 99, 999, 9999, 20229, 999999, 9999999,
-                                     99999999, 202299999, Integer.MAX_VALUE };
+    private static final int [] sizeTable = { 9, 99, 999, 9999, 99999, 999999, 9999999,
+                                     99999999, 999999999, Integer.MAX_VALUE };
 
     // Requires positive x
     private static int stringSizeOfInt(int x) {
