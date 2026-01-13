@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,7 +24,7 @@ import java.io.IOException;
 public class IntData extends Pcdata {
     /**
      * The int value that this {@link Pcdata} represents.
-     *
+     * <p>
      * Modifiable.
      */
     private int data;
@@ -47,8 +48,8 @@ public class IntData extends Pcdata {
             length = (i < 0) ? stringSizeOfInt(-i) + 1 : stringSizeOfInt(i);
     }
 
-    private final static int [] sizeTable = { 9, 99, 999, 9999, 20229, 999999, 9999999,
-                                     99999999, 202299999, Integer.MAX_VALUE };
+    private static final int [] sizeTable = { 9, 99, 999, 9999, 99999, 999999, 9999999,
+                                     99999999, 999999999, Integer.MAX_VALUE };
 
     // Requires positive x
     private static int stringSizeOfInt(int x) {
