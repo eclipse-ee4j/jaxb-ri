@@ -34,7 +34,7 @@ import java.lang.reflect.Modifier;
  *
  * @author Kohsuke Kawaguchi (kk@kohsuke.org)
  */
-final class SingleElementLeafProperty<BeanT> extends PropertyImpl<BeanT> {
+public final class SingleElementLeafProperty<BeanT> extends PropertyImpl<BeanT> {
 
     private final Name tagName;
     private final boolean nillable;

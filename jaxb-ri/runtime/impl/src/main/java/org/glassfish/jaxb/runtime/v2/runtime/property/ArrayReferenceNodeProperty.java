@@ -32,7 +32,7 @@ import java.io.IOException;
 /**
  * @author Kohsuke Kawaguchi
  */
-class ArrayReferenceNodeProperty<BeanT,ListT,ItemT> extends ArrayERProperty<BeanT,ListT,ItemT> {
+public class ArrayReferenceNodeProperty<BeanT,ListT,ItemT> extends ArrayERProperty<BeanT,ListT,ItemT> {
 
     /**
      * Expected element names and what class to unmarshal.

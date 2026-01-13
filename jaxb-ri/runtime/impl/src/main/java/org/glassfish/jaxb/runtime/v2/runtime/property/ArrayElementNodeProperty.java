@@ -24,7 +24,7 @@ import java.io.IOException;
  *
  * @author Kohsuke Kawaguchi
  */
-final class ArrayElementNodeProperty<BeanT,ListT,ItemT> extends ArrayElementProperty<BeanT,ListT,ItemT> {
+public final class ArrayElementNodeProperty<BeanT,ListT,ItemT> extends ArrayElementProperty<BeanT,ListT,ItemT> {
 
     public ArrayElementNodeProperty(JAXBContextImpl p, RuntimeElementPropertyInfo prop) {
         super(p, prop);

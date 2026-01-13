@@ -11,6 +11,10 @@
 package org.glassfish.jaxb.runtime.v2.model.runtime;
 
 import org.glassfish.jaxb.core.v2.model.core.ReferencePropertyInfo;
+import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
+import org.glassfish.jaxb.runtime.v2.runtime.property.ArrayReferenceNodeProperty;
+import org.glassfish.jaxb.runtime.v2.runtime.property.Property;
+import org.glassfish.jaxb.runtime.v2.runtime.property.SingleReferenceNodeProperty;
 
 import java.lang.reflect.Type;
 import java.util.Set;
@@ -21,4 +25,10 @@ import java.util.Set;
 public interface RuntimeReferencePropertyInfo extends ReferencePropertyInfo<Type,Class>, RuntimePropertyInfo {
     @Override
     Set<? extends RuntimeElement> getElements();
+
+    @Override
+    default Property<?> create(JAXBContextImpl grammar) {
+        boolean isCollection = this.isCollection();
+        return isCollection ? new ArrayReferenceNodeProperty<>(grammar, this) : new SingleReferenceNodeProperty<>(grammar, this);
+    }
 }
