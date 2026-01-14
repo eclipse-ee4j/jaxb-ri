@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -66,6 +67,9 @@ public final class JCodeModel {
     
     /** The packages that this JCodeWriter contains. */
     private final HashMap<String,JPackage> packages = new HashMap<>();
+
+    /** The adapters that this JCodeWriter contains. */
+    private final HashMap<String,JDefinedClass> adapters = new HashMap<>();
 
     /** Java module in {@code module-info.java} file. */
     private JModule module;
@@ -240,6 +244,22 @@ public final class JCodeModel {
         else
             return _package(fullyQualifiedName.substring(0,idx))
                 ._getClass( fullyQualifiedName.substring(idx+1) );
+    }
+
+    /**
+     * Adds an adapter to this code writer
+     * @param adapter the adapter to reference in this code writer
+     */
+    public void _adapter(JDefinedClass adapter) {
+        this.adapters.put(adapter.name(), adapter);
+    }
+
+    /**
+     * Returns an iterator that walks the adapters defined using this code writer.
+     * @return an iterator of the adapters used by this code writer
+     */
+    public Iterator<JDefinedClass> adapters() {
+        return adapters.values().iterator();
     }
 
     /**
