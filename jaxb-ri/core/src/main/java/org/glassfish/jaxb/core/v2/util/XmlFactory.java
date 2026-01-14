@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2013, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,8 +13,12 @@ package org.glassfish.jaxb.core.v2.util;
 
 import org.glassfish.jaxb.core.v2.Messages;
 
+import java.lang.ref.SoftReference;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
+import java.util.Collections;
+import java.util.Map;
+import java.util.WeakHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.XMLConstants;
@@ -39,6 +44,7 @@ import org.xml.sax.SAXNotSupportedException;
 public class XmlFactory {
 
     private static final Logger LOGGER = Logger.getLogger(XmlFactory.class.getName());
+    private static final Map<Boolean, SoftReference<TransformerFactory>> transformerFactoryCache = Collections.synchronizedMap(new WeakHashMap<>());
 
     /**
      * If true XML security features when parsing XML documents will be disabled.
@@ -131,10 +137,51 @@ public class XmlFactory {
     }
 
     /**
-     * Returns properly configured (e.g. security features) factory 
+     * Returns properly configured (e.g., security features) factory
      * - securityProcessing == is set based on security processing property, default is true
+     *
+     * @param disableSecureProcessing disable secure processing in TransformerFactory
+     * @return TransformerFactory new instance
+     * @throws IllegalStateException error on configuring TransformerFactory
      */
     public static TransformerFactory createTransformerFactory(boolean disableSecureProcessing) throws IllegalStateException {
+        return createTransformerFactory(disableSecureProcessing, false);
+    }
+
+    /**
+     * Returns properly configured (e.g., security features) factory
+     * - securityProcessing == is set based on security processing property, default is true
+     *
+     * @param disableSecureProcessing disable secure processing in TransformerFactory
+     * @param useCache use cached instances of TransformerFactory, false will always create new ones
+     * @return TransformerFactory new instance or cached one if useCache is true and found in cache
+     * @throws IllegalStateException error on configuring TransformerFactory
+     */
+    public static TransformerFactory createTransformerFactory(boolean disableSecureProcessing, boolean useCache) throws IllegalStateException {
+        if (!useCache) {
+            return _createTransformerFactory(disableSecureProcessing);
+        }
+        TransformerFactory tf = null;
+        SoftReference<TransformerFactory> tfRef = transformerFactoryCache.get(disableSecureProcessing);
+        if (tfRef != null) {
+            tf = tfRef.get();
+        }
+        if (tf == null) {
+            tf = _createTransformerFactory(disableSecureProcessing);
+            transformerFactoryCache.put(disableSecureProcessing, new SoftReference<>(tf));
+        }
+        return tf;
+    }
+
+    /**
+     * Internal method: returns properly configured (e.g., security features) factory
+     * - securityProcessing == is set based on security processing property, default is true
+     *
+     * @param disableSecureProcessing disable secure processing in TransformerFactory
+     * @return TransformerFactory new instance
+     * @throws IllegalStateException error on configuring TransformerFactory
+     */
+    private static TransformerFactory _createTransformerFactory(boolean disableSecureProcessing) throws IllegalStateException {
         try {
             TransformerFactory factory = TransformerFactory.newInstance();
             if (LOGGER.isLoggable(Level.FINE)) {
