@@ -10,11 +10,11 @@
 
 package com.sun.codemodel;
 
-import static org.junit.Assert.assertArrayEquals;
+import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Modifier;
 
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 public class JModsTest {
 	static final int ALL_JMODS = JMod.PUBLIC | JMod.PROTECTED | JMod.PRIVATE

@@ -10,24 +10,23 @@
 
 package com.sun.codemodel.tests;
 
-import static org.junit.Assert.assertNotNull;
-import japa.parser.JavaParser;
-import japa.parser.ast.CompilationUnit;
-import japa.parser.ast.body.ClassOrInterfaceDeclaration;
-import japa.parser.ast.body.InitializerDeclaration;
-import japa.parser.ast.body.TypeDeclaration;
-
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-
-import org.junit.Test;
-
 import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JExpr;
 import com.sun.codemodel.JFieldVar;
 import com.sun.codemodel.JMod;
 import com.sun.codemodel.writer.OutputStreamCodeWriter;
+import japa.parser.JavaParser;
+import japa.parser.ast.CompilationUnit;
+import japa.parser.ast.body.ClassOrInterfaceDeclaration;
+import japa.parser.ast.body.InitializerDeclaration;
+import japa.parser.ast.body.TypeDeclaration;
+import org.junit.jupiter.api.Test;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class JDefinedClassInstanceInitTest {
 

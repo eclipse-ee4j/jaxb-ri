@@ -10,12 +10,10 @@
 
 package org.glassfish.jaxb.runtime.v2.schemagen;
 
-import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.JaxbContainer;
-import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.JaxbDistribution;
-import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.JaxbEnvironmentModel;
-import org.junit.Assert;
-import org.junit.Test;
-
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
@@ -24,30 +22,27 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlSeeAlso;
 import jakarta.xml.bind.annotation.XmlType;
 import jakarta.xml.bind.annotation.XmlValue;
+import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.JaxbConcreteContainer;
+import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.JaxbConcreteDeployment;
+import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.JaxbContainer;
+import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.JaxbDistribution;
+import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.JaxbEnvironmentModel;
+import org.junit.jupiter.api.Test;
+
 import javax.xml.XMLConstants;
-import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.JAXBElement;
-import jakarta.xml.bind.Marshaller;
-import jakarta.xml.bind.Unmarshaller;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
-
-import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.JaxbConcreteContainer;
-import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.JaxbConcreteDeployment;
-
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import junit.framework.TestCase;
-import junit.textui.TestRunner;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
-public class MarshallingAbstractTest extends TestCase {
-    public static void main(String[] args) {
-        TestRunner.run(MarshallingAbstractTest.class);
-    }
+public class MarshallingAbstractTest {
 
     @XmlSeeAlso({B.class, C.class})
     abstract static class A {
@@ -100,7 +95,7 @@ public class MarshallingAbstractTest extends TestCase {
                 + "    <element1 xsi:type=\"ClassType1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">B1</element1>\n"
                 + "    <element2 xsi:type=\"ClassType2\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">C1</element2>\n"
                 + "</root>\n";
-        Assert.assertEquals(resultWriter.toString(), expectedXml1);
+        assertEquals(expectedXml1, resultWriter.toString());
     }
 
     @Test
@@ -123,7 +118,7 @@ public class MarshallingAbstractTest extends TestCase {
                 + "    <element2 xsi:type=\"ClassType2\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">C1</element2>\n"
                 + "</root>\n";
         marshaller.marshal(mapping, resultWriter);
-        Assert.assertEquals(resultWriter.toString(), expectedXml2);
+        assertEquals(expectedXml2, resultWriter.toString());
     }
 
     @Test
@@ -136,9 +131,9 @@ public class MarshallingAbstractTest extends TestCase {
                 + "    <element2 xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:type=\"ClassType2\">C1</element2>\n"
                 + "</root>\n";
         JAXBElement<Mapping> element = unmarshaller.unmarshal(new StreamSource(new StringReader(sourceXml1)), Mapping.class);
-        Assert.assertNotNull(element.getValue());
-        Assert.assertEquals(B.class, element.getValue().element1.getClass());
-        Assert.assertEquals(C.class, element.getValue().element2.getClass());
+        assertNotNull(element.getValue());
+        assertEquals(B.class, element.getValue().element1.getClass());
+        assertEquals(C.class, element.getValue().element2.getClass());
     }
 
     @Test
@@ -157,10 +152,10 @@ public class MarshallingAbstractTest extends TestCase {
 
         try {
             JAXBElement<Mapping> element = unmarshaller.unmarshal(new StreamSource(new StringReader(sourceXml2)), Mapping.class);
-            Assert.assertEquals(2, element.getValue().list.size());
+            assertEquals(2, element.getValue().list.size());
         }
         catch (Throwable e) {
-            Assert.fail();
+            fail();
         }
     }
 
@@ -265,7 +260,7 @@ public class MarshallingAbstractTest extends TestCase {
                 "    </distribution>\n" +
                 "</environmentModel>\n";
 
-        Assert.assertEquals(resultWriter.toString(), expectedXml);
+        assertEquals(expectedXml, resultWriter.toString());
     }
 
 }
