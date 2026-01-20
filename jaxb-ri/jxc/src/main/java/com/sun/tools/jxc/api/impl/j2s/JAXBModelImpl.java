@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -124,7 +125,6 @@ final class JAXBModelImpl implements J2SJAXBModel {
     }
 
     @Override
-    @SuppressWarnings({"deprecation"})
     public List<String> getClassList() {
         return classList;
     }
@@ -150,12 +150,6 @@ final class JAXBModelImpl implements J2SJAXBModel {
                 reader, types.getNavigator(), r.type, xjta, xl);
 
         return types.getTypeInfo(ref);
-    }
-
-    @Override
-    @SuppressWarnings({"removal"})
-    public QName getXmlTypeName(com.sun.tools.xjc.api.Reference javaType) {
-        return getXmlTypeName(new Reference(javaType.type, javaType.annotations));
     }
 
     @Override
