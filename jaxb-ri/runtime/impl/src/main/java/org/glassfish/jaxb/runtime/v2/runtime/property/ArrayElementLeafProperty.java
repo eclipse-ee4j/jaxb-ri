@@ -30,7 +30,7 @@ import java.io.IOException;
  *
  * @author Kohsuke Kawaguchi (kk@kohsuke.org)
  */
-final class ArrayElementLeafProperty<BeanT,ListT,ItemT> extends ArrayElementProperty<BeanT,ListT,ItemT> {
+public final class ArrayElementLeafProperty<BeanT,ListT,ItemT> extends ArrayElementProperty<BeanT,ListT,ItemT> {
 
     private final Transducer<ItemT> xducer;
 

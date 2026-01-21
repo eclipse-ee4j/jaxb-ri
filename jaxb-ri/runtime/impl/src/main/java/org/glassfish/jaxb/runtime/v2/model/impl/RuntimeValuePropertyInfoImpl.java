@@ -13,6 +13,9 @@ package org.glassfish.jaxb.runtime.v2.model.impl;
 import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimeNonElement;
 import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimePropertyInfo;
 import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimeValuePropertyInfo;
+import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
+import org.glassfish.jaxb.runtime.v2.runtime.property.Property;
+import org.glassfish.jaxb.runtime.v2.runtime.property.ValueProperty;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

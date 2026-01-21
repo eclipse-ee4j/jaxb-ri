@@ -11,6 +11,14 @@
 package org.glassfish.jaxb.runtime.v2.model.runtime;
 
 import org.glassfish.jaxb.core.v2.model.core.ElementPropertyInfo;
+import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
+import org.glassfish.jaxb.runtime.v2.runtime.property.ArrayElementLeafProperty;
+import org.glassfish.jaxb.runtime.v2.runtime.property.ArrayElementNodeProperty;
+import org.glassfish.jaxb.runtime.v2.runtime.property.ListElementProperty;
+import org.glassfish.jaxb.runtime.v2.runtime.property.Property;
+import org.glassfish.jaxb.runtime.v2.runtime.property.PropertyFactory;
+import org.glassfish.jaxb.runtime.v2.runtime.property.SingleElementLeafProperty;
+import org.glassfish.jaxb.runtime.v2.runtime.property.SingleElementNodeProperty;
 
 import java.lang.reflect.Type;
 import java.util.Collection;
@@ -25,4 +33,19 @@ public interface RuntimeElementPropertyInfo extends ElementPropertyInfo<Type,Cla
 
     @Override
     List<? extends RuntimeTypeRef> getTypes();
+
+    @Override
+    default Property<?> create(JAXBContextImpl grammar) {
+        if(this.isValueList())
+            return new ListElementProperty<>(grammar, this);
+
+        boolean isLeaf = PropertyFactory.isLeaf(this);
+        boolean isCollection = this.isCollection();
+
+        if (isLeaf) {
+            return isCollection ? new ArrayElementLeafProperty<>(grammar, this) : new SingleElementLeafProperty<>(grammar, this);
+        }
+
+        return isCollection ? new ArrayElementNodeProperty<>(grammar, this) : new SingleElementNodeProperty<>(grammar, this);
+    }
 }
