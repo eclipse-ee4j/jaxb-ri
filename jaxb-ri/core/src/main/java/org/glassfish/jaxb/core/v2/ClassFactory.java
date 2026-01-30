@@ -52,18 +52,18 @@ public final class ClassFactory {
                         cons = AccessController.doPrivileged(
                                 (PrivilegedAction<Constructor<?>>) () -> tryGetDeclaredConstructor(clazz)
                         );
+                    }
 
-                        int classMod = clazz.getModifiers();
+                    int classMod = clazz.getModifiers();
 
-                        if(!Modifier.isPublic(classMod) || !Modifier.isPublic(cons.getModifiers())) {
-                            // attempt to make it work even if the constructor is not accessible
-                            try {
-                                cons.setAccessible(true);
-                            } catch(SecurityException e) {
-                                // but if we don't have a permission to do so, work gracefully.
-                                logger.log(Level.FINE, e, () -> "Unable to make the constructor of "+clazz+" accessible");
-                                throw e;
-                            }
+                    if(!Modifier.isPublic(classMod) || !Modifier.isPublic(cons.getModifiers())) {
+                        // attempt to make it work even if the constructor is not accessible
+                        try {
+                            cons.setAccessible(true);
+                        } catch(SecurityException e) {
+                            // but if we don't have a permission to do so, work gracefully.
+                            logger.log(Level.FINE, e, () -> "Unable to make the constructor of "+clazz+" accessible");
+                            throw e;
                         }
                     }
                     return cons;
@@ -96,7 +96,7 @@ public final class ClassFactory {
             NoSuchMethodError exp;
             if(clazz.getDeclaringClass()!=null && !Modifier.isStatic(clazz.getModifiers())) {
                 exp = new NoSuchMethodError(Messages.NO_DEFAULT_CONSTRUCTOR_IN_INNER_CLASS
-                        .format(clazz.getName()));
+                                                    .format(clazz.getName()));
             } else {
                 exp = new NoSuchMethodError(e.getMessage());
             }
