@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
+ * Copyright (c) 2025-2026 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -92,7 +92,7 @@ public final class ClassFactory {
         try {
             return clazz.getDeclaredConstructor(emptyClass);
         } catch (NoSuchMethodException e) {
-            logger.log(Level.INFO,e, () -> "No default constructor found on "+clazz);
+            logger.log(Level.INFO, e, () -> "No default constructor found on "+clazz);
             NoSuchMethodError exp;
             if(clazz.getDeclaringClass()!=null && !Modifier.isStatic(clazz.getModifiers())) {
                 exp = new NoSuchMethodError(Messages.NO_DEFAULT_CONSTRUCTOR_IN_INNER_CLASS
