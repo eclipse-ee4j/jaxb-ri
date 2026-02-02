@@ -235,9 +235,14 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
             new StringImpl<Character>(Character.class, createXS("unsignedShort")) {
                 @Override
                 @SuppressWarnings({"deprecation"})
-                public Character parse(CharSequence text) {
+                public Character parse(CharSequence text) throws SAXException {
                     // TODO.checkSpec("default mapping for char is not defined yet");
-                    return (char) DatatypeConverterImpl._parseInt(text);
+                    try {
+                      return (char) DatatypeConverterImpl._parseInt(text);
+                    } catch (NumberFormatException e) {
+                      UnmarshallingContext.getInstance().handleError(e);
+                      return null;
+                    }
                 }
                 @Override
                 public String print(Character v) {
@@ -309,10 +314,10 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
                 public URL parse(CharSequence text) throws SAXException {
                     TODO.checkSpec("JSR222 Issue #42");
                     try {
-                        return new URL(WhiteSpaceProcessor.trim(text).toString());
+                      return new URL(WhiteSpaceProcessor.trim(text).toString());
                     } catch (MalformedURLException e) {
-                        UnmarshallingContext.getInstance().handleError(e);
-                        return null;
+                      UnmarshallingContext.getInstance().handleError(e);
+                      return null;
                     }
                 }
                 @Override
@@ -749,8 +754,13 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
                 ) {
                 @Override
                 @SuppressWarnings({"deprecation"})
-                public Integer parse(CharSequence text) {
-                    return DatatypeConverterImpl._parseInt(text);
+                public Integer parse(CharSequence text) throws SAXException {
+                    try {
+                      return DatatypeConverterImpl._parseInt(text);
+                    } catch (NumberFormatException e) {
+                      UnmarshallingContext.getInstance().handleError(e);
+                      return null;
+                    }
                 }
 
                 @Override
