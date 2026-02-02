@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2011, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -68,8 +69,7 @@ public class OptionsJUTest extends TestCase {
             FileInputStream fis = new FileInputStream(cls);
             //same string in UTF-8 is 1byte shorter on JDK6 than on JDK5
             //therefore final check is for 'contains' and not for 'endsWith'
-            byte[] in = new byte[13];
-            fis.read(in);
+            byte[] in = fis.readAllBytes();
             fis.close();
             cls.delete();
             String inStr = new String(in, StandardCharsets.UTF_8);
@@ -84,8 +84,7 @@ public class OptionsJUTest extends TestCase {
             jcm.build(o.createCodeWriter());
             cls = new File(o.targetDir, "test/TestClass.java");
             fis = new FileInputStream(cls);
-            in = new byte[26];
-            fis.read(in);
+            in = fis.readAllBytes();
             fis.close();
             cls.delete();
             inStr = new String(in, StandardCharsets.UTF_16);
@@ -98,12 +97,12 @@ public class OptionsJUTest extends TestCase {
             cls = new File(o.targetDir, "test/TestClass.java");
             fis = new FileInputStream(cls);
             //this should handle also UTF-32...
-            in = new byte[84];
-            fis.read(in);
+            in = fis.readAllBytes();
             fis.close();
             cls.delete();
             inStr = new String(in, Charset.defaultCharset().name());
             assertTrue("Got: '" + inStr + "'", inStr.contains("// This f"));
+            assertTrue("Got: '" + inStr + "'", inStr.contains("// Generated on:"));
         } finally {
             Locale.setDefault(locale);
         }
