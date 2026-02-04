@@ -39,6 +39,7 @@ jing-copying.html
 /rngom/src/test/java/Main.java
 
 /runtime/impl/src/main/java/com/sun/xml/bind/marshaller/XMLWriter.java
+/runtime/impl/src/main/java/org/glassfish/jaxb/runtime/v2/runtime/output/StringBuilderWriter.java
 
 /tools/pretty-printer/src/com/sun/tools/xmlpp/DataWriter.java
 /tools/pretty-printer/src/com/sun/tools/xmlpp/XMLWriter.java
