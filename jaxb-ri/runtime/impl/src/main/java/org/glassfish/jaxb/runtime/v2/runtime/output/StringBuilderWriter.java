@@ -16,6 +16,9 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
+
+//@@3RD PARTY CODE@@
+
 package org.glassfish.jaxb.runtime.v2.runtime.output;
 
 import java.io.Serializable;
