@@ -20,7 +20,6 @@ import org.xml.sax.SAXException;
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.StringWriter;
 
 /**
  * {@link XmlOutput} implementation specialized for UTF-8.
@@ -160,7 +159,7 @@ public class UTF8XmlOutput extends XmlOutputAbstractImpl {
 
             Encoded e = prefixes[i];
 
-            if(p.length()==0) {
+            if(p.isEmpty()) {
                 e.buf = EMPTY_BYTE_ARRAY;
                 e.len = 0;
             } else {
@@ -186,9 +185,8 @@ public class UTF8XmlOutput extends XmlOutputAbstractImpl {
     protected final void writeNsDecl(int prefixIndex) throws IOException {
         String p = nsContext.getPrefix(prefixIndex);
 
-        if(p.length()==0) {
-            if(nsContext.getCurrent().isRootElement()
-            && nsContext.getNamespaceURI(prefixIndex).length()==0)
+        if(p.isEmpty()) {
+            if(nsContext.getCurrent().isRootElement() && nsContext.getNamespaceURI(prefixIndex).isEmpty())
                 return;     // no point in declaring xmlns="" on the root element
             write(XMLNS_EQUALS);
         } else {
@@ -288,7 +286,7 @@ public class UTF8XmlOutput extends XmlOutputAbstractImpl {
 
     private void doText(String value,boolean isAttribute) throws IOException {
         if (escapeHandler != null) {
-            StringWriter sw = new StringWriter();
+            StringBuilderWriter sw = new StringBuilderWriter();
             escapeHandler.escape(value.toCharArray(), 0, value.length(), isAttribute, sw);
             textBuffer.set(sw.toString());
         } else {
