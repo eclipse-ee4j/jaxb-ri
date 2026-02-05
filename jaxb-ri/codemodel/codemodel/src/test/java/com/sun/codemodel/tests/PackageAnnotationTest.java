@@ -9,16 +9,18 @@
  */
 package com.sun.codemodel.tests;
 
-import java.io.IOException;
-import java.lang.annotation.Inherited;
-
-import org.junit.Test;
-
 import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.JPackage;
 import com.sun.codemodel.writer.SingleStreamCodeWriter;
+import org.junit.jupiter.api.Test;
+
 import java.io.ByteArrayOutputStream;
-import org.junit.Assert;
+import java.io.IOException;
+import java.lang.annotation.Inherited;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Kohsuke Kawaguchi
@@ -37,11 +39,11 @@ public class PackageAnnotationTest {
         // https://github.com/eclipse-ee4j/jaxb-ri/issues/1039
         JCodeModel cm = new JCodeModel();
         JPackage pkg = cm._package("bar");
-        Assert.assertEquals(0, cm.countArtifacts());
-        Assert.assertNotNull(pkg.annotations());
-        Assert.assertEquals(0, cm.countArtifacts());
+        assertEquals(0, cm.countArtifacts());
+        assertNotNull(pkg.annotations());
+        assertEquals(0, cm.countArtifacts());
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         cm.build(new SingleStreamCodeWriter(baos));
-        Assert.assertTrue(baos.toString().trim().isEmpty());
+        assertTrue(baos.toString().trim().isEmpty());
     }
 }

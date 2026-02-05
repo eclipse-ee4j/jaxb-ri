@@ -10,15 +10,7 @@
 
 package org.glassfish.jaxb.core.unmarshaller;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -27,12 +19,19 @@ import org.xml.sax.ContentHandler;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 
-import junit.framework.TestCase;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
-import static junit.framework.TestCase.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DOMScannerTest extends TestCase {
-	
+public class DOMScannerTest {
+
+	@Test
 	public void testParentDefaultNamespace() throws ParserConfigurationException, SAXException, IOException {
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = dbf.newDocumentBuilder();
@@ -40,7 +39,7 @@ public class DOMScannerTest extends TestCase {
 		Document doc = builder.parse(is);
 		NodeList testElems = doc.getElementsByTagName("test");
 		Node testElem = testElems.item(0);
-		
+
 		DOMScanner scanner = new DOMScanner();
 		MockContentHandler mockHandler = new MockContentHandler();
 		Map<String,String> assertMapping = new HashMap<>();
@@ -51,14 +50,14 @@ public class DOMScannerTest extends TestCase {
 		scanner.setContentHandler(mockHandler);
 		scanner.scan(testElem);
 	}
-	
+
 	private static class MockContentHandler implements ContentHandler {
-		
+
 		private Map<String,String> prefixMapping = new HashMap<>();
-		
+
 		private Map<String,String> assertMapping = new HashMap<>();
 		private String assertElement = null;
-		
+
 		public void setAssertion(String elementName, Map<String,String> mapping) {
 			this.assertElement = elementName;
 			this.assertMapping.putAll(mapping);
@@ -66,17 +65,17 @@ public class DOMScannerTest extends TestCase {
 
 		@Override
 		public void setDocumentLocator(Locator locator) {
-			
+
 		}
 
 		@Override
 		public void startDocument() {
-			
+
 		}
 
 		@Override
 		public void endDocument() {
-			
+
 		}
 
 		@Override
@@ -92,35 +91,35 @@ public class DOMScannerTest extends TestCase {
 		@Override
 		public void startElement(String uri, String localName, String qName, Attributes atts) {
 			if (assertElement != null && assertElement.equals(localName)) {
-				assertEquals("Prefix mapping does not match expected mapping", prefixMapping, assertMapping);
+				assertEquals(prefixMapping, assertMapping, "Prefix mapping does not match expected mapping");
 			}
 		}
 
 		@Override
 		public void endElement(String uri, String localName, String qName) {
-			
+
 		}
 
 		@Override
 		public void characters(char[] ch, int start, int length) {
-			
+
 		}
 
 		@Override
 		public void ignorableWhitespace(char[] ch, int start, int length) {
-			
+
 		}
 
 		@Override
 		public void processingInstruction(String target, String data) {
-			
+
 		}
 
 		@Override
 		public void skippedEntity(String name) {
-			
+
 		}
-		
+
 	}
 
 }

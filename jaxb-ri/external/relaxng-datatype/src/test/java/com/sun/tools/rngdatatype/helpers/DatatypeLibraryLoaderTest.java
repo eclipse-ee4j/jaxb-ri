@@ -13,24 +13,22 @@ package com.sun.tools.rngdatatype.helpers;
 import com.sun.tools.rngdatatype.Datatype;
 import com.sun.tools.rngdatatype.DatatypeException;
 import com.sun.tools.rngdatatype.DatatypeLibrary;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class DatatypeLibraryLoaderTest {
-
-    public DatatypeLibraryLoaderTest() {
-    }
 
     @Test
     public void createExternalDatatypeLibrary() {
         org.relaxng.datatype.helpers.DatatypeLibraryLoader extLibraryLoader = new org.relaxng.datatype.helpers.DatatypeLibraryLoader();
         org.relaxng.datatype.DatatypeLibrary extDatatypeLibrary = extLibraryLoader.createDatatypeLibrary("http://www.w3.org/2001/XMLSchema-datatypes");
-        Assert.assertNotNull(extDatatypeLibrary);
+        assertNotNull(extDatatypeLibrary);
         try {
             org.relaxng.datatype.Datatype aFloat = extDatatypeLibrary.createDatatype("float");
-            Assert.assertNotNull(aFloat);
+            assertNotNull(aFloat);
             Object value = aFloat.createValue("150", null);
-            Assert.assertNotNull(value);
+            assertNotNull(value);
         } catch (org.relaxng.datatype.DatatypeException e) {
             throw new RuntimeException(e);
         }
@@ -41,12 +39,12 @@ public class DatatypeLibraryLoaderTest {
     public void createJAXBDatatypeLibrary() {
         DatatypeLibraryLoader libraryLoader = new DatatypeLibraryLoader();
         DatatypeLibrary datatypeLibrary = libraryLoader.createDatatypeLibrary("http://www.w3.org/2001/XMLSchema-datatypes");
-        Assert.assertNotNull(datatypeLibrary);
+        assertNotNull(datatypeLibrary);
         try {
             Datatype aFloat = datatypeLibrary.createDatatype("float");
-            Assert.assertNotNull(aFloat);
+            assertNotNull(aFloat);
             Object value = aFloat.createValue("150", null);
-            Assert.assertNotNull(value);
+            assertNotNull(value);
         } catch (DatatypeException e) {
             throw new RuntimeException(e);
         }

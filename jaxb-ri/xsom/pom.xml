@@ -71,7 +71,7 @@
         <maven.compiler.testRelease>${maven.compiler.release}</maven.compiler.testRelease>
 
         <relaxng.version>${project.version}</relaxng.version>
-        <junit.version>4.13.2</junit.version>
+        <junit.version>5.11.4</junit.version>
         <!-- exclude big groups from the Xlint -->
         <comp.xlint>-Xlint:all,-rawtypes,-unchecked</comp.xlint>
         <!-- -Xdoclint:-missing does not seem to work properly on the infra -->
@@ -92,8 +92,8 @@
             <version>${relaxng.version}</version>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>

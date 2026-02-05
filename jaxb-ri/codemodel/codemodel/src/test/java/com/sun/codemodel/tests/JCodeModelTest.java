@@ -11,12 +11,13 @@
 package com.sun.codemodel.tests;
 
 import com.sun.codemodel.JCodeModel;
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Kohsuke Kawaguchi
  */
-public class JCodeModelTest extends TestCase {
+public class JCodeModelTest {
+    @Test
     public void testParseArray() throws Exception {
         JCodeModel cm = new JCodeModel();
         cm.parseType("java.util.ArrayList<java.lang.String[]>[]");

@@ -16,16 +16,18 @@ import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JDocComment;
 import com.sun.codemodel.writer.OutputStreamCodeWriter;
+
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
 
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  *
  * @author lukas
  */
-public class JCommentTest extends TestCase {
+public class JCommentTest {
 
     public void testJavadoc() throws Throwable {
         JCodeModel model = new JCodeModel();

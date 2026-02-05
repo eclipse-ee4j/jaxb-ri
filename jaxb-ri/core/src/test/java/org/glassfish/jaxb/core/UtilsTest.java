@@ -10,10 +10,13 @@
 
 package org.glassfish.jaxb.core;
 
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 
-public class UtilsTest extends TestCase {
-    
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class UtilsTest {
+
+    @Test
     public void testGetClassLogger() {
         assertEquals(UtilsTest.class.getName(), Utils.getClassLogger().getName());
     }

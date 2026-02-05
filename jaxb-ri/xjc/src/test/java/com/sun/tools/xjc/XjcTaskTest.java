@@ -10,9 +10,17 @@
 
 package com.sun.tools.xjc;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Yan GAO (gaoyan.gao@oracle.com)
@@ -27,9 +35,10 @@ public class XjcTaskTest extends XjcAntTaskTestBase {
         return "xjc.xml";
     }
 
+    @BeforeEach
     @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    protected void setUp(TestInfo info) throws Exception {
+        super.setUp(info);
         pkg = new File(srcDir, "test");
         metainf = new File(buildDir, "META-INF");
         schema = copy(projectDir, "simple.xsd", XjcTaskTest.class.getResourceAsStream("resources/simple.xsd"));
@@ -37,6 +46,7 @@ public class XjcTaskTest extends XjcAntTaskTestBase {
         assertTrue(metainf.mkdirs());
     }
 
+    @AfterEach
     @Override
     protected void tearDown() throws Exception {
         if (tryDelete) {
@@ -45,16 +55,19 @@ public class XjcTaskTest extends XjcAntTaskTestBase {
         super.tearDown();
     }
 
+    @Test
     public void testFork() throws FileNotFoundException, IOException {
         if (is9()){
            assertEquals(0, AntExecutor.exec(script, "xjc-fork"));
         }
     }
 
+    @Test
     public void testWithoutFork() throws IOException {
         assertEquals(0, AntExecutor.exec(script, "xjc-no-fork"));
     }
 
+    @Test
     public void testAddmodules() throws IOException {
         if (is9()){
             assertEquals(0, AntExecutor.exec(script, "xjc-addmodules"));

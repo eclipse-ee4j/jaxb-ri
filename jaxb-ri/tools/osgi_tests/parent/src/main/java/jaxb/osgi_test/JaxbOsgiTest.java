@@ -24,7 +24,7 @@ import java.util.logging.Logger;
 public abstract class JaxbOsgiTest extends OSGiTestCase {
 
     protected void checkBundle(Bundle bundle) {
-        assertEquals("Bundle " + bundle.getSymbolicName() + " isn't active", bundle.getState(), Bundle.ACTIVE);
+        assertEquals("Bundle " + bundle.getSymbolicName() + " isn't active", Bundle.ACTIVE, bundle.getState());
     }
 
     protected void checkClassInBundle(String className, Bundle bundle) {

@@ -19,9 +19,8 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -34,6 +33,8 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.StringReader;
 import java.io.StringWriter;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class CrLfMarshalUnmarshalTest {
 
     private static final String VALUE = "abc\r\nd\re\nf";
@@ -41,7 +42,7 @@ public class CrLfMarshalUnmarshalTest {
     private Marshaller fMarshaller;
     private Unmarshaller fUnmarshaller;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         JAXBContext ctx = JAXBContext.newInstance(Bean.class);
         fMarshaller = ctx.createMarshaller();
@@ -59,8 +60,8 @@ public class CrLfMarshalUnmarshalTest {
         String resultXml = sw.toString();
         System.out.println(resultXml);
         Bean resultElem = (Bean) fUnmarshaller.unmarshal(new StringReader(resultXml));
-        Assert.assertEquals(VALUE, resultElem.getAttributeString());
-        Assert.assertEquals(VALUE, resultElem.getElementString());
+        assertEquals(VALUE, resultElem.getAttributeString());
+        assertEquals(VALUE, resultElem.getElementString());
     }
 
     @Test
@@ -77,8 +78,8 @@ public class CrLfMarshalUnmarshalTest {
         String resultXml = sw.toString();
         System.out.println(resultXml);
         Bean resultElem = (Bean) fUnmarshaller.unmarshal(new StringReader(resultXml));
-        Assert.assertEquals(VALUE, resultElem.getAttributeString());
-        Assert.assertEquals(VALUE, resultElem.getElementString());
+        assertEquals(VALUE, resultElem.getAttributeString());
+        assertEquals(VALUE, resultElem.getElementString());
     }
 
     @XmlAccessorType(XmlAccessType.FIELD)

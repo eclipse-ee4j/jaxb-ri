@@ -10,12 +10,16 @@
 
 package org.glassfish.jaxb.runtime.v2.util;
 
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Kohsuke Kawaguchi
  */
-public class CollisionCheckStackTest extends TestCase {
+public class CollisionCheckStackTest {
+    @Test
     public void test1() {
         CollisionCheckStack<String> s = new CollisionCheckStack<>();
         assertFalse(s.push("foo"));
@@ -31,6 +35,7 @@ public class CollisionCheckStackTest extends TestCase {
     /**
      * Tests the reallocation and reset.
      */
+    @Test
     public void test2() {
         CollisionCheckStack<Integer> s = new CollisionCheckStack<>();
 

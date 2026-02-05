@@ -15,7 +15,9 @@ import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JMod;
 import com.sun.istack.tools.DefaultAuthenticator;
-import junit.framework.TestCase;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,32 +28,32 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 /**
  *
  * @author Lukas Jungmann
  */
-public class OptionsJUTest extends TestCase {
+public class OptionsJUTest {
 
     private Options o;
 
-    public OptionsJUTest(String testName) {
-        super(testName);
-    }
-
-    @Override
+    @BeforeEach
     protected void setUp() throws Exception {
-        super.setUp();
         o = new Options();
         o.targetDir = new File(System.getProperty("java.io.tmpdir"), "jxc_optionsTest");
         o.targetDir.mkdirs();
     }
 
-    @Override
+    @AfterEach
     protected void tearDown() throws Exception {
-        super.tearDown();
         delDirs(o.targetDir);
     }
 
+    @Test
     public void testCreateCodeWriter() throws JClassAlreadyExistsException, IOException {
         Locale locale = Locale.getDefault();
         try {
@@ -76,7 +78,7 @@ public class OptionsJUTest extends TestCase {
             System.out.println("===");
             System.out.println(inStr);
             System.out.println("===");
-            assertTrue("Got: '" + inStr + "'", inStr.contains("// This f"));
+            assertTrue(inStr.contains("// This f"), "Got: '" + inStr + "'");
 
             //test UTF-16
             o.noFileHeader = true;
@@ -89,7 +91,7 @@ public class OptionsJUTest extends TestCase {
             fis.close();
             cls.delete();
             inStr = new String(in, StandardCharsets.UTF_16);
-            assertTrue("Got: '" + inStr + "'", inStr.contains("package t"));
+            assertTrue(inStr.contains("package t"), "Got: '" + inStr + "'");
 
             //test default encoding
             o.noFileHeader = false;
@@ -103,12 +105,13 @@ public class OptionsJUTest extends TestCase {
             fis.close();
             cls.delete();
             inStr = new String(in, Charset.defaultCharset().name());
-            assertTrue("Got: '" + inStr + "'", inStr.contains("// This f"));
+            assertTrue(inStr.contains("// This f"), "Got: '" + inStr + "'");
         } finally {
             Locale.setDefault(locale);
         }
     }
 
+    @Test
     public void testProxySettings() throws Exception {
         Options opts = new Options();
         File grammar = File.createTempFile("jaxbproxytest", "xsd");

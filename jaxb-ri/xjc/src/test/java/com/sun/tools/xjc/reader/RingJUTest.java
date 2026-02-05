@@ -14,19 +14,17 @@
  */
 package com.sun.tools.xjc.reader;
 
-import junit.framework.TestCase;
-import junit.textui.TestRunner;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 /**
  *
  * @author snajper
  */
-public class RingJUTest extends TestCase {
+public class RingJUTest {
 
-    public static void main(String[] args) {
-        TestRunner.run(RingJUTest.class);
-    }
-
+    @Test
     public void test1() throws InterruptedException {
         Ring r = Ring.get();
         assertNull(r);
@@ -39,5 +37,5 @@ public class RingJUTest extends TestCase {
         r = Ring.get();
         assertNull(r);
     }
-    
+
 }
