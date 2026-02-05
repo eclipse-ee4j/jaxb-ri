@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -12,6 +13,7 @@ package org.glassfish.jaxb.runtime.v2.runtime.output;
 
 import org.glassfish.jaxb.core.marshaller.CharacterEscapeHandler;
 import org.glassfish.jaxb.runtime.DatatypeConverterImpl;
+import org.glassfish.jaxb.runtime.util.StringBuilderWriter;
 import org.glassfish.jaxb.runtime.v2.runtime.MarshallerImpl;
 import org.glassfish.jaxb.runtime.v2.runtime.Name;
 import org.glassfish.jaxb.runtime.v2.runtime.XMLSerializer;
@@ -20,7 +22,6 @@ import org.xml.sax.SAXException;
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.StringWriter;
 
 /**
  * {@link XmlOutput} implementation specialized for UTF-8.
@@ -288,9 +289,9 @@ public class UTF8XmlOutput extends XmlOutputAbstractImpl {
 
     private void doText(String value,boolean isAttribute) throws IOException {
         if (escapeHandler != null) {
-            StringWriter sw = new StringWriter();
-            escapeHandler.escape(value.toCharArray(), 0, value.length(), isAttribute, sw);
-            textBuffer.set(sw.toString());
+            StringBuilderWriter sbw = new StringBuilderWriter(value.length());
+            escapeHandler.escape(value.toCharArray(), 0, value.length(), isAttribute, sbw);
+            textBuffer.set(sbw.toString());
         } else {
             textBuffer.setEscape(value, isAttribute);
         }
