@@ -24,8 +24,18 @@ updates:
   - package-ecosystem: "maven"
     directories:
       - "jaxb-ri"
+      - "jaxb-ri/codemodel"
+      - "jaxb-ri/external"
+      - "jaxb-ri/xsom"
     schedule:
       interval: "daily"
+    ignore:
+      # istack >= 4.2.0 has no SecurityManager
+      - dependency-name: "com.sun.istack:*"
+        versions: [ ">=4.2.0" ]
+      # requires SE 17+ (action build still on 11)
+      - dependency-name: "org.apache.felix:maven-bundle-plugin"
+        versions: [ ">=6.0.0" ]
     groups:
       maven-plugins:
         patterns:
