@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,7 +15,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import jakarta.xml.bind.annotation.XmlList;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -80,25 +80,6 @@ public class JavaCompilerImpl implements JavaCompiler {
             }
         }
         return new JAXBModelImpl(r, builder.reader, rootClasses, new HashMap<>(additionalElementDecls));
-    }
-
-    @Override
-    @SuppressWarnings({"removal"})
-    public J2SJAXBModel bind(
-            Collection<com.sun.tools.xjc.api.Reference> rootTypes,
-            Map<QName, com.sun.tools.xjc.api.Reference> additionalElementDecls,
-            String defaultNamespaceRemap,
-            ProcessingEnvironment env) {
-        Collection<Reference> types = rootTypes.stream().map(ref -> new Reference(ref.type, ref.annotations)).collect(Collectors.toList());
-        Map<QName, Reference> elements = additionalElementDecls.entrySet()
-                .stream()
-                .collect(
-                        Collectors.toMap(
-                                Map.Entry::getKey,
-                                e -> new Reference(e.getValue().type, e.getValue().annotations)
-                        )
-                );
-        return bind(types, elements, env, defaultNamespaceRemap);
     }
 
     private static final class ErrorHandlerImpl implements ErrorHandler {
