@@ -12,6 +12,7 @@ package org.glassfish.jaxb.runtime.v2.model.runtime;
 
 import org.glassfish.jaxb.core.v2.model.core.PropertyInfo;
 import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
+import org.glassfish.jaxb.runtime.v2.runtime.property.Property;
 import org.glassfish.jaxb.runtime.v2.runtime.reflect.Accessor;
 
 import java.lang.reflect.Type;
@@ -78,4 +79,6 @@ public interface RuntimePropertyInfo extends PropertyInfo<Type,Class> {
      * @return always non-null.
      */
     Type getIndividualType();
+
+    Property<?> create(JAXBContextImpl grammar);
 }

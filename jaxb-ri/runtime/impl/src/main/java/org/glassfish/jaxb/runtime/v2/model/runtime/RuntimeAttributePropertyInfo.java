@@ -11,6 +11,9 @@
 package org.glassfish.jaxb.runtime.v2.model.runtime;
 
 import org.glassfish.jaxb.core.v2.model.core.AttributePropertyInfo;
+import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
+import org.glassfish.jaxb.runtime.v2.runtime.property.AttributeProperty;
+import org.glassfish.jaxb.runtime.v2.runtime.property.Property;
 
 import java.lang.reflect.Type;
 
@@ -21,4 +24,10 @@ public interface RuntimeAttributePropertyInfo extends AttributePropertyInfo<Type
     // refinement
     @Override
     RuntimeNonElement getTarget();
+
+
+    @Override
+    default Property<?> create(JAXBContextImpl grammar) {
+        return new AttributeProperty<>(grammar, this);
+    }
 }

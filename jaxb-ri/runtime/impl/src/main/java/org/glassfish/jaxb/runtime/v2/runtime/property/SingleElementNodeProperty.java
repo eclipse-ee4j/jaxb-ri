@@ -40,7 +40,7 @@ import java.util.Map;
 /**
  * @author Kohsuke Kawaguchi (kk@kohsuke.org)
  */
-final class SingleElementNodeProperty<BeanT,ValueT> extends PropertyImpl<BeanT> {
+public final class SingleElementNodeProperty<BeanT,ValueT> extends PropertyImpl<BeanT> {
 
     private final Accessor<BeanT,ValueT> acc;
 

@@ -11,6 +11,9 @@
 package org.glassfish.jaxb.runtime.v2.model.runtime;
 
 import org.glassfish.jaxb.core.v2.model.core.ValuePropertyInfo;
+import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
+import org.glassfish.jaxb.runtime.v2.runtime.property.Property;
+import org.glassfish.jaxb.runtime.v2.runtime.property.ValueProperty;
 
 import java.lang.reflect.Type;
 
@@ -20,4 +23,9 @@ import java.lang.reflect.Type;
 public interface RuntimeValuePropertyInfo extends ValuePropertyInfo<Type,Class>,RuntimePropertyInfo,RuntimeNonElementRef {
     @Override
     RuntimeNonElement getTarget();
+
+    @Override
+    default Property<?> create(JAXBContextImpl grammar) {
+        return new ValueProperty<>(grammar, this);
+    }
 }
