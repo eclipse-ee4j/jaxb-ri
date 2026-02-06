@@ -77,7 +77,31 @@ class GetterSetterPropertySeed<TypeT,ClassDeclT,FieldT,MethodT> implements
 
 
     private static String camelize(String s) {
-        return Introspector.decapitalize(s);
+        try
+        {
+            return Introspector.decapitalize(s);
+        }
+        catch (NoClassDefFoundError ignored)
+        {
+            if (s == null)
+            {
+                return null;
+            }
+
+            if (s.isEmpty())
+                return s;
+
+            if (Character.isUpperCase(s.charAt(0)))
+            {
+                if (s.length() > 1 && !Character.isUpperCase(s.charAt(1)))
+                {
+                    char c = Character.toLowerCase(s.charAt(0));
+                    s = c + s.substring(1);
+                }
+            }
+
+            return s;
+        }
     }
 
     /**
