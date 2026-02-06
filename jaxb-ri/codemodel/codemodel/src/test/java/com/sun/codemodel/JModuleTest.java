@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2016, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -109,7 +110,7 @@ public class JModuleTest {
      */
     @Test
     public void testName() {
-        final JModule instance = new JModule(MODULE_NAME);
+        final JModule instance = new JModule(MODULE_NAME, new JCodeModel());
         assertEquals(MODULE_NAME, instance.name());
     }
 
@@ -132,7 +133,7 @@ public class JModuleTest {
      */
     @Test
     public void test_exports() {
-        final JModule instance = new JModule(MODULE_NAME);
+        final JModule instance = new JModule(MODULE_NAME, new JCodeModel());
         final JCodeModel cm = new JCodeModel();
         final JPackage pkg = new JPackage(PKG_NAME, cm);
         instance._exports(pkg);
@@ -146,7 +147,7 @@ public class JModuleTest {
      */
     @Test
     public void test_requires() {
-        final JModule instance = new JModule(MODULE_NAME);
+        final JModule instance = new JModule(MODULE_NAME, new JCodeModel());
         instance._requires(DEP_MODULE_NAME);
         JModuleDirective directive = directivesSingleElementCheck(instance);
         assertTrue(directive instanceof JRequiresDirective);
@@ -158,19 +159,48 @@ public class JModuleTest {
      */
     @Test
     public void testGenerate() {
-        final JModule instance = new JModule(MODULE_NAME);
+        final JModule instance = new JModule(MODULE_NAME, new JCodeModel());
         instance.generate(jf);
         final String output = normalizeWhiteSpaces(out.toString());
         //System.out.println("OUT: \""+output+"\"");
-        verifyModuleEnvelope(output, instance);
+        verifyModuleEnvelope(output, instance, null);
+    }
+
+    /**
+     * Test of generate method, of class JModule.
+     */
+    @Test
+    public void testGenerateAnnotation() {
+        final JModule instance = new JModule(MODULE_NAME, new JCodeModel());
+        instance.annotate(Deprecated.class);
+        instance.generate(jf);
+        final String output = normalizeWhiteSpaces(out.toString());
+        //System.out.println("OUT: \""+output+"\"");
+        verifyModuleEnvelope(output, instance, "@java.lang.Deprecated");
+    }
+
+    /**
+     * Test of generate method, of class JModule.
+     */
+    @Test
+    public void testGenerateJavadoc() {
+        final JModule instance = new JModule(MODULE_NAME, new JCodeModel());
+        instance.javadoc().add("Test module.");
+        instance.generate(jf);
+        final String output = normalizeWhiteSpaces(out.toString());
+        //System.out.println("OUT: \""+output+"\"");
+        verifyModuleEnvelope(output, instance, "/** * Test module. * */");
     }
 
     /**
      * Verify generated module envelope.
      */
-    private static void verifyModuleEnvelope(final String output, final JModule instance) {
+    private static void verifyModuleEnvelope(final String output, final JModule instance, String prefix) {
         final int len = 14 + instance.name().length();
         final StringBuilder sb = new StringBuilder(len);
+        if (prefix != null) {
+            sb.append(prefix).append(' ');
+        }
         sb.append("module ");
         sb.append(instance.name());
         sb.append(' ');
