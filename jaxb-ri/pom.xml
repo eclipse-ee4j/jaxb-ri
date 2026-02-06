@@ -95,7 +95,7 @@
         <!-- This will work ONLY if mvn is run from root folder. In case of runing from submodules - fail :( -->
         <skipOsgiTests>true</skipOsgiTests>
         <felix.junit4osgi>1.0.0</felix.junit4osgi>
-        <felix.osgi.core>6.0.0</felix.osgi.core>
+        <felix.osgi.core>8.0.0</felix.osgi.core>
         <compiler.version>2.4.0</compiler.version>
         <oss.disallow.snapshots>true</oss.disallow.snapshots>
         <vendor.name>Eclipse Foundation</vendor.name>
@@ -310,7 +310,7 @@
                 <plugin>
                     <groupId>org.owasp</groupId>
                     <artifactId>dependency-check-maven</artifactId>
-                    <version>9.0.9</version>
+                    <version>12.2.0</version>
                     <configuration>
                         <failBuildOnCVSS>7</failBuildOnCVSS>
                         <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
