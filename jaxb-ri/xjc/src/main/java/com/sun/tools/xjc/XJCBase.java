@@ -420,6 +420,17 @@ public class XJCBase extends MatchingTask {
     }
 
     /**
+     * Controls whether the file header comment should generate timestamp generation or not.
+     */
+    public void setHeaderWithTimestamp(boolean flg) {
+        this.options.noFileHeaderTimestamp = !flg;
+    }
+
+    public boolean getHeaderWithTimestamp() {
+        return this.options.noFileHeaderTimestamp;
+    }
+
+    /**
      * @see Options#runtime14
      */
     public void setXexplicitAnnotation(boolean flg) {
@@ -558,6 +569,10 @@ public class XJCBase extends MatchingTask {
         // no-header option
         if (getHeader()) {
             getCommandline().createArgument().setValue("-no-header");
+        }
+        // no-header-timestamp option
+        if (getHeaderWithTimestamp()) {
+            getCommandline().createArgument().setValue("-no-header-timestamp");
         }
         if (getRemoveOldOutput()) {
             getCommandline().createArgument().setValue("-removeOldOutput");
