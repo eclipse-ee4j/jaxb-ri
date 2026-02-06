@@ -32,7 +32,7 @@
     <url>https://eclipse-ee4j.github.io/jaxb-ri/</url>
 
     <properties>
-        <xml.bind-api.version>4.0.4</xml.bind-api.version>
+        <xml.bind-api.version>4.0.5</xml.bind-api.version>
         <!-- 4.2.0+ comes with no SecurityManager support -->
         <istack.version>4.1.2</istack.version>
         <fastinfoset.version>2.1.1</fastinfoset.version>
