@@ -175,6 +175,16 @@
                         </row>
 
                         <row>
+                            <entry><para><literal>headerWithDate</literal></para></entry>
+
+                            <entry><para>If header generation is activated,
+                            generate a timestamp in header comment for each file when
+                            <literal>true</literal> (by default).</para></entry>
+
+                            <entry><para>No</para></entry>
+                        </row>
+
+                        <row>
                             <entry><para><literal>extension</literal></para></entry>
 
                             <entry><para>If set to <literal>true</literal>, the XJC

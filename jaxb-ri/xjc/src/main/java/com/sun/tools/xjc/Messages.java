@@ -125,6 +125,9 @@ public final class Messages {
         
     static final String FILE_PROLOG_COMMENT = // 1 arg
         "Driver.FilePrologComment";
+
+    static final String FILE_PROLOG_COMMENT_GENERATED = // 1 arg
+        "Driver.FilePrologCommentGenerated";
         
     static final String DATE_FORMAT = // 0 args
         "Driver.DateFormat";

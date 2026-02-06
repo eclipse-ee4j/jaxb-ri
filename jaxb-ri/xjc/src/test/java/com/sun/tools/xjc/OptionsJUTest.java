@@ -103,6 +103,19 @@ public class OptionsJUTest extends TestCase {
             inStr = new String(in, Charset.defaultCharset().name());
             assertTrue("Got: '" + inStr + "'", inStr.contains("// This f"));
             assertTrue("Got: '" + inStr + "'", inStr.contains("// Generated on:"));
+
+            //test default encoding
+            o.noFileHeaderDate = true;
+            jcm.build(o.createCodeWriter());
+            cls = new File(o.targetDir, "test/TestClass.java");
+            fis = new FileInputStream(cls);
+            //this should handle also UTF-32...
+            in = fis.readAllBytes();
+            fis.close();
+            cls.delete();
+            inStr = new String(in, Charset.defaultCharset().name());
+            assertTrue("Got: '" + inStr + "'", inStr.contains("// This f"));
+            assertFalse("Got: '" + inStr + "'", inStr.contains("// Generated on:"));
         } finally {
             Locale.setDefault(locale);
         }
