@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -23,6 +24,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
+import com.sun.codemodel.util.Util;
 import jakarta.activation.MimeTypeParseException;
 import jakarta.xml.bind.DatatypeConverter;
 
@@ -367,7 +369,7 @@ public final class SimpleTypeBuilder extends BindingComponent {
                 // list and union cannot be mapped to a type-safe enum,
                 // so in this stage we can safely cast it to XSRestrictionSimpleType
                 return bindToTypeSafeEnum( (XSRestrictionSimpleType)type,
-                        en.className, en.javadoc, en.members,
+                        en.className, Util.escapeXML(en.javadoc), en.members,
                         getEnumMemberMode().getModeWithEnum(),
                         en.getLocation() );
             }
@@ -394,7 +396,7 @@ public final class SimpleTypeBuilder extends BindingComponent {
         String documentation = "";
         String extDocumentation = builder.getDocumentation(type);
         if (extDocumentation != null) {
-            documentation = extDocumentation;
+            documentation = Util.escapeXML(extDocumentation);
         }
 
         // see if this type should be mapped to a type-safe enumeration by default.
@@ -649,7 +651,7 @@ public final class SimpleTypeBuilder extends BindingComponent {
 
         for( XSFacet facet : type.getDeclaredFacets(XSFacet.FACET_ENUMERATION)) {
             String name=null;
-            String mdoc= builder.getDocumentation(facet);
+            String mdoc= Util.escapeXML(builder.getDocumentation(facet));
 
             if(!enums.add(facet.getValue().value))
                 continue;   // ignore the 2nd occasion

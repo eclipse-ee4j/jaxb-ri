@@ -11,11 +11,11 @@
 
 package com.sun.codemodel;
 
-import java.util.AbstractMap;
+import com.sun.codemodel.util.Util;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * A part is a part of a javadoc comment, and it is a list of values.
@@ -34,13 +34,6 @@ import java.util.List;
 public class JCommentPart extends ArrayList<Object> {
 
     private static final long serialVersionUID = 1L;
-    private static final List<AbstractMap.SimpleImmutableEntry<String, String>> ESCAPED_XML_JAVADOC = new ArrayList<>();
-    static {
-        ESCAPED_XML_JAVADOC.add(new AbstractMap.SimpleImmutableEntry<>("&", "&amp;"));
-        ESCAPED_XML_JAVADOC.add(new AbstractMap.SimpleImmutableEntry<>("<", "&lt;"));
-        ESCAPED_XML_JAVADOC.add(new AbstractMap.SimpleImmutableEntry<>(">", "&gt;"));
-        ESCAPED_XML_JAVADOC.add(new AbstractMap.SimpleImmutableEntry<>("@", "&#064;"));
-    }
 
     protected JCommentPart() {
     }
@@ -63,7 +56,7 @@ public class JCommentPart extends ArrayList<Object> {
      * Otherwise it will be converted to String via {@link Object#toString()}.
      */
     public JCommentPart appendXML(String s) {
-        add(escapeXML(s));
+        add(Util.escapeXML(s));
         return this;
     }
 
@@ -131,29 +124,6 @@ public class JCommentPart extends ArrayList<Object> {
 
         if(!isEmpty())
             f.nl();
-    }
-
-    /**
-     * Escapes the XML tags for Javadoc compatibility
-     */
-    private String escapeXML(String s) {
-        if (s == null) {
-            return s;
-        }
-        for (AbstractMap.SimpleImmutableEntry<String, String> entry : ESCAPED_XML_JAVADOC) {
-            int entryKeyLength = entry.getKey().length();
-            int entryValueLength = entry.getValue().length();
-            int idx = -1;
-            while (true) {
-                idx = s.indexOf(entry.getKey(), idx);
-                if (idx < 0) {
-                    break;
-                }
-                s = s.substring(0, idx) + entry.getValue() + s.substring(idx + entryKeyLength);
-                idx += entryValueLength;
-            }
-        }
-        return s;
     }
 
     /**
