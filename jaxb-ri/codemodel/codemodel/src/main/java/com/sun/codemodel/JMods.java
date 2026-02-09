@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -26,7 +27,7 @@ public class JMods implements JGenerable {
             | JMod.STATIC | JMod.FINAL
             | JMod.TRANSIENT | JMod.VOLATILE);
     private static int METHOD = (JMod.PUBLIC | JMod.PRIVATE | JMod.PROTECTED | JMod.FINAL
-            | JMod.ABSTRACT | JMod.STATIC | JMod.NATIVE | JMod.SYNCHRONIZED);
+            | JMod.ABSTRACT | JMod.STATIC | JMod.NATIVE | JMod.SYNCHRONIZED | JMod.DEFAULT);
     private static int CLASS = (JMod.PUBLIC | JMod.PRIVATE | JMod.PROTECTED
             | JMod.STATIC | JMod.FINAL | JMod.ABSTRACT);
     private static int INTERFACE = JMod.PUBLIC;
@@ -94,6 +95,14 @@ public class JMods implements JGenerable {
         setFlag(JMod.SYNCHRONIZED, newValue);
     }
 
+    public boolean isDefault() {
+        return (mods & JMod.DEFAULT) != 0;
+    }
+
+    public void setDefault(boolean newValue) {
+        setFlag(JMod.DEFAULT, newValue);
+    }
+
     public void setPrivate() {
         setFlag(JMod.PUBLIC, false);
         setFlag(JMod.PROTECTED, false);
@@ -134,6 +143,7 @@ public class JMods implements JGenerable {
         if ((mods & JMod.VOLATILE) != 0)      f.p("volatile");
         if ((mods & JMod.SYNCHRONIZED) != 0)  f.p("synchronized");
         if ((mods & JMod.NATIVE) != 0)        f.p("native");
+        if ((mods & JMod.DEFAULT) != 0)       f.p("default");
     }
 
     @Override
