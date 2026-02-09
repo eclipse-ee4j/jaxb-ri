@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+    Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!-- See https://github.com/eclipse-ee4j/jaxb-ri/issues/1440 -->
+<xs:schema
+        targetNamespace="http://example.org/document"
+        xmlns:tns="http://example.org/document"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+
+    <xs:complexType name="gh1440Type">
+        <xs:sequence>
+            <xs:element name="Value" type="xs:unsignedLong"/>
+            <xs:element name="EnumValue" type="tns:gh1440Enum" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="gh1440Enum">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="FOO" />
+            <xs:enumeration value="BAR" />
+            <xs:enumeration value="FOO_BAR" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:element name="gh1440" type="tns:gh1440Type"/>
+
+</xs:schema>
