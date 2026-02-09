@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -433,8 +434,7 @@ public final class JFormatter {
         assert c.parentContainer().isPackage() : "this method is only for a pacakge-level class";
         JPackage pkg = (JPackage) c.parentContainer();
         if (!pkg.isUnnamed()) {
-            nl().d(pkg);
-            nl();
+            d(pkg).nl();
         }
 
         // generate import statements
