@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -437,8 +438,8 @@ public class JMethod extends JGenerifiableImpl implements JDeclaration, JAnnotat
         }
         if (body != null) {
             f.s(body);
-        } else if (!outer.isInterface() && !outer.isAnnotationTypeDeclaration() && !mods.isAbstract() && !mods.isNative()) {
-            // Print an empty body for non-native, non-abstract methods
+        } else if ((!outer.isInterface() || mods.isDefault()) && !outer.isAnnotationTypeDeclaration() && !mods.isAbstract() && !mods.isNative()) {
+            // Print an empty body for non-native, non-abstract or default methods
             f.s(new JBlock());
         } else {
             f.p(';').nl();
