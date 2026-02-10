@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 2021, 2024 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
+ * Copyright (c) 2025, 2026 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,11 +11,13 @@
 
 package com.sun.tools.xjc;
 
+import com.sun.codemodel.JAnnotationUse;
 import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.JDeclaration;
 import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JFormatter;
 import com.sun.codemodel.JMethod;
+import com.sun.codemodel.JPackage;
 import com.sun.codemodel.JType;
 import com.sun.codemodel.writer.SingleStreamCodeWriter;
 import com.sun.tools.xjc.api.ErrorListener;
@@ -220,6 +222,63 @@ public class CodeGenTest extends TestCase {
         while (conIter.hasNext()) {
             JMethod con = conIter.next();
             assertTrue(toString(con).contains("java.lang.Class<java.lang.String>"));
+        }
+    }
+
+    /**
+     * Test issues #1440 for mark-generated on adapters
+     *
+     * @throws FileNotFoundException When the test schema or binding file cannot be read.
+     * @throws URISyntaxException When the test {@link InputSource} cannot be parsed.
+     *
+     * @see <a href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1440">Issue #1440</a>
+     */
+    public void testIssue1440() throws FileNotFoundException, URISyntaxException, BadCommandLineException {
+        String schemaFileName = "/schemas/issue1440/schema.xsd";
+        String bindingFileName = "/schemas/issue1440/binding.xjb";
+        String packageName = "org.example.issue1440";
+        String someClassName = packageName + ".Gh1440Type";
+
+        ErrorListener errorListener = new ConsoleErrorReporter();
+
+        // Parse the XML schema.
+        SchemaCompiler sc = XJC.createSchemaCompiler();
+        sc.setErrorListener(errorListener);
+        sc.forcePackageName(packageName);
+        sc.parseSchema(getInputSource(schemaFileName));
+        sc.getOptions().addGrammar(getInputSource(schemaFileName));
+        sc.getOptions().addBindFile(getInputSource(bindingFileName));
+        sc.getOptions().parseArguments(new String[] { "-mark-generated" });
+
+        // Generate the defined class.
+        S2JJAXBModel model = sc.bind();
+        Plugin[] extensions = new Plugin[]{ new com.sun.tools.xjc.addon.at_generated.PluginImpl() };
+        JCodeModel cm = model.generateCode(extensions, errorListener);
+        JDefinedClass dc = cm._getClass(someClassName);
+        assertNotNull(someClassName, dc);
+
+        // Assert Class includes narrow type
+        Iterator<JMethod> conIter = dc.constructors();
+        while (conIter.hasNext()) {
+            JMethod con = conIter.next();
+            assertTrue(toString(con).contains("java.lang.Class<java.lang.String>"));
+        }
+
+        Iterator<JPackage> packagesIt = cm.packages();
+        assertTrue("Should have one package", packagesIt.hasNext());
+        JPackage aPackage = packagesIt.next();
+        assertNotNull("Package should not be null", aPackage);
+        Iterator<JDefinedClass> classesIt = aPackage.classes();
+        assertTrue("Should have one class", classesIt.hasNext());
+        while (classesIt.hasNext()) {
+            JDefinedClass clazz = classesIt.next();
+            assertNotNull("Class should not be null", clazz);
+            assertFalse("Should have at least one annotation", clazz.annotations().isEmpty());
+            // find Generated annotation
+            JAnnotationUse annotation = clazz.annotations().stream().filter(
+                    a -> "jakarta.annotation.Generated".equals(a.getAnnotationClass().fullName()))
+                    .findFirst().orElse(null);
+            assertNotNull("Annotation @Generated should not be null", annotation);
         }
     }
 
