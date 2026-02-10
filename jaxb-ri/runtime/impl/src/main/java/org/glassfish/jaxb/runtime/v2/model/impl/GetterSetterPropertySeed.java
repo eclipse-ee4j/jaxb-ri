@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -77,24 +78,19 @@ class GetterSetterPropertySeed<TypeT,ClassDeclT,FieldT,MethodT> implements
 
 
     private static String camelize(String s) {
-        try
-        {
+        try {
             return Introspector.decapitalize(s);
-        }
-        catch (NoClassDefFoundError ignored)
-        {
-            if (s == null)
-            {
+        } catch (NoClassDefFoundError ignored) {
+            if (s == null) {
                 return null;
             }
 
-            if (s.isEmpty())
+            if (s.isEmpty()) {
                 return s;
+            }
 
-            if (Character.isUpperCase(s.charAt(0)))
-            {
-                if (s.length() > 1 && !Character.isUpperCase(s.charAt(1)))
-                {
+            if (Character.isUpperCase(s.charAt(0))) {
+                if (s.length() > 1 && !Character.isUpperCase(s.charAt(1))) {
                     char c = Character.toLowerCase(s.charAt(0));
                     s = c + s.substring(1);
                 }

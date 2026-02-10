@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -375,11 +376,11 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
             secondaryList.add(
                     new PcdataImpl<Image>(Image.class, createXS("base64Binary")) {
                         @Override
-                        public Image parse(CharSequence text) throws SAXException  {
+                        public Image parse(CharSequence text) throws SAXException {
                             try {
                                 InputStream is;
-                                if(text instanceof Base64Data)
-                                    is = ((Base64Data)text).getInputStream();
+                                if (text instanceof Base64Data)
+                                    is = ((Base64Data) text).getInputStream();
                                 else
                                     is = new ByteArrayInputStream(decodeBase64(text)); // TODO: buffering is inefficient
 
@@ -400,10 +401,11 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
 
                         private BufferedImage convertToBufferedImage(Image image) throws IOException {
                             if (image instanceof BufferedImage) {
-                                return (BufferedImage)image;
+                                return (BufferedImage) image;
 
                             } else {
-                                MediaTracker tracker = new MediaTracker(new Component(){}); // not sure if this is the right thing to do.
+                                MediaTracker tracker = new MediaTracker(new Component() {
+                                }); // not sure if this is the right thing to do.
                                 tracker.addImage(image, 0);
                                 try {
                                     tracker.waitForAll();
@@ -427,7 +429,7 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
                             XMLSerializer xs = XMLSerializer.getInstance();
 
                             String mimeType = xs.getXMIMEContentType();
-                            if(mimeType==null || mimeType.startsWith("image/*"))
+                            if (mimeType == null || mimeType.startsWith("image/*"))
                                 // because PNG is lossless, it's a good default
                                 //
                                 // mime type can be a range, in which case we can't just pass that
@@ -437,7 +439,7 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
 
                             try {
                                 Iterator<ImageWriter> itr = ImageIO.getImageWritersByMIMEType(mimeType);
-                                if(itr.hasNext()) {
+                                if (itr.hasNext()) {
                                     ImageWriter w = itr.next();
                                     ImageOutputStream os = ImageIO.createImageOutputStream(imageData);
                                     w.setOutput(os);
@@ -449,9 +451,9 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
                                     xs.handleEvent(new ValidationEventImpl(
                                             ValidationEvent.ERROR,
                                             Messages.NO_IMAGE_WRITER.format(mimeType),
-                                            xs.getCurrentLocation(null) ));
+                                            xs.getCurrentLocation(null)));
                                     // TODO: proper error reporting
-                                    throw new RuntimeException("no encoder for MIME type "+mimeType);
+                                    throw new RuntimeException("no encoder for MIME type " + mimeType);
                                 }
                             } catch (IOException e) {
                                 xs.handleError(e);
@@ -459,12 +461,11 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
                                 throw new RuntimeException(e);
                             }
                             Base64Data bd = new Base64Data();
-                            imageData.set(bd,mimeType);
+                            imageData.set(bd, mimeType);
                             return bd;
                         }
                     });
-        }
-        catch (ClassNotFoundException ignored) {
+        } catch (ClassNotFoundException ignored) {
             // Runtime which doesn't have awt (like Android)
         }
         secondaryList.add(
