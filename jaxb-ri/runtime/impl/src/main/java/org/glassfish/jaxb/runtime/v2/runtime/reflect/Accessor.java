@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -140,7 +141,6 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
             java.util.Calendar.class,
             javax.xml.datatype.Duration.class,
             javax.xml.datatype.XMLGregorianCalendar.class,
-            java.awt.Image.class,
             jakarta.activation.DataHandler.class,
             javax.xml.transform.Source.class,
             java.util.Date.class,
@@ -153,6 +153,12 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
     );
 
     public boolean isValueTypeAbstractable() {
+        try {
+            if (getValueType() == java.awt.Image.class) {
+                return false;
+            }
+        } catch (NoClassDefFoundError ignored) {}
+
         return !nonAbstractableClasses.contains(getValueType());
     }
 
@@ -162,6 +168,12 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
      * @return true if it is NOT builtin class
      */
     public boolean isAbstractable(Class clazz) {
+        try {
+            if (getValueType() == clazz) {
+                return false;
+            }
+        } catch (NoClassDefFoundError ignored) {}
+
         return !nonAbstractableClasses.contains(clazz);
     }
 
