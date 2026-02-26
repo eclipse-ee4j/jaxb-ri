@@ -196,6 +196,7 @@ public class ContextFactory {
         builder.setAllNillable(allNillable);
         builder.setRetainPropertyInfo(retainPropertyInfo);
         builder.setImprovedXsiTypeHandling(improvedXsiTypeHandling);
+        builder.setDisableSecurityProcessing(false);
         return builder.build();
     }
 

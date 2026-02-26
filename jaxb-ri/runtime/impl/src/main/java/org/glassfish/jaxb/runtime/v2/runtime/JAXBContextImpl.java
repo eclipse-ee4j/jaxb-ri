@@ -1001,7 +1001,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
         private boolean xmlAccessorFactorySupport = false;
         private boolean allNillable;
         private boolean improvedXsiTypeHandling = true;
-        private boolean disableSecurityProcessing = true;
+        private boolean disableSecurityProcessing = false;
         private Boolean backupWithParentNamespace = null; // null for System property to be used
         private int maxErrorsCount;
 
