@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,8 +25,7 @@ import javax.annotation.processing.ProcessingEnvironment;
  * @author
  *     Kohsuke Kawaguchi (kohsuke.kawaguchi@sun.com)
  */
-@SuppressWarnings({"removal"})
-public interface JavaCompiler extends com.sun.tools.xjc.api.JavaCompiler {
+public interface JavaCompiler {
 
     /**
      * Compiles the given annotated Java source code.
