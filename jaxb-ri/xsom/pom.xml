@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <!--
 
+    Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
     Copyright (c) 2010, 2024 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
@@ -83,6 +84,10 @@
         <comp.test.xlint>-Xlint:none</comp.test.xlint>
         <comp.test.xdoclint>-Xdoclint:none</comp.test.xdoclint>
         <warn.test.limit>10</warn.test.limit>
+
+        <release.projectName>${project.name}</release.projectName>
+        <release.autoPublish>true</release.autoPublish>
+        <release.waitUntil>validated</release.waitUntil>
     </properties>
 
     <dependencies>
@@ -102,6 +107,20 @@
     <build>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.sonatype.central</groupId>
+                    <artifactId>central-publishing-maven-plugin</artifactId>
+                    <version>0.8.0</version>
+                    <extensions>true</extensions>
+                    <configuration>
+                        <autoPublish>${release.autoPublish}</autoPublish>
+                        <deploymentName>${release.projectName} ${project.version}</deploymentName>
+                        <publishingServerId>central</publishingServerId>
+                        <waitUntil>${release.waitUntil}</waitUntil>
+                        <centralBaseUrl>https://central.sonatype.com</centralBaseUrl>
+                        <centralSnapshotsUrl>https://central.sonatype.com/repository/maven-snapshots/</centralSnapshotsUrl>
+                    </configuration>
+                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
