@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
+    Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
     Copyright (c) 2013, 2024 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
@@ -39,6 +40,10 @@
         <stax-ex.version>2.1.0</stax-ex.version>
         <activation-api.version>2.1.4</activation-api.version>
         <angus-activation.version>2.0.3</angus-activation.version>
+
+        <release.projectName>${project.name}</release.projectName>
+        <release.autoPublish>true</release.autoPublish>
+        <release.waitUntil>validated</release.waitUntil>
     </properties>
 
     <dependencyManagement>
@@ -240,6 +245,20 @@
     <build>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.sonatype.central</groupId>
+                    <artifactId>central-publishing-maven-plugin</artifactId>
+                    <version>0.8.0</version>
+                    <extensions>true</extensions>
+                    <configuration>
+                        <autoPublish>${release.autoPublish}</autoPublish>
+                        <deploymentName>${release.projectName} ${project.version}</deploymentName>
+                        <publishingServerId>central</publishingServerId>
+                        <waitUntil>${release.waitUntil}</waitUntil>
+                        <centralBaseUrl>https://central.sonatype.com</centralBaseUrl>
+                        <centralSnapshotsUrl>https://central.sonatype.com/repository/maven-snapshots/</centralSnapshotsUrl>
+                    </configuration>
+                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
