@@ -1,6 +1,6 @@
 /*
+ * Copyright (c) 2025, 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 2021, 2024 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -219,7 +219,7 @@ public class CodeGenTest {
         Plugin[] extensions = null;
         JCodeModel cm = model.generateCode(extensions, errorListener);
         JDefinedClass dc = cm._getClass(someClassName);
-        assertNotNull(someClassName, dc);
+        assertNotNull(dc, someClassName);
 
         // Assert Class includes narrow type
         Iterator<JMethod> conIter = dc.constructors();
@@ -256,7 +256,7 @@ public class CodeGenTest {
         Plugin[] extensions = null;
         JCodeModel cm = model.generateCode(extensions, errorListener);
         JDefinedClass dc = cm._getClass(someClassName);
-        assertNotNull(someClassName, dc);
+        assertNotNull(dc, someClassName);
         StringWriter swClass = new StringWriter();
         dc.javadoc().generate(new JFormatter(swClass));
         assertNotNull(swClass.toString());
@@ -281,7 +281,7 @@ public class CodeGenTest {
                 " * }</pre>"));
 
         JDefinedClass ec = cm._getClass(someEnumName);
-        assertNotNull(someEnumName, ec);
+        assertNotNull(ec, someEnumName);
         StringWriter swEnum = new StringWriter();
         ec.javadoc().generate(new JFormatter(swEnum));
         assertNotNull(swEnum.toString());

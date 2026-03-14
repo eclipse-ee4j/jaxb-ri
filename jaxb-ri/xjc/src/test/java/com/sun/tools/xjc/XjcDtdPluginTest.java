@@ -1,6 +1,6 @@
 /*
+ * Copyright (c) 2025, 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 2023 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -25,6 +25,7 @@ import org.xml.sax.SAXException;
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class XjcDtdPluginTest {
@@ -125,6 +126,6 @@ public class XjcDtdPluginTest {
         model.generateCode(opt, null);
         JMethod getValueMethod = model.codeModel._getClass("generated.AnElement").methods().iterator().next();
 
-        Assert.assertEquals("getValue", getValueMethod.name());
+        assertEquals("getValue", getValueMethod.name());
     }
 }
