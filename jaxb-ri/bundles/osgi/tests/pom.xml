@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
+    Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
     Copyright (c) 2013, 2023 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
@@ -16,7 +17,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.sun.xml.bind.mvn</groupId>
+        <groupId>org.glassfish.jaxb</groupId>
         <artifactId>jaxb-osgi</artifactId>
         <version>4.0.7-SNAPSHOT</version>
     </parent>
