@@ -18,7 +18,7 @@
     <parent>
         <groupId>org.eclipse.ee4j</groupId>
         <artifactId>project</artifactId>
-        <version>2.0.0-M1</version>
+        <version>2.0.2</version>
         <relativePath/>
     </parent>
 
@@ -72,7 +72,7 @@
         <maven.compiler.testRelease>${maven.compiler.release}</maven.compiler.testRelease>
 
         <relaxng.version>${project.version}</relaxng.version>
-        <junit.version>5.11.4</junit.version>
+        <junit.version>6.0.3</junit.version>
         <!-- exclude big groups from the Xlint -->
         <comp.xlint>-Xlint:all,-rawtypes,-unchecked</comp.xlint>
         <!-- -Xdoclint:-missing does not seem to work properly on the infra -->
