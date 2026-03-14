@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -10,6 +11,7 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime.unmarshaller;
 
+import org.glassfish.jaxb.runtime.v2.runtime.output.Pcdata;
 import org.glassfish.jaxb.runtime.v2.util.FatalAdapter;
 import org.glassfish.jaxb.core.v2.runtime.unmarshaller.LocatorEx;
 import org.xml.sax.SAXException;
@@ -99,8 +101,25 @@ final class ValidatingUnmarshaller implements XmlVisitor, XmlVisitor.TextPredict
         if(buf.length<len) {
             buf = new char[len];
         }
-        for( int i=0;i<len; i++ )
-            buf[i] = pcdata.charAt(i);  // isn't this kinda slow?
+
+        // performance optimization: use getChars()/writeTo() if possible
+        // note: this will become just pcdata.getChars() once minimum supported JDK version reaches 25 (cf. JDK-8343110)
+        if (pcdata instanceof String) {
+            ((String) pcdata).getChars(0, len, buf, 0);
+        }
+        else if (pcdata instanceof StringBuilder) {
+            ((StringBuilder) pcdata).getChars(0, len, buf, 0);
+        }
+        else if (pcdata instanceof StringBuffer) {
+            ((StringBuffer) pcdata).getChars(0, len, buf, 0);
+        }
+        else if (pcdata instanceof Pcdata) {
+            ((Pcdata) pcdata).writeTo(buf, 0);
+        }
+        else {
+            for (int i = 0; i < len; i++)
+                buf[i] = pcdata.charAt(i);  // this is slow due to O(n) range checks
+        }
 
         validator.characters(buf,0,len);
         if(predictor.expectText())

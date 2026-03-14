@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 1997, 2025 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -62,6 +62,7 @@ public final class IndentingUTF8XmlOutput extends UTF8XmlOutput {
             unitLen = e.len;
             for( int i=0; i<8; i++ )
                 System.arraycopy(e.buf, 0, indent8.buf, unitLen*i, unitLen);
+            indent8.len = e.len*8;  // Fix for issue #1645: set the length after populating the buffer
         } else {
             this.indent8 = null;
             this.unitLen = 0;
@@ -109,13 +110,13 @@ public final class IndentingUTF8XmlOutput extends UTF8XmlOutput {
 
     private void printIndent() throws IOException {
         write('\n');
-        int i = depth%8;
+        int i = depth & 0x7;    // int i = depth%8; // for any buffer length of 2 power n the modulo can be written as bit-and ((2 power n) - 1)
 
         write( indent8.buf, 0, i*unitLen );
 
-        i>>=3;  // really i /= 8;
+        i = depth>>3; // i>>=3;  // really i /= 8; **Bug** i only contains values between 0 and 7 (depth % 8). dividing by 8 will always be zero. 
 
-        for( ; i>0; i-- )
+        for( ; i>0; --i )
             indent8.write(this);
     }
 

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+    Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Distribution License v. 1.0, which is available at
+    http://www.eclipse.org/org/documents/edl-v10.php.
+
+    SPDX-License-Identifier: BSD-3-Clause
+
+-->
+
+<!-- See https://github.com/eclipse-ee4j/jaxb-ri/issues/1785 -->
+<jaxb:bindings xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb" version="3.0">
+    <jaxb:bindings schemaLocation="*">
+        <jaxb:schemaBindings>
+            <jaxb:nameXmlTransform>
+                <jaxb:elementName prefix="My" suffix="Dto"/>
+                <jaxb:typeName prefix="My" suffix="Dto"/>
+            </jaxb:nameXmlTransform>
+        </jaxb:schemaBindings>
+    </jaxb:bindings>
+</jaxb:bindings>

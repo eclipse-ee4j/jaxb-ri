@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025-2026 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,11 +15,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.lang.ref.WeakReference;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
-import java.util.Map;
-import java.util.WeakHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -42,65 +40,51 @@ public final class ClassFactory {
 
     /**
      * Cache from a class to its default constructor.
-     *
-     * To avoid synchronization among threads, we use {@link ThreadLocal}.
      */
-    private static final ThreadLocal<Map<Class, WeakReference<Constructor>>> tls = new ThreadLocal<>() {
-        @Override
-        public Map<Class, WeakReference<Constructor>> initialValue() {
-            return new WeakHashMap<>();
-        }
-    };
+    private static final ClassValue<Constructor> DECLARED_CTORS =
+            new ClassValue<>() {
+                @Override
+                protected Constructor computeValue(Class<?> clazz) {
+                    Constructor cons;
+                    if (System.getSecurityManager() == null) {
+                        cons = tryGetDeclaredConstructor(clazz);
+                    } else {
+                        cons = AccessController.doPrivileged(
+                                (PrivilegedAction<Constructor<?>>) () -> tryGetDeclaredConstructor(clazz)
+                        );
+                    }
+
+                    int classMod = clazz.getModifiers();
+
+                    if(!Modifier.isPublic(classMod) || !Modifier.isPublic(cons.getModifiers())) {
+                        // attempt to make it work even if the constructor is not accessible
+                        try {
+                            cons.setAccessible(true);
+                        } catch(SecurityException e) {
+                            // but if we don't have a permission to do so, work gracefully.
+                            logger.log(Level.FINE, e, () -> "Unable to make the constructor of "+clazz+" accessible");
+                            throw e;
+                        }
+                    }
+                    return cons;
+                }
+            };
 
     private ClassFactory() {}
 
+    /**
+     * @deprecated this method is empty by now and will be removed in next major version
+     * @see <a href="https://github.com/eclipse-ee4j/jaxb-ri/issues/978">Issue 978</a>
+     */
+    @Deprecated(forRemoval = true)
     public static void cleanCache() {
-        if (tls != null) {
-            try {
-                tls.remove();
-            } catch (Exception e) {
-                logger.log(Level.WARNING, "Unable to clean Thread Local cache of classes used in Unmarshaller: {0}", e.getLocalizedMessage());
-            }
-        }
     }
 
     /**
      * Creates a new instance of the class but throw exceptions without catching it.
      */
     public static <T> T create0( final Class<T> clazz ) throws IllegalAccessException, InvocationTargetException, InstantiationException {
-        Map<Class,WeakReference<Constructor>> m = tls.get();
-        Constructor<T> cons = null;
-        WeakReference<Constructor> consRef = m.get(clazz);
-        if(consRef!=null)
-            cons = consRef.get();
-        if(cons==null) {
-            if (System.getSecurityManager() == null) {
-                cons = tryGetDeclaredConstructor(clazz);
-            } else {
-                cons = AccessController.doPrivileged(new PrivilegedAction<>() {
-                    @Override
-                    public Constructor<T> run() {
-                        return tryGetDeclaredConstructor(clazz);
-                    }
-                });
-            }
-
-            int classMod = clazz.getModifiers();
-
-            if(!Modifier.isPublic(classMod) || !Modifier.isPublic(cons.getModifiers())) {
-                // attempt to make it work even if the constructor is not accessible
-                try {
-                    cons.setAccessible(true);
-                } catch(SecurityException e) {
-                    // but if we don't have a permission to do so, work gracefully.
-                    logger.log(Level.FINE,"Unable to make the constructor of "+clazz+" accessible",e);
-                    throw e;
-                }
-            }
-
-            m.put(clazz,new WeakReference<>(cons));
-        }
-
+        Constructor<T> cons = DECLARED_CTORS.get(clazz);
         return cons.newInstance(emptyObject);
     }
 
@@ -108,7 +92,7 @@ public final class ClassFactory {
         try {
             return clazz.getDeclaredConstructor(emptyClass);
         } catch (NoSuchMethodException e) {
-            logger.log(Level.INFO,"No default constructor found on "+clazz,e);
+            logger.log(Level.INFO, e, () -> "No default constructor found on "+clazz);
             NoSuchMethodError exp;
             if(clazz.getDeclaringClass()!=null && !Modifier.isStatic(clazz.getModifiers())) {
                 exp = new NoSuchMethodError(Messages.NO_DEFAULT_CONSTRUCTOR_IN_INNER_CLASS
@@ -129,10 +113,10 @@ public final class ClassFactory {
         try {
             return create0(clazz);
         } catch (InstantiationException e) {
-            logger.log(Level.INFO,"failed to create a new instance of "+clazz,e);
+            logger.log(Level.INFO, e, () -> "failed to create a new instance of "+clazz);
             throw new InstantiationError(e.toString());
         } catch (IllegalAccessException e) {
-            logger.log(Level.INFO,"failed to create a new instance of "+clazz,e);
+            logger.log(Level.INFO, e, () -> "failed to create a new instance of "+clazz);
             throw new IllegalAccessError(e.toString());
         } catch (InvocationTargetException e) {
             Throwable target = e.getTargetException();
@@ -171,10 +155,10 @@ public final class ClassFactory {
 
             throw new IllegalStateException(target);
         } catch (IllegalAccessException e) {
-            logger.log(Level.INFO,"failed to create a new instance of "+method.getReturnType().getName(),e);
+            logger.log(Level.INFO, e, () -> "failed to create a new instance of "+method.getReturnType().getName());
             throw new IllegalAccessError(e.toString());
         } catch (IllegalArgumentException | NullPointerException | ExceptionInInitializerError iae){
-            logger.log(Level.INFO,"failed to create a new instance of "+method.getReturnType().getName(),iae);
+            logger.log(Level.INFO, iae, () -> "failed to create a new instance of "+method.getReturnType().getName());
             errorMsg = iae;
         }
 
@@ -183,9 +167,9 @@ public final class ClassFactory {
         exp.initCause(errorMsg);
         throw exp;
     }
-    
+
     /**
-     * Infers the instanciable implementation class that can be assigned to the given field type.
+     * Infers the instantiable implementation class that can be assigned to the given field type.
      *
      * @return null
      *      if inference fails.

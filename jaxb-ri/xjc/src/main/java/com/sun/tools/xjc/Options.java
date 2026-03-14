@@ -92,6 +92,11 @@ public class Options {
     public boolean noFileHeader;
 
     /**
+     * File header comment without timestamp generation in it (to be more friendly with diff.)
+     */
+    public boolean noFileHeaderDate;
+
+    /**
      * When on, fixes getter/setter generation to match the Bean Introspection API
      */
     public boolean enableIntrospection;
@@ -548,6 +553,10 @@ public class Options {
             noFileHeader = true;
             return 1;
         }
+        if (args[i].equals("-no-header-date")) {
+            noFileHeaderDate = true;
+            return 1;
+        }
         if (args[i].equals("-verbose")) {
             verbose = true;
             return 1;
@@ -953,18 +962,22 @@ public class Options {
      *
      */
     public String getPrologComment() {
-        // generate format syntax: <date> 'at' <time>
-        String format =
-            Messages.format(Messages.DATE_FORMAT)
-                + " '"
-                + Messages.format(Messages.AT)
-                + "' "
-                + Messages.format(Messages.TIME_FORMAT);
-        SimpleDateFormat dateFormat = new SimpleDateFormat(format, Locale.ENGLISH);
+        String prologComment = Messages.format(Messages.FILE_PROLOG_COMMENT);
 
-        return Messages.format(
-            Messages.FILE_PROLOG_COMMENT,
-            dateFormat.format(new Date()));
+        if (!noFileHeaderDate) {
+            // generate format syntax: <date> 'at' <time>
+            String format =
+                    Messages.format(Messages.DATE_FORMAT)
+                            + " '"
+                            + Messages.format(Messages.AT)
+                            + "' "
+                            + Messages.format(Messages.TIME_FORMAT);
+            SimpleDateFormat dateFormat = new SimpleDateFormat(format, Locale.ENGLISH);
+
+            prologComment = prologComment + '\n' + Messages.format(Messages.FILE_PROLOG_COMMENT_GENERATED, dateFormat.format(new Date()));
+        }
+
+        return prologComment;
     }
 
     /**

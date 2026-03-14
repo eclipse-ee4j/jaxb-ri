@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 2021, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -19,6 +20,20 @@ final class MUtils {
 
     private static final Logger LOGGER = Logger.getLogger("org.glassfish.jaxb.runtime");
 
+    private static final boolean MODULES_SUPPORTED;
+
+    static {
+        boolean b = false;
+        try {
+            JAXBContextFactory.class.getModule();
+            b = true;
+        } catch (NoSuchMethodError nsme) {
+            //android
+            b = false;
+        }
+        MODULES_SUPPORTED = b;
+    }
+
     /**
      * Api may be defined in a different module, in such case we need to delegate
      * {@linkplain Module#isOpen open} of classes to that module.
@@ -28,6 +43,11 @@ final class MUtils {
      * @throws JAXBException if any of a classes package is not open to our module.
      */
     static void open(Class[] classes) throws JAXBException {
+        if (!MODULES_SUPPORTED) {
+            //we are in an environment like Android which doesn't support Java 9 modules
+            return;
+        }
+
         final Module coreModule = org.glassfish.jaxb.core.v2.ClassFactory.class.getModule();
         final Module rtModule = JAXBContextFactory.class.getModule();
 

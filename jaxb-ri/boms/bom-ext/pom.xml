@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
+    Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
     Copyright (c) 2013, 2023 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
@@ -19,10 +20,10 @@
         <groupId>org.glassfish.jaxb</groupId>
         <artifactId>jaxb-bom</artifactId>
         <relativePath>../bom/pom.xml</relativePath>
-        <version>4.0.6-SNAPSHOT</version>
+        <version>4.1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.sun.xml.bind</groupId>
+    <groupId>org.glassfish.jaxb</groupId>
     <artifactId>jaxb-bom-ext</artifactId>
 
     <packaging>pom</packaging>
@@ -38,7 +39,7 @@
         <dtd-parser.version>1.5.1</dtd-parser.version>
         <relaxng.version>${project.version}</relaxng.version>
         <xsom.version>${project.version}</xsom.version>
-        <ant.version>1.10.14</ant.version>
+        <ant.version>1.10.15</ant.version>
     </properties>
 
     <dependencyManagement>

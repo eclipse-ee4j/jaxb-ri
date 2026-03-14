@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -30,4 +31,5 @@ public final class JMod {
     public static final int SYNCHRONIZED = 0x080;
     public static final int TRANSIENT    = 0x100;
     public static final int VOLATILE     = 0x200;
+    public static final int DEFAULT      = 0x400;
 }

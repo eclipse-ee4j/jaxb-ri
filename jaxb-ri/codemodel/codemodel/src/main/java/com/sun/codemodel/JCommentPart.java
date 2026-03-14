@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -9,6 +10,8 @@
  */
 
 package com.sun.codemodel;
+
+import com.sun.codemodel.util.Util;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -46,7 +49,18 @@ public class JCommentPart extends ArrayList<Object> {
         return this;
     }
 
-        @Override
+    /**
+     * Appends a new value with escaped XML.
+     *
+     * If the value is {@link JType} it will be printed as a @link tag.
+     * Otherwise it will be converted to String via {@link Object#toString()}.
+     */
+    public JCommentPart appendXML(String s) {
+        add(Util.escapeXML(s));
+        return this;
+    }
+
+    @Override
     public boolean add(Object o) {
         flattenAppend(o);
         return true;

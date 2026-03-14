@@ -673,7 +673,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
      */
     static Transformer createTransformer(boolean disableSecureProcessing) {
         try {
-            SAXTransformerFactory tf = (SAXTransformerFactory)XmlFactory.createTransformerFactory(disableSecureProcessing);
+            SAXTransformerFactory tf = (SAXTransformerFactory) XmlFactory.createTransformerFactory(disableSecureProcessing, true);
             return tf.newTransformer();
         } catch (TransformerConfigurationException e) {
             throw new Error(e); // impossible
@@ -685,7 +685,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
      */
     public static TransformerHandler createTransformerHandler(boolean disableSecureProcessing) {
         try {
-            SAXTransformerFactory tf = (SAXTransformerFactory)XmlFactory.createTransformerFactory(disableSecureProcessing);
+            SAXTransformerFactory tf = (SAXTransformerFactory) XmlFactory.createTransformerFactory(disableSecureProcessing, true);
             return tf.newTransformerHandler();
         } catch (TransformerConfigurationException e) {
             throw new Error(e); // impossible
@@ -1001,7 +1001,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
         private boolean xmlAccessorFactorySupport = false;
         private boolean allNillable;
         private boolean improvedXsiTypeHandling = true;
-        private boolean disableSecurityProcessing = true;
+        private boolean disableSecurityProcessing = false;
         private Boolean backupWithParentNamespace = null; // null for System property to be used
         private int maxErrorsCount;
 

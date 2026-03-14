@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -132,7 +133,7 @@ public final class JCodeModel {
      * @return New Java module.
      */
     public JModule _moduleInfo(final String name) {
-        return module = new JModule(name);
+        return module = new JModule(name, this);
     }
 
     /**

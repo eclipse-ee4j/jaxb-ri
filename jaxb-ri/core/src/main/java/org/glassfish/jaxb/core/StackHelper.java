@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -18,7 +19,7 @@ import java.lang.StackWalker.StackFrame;
  * @author Philippe Marschall
  */
 final class StackHelper {
-    private StackHelper() {}   // no instanciation
+    private StackHelper() {}   // no instantiation
 
     /**
      * Returns the name of the calling class of the second method in the call chain of this method.
@@ -28,11 +29,16 @@ final class StackHelper {
      *                           prevents stack introspection
      */
     static String getCallerClassName() {
-        return StackWalker.getInstance()
-                .walk(frames ->
-                        frames.map(StackFrame::getClassName)
-                                .skip(2L)
-                                .findFirst()
-                                .get());
+        try {
+            return StackWalker.getInstance()
+                    .walk(frames ->
+                            frames.map(StackFrame::getClassName)
+                                    .skip(2L)
+                                    .findFirst()
+                                    .get());
+        } catch (NoClassDefFoundError ignored) {
+            StackTraceElement[] trace = new Exception().getStackTrace();
+            return trace[1].getClassName();
+        }
     }
 }

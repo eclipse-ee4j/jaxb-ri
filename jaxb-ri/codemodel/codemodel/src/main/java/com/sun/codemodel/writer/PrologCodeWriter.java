@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -55,13 +56,17 @@ public class PrologCodeWriter extends FilterCodeWriter {
         
         // write prolog if this is a java source file
         if( prolog != null ) {
-            out.println( "//" );
+            out.println("//");
             
             String s = prolog;
             int idx;
             while( (idx=s.indexOf('\n'))!=-1 ) {
-                out.println("// "+ s.substring(0,idx) );
-                s = s.substring(idx+1);
+                out.println("// " + s.substring(0, idx));
+                s = s.substring(idx + 1);
+            }
+            // can have extra comment content after last newline
+            if (!s.isEmpty()) {
+                out.println("// " + s);
             }
             out.println("//");
             out.println();
