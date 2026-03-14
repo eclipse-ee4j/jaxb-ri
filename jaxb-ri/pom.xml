@@ -90,7 +90,7 @@
         <maven.compiler.release>17</maven.compiler.release>
         <maven.compiler.testRelease>${maven.compiler.release}</maven.compiler.testRelease>
 
-        <junit.version>5.11.4</junit.version>
+        <junit.version>6.0.3</junit.version>
 
         <module.path>${project.build.directory}/mods</module.path>
         <!-- This will work ONLY if mvn is run from root folder. In case of runing from submodules - fail :( -->
