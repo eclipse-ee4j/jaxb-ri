@@ -23,7 +23,7 @@
         <relativePath/>
     </parent>
 
-    <groupId>com.sun.xml.bind.mvn</groupId>
+    <groupId>org.glassfish.jaxb</groupId>
     <artifactId>jaxb-external-parent</artifactId>
     <packaging>pom</packaging>
     <version>4.0.8-SNAPSHOT</version>
@@ -316,7 +316,7 @@
                         <configuration>
                             <artifactItems>
                                 <artifactItem>
-                                    <groupId>com.sun.xml.bind.mvn</groupId>
+                                    <groupId>org.glassfish.jaxb</groupId>
                                     <artifactId>jaxb-external-parent</artifactId>
                                     <version>${project.version}</version>
                                     <classifier>resources</classifier>

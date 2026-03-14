@@ -23,7 +23,7 @@
         <relativePath>boms/bom-ext/pom.xml</relativePath>
     </parent>
 
-    <groupId>com.sun.xml.bind.mvn</groupId>
+    <groupId>org.glassfish.jaxb</groupId>
     <artifactId>jaxb-parent</artifactId>
     <version>4.0.8-SNAPSHOT</version>
     <packaging>pom</packaging>
@@ -474,7 +474,7 @@
                         <configuration>
                             <artifactItems>
                                 <artifactItem>
-                                    <groupId>com.sun.xml.bind.mvn</groupId>
+                                    <groupId>org.glassfish.jaxb</groupId>
                                     <artifactId>jaxb-parent</artifactId>
                                     <version>${project.version}</version>
                                     <classifier>resources</classifier>
