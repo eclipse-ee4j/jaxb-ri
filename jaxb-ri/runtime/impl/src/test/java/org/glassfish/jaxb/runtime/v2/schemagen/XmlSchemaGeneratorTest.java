@@ -10,6 +10,13 @@
 
 package org.glassfish.jaxb.runtime.v2.schemagen;
 
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.MarshalException;
+import jakarta.xml.bind.SchemaOutputResolver;
+import org.junit.jupiter.api.Test;
+
+import javax.xml.transform.Result;
+import javax.xml.transform.stream.StreamResult;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -22,20 +29,13 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
-import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.SchemaOutputResolver;
-import jakarta.xml.bind.MarshalException;
-import javax.xml.transform.Result;
-import javax.xml.transform.stream.StreamResult;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
-import junit.framework.TestCase;
-import junit.textui.TestRunner;
+public class XmlSchemaGeneratorTest {
 
-public class XmlSchemaGeneratorTest extends TestCase {
-    public static void main(String[] args) {
-        TestRunner.run(XmlSchemaGeneratorTest.class);
-    }
-
+    @Test
     public void testStackoverflow() throws Exception {
         Map<String, Object> properties = new HashMap<>();
         JAXBContext c = JAXBContext.newInstance(new Class[] {Foo.class}, properties);
@@ -50,6 +50,7 @@ public class XmlSchemaGeneratorTest extends TestCase {
         }
     }
 
+    @Test
     public void test2() throws Exception {
         try {
             JAXBContext context = JAXBContext.newInstance(NSParent.class);
@@ -77,6 +78,7 @@ public class XmlSchemaGeneratorTest extends TestCase {
         return false;
     }
 
+    @Test
     public void test1() throws Exception {
         String[] uris = {
             "http://foo.org/a/b/c", "http://bar.org/d/e/f", "http://foo.org/a/b/c", "true",

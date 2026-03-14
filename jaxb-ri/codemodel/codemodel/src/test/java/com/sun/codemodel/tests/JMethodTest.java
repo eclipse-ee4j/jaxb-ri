@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
+ * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,20 +14,22 @@ package com.sun.codemodel.tests;
 import com.sun.codemodel.ClassType;
 import com.sun.codemodel.JExpr;
 import com.sun.codemodel.writer.OutputStreamCodeWriter;
-import junit.framework.TestCase;
-import org.junit.Assert;
-import org.junit.Test;
 
 import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JMethod;
 import com.sun.codemodel.JMod;
 import com.sun.codemodel.JVar;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
 
-public class JMethodTest extends TestCase {
+public class JMethodTest {
 
 	@Test
 	public void testMethod() throws Exception {
@@ -44,8 +46,8 @@ public class JMethodTest extends TestCase {
 		String generatedClass = os.toString(StandardCharsets.UTF_8);
 		System.out.println(generatedClass);
 
-		Assert.assertEquals(1, m.params().size());
-		Assert.assertSame(foo, m.params().get(0));
+		assertEquals(1, m.params().size());
+		assertSame(foo, m.params().get(0));
 
 		assertTrue(generatedClass.contains("public void foo(String foo)"));
 	}

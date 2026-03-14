@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2025, 2026 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,12 +16,14 @@ import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
-import junit.framework.TestCase;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Test case for issue #1645: Indentation of JAXB_FORMATTED_OUTPUT was limited to eight levels.
@@ -30,7 +32,7 @@ import java.nio.charset.StandardCharsets;
  * 
  * @see <a href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1645">Issue #1645</a>
  */
-public class IndentationTest extends TestCase {
+public class IndentationTest {
 
     /**
      * Nested structure for testing deep indentation
@@ -225,39 +227,39 @@ public class IndentationTest extends TestCase {
 
         // Verify the structure has proper indentation
         // Each level should be indented with 4 spaces more than the previous
-        assertTrue("Result should contain level0", result.contains("<level0>"));
-        assertTrue("Result should contain level1", result.contains("<level1>"));
-        assertTrue("Result should contain level2", result.contains("<level2>"));
-        assertTrue("Result should contain level3", result.contains("<level3>"));
-        assertTrue("Result should contain level4", result.contains("<level4>"));
-        assertTrue("Result should contain level5", result.contains("<level5>"));
-        assertTrue("Result should contain level6", result.contains("<level6>"));
-        assertTrue("Result should contain level7", result.contains("<level7>"));
-        assertTrue("Result should contain level8", result.contains("<level8>"));
-        assertTrue("Result should contain level9", result.contains("<level9>"));
-        assertTrue("Result should contain level10", result.contains("<level10>"));
-        assertTrue("Result should contain content", result.contains("<content>Deep Content</content>"));
+        assertTrue(result.contains("<level0>"), "Result should contain level0");
+        assertTrue(result.contains("<level1>"), "Result should contain level1");
+        assertTrue(result.contains("<level2>"), "Result should contain level2");
+        assertTrue(result.contains("<level3>"), "Result should contain level3");
+        assertTrue(result.contains("<level4>"), "Result should contain level4");
+        assertTrue(result.contains("<level5>"), "Result should contain level5");
+        assertTrue(result.contains("<level6>"), "Result should contain level6");
+        assertTrue(result.contains("<level7>"), "Result should contain level7");
+        assertTrue(result.contains("<level8>"), "Result should contain level8");
+        assertTrue(result.contains("<level9>"), "Result should contain level9");
+        assertTrue(result.contains("<level10>"), "Result should contain level10");
+        assertTrue(result.contains("<content>Deep Content</content>"), "Result should contain content");
 
         // Verify proper indentation at different levels
         // Level 1 should have 4 spaces
-        assertTrue("Level 1 should be indented with 4 spaces", 
-                   result.contains("\n    <level1>"));
+        assertTrue(result.contains("\n    <level1>"),
+                "Level 1 should be indented with 4 spaces");
         
         // Level 8 should have 32 spaces (8 * 4)
-        assertTrue("Level 8 should be indented with 32 spaces", 
-                   result.contains("\n                                <level8>"));
+        assertTrue(result.contains("\n                                <level8>"),
+                "Level 8 should be indented with 32 spaces");
         
         // Level 9 should have 36 spaces (9 * 4)
-        assertTrue("Level 9 should be indented with 36 spaces", 
-                   result.contains("\n                                    <level9>"));
+        assertTrue(result.contains("\n                                    <level9>"),
+                "Level 9 should be indented with 36 spaces");
         
         // Level 10 should have 40 spaces (10 * 4)
-        assertTrue("Level 10 should be indented with 40 spaces", 
-                   result.contains("\n                                        <level10>"));
+        assertTrue(result.contains("\n                                        <level10>"),
+                "Level 10 should be indented with 40 spaces");
         
         // Content should have 44 spaces (11 * 4)
-        assertTrue("Content should be indented with 44 spaces", 
-                   result.contains("\n                                            <content>"));
+        assertTrue(result.contains("\n                                            <content>"),
+                "Content should be indented with 44 spaces");
         
         // Compare with StringWriter result to ensure consistency
         StringWriter stringWriter = new StringWriter();
@@ -268,8 +270,8 @@ public class IndentationTest extends TestCase {
         System.out.println(writerResult);
         
         // Both outputs should be identical
-        assertEquals("ByteArrayOutputStream and StringWriter should produce identical output", 
-                     writerResult, result);
+        assertEquals(writerResult, result,
+                "ByteArrayOutputStream and StringWriter should produce identical output");
     }
 
     /**
@@ -302,8 +304,8 @@ public class IndentationTest extends TestCase {
         System.out.println(result);
 
         // Level 8 should have 32 spaces (8 * 4)
-        assertTrue("Level 8 should be indented with 32 spaces", 
-                   result.contains("\n                                <level8"));
+        assertTrue(result.contains("\n                                <level8"),
+                "Level 8 should be indented with 32 spaces");
         
         // Compare with StringWriter result
         StringWriter stringWriter = new StringWriter();
@@ -313,8 +315,8 @@ public class IndentationTest extends TestCase {
         System.out.println("\n8-level test output (StringWriter):");
         System.out.println(writerResult);
         
-        assertEquals("ByteArrayOutputStream and StringWriter should produce identical output", 
-                     writerResult, result);
+        assertEquals(writerResult, result,
+                "ByteArrayOutputStream and StringWriter should produce identical output");
     }
 
     /**
@@ -344,8 +346,8 @@ public class IndentationTest extends TestCase {
         // Verify deep indentation at level 16
         // Level 16 should have proper indentation (not collapsed)
         // We check that there are multiple levels of indentation present
-        assertTrue("Result should contain node elements", result.contains("<node>"));
-        assertTrue("Result should contain child elements", result.contains("<child>"));
+        assertTrue(result.contains("<node>"), "Result should contain node elements");
+        assertTrue(result.contains("<child>"), "Result should contain child elements");
         
         // Count the number of nested child elements to verify structure
         int childCount = 0;
@@ -355,7 +357,7 @@ public class IndentationTest extends TestCase {
             index++;
         }
         
-        assertTrue("Should have at least 15 child elements", childCount >= 15);
+        assertTrue(childCount >= 15, "Should have at least 15 child elements");
         
         // Compare with StringWriter result
         StringWriter stringWriter = new StringWriter();
@@ -365,7 +367,7 @@ public class IndentationTest extends TestCase {
         System.out.println("\n16-level test output (StringWriter, first 2000 chars):");
         System.out.println(writerResult.substring(0, Math.min(2000, writerResult.length())));
         
-        assertEquals("ByteArrayOutputStream and StringWriter should produce identical output", 
-                     writerResult, result);
+        assertEquals(writerResult, result,
+                "ByteArrayOutputStream and StringWriter should produce identical output");
     }
 }

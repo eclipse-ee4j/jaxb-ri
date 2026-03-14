@@ -11,13 +11,17 @@
 
 package com.sun.codemodel;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import java.io.CharArrayWriter;
 import java.io.PrintWriter;
 import java.util.regex.Pattern;
-import org.junit.After;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.Before;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 /**
  * Test Java module.
@@ -59,15 +63,9 @@ public class JModuleTest {
     }
 
     /**
-     * Creates an instance of Java module test.
-     */
-    public JModuleTest() {
-    }
-
-    /**
      * Initialize test.
      */
-    @Before
+    @BeforeEach
     public void setUp() {
         openOutput();
     }
@@ -75,7 +73,7 @@ public class JModuleTest {
     /**
      * Cleanup test.
      */
-    @After
+    @AfterEach
     public void tearDown() {
         closeOutput();
     }
@@ -138,7 +136,7 @@ public class JModuleTest {
         final JPackage pkg = new JPackage(PKG_NAME, cm);
         instance._exports(pkg);
         JModuleDirective directive = directivesSingleElementCheck(instance);
-        assertTrue(directive instanceof JExportsDirective);
+        assertInstanceOf(JExportsDirective.class, directive);
         assertEquals(PKG_NAME, directive.name);
     }
 
@@ -150,7 +148,7 @@ public class JModuleTest {
         final JModule instance = new JModule(MODULE_NAME, new JCodeModel());
         instance._requires(DEP_MODULE_NAME);
         JModuleDirective directive = directivesSingleElementCheck(instance);
-        assertTrue(directive instanceof JRequiresDirective);
+        assertInstanceOf(JRequiresDirective.class, directive);
         assertEquals(DEP_MODULE_NAME, directive.name);
     }
 

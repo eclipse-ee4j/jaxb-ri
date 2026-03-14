@@ -10,9 +10,16 @@
 
 package com.sun.tools.jxc;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
+
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * @author Yan GAO (gaoyan.gao@oracle.com)
@@ -28,8 +35,9 @@ public class SchemaTaskTest extends SchemaAntTaskTestBase {
     }
 
     @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @BeforeEach
+    protected void setUp(TestInfo info) throws Exception {
+        super.setUp(info);
         pkg = new File(srcDir, "test");
         metainf = new File(buildDir, "META-INF");
         assertTrue(pkg.mkdirs());
@@ -37,15 +45,18 @@ public class SchemaTaskTest extends SchemaAntTaskTestBase {
     }
 
     @Override
+    @AfterEach
     protected void tearDown() throws Exception {
         super.tearDown();
     }
 
+    @Test
     public void testFork() throws IOException {
         copy(pkg, "MyTrackingOrder.java", SchemaTaskTest.class.getResourceAsStream("resources/MyTrackingOrder.java_"));
         assertEquals(0, AntExecutor.exec(script, "schemagen-fork"));
     }
 
+    @Test
     public void testAddmodules() throws IOException {
         copy(pkg, "MyTrackingOrder.java", SchemaTaskTest.class.getResourceAsStream("resources/MyTrackingOrder.java_"));
         assertEquals(0, AntExecutor.exec(script, "schemagen-addmodules"));
