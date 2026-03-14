@@ -35,7 +35,7 @@ updates:
         versions: [ ">=4.2.0" ]
       # 0.9.0, 0.10.0 does not seem to produce central.zip
       - dependency-name: "org.sonatype.central:central-publishing-maven-plugin"
-        versions: [ "0.9.*", "0.10.*" ]
+        versions: [ "0.9.0", "0.10.0" ]
     groups:
       maven-plugins:
         patterns:
