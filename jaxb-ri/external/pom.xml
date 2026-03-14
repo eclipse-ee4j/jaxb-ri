@@ -68,7 +68,7 @@
         <spotbugs.version>4.9.8.2</spotbugs.version>
         <findsecbugs.version>1.14.0</findsecbugs.version>
 
-        <maven.compiler.release>11</maven.compiler.release>
+        <maven.compiler.release>17</maven.compiler.release>
         <maven.compiler.testRelease>${maven.compiler.release}</maven.compiler.testRelease>
 
         <!-- exclude big groups from the Xlint -->
