@@ -17,7 +17,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.sun.xml.bind</groupId>
+        <groupId>org.glassfish.jaxb</groupId>
         <artifactId>jaxb-bom-ext</artifactId>
         <version>4.0.8-SNAPSHOT</version>
         <relativePath>boms/bom-ext/pom.xml</relativePath>

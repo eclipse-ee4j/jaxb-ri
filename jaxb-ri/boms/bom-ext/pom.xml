@@ -23,7 +23,7 @@
         <version>4.0.8-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.sun.xml.bind</groupId>
+    <groupId>org.glassfish.jaxb</groupId>
     <artifactId>jaxb-bom-ext</artifactId>
 
     <packaging>pom</packaging>
