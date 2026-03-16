@@ -12,26 +12,27 @@ package org.glassfish.jaxb.runtime.util;
 
 import java.io.IOException;
 
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.Assert;
+import org.junit.Test;
 
-class StringBuilderWriterTest {
+
+public class StringBuilderWriterTest {
 
     @Test
-    void testAppendChar() throws IOException {
+    public void testAppendChar() throws IOException {
         try (StringBuilderWriter writer = new StringBuilderWriter()) {
             writer.append('\t');
             writer.append('\n');
-            assertEquals("\t\n", writer.toString());
+            Assert.assertEquals("\t\n", writer.toString());
         }
     }
 
     @Test
-    void testWriteChar() throws IOException {
+    public void testWriteChar() throws IOException {
         try (StringBuilderWriter writer = new StringBuilderWriter()) {
             writer.write('\t');
             writer.write('\n');
-            assertEquals("\t\n", writer.toString());
+            Assert.assertEquals("\t\n", writer.toString());
         }
     }
 }
