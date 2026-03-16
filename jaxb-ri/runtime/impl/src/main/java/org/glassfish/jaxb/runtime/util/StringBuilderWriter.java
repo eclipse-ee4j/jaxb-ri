@@ -91,21 +91,7 @@ public class StringBuilderWriter extends Writer {
      */
     @Override
     public void write(int c) throws IOException {
-        sb.append(c);
-    }
-
-    /**
-     * Writes an array of characters.
-     *
-     * @param cbuf
-     *         Array of characters to be written
-     *
-     * @throws IOException
-     *          If an I/O error occurs
-     */
-    @Override
-    public void write(char[] cbuf) throws IOException {
-        sb.append(cbuf);
+        sb.append((char) c);
     }
 
     /**
@@ -155,25 +141,7 @@ public class StringBuilderWriter extends Writer {
      */
     @Override
     public void write(String str, int off, int len) throws IOException {
-        sb.append(str, off, len);
-    }
-
-    /**
-     * Appends the specified character sequence to this writer.
-     *
-     * @param csq
-     *         The character sequence to append.  If {@code csq} is
-     *         {@code null}, then the four characters {@code "null"} are
-     *         appended to this writer.
-     *
-     * @return This writer
-     * @throws IOException
-     *          If an I/O error occurs
-     */
-    @Override
-    public Writer append(CharSequence csq) throws IOException {
-        sb.append(csq);
-        return this;
+        sb.append(str, off, off + len);
     }
 
     /**
