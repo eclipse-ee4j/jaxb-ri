@@ -1,5 +1,6 @@
 <!--
 
+    Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
     Copyright (c) 2005, 2023 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
@@ -17,7 +18,7 @@
     <parent>
         <groupId>com.sun.xml.bind.mvn</groupId>
         <artifactId>jaxb-txw-parent</artifactId>
-        <version>4.0.7</version>
+        <version>4.0.8-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
