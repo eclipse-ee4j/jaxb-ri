@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -27,8 +28,6 @@ import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -399,12 +398,7 @@ public abstract class JaxBeanInfo<BeanT> {
     private static Class[] marshalEventParams = { Marshaller.class };
 
     private Method[] getDeclaredMethods(final Class<BeanT> c) {
-        return AccessController.doPrivileged(new PrivilegedAction<>() {
-            @Override
-            public Method[] run() {
-                return c.getDeclaredMethods();
-            }
-        });
+        return c.getDeclaredMethods();
     }
 
     /**

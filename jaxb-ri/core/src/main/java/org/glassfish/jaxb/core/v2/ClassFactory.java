@@ -1,6 +1,6 @@
 /*
+ * Copyright (c) 2025, 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2025-2026 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -15,8 +15,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -45,15 +43,7 @@ public final class ClassFactory {
             new ClassValue<>() {
                 @Override
                 protected Constructor computeValue(Class<?> clazz) {
-                    Constructor cons;
-                    if (System.getSecurityManager() == null) {
-                        cons = tryGetDeclaredConstructor(clazz);
-                    } else {
-                        cons = AccessController.doPrivileged(
-                                (PrivilegedAction<Constructor<?>>) () -> tryGetDeclaredConstructor(clazz)
-                        );
-                    }
-
+                    Constructor cons = tryGetDeclaredConstructor(clazz);
                     int classMod = clazz.getModifiers();
 
                     if(!Modifier.isPublic(classMod) || !Modifier.isPublic(cons.getModifiers())) {

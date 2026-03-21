@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -16,8 +17,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintStream;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
@@ -95,20 +94,9 @@ public final class Driver {
      * Set useSystemProxies if needed
      */
     private static void setupProxies() {
-        Object setProperty = AccessController.doPrivileged(new PrivilegedAction<>() {
-            @Override
-            public Object run() {
-                return System.getProperty(SYSTEM_PROXY_PROPERTY);
-            }
-        });
+        Object setProperty = System.getProperty(SYSTEM_PROXY_PROPERTY);
         if (setProperty == null) {
-            AccessController.doPrivileged(new PrivilegedAction<Void>() {
-                @Override
-                public Void run() {
-                    System.setProperty(SYSTEM_PROXY_PROPERTY, "true");
-                    return null;
-                }
-            });
+            System.setProperty(SYSTEM_PROXY_PROPERTY, "true");
         }
     }
 
@@ -262,8 +250,8 @@ public final class Driver {
 
         // set up the context class loader so that the user-specified classes
         // can be loaded from there
-        final ClassLoader contextClassLoader = SecureLoader.getContextClassLoader();
-        SecureLoader.setContextClassLoader(opt.getUserClassLoader(contextClassLoader));
+        final ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
+        Thread.currentThread().setContextClassLoader(contextClassLoader);
 
         // parse a grammar file
         //-----------------------------------------

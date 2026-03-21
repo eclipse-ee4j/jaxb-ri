@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 2013, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -16,8 +17,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -42,21 +41,14 @@ final class Utils {
         try {
             final Class<?> refNav = Class.forName("org.glassfish.jaxb.core.v2.model.nav.ReflectionNavigator");
 
-            // requires accessClassInPackage privilege
-            final Method getInstance = AccessController.doPrivileged(
-                    new PrivilegedAction<>() {
-                        @Override
-                        public Method run() {
-                            try {
-                                Method getInstance = refNav.getDeclaredMethod("getInstance");
-                                getInstance.setAccessible(true);
-                                return getInstance;
-                            } catch (NoSuchMethodException e) {
-                                throw new IllegalStateException("ReflectionNavigator.getInstance can't be found");
-                            }
-                        }
-                    }
-            );
+            final Method getInstance;
+            try {
+                Method getInstance2 = refNav.getDeclaredMethod("getInstance");
+                getInstance2.setAccessible(true);
+                getInstance = getInstance2;
+            } catch (NoSuchMethodException e) {
+                throw new IllegalStateException("ReflectionNavigator.getInstance can't be found");
+            }
 
             //noinspection unchecked
             REFLECTION_NAVIGATOR = (Navigator<Type, Class<?>, Field, Method>) getInstance.invoke(null);

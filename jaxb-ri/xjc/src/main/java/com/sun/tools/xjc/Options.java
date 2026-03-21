@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -25,8 +26,6 @@ import java.net.URLClassLoader;
 import java.nio.charset.Charset;
 import java.nio.charset.IllegalCharsetNameException;
 import java.nio.charset.StandardCharsets;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -994,8 +993,7 @@ public class Options {
         final boolean debug = getDebugPropertyValue();
         try {
             // TCCL allows user plugins to be loaded even if xjc is in jdk
-            // We have to use our SecureLoader to obtain it because we are trying to avoid SecurityException
-            final ClassLoader tccl = SecureLoader.getContextClassLoader();
+            final ClassLoader tccl = Thread.currentThread().getContextClassLoader();
             final ServiceLoader<T> sl = ServiceLoader.load(clazz, tccl);
             for (T t : sl)
                 result.add(t);
@@ -1012,16 +1010,7 @@ public class Options {
 
     private static boolean getDebugPropertyValue() {
         final String debugPropertyName = Options.class.getName() + ".findServices";
-        if (System.getSecurityManager() != null) {
-            return AccessController.doPrivileged(new PrivilegedAction<>() {
-                @Override
-                public Boolean run() {
-                    return Boolean.getBoolean(debugPropertyName);
-                }
-            });
-        } else {
-            return Boolean.getBoolean(debugPropertyName);
-        }
+        return Boolean.getBoolean(debugPropertyName);
     }
 
     // this is a convenient place to expose the build version to xjc plugins

@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2025, 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -20,8 +21,6 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.lang.reflect.WildcardType;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -266,38 +265,22 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
 
     @Override
     public Collection<? extends Field> getDeclaredFields(final Class<?> clazz) {
-        Field[] fields = AccessController.doPrivileged(new PrivilegedAction<Field[]>() {
-            @Override
-            public Field[] run() {
-                return clazz.getDeclaredFields();
-            }
-        });
+        Field[] fields = clazz.getDeclaredFields();
         return Arrays.asList(fields);
     }
 
     @Override
     public Field getDeclaredField(final Class<?> clazz, final String fieldName) {
-        return AccessController.doPrivileged(new PrivilegedAction<Field>() {
-            @Override
-            public Field run() {
-                try {
-                    return clazz.getDeclaredField(fieldName);
-                } catch (NoSuchFieldException e) {
-                    return null;
-                }
-            }
-        });
+        try {
+            return clazz.getDeclaredField(fieldName);
+        } catch (NoSuchFieldException e) {
+            return null;
+        }
     }
 
     @Override
     public Collection<? extends Method> getDeclaredMethods(final Class<?> clazz) {
-        Method[] methods =
-            AccessController.doPrivileged(new PrivilegedAction<Method[]>() {
-                @Override
-                public Method[] run() {
-                    return clazz.getDeclaredMethods();
-                }
-            });
+        Method[] methods = clazz.getDeclaredMethods();
         return Arrays.asList(methods);
     }
 
@@ -611,9 +594,9 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
 
     @Override
     public Class<?> loadObjectFactory(Class<?> referencePoint, String pkg) {
-        ClassLoader cl = SecureLoader.getClassClassLoader(referencePoint);
+        ClassLoader cl = referencePoint.getClassLoader();
         if (cl == null)
-            cl = SecureLoader.getSystemClassLoader();
+            cl = ClassLoader.getSystemClassLoader();
 
         try {
             return cl.loadClass(pkg + ".ObjectFactory");
@@ -642,27 +625,19 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
         final String name = method.getName();
         final Class[] params = method.getParameterTypes();
 
-        return AccessController.doPrivileged(
-                new PrivilegedAction<Boolean>() {
-
-                    @Override
-                    public Boolean run() {
-                        Class<?> clazz = base;
-                        while (clazz != null) {
-                            try {
-                                Method m = clazz.getDeclaredMethod(name, params);
-                                if (m != null) {
-                                    return Boolean.TRUE;
-                                }
-                            } catch (NoSuchMethodException ignored) {
-                                // recursively go into the base class
-                            }
-                            clazz = clazz.getSuperclass();
-                        }
-                        return Boolean.FALSE;
-                    }
+        Class<?> clazz = base;
+        while (clazz != null) {
+            try {
+                Method m = clazz.getDeclaredMethod(name, params);
+                if (m != null) {
+                    return Boolean.TRUE;
                 }
-        );
+            } catch (NoSuchMethodException ignored) {
+                // recursively go into the base class
+            }
+            clazz = clazz.getSuperclass();
+        }
+        return Boolean.FALSE;
     }
 
     @Override
