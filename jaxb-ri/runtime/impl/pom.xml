@@ -23,7 +23,6 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.glassfish.jaxb</groupId>
     <artifactId>jaxb-runtime</artifactId>
 
     <packaging>jar</packaging>

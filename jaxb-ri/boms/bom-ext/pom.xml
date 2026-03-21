@@ -23,7 +23,6 @@
         <version>4.1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.glassfish.jaxb</groupId>
     <artifactId>jaxb-bom-ext</artifactId>
 
     <packaging>pom</packaging>
