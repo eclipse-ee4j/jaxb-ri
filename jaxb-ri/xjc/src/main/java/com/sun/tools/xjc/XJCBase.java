@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 2017, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -800,7 +801,7 @@ public class XJCBase extends MatchingTask {
     }
 
     private void doXJC() throws BuildException {
-        ClassLoader old = SecureLoader.getContextClassLoader();
+        ClassLoader old = Thread.currentThread().getContextClassLoader();
         AntClassLoader acl = null;
         try {
             if (classpath != null) {
@@ -815,12 +816,12 @@ public class XJCBase extends MatchingTask {
             // set the user-specified class loader so that XJC will use it.
             // We have to specify parent classLoader because in other case AntClassLoader class classLoader will be set as parent
             // and we will lose current classLoader.
-            SecureLoader.setContextClassLoader(
+            Thread.currentThread().setContextClassLoader(
                 acl = new AntClassLoader(this.getClass().getClassLoader(), getProject(), classpath, false));
             _doXJC();
         } finally {
             // restore the context class loader
-            SecureLoader.setContextClassLoader(old);
+            Thread.currentThread().setContextClassLoader(old);
             // close AntClassLoader
             if (acl != null) {
                 acl.cleanup();

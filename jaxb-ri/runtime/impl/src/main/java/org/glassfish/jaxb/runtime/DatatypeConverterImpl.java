@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -22,8 +23,6 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
 import java.util.*;
 
 /**
@@ -709,12 +708,7 @@ public final class DatatypeConverterImpl implements DatatypeConverterInterface {
     private static final Map<ClassLoader, DatatypeFactory> DF_CACHE = Collections.synchronizedMap(new WeakHashMap<>());
 
     public static DatatypeFactory getDatatypeFactory() {
-        ClassLoader tccl = AccessController.doPrivileged(new PrivilegedAction<>() {
-            @Override
-            public ClassLoader run() {
-                return Thread.currentThread().getContextClassLoader();
-            }
-        });
+        ClassLoader tccl = Thread.currentThread().getContextClassLoader();
         DatatypeFactory df = DF_CACHE.get(tccl);
         if (df == null) {
             synchronized (DatatypeConverterImpl.class) {

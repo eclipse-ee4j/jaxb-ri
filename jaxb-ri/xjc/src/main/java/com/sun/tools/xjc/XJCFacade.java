@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -40,10 +41,10 @@ public final class XJCFacade {
             }
         }
 
-        ClassLoader oldContextCl = SecureLoader.getContextClassLoader();
+        ClassLoader oldContextCl = Thread.currentThread().getContextClassLoader();
         try {
-            ClassLoader cl = SecureLoader.getClassClassLoader(XJCFacade.class);
-            SecureLoader.setContextClassLoader(cl);
+            ClassLoader cl = XJCFacade.class.getClassLoader();
+            Thread.currentThread().setContextClassLoader(cl);
             Class<?> driver = cl.loadClass("com.sun.tools.xjc.Driver");
             Method mainMethod = driver.getDeclaredMethod("main", String[].class);
             try {
@@ -56,8 +57,8 @@ public final class XJCFacade {
         } catch (UnsupportedClassVersionError e) {
             System.err.println(JDK_REQUIRED);
         } finally {
-            ClassLoader cl = SecureLoader.getContextClassLoader();
-            SecureLoader.setContextClassLoader(oldContextCl);
+            ClassLoader cl = Thread.currentThread().getContextClassLoader();
+            Thread.currentThread().setContextClassLoader(oldContextCl);
 
             //close/cleanup all classLoaders but the one which loaded this class
             while (cl != null && !oldContextCl.equals(cl)) {
@@ -65,7 +66,7 @@ public final class XJCFacade {
                     //JDK7+, ParallelWorldClassLoader
                     ((Closeable) cl).close();
                 }
-                cl = SecureLoader.getParentClassLoader(cl);
+                cl = cl.getParent();
             }
         }
     }

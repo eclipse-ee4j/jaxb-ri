@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -92,7 +93,7 @@ public final class InlineAnnotationReaderImpl extends AbstractInlineAnnotationRe
             try {
                 String fullName = ((TypeElement) m.getAnnotationType().asElement()).getQualifiedName().toString();
                 Class<? extends Annotation> type =
-                    SecureLoader.getClassClassLoader(getClass()).loadClass(fullName).asSubclass(Annotation.class);
+                    getClass().getClassLoader().loadClass(fullName).asSubclass(Annotation.class);
                 Annotation annotation = decl.getAnnotation(type);
                 if(annotation!=null)
                     r.add( LocatableAnnotation.create(annotation,srcPos) );

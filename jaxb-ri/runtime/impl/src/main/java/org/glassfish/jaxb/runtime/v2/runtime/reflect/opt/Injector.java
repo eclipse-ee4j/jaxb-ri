@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -16,7 +17,7 @@ import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.security.*;
+import java.security.ProtectionDomain;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -132,49 +133,28 @@ final class Injector {
 
     static {
         try {
-            Method[] m = AccessController.doPrivileged(
-                    new PrivilegedAction<>() {
-                        @Override
-                        public Method[] run() {
-                            return new Method[]{
-                                    getMethod(ClassLoader.class, "defineClass", String.class, byte[].class, Integer.TYPE, Integer.TYPE),
-                                    getMethod(ClassLoader.class, "resolveClass", Class.class),
-                                    getMethod(ClassLoader.class, "findLoadedClass", String.class)
-                            };
-                        }
-                    }
-            );
+            Method[] m = new Method[]{
+                    getMethod(ClassLoader.class, "defineClass", String.class, byte[].class, Integer.TYPE, Integer.TYPE),
+                    getMethod(ClassLoader.class, "resolveClass", Class.class),
+                    getMethod(ClassLoader.class, "findLoadedClass", String.class)
+                };
             defineClass = m[0];
             resolveClass = m[1];
             findLoadedClass = m[2];
         } catch (Throwable t) {
             try {
-                U = AccessController.doPrivileged(new PrivilegedExceptionAction() {
-                    @Override
-                    public Object run() throws Exception {
-                        Class u = classForNames("sun.misc.Unsafe", "jdk.internal.misc.Unsafe");
-                        Field theUnsafe = u.getDeclaredField("theUnsafe");
-                        theUnsafe.setAccessible(true);
-                        return theUnsafe.get(null);
-                    }
-                });
-                defineClass = AccessController.doPrivileged(new PrivilegedExceptionAction<>() {
-                    @Override
-                    public Method run() throws Exception {
-                        try {
-                            return U.getClass().getMethod("defineClass",
-                                    String.class,
-                                    byte[].class,
-                                    Integer.TYPE,
-                                    Integer.TYPE,
-                                    ClassLoader.class,
-                                    ProtectionDomain.class);
-                        } catch (NoSuchMethodException | SecurityException ex) {
-                            throw ex;
-                        }
-                    }
-                });
-            } catch (SecurityException | PrivilegedActionException ex) {
+                Class u = classForNames("sun.misc.Unsafe", "jdk.internal.misc.Unsafe");
+                Field theUnsafe = u.getDeclaredField("theUnsafe");
+                theUnsafe.setAccessible(true);
+                U = theUnsafe.get(null);
+                defineClass = U.getClass().getMethod("defineClass",
+                                String.class,
+                                byte[].class,
+                                Integer.TYPE,
+                                Integer.TYPE,
+                                ClassLoader.class,
+                                ProtectionDomain.class);
+            } catch (ReflectiveOperationException ex) {
                 Logger.getLogger(Injector.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -287,7 +267,7 @@ final class Injector {
                         } else {
                             c = (Class) defineClass.invoke(U, className.replace('/', '.'), image, 0, image.length, parent, Injector.class.getProtectionDomain());
                         }
-                    } catch (IllegalAccessException | LinkageError | SecurityException e) {
+                    } catch (IllegalAccessException | LinkageError e) {
                         logger.log(Level.FINE, "Unable to inject " + className, e);
                         return null;
                     } catch (InvocationTargetException e) {

@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -81,7 +82,7 @@ public class JAXBContextFactory {
                 name = name.substring(0,name.length()-DOT_OBJECT_FACTORY.length())+IMPL_DOT_OBJECT_FACTORY;
 
                 try {
-                    c = getClassClassLoader(c).loadClass(name);
+                    c = c.getClassLoader().loadClass(name);
                 } catch (ClassNotFoundException e) {
                     throw new JAXBException(e);
                 }
@@ -138,19 +139,4 @@ public class JAXBContextFactory {
         // delegate to the JAXB provider in the system
         return JAXBContext.newInstance(classes.toArray(new Class<?>[0]),properties);
     }
-    
-    private static ClassLoader getClassClassLoader(final Class<?> c) {
-        if (System.getSecurityManager() == null) {
-            return c.getClassLoader();
-        } else {
-            return java.security.AccessController.doPrivileged(
-                    new java.security.PrivilegedAction<>() {
-                        @Override
-                        public ClassLoader run() {
-                            return c.getClassLoader();
-                        }
-                    });
-        }
-    }
-
 }

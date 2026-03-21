@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -23,8 +24,8 @@ public final class SchemaGeneratorFacade {
 
     public static void main(String[] args) throws Throwable {
         try {
-            ClassLoader cl = SecureLoader.getClassClassLoader(SchemaGeneratorFacade.class);
-            if(cl==null)    cl = SecureLoader.getSystemClassLoader();
+            ClassLoader cl = SchemaGeneratorFacade.class.getClassLoader();
+            if(cl==null)    cl = ClassLoader.getSystemClassLoader();
 
             Class<?> driver = cl.loadClass("com.sun.tools.jxc.SchemaGenerator");
             Method mainMethod = driver.getDeclaredMethod("main", String[].class);

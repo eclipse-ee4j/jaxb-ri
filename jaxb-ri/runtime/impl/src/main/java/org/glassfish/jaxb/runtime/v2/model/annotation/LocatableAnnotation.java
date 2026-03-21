@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -43,7 +44,7 @@ public class LocatableAnnotation implements InvocationHandler, Locatable, Locati
 
         // otherwise take the slow route
 
-        ClassLoader cl = SecureLoader.getClassClassLoader(LocatableAnnotation.class);
+        ClassLoader cl = LocatableAnnotation.class.getClassLoader();
 
         try {
             Class loadableT = Class.forName(type.getName(), false, cl);

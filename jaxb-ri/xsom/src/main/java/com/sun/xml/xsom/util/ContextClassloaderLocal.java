@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 2014, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,8 +11,6 @@
 
 package com.sun.xml.xsom.util;
 
-import java.security.AccessController;
-import java.security.PrivilegedAction;
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 import java.util.WeakHashMap;
@@ -26,7 +25,7 @@ abstract class ContextClassloaderLocal<V> {
     private WeakHashMap<ClassLoader, V> CACHE = new WeakHashMap<>();
 
     public V get() throws Error {
-        ClassLoader tccl = getContextClassLoader();
+        ClassLoader tccl = Thread.currentThread().getContextClassLoader();
         V instance = CACHE.get(tccl);
         if (instance == null) {
             instance = createNewInstance();
@@ -36,7 +35,7 @@ abstract class ContextClassloaderLocal<V> {
     }
 
     public void set(V instance) {
-        CACHE.put(getContextClassLoader(), instance);
+        CACHE.put(Thread.currentThread().getContextClassLoader(), instance);
     }
 
     protected abstract V initialValue() throws Exception;
@@ -54,17 +53,5 @@ abstract class ContextClassloaderLocal<V> {
         return MessageFormat.format(text, args);
     }
 
-    private static ClassLoader getContextClassLoader() {
-        return AccessController.doPrivileged(new PrivilegedAction<ClassLoader>() {
-                    public ClassLoader run() {
-                        ClassLoader cl = null;
-                        try {
-                            cl = Thread.currentThread().getContextClassLoader();
-                        } catch (SecurityException ex) {
-                        }
-                        return cl;
-                    }
-                });
-    }
 }
 

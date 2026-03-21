@@ -1,6 +1,6 @@
 /*
+ * Copyright (c) 2025, 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 2013, 2022 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -14,8 +14,6 @@ package org.glassfish.jaxb.core.v2.util;
 import org.glassfish.jaxb.core.v2.Messages;
 
 import java.lang.ref.SoftReference;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
 import java.util.Collections;
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -55,14 +53,7 @@ public class XmlFactory {
      */
     private static final String DISABLE_XML_SECURITY  = "org.glassfish.jaxb.disableXmlSecurity";
 
-    private static final boolean XML_SECURITY_DISABLED = AccessController.doPrivileged(
-            new PrivilegedAction<>() {
-                @Override
-                public Boolean run() {
-                    return Boolean.getBoolean(DISABLE_XML_SECURITY);
-                }
-            }
-    );
+    private static final boolean XML_SECURITY_DISABLED = Boolean.getBoolean(DISABLE_XML_SECURITY);
 
     private XmlFactory() {}
 

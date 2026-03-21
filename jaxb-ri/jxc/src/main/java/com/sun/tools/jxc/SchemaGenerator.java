@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -65,9 +66,9 @@ public final class SchemaGenerator {
      */
     public static int run(String[] args) throws Exception {
         try {
-            ClassLoader cl = SecureLoader.getClassClassLoader(SchemaGenerator.class);
+            ClassLoader cl = SchemaGenerator.class.getClassLoader();
             if (cl==null) {
-                cl = SecureLoader.getSystemClassLoader();
+                cl = ClassLoader.getSystemClassLoader();
             }
             return run(args, cl);
         } catch(Exception e) {

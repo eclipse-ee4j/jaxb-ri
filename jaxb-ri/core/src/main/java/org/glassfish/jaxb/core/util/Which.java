@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -23,7 +24,7 @@ public class Which {
     private Which() {}
 
     public static String which( Class<?> clazz ) {
-        return which( clazz.getName(), SecureLoader.getClassClassLoader(clazz));
+        return which( clazz.getName(), clazz.getClassLoader());
     }
 
     /**
@@ -38,7 +39,7 @@ public class Which {
         String classnameAsResource = classname.replace('.', '/') + ".class";
 
         if(loader == null) {
-            loader = SecureLoader.getSystemClassLoader();
+            loader = ClassLoader.getSystemClassLoader();
         }
         
         URL it = loader.getResource(classnameAsResource);

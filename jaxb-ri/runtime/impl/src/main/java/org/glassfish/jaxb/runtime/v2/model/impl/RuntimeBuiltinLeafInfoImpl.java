@@ -58,8 +58,6 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
 import java.util.List;
 import java.util.*;
 import java.util.logging.Level;
@@ -181,14 +179,7 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
     
     static {
 
-        String MAP_ANYURI_TO_URI_VALUE = AccessController.doPrivileged(
-                new PrivilegedAction<>() {
-                    @Override
-                    public String run() {
-                        return System.getProperty(MAP_ANYURI_TO_URI);
-                    }
-                }
-        );
+        String MAP_ANYURI_TO_URI_VALUE = System.getProperty(MAP_ANYURI_TO_URI);
         QName[] qnames = (MAP_ANYURI_TO_URI_VALUE == null) ? new QName[] {
                                 createXS("string"),
                                 createXS("anySimpleType"),
@@ -1026,12 +1017,7 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
         m.put(DatatypeConstants.DATETIME,   "%Y-%M-%DT%h:%m:%s"+ "%z");
         m.put(DatatypeConstants.DATE,       "%Y-%M-%D" +"%z");
         m.put(DatatypeConstants.TIME,       "%h:%m:%s"+ "%z");
-        final String oldGmonthMappingProperty = AccessController.doPrivileged(new PrivilegedAction<>() {
-            @Override
-            public String run() {
-                return System.getProperty(USE_OLD_GMONTH_MAPPING);
-            }
-        });
+        final String oldGmonthMappingProperty = System.getProperty(USE_OLD_GMONTH_MAPPING);
         if (oldGmonthMappingProperty == null) {
             m.put(DatatypeConstants.GMONTH, "--%M%z");      //  E2-12 Error. http://www.w3.org/2001/05/xmlschema-errata#e2-12
         } else {                                            //  backw. compatibility

@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -33,7 +34,7 @@ public final class JStaticFile extends JResourceFile {
     }
     
     public JStaticFile(String _resourceName,boolean isResource) {
-        this( SecureLoader.getClassClassLoader(JStaticFile.class), _resourceName, isResource );
+        this( JStaticFile.class.getClassLoader(), _resourceName, isResource );
     }
 
     /**

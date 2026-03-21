@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -230,7 +231,7 @@ class TypedAnnotationWriter<A extends Annotation,W extends JAnnotationWriter<A>>
     @SuppressWarnings({"unchecked"})
     private W createProxy() {
         return (W)Proxy.newProxyInstance(
-            SecureLoader.getClassClassLoader(writerType),new Class<?>[]{writerType},this);
+                writerType.getClassLoader(), new Class<?>[]{writerType},this);
     }
 
     /**
