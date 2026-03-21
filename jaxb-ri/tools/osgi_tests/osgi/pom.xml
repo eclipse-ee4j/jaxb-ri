@@ -23,7 +23,6 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.glassfish.jaxb</groupId>
     <artifactId>osgi-test-osgi</artifactId>
     <packaging>jar</packaging>
     <name>osgi-test-osgi</name>

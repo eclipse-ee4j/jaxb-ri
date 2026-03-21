@@ -22,11 +22,7 @@ updates:
           - "*"
 
   - package-ecosystem: "maven"
-    directories:
-      - "jaxb-ri"
-      - "jaxb-ri/codemodel"
-      - "jaxb-ri/external"
-      - "jaxb-ri/xsom"
+    directory: "jaxb-ri"
     schedule:
       interval: "daily"
     ignore:

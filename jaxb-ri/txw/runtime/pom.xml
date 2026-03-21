@@ -22,7 +22,6 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>org.glassfish.jaxb</groupId>
     <artifactId>txw2</artifactId>
     <packaging>jar</packaging>
     <name>TXW2 Runtime</name>
