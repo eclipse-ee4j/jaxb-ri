@@ -1,5 +1,6 @@
 <!--
 
+    Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
     Copyright (c) 2013, 2021 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
@@ -36,7 +37,6 @@
             <Class name="com.sun.tools.rngom.parse.compact.ParseException"/>
             <Class name="com.sun.tools.rngom.parse.compact.TokenMgrError"/>
             <Class name="com.sun.tools.rngom.parse.compact.JavaCharStream"/>
-            <Class name="com.sun.tools.rngom.parse.compact.UCode_UCodeESC_CharStream"/>
         </Or>
     </Match>
 

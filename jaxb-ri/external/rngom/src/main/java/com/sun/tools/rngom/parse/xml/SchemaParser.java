@@ -125,8 +125,8 @@ class SchemaParser {
             return null;
         }
 
-        public Enumeration prefixes() {
-            Vector v = new Vector();
+        public Enumeration<String> prefixes() {
+            Vector<String> v = new Vector<>();
             for (PrefixMapping p = prefixMapping; p != null; p = p.next) {
                 if (!v.contains(p.prefix)) {
                     v.addElement(p.prefix);

@@ -33,6 +33,7 @@ jing-copying.html
 
 /relaxng-datatype/src/main/java/com/sun/tools/rngdatatype/
 /rngom/src/main/java/com/sun/tools/rngom/
+/rngom/src/main/javacc/com/sun/tools/rngom/parse/compact
 /rngom/src/main/resources/com/sun/tools/rngom/
 /rngom/src/test/java/com/sun/tools/rngom/
 /rngom/src/test/java/DraconianErrorHandler.java
