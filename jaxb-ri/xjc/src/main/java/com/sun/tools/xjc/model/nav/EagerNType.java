@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -35,9 +36,7 @@ class EagerNType implements NType {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof EagerNType)) return false;
-
-        final EagerNType eagerNType = (EagerNType) o;
+        if (!(o instanceof EagerNType eagerNType)) return false;
 
         return t.equals(eagerNType.t);
     }

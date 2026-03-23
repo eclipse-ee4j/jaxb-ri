@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,23 +11,35 @@
 
 package org.glassfish.jaxb.runtime.v2.model.impl;
 
+import java.lang.annotation.Annotation;
+import java.util.Collection;
+
+import javax.xml.namespace.QName;
+
+import jakarta.activation.MimeType;
+import jakarta.xml.bind.annotation.XmlAttachmentRef;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElementWrapper;
+import jakarta.xml.bind.annotation.XmlID;
+import jakarta.xml.bind.annotation.XmlIDREF;
+import jakarta.xml.bind.annotation.XmlInlineBinaryData;
+import jakarta.xml.bind.annotation.XmlMimeType;
+import jakarta.xml.bind.annotation.XmlSchema;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapters;
 import org.glassfish.jaxb.core.v2.TODO;
 import org.glassfish.jaxb.core.v2.model.annotation.AnnotationReader;
 import org.glassfish.jaxb.core.v2.model.annotation.Locatable;
-import org.glassfish.jaxb.core.v2.model.core.*;
+import org.glassfish.jaxb.core.v2.model.core.Adapter;
+import org.glassfish.jaxb.core.v2.model.core.ID;
+import org.glassfish.jaxb.core.v2.model.core.PropertyInfo;
+import org.glassfish.jaxb.core.v2.model.core.TypeInfo;
+import org.glassfish.jaxb.core.v2.model.core.TypeInfoSet;
 import org.glassfish.jaxb.core.v2.model.nav.Navigator;
 import org.glassfish.jaxb.core.v2.runtime.IllegalAnnotationException;
 import org.glassfish.jaxb.core.v2.runtime.Location;
 import org.glassfish.jaxb.runtime.v2.runtime.SwaRefAdapter;
-import jakarta.activation.MimeType;
-import jakarta.xml.bind.annotation.*;
-import jakarta.xml.bind.annotation.adapters.XmlAdapter;
-import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapters;
-
-import javax.xml.namespace.QName;
-import java.lang.annotation.Annotation;
-import java.util.Collection;
 
 /**
  * Default partial implementation for {@link PropertyInfo}.
@@ -328,7 +341,7 @@ abstract class PropertyInfoImpl<T,C,F,M>
     private QName calcXmlName(String uri,String local) {
         // compute the default
         TODO.checkSpec();
-        if(local.length()==0 || local.equals("##default"))
+        if(local.isEmpty() || local.equals("##default"))
             local = seed.getName();
         if(uri.equals("##default")) {
             XmlSchema xs = reader().getPackageAnnotation( XmlSchema.class, parent.getClazz(), this );
@@ -342,7 +355,7 @@ abstract class PropertyInfoImpl<T,C,F,M>
                         uri = typeName.getNamespaceURI();
                     else
                         uri = xs.namespace();
-                    if(uri.length()==0)
+                    if(uri.isEmpty())
                         uri = parent.builder.defaultNsUri;
                     break;
                 case UNQUALIFIED:

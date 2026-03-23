@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,13 +11,13 @@
 
 package org.glassfish.jaxb.runtime.v2.model.impl;
 
+import javax.xml.namespace.QName;
+
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlSchema;
 import org.glassfish.jaxb.core.api.impl.NameConverter;
 import org.glassfish.jaxb.core.v2.model.core.AttributePropertyInfo;
 import org.glassfish.jaxb.core.v2.model.core.PropertyKind;
-import jakarta.xml.bind.annotation.XmlAttribute;
-import jakarta.xml.bind.annotation.XmlSchema;
-
-import javax.xml.namespace.QName;
 
 /**
  * @author Kohsuke Kawaguchi
@@ -59,7 +60,7 @@ class AttributePropertyInfoImpl<TypeT,ClassDeclT,FieldT,MethodT>
                 switch(xs.attributeFormDefault()) {
                 case QUALIFIED:
                     uri = parent.getTypeName().getNamespaceURI();
-                    if(uri.length()==0)
+                    if(uri.isEmpty())
                         uri = parent.builder.defaultNsUri;
                     break;
                 case UNQUALIFIED:

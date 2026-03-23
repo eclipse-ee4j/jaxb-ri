@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,12 +11,12 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime.unmarshaller;
 
-import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
-import jakarta.xml.bind.annotation.DomHandler;
-import org.xml.sax.SAXException;
-
 import javax.xml.transform.Result;
 import javax.xml.transform.sax.TransformerHandler;
+
+import jakarta.xml.bind.annotation.DomHandler;
+import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
+import org.xml.sax.SAXException;
 
 /**
  * Loads a DOM.
@@ -108,7 +109,7 @@ public class DomLoader<ResultT extends Result> extends Loader {
 
     @Override
     public void text(UnmarshallingContext.State state, CharSequence text) throws SAXException {
-        if(text.length()==0)
+        if(text.isEmpty())
             return;     // there's no point in creating an empty Text node in DOM. 
         try {
             State s = (State) state.getTarget();

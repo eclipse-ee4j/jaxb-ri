@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -30,18 +31,13 @@ final class Occurrence extends Term {
     }
 
     static Term wrap( Term t, int occurrence ) {
-        switch(occurrence) {
-        case DTDEventListener.OCCURRENCE_ONCE:
-            return t;
-        case DTDEventListener.OCCURRENCE_ONE_OR_MORE:
-            return new Occurrence(t,false,true);
-        case DTDEventListener.OCCURRENCE_ZERO_OR_MORE:
-            return new Occurrence(t,true,true);
-        case DTDEventListener.OCCURRENCE_ZERO_OR_ONE:
-            return new Occurrence(t,true,false);
-        default:
-            throw new IllegalArgumentException();
-        }
+        return switch (occurrence) {
+            case DTDEventListener.OCCURRENCE_ONCE -> t;
+            case DTDEventListener.OCCURRENCE_ONE_OR_MORE -> new Occurrence(t, false, true);
+            case DTDEventListener.OCCURRENCE_ZERO_OR_MORE -> new Occurrence(t, true, true);
+            case DTDEventListener.OCCURRENCE_ZERO_OR_ONE -> new Occurrence(t, true, false);
+            default -> throw new IllegalArgumentException();
+        };
     }
 
     @Override

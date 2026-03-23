@@ -11,26 +11,30 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime.reflect;
 
-import com.sun.istack.Nullable;
-import org.glassfish.jaxb.runtime.api.AccessorException;
-import org.glassfish.jaxb.runtime.api.JAXBRIContext;
-import org.glassfish.jaxb.core.v2.model.core.Adapter;
-import org.glassfish.jaxb.runtime.v2.model.impl.RuntimeModelBuilder;
-import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
-import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.Loader;
-import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.Receiver;
-import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.UnmarshallingContext;
-import jakarta.xml.bind.JAXBElement;
-import jakarta.xml.bind.annotation.adapters.XmlAdapter;
-import org.xml.sax.SAXException;
-
-import java.lang.reflect.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.sun.istack.Nullable;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
+import org.glassfish.jaxb.core.v2.model.core.Adapter;
+import org.glassfish.jaxb.runtime.api.AccessorException;
+import org.glassfish.jaxb.runtime.api.JAXBRIContext;
+import org.glassfish.jaxb.runtime.v2.model.impl.RuntimeModelBuilder;
+import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
+import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.Loader;
+import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.Receiver;
+import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.UnmarshallingContext;
+import org.xml.sax.SAXException;
 
 /**
  * Accesses a particular property of a bean.
@@ -280,10 +284,6 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
             // noop
         }
 
-        @Override
-        public Accessor<BeanT, ValueT> optimize(JAXBContextImpl context) {
-            return this;
-        }
     }
 
 

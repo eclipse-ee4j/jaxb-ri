@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Eclipse Foundation
+ * Copyright (c) 2022, 2026 Eclipse Foundation
  * Copyright (C) 2004-2011
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,10 +22,13 @@
  */
 package com.sun.tools.rngom.nc;
 
+import java.io.Serial;
+
 import javax.xml.namespace.QName;
 
 public class AnyNameExceptNameClass extends NameClass {
 
+    @Serial
     private static final long serialVersionUID = 641375958519870109L;
 
     private final NameClass nameClass;

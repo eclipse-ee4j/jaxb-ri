@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -13,10 +14,6 @@
  */
 package com.sun.tools.xjc.generator.bean;
 
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlEnum;
-import jakarta.xml.bind.annotation.XmlEnumValue;
-
 import com.sun.codemodel.JClassContainer;
 import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JDocComment;
@@ -29,6 +26,9 @@ import com.sun.tools.xjc.generator.annotation.spec.XmlAccessorTypeWriter;
 import com.sun.tools.xjc.model.CClassInfo;
 import com.sun.tools.xjc.outline.Aspect;
 import com.sun.tools.xjc.outline.Outline;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlEnumValue;
 
 /**
  * Decides how a bean token is mapped to the generated classes.
@@ -126,15 +126,10 @@ public enum ImplStructureStrategy {
 
         @Override
         protected JPackage getPackage(JPackage pkg, Aspect a) {
-            switch(a) {
-            case EXPOSED:
-                return pkg;
-            case IMPLEMENTATION:
-                return pkg.subPackage("impl");
-            default:
-                assert false;
-                throw new IllegalStateException();
-            }
+            return switch (a) {
+                case EXPOSED -> pkg;
+                case IMPLEMENTATION -> pkg.subPackage("impl");
+            };
         }
 
         @Override

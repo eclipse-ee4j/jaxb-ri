@@ -1,6 +1,6 @@
 /*
+ * Copyright (c) 2025, 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,26 +11,9 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime.unmarshaller;
 
-import org.glassfish.jaxb.runtime.IDResolver;
-import org.glassfish.jaxb.runtime.api.ClassResolver;
-import org.glassfish.jaxb.core.unmarshaller.DOMScanner;
-import org.glassfish.jaxb.core.unmarshaller.InfosetScanner;
-import org.glassfish.jaxb.runtime.v2.runtime.AssociationMap;
-import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
-import org.glassfish.jaxb.runtime.v2.runtime.JaxBeanInfo;
-import org.glassfish.jaxb.core.v2.util.XmlFactory;
-import jakarta.xml.bind.*;
-import jakarta.xml.bind.annotation.adapters.XmlAdapter;
-import jakarta.xml.bind.attachment.AttachmentUnmarshaller;
-import jakarta.xml.bind.helpers.AbstractUnmarshallerImpl;
-import org.glassfish.jaxb.runtime.unmarshaller.Messages;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
-import org.xml.sax.helpers.DefaultHandler;
+import java.io.Closeable;
+import java.io.IOException;
+import java.io.InputStream;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
@@ -44,9 +27,35 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.sax.SAXSource;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
-import java.io.Closeable;
-import java.io.IOException;
-import java.io.InputStream;
+
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.PropertyException;
+import jakarta.xml.bind.UnmarshalException;
+import jakarta.xml.bind.Unmarshaller;
+import jakarta.xml.bind.UnmarshallerHandler;
+import jakarta.xml.bind.ValidationEvent;
+import jakarta.xml.bind.ValidationEventHandler;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.attachment.AttachmentUnmarshaller;
+import jakarta.xml.bind.helpers.AbstractUnmarshallerImpl;
+import org.glassfish.jaxb.core.unmarshaller.DOMScanner;
+import org.glassfish.jaxb.core.unmarshaller.InfosetScanner;
+import org.glassfish.jaxb.core.v2.util.XmlFactory;
+import org.glassfish.jaxb.runtime.IDResolver;
+import org.glassfish.jaxb.runtime.api.ClassResolver;
+import org.glassfish.jaxb.runtime.unmarshaller.Messages;
+import org.glassfish.jaxb.runtime.v2.runtime.AssociationMap;
+import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
+import org.glassfish.jaxb.runtime.v2.runtime.JaxBeanInfo;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.DefaultHandler;
 
 /**
  * Default Unmarshaller implementation.
@@ -237,8 +246,7 @@ public final class UnmarshallerImpl extends AbstractUnmarshallerImpl implements 
 
     @Override
     public <T> JAXBElement<T> unmarshal( Source source, Class<T> expectedType ) throws JAXBException {
-        if (source instanceof SAXSource) {
-            SAXSource ss = (SAXSource) source;
+        if (source instanceof SAXSource ss) {
 
             XMLReader locReader = ss.getXMLReader();
             if (locReader == null) {
@@ -259,8 +267,7 @@ public final class UnmarshallerImpl extends AbstractUnmarshallerImpl implements 
     }
 
     public Object unmarshal0( Source source, JaxBeanInfo expectedType ) throws JAXBException {
-        if (source instanceof SAXSource) {
-            SAXSource ss = (SAXSource) source;
+        if (source instanceof SAXSource ss) {
 
             XMLReader locReader = ss.getXMLReader();
             if (locReader == null) {

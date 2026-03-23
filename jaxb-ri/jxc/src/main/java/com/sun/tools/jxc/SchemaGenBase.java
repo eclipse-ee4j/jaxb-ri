@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 2017, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -16,7 +17,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.annotation.processing.Processor;
+
 import org.apache.tools.ant.AntClassLoader;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
@@ -267,7 +270,7 @@ public class SchemaGenBase extends ApBasedTask {
      */
     protected CommandlineJava setupCommand() {
         // d option
-        if (null != getDestdir() && !getDestdir().getName().equals("")) {
+        if (null != getDestdir() && !getDestdir().getName().isEmpty()) {
             getCommandline().createArgument().setValue("-d");
             getCommandline().createArgument().setFile(getDestdir());
         }
@@ -284,7 +287,7 @@ public class SchemaGenBase extends ApBasedTask {
         if (getVerbose()) {
             getCommandline().createArgument().setValue("-verbose");
         }
-        if (compileList != null && compileList.length > 0) {
+        if (compileList != null) {
             for (File aCompileList : compileList) {
                 String arg = aCompileList.getAbsolutePath();
                 getCommandline().createArgument().setValue(arg);

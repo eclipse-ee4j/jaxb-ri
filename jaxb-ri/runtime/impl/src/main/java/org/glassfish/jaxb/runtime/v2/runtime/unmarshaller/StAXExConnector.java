@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,11 +11,11 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime.unmarshaller;
 
-import org.jvnet.staxex.XMLStreamReaderEx;
-import org.xml.sax.SAXException;
-
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+
+import org.jvnet.staxex.XMLStreamReaderEx;
+import org.xml.sax.SAXException;
 
 /**
  * Reads XML from StAX {@link XMLStreamReader} and
@@ -38,8 +39,7 @@ final class StAXExConnector extends StAXStreamConnector {
     protected void handleCharacters() throws XMLStreamException, SAXException {
         if( predictor.expectText() ) {
             CharSequence pcdata = in.getPCDATA();
-            if(pcdata instanceof org.jvnet.staxex.Base64Data) {
-                org.jvnet.staxex.Base64Data bd = (org.jvnet.staxex.Base64Data) pcdata;
+            if(pcdata instanceof org.jvnet.staxex.Base64Data bd) {
                 Base64Data binary = new Base64Data();
                 if(!bd.hasData())
                     binary.set(bd.getDataHandler());

@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,10 +11,11 @@
 
 package org.glassfish.jaxb.core.api.impl;
 
-import javax.lang.model.SourceVersion;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+
+import javax.lang.model.SourceVersion;
 
 /**
  * Converts aribitrary strings into Java identifiers.
@@ -132,7 +134,7 @@ public interface NameConverter
 
             // tokenize string
             ArrayList<String> tokens = tokenize( nsUri, "/: " );
-            if( tokens.size() == 0 ) {
+            if(tokens.isEmpty()) {
                 return null;
             }
 

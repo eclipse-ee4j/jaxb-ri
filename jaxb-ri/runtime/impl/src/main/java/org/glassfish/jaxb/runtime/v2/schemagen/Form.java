@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,13 +11,13 @@
 
 package org.glassfish.jaxb.runtime.v2.schemagen;
 
+import javax.xml.namespace.QName;
+
+import com.sun.xml.txw2.TypedXmlWriter;
+import jakarta.xml.bind.annotation.XmlNsForm;
 import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.LocalAttribute;
 import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.LocalElement;
 import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.Schema;
-import com.sun.xml.txw2.TypedXmlWriter;
-import jakarta.xml.bind.annotation.XmlNsForm;
-
-import javax.xml.namespace.QName;
 
 /**
  * Represents the form default value.
@@ -77,7 +78,7 @@ enum Form {
     }
 
     private void _writeForm(TypedXmlWriter e, QName tagName) {
-        boolean qualified = tagName.getNamespaceURI().length()>0;
+        boolean qualified = !tagName.getNamespaceURI().isEmpty();
 
         if(qualified && this!=QUALIFIED)
             e._attribute("form","qualified");

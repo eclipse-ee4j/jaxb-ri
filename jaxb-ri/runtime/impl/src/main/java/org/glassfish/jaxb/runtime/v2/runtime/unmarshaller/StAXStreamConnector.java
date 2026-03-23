@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,15 +11,16 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime.unmarshaller;
 
-import org.glassfish.jaxb.core.WhiteSpaceProcessor;
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
+import java.lang.reflect.Constructor;
 
 import javax.xml.stream.Location;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-import java.lang.reflect.Constructor;
+
+import org.glassfish.jaxb.core.WhiteSpaceProcessor;
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
 
 /**
  * Reads XML from StAX {@link XMLStreamReader} and
@@ -241,7 +243,7 @@ class StAXStreamConnector extends StAXConnector {
         @Override
         public String getQName(int index) {
             String prefix = staxStreamReader.getAttributePrefix(index);
-            if(prefix==null || prefix.length()==0)
+            if(prefix==null || prefix.isEmpty())
                 return getLocalName(index);
             else
                 return prefix + ':' + getLocalName(index);

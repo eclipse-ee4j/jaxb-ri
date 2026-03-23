@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -82,7 +83,7 @@ final class ContentHandlerNamespacePrefixAdapter extends XMLFilterImpl {
             // add namespace bindings back as attributes
             for( int i=0; i<len; i+=2 ) {
                 String prefix = nsBinding[i];
-                if(prefix.length()==0)
+                if(prefix.isEmpty())
                     this.atts.addAttribute(XMLConstants.XML_NS_URI,"xmlns","xmlns","CDATA",nsBinding[i+1]);
                 else
                     this.atts.addAttribute(XMLConstants.XML_NS_URI,prefix,"xmlns:"+prefix,"CDATA",nsBinding[i+1]);

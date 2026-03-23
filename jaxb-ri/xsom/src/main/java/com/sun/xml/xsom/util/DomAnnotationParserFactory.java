@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,22 +11,22 @@
 
 package com.sun.xml.xsom.util;
 
+import javax.xml.XMLConstants;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.dom.DOMResult;
+import javax.xml.transform.sax.SAXTransformerFactory;
+import javax.xml.transform.sax.TransformerHandler;
+
 import com.sun.xml.xsom.XSAnnotation;
 import com.sun.xml.xsom.parser.AnnotationContext;
 import com.sun.xml.xsom.parser.AnnotationParser;
 import com.sun.xml.xsom.parser.AnnotationParserFactory;
-import javax.xml.XMLConstants;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.ErrorHandler;
-
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.dom.DOMResult;
-import javax.xml.transform.sax.SAXTransformerFactory;
-import javax.xml.transform.sax.TransformerHandler;
 
 /**
  * {@link AnnotationParserFactory} that parses annotations into a W3C DOM.
@@ -94,9 +95,8 @@ public class DomAnnotationParserFactory implements AnnotationParserFactory {
         public Object getResult(Object existing) {
             Document dom = (Document)result.getNode();
             Element e = dom.getDocumentElement();
-            if(existing instanceof Element) {
+            if(existing instanceof Element prev) {
                 // merge all the children
-                Element prev = (Element) existing;
                 Node anchor = e.getFirstChild();
                 while(prev.getFirstChild()!=null) {
                     Node move = prev.getFirstChild();

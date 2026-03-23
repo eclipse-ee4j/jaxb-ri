@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 2005, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,10 +11,10 @@
 
 package com.sun.xml.txw2.output;
 
-import com.sun.xml.txw2.TxwException;
-
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
+
+import com.sun.xml.txw2.TxwException;
 
 /**
  * XML serializer for StAX XMLStreamWriter.
@@ -66,7 +67,7 @@ public class StaxSerializer implements XmlSerializer {
     @Override
     public void writeXmlns(String prefix, String uri) {
         try {
-            if (prefix.length() == 0) {
+            if (prefix.isEmpty()) {
                 out.setDefaultNamespace(uri);
             } else {
                 out.setPrefix(prefix, uri);

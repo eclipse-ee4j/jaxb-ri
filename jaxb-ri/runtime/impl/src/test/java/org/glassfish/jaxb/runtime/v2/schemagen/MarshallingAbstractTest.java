@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -9,6 +10,16 @@
  */
 
 package org.glassfish.jaxb.runtime.v2.schemagen;
+
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Collection;
+
+import javax.xml.XMLConstants;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
 
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBElement;
@@ -28,16 +39,6 @@ import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.JaxbContainer;
 import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.JaxbDistribution;
 import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.JaxbEnvironmentModel;
 import org.junit.jupiter.api.Test;
-
-import javax.xml.XMLConstants;
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.Collection;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -90,11 +91,14 @@ public class MarshallingAbstractTest {
         mapping.element2 = new C("C1");
         marshaller.marshal(mapping, resultWriter);
 
-        String expectedXml1 = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<root>\n"
-                + "    <list/>\n"
-                + "    <element1 xsi:type=\"ClassType1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">B1</element1>\n"
-                + "    <element2 xsi:type=\"ClassType2\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">C1</element2>\n"
-                + "</root>\n";
+        String expectedXml1 = """
+                <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+                <root>
+                    <list/>
+                    <element1 xsi:type="ClassType1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">B1</element1>
+                    <element2 xsi:type="ClassType2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">C1</element2>
+                </root>
+                """;
         assertEquals(expectedXml1, resultWriter.toString());
     }
 
@@ -109,14 +113,17 @@ public class MarshallingAbstractTest {
         mapping.element2 = new C("C1");
         mapping.list.add(new B("B"));
         mapping.list.add(new C("C"));
-        String expectedXml2 = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<root>\n"
-                + "    <list>\n"
-                + "        <element xsi:type=\"ClassType1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">B</element>\n"
-                + "        <element xsi:type=\"ClassType2\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">C</element>\n"
-                + "    </list>\n"
-                + "    <element1 xsi:type=\"ClassType1\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">B1</element1>\n"
-                + "    <element2 xsi:type=\"ClassType2\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">C1</element2>\n"
-                + "</root>\n";
+        String expectedXml2 = """
+                <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+                <root>
+                    <list>
+                        <element xsi:type="ClassType1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">B</element>
+                        <element xsi:type="ClassType2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">C</element>
+                    </list>
+                    <element1 xsi:type="ClassType1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">B1</element1>
+                    <element2 xsi:type="ClassType2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">C1</element2>
+                </root>
+                """;
         marshaller.marshal(mapping, resultWriter);
         assertEquals(expectedXml2, resultWriter.toString());
     }
@@ -126,10 +133,13 @@ public class MarshallingAbstractTest {
         JAXBContext jc = JAXBContext.newInstance(Mapping.class);
         Unmarshaller unmarshaller = jc.createUnmarshaller();
         //works without list..
-        String sourceXml1 = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<root>\n"
-                + "    <element1 xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:type=\"ClassType1\">B1</element1>\n"
-                + "    <element2 xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:type=\"ClassType2\">C1</element2>\n"
-                + "</root>\n";
+        String sourceXml1 = """
+                <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+                <root>
+                    <element1 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ClassType1">B1</element1>
+                    <element2 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ClassType2">C1</element2>
+                </root>
+                """;
         JAXBElement<Mapping> element = unmarshaller.unmarshal(new StreamSource(new StringReader(sourceXml1)), Mapping.class);
         assertNotNull(element.getValue());
         assertEquals(B.class, element.getValue().element1.getClass());
@@ -141,14 +151,17 @@ public class MarshallingAbstractTest {
         JAXBContext jc = JAXBContext.newInstance(Mapping.class);
         Unmarshaller unmarshaller = jc.createUnmarshaller();
         //don't work -> try to instantiate the abstract class
-        String sourceXml2 = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n<root>\n"
-                + "    <list>\n"
-                + "        <element xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:type=\"ClassType1\">B</element>\n"
-                + "        <element xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:type=\"ClassType2\">C</element>\n"
-                + "    </list>\n"
-                + "    <element1 xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:type=\"ClassType1\">B1</element1>\n"
-                + "    <element2 xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:type=\"ClassType2\">C1</element2>\n"
-                + "</root>\n";
+        String sourceXml2 = """
+                <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+                <root>
+                    <list>
+                        <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ClassType1">B</element>
+                        <element xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ClassType2">C</element>
+                    </list>
+                    <element1 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ClassType1">B1</element1>
+                    <element2 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ClassType2">C1</element2>
+                </root>
+                """;
 
         try {
             JAXBElement<Mapping> element = unmarshaller.unmarshal(new StreamSource(new StringReader(sourceXml2)), Mapping.class);
@@ -173,68 +186,69 @@ public class MarshallingAbstractTest {
         container.addDeployment(dep);
         envModel.setContainer(container);
 
-        String sourceXsd = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
-                "<xs:schema version=\"1.0\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\">\n" +
-                "\n" +
-                "  <xs:element name=\"environmentModel\" type=\"environmentModelType\"/>\n" +
-                "\n" +
-                "  <xs:complexType name=\"environmentModelType\">\n" +
-                "    <xs:sequence>\n" +
-                "      <xs:element name=\"container\" type=\"containerType\" minOccurs=\"0\"/>\n" +
-                "      <xs:element name=\"distribution\" type=\"distributionType\" minOccurs=\"0\"/>\n" +
-                "    </xs:sequence>\n" +
-                "  </xs:complexType>\n" +
-                "\n" +
-                "  <xs:complexType name=\"containerType\" abstract=\"true\">\n" +
-                "    <xs:sequence>\n" +
-                "      <xs:element name=\"deployments\">\n" +
-                "        <xs:complexType>\n" +
-                "          <xs:sequence>\n" +
-                "            <xs:element name=\"deployment\" type=\"xs:IDREF\" minOccurs=\"0\" maxOccurs=\"unbounded\"/>\n" +
-                "          </xs:sequence>\n" +
-                "        </xs:complexType>\n" +
-                "      </xs:element>\n" +
-                "    </xs:sequence>\n" +
-                "  </xs:complexType>\n" +
-                "\n" +
-                "  <xs:complexType name=\"deploymentType\" abstract=\"true\">\n" +
-                "    <xs:sequence>\n" +
-                "      <xs:element name=\"contextRoot\" type=\"xs:ID\"/>\n" +
-                "    </xs:sequence>\n" +
-                "  </xs:complexType>\n" +
-                "\n" +
-                "  <xs:complexType name=\"concreteDeploymentType\">\n" +
-                "    <xs:complexContent>\n" +
-                "      <xs:extension base=\"deploymentType\">\n" +
-                "        <xs:sequence/>\n" +
-                "      </xs:extension>\n" +
-                "    </xs:complexContent>\n" +
-                "  </xs:complexType>\n" +
-                "\n" +
-                "  <xs:complexType name=\"concreteContainerType\">\n" +
-                "    <xs:complexContent>\n" +
-                "      <xs:extension base=\"containerType\">\n" +
-                "        <xs:sequence/>\n" +
-                "      </xs:extension>\n" +
-                "    </xs:complexContent>\n" +
-                "  </xs:complexType>\n" +
-                "\n" +
-                "  <xs:complexType name=\"distributionType\">\n" +
-                "    <xs:sequence>\n" +
-                "      <xs:element name=\"deployments\">\n" +
-                "        <xs:complexType>\n" +
-                "          <xs:sequence>\n" +
-                "            <xs:element name=\"deployment\" type=\"deploymentType\" minOccurs=\"0\" maxOccurs=\"unbounded\"/>\n" +
-                "          </xs:sequence>\n" +
-                "        </xs:complexType>\n" +
-                "      </xs:element>\n" +
-                "    </xs:sequence>\n" +
-                "  </xs:complexType>\n" +
-                "\n" +
-                "  <xs:complexType name=\"mainTest\">\n" +
-                "    <xs:sequence/>\n" +
-                "  </xs:complexType>\n" +
-                "</xs:schema>";
+        String sourceXsd = """
+                <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+                <xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+                
+                  <xs:element name="environmentModel" type="environmentModelType"/>
+                
+                  <xs:complexType name="environmentModelType">
+                    <xs:sequence>
+                      <xs:element name="container" type="containerType" minOccurs="0"/>
+                      <xs:element name="distribution" type="distributionType" minOccurs="0"/>
+                    </xs:sequence>
+                  </xs:complexType>
+                
+                  <xs:complexType name="containerType" abstract="true">
+                    <xs:sequence>
+                      <xs:element name="deployments">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element name="deployment" type="xs:IDREF" minOccurs="0" maxOccurs="unbounded"/>
+                          </xs:sequence>
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                
+                  <xs:complexType name="deploymentType" abstract="true">
+                    <xs:sequence>
+                      <xs:element name="contextRoot" type="xs:ID"/>
+                    </xs:sequence>
+                  </xs:complexType>
+                
+                  <xs:complexType name="concreteDeploymentType">
+                    <xs:complexContent>
+                      <xs:extension base="deploymentType">
+                        <xs:sequence/>
+                      </xs:extension>
+                    </xs:complexContent>
+                  </xs:complexType>
+                
+                  <xs:complexType name="concreteContainerType">
+                    <xs:complexContent>
+                      <xs:extension base="containerType">
+                        <xs:sequence/>
+                      </xs:extension>
+                    </xs:complexContent>
+                  </xs:complexType>
+                
+                  <xs:complexType name="distributionType">
+                    <xs:sequence>
+                      <xs:element name="deployments">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element name="deployment" type="deploymentType" minOccurs="0" maxOccurs="unbounded"/>
+                          </xs:sequence>
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                
+                  <xs:complexType name="mainTest">
+                    <xs:sequence/>
+                  </xs:complexType>
+                </xs:schema>""";
         SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
         Schema schema = sf.newSchema(new StreamSource(new StringReader(sourceXsd)));
 
@@ -244,21 +258,23 @@ public class MarshallingAbstractTest {
         StringWriter resultWriter = new StringWriter();
         marshal.marshal(envModel, resultWriter);
 
-        String expectedXml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
-                "<environmentModel>\n" +
-                "    <container xsi:type=\"concreteContainerType\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n" +
-                "        <deployments>\n" +
-                "            <deployment>Context-Root</deployment>\n" +
-                "        </deployments>\n" +
-                "    </container>\n" +
-                "    <distribution>\n" +
-                "        <deployments>\n" +
-                "            <deployment xsi:type=\"concreteDeploymentType\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n" +
-                "                <contextRoot>Context-Root</contextRoot>\n" +
-                "            </deployment>\n" +
-                "        </deployments>\n" +
-                "    </distribution>\n" +
-                "</environmentModel>\n";
+        String expectedXml = """
+                <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+                <environmentModel>
+                    <container xsi:type="concreteContainerType" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                        <deployments>
+                            <deployment>Context-Root</deployment>
+                        </deployments>
+                    </container>
+                    <distribution>
+                        <deployments>
+                            <deployment xsi:type="concreteDeploymentType" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                                <contextRoot>Context-Root</contextRoot>
+                            </deployment>
+                        </deployments>
+                    </distribution>
+                </environmentModel>
+                """;
 
         assertEquals(expectedXml, resultWriter.toString());
     }

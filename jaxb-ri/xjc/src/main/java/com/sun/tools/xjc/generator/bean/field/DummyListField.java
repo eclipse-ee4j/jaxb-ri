@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,16 +11,15 @@
 
 package com.sun.tools.xjc.generator.bean.field;
 
-import com.sun.codemodel.JAnnotatable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.codemodel.JAnnotatable;
 import com.sun.codemodel.JBlock;
 import com.sun.codemodel.JClass;
 import com.sun.codemodel.JExpr;
 import com.sun.codemodel.JExpression;
 import com.sun.codemodel.JMethod;
-import com.sun.codemodel.JMod;
 import com.sun.codemodel.JVar;
 import com.sun.tools.xjc.generator.bean.ClassOutlineImpl;
 import com.sun.tools.xjc.generator.bean.MethodWriter;
@@ -93,8 +93,7 @@ public class DummyListField extends AbstractListField {
     protected void annotate( JAnnotatable field ) {
         super.annotate(field);
 
-        if (prop instanceof CReferencePropertyInfo) {
-            CReferencePropertyInfo pref = (CReferencePropertyInfo)prop;
+        if (prop instanceof CReferencePropertyInfo pref) {
             if (pref.isDummy()) {
                 annotateDummy(field);
             }

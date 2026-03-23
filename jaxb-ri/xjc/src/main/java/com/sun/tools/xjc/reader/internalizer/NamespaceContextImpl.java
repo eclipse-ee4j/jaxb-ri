@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -20,8 +21,10 @@
 package com.sun.tools.xjc.reader.internalizer;
 
 import java.util.Iterator;
+
 import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;
+
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -80,7 +83,7 @@ final class NamespaceContextImpl implements NamespaceContext {
             }
         }
 
-        if(prefix.equals(""))
+        if(prefix.isEmpty())
             return "";  // default namespace
         return namespace;
     }

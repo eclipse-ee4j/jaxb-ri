@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -51,6 +52,7 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.io.Serial;
 import java.math.BigInteger;
 import java.text.MessageFormat;
 import java.util.Iterator;
@@ -90,6 +92,7 @@ public class SchemaTreeTraverser implements XSVisitor, XSSimpleTypeVisitor {
      * @author Kirill Grouchnikov
      */
     public static final class SchemaTreeModel extends DefaultTreeModel {
+        @Serial
         private static final long serialVersionUID = 3202903011416748633L;
         /**
          * A simple constructor. Is made private to allow creating the root node
@@ -122,6 +125,7 @@ public class SchemaTreeTraverser implements XSVisitor, XSSimpleTypeVisitor {
      * @author Kirill Grouchnikov
      */
     public static class SchemaTreeNode extends DefaultMutableTreeNode {
+        @Serial
         private static final long serialVersionUID = 5119501381189181864L;
         /**
          * File name of the corresponding schema artifact.
@@ -209,6 +213,7 @@ public class SchemaTreeTraverser implements XSVisitor, XSSimpleTypeVisitor {
      * @author Kirill Grouchnikov
      */
     public static class SchemaRootNode extends SchemaTreeNode {
+        @Serial
         private static final long serialVersionUID = -4869737965361647583L;
         /**
          * A simple constructor.
@@ -226,6 +231,7 @@ public class SchemaTreeTraverser implements XSVisitor, XSSimpleTypeVisitor {
      */
     public static class SchemaTreeCellRenderer extends JPanel implements
             TreeCellRenderer {
+        @Serial
         private static final long serialVersionUID = 865538344984392435L;
         /**
          * The icon label.
@@ -333,8 +339,7 @@ public class SchemaTreeTraverser implements XSVisitor, XSSimpleTypeVisitor {
         public final Component getTreeCellRendererComponent(JTree tree, Object value,
                                                             boolean selected, boolean expanded, boolean leaf, int row,
                                                             boolean hasFocus) {
-            if (value instanceof SchemaTreeNode) {
-                SchemaTreeNode stn = (SchemaTreeNode) value;
+            if (value instanceof SchemaTreeNode stn) {
 
                 this.setValues(null, stn.getCaption(), selected);
                 return this;
@@ -577,7 +582,7 @@ public class SchemaTreeTraverser implements XSVisitor, XSSimpleTypeVisitor {
             }
         }
 
-        String name = (ref.length() == 0) ? "Union" : ("Union memberTypes=\""
+        String name = (ref.isEmpty()) ? "Union" : ("Union memberTypes=\""
                 + ref + "\"");
         SchemaTreeNode newNode = new SchemaTreeNode(name, type.getLocator());
         this.currNode.add(newNode);

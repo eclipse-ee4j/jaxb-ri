@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -9,6 +10,15 @@
  */
 
 package org.glassfish.jaxb.runtime.v2.model.impl;
+
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.xml.namespace.QName;
 
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.annotation.XmlAttachmentRef;
@@ -35,14 +45,6 @@ import org.glassfish.jaxb.core.v2.model.nav.Navigator;
 import org.glassfish.jaxb.core.v2.runtime.IllegalAnnotationException;
 import org.glassfish.jaxb.runtime.v2.model.annotation.ClassLocatable;
 import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimePropertyInfo;
-
-import javax.xml.namespace.QName;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Builds a {@link TypeInfoSet} (a set of JAXB properties)
@@ -247,8 +249,7 @@ public class ModelBuilder<T,C,F,M> implements ModelBuilderI<T,C,F,M> {
     private Class[] getParametrizedTypes(PropertyInfo p) {
         try {
             Type pType = ((RuntimePropertyInfo) p).getIndividualType();
-            if (pType instanceof ParameterizedType) {
-                ParameterizedType prmzdType = (ParameterizedType) pType;
+            if (pType instanceof ParameterizedType prmzdType) {
                 if (prmzdType.getRawType() == JAXBElement.class) {
                     Type[] actualTypes = prmzdType.getActualTypeArguments();
                     Class[] result = new Class[actualTypes.length];

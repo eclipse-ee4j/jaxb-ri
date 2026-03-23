@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2022, 2026 Eclipse Foundation
  * Copyright (C) 2004-2011
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,7 +24,6 @@ package com.sun.tools.rngom.dt.builtin;
 
 import com.sun.tools.rngdatatype.DatatypeLibrary;
 import com.sun.tools.rngdatatype.DatatypeLibraryFactory;
-
 import com.sun.tools.rngom.xml.util.WellKnownNamespaces;
 
 /**
@@ -45,7 +45,7 @@ public class BuiltinDatatypeLibraryFactory implements DatatypeLibraryFactory {
     }
     
     public DatatypeLibrary createDatatypeLibrary(String uri) {
-        if (uri.equals(""))
+        if (uri.isEmpty())
             return builtinDatatypeLibrary;
         if (uri.equals(WellKnownNamespaces.RELAX_NG_COMPATIBILITY_DATATYPES))
             return compatibilityDatatypeLibrary;

@@ -1,6 +1,6 @@
 /*
+ * Copyright (c) 2025, 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,24 +11,29 @@
 
 package org.glassfish.jaxb.runtime.v2;
 
-import com.sun.istack.FinalArrayList;
-import org.glassfish.jaxb.core.Utils;
-import org.glassfish.jaxb.runtime.api.JAXBRIContext;
-import org.glassfish.jaxb.runtime.api.TypeReference;
-import org.glassfish.jaxb.runtime.v2.model.annotation.RuntimeAnnotationReader;
-import org.glassfish.jaxb.core.v2.Messages;
-import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
-import org.glassfish.jaxb.runtime.v2.util.TypeCast;
-import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.JAXBException;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
+
+import com.sun.istack.FinalArrayList;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import org.glassfish.jaxb.core.Utils;
+import org.glassfish.jaxb.core.v2.Messages;
+import org.glassfish.jaxb.runtime.api.JAXBRIContext;
+import org.glassfish.jaxb.runtime.api.TypeReference;
+import org.glassfish.jaxb.runtime.v2.model.annotation.RuntimeAnnotationReader;
+import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
+import org.glassfish.jaxb.runtime.v2.util.TypeCast;
 
 /**
  * This class is responsible for producing RI JAXBContext objects.
@@ -270,7 +275,7 @@ public class ContextFactory {
             String className = in.readLine();
             while (className != null) {
                 className = className.trim();
-                if (className.startsWith("#") || (className.length() == 0)) {
+                if (className.startsWith("#") || (className.isEmpty())) {
                     className = in.readLine();
                     continue;
                 }

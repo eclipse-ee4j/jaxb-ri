@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,14 +11,15 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime;
 
+import java.io.IOException;
+
+import javax.xml.stream.XMLStreamException;
+
 import com.sun.istack.FinalArrayList;
 import com.sun.istack.SAXException2;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
-
-import javax.xml.stream.XMLStreamException;
-import java.io.IOException;
 
 /**
  * Receives SAX2 events and send the equivalent events to
@@ -90,7 +92,7 @@ final class ContentHandlerAdaptor extends DefaultHandler {
             // make sure namespaces needed by attributes are bound
             for( int i=0; i<len; i++ ) {
                 String qname = atts.getQName(i);
-                if(qname.startsWith("xmlns") || atts.getURI(i).length() == 0)
+                if(qname.startsWith("xmlns") || atts.getURI(i).isEmpty())
                     continue;
                 String prefix = getPrefix(qname);
 
@@ -129,7 +131,7 @@ final class ContentHandlerAdaptor extends DefaultHandler {
     }
     
     private void flushText() throws SAXException, IOException, XMLStreamException {
-        if( text.length()!=0 ) {
+        if(!text.isEmpty()) {
             serializer.text(text.toString(),null);
             text.setLength(0);
         }

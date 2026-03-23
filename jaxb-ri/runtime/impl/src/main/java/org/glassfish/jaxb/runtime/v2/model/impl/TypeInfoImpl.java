@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,17 +11,17 @@
 
 package org.glassfish.jaxb.runtime.v2.model.impl;
 
+import javax.xml.namespace.QName;
+
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlSchema;
+import jakarta.xml.bind.annotation.XmlType;
 import org.glassfish.jaxb.core.api.impl.NameConverter;
 import org.glassfish.jaxb.core.v2.model.annotation.AnnotationReader;
 import org.glassfish.jaxb.core.v2.model.annotation.Locatable;
 import org.glassfish.jaxb.core.v2.model.core.TypeInfo;
 import org.glassfish.jaxb.core.v2.model.core.TypeInfoSet;
 import org.glassfish.jaxb.core.v2.model.nav.Navigator;
-import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlSchema;
-import jakarta.xml.bind.annotation.XmlType;
-
-import javax.xml.namespace.QName;
 
 /**
  * Common implementation between {@link ClassInfoImpl} and {@link ElementInfoImpl}.
@@ -128,7 +129,7 @@ abstract class TypeInfoImpl<TypeT,ClassDeclT,FieldT,MethodT>
             local = t.name();
         }
 
-        if(local.length()==0)
+        if(local.isEmpty())
             return null; // anonymous
 
 

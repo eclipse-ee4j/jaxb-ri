@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,6 +11,8 @@
 
 package com.sun.xml.xsom.impl;
 
+import java.util.Iterator;
+
 import com.sun.xml.xsom.XSAttGroupDecl;
 import com.sun.xml.xsom.XSAttributeUse;
 import com.sun.xml.xsom.XSWildcard;
@@ -18,8 +21,6 @@ import com.sun.xml.xsom.impl.parser.SchemaDocumentImpl;
 import com.sun.xml.xsom.visitor.XSFunction;
 import com.sun.xml.xsom.visitor.XSVisitor;
 import org.xml.sax.Locator;
-
-import java.util.Iterator;
 
 public class AttGroupDeclImpl extends AttributesHolder implements XSAttGroupDecl
 {
@@ -55,8 +56,8 @@ public class AttGroupDeclImpl extends AttributesHolder implements XSAttGroupDecl
     }
     
     public void redefine( AttGroupDeclImpl ag ) {
-        for (Iterator itr = attGroups.iterator(); itr.hasNext();) {
-            DelayedRef.AttGroup r = (DelayedRef.AttGroup) itr.next();
+        for (Ref.AttGroup attGroup : attGroups) {
+            DelayedRef.AttGroup r = (DelayedRef.AttGroup) attGroup;
             r.redefine(ag);
         }
     }

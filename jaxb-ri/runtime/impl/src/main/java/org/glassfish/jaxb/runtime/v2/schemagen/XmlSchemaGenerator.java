@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,21 +11,30 @@
 
 package org.glassfish.jaxb.runtime.v2.schemagen;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.Writer;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.xml.XMLConstants;
+import javax.xml.namespace.QName;
+import javax.xml.transform.Result;
+import javax.xml.transform.stream.StreamResult;
+
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
-import org.glassfish.jaxb.core.Utils;
-import org.glassfish.jaxb.core.api.ErrorListener;
-import org.glassfish.jaxb.runtime.api.CompositeStructure;
-import org.glassfish.jaxb.core.v2.TODO;
-import org.glassfish.jaxb.core.v2.WellKnownNamespace;
-import org.glassfish.jaxb.core.v2.model.core.*;
-import org.glassfish.jaxb.runtime.v2.model.impl.ClassInfoImpl;
-import org.glassfish.jaxb.core.v2.model.core.Element;
-import org.glassfish.jaxb.core.v2.model.nav.Navigator;
-import org.glassfish.jaxb.runtime.v2.runtime.SwaRefAdapter;
-import org.glassfish.jaxb.core.v2.schemagen.episode.Bindings;
-import org.glassfish.jaxb.runtime.v2.util.CollisionCheckStack;
-import org.glassfish.jaxb.runtime.v2.util.StackRecorder;
 import com.sun.xml.txw2.TXW;
 import com.sun.xml.txw2.TxwException;
 import com.sun.xml.txw2.TypedXmlWriter;
@@ -33,24 +43,62 @@ import com.sun.xml.txw2.output.XmlSerializer;
 import jakarta.activation.MimeType;
 import jakarta.xml.bind.SchemaOutputResolver;
 import jakarta.xml.bind.annotation.XmlElement;
-import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.*;
+import org.glassfish.jaxb.core.Utils;
+import org.glassfish.jaxb.core.api.ErrorListener;
+import org.glassfish.jaxb.core.v2.TODO;
+import org.glassfish.jaxb.core.v2.WellKnownNamespace;
+import org.glassfish.jaxb.core.v2.model.core.Adapter;
+import org.glassfish.jaxb.core.v2.model.core.ArrayInfo;
+import org.glassfish.jaxb.core.v2.model.core.AttributePropertyInfo;
+import org.glassfish.jaxb.core.v2.model.core.ClassInfo;
+import org.glassfish.jaxb.core.v2.model.core.Element;
+import org.glassfish.jaxb.core.v2.model.core.ElementInfo;
+import org.glassfish.jaxb.core.v2.model.core.ElementPropertyInfo;
+import org.glassfish.jaxb.core.v2.model.core.EnumConstant;
+import org.glassfish.jaxb.core.v2.model.core.EnumLeafInfo;
+import org.glassfish.jaxb.core.v2.model.core.MapPropertyInfo;
+import org.glassfish.jaxb.core.v2.model.core.NonElement;
+import org.glassfish.jaxb.core.v2.model.core.NonElementRef;
+import org.glassfish.jaxb.core.v2.model.core.PropertyInfo;
+import org.glassfish.jaxb.core.v2.model.core.ReferencePropertyInfo;
+import org.glassfish.jaxb.core.v2.model.core.TypeInfo;
+import org.glassfish.jaxb.core.v2.model.core.TypeInfoSet;
+import org.glassfish.jaxb.core.v2.model.core.TypeRef;
+import org.glassfish.jaxb.core.v2.model.core.ValuePropertyInfo;
+import org.glassfish.jaxb.core.v2.model.core.WildcardMode;
+import org.glassfish.jaxb.core.v2.model.nav.Navigator;
+import org.glassfish.jaxb.core.v2.schemagen.episode.Bindings;
+import org.glassfish.jaxb.runtime.api.CompositeStructure;
+import org.glassfish.jaxb.runtime.v2.model.impl.ClassInfoImpl;
+import org.glassfish.jaxb.runtime.v2.runtime.SwaRefAdapter;
+import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.Any;
+import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.AttrDecls;
+import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.AttributeType;
+import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.ComplexExtension;
+import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.ComplexType;
+import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.ComplexTypeHost;
+import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.ContentModelContainer;
+import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.ExplicitGroup;
+import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.Import;
+import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.LocalAttribute;
+import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.LocalElement;
+import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.Schema;
+import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.SimpleExtension;
+import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.SimpleRestrictionModel;
+import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.SimpleType;
+import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.SimpleTypeHost;
+import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.TopLevelAttribute;
+import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.TopLevelElement;
+import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.TypeDefParticle;
+import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.TypeHost;
+import org.glassfish.jaxb.runtime.v2.util.CollisionCheckStack;
+import org.glassfish.jaxb.runtime.v2.util.StackRecorder;
 import org.xml.sax.SAXParseException;
-
-import javax.xml.XMLConstants;
-import javax.xml.namespace.QName;
-import javax.xml.transform.Result;
-import javax.xml.transform.stream.StreamResult;
-import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.Writer;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import static org.glassfish.jaxb.runtime.v2.schemagen.Util.*;
+import static org.glassfish.jaxb.runtime.v2.schemagen.Util.equal;
+import static org.glassfish.jaxb.runtime.v2.schemagen.Util.equalsIgnoreCase;
+import static org.glassfish.jaxb.runtime.v2.schemagen.Util.escapeURI;
+import static org.glassfish.jaxb.runtime.v2.schemagen.Util.getParentUriPath;
+import static org.glassfish.jaxb.runtime.v2.schemagen.Util.normalizeUriPath;
 
 /**
  * Generates a set of W3C XML Schema documents from a set of Java classes.
@@ -174,20 +222,18 @@ public final class XmlSchemaGenerator<T,C,F,M> {
         // search properties for foreign namespace references
         for( PropertyInfo<T,C> p : clazz.getProperties()) {
             n.processForeignNamespaces(p, 1);
-            if (p instanceof AttributePropertyInfo) {
-                AttributePropertyInfo<T,C> ap = (AttributePropertyInfo<T,C>) p;
+            if (p instanceof AttributePropertyInfo<T, C> ap) {
                 String aUri = ap.getXmlName().getNamespaceURI();
-                if(aUri.length()>0) {
+                if(!aUri.isEmpty()) {
                     // global attribute
                     getNamespace(aUri).addGlobalAttribute(ap);
                     n.addDependencyTo(ap.getXmlName());
                 }
             }
-            if (p instanceof ElementPropertyInfo) {
-                ElementPropertyInfo<T,C> ep = (ElementPropertyInfo<T,C>) p;
+            if (p instanceof ElementPropertyInfo<T, C> ep) {
                 for (TypeRef<T,C> tref : ep.getTypes()) {
                     String eUri = tref.getTagName().getNamespaceURI();
-                    if(eUri.length()>0 && !eUri.equals(n.uri)) {
+                    if(!eUri.isEmpty() && !eUri.equals(n.uri)) {
                         getNamespace(eUri).addGlobalElement(tref);
                         n.addDependencyTo(tref.getTagName());
                     }
@@ -327,14 +373,14 @@ public final class XmlSchemaGenerator<T,C,F,M> {
 
             String prefix;
             String tns = e.getKey();
-            if(!tns.equals("")) {
+            if(!tns.isEmpty()) {
                 group._namespace(tns,"tns");
                 prefix = "tns:";
             } else {
                 prefix = "";
             }
 
-            group.scd("x-schema::"+(tns.equals("")?"":"tns"));
+            group.scd("x-schema::"+(tns.isEmpty() ?"":"tns"));
             group.schemaBindings().map(false);
 
             for (ClassInfo<T,C> ci : e.getValue().classes) {
@@ -575,7 +621,7 @@ public final class XmlSchemaGenerator<T,C,F,M> {
                     schema._namespace(XMLConstants.W3C_XML_SCHEMA_NS_URI,"xs");
                 schema.version("1.0");
 
-                if(uri.length()!=0)
+                if(!uri.isEmpty())
                     schema.targetNamespace(uri);
 
                 // declare prefixes for them at this level, so that we can avoid redundant
@@ -584,7 +630,7 @@ public final class XmlSchemaGenerator<T,C,F,M> {
                     schema._namespace(ns.uri);
                 }
 
-                if(selfReference && uri.length()!=0) {
+                if(selfReference && !uri.isEmpty()) {
                     // use common 'tns' prefix for the own namespace
                     // if self-reference is needed
                     schema._namespace(uri,"tns");
@@ -595,10 +641,10 @@ public final class XmlSchemaGenerator<T,C,F,M> {
                 // refer to other schemas
                 for( Namespace n : depends ) {
                     Import imp = schema._import();
-                    if(n.uri.length()!=0)
+                    if(!n.uri.isEmpty())
                         imp.namespace(n.uri);
                     String refSystemId = systemIds.get(n);
-                    if(refSystemId!=null && !refSystemId.equals("")) {
+                    if(refSystemId!=null && !refSystemId.isEmpty()) {
                         // "" means implied. null if the SchemaOutputResolver said "don't generate!"
                         imp.schemaLocation(relativize(refSystemId,result.getSystemId()));
                     }
@@ -922,24 +968,19 @@ public final class XmlSchemaGenerator<T,C,F,M> {
          * Builds content model writer for the specified property.
          */
         private Tree buildPropertyContentModel(PropertyInfo<T,C> p) {
-            switch(p.kind()) {
-            case ELEMENT:
-                return handleElementProp((ElementPropertyInfo<T,C>)p);
-            case ATTRIBUTE:
-                // attribuets are handled later
-                return null;
-            case REFERENCE:
-                return handleReferenceProp((ReferencePropertyInfo<T,C>)p);
-            case MAP:
-                return handleMapProp((MapPropertyInfo<T,C>)p);
-            case VALUE:
-                // value props handled above in writeClass()
-                assert false;
-                throw new IllegalStateException();
-            default:
-                assert false;
-                throw new IllegalStateException();
-            }
+            return switch (p.kind()) {
+                case ELEMENT -> handleElementProp((ElementPropertyInfo<T, C>) p);
+                case ATTRIBUTE ->
+                    // attributes are handled later
+                        null;
+                case REFERENCE -> handleReferenceProp((ReferencePropertyInfo<T, C>) p);
+                case MAP -> handleMapProp((MapPropertyInfo<T, C>) p);
+                case VALUE -> {
+                    // value props handled above in writeClass()
+                    assert false;
+                    throw new IllegalStateException();
+                }
+            };
         }
 
         /**
@@ -987,8 +1028,7 @@ public final class XmlSchemaGenerator<T,C,F,M> {
                             } else {
 
                                 QName elemName = null;
-                                if (t.getTarget() instanceof Element) {
-                                    Element te = (Element) t.getTarget();
+                                if (t.getTarget() instanceof Element te) {
                                     elemName = te.getElementName();
                                 }
 
@@ -1004,7 +1044,7 @@ public final class XmlSchemaGenerator<T,C,F,M> {
                                        }
                                     }
                                     if (cImpl != null) {
-                                        if (tn.getNamespaceURI() != null && tn.getNamespaceURI().trim().length() != 0) {
+                                        if (tn.getNamespaceURI() != null && !tn.getNamespaceURI().trim().isEmpty()) {
                                             e.ref(new QName(tn.getNamespaceURI(), tn.getLocalPart()));
                                         } else {
                                             e.ref(new QName(cImpl.getElementName().getNamespaceURI(), tn.getLocalPart()));
@@ -1041,7 +1081,7 @@ public final class XmlSchemaGenerator<T,C,F,M> {
                     @Override
                     protected void write(ContentModelContainer parent, boolean isOptional, boolean repeated) {
                         LocalElement e = parent.element();
-                        if(ename.getNamespaceURI().length()>0) {
+                        if(!ename.getNamespaceURI().isEmpty()) {
                             if (!ename.getNamespaceURI().equals(uri)) {
                                 // TODO: we need to generate the corresponding element declaration for this
                                 // table 8-25: Property/field element wrapper with ref attribute
@@ -1092,7 +1132,7 @@ public final class XmlSchemaGenerator<T,C,F,M> {
             }
 
             String nsUri = tn.getNamespaceURI();
-            if ((!nsUri.equals(uri) && nsUri.length()>0) && (!((parentInfo instanceof ClassInfo) && (((ClassInfo)parentInfo).getTypeName() == null)))) {
+            if ((!nsUri.equals(uri) && !nsUri.isEmpty()) && (!((parentInfo instanceof ClassInfo) && (((ClassInfo)parentInfo).getTypeName() == null)))) {
                 return true;
             }
 
@@ -1143,7 +1183,7 @@ public final class XmlSchemaGenerator<T,C,F,M> {
             LocalAttribute localAttribute = attr.attribute();
 
             final String attrURI = ap.getXmlName().getNamespaceURI();
-            if (attrURI.equals("") /*|| attrURI.equals(uri) --- those are generated as global attributes anyway, so use them.*/) {
+            if (attrURI.isEmpty() /*|| attrURI.equals(uri) --- those are generated as global attributes anyway, so use them.*/) {
                 localAttribute.name(ap.getXmlName().getLocalPart());
 
                 writeAttributeTypeRef(ap, localAttribute);
@@ -1189,7 +1229,7 @@ public final class XmlSchemaGenerator<T,C,F,M> {
                         if(e.getScope()!=null) {
                             // scoped. needs to be inlined
                             boolean qualified = en.getNamespaceURI().equals(uri);
-                            boolean unqualified = en.getNamespaceURI().equals("");
+                            boolean unqualified = en.getNamespaceURI().isEmpty();
                             if(qualified || unqualified) {
                                 // can be inlined indeed
 
@@ -1331,7 +1371,7 @@ public final class XmlSchemaGenerator<T,C,F,M> {
          * method is implemented in such a way that two identical declarations
          * are considered as the same.
          */
-        abstract class ElementDeclaration {
+        abstract static class ElementDeclaration {
             /**
              * Returns true if two s are representing
              * the same schema fragment.
@@ -1413,7 +1453,7 @@ public final class XmlSchemaGenerator<T,C,F,M> {
     public String toString() {
         StringBuilder buf = new StringBuilder();
         for (Namespace ns : namespaces.values()) {
-            if(buf.length()>0)  buf.append(',');
+            if(!buf.isEmpty())  buf.append(',');
             buf.append(ns.uri).append('=').append(ns);
         }
         return super.toString()+'['+buf+']';
@@ -1425,15 +1465,10 @@ public final class XmlSchemaGenerator<T,C,F,M> {
      *
      */
     private static String getProcessContentsModeName(WildcardMode wc) {
-        switch(wc) {
-        case LAX:
-        case SKIP:
-            return wc.name().toLowerCase();
-        case STRICT:
-            return null;
-        default:
-            throw new IllegalStateException();
-        }
+        return switch (wc) {
+            case LAX, SKIP -> wc.name().toLowerCase();
+            case STRICT -> null;
+        };
     }
 
 

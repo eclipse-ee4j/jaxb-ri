@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,10 +11,10 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime.unmarshaller;
 
+import java.io.IOException;
+
 import org.glassfish.jaxb.runtime.v2.runtime.output.Pcdata;
 import org.glassfish.jaxb.runtime.v2.runtime.output.UTF8XmlOutput;
-
-import java.io.IOException;
 
 /**
  * Typed {@link CharSequence} for int[].
@@ -88,7 +89,7 @@ public final class IntArrayData extends Pcdata {
         literal = new StringBuilder();
         int p = start;
         for( int i=len; i>0; i-- ) {
-            if(literal.length()>0)  literal.append(' ');
+            if(!literal.isEmpty())  literal.append(' ');
             literal.append(data[p++]);
         }
 

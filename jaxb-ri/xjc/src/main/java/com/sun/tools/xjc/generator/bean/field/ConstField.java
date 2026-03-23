@@ -1,6 +1,6 @@
 /*
+ * Copyright (c) 2025, 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2024 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -57,7 +57,7 @@ final class ConstField extends AbstractField {
             ptype!=null?ptype:implType, prop.getName(true), defaultValue );
         
         // Do not append empty javadoc.
-        if ( (prop.javadoc != null) && (prop.javadoc.length() > 0) )
+        if ( (prop.javadoc != null) && (!prop.javadoc.isEmpty()) )
             $ref.javadoc().appendXML(prop.javadoc);
 
         annotate($ref);

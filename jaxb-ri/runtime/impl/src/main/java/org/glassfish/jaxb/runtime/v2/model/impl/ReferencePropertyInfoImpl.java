@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,17 +11,30 @@
 
 package org.glassfish.jaxb.runtime.v2.model.impl;
 
-import org.glassfish.jaxb.core.v2.model.annotation.AnnotationReader;
-import org.glassfish.jaxb.core.v2.model.core.*;
-import org.glassfish.jaxb.core.v2.model.nav.Navigator;
-import org.glassfish.jaxb.core.v2.runtime.IllegalAnnotationException;
-import jakarta.xml.bind.JAXBElement;
-import jakarta.xml.bind.annotation.*;
-
-import javax.xml.namespace.QName;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
+
+import javax.xml.namespace.QName;
+
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.annotation.XmlAnyElement;
+import jakarta.xml.bind.annotation.XmlElementRef;
+import jakarta.xml.bind.annotation.XmlElementRefs;
+import jakarta.xml.bind.annotation.XmlMixed;
+import jakarta.xml.bind.annotation.XmlNsForm;
+import jakarta.xml.bind.annotation.XmlSchema;
+import org.glassfish.jaxb.core.v2.model.annotation.AnnotationReader;
+import org.glassfish.jaxb.core.v2.model.core.ClassInfo;
+import org.glassfish.jaxb.core.v2.model.core.Element;
+import org.glassfish.jaxb.core.v2.model.core.ElementInfo;
+import org.glassfish.jaxb.core.v2.model.core.NonElement;
+import org.glassfish.jaxb.core.v2.model.core.PropertyInfo;
+import org.glassfish.jaxb.core.v2.model.core.PropertyKind;
+import org.glassfish.jaxb.core.v2.model.core.ReferencePropertyInfo;
+import org.glassfish.jaxb.core.v2.model.core.WildcardMode;
+import org.glassfish.jaxb.core.v2.model.nav.Navigator;
+import org.glassfish.jaxb.core.v2.runtime.IllegalAnnotationException;
 
 /**
  * Implementation of {@link ReferencePropertyInfo}.
@@ -285,7 +299,7 @@ class ReferencePropertyInfoImpl<T,C,F,M>
         if(xs!=null && xs.attributeFormDefault()== XmlNsForm.QUALIFIED) {
             // JAX-RPC doesn't want the default namespace URI swapping to take effect to
             // local "unqualified" elements. UGLY.
-            if(nsUri.length()==0)
+            if(nsUri.isEmpty())
                 nsUri = parent.builder.defaultNsUri;
         }
 
@@ -306,13 +320,12 @@ class ReferencePropertyInfoImpl<T,C,F,M>
 
         // this allows the explicitly referenced type to be sucked in to the model
         NonElement<T,C> t = parent.builder.getClassInfo(nav.asDecl(type),this);
-        if(!(t instanceof ClassInfo))
+        if(!(t instanceof ClassInfo<T, C> c))
             // this is leaf.
             return false;
 
         boolean result = false;
 
-        ClassInfo<T,C> c = (ClassInfo<T,C>) t;
         if(c.isElement()) {
             types.add(c.asElement());
             result = true;

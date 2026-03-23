@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Eclipse Foundation
+ * Copyright (c) 2022, 2026 Eclipse Foundation
  * Copyright (C) 2004-2011
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,9 +22,12 @@
  */
 package com.sun.tools.rngom.parse;
 
+import java.io.Serial;
+
 /**
  * Signals a violation of the RELAX NG spec.
  */
 public class IllegalSchemaException extends Exception {
+    @Serial
     private static final long serialVersionUID = -848449240388007175L;
 }

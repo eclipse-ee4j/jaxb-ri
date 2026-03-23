@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,9 +11,9 @@
 
 package com.sun.xml.xsom.impl;
 
-import com.sun.xml.xsom.XSDeclaration;
-
 import java.util.Comparator;
+
+import com.sun.xml.xsom.XSDeclaration;
 
 /**
  * UName.
@@ -55,8 +56,7 @@ public final class UName {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof UName) {
-            UName u = (UName)obj;
+        if(obj instanceof UName u) {
 
             return ((this.getName().compareTo(u.getName()) == 0) &&
                     (this.getNamespaceURI().compareTo(u.getNamespaceURI()) == 0) &&
@@ -78,10 +78,10 @@ public final class UName {
     /**
      * Compares {@link UName}s by their names.
      */
-    public static final Comparator<UName> comparator = new Comparator<UName>() {
+    public static final Comparator<UName> comparator = new Comparator<>() {
         public int compare(UName lhs, UName rhs) {
             int r = lhs.nsUri.compareTo(rhs.nsUri);
-            if(r!=0)    return r;
+            if (r != 0) return r;
             return lhs.localName.compareTo(rhs.localName);
         }
     };

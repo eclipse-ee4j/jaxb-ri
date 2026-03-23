@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -76,9 +77,8 @@ class ParameterizedTypeImpl implements ParameterizedType {
      */
     @Override
     public boolean equals(Object o) {
-        if (o instanceof ParameterizedType) {
+        if (o instanceof ParameterizedType that) {
             // Check that information is equivalent
-            ParameterizedType that = (ParameterizedType) o;
 
             if (this == that)
                 return true;

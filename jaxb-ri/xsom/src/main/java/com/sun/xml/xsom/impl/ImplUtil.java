@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,14 +11,14 @@
 
 package com.sun.xml.xsom.impl;
 
-import com.sun.xml.xsom.XSComplexType;
-import com.sun.xml.xsom.XSType;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
+import com.sun.xml.xsom.XSComplexType;
+import com.sun.xml.xsom.XSType;
 
 /**
  *
@@ -56,8 +57,7 @@ class ImplUtil {
 
         if(substitutables.add(_this)) {
             XSType[] child = listDirectSubstitutables(_this);
-            for( int i=0; i<child.length; i++ )
-                buildSubstitutables( head, child[i], substitutables );
+            for (XSType xsType : child) buildSubstitutables(head, xsType, substitutables);
         }
     }
 

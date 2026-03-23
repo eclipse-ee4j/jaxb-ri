@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,17 +11,17 @@
 
 package org.glassfish.jaxb.runtime.v2.model.impl;
 
-import org.glassfish.jaxb.core.v2.model.annotation.AnnotationReader;
-import org.glassfish.jaxb.core.v2.model.annotation.AnnotationSource;
-import org.glassfish.jaxb.core.v2.model.annotation.Locatable;
-import org.glassfish.jaxb.core.v2.runtime.IllegalAnnotationException;
+import javax.xml.namespace.QName;
+
 import jakarta.activation.MimeType;
 import jakarta.activation.MimeTypeParseException;
 import jakarta.xml.bind.annotation.XmlMimeType;
 import jakarta.xml.bind.annotation.XmlSchemaType;
 import jakarta.xml.bind.annotation.XmlSchemaTypes;
-
-import javax.xml.namespace.QName;
+import org.glassfish.jaxb.core.v2.model.annotation.AnnotationReader;
+import org.glassfish.jaxb.core.v2.model.annotation.AnnotationSource;
+import org.glassfish.jaxb.core.v2.model.annotation.Locatable;
+import org.glassfish.jaxb.core.v2.runtime.IllegalAnnotationException;
 
 /**
  * Common code between {@link PropertyInfoImpl} and {@link ElementInfoImpl}.
@@ -61,7 +62,7 @@ final class Util {
     }
     
     static MimeType calcExpectedMediaType(AnnotationSource primarySource,
-                        ModelBuilder builder ) {
+                        ModelBuilder<?, ?, ?, ?> builder ) {
         XmlMimeType xmt = primarySource.readAnnotation(XmlMimeType.class);
         if(xmt==null)
             return null;

@@ -1,6 +1,6 @@
 /*
+ * Copyright (c) 2025, 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -18,20 +18,22 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
+import javax.xml.XMLConstants;
+
 import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.JJavaName;
 import com.sun.codemodel.JPackage;
 import com.sun.codemodel.util.Util;
 import com.sun.istack.NotNull;
 import com.sun.tools.xjc.model.CBuiltinLeafInfo;
+import com.sun.tools.xjc.model.CClass;
 import com.sun.tools.xjc.model.CClassInfo;
 import com.sun.tools.xjc.model.CClassInfoParent;
 import com.sun.tools.xjc.model.CElement;
 import com.sun.tools.xjc.model.CElementInfo;
+import com.sun.tools.xjc.model.CNonElement;
 import com.sun.tools.xjc.model.CTypeInfo;
 import com.sun.tools.xjc.model.TypeUse;
-import com.sun.tools.xjc.model.CClass;
-import com.sun.tools.xjc.model.CNonElement;
 import com.sun.tools.xjc.reader.Ring;
 import com.sun.tools.xjc.reader.xmlschema.bindinfo.BIProperty;
 import com.sun.tools.xjc.reader.xmlschema.bindinfo.BISchemaBinding;
@@ -46,10 +48,7 @@ import com.sun.xml.xsom.XSSimpleType;
 import com.sun.xml.xsom.XSType;
 import com.sun.xml.xsom.impl.util.SchemaWriter;
 import com.sun.xml.xsom.util.ComponentNameFunction;
-
 import org.xml.sax.Locator;
-
-import javax.xml.XMLConstants;
 
 /**
  * Manages association between {@link XSComponent}s and generated
@@ -130,10 +129,8 @@ public final class ClassSelector extends BindingComponent {
         }
 
         void build() {
-            if(!(this.bean instanceof CClassInfo))
+            if(!(this.bean instanceof CClassInfo bean))
                 return; // no need to "build"
-
-            CClassInfo bean = (CClassInfo)this.bean;
 
             if(!built.add(bean))
                 return; // already built
@@ -328,7 +325,7 @@ public final class ClassSelector extends BindingComponent {
      * Runs all the pending build tasks.
      */
     public void executeTasks() {
-        while( bindQueue.size()!=0 )
+        while(!bindQueue.isEmpty())
             bindQueue.pop().build();
     }
 
@@ -344,9 +341,8 @@ public final class ClassSelector extends BindingComponent {
      * constructor (a constructor that takes a parmater.) on ObjectFactory.
      */
     private boolean needValueConstructor( XSComponent sc ) {
-        if(!(sc instanceof XSElementDecl))  return false;
+        if(!(sc instanceof XSElementDecl decl))  return false;
 
-        XSElementDecl decl = (XSElementDecl)sc;
         return decl.getType().isSimpleType();
     }
 

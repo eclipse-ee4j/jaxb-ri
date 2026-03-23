@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Eclipse Foundation
+ * Copyright (c) 2022, 2026 Eclipse Foundation
  * Copyright (C) 2004-2015
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -25,6 +25,8 @@ package com.sun.tools.rngom.nc;
 import com.sun.tools.rngom.ast.om.ParsedNameClass;
 
 import javax.xml.namespace.QName;
+
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -33,6 +35,7 @@ import java.util.Set;
  * Name class is a set of {@link QName}s.
  */
 public abstract class NameClass implements ParsedNameClass, Serializable {
+    @Serial
     private static final long serialVersionUID = -8327594277689361653L;
     static final int SPECIFICITY_NONE = -1;
     static final int SPECIFICITY_ANY_NAME = 0;

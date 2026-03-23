@@ -11,7 +11,6 @@
 
 package com.sun.tools.xjc;
 
-import org.apache.tools.ant.taskdefs.MatchingTask;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -20,24 +19,32 @@ import java.io.StringWriter;
 import java.lang.reflect.Constructor;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.sun.codemodel.CodeWriter;
 import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.JPackage;
 import com.sun.codemodel.writer.FilterCodeWriter;
 import com.sun.istack.tools.DefaultAuthenticator;
+import com.sun.tools.xjc.api.SpecVersion;
 import com.sun.tools.xjc.model.Model;
 import com.sun.tools.xjc.reader.Util;
 import com.sun.tools.xjc.util.ForkEntityResolver;
-import com.sun.tools.xjc.api.SpecVersion;
-import org.glassfish.jaxb.core.v2.util.EditDistance;
 import org.apache.tools.ant.AntClassLoader;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.DirectoryScanner;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.Execute;
 import org.apache.tools.ant.taskdefs.LogStreamHandler;
-import org.apache.tools.ant.types.*;
+import org.apache.tools.ant.taskdefs.MatchingTask;
+import org.apache.tools.ant.types.Commandline;
+import org.apache.tools.ant.types.CommandlineJava;
+import org.apache.tools.ant.types.FileSet;
+import org.apache.tools.ant.types.Path;
+import org.apache.tools.ant.types.Reference;
+import org.apache.tools.ant.types.XMLCatalog;
+import org.glassfish.jaxb.core.v2.util.EditDistance;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXParseException;
 
@@ -541,12 +548,12 @@ public class XJCBase extends MatchingTask {
      */
     protected CommandlineJava setupCommand() {
         // d option
-        if (null != getDestdir() && !getDestdir().getName().equals("")) {
+        if (null != getDestdir() && !getDestdir().getName().isEmpty()) {
             getCommandline().createArgument().setValue("-d");
             getCommandline().createArgument().setFile(getDestdir());
         }
         //p option
-        if (null != getPackage() && !getPackage().equals("")) {
+        if (null != getPackage() && !getPackage().isEmpty()) {
             getCommandline().createArgument().setValue("-p");
             getCommandline().createArgument().setValue(getPackage());
         }
@@ -587,7 +594,7 @@ public class XJCBase extends MatchingTask {
             getCommandline().createArgument().setValue("-verbose");
         }
         //catalog
-        if ((getCatalog() != null) && (getCatalog().getName().length() > 0)) {
+        if ((getCatalog() != null) && (!getCatalog().getName().isEmpty())) {
             getCommandline().createArgument().setValue("-catalog");
             getCommandline().createArgument().setFile(getCatalog());
         }
@@ -605,7 +612,7 @@ public class XJCBase extends MatchingTask {
     void addFilesToCommandLine(ArrayList<File> files, String option) {
         if (!files.isEmpty()) {
             for (File file : files) {
-                if (option != null && option.length() > 0) {
+                if (option != null && !option.isEmpty()) {
                     getCommandline().createArgument().setValue(option);
                 }
 
@@ -653,28 +660,28 @@ public class XJCBase extends MatchingTask {
             cp.append(mvn);
         }
 
-        if (getModulepath() != null && getModulepath().size() > 0) {
+        if (getModulepath() != null && !getModulepath().isEmpty()) {
             getCommandline().createModulepath(getProject()).add(getModulepath());
         }
-        if (getUpgrademodulepath() != null && getUpgrademodulepath().size() > 0) {
+        if (getUpgrademodulepath() != null && !getUpgrademodulepath().isEmpty()) {
             getCommandline().createUpgrademodulepath(getProject()).add(getUpgrademodulepath());
         }
-        if (getAddmodules() != null && getAddmodules().length() > 0) {
+        if (getAddmodules() != null && !getAddmodules().isEmpty()) {
             getCommandline().createVmArgument().setLine("--add-modules " + getAddmodules());
         }
-        if (getAddreads() != null && getAddreads().length() > 0) {
+        if (getAddreads() != null && !getAddreads().isEmpty()) {
             getCommandline().createVmArgument().setLine("--add-reads " + getAddreads());
         }
-        if (getAddexports() != null && getAddexports().length() > 0) {
+        if (getAddexports() != null && !getAddexports().isEmpty()) {
             getCommandline().createVmArgument().setLine("--add-exports " + getAddexports());
         }
-        if (getAddopens() != null && getAddopens().length() > 0) {
+        if (getAddopens() != null && !getAddopens().isEmpty()) {
             getCommandline().createVmArgument().setLine("--add-opens " + getAddopens());
         }
-        if (getPatchmodule() != null && getPatchmodule().length() > 0) {
+        if (getPatchmodule() != null && !getPatchmodule().isEmpty()) {
             getCommandline().createVmArgument().setLine("--patch-module " + getPatchmodule());
         }
-        if (getLimitmodules() != null && getLimitmodules().length() > 0) {
+        if (getLimitmodules() != null && !getLimitmodules().isEmpty()) {
             getCommandline().createVmArgument().setLine("--limit-modules " + getLimitmodules());
         }
 

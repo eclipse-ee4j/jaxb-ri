@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -14,31 +15,31 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
-import jakarta.xml.bind.JAXBElement;
-import jakarta.xml.bind.annotation.XmlElement;
 import javax.xml.namespace.QName;
 
 import com.sun.codemodel.JPackage;
 import com.sun.codemodel.JType;
 import com.sun.istack.Nullable;
-import static com.sun.tools.xjc.model.CElementPropertyInfo.CollectionMode.NOT_REPEATED;
-import static com.sun.tools.xjc.model.CElementPropertyInfo.CollectionMode.REPEATED_VALUE;
 import com.sun.tools.xjc.model.nav.NClass;
 import com.sun.tools.xjc.model.nav.NType;
 import com.sun.tools.xjc.model.nav.NavigatorImpl;
 import com.sun.tools.xjc.outline.Aspect;
 import com.sun.tools.xjc.outline.Outline;
-import com.sun.tools.xjc.reader.xmlschema.bindinfo.BIInlineBinaryData;
-import com.sun.tools.xjc.reader.xmlschema.bindinfo.BIFactoryMethod;
-import com.sun.tools.xjc.reader.xmlschema.BGMBuilder;
 import com.sun.tools.xjc.reader.Ring;
-import org.glassfish.jaxb.core.v2.model.core.ElementInfo;
+import com.sun.tools.xjc.reader.xmlschema.BGMBuilder;
+import com.sun.tools.xjc.reader.xmlschema.bindinfo.BIFactoryMethod;
+import com.sun.tools.xjc.reader.xmlschema.bindinfo.BIInlineBinaryData;
 import com.sun.xml.xsom.XSElementDecl;
 import com.sun.xml.xsom.XmlString;
-
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.annotation.XmlElement;
+import org.glassfish.jaxb.core.v2.model.core.ElementInfo;
 import org.xml.sax.Locator;
+import static com.sun.tools.xjc.model.CElementPropertyInfo.CollectionMode.NOT_REPEATED;
+import static com.sun.tools.xjc.model.CElementPropertyInfo.CollectionMode.REPEATED_VALUE;
 
 /**
  * {@link ElementInfo} implementation for the compile-time model.
@@ -239,10 +240,7 @@ public final class CElementInfo extends AbstractCElement
 
     @Override
     public Collection<CElementInfo> getSubstitutionMembers() {
-        if(substitutionMembers==null)
-            return Collections.emptyList();
-        else
-            return substitutionMembers;
+        return Objects.requireNonNullElse(substitutionMembers, Collections.emptyList());
     }
 
     public void setSubstitutionHead(CElementInfo substitutionHead) {
@@ -267,7 +265,7 @@ public final class CElementInfo extends AbstractCElement
             return type.fullName();
         else {
             String r = parent.fullName();
-            if(r.length()==0)   return className;
+            if(r.isEmpty())   return className;
             else                return r+'.'+className;
         }
     }

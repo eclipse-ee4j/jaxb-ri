@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,11 +11,11 @@
 
 package com.sun.codemodel;
 
+import java.lang.annotation.Annotation;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Collection;
 import java.util.Collections;
-import java.lang.annotation.Annotation;
+import java.util.List;
 
 /**
  * Enum Constant.
@@ -142,8 +143,7 @@ public final class JEnumConstant extends JExpressionImpl implements JDeclaration
         if( jdoc != null )
             f.nl().g( jdoc );
         if (annotations != null) {
-            for( int i=0; i<annotations.size(); i++ )
-                f.g(annotations.get(i)).nl();
+            for (JAnnotationUse annotation : annotations) f.g(annotation).nl();
         }
         f.id(name);
         if(args!=null) {

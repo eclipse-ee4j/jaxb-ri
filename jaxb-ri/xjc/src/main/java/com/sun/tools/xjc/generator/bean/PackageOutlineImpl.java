@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -9,6 +10,14 @@
  */
 
 package com.sun.tools.xjc.generator.bean;
+
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
+
+import javax.xml.namespace.QName;
 
 import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JPackage;
@@ -27,13 +36,6 @@ import com.sun.tools.xjc.outline.Aspect;
 import com.sun.tools.xjc.outline.PackageOutline;
 import jakarta.xml.bind.annotation.XmlNsForm;
 import jakarta.xml.bind.annotation.XmlSchema;
-
-import javax.xml.namespace.QName;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * {@link PackageOutline} enhanced with schema2java specific
@@ -191,9 +193,9 @@ public final class PackageOutlineImpl implements PackageOutline {
         
         // generate package-info.java
         // we won't get this far if the user specified -npa
-        if(!mostUsedNamespaceURI.equals("") || elementFormDefault==XmlNsForm.QUALIFIED || (attributeFormDefault == XmlNsForm.QUALIFIED)) {
+        if(!mostUsedNamespaceURI.isEmpty() || elementFormDefault==XmlNsForm.QUALIFIED || (attributeFormDefault == XmlNsForm.QUALIFIED)) {
             XmlSchemaWriter w = _model.strategy.getPackage(_package, Aspect.IMPLEMENTATION).annotate2(XmlSchemaWriter.class);
-            if(!mostUsedNamespaceURI.equals(""))
+            if(!mostUsedNamespaceURI.isEmpty())
                 w.namespace(mostUsedNamespaceURI);
             if(elementFormDefault==XmlNsForm.QUALIFIED)
                 w.elementFormDefault(elementFormDefault);
@@ -248,7 +250,7 @@ public final class PackageOutlineImpl implements PackageOutline {
                 mostPopular = uri;
                 count = uriCount;
             } else {
-                if (uriCount > count || (uriCount==count && mostPopular.equals(""))) {
+                if (uriCount > count || (uriCount==count && mostPopular.isEmpty())) {
                     mostPopular = uri;
                     count = uriCount;
                 }
@@ -266,7 +268,7 @@ public final class PackageOutlineImpl implements PackageOutline {
      * element/type URI.  If they match, then return QUALIFIED
      */
     private XmlNsForm getFormDefault() {
-        if (getMostUsedURI(propUriCountMap).equals("")) return XmlNsForm.UNQUALIFIED;
+        if (getMostUsedURI(propUriCountMap).isEmpty()) return XmlNsForm.UNQUALIFIED;
         else return XmlNsForm.QUALIFIED;
     }
     

@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -28,6 +29,7 @@ import java.lang.annotation.Annotation;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * {@link ElementInfo} implementation.
@@ -395,10 +397,7 @@ class ElementInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M> implements ElementI
 
     @Override
     public Collection<? extends ElementInfoImpl<T,C,F,M>> getSubstitutionMembers() {
-        if(substitutionMembers==null)
-            return Collections.emptyList();
-        else
-            return substitutionMembers;
+        return Objects.requireNonNullElse(substitutionMembers, Collections.emptyList());
     }
 
     /**
@@ -407,7 +406,7 @@ class ElementInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M> implements ElementI
     /*package*/@Override
  void link() {
         // substitution head
-        if(anno.substitutionHeadName().length()!=0) {
+        if(!anno.substitutionHeadName().isEmpty()) {
             QName name = new QName(
                 anno.substitutionHeadNamespace(), anno.substitutionHeadName() );
             substitutionHead = owner.getElementInfo(null,name);

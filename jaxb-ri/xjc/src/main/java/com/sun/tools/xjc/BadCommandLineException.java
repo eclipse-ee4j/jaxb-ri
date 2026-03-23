@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,12 +11,15 @@
 
 package com.sun.tools.xjc;
 
+import java.io.Serial;
+
 import com.sun.istack.Nullable;
 
 /**
  * Signals a bad command line argument.
  */
 public class BadCommandLineException extends Exception {
+    @Serial
     private static final long serialVersionUID = 8088500733830641442L;
 
     private Options options;

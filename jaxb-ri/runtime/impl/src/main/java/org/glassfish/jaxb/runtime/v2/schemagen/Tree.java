@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,14 +11,14 @@
 
 package org.glassfish.jaxb.runtime.v2.schemagen;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.ContentModelContainer;
 import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.Occurs;
 import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.Particle;
 import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.TypeDefParticle;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Normalized representation of the content model.
@@ -66,8 +67,7 @@ abstract class Tree {
         // this is where binary tree would have shined.
         List<Tree> normalizedChildren = new ArrayList<>(children.size());
         for (Tree t : children) {
-            if (t instanceof Group) {
-                Group g = (Group) t;
+            if (t instanceof Group g) {
                 if(g.kind==kind) {
                     normalizedChildren.addAll(Arrays.asList(g.children));
                     continue;

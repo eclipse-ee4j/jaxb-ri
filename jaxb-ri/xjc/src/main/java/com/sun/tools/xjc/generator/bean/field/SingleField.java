@@ -1,6 +1,6 @@
 /*
+ * Copyright (c) 2025, 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -134,7 +134,7 @@ public class SingleField extends AbstractFieldWithVar {
         writer.javadoc().addParam($value)
             .append("allowed object is\n")
             .append(possibleTypes);
-        if (prop.javadoc != null && prop.javadoc.length() > 0) {
+        if (prop.javadoc != null && !prop.javadoc.isEmpty()) {
             writer.javadoc().addXdoclet("see #" + $get.name() + "()");
         }
     }

@@ -11,15 +11,15 @@
 
 package com.sun.codemodel;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Proxy;
 import java.lang.reflect.Type;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.annotation.Annotation;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Dynamically implements the typed annotation writer interfaces.
@@ -122,8 +122,7 @@ class TypedAnnotationWriter<A extends Annotation,W extends JAnnotationWriter<A>>
 
         // scalar value
 
-        if(arg instanceof JType) {
-            JType targ = (JType) arg;
+        if(arg instanceof JType targ) {
             checkType(Class.class,rt);
             if(m.getDefaultValue()!=null) {
                 // check the default
@@ -246,8 +245,7 @@ class TypedAnnotationWriter<A extends Annotation,W extends JAnnotationWriter<A>>
     @SuppressWarnings({"unchecked"})
     private static Class<? extends Annotation> findAnnotationType(Class<?> clazz) {
         for( Type t : clazz.getGenericInterfaces()) {
-            if(t instanceof ParameterizedType) {
-                ParameterizedType p = (ParameterizedType) t;
+            if(t instanceof ParameterizedType p) {
                 if(p.getRawType()==JAnnotationWriter.class)
                     return (Class<? extends Annotation>)p.getActualTypeArguments()[0];
             }

@@ -1,6 +1,6 @@
 /*
+ * Copyright (c) 2025, 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -99,7 +99,7 @@ abstract class AbstractListField extends AbstractField {
         if(eagerInstanciation)
             field.init(newCoreList());
 
-        if (prop.javadoc != null && prop.javadoc.length() > 0) {
+        if (prop.javadoc != null && !prop.javadoc.isEmpty()) {
             field.javadoc().appendXML(prop.javadoc);
         }
 

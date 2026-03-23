@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,21 +11,17 @@
 
 package com.sun.tools.xjc.reader.internalizer;
 
-import com.sun.istack.NotNull;
-import com.sun.istack.XMLStreamReaderToContentHandler;
-import com.sun.tools.xjc.ErrorReceiver;
-import com.sun.tools.xjc.Options;
-import com.sun.tools.xjc.reader.Const;
-import com.sun.tools.xjc.reader.xmlschema.parser.SchemaConstraintChecker;
-import com.sun.tools.xjc.util.ErrorReceiverFilter;
-import org.glassfish.jaxb.core.marshaller.DataWriter;
-import org.glassfish.jaxb.core.v2.util.XmlFactory;
-import com.sun.xml.xsom.parser.JAXPParser;
-import com.sun.xml.xsom.parser.XMLParser;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.xml.sax.*;
-import org.xml.sax.helpers.XMLFilterImpl;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -40,13 +37,30 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.sax.SAXSource;
 import javax.xml.validation.SchemaFactory;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.util.*;
 
-import static org.glassfish.jaxb.core.v2.util.XmlFactory.allowExternalAccess;
+import com.sun.istack.NotNull;
+import com.sun.istack.XMLStreamReaderToContentHandler;
+import com.sun.tools.xjc.ErrorReceiver;
+import com.sun.tools.xjc.Options;
+import com.sun.tools.xjc.reader.Const;
+import com.sun.tools.xjc.reader.xmlschema.parser.SchemaConstraintChecker;
+import com.sun.tools.xjc.util.ErrorReceiverFilter;
+import com.sun.xml.xsom.parser.JAXPParser;
+import com.sun.xml.xsom.parser.XMLParser;
+import org.glassfish.jaxb.core.marshaller.DataWriter;
+import org.glassfish.jaxb.core.v2.util.XmlFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.xml.sax.ContentHandler;
+import org.xml.sax.EntityResolver;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.XMLFilterImpl;
 import static javax.xml.XMLConstants.W3C_XML_SCHEMA_NS_URI;
+import static org.glassfish.jaxb.core.v2.util.XmlFactory.allowExternalAccess;
 
 
 /**
@@ -166,7 +180,7 @@ public final class DOMForest {
      */
     private String getPath(String key) {
         key = key.substring(5); // skip 'file:'
-        while(key.length()>0 && key.charAt(0)=='/') {
+        while(!key.isEmpty() && key.charAt(0)=='/') {
             key = key.substring(1);
         }
         return key;

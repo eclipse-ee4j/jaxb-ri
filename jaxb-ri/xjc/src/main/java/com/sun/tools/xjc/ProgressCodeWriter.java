@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -61,7 +62,7 @@ final class ProgressCodeWriter extends FilterCodeWriter {
 
         final String pkgName;
         final String fileNameOut;
-        if (pkg != null && (pkgName = pkg.name().replace('.', File.separatorChar)).length() > 0 ) {
+        if (pkg != null && !(pkgName = pkg.name().replace('.', File.separatorChar)).isEmpty()) {
             final StringBuilder sb = new StringBuilder(fileName.length() + pkgName.length() + 1);
             sb.append(pkgName);
             sb.append(File.separatorChar);

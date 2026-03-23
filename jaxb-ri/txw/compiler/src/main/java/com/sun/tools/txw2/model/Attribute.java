@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 2005, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,6 +11,11 @@
 
 package com.sun.tools.txw2.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.xml.namespace.QName;
+
 import com.sun.codemodel.JAnnotationUse;
 import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JMethod;
@@ -20,10 +26,6 @@ import com.sun.tools.txw2.model.prop.AttributeProp;
 import com.sun.tools.txw2.model.prop.Prop;
 import com.sun.xml.txw2.annotation.XmlAttribute;
 import org.xml.sax.Locator;
-
-import javax.xml.namespace.QName;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Attribute declaration.
@@ -37,12 +39,12 @@ public class Attribute extends XmlNode {
 
     @Override
     void declare(NodeSet nset) {
-        ; // attributes won't produce a class
+        // attributes won't produce a class
     }
 
     @Override
     void generate(NodeSet nset) {
-        ; // nothing
+        // nothing
     }
 
     @Override
@@ -69,7 +71,7 @@ public class Attribute extends XmlNode {
             JAnnotationUse a = m.annotate(XmlAttribute.class);
             if(!methodName.equals(name.getLocalPart()))
                 a.param("value",name.getLocalPart());
-            if(!name.getNamespaceURI().equals(""))
+            if(!name.getNamespaceURI().isEmpty())
                 a.param("ns",name.getNamespaceURI());
 
         }

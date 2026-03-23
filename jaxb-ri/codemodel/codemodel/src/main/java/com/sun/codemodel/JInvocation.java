@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -141,8 +142,7 @@ public final class JInvocation extends JExpressionImpl implements JStatement {
             f.p("new").g(type).p('{');
         } else {
             if (isConstructor) {
-                if (type instanceof JNarrowedClass) {
-                    JNarrowedClass jc = (JNarrowedClass) type;
+                if (type instanceof JNarrowedClass jc) {
                     f.p("new").t(jc.basis).p('<').p(JFormatter.CLOSE_TYPE_ARGS).p('(');
 
                 } else {

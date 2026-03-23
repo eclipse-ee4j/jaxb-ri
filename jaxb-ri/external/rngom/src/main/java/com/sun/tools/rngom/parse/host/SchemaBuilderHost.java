@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2022, 2026 Eclipse Foundation
  * Copyright (C) 2004-2011
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,7 +22,9 @@
  */
 package com.sun.tools.rngom.parse.host;
 
-import com.sun.tools.rngom.ast.om.ParsedElementAnnotation;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.sun.tools.rngom.ast.builder.Annotations;
 import com.sun.tools.rngom.ast.builder.BuildException;
 import com.sun.tools.rngom.ast.builder.CommentList;
@@ -32,14 +35,12 @@ import com.sun.tools.rngom.ast.builder.NameClassBuilder;
 import com.sun.tools.rngom.ast.builder.SchemaBuilder;
 import com.sun.tools.rngom.ast.builder.Scope;
 import com.sun.tools.rngom.ast.om.Location;
+import com.sun.tools.rngom.ast.om.ParsedElementAnnotation;
 import com.sun.tools.rngom.ast.om.ParsedNameClass;
 import com.sun.tools.rngom.ast.om.ParsedPattern;
 import com.sun.tools.rngom.parse.Context;
 import com.sun.tools.rngom.parse.IllegalSchemaException;
 import com.sun.tools.rngom.parse.Parseable;
-
-import java.util.List;
-import java.util.ArrayList;
 
 /**
  * 
@@ -125,9 +126,9 @@ public class SchemaBuilderHost extends Base implements SchemaBuilder {
 
         List<ParsedPattern> lp = new ArrayList<>();
         List<ParsedPattern> rp = new ArrayList<>();
-        for( int i=0; i<patterns.size(); i++ ) {
-            lp.add( ((ParsedPatternHost)patterns.get(i)).lhs);
-            rp.add( ((ParsedPatternHost)patterns.get(i)).rhs);
+        for (Object pattern : patterns) {
+            lp.add(((ParsedPatternHost) pattern).lhs);
+            rp.add(((ParsedPatternHost) pattern).rhs);
         }
         LocationHost loc = cast(_loc);
         AnnotationsHost anno = cast(_anno);
@@ -217,9 +218,9 @@ public class SchemaBuilderHost extends Base implements SchemaBuilder {
 
         List<ParsedPattern> lp = new ArrayList<>();
         List<ParsedPattern> rp = new ArrayList<>();
-        for( int i=0; i<patterns.size(); i++ ) {
-            lp.add( ((ParsedPatternHost)patterns.get(i)).lhs);
-            rp.add( ((ParsedPatternHost)patterns.get(i)).rhs);
+        for (Object pattern : patterns) {
+            lp.add(((ParsedPatternHost) pattern).lhs);
+            rp.add(((ParsedPatternHost) pattern).rhs);
         }
         LocationHost loc = cast(_loc);
         AnnotationsHost anno = cast(_anno);
@@ -234,9 +235,9 @@ public class SchemaBuilderHost extends Base implements SchemaBuilder {
 
         List<ParsedPattern> lp = new ArrayList<>();
         List<ParsedPattern> rp = new ArrayList<>();
-        for( int i=0; i<patterns.size(); i++ ) {
-            lp.add( ((ParsedPatternHost)patterns.get(i)).lhs);
-            rp.add( ((ParsedPatternHost)patterns.get(i)).rhs);
+        for (Object pattern : patterns) {
+            lp.add(((ParsedPatternHost) pattern).lhs);
+            rp.add(((ParsedPatternHost) pattern).rhs);
         }
         LocationHost loc = cast(_loc);
         AnnotationsHost anno = cast(_anno);

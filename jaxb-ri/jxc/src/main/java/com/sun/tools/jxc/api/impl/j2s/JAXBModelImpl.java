@@ -1,6 +1,6 @@
 /*
+ * Copyright (c) 2025, 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -19,19 +19,20 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import jakarta.xml.bind.SchemaOutputResolver;
-import jakarta.xml.bind.annotation.XmlList;
-import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import javax.xml.namespace.QName;
-import javax.xml.transform.Result;
-
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
-import com.sun.tools.xjc.api.ErrorListener;
+import javax.xml.namespace.QName;
+import javax.xml.transform.Result;
+
 import com.sun.tools.jxc.api.J2SJAXBModel;
 import com.sun.tools.jxc.api.Reference;
+import com.sun.tools.xjc.api.ErrorListener;
+import com.sun.xml.txw2.output.ResultFactory;
+import jakarta.xml.bind.SchemaOutputResolver;
+import jakarta.xml.bind.annotation.XmlList;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.glassfish.jaxb.core.v2.model.annotation.AnnotationReader;
 import org.glassfish.jaxb.core.v2.model.core.ArrayInfo;
 import org.glassfish.jaxb.core.v2.model.core.ClassInfo;
@@ -43,7 +44,6 @@ import org.glassfish.jaxb.core.v2.model.core.Ref;
 import org.glassfish.jaxb.core.v2.model.core.TypeInfoSet;
 import org.glassfish.jaxb.core.v2.model.nav.Navigator;
 import org.glassfish.jaxb.runtime.v2.schemagen.XmlSchemaGenerator;
-import com.sun.xml.txw2.output.ResultFactory;
 
 /**
  * @author Kohsuke Kawaguchi (kk@kohsuke.org)
@@ -110,8 +110,7 @@ final class JAXBModelImpl implements J2SJAXBModel {
 
             assert xt!=null;
             refMap.put(entry.getValue(),xt);
-            if(xt instanceof ClassInfo) {
-                ClassInfo<TypeMirror, TypeElement> xct = (ClassInfo<TypeMirror, TypeElement>) xt;
+            if(xt instanceof ClassInfo<TypeMirror, TypeElement> xct) {
                 Element<TypeMirror, TypeElement> elem = xct.asElement();
                 if(elem!=null && elem.getElementName().equals(entry.getKey())) {
                     itr.remove();

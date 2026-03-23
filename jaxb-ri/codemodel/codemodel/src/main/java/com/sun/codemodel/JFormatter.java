@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -180,27 +180,16 @@ public final class JFormatter {
             return (c2 != '(') && (c2 != ')') && (c2 != ';') && (c2 != ',');
         }
         if (Character.isJavaIdentifierPart(c1)) {
-            switch (c2) {
-            case '{':
-            case '}':
-            case '+':
-            case '>':
-            case '@':
-                return true;
-            default:
-                return Character.isJavaIdentifierStart(c2);
-            }
+            return switch (c2) {
+                case '{', '}', '+', '>', '@' -> true;
+                default -> Character.isJavaIdentifierStart(c2);
+            };
         }
         if (Character.isJavaIdentifierStart(c2)) {
-            switch (c1) {
-            case ']':
-            case ')':
-            case '}':
-            case '+':
-                return true;
-            default:
-                return false;
-            }
+            return switch (c1) {
+                case ']', ')', '}', '+' -> true;
+                default -> false;
+            };
         }
         if (Character.isDigit(c2)) {
             return c1 != '(';
@@ -524,7 +513,7 @@ public final class JFormatter {
                 return true;
 
             // an id and (at least one) type with the same name
-            if(id && classes.size() != 0)
+            if(id && !classes.isEmpty())
                 return true;
 
             for(JClass c : classes) {
@@ -568,7 +557,7 @@ public final class JFormatter {
          * are no collisions with type names.
          */
         public boolean isId() {
-            return id && classes.size() == 0;
+            return id && classes.isEmpty();
         }
     }
 

@@ -1,6 +1,6 @@
 /*
+ * Copyright (c) 2025, 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -16,6 +16,7 @@ import org.glassfish.jaxb.core.v2.runtime.IllegalAnnotationException;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -33,6 +34,7 @@ import java.util.List;
 public class IllegalAnnotationsException extends JAXBException {
     private transient final List<IllegalAnnotationException> errors;
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     public IllegalAnnotationsException(List<IllegalAnnotationException> errors) {

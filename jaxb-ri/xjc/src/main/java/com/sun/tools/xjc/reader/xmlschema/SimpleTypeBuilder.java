@@ -1,6 +1,6 @@
 /*
+ * Copyright (c) 2025, 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,12 +24,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
-import com.sun.codemodel.util.Util;
-import jakarta.activation.MimeTypeParseException;
-import jakarta.xml.bind.DatatypeConverter;
+import javax.xml.XMLConstants;
 
 import com.sun.codemodel.JJavaName;
-import org.glassfish.jaxb.core.v2.WellKnownNamespace;
+import com.sun.codemodel.util.Util;
 import com.sun.tools.xjc.ErrorReceiver;
 import com.sun.tools.xjc.model.CBuiltinLeafInfo;
 import com.sun.tools.xjc.model.CClassInfo;
@@ -50,10 +48,6 @@ import com.sun.tools.xjc.reader.xmlschema.bindinfo.BIProperty;
 import com.sun.tools.xjc.reader.xmlschema.bindinfo.BindInfo;
 import com.sun.tools.xjc.reader.xmlschema.bindinfo.EnumMemberMode;
 import com.sun.tools.xjc.util.MimeTypeRange;
-
-import static org.glassfish.jaxb.core.v2.WellKnownNamespace.XML_MIME_URI;
-
-import org.glassfish.jaxb.core.v2.runtime.SwaRefAdapterMarker;
 import com.sun.xml.xsom.XSAttributeDecl;
 import com.sun.xml.xsom.XSComplexType;
 import com.sun.xml.xsom.XSComponent;
@@ -67,10 +61,12 @@ import com.sun.xml.xsom.XSVariety;
 import com.sun.xml.xsom.impl.util.SchemaWriter;
 import com.sun.xml.xsom.visitor.XSSimpleTypeFunction;
 import com.sun.xml.xsom.visitor.XSVisitor;
-
+import jakarta.activation.MimeTypeParseException;
+import jakarta.xml.bind.DatatypeConverter;
+import org.glassfish.jaxb.core.v2.WellKnownNamespace;
+import org.glassfish.jaxb.core.v2.runtime.SwaRefAdapterMarker;
 import org.xml.sax.Locator;
-
-import javax.xml.XMLConstants;
+import static org.glassfish.jaxb.core.v2.WellKnownNamespace.XML_MIME_URI;
 
 /**
  * Builds {@link TypeUse} from simple types.
@@ -202,9 +198,8 @@ public final class SimpleTypeBuilder extends BindingComponent {
         // UGLY CODE WARNING
         XSComponent top = getReferer();
 
-        if( top instanceof XSElementDecl ) {
+        if(top instanceof XSElementDecl eref) {
             // if the parent is element type, its content type must be us.
-            XSElementDecl eref = (XSElementDecl)top;
             assert eref.getType()==type;
 
             // for elements, you can't use <property>,
@@ -218,13 +213,11 @@ public final class SimpleTypeBuilder extends BindingComponent {
             }
             detectJavaTypeCustomization();
         } else
-        if( top instanceof XSAttributeDecl ) {
-            XSAttributeDecl aref = (XSAttributeDecl)top;
+        if(top instanceof XSAttributeDecl aref) {
             assert aref.getType()==type;
             detectJavaTypeCustomization();
         } else
-        if( top instanceof XSComplexType ) {
-            XSComplexType tref = (XSComplexType)top;
+        if(top instanceof XSComplexType tref) {
             assert tref.getBaseType()==type || tref.getContentType()==type;
             detectJavaTypeCustomization();
         } else
@@ -676,7 +669,7 @@ public final class SimpleTypeBuilder extends BindingComponent {
 
                 if(name==null) {
                     StringBuilder sb = new StringBuilder();
-                    if (facetValue.length()>0 && !Character.isJavaIdentifierStart(facetValue.charAt(0)))
+                    if (!facetValue.isEmpty() && !Character.isJavaIdentifierStart(facetValue.charAt(0)))
                         sb.append('_');
                     for( int i=0; i<facetValue.length(); i++) {
                         char ch = facetValue.charAt(i);

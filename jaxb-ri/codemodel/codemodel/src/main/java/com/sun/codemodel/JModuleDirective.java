@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 2016, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -69,8 +70,7 @@ public abstract class JModuleDirective {
         if (this == other) {
             return true;
         }
-        if (other instanceof JModuleDirective) {
-            final JModuleDirective otherDirective = (JModuleDirective)other;
+        if (other instanceof JModuleDirective otherDirective) {
             return this.getType() == otherDirective.getType() && this.name.equals(otherDirective.name);
         }
         return false;

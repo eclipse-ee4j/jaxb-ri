@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,21 +11,22 @@
 
 package com.sun.tools.xjc.reader;
 
+import java.math.BigInteger;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import jakarta.activation.MimeType;
-
 import com.sun.tools.xjc.model.CElementPropertyInfo;
-import static com.sun.tools.xjc.model.CElementPropertyInfo.CollectionMode.*;
 import com.sun.tools.xjc.model.CReferencePropertyInfo;
 import com.sun.tools.xjc.model.CTypeRef;
 import com.sun.tools.xjc.model.Multiplicity;
 import com.sun.tools.xjc.model.nav.NType;
+import jakarta.activation.MimeType;
 import org.glassfish.jaxb.core.v2.model.core.Element;
 import org.glassfish.jaxb.core.v2.model.core.ID;
-import java.math.BigInteger;
+import static com.sun.tools.xjc.model.CElementPropertyInfo.CollectionMode.NOT_REPEATED;
+import static com.sun.tools.xjc.model.CElementPropertyInfo.CollectionMode.REPEATED_ELEMENT;
+import static com.sun.tools.xjc.model.CElementPropertyInfo.CollectionMode.REPEATED_VALUE;
 
 /**
  * Set of {@link Ref}.
@@ -93,12 +95,12 @@ public final class RawTypeSet {
         }
 
         Mode or(Mode that) {
-            switch(Math.max(this.rank,that.rank)) {
-            case 0:     return SHOULD_BE_TYPEREF;
-            case 1:     return CAN_BE_TYPEREF;
-            case 2:     return MUST_BE_REFERENCE;
-            }
-            throw new AssertionError();
+            return switch (Math.max(this.rank, that.rank)) {
+                case 0 -> SHOULD_BE_TYPEREF;
+                case 1 -> CAN_BE_TYPEREF;
+                case 2 -> MUST_BE_REFERENCE;
+                default -> throw new AssertionError();
+            };
         }
     }
 

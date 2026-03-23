@@ -51,7 +51,6 @@ import com.sun.tools.xjc.api.SpecVersion;
 import com.sun.tools.xjc.generator.bean.field.FieldRendererFactory;
 import com.sun.tools.xjc.model.Model;
 import com.sun.tools.xjc.reader.Util;
-
 import org.glassfish.jaxb.core.api.impl.NameConverter;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
@@ -498,203 +497,204 @@ public class Options {
      * @throws BadCommandLineException If the callee wants to provide a custom message for an error.
      */
     public int parseArgument(String[] args, int i) throws BadCommandLineException {
-        if (args[i].equals("-classpath") || args[i].equals("-cp")) {
-            String a = requireArgument(args[i], args, ++i);
-            for (String p : a.split(File.pathSeparator)) {
-                File file = new File(p);
-                try {
-                    classpaths.add(file.toURI().toURL());
-                } catch (MalformedURLException e) {
-                    throw new BadCommandLineException(
-                        Messages.format(Messages.NOT_A_VALID_FILENAME, file), e);
+        switch (args[i]) {
+            case "-classpath", "-cp" -> {
+                String a = requireArgument(args[i], args, ++i);
+                for (String p : a.split(File.pathSeparator)) {
+                    File file = new File(p);
+                    try {
+                        classpaths.add(file.toURI().toURL());
+                    } catch (MalformedURLException e) {
+                        throw new BadCommandLineException(
+                                Messages.format(Messages.NOT_A_VALID_FILENAME, file), e);
+                    }
                 }
+                return 2;
             }
-            return 2;
-        }
-        if (args[i].equals("-d")) {
-            targetDir = new File(requireArgument("-d", args, ++i));
-            if (!targetDir.exists())
-                throw new BadCommandLineException(
-                    Messages.format(Messages.NON_EXISTENT_DIR, targetDir));
-            return 2;
-        }
-        if (args[i].equals("-readOnly")) {
-            readOnly = true;
-            return 1;
-        }
-        if (args[i].equals("-p")) {
-            defaultPackage = requireArgument("-p", args, ++i);
-            if (defaultPackage.length() == 0) { // user specified default package
-                // there won't be any package to annotate, so disable them
-                // automatically as a usability feature
+            case "-d" -> {
+                targetDir = new File(requireArgument("-d", args, ++i));
+                if (!targetDir.exists())
+                    throw new BadCommandLineException(
+                            Messages.format(Messages.NON_EXISTENT_DIR, targetDir));
+                return 2;
+            }
+            case "-readOnly" -> {
+                readOnly = true;
+                return 1;
+            }
+            case "-p" -> {
+                defaultPackage = requireArgument("-p", args, ++i);
+                if (defaultPackage.isEmpty()) { // user specified default package
+                    // there won't be any package to annotate, so disable them
+                    // automatically as a usability feature
+                    packageLevelAnnotations = false;
+                }
+                return 2;
+            }
+            case "-m" -> {
+                javaModule = requireArgument("-m", args, ++i);
+                return 2;
+            }
+            case "-debug" -> {
+                debugMode = true;
+                verbose = true;
+                return 1;
+            }
+            case "-nv" -> {
+                strictCheck = false;
+                return 1;
+            }
+            case "-npa" -> {
                 packageLevelAnnotations = false;
+                return 1;
             }
-            return 2;
-        }
-        if (args[i].equals("-m")) {
-            javaModule = requireArgument("-m", args, ++i);
-            return 2;
-        }
-        if (args[i].equals("-debug")) {
-            debugMode = true;
-            verbose = true;
-            return 1;
-        }
-        if (args[i].equals("-nv")) {
-            strictCheck = false;
-            return 1;
-        }
-        if (args[i].equals("-npa")) {
-            packageLevelAnnotations = false;
-            return 1;
-        }
-        if (args[i].equals("-no-header")) {
-            noFileHeader = true;
-            return 1;
-        }
-        if (args[i].equals("-no-header-date")) {
-            noFileHeaderDate = true;
-            return 1;
-        }
-        if (args[i].equals("-verbose")) {
-            verbose = true;
-            return 1;
-        }
-        if (args[i].equals("-quiet")) {
-            quiet = true;
-            return 1;
-        }
-        if (args[i].equals("-XexplicitAnnotation")) {
-            runtime14 = true;
-            return 1;
-        }
-        if (args[i].equals("-enableIntrospection")) {
-            enableIntrospection = true;
-            return 1;
-        }
-        if (args[i].equals("-disableXmlSecurity")) {
-            disableXmlSecurity = true;
-            return 1;
-        }
-        if (args[i].equals("-contentForWildcard")) {
-            contentForWildcard = true;
-            return 1;
-        }
-        if (args[i].equals("-XautoNameResolution")) {
-            automaticNameConflictResolution = true;
-            return 1;
-        }
-        if (args[i].equals("-b")) {
-            addFile(requireArgument("-b", args, ++i), bindFiles, ".xjb");
-            return 2;
-        }
-        if (args[i].equals("-dtd")) {
-            schemaLanguage = Language.DTD;
-            return 1;
-        }
-        if (args[i].equals("-relaxng")) {
-            schemaLanguage = Language.RELAXNG;
-            return 1;
-        }
-        if (args[i].equals("-relaxng-compact")) {
-            schemaLanguage = Language.RELAXNG_COMPACT;
-            return 1;
-        }
-        if (args[i].equals("-xmlschema")) {
-            schemaLanguage = Language.XMLSCHEMA;
-            return 1;
-        }
-        if (args[i].equals("-wsdl")) {
-            schemaLanguage = Language.WSDL;
-            return 1;
-        }
-        if (args[i].equals("-extension")) {
-            compatibilityMode = EXTENSION;
-            return 1;
-        }
-        if (args[i].equals("-target")) {
-            String token = requireArgument("-target", args, ++i);
-            target = SpecVersion.parse(token);
-            if (target == null)
-                throw new BadCommandLineException(Messages.format(Messages.ILLEGAL_TARGET_VERSION, token));
-            addClassNameReplacers(target);
-            return 2;
-        }
-        if (args[i].equals("-httpproxyfile")) {
-            if (i == args.length - 1 || args[i + 1].startsWith("-")) {
-                throw new BadCommandLineException(
-                    Messages.format(Messages.MISSING_PROXYFILE));
+            case "-no-header" -> {
+                noFileHeader = true;
+                return 1;
             }
-
-            File file = new File(args[++i]);
-            if (!file.exists()) {
-                throw new BadCommandLineException(
-                    Messages.format(Messages.NO_SUCH_FILE, file));
+            case "-no-header-date" -> {
+                noFileHeaderDate = true;
+                return 1;
             }
-
-            try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8))) {
-                parseProxy(in.readLine());
-            } catch (IOException e) {
-                throw new BadCommandLineException(
-                    Messages.format(Messages.FAILED_TO_PARSE, file, e.getMessage()), e);
+            case "-verbose" -> {
+                verbose = true;
+                return 1;
             }
-
-            return 2;
-        }
-        if (args[i].equals("-httpproxy")) {
-            if (i == args.length - 1 || args[i + 1].startsWith("-")) {
-                throw new BadCommandLineException(
-                    Messages.format(Messages.MISSING_PROXY));
+            case "-quiet" -> {
+                quiet = true;
+                return 1;
             }
-
-            parseProxy(args[++i]);
-            return 2;
-        }
-        if (args[i].equals("-host")) {
-            proxyHost = requireArgument("-host", args, ++i);
-            return 2;
-        }
-        if (args[i].equals("-port")) {
-            proxyPort = requireArgument("-port", args, ++i);
-            return 2;
-        }
-        if (args[i].equals("-catalog")) {
-            // use Sun's "XML Entity and URI Resolvers" by Norman Walsh
-            // to resolve external entities.
-            // https://xerces.apache.org/xml-commons/components/resolver/resolver-article.html
-
-            File catalogFile = new File(requireArgument("-catalog", args, ++i));
-            try {
-                addCatalog(catalogFile);
-            } catch (IOException e) {
-                throw new BadCommandLineException(
-                    Messages.format(Messages.FAILED_TO_PARSE, catalogFile, e.getMessage()), e);
+            case "-XexplicitAnnotation" -> {
+                runtime14 = true;
+                return 1;
             }
-            return 2;
-        }
-        if (args[i].equals("-Xtest-class-name-allocator")) {
-            classNameAllocator = new ClassNameAllocator() {
-                @Override
-                public String assignClassName(String packageName, String className) {
-                    System.out.printf("assignClassName(%s,%s)\n", packageName, className);
-                    return className + "_Type";
-                }
-            };
-            return 1;
-        }
-
-        if (args[i].equals("-encoding")) {
-            encoding = requireArgument("-encoding", args, ++i);
-            try {
-                if (!Charset.isSupported(encoding)) {
+            case "-enableIntrospection" -> {
+                enableIntrospection = true;
+                return 1;
+            }
+            case "-disableXmlSecurity" -> {
+                disableXmlSecurity = true;
+                return 1;
+            }
+            case "-contentForWildcard" -> {
+                contentForWildcard = true;
+                return 1;
+            }
+            case "-XautoNameResolution" -> {
+                automaticNameConflictResolution = true;
+                return 1;
+            }
+            case "-b" -> {
+                addFile(requireArgument("-b", args, ++i), bindFiles, ".xjb");
+                return 2;
+            }
+            case "-dtd" -> {
+                schemaLanguage = Language.DTD;
+                return 1;
+            }
+            case "-relaxng" -> {
+                schemaLanguage = Language.RELAXNG;
+                return 1;
+            }
+            case "-relaxng-compact" -> {
+                schemaLanguage = Language.RELAXNG_COMPACT;
+                return 1;
+            }
+            case "-xmlschema" -> {
+                schemaLanguage = Language.XMLSCHEMA;
+                return 1;
+            }
+            case "-wsdl" -> {
+                schemaLanguage = Language.WSDL;
+                return 1;
+            }
+            case "-extension" -> {
+                compatibilityMode = EXTENSION;
+                return 1;
+            }
+            case "-target" -> {
+                String token = requireArgument("-target", args, ++i);
+                target = SpecVersion.parse(token);
+                if (target == null)
+                    throw new BadCommandLineException(Messages.format(Messages.ILLEGAL_TARGET_VERSION, token));
+                addClassNameReplacers(target);
+                return 2;
+            }
+            case "-httpproxyfile" -> {
+                if (i == args.length - 1 || args[i + 1].startsWith("-")) {
                     throw new BadCommandLineException(
-                        Messages.format(Messages.UNSUPPORTED_ENCODING, encoding));
+                            Messages.format(Messages.MISSING_PROXYFILE));
                 }
-            } catch (IllegalCharsetNameException icne) {
-                throw new BadCommandLineException(
-                    Messages.format(Messages.UNSUPPORTED_ENCODING, encoding));
+
+                File file = new File(args[++i]);
+                if (!file.exists()) {
+                    throw new BadCommandLineException(
+                            Messages.format(Messages.NO_SUCH_FILE, file));
+                }
+
+                try (BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8))) {
+                    parseProxy(in.readLine());
+                } catch (IOException e) {
+                    throw new BadCommandLineException(
+                            Messages.format(Messages.FAILED_TO_PARSE, file, e.getMessage()), e);
+                }
+
+                return 2;
             }
-            return 2;
+            case "-httpproxy" -> {
+                if (i == args.length - 1 || args[i + 1].startsWith("-")) {
+                    throw new BadCommandLineException(
+                            Messages.format(Messages.MISSING_PROXY));
+                }
+
+                parseProxy(args[++i]);
+                return 2;
+            }
+            case "-host" -> {
+                proxyHost = requireArgument("-host", args, ++i);
+                return 2;
+            }
+            case "-port" -> {
+                proxyPort = requireArgument("-port", args, ++i);
+                return 2;
+            }
+            case "-catalog" -> {
+                // use Sun's "XML Entity and URI Resolvers" by Norman Walsh
+                // to resolve external entities.
+                // https://xerces.apache.org/xml-commons/components/resolver/resolver-article.html
+
+                File catalogFile = new File(requireArgument("-catalog", args, ++i));
+                try {
+                    addCatalog(catalogFile);
+                } catch (IOException e) {
+                    throw new BadCommandLineException(
+                            Messages.format(Messages.FAILED_TO_PARSE, catalogFile, e.getMessage()), e);
+                }
+                return 2;
+            }
+            case "-Xtest-class-name-allocator" -> {
+                classNameAllocator = new ClassNameAllocator() {
+                    @Override
+                    public String assignClassName(String packageName, String className) {
+                        System.out.printf("assignClassName(%s,%s)\n", packageName, className);
+                        return className + "_Type";
+                    }
+                };
+                return 1;
+            }
+            case "-encoding" -> {
+                encoding = requireArgument("-encoding", args, ++i);
+                try {
+                    if (!Charset.isSupported(encoding)) {
+                        throw new BadCommandLineException(
+                                Messages.format(Messages.UNSUPPORTED_ENCODING, encoding));
+                    }
+                } catch (IllegalCharsetNameException icne) {
+                    throw new BadCommandLineException(
+                            Messages.format(Messages.UNSUPPORTED_ENCODING, encoding));
+                }
+                return 2;
+            }
         }
 
         // see if this is one of the extensions
@@ -841,7 +841,7 @@ public class Options {
     public void parseArguments(String[] args) throws BadCommandLineException {
 
         for (int i = 0; i < args.length; i++) {
-            if (args[i].length() == 0)
+            if (args[i].isEmpty())
                 throw new BadCommandLineException();
             if (args[i].charAt(0) == '-') {
                 int j = parseArgument(args, i);
@@ -898,8 +898,7 @@ public class Options {
      *
      */
     public void scanEpisodeFile(File jar) throws BadCommandLineException {
-        try {
-            URLClassLoader ucl = new URLClassLoader(new URL[]{jar.toURI().toURL()});
+        try (URLClassLoader ucl = new URLClassLoader(new URL[]{jar.toURI().toURL()})) {
             Enumeration<URL> resources = ucl.findResources("META-INF/sun-jaxb.episode");
             while (resources.hasMoreElements()) {
                 URL url = resources.nextElement();
@@ -920,7 +919,7 @@ public class Options {
 
         // otherwise, use the file extension.
         // not a good solution, but very easy.
-        if ((grammars != null) && (grammars.size() > 0)) {
+        if ((grammars != null) && (!grammars.isEmpty())) {
             String name = grammars.get(0).getSystemId().toLowerCase();
 
             if (name.endsWith(".rng"))

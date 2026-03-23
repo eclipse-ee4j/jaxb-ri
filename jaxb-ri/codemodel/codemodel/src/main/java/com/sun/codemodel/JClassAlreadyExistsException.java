@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,6 +11,8 @@
 
 package com.sun.codemodel;
 
+import java.io.Serial;
+
 /**
  * Indicates that the class is already created.
  * 
@@ -18,7 +21,8 @@ package com.sun.codemodel;
  */
 public class JClassAlreadyExistsException extends Exception {
 
-	private static final long serialVersionUID = -6200382663753897115L;
+	@Serial
+    private static final long serialVersionUID = -6200382663753897115L;
 
 	private final transient JDefinedClass existing;
     

@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -50,57 +51,48 @@ final class ModelGroup extends Term {
 
     @Override
     boolean isOptional() {
-        switch(kind) {
-        case SEQUENCE:
-            for( Term t : terms )
-                if(!t.isOptional())
-                    return false;
-            return true;
-        case CHOICE:
-            for( Term t : terms )
-                if(t.isOptional())
-                    return true;
-            return false;
-        default:
-            throw new IllegalArgumentException();
-        }
+        return switch (kind) {
+            case SEQUENCE -> {
+                for (Term t : terms)
+                    if (!t.isOptional())
+                        yield false;
+                yield true;
+            }
+            case CHOICE -> {
+                for (Term t : terms)
+                    if (t.isOptional())
+                        yield true;
+                yield false;
+            }
+        };
     }
 
     @Override
     boolean isRepeated() {
-        switch(kind) {
-        case SEQUENCE:
-            return true;
-        case CHOICE:
-            for( Term t : terms )
-                if(t.isRepeated())
-                    return true;
-            return false;
-        default:
-            throw new IllegalArgumentException();
-        }
+        return switch (kind) {
+            case SEQUENCE -> true;
+            case CHOICE -> {
+                for (Term t : terms)
+                    if (t.isRepeated())
+                        yield true;
+                yield false;
+            }
+        };
     }
 
     void setKind(short connectorType) {
-        Kind k;
-        switch(connectorType) {
-        case DTDEventListener.SEQUENCE:
-            k = Kind.SEQUENCE;
-            break;
-        case DTDEventListener.CHOICE:
-            k = Kind.CHOICE;
-            break;
-        default:
-            throw new IllegalArgumentException();
-        }
+        Kind k = switch (connectorType) {
+            case DTDEventListener.SEQUENCE -> Kind.SEQUENCE;
+            case DTDEventListener.CHOICE -> Kind.CHOICE;
+            default -> throw new IllegalArgumentException();
+        };
 
         assert kind==null || k==kind;
         kind = k;
     }
 
     void addTerm(Term t) {
-        if (t instanceof ModelGroup) {
-            ModelGroup mg = (ModelGroup) t;
+        if (t instanceof ModelGroup mg) {
             if(mg.kind==this.kind) {
                 terms.addAll(mg.terms);
                 return;
@@ -111,16 +103,17 @@ final class ModelGroup extends Term {
 
 
     Term wrapUp() {
-        switch(terms.size()) {
-        case 0:
-            return EMPTY;
-        case 1:
-            assert kind==null;
-            return terms.get(0);
-        default:
-            assert kind!=null;
-            return this;
-        }
+        return switch (terms.size()) {
+            case 0 -> EMPTY;
+            case 1 -> {
+                assert kind == null;
+                yield terms.get(0);
+            }
+            default -> {
+                assert kind != null;
+                yield this;
+            }
+        };
     }
 
 }

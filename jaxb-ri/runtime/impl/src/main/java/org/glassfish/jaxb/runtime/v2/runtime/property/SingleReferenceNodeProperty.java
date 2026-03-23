@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,10 +11,17 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime.property;
 
-import org.glassfish.jaxb.runtime.api.AccessorException;
+import java.io.IOException;
+
+import javax.xml.stream.XMLStreamException;
+
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.annotation.DomHandler;
 import org.glassfish.jaxb.core.v2.ClassFactory;
 import org.glassfish.jaxb.core.v2.model.core.PropertyKind;
 import org.glassfish.jaxb.core.v2.model.core.WildcardMode;
+import org.glassfish.jaxb.runtime.api.AccessorException;
 import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimeElement;
 import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimeReferencePropertyInfo;
 import org.glassfish.jaxb.runtime.v2.runtime.ElementBeanInfoImpl;
@@ -24,13 +32,7 @@ import org.glassfish.jaxb.runtime.v2.runtime.reflect.Accessor;
 import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.ChildLoader;
 import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.WildcardLoader;
 import org.glassfish.jaxb.runtime.v2.util.QNameMap;
-import jakarta.xml.bind.JAXBElement;
-import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.annotation.DomHandler;
 import org.xml.sax.SAXException;
-
-import javax.xml.stream.XMLStreamException;
-import java.io.IOException;
 
 /**
  * @author Kohsuke Kawaguchi
@@ -109,8 +111,7 @@ final class SingleReferenceNodeProperty<BeanT,ValueT> extends PropertyImpl<BeanT
     public Accessor getElementPropertyAccessor(String nsUri, String localName) {
         JaxBeanInfo bi = expectedElements.get(nsUri, localName);
         if(bi!=null) {
-            if(bi instanceof ElementBeanInfoImpl) {
-                final ElementBeanInfoImpl ebi = (ElementBeanInfoImpl) bi;
+            if(bi instanceof ElementBeanInfoImpl ebi) {
                 // a JAXBElement. We need to handle JAXBElement for JAX-WS
                 return new Accessor<BeanT,Object>(ebi.expectedType) {
                     @Override

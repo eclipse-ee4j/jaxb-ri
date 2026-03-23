@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,15 +11,16 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime.output;
 
-import org.glassfish.jaxb.runtime.v2.runtime.XMLSerializer;
-import org.xml.sax.SAXException;
+import java.io.IOException;
 
 import javax.xml.stream.XMLEventFactory;
 import javax.xml.stream.XMLEventWriter;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.Attribute;
 import javax.xml.stream.events.Characters;
-import java.io.IOException;
+
+import org.glassfish.jaxb.runtime.v2.runtime.XMLSerializer;
+import org.xml.sax.SAXException;
 
 /**
  * {@link XmlOutput} that writes to StAX {@link XMLEventWriter}.
@@ -67,7 +69,7 @@ public class XMLEventWriterOutput extends XmlOutputAbstractImpl {
         if(nse.count()>0) {
             for( int i=nse.count()-1; i>=0; i-- ) {
                 String uri = nse.getNsUri(i);
-                if(uri.length()==0 && nse.getBase()==1)
+                if(uri.isEmpty() && nse.getBase()==1)
                     continue;   // no point in definint xmlns='' on the root
                 out.add(ef.createNamespace(nse.getPrefix(i),uri));
             }

@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2022, 2026 Eclipse Foundation
  * Copyright (C) 2004-2011
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,9 +22,9 @@
  */
 package com.sun.tools.rngom.util;
 
-import java.net.URL;
-import java.net.MalformedURLException;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class Uri {
   private static String utf8 = "UTF-8";
@@ -75,11 +76,11 @@ public class Uri {
 	  return s;
 	}
       }
-      for (int j = 0; j < bytes.length; j++) {
-	buf.append('%');
-	buf.append(HEX_DIGITS.charAt((bytes[j] & 0xFF) >> 4));
-	buf.append(HEX_DIGITS.charAt(bytes[j] & 0xF));
-      }
+        for (byte aByte : bytes) {
+            buf.append('%');
+            buf.append(HEX_DIGITS.charAt((aByte & 0xFF) >> 4));
+            buf.append(HEX_DIGITS.charAt(aByte & 0xF));
+        }
       done = i;
     }
     return buf.toString();

@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 2005, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -98,7 +99,7 @@ class StartTag extends Content implements NamespaceResolver {
                 lastAtt.next = a;
                 lastAtt = a;
             }
-            if(nsUri.length()>0)
+            if(!nsUri.isEmpty())
                 addNamespaceDecl(nsUri,null,true);
         }
 
@@ -129,10 +130,10 @@ class StartTag extends Content implements NamespaceResolver {
 
         if(uri==null)
             throw new IllegalArgumentException();
-        if(uri.length()==0) {
+        if(uri.isEmpty()) {
             if(requirePrefix)
                 throw new IllegalArgumentException("The empty namespace cannot have a non-empty prefix");
-            if(prefix!=null && prefix.length()>0)
+            if(prefix!=null && !prefix.isEmpty())
                 throw new IllegalArgumentException("The empty namespace can be only bound to the empty prefix");
             prefix = "";
         }
@@ -157,7 +158,7 @@ class StartTag extends Content implements NamespaceResolver {
                     return n;
                 }
             }
-            if(prefix!=null && n.prefix!=null && n.prefix.equals(prefix))
+            if(n.prefix != null && n.prefix.equals(prefix))
                 throw new IllegalArgumentException(
                     "Prefix '"+prefix+"' is already bound to '"+n.uri+'\'');
         }

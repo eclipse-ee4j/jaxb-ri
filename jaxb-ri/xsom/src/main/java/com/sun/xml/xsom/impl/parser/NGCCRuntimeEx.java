@@ -10,6 +10,13 @@
 
 package com.sun.xml.xsom.impl.parser;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.URL;
+import java.text.MessageFormat;
+import java.util.Stack;
+import java.util.regex.Pattern;
+
 import com.sun.tools.rngdatatype.ValidationContext;
 import com.sun.xml.xsom.XSDeclaration;
 import com.sun.xml.xsom.XSSimpleType;
@@ -29,13 +36,6 @@ import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.LocatorImpl;
-
-import java.io.IOException;
-import java.net.URI;
-import java.net.URL;
-import java.text.MessageFormat;
-import java.util.Stack;
-import java.util.regex.Pattern;
 
 /**
  * NGCCRuntime extended with various utility methods for
@@ -477,7 +477,7 @@ public class NGCCRuntimeEx extends NGCCRuntime implements PatcherManager {
             String uri = resolveNamespacePrefix("");
 
             // chamelon behavior. ugly...
-            if( uri.equals("") && chameleonMode )
+            if(uri.isEmpty() && chameleonMode )
                 uri = currentSchema.getTargetNamespace();
 
             // this is guaranteed to resolve
@@ -605,7 +605,7 @@ public class NGCCRuntimeEx extends NGCCRuntime implements PatcherManager {
 
         Attributes atts = getCurrentAttributes();
         for( int i=0; i<atts.getLength(); i++ ) {
-            if(atts.getURI(i).length()>0) {
+            if(!atts.getURI(i).isEmpty()) {
                 impl.addAttribute(
                     atts.getURI(i),
                     atts.getLocalName(i),

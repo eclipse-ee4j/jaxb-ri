@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -9,7 +10,6 @@
  */
 
 package com.sun.tools.xjc.reader.xmlschema;
-import static com.sun.tools.xjc.reader.xmlschema.BGMBuilder.getName;
 
 import java.util.Set;
 
@@ -31,10 +31,10 @@ import com.sun.tools.xjc.reader.Ring;
 import com.sun.tools.xjc.reader.xmlschema.bindinfo.BIClass;
 import com.sun.tools.xjc.reader.xmlschema.bindinfo.BIGlobalBinding;
 import com.sun.tools.xjc.reader.xmlschema.bindinfo.BISchemaBinding;
-import com.sun.tools.xjc.reader.xmlschema.bindinfo.BindInfo;
 import com.sun.tools.xjc.reader.xmlschema.bindinfo.BIXSubstitutable;
-import com.sun.tools.xjc.reader.xmlschema.ct.ComplexTypeFieldBuilder;
+import com.sun.tools.xjc.reader.xmlschema.bindinfo.BindInfo;
 import com.sun.tools.xjc.reader.xmlschema.ct.ComplexTypeBindingMode;
+import com.sun.tools.xjc.reader.xmlschema.ct.ComplexTypeFieldBuilder;
 import com.sun.xml.xsom.XSAnnotation;
 import com.sun.xml.xsom.XSAttGroupDecl;
 import com.sun.xml.xsom.XSAttributeDecl;
@@ -56,8 +56,8 @@ import com.sun.xml.xsom.XSSimpleType;
 import com.sun.xml.xsom.XSType;
 import com.sun.xml.xsom.XSWildcard;
 import com.sun.xml.xsom.XSXPath;
-
 import org.xml.sax.Locator;
+import static com.sun.tools.xjc.reader.xmlschema.BGMBuilder.getName;
 
 /**
  * Default classBinder implementation. Honors {@code <jaxb:class>} customizations
@@ -227,8 +227,7 @@ final class DefaultClassBinder implements ClassBinder
 
         XSElementDecl sole = null;
         for (XSComponent r : referer) {
-            if(r instanceof XSElementDecl) {
-                XSElementDecl x = (XSElementDecl) r;
+            if(r instanceof XSElementDecl x) {
                 if(!x.isGlobal())
                     // local element references can be ignored, as their names are either given
                     // by the property, or by the JAXBElement (for things like mixed contents)
@@ -483,18 +482,15 @@ final class DefaultClassBinder implements ClassBinder
         QName typeName = null;
         QName elementName = null;
 
-        if(component instanceof XSType) {
-            XSType t = (XSType) component;
+        if(component instanceof XSType t) {
             typeName = getName(t);
         }
 
-        if (component instanceof XSElementDecl) {
-            XSElementDecl e = (XSElementDecl) component;
+        if (component instanceof XSElementDecl e) {
             elementName = getName(e);
         }
 
-        if (component instanceof XSElementDecl && !isCollapsable((XSElementDecl)component)) {
-            XSElementDecl e = ((XSElementDecl)component);
+        if (component instanceof XSElementDecl e && !isCollapsable(e)) {
 
             CElementInfo cei = new CElementInfo(model, elementName,
                     selector.getClassScope(), clsName,

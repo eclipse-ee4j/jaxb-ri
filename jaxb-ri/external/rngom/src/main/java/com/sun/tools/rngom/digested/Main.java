@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2022, 2026 Eclipse Foundation
  * Copyright (C) 2004-2011
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,10 +22,10 @@
  */
 package com.sun.tools.rngom.digested;
 
-import com.sun.tools.rngom.parse.Parseable;
 import com.sun.tools.rngom.ast.builder.BuildException;
 import com.sun.tools.rngom.ast.builder.SchemaBuilder;
 import com.sun.tools.rngom.ast.util.CheckingSchemaBuilder;
+import com.sun.tools.rngom.parse.Parseable;
 import com.sun.tools.rngom.parse.compact.CompactParseable;
 import com.sun.tools.rngom.parse.xml.SAXParseable;
 import org.xml.sax.ErrorHandler;
@@ -65,8 +66,7 @@ public class Main {
             // I found that Crimson doesn't show the proper stack trace
             // when a RuntimeException happens inside a SchemaBuilder.
             // the following code shows the actual exception that happened.
-            if( e.getCause() instanceof SAXException ) {
-                SAXException se = (SAXException) e.getCause();
+            if(e.getCause() instanceof SAXException se) {
                 if(se.getException()!=null)
                     se.getException().printStackTrace();
             }

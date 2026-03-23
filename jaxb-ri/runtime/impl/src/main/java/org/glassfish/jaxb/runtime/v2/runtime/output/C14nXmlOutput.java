@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,15 +11,15 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime.output;
 
-import com.sun.istack.FinalArrayList;
-import org.glassfish.jaxb.core.marshaller.CharacterEscapeHandler;
-import org.glassfish.jaxb.runtime.api.JAXBRIContext;
-import org.glassfish.jaxb.runtime.v2.runtime.Name;
-
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Collections;
+
+import com.sun.istack.FinalArrayList;
+import org.glassfish.jaxb.core.marshaller.CharacterEscapeHandler;
+import org.glassfish.jaxb.runtime.api.JAXBRIContext;
+import org.glassfish.jaxb.runtime.v2.runtime.Name;
 
 /**
  * {@link XmlOutput} that generates canonical XML.
@@ -161,10 +162,8 @@ public class C14nXmlOutput extends UTF8XmlOutput {
             Collections.sort(otherAttributes);
 
             // write them all
-            int size = otherAttributes.size();
-            for( int i=0; i<size; i++ ) {
-                DynamicAttribute a = otherAttributes.get(i);
-                super.attribute(a.prefix,a.localName,a.value);
+            for (DynamicAttribute a : otherAttributes) {
+                super.attribute(a.prefix, a.localName, a.value);
             }
             otherAttributes.clear();
         }

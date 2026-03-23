@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -14,8 +15,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.annotation.XmlInlineBinaryData;
 import javax.xml.namespace.QName;
 
 import com.sun.codemodel.JClass;
@@ -39,6 +38,8 @@ import com.sun.tools.xjc.model.Model;
 import com.sun.tools.xjc.outline.Aspect;
 import com.sun.tools.xjc.outline.FieldAccessor;
 import com.sun.tools.xjc.outline.FieldOutline;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.annotation.XmlInlineBinaryData;
 import org.glassfish.jaxb.core.v2.TODO;
 
 /**
@@ -302,7 +303,7 @@ abstract class ObjectFactoryGeneratorImpl extends ObjectFactoryGenerator {
 
         // add static factory methods for all the other constructors.
         Collection<? extends Constructor> consl = cc.target.getConstructors();
-        if(consl.size()!=0) {
+        if(!consl.isEmpty()) {
             // if we are going to add constructors with parameters,
             // first we need to have a default constructor.
             cc.implClass.constructor(JMod.PUBLIC);

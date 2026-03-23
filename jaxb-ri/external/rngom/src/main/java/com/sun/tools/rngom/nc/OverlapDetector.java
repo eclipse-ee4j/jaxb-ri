@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2022, 2026 Eclipse Foundation
  * Copyright (C) 2004-2011
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -80,12 +81,10 @@ class OverlapDetector implements NameClassVisitor<Void> {
     }
 
     static boolean overlap(NameClass nc1, NameClass nc2) {
-        if (nc2 instanceof SimpleNameClass) {
-            SimpleNameClass snc = (SimpleNameClass) nc2;
+        if (nc2 instanceof SimpleNameClass snc) {
             return nc1.contains(snc.name);
         }
-        if (nc1 instanceof SimpleNameClass) {
-            SimpleNameClass snc = (SimpleNameClass) nc1;
+        if (nc1 instanceof SimpleNameClass snc) {
             return nc2.contains(snc.name);
         }
         return new OverlapDetector(nc1, nc2).overlaps;

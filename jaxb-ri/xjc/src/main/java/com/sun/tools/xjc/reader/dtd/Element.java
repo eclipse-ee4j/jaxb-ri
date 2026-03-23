@@ -1,6 +1,6 @@
 /*
+ * Copyright (c) 2025, 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -21,7 +21,6 @@ import javax.xml.namespace.QName;
 import com.sun.tools.xjc.model.CBuiltinLeafInfo;
 import com.sun.tools.xjc.model.CClassInfo;
 import com.sun.tools.xjc.model.CElementPropertyInfo;
-import static com.sun.tools.xjc.model.CElementPropertyInfo.CollectionMode.*;
 import com.sun.tools.xjc.model.CPropertyInfo;
 import com.sun.tools.xjc.model.CReferencePropertyInfo;
 import com.sun.tools.xjc.model.CTypeRef;
@@ -29,11 +28,13 @@ import com.sun.tools.xjc.model.CValuePropertyInfo;
 import com.sun.tools.xjc.model.TypeUse;
 import com.sun.tools.xjc.reader.dtd.bindinfo.BIConversion;
 import com.sun.tools.xjc.reader.dtd.bindinfo.BIElement;
+import com.sun.xml.dtdparser.DTDEventListener;
 import org.glassfish.jaxb.core.v2.model.core.ID;
 import org.glassfish.jaxb.core.v2.model.core.WildcardMode;
-import com.sun.xml.dtdparser.DTDEventListener;
-
 import org.xml.sax.Locator;
+import static com.sun.tools.xjc.model.CElementPropertyInfo.CollectionMode.NOT_REPEATED;
+import static com.sun.tools.xjc.model.CElementPropertyInfo.CollectionMode.REPEATED_ELEMENT;
+import static com.sun.tools.xjc.model.CElementPropertyInfo.CollectionMode.REPEATED_VALUE;
 
 /**
  * DTD Element.
@@ -266,7 +267,7 @@ final class Element extends Term implements Comparable<Element> {
                 // collection
                 StringBuilder name = new StringBuilder();
                 for( Element e : b.elements ) {
-                    if(name.length()>0)
+                    if(!name.isEmpty())
                         name.append("Or");
                     name.append(owner.model.getNameConverter().toPropertyName(e.name));
                 }

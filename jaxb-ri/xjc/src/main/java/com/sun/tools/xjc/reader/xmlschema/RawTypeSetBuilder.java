@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -13,7 +14,6 @@ package com.sun.tools.xjc.reader.xmlschema;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import jakarta.activation.MimeType;
 import javax.xml.namespace.QName;
 
 import com.sun.tools.xjc.model.CAdapter;
@@ -33,14 +33,15 @@ import com.sun.tools.xjc.reader.Ring;
 import com.sun.tools.xjc.reader.xmlschema.bindinfo.BIDom;
 import com.sun.tools.xjc.reader.xmlschema.bindinfo.BIGlobalBinding;
 import com.sun.tools.xjc.reader.xmlschema.bindinfo.BIXSubstitutable;
-import org.glassfish.jaxb.core.v2.model.core.ID;
-import org.glassfish.jaxb.core.v2.model.core.WildcardMode;
 import com.sun.xml.xsom.XSElementDecl;
 import com.sun.xml.xsom.XSModelGroup;
 import com.sun.xml.xsom.XSModelGroupDecl;
 import com.sun.xml.xsom.XSParticle;
 import com.sun.xml.xsom.XSWildcard;
 import com.sun.xml.xsom.visitor.XSTermVisitor;
+import jakarta.activation.MimeType;
+import org.glassfish.jaxb.core.v2.model.core.ID;
+import org.glassfish.jaxb.core.v2.model.core.WildcardMode;
 
 /**
  * Builds {@link RawTypeSet} for XML Schema.
@@ -148,16 +149,12 @@ public class RawTypeSetBuilder implements XSTermVisitor {
         }
 
         private static WildcardMode getMode(XSWildcard wildcard) {
-            switch(wildcard.getMode()) {
-            case XSWildcard.LAX:
-                return WildcardMode.LAX;
-            case XSWildcard.STRTICT:
-                return WildcardMode.STRICT;
-            case XSWildcard.SKIP:
-                return WildcardMode.SKIP;
-            default:
-                throw new IllegalStateException();
-            }
+            return switch (wildcard.getMode()) {
+                case XSWildcard.LAX -> WildcardMode.LAX;
+                case XSWildcard.STRTICT -> WildcardMode.STRICT;
+                case XSWildcard.SKIP -> WildcardMode.SKIP;
+                default -> throw new IllegalStateException();
+            };
         }
 
         @Override

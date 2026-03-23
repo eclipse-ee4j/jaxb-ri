@@ -11,19 +11,6 @@
 
 package com.sun.tools.jxc;
 
-import com.sun.tools.jxc.ap.Options;
-import com.sun.tools.xjc.BadCommandLineException;
-import org.glassfish.jaxb.core.util.Which;
-
-import javax.lang.model.SourceVersion;
-import javax.tools.Diagnostic;
-import javax.tools.DiagnosticCollector;
-import javax.tools.JavaCompiler;
-import javax.tools.JavaFileObject;
-import javax.tools.OptionChecker;
-import javax.tools.StandardJavaFileManager;
-import javax.tools.ToolProvider;
-import jakarta.xml.bind.JAXBContext;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -36,6 +23,20 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.lang.model.SourceVersion;
+import javax.tools.Diagnostic;
+import javax.tools.DiagnosticCollector;
+import javax.tools.JavaCompiler;
+import javax.tools.JavaFileObject;
+import javax.tools.OptionChecker;
+import javax.tools.StandardJavaFileManager;
+import javax.tools.ToolProvider;
+
+import com.sun.tools.jxc.ap.Options;
+import com.sun.tools.xjc.BadCommandLineException;
+import jakarta.xml.bind.JAXBContext;
+import org.glassfish.jaxb.core.util.Which;
 
 /**
  * CLI entry-point to the schema generator.
@@ -101,19 +102,19 @@ public final class SchemaGenerator {
             return -1;
         }
         for (String arg : args) {
-            if (arg.equals("-help")) {
-                usage();
-                return -1;
-            }
-
-            if (arg.equals("-version")) {
-                System.out.println(Messages.VERSION.format());
-                return -1;
-            }
-
-            if (arg.equals("-fullversion")) {
-                System.out.println(Messages.FULLVERSION.format());
-                return -1;
+            switch (arg) {
+                case "-help" -> {
+                    usage();
+                    return -1;
+                }
+                case "-version" -> {
+                    System.out.println(Messages.VERSION.format());
+                    return -1;
+                }
+                case "-fullversion" -> {
+                    System.out.println(Messages.FULLVERSION.format());
+                    return -1;
+                }
             }
 
         }
@@ -178,7 +179,7 @@ public final class SchemaGenerator {
     private static void appendPath(StringBuilder cp, String url) {
         if (url == null || url.trim().isEmpty())
             return;
-        if (cp.length() != 0)
+        if (!cp.isEmpty())
             cp.append(File.pathSeparatorChar);
         cp.append(url);
     }

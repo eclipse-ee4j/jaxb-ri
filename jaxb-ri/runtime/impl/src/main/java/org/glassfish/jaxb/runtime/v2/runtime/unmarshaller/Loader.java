@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,15 +11,16 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime.unmarshaller;
 
-import org.glassfish.jaxb.runtime.v2.runtime.JaxBeanInfo;
+import java.util.Collection;
+import java.util.Collections;
+
+import javax.xml.namespace.QName;
+
 import jakarta.xml.bind.Unmarshaller;
 import jakarta.xml.bind.ValidationEvent;
 import jakarta.xml.bind.helpers.ValidationEventImpl;
+import org.glassfish.jaxb.runtime.v2.runtime.JaxBeanInfo;
 import org.xml.sax.SAXException;
-
-import javax.xml.namespace.QName;
-import java.util.Collection;
-import java.util.Collections;
 
 /**
  * @author Kohsuke Kawaguchi
@@ -157,10 +159,10 @@ public abstract class Loader {
         StringBuilder r = new StringBuilder();
 
         for( QName n : getExpectedChildElements() ) {
-            if(r.length()!=0)   r.append(',');
+            if(!r.isEmpty())   r.append(',');
             r.append("<{").append(n.getNamespaceURI()).append('}').append(n.getLocalPart()).append('>');
         }
-        if(r.length()==0) {
+        if(r.isEmpty()) {
             return "(none)";
         }
 

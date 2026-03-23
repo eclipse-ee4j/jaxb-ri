@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -12,11 +13,8 @@ package com.sun.tools.xjc.reader.xmlschema.bindinfo;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Objects;
 
-import jakarta.xml.bind.annotation.XmlAttribute;
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlElementRef;
-import jakarta.xml.bind.annotation.XmlRootElement;
 import javax.xml.namespace.QName;
 
 import com.sun.codemodel.JJavaName;
@@ -37,7 +35,6 @@ import com.sun.tools.xjc.reader.RawTypeSet;
 import com.sun.tools.xjc.reader.Ring;
 import com.sun.tools.xjc.reader.TypeUtil;
 import com.sun.tools.xjc.reader.xmlschema.BGMBuilder;
-import org.glassfish.jaxb.core.api.impl.NameConverter;
 import com.sun.xml.xsom.XSAnnotation;
 import com.sun.xml.xsom.XSAttGroupDecl;
 import com.sun.xml.xsom.XSAttributeDecl;
@@ -58,7 +55,11 @@ import com.sun.xml.xsom.XSWildcard;
 import com.sun.xml.xsom.XSXPath;
 import com.sun.xml.xsom.util.XSFinder;
 import com.sun.xml.xsom.visitor.XSFunction;
-
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlElementRef;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import org.glassfish.jaxb.core.api.impl.NameConverter;
 import org.xml.sax.Locator;
 
 /**
@@ -411,24 +412,16 @@ public final class BIProperty extends AbstractDeclarationImpl {
             String defaultName, boolean forConstant, XSParticle source,
             RawTypeSet types) {
 
-        boolean generateRef;
-
-        switch(types.canBeTypeRefs) {
-        case CAN_BE_TYPEREF:
-        case SHOULD_BE_TYPEREF:
-            // it's up to the use
-            Boolean b = generateElementProperty();
-            if(b==null) // follow XJC recommendation
-                generateRef = types.canBeTypeRefs== RawTypeSet.Mode.CAN_BE_TYPEREF;
-            else // use the value user gave us
-                generateRef = b;
-            break;
-        case MUST_BE_REFERENCE:
-            generateRef = true;
-            break;
-        default:
-            throw new AssertionError();
-        }
+        boolean generateRef = switch (types.canBeTypeRefs) {
+            case CAN_BE_TYPEREF, SHOULD_BE_TYPEREF -> {
+                // it's up to the use
+                Boolean b = generateElementProperty();
+                // follow XJC recommendation
+                // use the value user gave us
+                yield Objects.requireNonNullElseGet(b, () -> types.canBeTypeRefs == RawTypeSet.Mode.CAN_BE_TYPEREF);
+            }
+            case MUST_BE_REFERENCE -> true;
+        };
 
         if(generateRef) {
             return createReferenceProperty(defaultName,forConstant,source,types, false, false, false, false);
@@ -457,22 +450,14 @@ public final class BIProperty extends AbstractDeclarationImpl {
         } else {
             FieldRendererFactory frf = getBuilder().fieldRendererFactory;
             // according to the spec we should bahave as in jaxb1. So we ignore possiblity that property could be nullable
-            switch(opm) {
+            r = switch (opm) {
                 // the property type can be primitive type if we are to ignore absence
-                case PRIMITIVE:
-                    r = frf.getSinglePrimitiveAccess();
-                    break;
-                case WRAPPER:
+                case PRIMITIVE -> frf.getSinglePrimitiveAccess();
+                case WRAPPER ->
                     // force the wrapper type
-                    r = prop.isOptionalPrimitive() ? frf.getSingle() : frf.getDefault();
-                    break;
-                case ISSET:
-                    r = prop.isOptionalPrimitive() ? frf.getSinglePrimitiveAccess() : frf.getDefault();
-                    break;
-                default:
-                    throw new Error();
-
-            }
+                        prop.isOptionalPrimitive() ? frf.getSingle() : frf.getDefault();
+                case ISSET -> prop.isOptionalPrimitive() ? frf.getSinglePrimitiveAccess() : frf.getDefault();
+            };
         }
         if(opm==OptionalPropertyMode.ISSET) {
             // only isSet is allowed on a collection. these 3 modes aren't really symmetric.

@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -17,10 +18,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlID;
-import jakarta.xml.bind.annotation.XmlIDREF;
-import jakarta.xml.bind.annotation.XmlRootElement;
 import javax.xml.namespace.QName;
 
 import com.sun.codemodel.JClass;
@@ -35,11 +32,14 @@ import com.sun.tools.xjc.outline.Outline;
 import com.sun.tools.xjc.reader.Ring;
 import com.sun.tools.xjc.reader.xmlschema.BGMBuilder;
 import com.sun.tools.xjc.reader.xmlschema.bindinfo.BIFactoryMethod;
-import org.glassfish.jaxb.core.v2.model.core.ClassInfo;
-import org.glassfish.jaxb.core.v2.model.core.Element;
 import com.sun.xml.xsom.ForeignAttributes;
 import com.sun.xml.xsom.XSComponent;
-
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlID;
+import jakarta.xml.bind.annotation.XmlIDREF;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import org.glassfish.jaxb.core.v2.model.core.ClassInfo;
+import org.glassfish.jaxb.core.v2.model.core.Element;
 import org.xml.sax.Locator;
 
 /**
@@ -351,7 +351,7 @@ public final class CClassInfo extends AbstractCElement implements ClassInfo<NTyp
     @Override
     public String fullName() {
         String r = parent.fullName();
-        if(r.length()==0)   return shortName;
+        if(r.isEmpty())   return shortName;
         else                return r+'.'+shortName;
     }
 
@@ -397,8 +397,7 @@ public final class CClassInfo extends AbstractCElement implements ClassInfo<NTyp
         baseClass = base;
 
         assert nextSibling==null;
-        if (base instanceof CClassInfo) {
-            CClassInfo realBase = (CClassInfo) base;
+        if (base instanceof CClassInfo realBase) {
             this.nextSibling = realBase.firstSubclass;
             realBase.firstSubclass = this;
         }
@@ -504,14 +503,10 @@ public final class CClassInfo extends AbstractCElement implements ClassInfo<NTyp
 
     @Override
     public JClass toType(Outline o, Aspect aspect) {
-        switch(aspect) {
-        case IMPLEMENTATION:
-            return o.getClazz(this).implRef;
-        case EXPOSED:
-            return o.getClazz(this).ref;
-        default:
-            throw new IllegalStateException();
-        }
+        return switch (aspect) {
+            case IMPLEMENTATION -> o.getClazz(this).implRef;
+            case EXPOSED -> o.getClazz(this).ref;
+        };
     }
 
     @Override

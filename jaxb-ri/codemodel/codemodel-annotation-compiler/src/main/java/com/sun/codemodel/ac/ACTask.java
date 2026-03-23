@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -35,8 +36,6 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -174,7 +173,7 @@ public class ACTask extends Task {
         private String convertToRegex(String pattern) {
             StringBuilder regex = new StringBuilder();
             char nc;
-            if (pattern.length() > 0) {
+            if (!pattern.isEmpty()) {
 
                 for (int i = 0; i < pattern.length(); i++) {
                     char c = pattern.charAt(i);
@@ -385,7 +384,7 @@ public class ACTask extends Task {
 
         // up to date check
         String name = pkg.name();
-        if (name.length() == 0) {
+        if (name.isEmpty()) {
             name = getShortName(className);
         } else {
             name += '.' + getShortName(className);

@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,13 +11,14 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime;
 
-import org.glassfish.jaxb.runtime.v2.util.QNameMap;
-
-import javax.xml.namespace.QName;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import javax.xml.namespace.QName;
+
+import org.glassfish.jaxb.runtime.v2.util.QNameMap;
 
 /**
  * Creates {@link Name}s and assign index numbers to them.
@@ -57,7 +59,7 @@ public final class NameBuilder {
         assert nsUri.intern()==nsUri;
         assert localName.intern()==localName;
 
-        if(nsUri.length()==0)
+        if(nsUri.isEmpty())
             return new Name(
                     allocIndex(attributeQNameIndexMap,"",localName),
                     -1,
@@ -85,11 +87,7 @@ public final class NameBuilder {
     }
     
     private int allocIndex(Map<String,Integer> map, String str) {
-        Integer i = map.get(str);
-        if(i==null) {
-            i = map.size();
-            map.put(str,i);
-        }
+        Integer i = map.computeIfAbsent(str, k -> map.size());
         return i;
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Eclipse Foundation
+ * Copyright (c) 2022, 2026 Eclipse Foundation
  * Copyright (C) 2004-2011
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,6 +22,8 @@
  */
 package com.sun.tools.rngom.ast.builder;
 
+import java.io.Serial;
+
 /**
  * Signals an error while building schemas.
  * 
@@ -30,6 +32,7 @@ package com.sun.tools.rngom.ast.builder;
  * abort the parsing in the middle.
  */
 public class BuildException extends RuntimeException {
+    @Serial
     private static final long serialVersionUID = -2335066797269369766L;
     private final Throwable cause;
     public BuildException(Throwable cause) {

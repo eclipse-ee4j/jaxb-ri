@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Eclipse Foundation
+ * Copyright (c) 2022, 2026 Eclipse Foundation
  * Copyright (C) 2004-2011
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -25,6 +25,7 @@ package com.sun.tools.rngom.digested;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.io.Serial;
 import java.util.List;
 
 import javax.xml.namespace.QName;
@@ -58,7 +59,7 @@ import org.xml.sax.helpers.DefaultHandler;
 public class DXMLPrinter {
     protected XMLStreamWriter out;
     protected String indentStep = "\t";
-    protected String newLine = System.getProperty("line.separator");
+    protected String newLine = System.lineSeparator();
     protected int indent;
     protected boolean afterEnd = false;
     protected DXMLPrinterVisitor visitor;
@@ -129,7 +130,8 @@ public class DXMLPrinter {
         domPrinter.print(node);
     }
 
-    protected class XMLWriterException extends RuntimeException {
+    protected static class XMLWriterException extends RuntimeException {
+        @Serial
         private static final long serialVersionUID = -6182580269873640348L;
         protected XMLWriterException(Throwable cause) {
             super(cause);
@@ -260,7 +262,7 @@ public class DXMLPrinter {
             if (nc instanceof SimpleNameClass) {
                 QName qname = ((SimpleNameClass) nc).name;
                 String name = qname.getLocalPart();
-                if (!qname.getPrefix().equals("")) name = qname.getPrefix() + ":";
+                if (!qname.getPrefix().isEmpty()) name = qname.getPrefix() + ":";
                 attr("name", name);
             } else {
                 nc.accept(ncVisitor);
@@ -440,7 +442,7 @@ public class DXMLPrinter {
 
         public Void onValue(DValuePattern p) {
             start("value");
-            if (!p.getNs().equals("")) attr("ns", p.getNs());
+            if (!p.getNs().isEmpty()) attr("ns", p.getNs());
             attr("datatypeLibrary", p.getDatatypeLibrary());
             attr("type", p.getType());
             on(p.getAnnotation());
@@ -502,7 +504,7 @@ public class DXMLPrinter {
 
         public Void visitName(QName name) {
             start("name");
-            if (!name.getPrefix().equals("")) {
+            if (!name.getPrefix().isEmpty()) {
                 body(name.getPrefix() + ":");
             }
             body(name.getLocalPart());
@@ -550,8 +552,7 @@ public class DXMLPrinter {
             output.close();
             out.close();
         } catch (BuildException e) {
-            if (e.getCause() instanceof SAXParseException) {
-                SAXParseException se = (SAXParseException) e.getCause();
+            if (e.getCause() instanceof SAXParseException se) {
                 System.out.println("("
                     + se.getLineNumber()
                     + ","
@@ -563,8 +564,7 @@ public class DXMLPrinter {
                 // I found that Crimson doesn't show the proper stack trace
                 // when a RuntimeException happens inside a SchemaBuilder.
                 // the following code shows the actual exception that happened.
-                if (e.getCause() instanceof SAXException) {
-                    SAXException se = (SAXException) e.getCause();
+                if (e.getCause() instanceof SAXException se) {
                     if (se.getException() != null)
                         se.getException().printStackTrace();
                 }

@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2022, 2026 Eclipse Foundation
  * Copyright (C) 2004-2011
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,6 +22,9 @@
  */
 package com.sun.tools.rngom.parse.host;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.sun.tools.rngom.ast.builder.Annotations;
 import com.sun.tools.rngom.ast.builder.BuildException;
 import com.sun.tools.rngom.ast.builder.CommentList;
@@ -28,9 +32,6 @@ import com.sun.tools.rngom.ast.builder.NameClassBuilder;
 import com.sun.tools.rngom.ast.om.Location;
 import com.sun.tools.rngom.ast.om.ParsedElementAnnotation;
 import com.sun.tools.rngom.ast.om.ParsedNameClass;
-
-import java.util.List;
-import java.util.ArrayList;
 
 /**
  * 
@@ -76,9 +77,9 @@ final class NameClassBuilderHost extends Base implements NameClassBuilder {
     public ParsedNameClass makeChoice(List _nameClasses, Location _loc, Annotations _anno) {
         List<ParsedNameClass> lnc = new ArrayList<>();
         List<ParsedNameClass> rnc = new ArrayList<>();
-        for( int i=0; i<_nameClasses.size(); i++ ) {
-            lnc.add(((ParsedNameClassHost)_nameClasses.get(i)).lhs);
-            rnc.add(((ParsedNameClassHost)_nameClasses.get(i)).rhs);
+        for (Object nameClass : _nameClasses) {
+            lnc.add(((ParsedNameClassHost) nameClass).lhs);
+            rnc.add(((ParsedNameClassHost) nameClass).rhs);
         }
         LocationHost loc = cast(_loc);
         AnnotationsHost anno = cast(_anno);

@@ -1,6 +1,6 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,6 +13,7 @@ package com.sun.codemodel;
 
 import com.sun.codemodel.util.ClassNameComparator;
 
+import java.io.Serial;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -29,7 +30,8 @@ import java.util.TreeMap;
  */
 public class JDocComment extends JCommentPart implements JGenerable {
 
-	private static final long serialVersionUID = 1L;
+	@Serial
+    private static final long serialVersionUID = 1L;
 
 	/** list of @param tags */
     private final transient Map<String,JCommentPart> atParams = new TreeMap<>();

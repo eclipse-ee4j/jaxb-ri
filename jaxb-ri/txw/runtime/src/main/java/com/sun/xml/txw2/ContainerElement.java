@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 2005, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,17 +11,18 @@
 
 package com.sun.xml.txw2;
 
-import com.sun.xml.txw2.annotation.XmlAttribute;
-import com.sun.xml.txw2.annotation.XmlElement;
-import com.sun.xml.txw2.annotation.XmlNamespace;
-import com.sun.xml.txw2.annotation.XmlValue;
-import com.sun.xml.txw2.annotation.XmlCDATA;
-
-import javax.xml.namespace.QName;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+
+import javax.xml.namespace.QName;
+
+import com.sun.xml.txw2.annotation.XmlAttribute;
+import com.sun.xml.txw2.annotation.XmlCDATA;
+import com.sun.xml.txw2.annotation.XmlElement;
+import com.sun.xml.txw2.annotation.XmlNamespace;
+import com.sun.xml.txw2.annotation.XmlValue;
 
 /**
  * Dynamically implements {@link TypedXmlWriter} interfaces.
@@ -142,7 +144,7 @@ final class ContainerElement implements InvocationHandler, TypedXmlWriter {
         checkStartTag();
 
         String localName = xa.value();
-        if(xa.value().length()==0)
+        if(xa.value().isEmpty())
             localName = method.getName();
 
         _attribute(xa.ns(),localName,args);
@@ -166,7 +168,7 @@ final class ContainerElement implements InvocationHandler, TypedXmlWriter {
 
         if(e!=null) {
             // then the annotation on this method
-            if(e.value().length()!=0)
+            if(!e.value().isEmpty())
                 localName = e.value();
             nsUri = e.ns();
         }

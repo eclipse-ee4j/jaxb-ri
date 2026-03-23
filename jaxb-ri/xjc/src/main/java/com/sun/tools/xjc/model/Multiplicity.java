@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -11,7 +12,7 @@
 package com.sun.tools.xjc.model;
 
 import java.math.BigInteger;
-
+import java.util.Objects;
 
 
 /**
@@ -61,17 +62,15 @@ public final class Multiplicity {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Multiplicity)) return false;
-
-        Multiplicity that = (Multiplicity) o;
+        if (!(o instanceof Multiplicity that)) return false;
 
         if (!this.min.equals(that.min)) return false;
-        return this.max != null ? this.max.equals(that.max) : that.max == null;
+        return Objects.equals(this.max, that.max);
     }
 
     @Override
     public int hashCode() {
-        return min.add(max).intValue();
+        return Objects.hash(min, max);
     }
 
     /** returns true if the multiplicity is (1,1). */

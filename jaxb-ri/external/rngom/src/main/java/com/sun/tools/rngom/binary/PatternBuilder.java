@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2022, 2026 Eclipse Foundation
  * Copyright (C) 2004-2011
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -53,9 +54,8 @@ public class PatternBuilder {
       return p1;
     if (p1 == notAllowed || p2 == notAllowed)
       return notAllowed;
-    if (false && p1 instanceof GroupPattern) {
-      GroupPattern sp = (GroupPattern)p1;
-      return makeGroup(sp.p1, makeGroup(sp.p2, p2));
+    if (false && p1 instanceof GroupPattern sp) {
+        return makeGroup(sp.p1, makeGroup(sp.p2, p2));
     }
     Pattern p = new GroupPattern(p1, p2);
     return interner.intern(p);
@@ -68,14 +68,12 @@ public class PatternBuilder {
       return p1;
     if (p1 == notAllowed || p2 == notAllowed)
       return notAllowed;
-    if (false && p1 instanceof InterleavePattern) {
-      InterleavePattern ip = (InterleavePattern)p1;
-      return makeInterleave(ip.p1, makeInterleave(ip.p2, p2));
+    if (false && p1 instanceof InterleavePattern ip) {
+        return makeInterleave(ip.p1, makeInterleave(ip.p2, p2));
     }
     if (false) {
-    if (p2 instanceof InterleavePattern) {
-      InterleavePattern ip = (InterleavePattern)p2;
-      if (p1.hashCode() > ip.p1.hashCode())
+    if (p2 instanceof InterleavePattern ip) {
+        if (p1.hashCode() > ip.p1.hashCode())
 	return makeInterleave(ip.p1, makeInterleave(p1, ip.p2));
     }
     else if (p1.hashCode() > p2.hashCode())

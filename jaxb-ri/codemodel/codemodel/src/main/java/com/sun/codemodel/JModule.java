@@ -1,6 +1,6 @@
 /*
+ * Copyright (c) 2025, 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 2016, 2022 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -111,8 +110,7 @@ public class JModule implements JGenerable, JAnnotatable, JDocCommentable{
      * @param addEmpty Adds also packages without any classes when {@code true}.
      */
     public void _exports(final Collection<JPackage> pkgs, final boolean addEmpty) {
-        for (Iterator<JPackage> i = pkgs.iterator(); i.hasNext();) {
-            final JPackage pkg = i.next();
+        for (final JPackage pkg : pkgs) {
             if (addEmpty || pkg.hasClasses()) {
                 _exports(pkg);
             }

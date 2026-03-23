@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,9 +11,6 @@
 
 package com.sun.tools.xjc.api.impl.s2j;
 
-import jakarta.xml.bind.annotation.XmlAttachmentRef;
-import jakarta.xml.bind.annotation.XmlList;
-
 import com.sun.codemodel.JAnnotatable;
 import com.sun.codemodel.JPrimitiveType;
 import com.sun.codemodel.JType;
@@ -21,9 +19,11 @@ import com.sun.tools.xjc.generator.annotation.spec.XmlJavaTypeAdapterWriter;
 import com.sun.tools.xjc.model.CAdapter;
 import com.sun.tools.xjc.model.TypeUse;
 import com.sun.tools.xjc.model.nav.NType;
-import static com.sun.tools.xjc.outline.Aspect.EXPOSED;
 import com.sun.tools.xjc.outline.Outline;
+import jakarta.xml.bind.annotation.XmlAttachmentRef;
+import jakarta.xml.bind.annotation.XmlList;
 import org.glassfish.jaxb.core.v2.runtime.SwaRefAdapterMarker;
+import static com.sun.tools.xjc.outline.Aspect.EXPOSED;
 
 /**
  * {@link TypeAndAnnotation} implementation.
@@ -91,8 +91,7 @@ final class TypeAndAnnotationImpl implements TypeAndAnnotation {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof TypeAndAnnotationImpl)) return false;
-        TypeAndAnnotationImpl that = (TypeAndAnnotationImpl) o;
+        if (!(o instanceof TypeAndAnnotationImpl that)) return false;
         return this.typeUse==that.typeUse;
     }
 

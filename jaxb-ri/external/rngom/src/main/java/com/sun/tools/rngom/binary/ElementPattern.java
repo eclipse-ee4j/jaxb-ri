@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2022, 2026 Eclipse Foundation
  * Copyright (C) 2004-2011
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,9 +22,9 @@
  */
 package com.sun.tools.rngom.binary;
 
+import com.sun.tools.rngom.binary.visitor.PatternFunction;
 import com.sun.tools.rngom.binary.visitor.PatternVisitor;
 import com.sun.tools.rngom.nc.NameClass;
-import com.sun.tools.rngom.binary.visitor.PatternFunction;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 
@@ -85,10 +86,9 @@ public final class ElementPattern extends Pattern {
   }
 
   boolean samePattern(Pattern other) {
-    if (!(other instanceof ElementPattern))
+    if (!(other instanceof ElementPattern ep))
       return false;
-    ElementPattern ep = (ElementPattern)other;
-    return nameClass.equals(ep.nameClass) && p == ep.p;
+      return nameClass.equals(ep.nameClass) && p == ep.p;
   }
 
     @Override

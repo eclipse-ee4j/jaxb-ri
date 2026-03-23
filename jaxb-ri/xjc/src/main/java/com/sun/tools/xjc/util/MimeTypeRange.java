@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -131,7 +132,7 @@ public class MimeTypeRange {
      * Creates a range by merging all the given types.
      */
     public static MimeTypeRange merge( Collection<MimeTypeRange> types ) {
-        if(types.size()==0)     throw new IllegalArgumentException();
+        if(types.isEmpty())     throw new IllegalArgumentException();
         if(types.size()==1)     return types.iterator().next();
 
         String majorType=null;

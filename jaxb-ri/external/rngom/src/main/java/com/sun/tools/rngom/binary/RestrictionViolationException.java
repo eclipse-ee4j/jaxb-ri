@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Eclipse Foundation
+ * Copyright (c) 2022, 2026 Eclipse Foundation
  * Copyright (C) 2004-2011
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,11 +22,14 @@
  */
 package com.sun.tools.rngom.binary;
 
+import java.io.Serial;
+
 import javax.xml.namespace.QName;
 
 import org.xml.sax.Locator;
 
 final class RestrictionViolationException extends Exception {
+    @Serial
     private static final long serialVersionUID = -5264123170571318715L;
     private String messageId;
     private Locator loc;
