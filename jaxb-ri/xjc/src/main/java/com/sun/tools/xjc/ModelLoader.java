@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -59,6 +60,7 @@ import org.xml.sax.helpers.XMLFilterImpl;
 
 import javax.xml.XMLConstants;
 import java.io.IOException;
+import java.io.Serial;
 import java.io.StringReader;
 
 /**
@@ -184,21 +186,13 @@ public final class ModelLoader {
         if( opt.getSchemaLanguage() == Language.XMLSCHEMA ) {
             Language guess = opt.guessSchemaLanguage();
 
-            String[] msg = null;
-            switch(guess) {
-            case DTD:
-                msg = new String[]{"DTD","-dtd"};
-                break;
-            case RELAXNG:
-                msg = new String[]{"RELAX NG","-relaxng"};
-                break;
-            case RELAXNG_COMPACT:
-                msg = new String[]{"RELAX NG compact syntax","-relaxng-compact"};
-                break;
-            case WSDL:
-                msg = new String[]{"WSDL","-wsdl"};
-                break;
-            }
+            String[] msg = switch (guess) {
+                case DTD -> new String[]{"DTD", "-dtd"};
+                case RELAXNG -> new String[]{"RELAX NG", "-relaxng"};
+                case RELAXNG_COMPACT -> new String[]{"RELAX NG compact syntax", "-relaxng-compact"};
+                case WSDL -> new String[]{"WSDL", "-wsdl"};
+                default -> null;
+            };
             if( msg!=null )
                 errorReceiver.warning( null,
                     Messages.format(
@@ -436,6 +430,7 @@ public final class ModelLoader {
 
 
     private static final class SpeculationFailure extends Error {
+        @Serial
         private static final long serialVersionUID = 2133619153549539080L;
     }
 
@@ -577,6 +572,7 @@ public final class ModelLoader {
         SchemaBuilder sb = new CheckingSchemaBuilder(new DSchemaBuilderImpl(),errorReceiver);
 
         try {
+            @SuppressWarnings({"unchecked"})
             DPattern out = (DPattern)p.parse(sb);
 
             return RELAXNGCompiler.build(out,codeModel,opt);

@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -13,7 +14,6 @@ package com.sun.tools.xjc.reader.dtd.bindinfo;
 import com.sun.tools.xjc.Options;
 import com.sun.tools.xjc.reader.AbstractExtensionBindingChecker;
 import com.sun.tools.xjc.reader.Const;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
@@ -59,7 +59,7 @@ final class DTDExtensionBindingChecker extends AbstractExtensionBindingChecker {
         throws SAXException {
 
         if( !isCutting() ) {
-            if(!uri.equals("")) {
+            if(!uri.isEmpty()) {
                 // "" is the standard namespace
                 checkAndEnable(uri);
 

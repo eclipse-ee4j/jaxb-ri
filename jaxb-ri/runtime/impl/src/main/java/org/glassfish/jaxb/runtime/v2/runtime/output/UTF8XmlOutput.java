@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
+ * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,6 +11,11 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime.output;
 
+import java.io.IOException;
+import java.io.OutputStream;
+
+import javax.xml.stream.XMLStreamException;
+
 import org.glassfish.jaxb.core.marshaller.CharacterEscapeHandler;
 import org.glassfish.jaxb.runtime.DatatypeConverterImpl;
 import org.glassfish.jaxb.runtime.util.StringBuilderWriter;
@@ -18,10 +23,6 @@ import org.glassfish.jaxb.runtime.v2.runtime.MarshallerImpl;
 import org.glassfish.jaxb.runtime.v2.runtime.Name;
 import org.glassfish.jaxb.runtime.v2.runtime.XMLSerializer;
 import org.xml.sax.SAXException;
-
-import javax.xml.stream.XMLStreamException;
-import java.io.IOException;
-import java.io.OutputStream;
 
 /**
  * {@link XmlOutput} implementation specialized for UTF-8.
@@ -161,7 +162,7 @@ public class UTF8XmlOutput extends XmlOutputAbstractImpl {
 
             Encoded e = prefixes[i];
 
-            if(p.length()==0) {
+            if(p.isEmpty()) {
                 e.buf = EMPTY_BYTE_ARRAY;
                 e.len = 0;
             } else {
@@ -187,9 +188,9 @@ public class UTF8XmlOutput extends XmlOutputAbstractImpl {
     protected final void writeNsDecl(int prefixIndex) throws IOException {
         String p = nsContext.getPrefix(prefixIndex);
 
-        if(p.length()==0) {
+        if(p.isEmpty()) {
             if(nsContext.getCurrent().isRootElement()
-            && nsContext.getNamespaceURI(prefixIndex).length()==0)
+            && nsContext.getNamespaceURI(prefixIndex).isEmpty())
                 return;     // no point in declaring xmlns="" on the root element
             write(XMLNS_EQUALS);
         } else {

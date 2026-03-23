@@ -11,28 +11,33 @@
 
 package org.glassfish.jaxb.runtime.v2.model.impl;
 
-import com.sun.istack.ByteArrayDataSource;
-import org.glassfish.jaxb.core.Utils;
-import org.glassfish.jaxb.core.WhiteSpaceProcessor;
-import org.glassfish.jaxb.runtime.DatatypeConverterImpl;
-import org.glassfish.jaxb.runtime.api.AccessorException;
-import org.glassfish.jaxb.core.v2.TODO;
-import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimeBuiltinLeafInfo;
-import org.glassfish.jaxb.runtime.v2.runtime.Name;
-import org.glassfish.jaxb.runtime.v2.runtime.Transducer;
-import org.glassfish.jaxb.runtime.v2.runtime.XMLSerializer;
-import org.glassfish.jaxb.runtime.v2.runtime.output.Pcdata;
-import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.Base64Data;
-import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.UnmarshallingContext;
-import org.glassfish.jaxb.runtime.v2.util.ByteArrayOutputStreamEx;
-import org.glassfish.jaxb.runtime.v2.util.DataSourceSource;
-import jakarta.activation.DataHandler;
-import jakarta.activation.DataSource;
-import jakarta.activation.MimeType;
-import jakarta.activation.MimeTypeParseException;
-import jakarta.xml.bind.ValidationEvent;
-import jakarta.xml.bind.helpers.ValidationEventImpl;
-import org.xml.sax.SAXException;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageWriter;
@@ -48,20 +53,29 @@ import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamResult;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.*;
-import java.lang.reflect.Type;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.List;
-import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import com.sun.istack.ByteArrayDataSource;
+import jakarta.activation.DataHandler;
+import jakarta.activation.DataSource;
+import jakarta.activation.MimeType;
+import jakarta.activation.MimeTypeParseException;
+import jakarta.xml.bind.ValidationEvent;
+import jakarta.xml.bind.helpers.ValidationEventImpl;
+import org.glassfish.jaxb.core.Utils;
+import org.glassfish.jaxb.core.WhiteSpaceProcessor;
+import org.glassfish.jaxb.core.v2.TODO;
+import org.glassfish.jaxb.runtime.DatatypeConverterImpl;
+import org.glassfish.jaxb.runtime.api.AccessorException;
+import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimeBuiltinLeafInfo;
+import org.glassfish.jaxb.runtime.v2.runtime.Name;
+import org.glassfish.jaxb.runtime.v2.runtime.Transducer;
+import org.glassfish.jaxb.runtime.v2.runtime.XMLSerializer;
+import org.glassfish.jaxb.runtime.v2.runtime.output.Pcdata;
+import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.Base64Data;
+import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.UnmarshallingContext;
+import org.glassfish.jaxb.runtime.v2.util.ByteArrayOutputStreamEx;
+import org.glassfish.jaxb.runtime.v2.util.DataSourceSource;
+import org.xml.sax.SAXException;
 
 /**
  * {@link BuiltinLeafInfoImpl} with a support for runtime.
@@ -224,138 +238,145 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
                 secondary bindings
             */
         secondaryList.add(
-            new StringImpl<Character>(Character.class, createXS("unsignedShort")) {
-                @Override
-                @SuppressWarnings({"deprecation"})
-                public Character parse(CharSequence text) {
-                    // TODO.checkSpec("default mapping for char is not defined yet");
-                    return (char) DatatypeConverterImpl._parseInt(text);
-                }
-                @Override
-                public String print(Character v) {
-                    return Integer.toString(v);
-                }
-            });
-        secondaryList.add(
-            new StringImpl<Calendar>(Calendar.class, DatatypeConstants.DATETIME) {
-                @Override
-                @SuppressWarnings({"deprecation"})
-                public Calendar parse(CharSequence text) {
-                    return DatatypeConverterImpl._parseDateTime(text.toString());
-                }
-                @Override
-                @SuppressWarnings({"deprecation"})
-                public String print(Calendar v) {
-                    return DatatypeConverterImpl._printDateTime(v);
-                }
-            });
-        secondaryList.add(
-            new StringImpl<GregorianCalendar>(GregorianCalendar.class, DatatypeConstants.DATETIME) {
-                @Override
-                @SuppressWarnings({"deprecation"})
-                public GregorianCalendar parse(CharSequence text) {
-                    return DatatypeConverterImpl._parseDateTime(text.toString());
-                }
-                @Override
-                @SuppressWarnings({"deprecation"})
-                public String print(GregorianCalendar v) {
-                    return DatatypeConverterImpl._printDateTime(v);
-                }
-            });
-        secondaryList.add(
-            new StringImpl<Date>(Date.class, DatatypeConstants.DATETIME) {
-                @Override
-                @SuppressWarnings({"deprecation"})
-                public Date parse(CharSequence text) {
-                    return DatatypeConverterImpl._parseDateTime(text.toString()).getTime();
-                }
-                @Override
-                @SuppressWarnings({"deprecation"})
-                public String print(Date v) {
-                    XMLSerializer xs = XMLSerializer.getInstance();
-                    QName type = xs.getSchemaType();
-                    GregorianCalendar cal = new GregorianCalendar(0,0,0);
-                    cal.setTime(v);
-                    if ((type != null) && (XMLConstants.W3C_XML_SCHEMA_NS_URI.equals(type.getNamespaceURI())) &&
-                            DATE.equals(type.getLocalPart())) {
-                        return DatatypeConverterImpl._printDate(cal);
-                    } else {
-                        return DatatypeConverterImpl._printDateTime(cal);
-                    }
-                }
-            });
-        secondaryList.add(
-            new StringImpl<File>(File.class, createXS("string")) {
-                @Override
-                public File parse(CharSequence text) {
-                    return new File(WhiteSpaceProcessor.trim(text).toString());
-                }
-                @Override
-                public String print(File v) {
-                    return v.getPath();
-                }
-            });
-        secondaryList.add(
-            new StringImpl<URL>(URL.class, createXS("anyURI")) {
-                @Override
-                public URL parse(CharSequence text) throws SAXException {
-                    TODO.checkSpec("JSR222 Issue #42");
-                    try {
-                        return new URL(WhiteSpaceProcessor.trim(text).toString());
-                    } catch (MalformedURLException e) {
-                        UnmarshallingContext.getInstance().handleError(e);
-                        return null;
-                    }
-                }
-                @Override
-                public String print(URL v) {
-                    return v.toExternalForm();
-                }
-            });
-        if (MAP_ANYURI_TO_URI_VALUE == null) {
-            secondaryList.add(
-                new StringImpl<URI>(URI.class, createXS("string")) {
+                new StringImpl<>(Character.class, createXS("unsignedShort")) {
                     @Override
-                    public URI parse(CharSequence text) throws SAXException {
+                    @SuppressWarnings({"deprecation"})
+                    public Character parse(CharSequence text) {
+                        // TODO.checkSpec("default mapping for char is not defined yet");
+                        return (char) DatatypeConverterImpl._parseInt(text);
+                    }
+
+                    @Override
+                    public String print(Character v) {
+                        return Integer.toString(v);
+                    }
+                });
+        secondaryList.add(
+                new StringImpl<>(Calendar.class, DatatypeConstants.DATETIME) {
+                    @Override
+                    @SuppressWarnings({"deprecation"})
+                    public Calendar parse(CharSequence text) {
+                        return DatatypeConverterImpl._parseDateTime(text.toString());
+                    }
+
+                    @Override
+                    @SuppressWarnings({"deprecation"})
+                    public String print(Calendar v) {
+                        return DatatypeConverterImpl._printDateTime(v);
+                    }
+                });
+        secondaryList.add(
+                new StringImpl<>(GregorianCalendar.class, DatatypeConstants.DATETIME) {
+                    @Override
+                    @SuppressWarnings({"deprecation"})
+                    public GregorianCalendar parse(CharSequence text) {
+                        return DatatypeConverterImpl._parseDateTime(text.toString());
+                    }
+
+                    @Override
+                    @SuppressWarnings({"deprecation"})
+                    public String print(GregorianCalendar v) {
+                        return DatatypeConverterImpl._printDateTime(v);
+                    }
+                });
+        secondaryList.add(
+                new StringImpl<>(Date.class, DatatypeConstants.DATETIME) {
+                    @Override
+                    @SuppressWarnings({"deprecation"})
+                    public Date parse(CharSequence text) {
+                        return DatatypeConverterImpl._parseDateTime(text.toString()).getTime();
+                    }
+
+                    @Override
+                    @SuppressWarnings({"deprecation"})
+                    public String print(Date v) {
+                        XMLSerializer xs = XMLSerializer.getInstance();
+                        QName type = xs.getSchemaType();
+                        GregorianCalendar cal = new GregorianCalendar(0, 0, 0);
+                        cal.setTime(v);
+                        if ((type != null) && (XMLConstants.W3C_XML_SCHEMA_NS_URI.equals(type.getNamespaceURI())) &&
+                                DATE.equals(type.getLocalPart())) {
+                            return DatatypeConverterImpl._printDate(cal);
+                        } else {
+                            return DatatypeConverterImpl._printDateTime(cal);
+                        }
+                    }
+                });
+        secondaryList.add(
+                new StringImpl<>(File.class, createXS("string")) {
+                    @Override
+                    public File parse(CharSequence text) {
+                        return new File(WhiteSpaceProcessor.trim(text).toString());
+                    }
+
+                    @Override
+                    public String print(File v) {
+                        return v.getPath();
+                    }
+                });
+        secondaryList.add(
+                new StringImpl<>(URL.class, createXS("anyURI")) {
+                    @Override
+                    public URL parse(CharSequence text) throws SAXException {
+                        TODO.checkSpec("JSR222 Issue #42");
                         try {
-                            return new URI(text.toString());
-                        } catch (URISyntaxException e) {
+                            return new URL(WhiteSpaceProcessor.trim(text).toString());
+                        } catch (MalformedURLException e) {
                             UnmarshallingContext.getInstance().handleError(e);
                             return null;
                         }
                     }
 
                     @Override
-                    public String print(URI v) {
-                        return v.toString();
+                    public String print(URL v) {
+                        return v.toExternalForm();
                     }
                 });
+        if (MAP_ANYURI_TO_URI_VALUE == null) {
+            secondaryList.add(
+                    new StringImpl<>(URI.class, createXS("string")) {
+                        @Override
+                        public URI parse(CharSequence text) throws SAXException {
+                            try {
+                                return new URI(text.toString());
+                            } catch (URISyntaxException e) {
+                                UnmarshallingContext.getInstance().handleError(e);
+                                return null;
+                            }
+                        }
+
+                        @Override
+                        public String print(URI v) {
+                            return v.toString();
+                        }
+                    });
         }
         secondaryList.add(
-            new StringImpl<Class>(Class.class, createXS("string")) {
-                @Override
-                public Class parse(CharSequence text) throws SAXException {
-                    TODO.checkSpec("JSR222 Issue #42");
-                    try {
-                        String name = WhiteSpaceProcessor.trim(text).toString();
-                        ClassLoader cl = UnmarshallingContext.getInstance().classLoader;
-                        if(cl==null)
-                            cl = Thread.currentThread().getContextClassLoader();
+                new StringImpl<>(Class.class, createXS("string")) {
+                    @Override
+                    public Class parse(CharSequence text) throws SAXException {
+                        TODO.checkSpec("JSR222 Issue #42");
+                        try {
+                            String name = WhiteSpaceProcessor.trim(text).toString();
+                            ClassLoader cl = UnmarshallingContext.getInstance().classLoader;
+                            if (cl == null)
+                                cl = Thread.currentThread().getContextClassLoader();
 
-                        if(cl!=null)
-                            return cl.loadClass(name);
-                        else
-                            return Class.forName(name);
-                    } catch (ClassNotFoundException e) {
-                        UnmarshallingContext.getInstance().handleError(e);
-                        return null;
+                            if (cl != null)
+                                return cl.loadClass(name);
+                            else
+                                return Class.forName(name);
+                        } catch (ClassNotFoundException e) {
+                            UnmarshallingContext.getInstance().handleError(e);
+                            return null;
+                        }
                     }
-                }
-                @Override
-                public String print(Class v) {
-                    return v.getName();
-                }
-            });
+
+                    @Override
+                    public String print(Class v) {
+                        return v.getName();
+                    }
+                });
 
             /*
                 classes that map to base64Binary / MTOM related classes.
@@ -365,7 +386,7 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
             Class.forName("java.awt.Image");
 
             secondaryList.add(
-                    new PcdataImpl<Image>(Image.class, createXS("base64Binary")) {
+                    new PcdataImpl<>(Image.class, createXS("base64Binary")) {
                         @Override
                         public Image parse(CharSequence text) throws SAXException {
                             try {
@@ -460,218 +481,219 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
             // Runtime which doesn't have awt (like Android)
         }
         secondaryList.add(
-            new PcdataImpl<DataHandler>(DataHandler.class, createXS("base64Binary")) {
-                @Override
-                public DataHandler parse(CharSequence text) {
-                    if(text instanceof Base64Data)
-                        return ((Base64Data)text).getDataHandler();
-                    else
-                        return new DataHandler(new ByteArrayDataSource(decodeBase64(text),
-                            UnmarshallingContext.getInstance().getXMIMEContentType()));
-                }
-
-                @Override
-                public Base64Data print(DataHandler v) {
-                    Base64Data bd = new Base64Data();
-                    bd.set(v);
-                    return bd;
-                }
-            });
-        secondaryList.add(
-            new PcdataImpl<Source>(Source.class, createXS("base64Binary")) {
-                @Override
-                public Source parse(CharSequence text) throws SAXException  {
-                    try {
-                        if(text instanceof Base64Data)
-                            return new DataSourceSource( ((Base64Data)text).getDataHandler() );
+                new PcdataImpl<>(DataHandler.class, createXS("base64Binary")) {
+                    @Override
+                    public DataHandler parse(CharSequence text) {
+                        if (text instanceof Base64Data)
+                            return ((Base64Data) text).getDataHandler();
                         else
-                            return new DataSourceSource(new ByteArrayDataSource(decodeBase64(text),
-                                UnmarshallingContext.getInstance().getXMIMEContentType()));
-                    } catch (MimeTypeParseException e) {
-                        UnmarshallingContext.getInstance().handleError(e);
-                        return null;
-                    }
-                }
-
-                @Override
-                public Base64Data print(Source v) {
-                    XMLSerializer xs = XMLSerializer.getInstance();
-                    Base64Data bd = new Base64Data();
-
-                    String contentType = xs.getXMIMEContentType();
-                    MimeType mt = null;
-                    if(contentType!=null)
-                        try {
-                            mt = new MimeType(contentType);
-                        } catch (MimeTypeParseException e) {
-                            xs.handleError(e);
-                            // recover by ignoring the content type specification
-                        }
-
-                    if( v instanceof DataSourceSource ) {
-                        // if so, we already have immutable DataSource so
-                        // this can be done efficiently
-                        DataSource ds = ((DataSourceSource)v).getDataSource();
-
-                        String dsct = ds.getContentType();
-                        if(dsct!=null && (contentType==null || contentType.equals(dsct))) {
-                            bd.set(new DataHandler(ds));
-                            return bd;
-                        }
+                            return new DataHandler(new ByteArrayDataSource(decodeBase64(text),
+                                    UnmarshallingContext.getInstance().getXMIMEContentType()));
                     }
 
-                    // general case. slower.
-
-                    // find out the encoding
-                    String charset=null;
-                    if(mt!=null)
-                        charset = mt.getParameter("charset");
-                    if(charset==null)
-                        charset = "UTF-8";
-
-                    try {
-                        ByteArrayOutputStreamEx baos = new ByteArrayOutputStreamEx();
-                        Transformer tr = xs.getIdentityTransformer();
-                        String defaultEncoding = tr.getOutputProperty(OutputKeys.ENCODING);
-                        tr.setOutputProperty(OutputKeys.ENCODING, charset);                        
-                        tr.transform(v, new StreamResult(new OutputStreamWriter(baos,charset)));
-                        tr.setOutputProperty(OutputKeys.ENCODING, defaultEncoding);
-                        baos.set(bd,"application/xml; charset="+charset);
+                    @Override
+                    public Base64Data print(DataHandler v) {
+                        Base64Data bd = new Base64Data();
+                        bd.set(v);
                         return bd;
-                    } catch (TransformerException e) {
-                        // TODO: marshaller error handling
-                        xs.handleError(e);
-                    } catch (UnsupportedEncodingException e) {
-                        xs.handleError(e);
                     }
-
-                    // error recoverly
-                    bd.set(new byte[0],"application/xml");
-                    return bd;
-                }
-            });
+                });
         secondaryList.add(
-            new StringImpl<XMLGregorianCalendar>(XMLGregorianCalendar.class,
-                    createXS("anySimpleType"),
-                    DatatypeConstants.DATE,
-                    DatatypeConstants.DATETIME,
-                    DatatypeConstants.TIME,
-                    DatatypeConstants.GMONTH,
-                    DatatypeConstants.GDAY,
-                    DatatypeConstants.GYEAR,
-                    DatatypeConstants.GYEARMONTH,
-                    DatatypeConstants.GMONTHDAY
-                ) {
-                @Override
-                public String print(XMLGregorianCalendar cal) {
-                    XMLSerializer xs = XMLSerializer.getInstance();
-
-                    QName type = xs.getSchemaType();
-                    if (type != null) {
+                new PcdataImpl<>(Source.class, createXS("base64Binary")) {
+                    @Override
+                    public Source parse(CharSequence text) throws SAXException {
                         try {
-                            checkXmlGregorianCalendarFieldRef(type, cal);
-                            String format = xmlGregorianCalendarFormatString.get(type);
-                            if (format != null) {
-                                return format(format, cal);
+                            if (text instanceof Base64Data)
+                                return new DataSourceSource(((Base64Data) text).getDataHandler());
+                            else
+                                return new DataSourceSource(new ByteArrayDataSource(decodeBase64(text),
+                                        UnmarshallingContext.getInstance().getXMIMEContentType()));
+                        } catch (MimeTypeParseException e) {
+                            UnmarshallingContext.getInstance().handleError(e);
+                            return null;
+                        }
+                    }
+
+                    @Override
+                    public Base64Data print(Source v) {
+                        XMLSerializer xs = XMLSerializer.getInstance();
+                        Base64Data bd = new Base64Data();
+
+                        String contentType = xs.getXMIMEContentType();
+                        MimeType mt = null;
+                        if (contentType != null)
+                            try {
+                                mt = new MimeType(contentType);
+                            } catch (MimeTypeParseException e) {
+                                xs.handleError(e);
+                                // recover by ignoring the content type specification
                             }
-                        } catch (jakarta.xml.bind.MarshalException e) {
-                            // see issue 649
-                            xs.handleEvent(new ValidationEventImpl(ValidationEvent.WARNING, e.getMessage(),
-                                xs.getCurrentLocation(null) ));
-                            return "";
-                        }
-                    }
-                    return cal.toXMLFormat();
-                }
 
-                @Override
-                @SuppressWarnings({"deprecation"})
-                public XMLGregorianCalendar parse(CharSequence lexical) throws SAXException {
-                    try {
-                        return DatatypeConverterImpl.getDatatypeFactory()
-                                .newXMLGregorianCalendar(lexical.toString().trim()); // (.trim() - issue 396)
-                    } catch (Exception e) {
-                        UnmarshallingContext.getInstance().handleError(e);
-                        return null;
-                    }
-                }
+                        if (v instanceof DataSourceSource) {
+                            // if so, we already have immutable DataSource so
+                            // this can be done efficiently
+                            DataSource ds = ((DataSourceSource) v).getDataSource();
 
-                // code duplicated from JAXP RI 1.3. See 6277586
-                private String format( String format, XMLGregorianCalendar value ) {
-                    StringBuilder buf = new StringBuilder();
-                    int fidx=0,flen=format.length();
-
-                    while(fidx<flen) {
-                        char fch = format.charAt(fidx++);
-                        if(fch!='%') {// not a meta char
-                            buf.append(fch);
-                            continue;
-                        }
-
-                        switch(format.charAt(fidx++)) {
-                        case 'Y':
-                            printNumber(buf,value.getEonAndYear(), 4);
-                            break;
-                        case 'M':
-                            printNumber(buf,value.getMonth(),2);
-                            break;
-                        case 'D':
-                            printNumber(buf,value.getDay(),2);
-                            break;
-                        case 'h':
-                            printNumber(buf,value.getHour(),2);
-                            break;
-                        case 'm':
-                            printNumber(buf,value.getMinute(),2);
-                            break;
-                        case 's':
-                            printNumber(buf,value.getSecond(),2);
-                    if (value.getFractionalSecond() != null) {
-                        String frac = value.getFractionalSecond().toPlainString();
-                        //skip leading zero.
-                        buf.append(frac.substring(1));
-                    }
-                            break;
-                        case 'z':
-                    int offset = value.getTimezone();
-                            if(offset == 0) {
-                        buf.append('Z');
-                    } else if (offset != DatatypeConstants.FIELD_UNDEFINED) {
-                        if(offset<0) {
-                        buf.append('-');
-                        offset *= -1;
-                        } else {
-                        buf.append('+');
-                        }
-                        printNumber(buf,offset/60,2);
-                                buf.append(':');
-                                printNumber(buf,offset%60,2);
+                            String dsct = ds.getContentType();
+                            if (dsct != null && (contentType == null || contentType.equals(dsct))) {
+                                bd.set(new DataHandler(ds));
+                                return bd;
                             }
-                            break;
-                        default:
-                            throw new InternalError();  // impossible
+                        }
+
+                        // general case. slower.
+
+                        // find out the encoding
+                        String charset = null;
+                        if (mt != null)
+                            charset = mt.getParameter("charset");
+                        if (charset == null)
+                            charset = "UTF-8";
+
+                        try {
+                            ByteArrayOutputStreamEx baos = new ByteArrayOutputStreamEx();
+                            Transformer tr = xs.getIdentityTransformer();
+                            String defaultEncoding = tr.getOutputProperty(OutputKeys.ENCODING);
+                            tr.setOutputProperty(OutputKeys.ENCODING, charset);
+                            tr.transform(v, new StreamResult(new OutputStreamWriter(baos, charset)));
+                            tr.setOutputProperty(OutputKeys.ENCODING, defaultEncoding);
+                            baos.set(bd, "application/xml; charset=" + charset);
+                            return bd;
+                        } catch (TransformerException e) {
+                            // TODO: marshaller error handling
+                            xs.handleError(e);
+                        } catch (UnsupportedEncodingException e) {
+                            xs.handleError(e);
+                        }
+
+                        // error recovery
+                        bd.set(new byte[0], "application/xml");
+                        return bd;
+                    }
+                });
+        secondaryList.add(
+                new StringImpl<>(XMLGregorianCalendar.class,
+                        createXS("anySimpleType"),
+                        DatatypeConstants.DATE,
+                        DatatypeConstants.DATETIME,
+                        DatatypeConstants.TIME,
+                        DatatypeConstants.GMONTH,
+                        DatatypeConstants.GDAY,
+                        DatatypeConstants.GYEAR,
+                        DatatypeConstants.GYEARMONTH,
+                        DatatypeConstants.GMONTHDAY
+                ) {
+                    @Override
+                    public String print(XMLGregorianCalendar cal) {
+                        XMLSerializer xs = XMLSerializer.getInstance();
+
+                        QName type = xs.getSchemaType();
+                        if (type != null) {
+                            try {
+                                checkXmlGregorianCalendarFieldRef(type, cal);
+                                String format = xmlGregorianCalendarFormatString.get(type);
+                                if (format != null) {
+                                    return format(format, cal);
+                                }
+                            } catch (jakarta.xml.bind.MarshalException e) {
+                                // see issue 649
+                                xs.handleEvent(new ValidationEventImpl(ValidationEvent.WARNING, e.getMessage(),
+                                        xs.getCurrentLocation(null)));
+                                return "";
+                            }
+                        }
+                        return cal.toXMLFormat();
+                    }
+
+                    @Override
+                    @SuppressWarnings({"deprecation"})
+                    public XMLGregorianCalendar parse(CharSequence lexical) throws SAXException {
+                        try {
+                            return DatatypeConverterImpl.getDatatypeFactory()
+                                    .newXMLGregorianCalendar(lexical.toString().trim()); // (.trim() - issue 396)
+                        } catch (Exception e) {
+                            UnmarshallingContext.getInstance().handleError(e);
+                            return null;
                         }
                     }
 
-                    return buf.toString();
-                }
-                private void printNumber( StringBuilder out, BigInteger number, int nDigits) {
-                    String s = number.toString();
-                    for( int i=s.length(); i<nDigits; i++ )
-                        out.append('0');
-                    out.append(s);
-                }
-                private void printNumber( StringBuilder out, int number, int nDigits ) {
-                    String s = String.valueOf(number);
-                    for( int i=s.length(); i<nDigits; i++ )
-                        out.append('0');
-                    out.append(s);
-                }
-                @Override
-                public QName getTypeName(XMLGregorianCalendar cal) {
-                    return cal.getXMLSchemaType();
-                }
-            });
+                    // code duplicated from JAXP RI 1.3. See 6277586
+                    private String format(String format, XMLGregorianCalendar value) {
+                        StringBuilder buf = new StringBuilder();
+                        int fidx = 0, flen = format.length();
+
+                        while (fidx < flen) {
+                            char fch = format.charAt(fidx++);
+                            if (fch != '%') {// not a meta char
+                                buf.append(fch);
+                                continue;
+                            }
+
+                            switch (format.charAt(fidx++)) {
+                                case 'Y':
+                                    printNumber(buf, value.getEonAndYear(), 4);
+                                    break;
+                                case 'M':
+                                    printNumber(buf, value.getMonth(), 2);
+                                    break;
+                                case 'D':
+                                    printNumber(buf, value.getDay(), 2);
+                                    break;
+                                case 'h':
+                                    printNumber(buf, value.getHour(), 2);
+                                    break;
+                                case 'm':
+                                    printNumber(buf, value.getMinute(), 2);
+                                    break;
+                                case 's':
+                                    printNumber(buf, value.getSecond(), 2);
+                                    if (value.getFractionalSecond() != null) {
+                                        String frac = value.getFractionalSecond().toPlainString();
+                                        //skip leading zero.
+                                        buf.append(frac.substring(1));
+                                    }
+                                    break;
+                                case 'z':
+                                    int offset = value.getTimezone();
+                                    if (offset == 0) {
+                                        buf.append('Z');
+                                    } else if (offset != DatatypeConstants.FIELD_UNDEFINED) {
+                                        if (offset < 0) {
+                                            buf.append('-');
+                                            offset *= -1;
+                                        } else {
+                                            buf.append('+');
+                                        }
+                                        printNumber(buf, offset / 60, 2);
+                                        buf.append(':');
+                                        printNumber(buf, offset % 60, 2);
+                                    }
+                                    break;
+                                default:
+                                    throw new InternalError();  // impossible
+                            }
+                        }
+
+                        return buf.toString();
+                    }
+
+                    private void printNumber(StringBuilder out, BigInteger number, int nDigits) {
+                        String s = number.toString();
+                        out.append("0".repeat(Math.max(0, nDigits - s.length())));
+                        out.append(s);
+                    }
+
+                    private void printNumber(StringBuilder out, int number, int nDigits) {
+                        String s = String.valueOf(number);
+                        out.append("0".repeat(Math.max(0, nDigits - s.length())));
+                        out.append(s);
+                    }
+
+                    @Override
+                    public QName getTypeName(XMLGregorianCalendar cal) {
+                        return cal.getXMLSchemaType();
+                    }
+                });
 
         ArrayList<RuntimeBuiltinLeafInfoImpl<?>> primaryList = new ArrayList<>();
 
@@ -679,157 +701,157 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
             primary bindings
         */
         primaryList.add(STRING);
-        primaryList.add(new StringImpl<Boolean>(Boolean.class,
+        primaryList.add(new StringImpl<>(Boolean.class,
                 createXS("boolean")
-                ) {
-                @Override
-                @SuppressWarnings({"deprecation"})
-                public Boolean parse(CharSequence text) {
-                    return DatatypeConverterImpl._parseBoolean(text);
-                }
+        ) {
+            @Override
+            @SuppressWarnings({"deprecation"})
+            public Boolean parse(CharSequence text) {
+                return DatatypeConverterImpl._parseBoolean(text);
+            }
 
-                @Override
-                public String print(Boolean v) {
-                    return v.toString();
-                }
-            });
-        primaryList.add(new PcdataImpl<byte[]>(byte[].class,
+            @Override
+            public String print(Boolean v) {
+                return v.toString();
+            }
+        });
+        primaryList.add(new PcdataImpl<>(byte[].class,
                 createXS("base64Binary"),
                 createXS("hexBinary")
-                ) {
-                @Override
-                public byte[] parse(CharSequence text) {
-                    return decodeBase64(text);
-                }
+        ) {
+            @Override
+            public byte[] parse(CharSequence text) {
+                return decodeBase64(text);
+            }
 
-                @Override
-                public Base64Data print(byte[] v) {
-                    XMLSerializer w = XMLSerializer.getInstance();
-                    Base64Data bd = new Base64Data();
-                    String mimeType = w.getXMIMEContentType();
-                    bd.set(v,mimeType);
-                    return bd;
-                }
-            });
-        primaryList.add(new StringImpl<Byte>(Byte.class,
+            @Override
+            public Base64Data print(byte[] v) {
+                XMLSerializer w = XMLSerializer.getInstance();
+                Base64Data bd = new Base64Data();
+                String mimeType = w.getXMIMEContentType();
+                bd.set(v, mimeType);
+                return bd;
+            }
+        });
+        primaryList.add(new StringImpl<>(Byte.class,
                 createXS("byte")
-                ) {
-                @Override
-                @SuppressWarnings({"deprecation"})
-                public Byte parse(CharSequence text) {
-                    return DatatypeConverterImpl._parseByte(text);
-                }
+        ) {
+            @Override
+            @SuppressWarnings({"deprecation"})
+            public Byte parse(CharSequence text) {
+                return DatatypeConverterImpl._parseByte(text);
+            }
 
-                @Override
-                @SuppressWarnings({"deprecation"})
-                public String print(Byte v) {
-                    return DatatypeConverterImpl._printByte(v);
-                }
-            });
-        primaryList.add(new StringImpl<Short>(Short.class,
+            @Override
+            @SuppressWarnings({"deprecation"})
+            public String print(Byte v) {
+                return DatatypeConverterImpl._printByte(v);
+            }
+        });
+        primaryList.add(new StringImpl<>(Short.class,
                 createXS("short"),
                 createXS("unsignedByte")
-                ) {
-                @Override
-                @SuppressWarnings({"deprecation"})
-                public Short parse(CharSequence text) {
-                    return DatatypeConverterImpl._parseShort(text);
-                }
+        ) {
+            @Override
+            @SuppressWarnings({"deprecation"})
+            public Short parse(CharSequence text) {
+                return DatatypeConverterImpl._parseShort(text);
+            }
 
-                @Override
-                @SuppressWarnings({"deprecation"})
-                public String print(Short v) {
-                    return DatatypeConverterImpl._printShort(v);
-                }
-            });
-        primaryList.add(new StringImpl<Integer>(Integer.class,
+            @Override
+            @SuppressWarnings({"deprecation"})
+            public String print(Short v) {
+                return DatatypeConverterImpl._printShort(v);
+            }
+        });
+        primaryList.add(new StringImpl<>(Integer.class,
                 createXS("int"),
                 createXS("unsignedShort")
-                ) {
-                @Override
-                @SuppressWarnings({"deprecation"})
-                public Integer parse(CharSequence text) {
-                    return DatatypeConverterImpl._parseInt(text);
-                }
+        ) {
+            @Override
+            @SuppressWarnings({"deprecation"})
+            public Integer parse(CharSequence text) {
+                return DatatypeConverterImpl._parseInt(text);
+            }
 
-                @Override
-                @SuppressWarnings({"deprecation"})
-                public String print(Integer v) {
-                    return DatatypeConverterImpl._printInt(v);
-                }
-            });
+            @Override
+            @SuppressWarnings({"deprecation"})
+            public String print(Integer v) {
+                return DatatypeConverterImpl._printInt(v);
+            }
+        });
         primaryList.add(
-            new StringImpl<Long>(Long.class,
-                createXS("long"),
-                createXS("unsignedInt")
+                new StringImpl<>(Long.class,
+                        createXS("long"),
+                        createXS("unsignedInt")
                 ) {
-                @Override
-                @SuppressWarnings({"deprecation"})
-                public Long parse(CharSequence text) {
-                    return DatatypeConverterImpl._parseLong(text);
-                }
+                    @Override
+                    @SuppressWarnings({"deprecation"})
+                    public Long parse(CharSequence text) {
+                        return DatatypeConverterImpl._parseLong(text);
+                    }
 
-                @Override
-                @SuppressWarnings({"deprecation"})
-                public String print(Long v) {
-                    return DatatypeConverterImpl._printLong(v);
-                }
-            });
+                    @Override
+                    @SuppressWarnings({"deprecation"})
+                    public String print(Long v) {
+                        return DatatypeConverterImpl._printLong(v);
+                    }
+                });
         primaryList.add(
-            new StringImpl<Float>(Float.class,
-                createXS("float")
+                new StringImpl<>(Float.class,
+                        createXS("float")
                 ) {
-                @Override
-                @SuppressWarnings({"deprecation"})
-                public Float parse(CharSequence text) {
-                    return DatatypeConverterImpl._parseFloat(text.toString());
-                }
+                    @Override
+                    @SuppressWarnings({"deprecation"})
+                    public Float parse(CharSequence text) {
+                        return DatatypeConverterImpl._parseFloat(text.toString());
+                    }
 
-                @Override
-                @SuppressWarnings({"deprecation"})
-                public String print(Float v) {
-                    return DatatypeConverterImpl._printFloat(v);
-                }
-            });
+                    @Override
+                    @SuppressWarnings({"deprecation"})
+                    public String print(Float v) {
+                        return DatatypeConverterImpl._printFloat(v);
+                    }
+                });
         primaryList.add(
-            new StringImpl<Double>(Double.class,
-                createXS("double")
+                new StringImpl<>(Double.class,
+                        createXS("double")
                 ) {
-                @Override
-                @SuppressWarnings({"deprecation"})
-                public Double parse(CharSequence text) {
-                    return DatatypeConverterImpl._parseDouble(text);
-                }
+                    @Override
+                    @SuppressWarnings({"deprecation"})
+                    public Double parse(CharSequence text) {
+                        return DatatypeConverterImpl._parseDouble(text);
+                    }
 
-                @Override
-                @SuppressWarnings({"deprecation"})
-                public String print(Double v) {
-                    return DatatypeConverterImpl._printDouble(v);
-                }
-            });
+                    @Override
+                    @SuppressWarnings({"deprecation"})
+                    public String print(Double v) {
+                        return DatatypeConverterImpl._printDouble(v);
+                    }
+                });
         primaryList.add(
-            new StringImpl<BigInteger>(BigInteger.class,
-                createXS("integer"),
-                createXS("positiveInteger"),
-                createXS("negativeInteger"),
-                createXS("nonPositiveInteger"),
-                createXS("nonNegativeInteger"),
-                createXS("unsignedLong")
+                new StringImpl<>(BigInteger.class,
+                        createXS("integer"),
+                        createXS("positiveInteger"),
+                        createXS("negativeInteger"),
+                        createXS("nonPositiveInteger"),
+                        createXS("nonNegativeInteger"),
+                        createXS("unsignedLong")
                 ) {
-                @Override
-                @SuppressWarnings({"deprecation"})
-                public BigInteger parse(CharSequence text) {
-                    return DatatypeConverterImpl._parseInteger(text);
-                }
+                    @Override
+                    @SuppressWarnings({"deprecation"})
+                    public BigInteger parse(CharSequence text) {
+                        return DatatypeConverterImpl._parseInteger(text);
+                    }
 
-                @Override
-                @SuppressWarnings({"deprecation"})
-                public String print(BigInteger v) {
-                    return DatatypeConverterImpl._printInteger(v);
-                }
-            });
+                    @Override
+                    @SuppressWarnings({"deprecation"})
+                    public String print(BigInteger v) {
+                        return DatatypeConverterImpl._printInteger(v);
+                    }
+                });
         primaryList.add(
-                new StringImpl<BigDecimal>(BigDecimal.class,
+                new StringImpl<>(BigDecimal.class,
                         createXS("decimal")
                 ) {
                     @Override
@@ -846,57 +868,57 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
                 }
         );
         primaryList.add(
-            new StringImpl<QName>(QName.class,
-                createXS("QName")
+                new StringImpl<>(QName.class,
+                        createXS("QName")
                 ) {
-                @Override
-                @SuppressWarnings({"deprecation"})
-                public QName parse(CharSequence text) throws SAXException {
-                    try {
-                        return DatatypeConverterImpl._parseQName(text.toString(),UnmarshallingContext.getInstance());
-                    } catch (IllegalArgumentException e) {
-                        UnmarshallingContext.getInstance().handleError(e);
-                        return null;
-                    }
-                }
-
-                @Override
-                @SuppressWarnings({"deprecation"})
-                public String print(QName v) {
-                    return DatatypeConverterImpl._printQName(v,XMLSerializer.getInstance().getNamespaceContext());
-                }
-
-                @Override
-                public boolean useNamespace() {
-                    return true;
-                }
-
-                @Override
-                public void declareNamespace(QName v, XMLSerializer w) {
-                    w.getNamespaceContext().declareNamespace(v.getNamespaceURI(),v.getPrefix(),false);
-                }
-            });
-        if (MAP_ANYURI_TO_URI_VALUE != null) {
-            primaryList.add(
-                new StringImpl<URI>(URI.class, createXS("anyURI")) {
                     @Override
-                    public URI parse(CharSequence text) throws SAXException {
+                    @SuppressWarnings({"deprecation"})
+                    public QName parse(CharSequence text) throws SAXException {
                         try {
-                            return new URI(text.toString());
-                        } catch (URISyntaxException e) {
+                            return DatatypeConverterImpl._parseQName(text.toString(), UnmarshallingContext.getInstance());
+                        } catch (IllegalArgumentException e) {
                             UnmarshallingContext.getInstance().handleError(e);
                             return null;
                         }
                     }
 
                     @Override
-                    public String print(URI v) {
-                        return v.toString();
+                    @SuppressWarnings({"deprecation"})
+                    public String print(QName v) {
+                        return DatatypeConverterImpl._printQName(v, XMLSerializer.getInstance().getNamespaceContext());
+                    }
+
+                    @Override
+                    public boolean useNamespace() {
+                        return true;
+                    }
+
+                    @Override
+                    public void declareNamespace(QName v, XMLSerializer w) {
+                        w.getNamespaceContext().declareNamespace(v.getNamespaceURI(), v.getPrefix(), false);
                     }
                 });
+        if (MAP_ANYURI_TO_URI_VALUE != null) {
+            primaryList.add(
+                    new StringImpl<>(URI.class, createXS("anyURI")) {
+                        @Override
+                        public URI parse(CharSequence text) throws SAXException {
+                            try {
+                                return new URI(text.toString());
+                            } catch (URISyntaxException e) {
+                                UnmarshallingContext.getInstance().handleError(e);
+                                return null;
+                            }
+                        }
+
+                        @Override
+                        public String print(URI v) {
+                            return v.toString();
+                        }
+                    });
         }
         primaryList.add(
-                new StringImpl<Duration>(Duration.class, createXS("duration")) {
+                new StringImpl<>(Duration.class, createXS("duration")) {
                     @Override
                     public String print(Duration duration) {
                         return duration.toString();
@@ -911,20 +933,20 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
                 }
         );
         primaryList.add(
-            new StringImpl<Void>(Void.class) {
-                // 'void' binding isn't defined by the spec, but when the JAX-RPC processes user-defined
-                // methods like "int actionFoo()", they need this pseudo-void property.
+                new StringImpl<>(Void.class) {
+                    // 'void' binding isn't defined by the spec, but when the JAX-RPC processes user-defined
+                    // methods like "int actionFoo()", they need this pseudo-void property.
 
-                @Override
-                public String print(Void value) {
-                    return "";
-                }
+                    @Override
+                    public String print(Void value) {
+                        return "";
+                    }
 
-                @Override
-                public Void parse(CharSequence lexical) {
-                    return null;
-                }
-            });
+                    @Override
+                    public Void parse(CharSequence lexical) {
+                        return null;
+                    }
+                });
 
         List<RuntimeBuiltinLeafInfoImpl<?>> l = new ArrayList<>(secondaryList.size()+primaryList.size()+1);
         l.addAll(secondaryList);
@@ -943,8 +965,7 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
 
     @SuppressWarnings({"deprecation"})
     private static byte[] decodeBase64(CharSequence text) {
-        if (text instanceof Base64Data) {
-            Base64Data base64Data = (Base64Data) text;
+        if (text instanceof Base64Data base64Data) {
             return base64Data.getExact();
         } else {
             return DatatypeConverterImpl._parseBase64Binary(text.toString());
@@ -999,7 +1020,7 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
 				}
 			}
 		}
-		if (buf.length() > 0){
+		if (!buf.isEmpty()){
 			throw new jakarta.xml.bind.MarshalException(
 			 Messages.XMLGREGORIANCALENDAR_INVALID.format(type.getLocalPart()) 
 			 + buf);

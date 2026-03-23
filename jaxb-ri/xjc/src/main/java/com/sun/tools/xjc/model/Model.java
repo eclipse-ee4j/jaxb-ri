@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -9,6 +10,17 @@
  */
 
 package com.sun.tools.xjc.model;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
+
+import javax.xml.namespace.QName;
+import javax.xml.transform.Result;
 
 import com.sun.codemodel.JClass;
 import com.sun.codemodel.JCodeModel;
@@ -25,29 +37,19 @@ import com.sun.tools.xjc.model.nav.NavigatorImpl;
 import com.sun.tools.xjc.outline.Outline;
 import com.sun.tools.xjc.reader.xmlschema.Messages;
 import com.sun.tools.xjc.util.ErrorReceiverFilter;
+import com.sun.xml.xsom.XSComponent;
+import com.sun.xml.xsom.XSSchemaSet;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlNsForm;
+import jakarta.xml.bind.annotation.XmlTransient;
 import org.glassfish.jaxb.core.api.impl.NameConverter;
 import org.glassfish.jaxb.core.v2.model.core.Ref;
 import org.glassfish.jaxb.core.v2.model.core.TypeInfoSet;
 import org.glassfish.jaxb.core.v2.model.nav.Navigator;
 import org.glassfish.jaxb.core.v2.util.FlattenIterator;
-import com.sun.xml.xsom.XSComponent;
-import com.sun.xml.xsom.XSSchemaSet;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.LocatorImpl;
-
-import jakarta.xml.bind.annotation.XmlAttribute;
-import jakarta.xml.bind.annotation.XmlNsForm;
-import jakarta.xml.bind.annotation.XmlTransient;
-import javax.xml.namespace.QName;
-import javax.xml.transform.Result;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Root of the object model that represents the code that needs to be generated.
@@ -232,9 +234,7 @@ public final class Model implements TypeInfoSet<NType,NClass,Void,Void>, CCustom
     private final Map<String,SymbolSpace> symbolSpaces = new HashMap<>();
 
     public SymbolSpace getSymbolSpace( String name ) {
-        SymbolSpace ss = symbolSpaces.get(name);
-        if(ss==null)
-            symbolSpaces.put(name,ss=new SymbolSpace(codeModel));
+        SymbolSpace ss = symbolSpaces.computeIfAbsent(name, k -> new SymbolSpace(codeModel));
         return ss;
     }
 
@@ -478,9 +478,7 @@ public final class Model implements TypeInfoSet<NType,NClass,Void,Void>, CCustom
     private final Map<JPackage,CClassInfoParent.Package> cache = new HashMap<>();
 
     public CClassInfoParent.Package getPackage(JPackage pkg) {
-        CClassInfoParent.Package r = cache.get(pkg);
-        if(r==null)
-            cache.put(pkg,r=new CClassInfoParent.Package(pkg));
+        CClassInfoParent.Package r = cache.computeIfAbsent(pkg, CClassInfoParent.Package::new);
         return r;
     }
 

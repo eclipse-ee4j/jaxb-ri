@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 2005, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,6 +11,13 @@
 
 package com.sun.tools.txw2;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.text.MessageFormat;
+import java.util.Properties;
+import java.util.ResourceBundle;
+
 import com.sun.codemodel.CodeWriter;
 import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.JPackage;
@@ -19,12 +27,6 @@ import com.sun.tools.rngom.parse.Parseable;
 import com.sun.tools.rngom.parse.compact.CompactParseable;
 import com.sun.tools.rngom.parse.xml.SAXParseable;
 import com.sun.xml.txw2.annotation.XmlNamespace;
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.text.MessageFormat;
-import java.util.Properties;
-import java.util.ResourceBundle;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 
@@ -102,7 +104,7 @@ public class TxwOptions {
     void parseArguments(String[] args) throws BadCommandLineException {
         String src = null;
         for (int i = 0; i < args.length; i++) {
-            if (args[i].length() == 0) {
+            if (args[i].isEmpty()) {
                 throw new BadCommandLineException(getMessage("missingOperand"));
             }
             if (args[i].charAt(0) == '-') {
@@ -132,38 +134,40 @@ public class TxwOptions {
     }
 
     private int parseArgument(String[] args, int i) throws BadCommandLineException {
-        if (args[i].equals("-o")) {
-            File targetDir = new File(requireArgument("-o", args, ++i));
-            try {
-                codeWriter = new FileCodeWriter(targetDir);
-            } catch (IOException ex) {
-                throw new BadCommandLineException(ex.getMessage(), ex);
+        switch (args[i]) {
+            case "-o" -> {
+                File targetDir = new File(requireArgument("-o", args, ++i));
+                try {
+                    codeWriter = new FileCodeWriter(targetDir);
+                } catch (IOException ex) {
+                    throw new BadCommandLineException(ex.getMessage(), ex);
+                }
+                return 2;
             }
-            return 2;
-        }
-        if (args[i].equals("-p")) {
-            _package = codeModel._package(requireArgument("-p", args, ++i));
-            return 2;
-        }
-        if (args[i].equals("-c")) {
-            language = Language.COMPACT;
-            return 1;
-        }
-        if (args[i].equals("-x")) {
-            language = Language.XML;
-            return 1;
-        }
-        if (args[i].equals("-xsd")) {
-            language = Language.XMLSCHEMA;
-            return 1;
-        }
-        if (args[i].equals("-h")) {
-            chainMethod = true;
-            return 1;
-        }
-        if (args[i].equals("-disableXmlSecurity")) {
-            disableXmlSecurity = true;
-            return 1;
+            case "-p" -> {
+                _package = codeModel._package(requireArgument("-p", args, ++i));
+                return 2;
+            }
+            case "-c" -> {
+                language = Language.COMPACT;
+                return 1;
+            }
+            case "-x" -> {
+                language = Language.XML;
+                return 1;
+            }
+            case "-xsd" -> {
+                language = Language.XMLSCHEMA;
+                return 1;
+            }
+            case "-h" -> {
+                chainMethod = true;
+                return 1;
+            }
+            case "-disableXmlSecurity" -> {
+                disableXmlSecurity = true;
+                return 1;
+            }
         }
         return 0;   // unrecognized
     }
@@ -198,22 +202,11 @@ public class TxwOptions {
             }
         }
 
-        SchemaBuilder sb = null;
-        switch (language) {
-            case XMLSCHEMA:
-                sb = new XmlSchemaLoader(in);
-                break;
-            case COMPACT:
-                sb = new RELAXNGLoader(new CompactParseable(in, eh));
-                break;
-            case XML:
-                sb = new RELAXNGLoader(new SAXParseable(in, eh));
-                break;
-            default:
-                // should not happen
-                throw new BadCommandLineException(getMessage("unknownGrammar"));
-        }
-        return sb;
+        return switch (language) {
+            case XMLSCHEMA -> new XmlSchemaLoader(in);
+            case COMPACT -> new RELAXNGLoader(new CompactParseable(in, eh));
+            case XML -> new RELAXNGLoader(new SAXParseable(in, eh));
+        };
     }
 
     /**

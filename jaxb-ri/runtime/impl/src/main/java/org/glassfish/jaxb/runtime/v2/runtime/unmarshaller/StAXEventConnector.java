@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,17 +11,23 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime.unmarshaller;
 
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.AttributesImpl;
+import java.util.Iterator;
 
 import javax.xml.namespace.QName;
 import javax.xml.stream.Location;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.events.*;
-import java.util.Iterator;
+import javax.xml.stream.events.Attribute;
+import javax.xml.stream.events.Characters;
+import javax.xml.stream.events.EndElement;
+import javax.xml.stream.events.Namespace;
+import javax.xml.stream.events.StartElement;
+import javax.xml.stream.events.XMLEvent;
+
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.AttributesImpl;
 
 /**
  * This is a simple utility class that adapts StAX events from an
@@ -253,7 +260,7 @@ final class StAXEventConnector extends StAXConnector {
             String localName = name.getLocalPart();
             String prefix = name.getPrefix();
             String qName;
-            if (prefix == null || prefix.length() == 0)
+            if (prefix == null || prefix.isEmpty())
                 qName = localName;
             else
                 qName = prefix + ':' + localName;

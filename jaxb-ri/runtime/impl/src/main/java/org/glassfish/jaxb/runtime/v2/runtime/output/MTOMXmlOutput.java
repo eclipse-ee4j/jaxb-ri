@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,15 +11,16 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime.output;
 
+import java.io.IOException;
+
+import javax.xml.stream.XMLStreamException;
+
+import jakarta.xml.bind.attachment.AttachmentMarshaller;
 import org.glassfish.jaxb.core.v2.WellKnownNamespace;
 import org.glassfish.jaxb.runtime.v2.runtime.Name;
 import org.glassfish.jaxb.runtime.v2.runtime.XMLSerializer;
 import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.Base64Data;
-import jakarta.xml.bind.attachment.AttachmentMarshaller;
 import org.xml.sax.SAXException;
-
-import javax.xml.stream.XMLStreamException;
-import java.io.IOException;
 
 /**
  * {@link XmlOutput} decorator that supports MTOM.
@@ -97,8 +99,7 @@ public final class MTOMXmlOutput extends XmlOutputAbstractImpl {
 
     @Override
     public void text( Pcdata value, boolean needsSeparatingWhitespace ) throws IOException, SAXException, XMLStreamException {
-        if(value instanceof Base64Data && !serializer.getInlineBinaryFlag()) {
-            Base64Data b64d = (Base64Data) value;
+        if(value instanceof Base64Data b64d && !serializer.getInlineBinaryFlag()) {
             String cid;
             if(b64d.hasData())
                 cid = serializer.attachmentMarshaller.addMtomAttachment(

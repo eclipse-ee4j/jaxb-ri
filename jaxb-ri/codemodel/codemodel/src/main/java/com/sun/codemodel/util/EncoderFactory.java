@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -28,7 +29,7 @@ public class EncoderFactory {
 
     public static CharsetEncoder createEncoder( String encoding ) {
         Charset cs = Charset.forName(encoding == null
-                ? System.getProperty("file.encoding")
+                ? Charset.defaultCharset().displayName()
                 : encoding);
         return cs.newEncoder();
     }

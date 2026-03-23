@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 2005, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,14 +11,15 @@
 
 package com.sun.xml.txw2.output;
 
+import java.util.Stack;
+
+import javax.xml.transform.sax.SAXResult;
+
 import com.sun.xml.txw2.TxwException;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.ext.LexicalHandler;
 import org.xml.sax.helpers.AttributesImpl;
-
-import javax.xml.transform.sax.SAXResult;
-import java.util.Stack;
 
 /**
  * {@link XmlSerializer} for {@link SAXResult} and {@link ContentHandler}.
@@ -120,7 +122,7 @@ public class SaxSerializer implements XmlSerializer {
     @Override
     public void endStartTag(String uri, String localName, String prefix) {
         try {
-            while (prefixBindings.size() != 0) {
+            while (!prefixBindings.isEmpty()) {
                 writer.startPrefixMapping(prefixBindings.pop(), // prefix
                         prefixBindings.pop()   // uri
                 );
@@ -201,7 +203,7 @@ public class SaxSerializer implements XmlSerializer {
     // other methods
     private static String getQName(String prefix, String localName) {
         final String qName;
-        if (prefix == null || prefix.length() == 0)
+        if (prefix == null || prefix.isEmpty())
             qName = localName;
         else
             qName = prefix + ':' + localName;

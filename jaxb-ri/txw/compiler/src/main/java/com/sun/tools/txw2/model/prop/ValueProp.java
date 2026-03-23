@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 2005, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -23,9 +24,7 @@ public class ValueProp extends Prop {
     }
 
     public boolean equals(Object o) {
-        if (!(o instanceof ValueProp)) return false;
-
-        final ValueProp that = (ValueProp) o;
+        if (!(o instanceof ValueProp that)) return false;
 
         return type.equals(that.type);
     }

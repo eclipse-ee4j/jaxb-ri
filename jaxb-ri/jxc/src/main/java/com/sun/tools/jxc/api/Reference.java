@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -79,9 +80,7 @@ public final class Reference {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Reference)) return false;
-
-        final Reference that = (Reference) o;
+        if (!(o instanceof Reference that)) return false;
 
         return annotations.equals(that.annotations) && type.equals(that.type);
     }

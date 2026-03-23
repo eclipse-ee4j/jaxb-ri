@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -18,15 +19,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.Unmarshaller;
-import jakarta.xml.bind.annotation.XmlAnyElement;
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlMixed;
-import jakarta.xml.bind.annotation.XmlRootElement;
-import jakarta.xml.bind.annotation.XmlType;
-
 import javax.xml.XMLConstants;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
@@ -40,10 +32,17 @@ import com.sun.tools.xjc.model.CPluginCustomization;
 import com.sun.tools.xjc.model.Model;
 import com.sun.tools.xjc.reader.Ring;
 import com.sun.tools.xjc.reader.xmlschema.BGMBuilder;
+import com.sun.xml.xsom.XSComponent;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Unmarshaller;
+import jakarta.xml.bind.annotation.XmlAnyElement;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlMixed;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
 import org.glassfish.jaxb.core.annotation.XmlLocation;
 import org.glassfish.jaxb.core.marshaller.MinimumEscapeHandler;
-import com.sun.xml.xsom.XSComponent;
-
 import org.w3c.dom.Element;
 import org.xml.sax.Locator;
 
@@ -119,10 +118,9 @@ public final class BindInfo implements Iterable<BIDeclaration> {
                 if(o instanceof BIDeclaration)
                     bi.addDecl((BIDeclaration)o);
                 // this is really PITA! I can't get the source location
-                if(o instanceof DomHandlerEx.DomAndLocation) {
-                    DomHandlerEx.DomAndLocation e = (DomHandlerEx.DomAndLocation)o;
+                if(o instanceof DomHandlerEx.DomAndLocation e) {
                     String nsUri = e.element.getNamespaceURI();
-                    if(nsUri==null || nsUri.equals("")
+                    if(nsUri==null || nsUri.isEmpty()
                     || XMLConstants.W3C_XML_SCHEMA_NS_URI.equals(nsUri))
                         continue;   // this is definitely not a customization
                     bi.addDecl(new BIXPluginCustomization(e.element,e.loc));
@@ -283,8 +281,7 @@ public final class BindInfo implements Iterable<BIDeclaration> {
     public CCustomizations toCustomizationList() {
         CCustomizations r=null;
         for( BIDeclaration d : this ) {
-            if(d instanceof BIXPluginCustomization) {
-                BIXPluginCustomization pc = (BIXPluginCustomization) d;
+            if(d instanceof BIXPluginCustomization pc) {
                 pc.markAsAcknowledged();
                 if(!Ring.get(Model.class).options.pluginURIs.contains(pc.getName().getNamespaceURI()))
                     continue;   // this isn't a plugin customization

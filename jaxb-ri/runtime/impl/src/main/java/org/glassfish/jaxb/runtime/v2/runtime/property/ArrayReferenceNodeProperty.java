@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,6 +11,12 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime.property;
 
+import java.io.IOException;
+
+import javax.xml.stream.XMLStreamException;
+
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.annotation.DomHandler;
 import org.glassfish.jaxb.core.v2.ClassFactory;
 import org.glassfish.jaxb.core.v2.model.core.PropertyKind;
 import org.glassfish.jaxb.core.v2.model.core.WildcardMode;
@@ -20,14 +27,13 @@ import org.glassfish.jaxb.runtime.v2.runtime.JaxBeanInfo;
 import org.glassfish.jaxb.runtime.v2.runtime.XMLSerializer;
 import org.glassfish.jaxb.runtime.v2.runtime.reflect.Accessor;
 import org.glassfish.jaxb.runtime.v2.runtime.reflect.ListIterator;
+import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.ChildLoader;
+import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.Loader;
+import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.Receiver;
+import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.UnmarshallingContext;
+import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.WildcardLoader;
 import org.glassfish.jaxb.runtime.v2.util.QNameMap;
-import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.annotation.DomHandler;
-import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.*;
 import org.xml.sax.SAXException;
-
-import javax.xml.stream.XMLStreamException;
-import java.io.IOException;
 
 /**
  * @author Kohsuke Kawaguchi
@@ -124,7 +130,7 @@ class ArrayReferenceNodeProperty<BeanT,ListT,ItemT> extends ArrayERProperty<Bean
 
         @Override
         public void text(UnmarshallingContext.State state, CharSequence text) throws SAXException {
-            if(text.length()!=0) // length 0 text is pointless
+            if(!text.isEmpty()) // length 0 text is pointless
                 recv.receive(state,text.toString());
         }
     }

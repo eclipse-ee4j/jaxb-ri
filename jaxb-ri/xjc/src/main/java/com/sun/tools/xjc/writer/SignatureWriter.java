@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -96,9 +97,9 @@ public class SignatureWriter {
     }
     
     private void dumpChildren( JClassContainer cont ) throws IOException {
-        Iterator itr = cont.classes();
+        Iterator<JDefinedClass> itr = cont.classes();
         while(itr.hasNext()) {
-            JDefinedClass cls = (JDefinedClass)itr.next();
+            JDefinedClass cls = itr.next();
             ClassOutline ci = classSet.get(cls);
             if(ci!=null)
                 dump(ci);
@@ -113,7 +114,7 @@ public class SignatureWriter {
         buf.append(cls.name());
         
         boolean first=true;
-        Iterator itr = cls._implements();
+        Iterator<JClass> itr = cls._implements();
         while(itr.hasNext()) {
             if(first) {
                 buf.append(" extends ");
@@ -121,7 +122,7 @@ public class SignatureWriter {
             } else {
                 buf.append(", ");
             }
-            buf.append( printName((JClass)itr.next()) );
+            buf.append( printName(itr.next()) );
         }
         buf.append(" {");
         println(buf.toString());

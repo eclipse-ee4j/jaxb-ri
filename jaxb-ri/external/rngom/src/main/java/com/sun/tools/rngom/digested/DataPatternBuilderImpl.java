@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2022, 2026 Eclipse Foundation
  * Copyright (C) 2004-2012
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -45,7 +46,7 @@ final class DataPatternBuilderImpl implements DataPatternBuilder {
     }
 
     public void addParam(String name, String value, Context context, String ns, Location loc, Annotations anno) throws BuildException {
-        p.params.add(p.new Param(name,value,context.copy(),ns,loc,(Annotation)anno));
+        p.params.add(new DDataPattern.Param(name, value, context.copy(), ns, loc, (Annotation) anno));
     }
 
     public void annotation(ParsedElementAnnotation ea) {

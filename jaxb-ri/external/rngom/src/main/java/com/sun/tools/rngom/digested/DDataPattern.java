@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2022, 2026 Eclipse Foundation
  * Copyright (C) 2004-2015
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,11 +22,11 @@
  */
 package com.sun.tools.rngom.digested;
 
-import com.sun.tools.rngom.ast.om.Location;
-import com.sun.tools.rngom.parse.Context;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.sun.tools.rngom.ast.om.Location;
+import com.sun.tools.rngom.parse.Context;
 
 /**
  * @author Kohsuke Kawaguchi (kk@kohsuke.org)
@@ -41,7 +42,7 @@ public class DDataPattern extends DPattern {
     /**
      * Parameter to a data pattern.
      */
-    public final class Param {
+    public static final class Param {
         String name;
         String value;
         Context context;

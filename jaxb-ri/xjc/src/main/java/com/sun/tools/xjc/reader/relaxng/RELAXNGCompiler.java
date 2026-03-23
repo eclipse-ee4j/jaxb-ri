@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -20,6 +21,15 @@ import javax.xml.namespace.QName;
 
 import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.JPackage;
+import com.sun.tools.rngom.digested.DChoicePattern;
+import com.sun.tools.rngom.digested.DDefine;
+import com.sun.tools.rngom.digested.DElementPattern;
+import com.sun.tools.rngom.digested.DPattern;
+import com.sun.tools.rngom.digested.DPatternWalker;
+import com.sun.tools.rngom.digested.DRefPattern;
+import com.sun.tools.rngom.digested.DValuePattern;
+import com.sun.tools.rngom.nc.NameClass;
+import com.sun.tools.rngom.xml.util.WellKnownNamespaces;
 import com.sun.tools.xjc.Options;
 import com.sun.tools.xjc.model.CBuiltinLeafInfo;
 import com.sun.tools.xjc.model.CClassInfo;
@@ -32,16 +42,6 @@ import com.sun.tools.xjc.model.Model;
 import com.sun.tools.xjc.model.TypeUse;
 import com.sun.tools.xjc.reader.Ring;
 import org.glassfish.jaxb.core.api.impl.NameConverter;
-
-import com.sun.tools.rngom.digested.DChoicePattern;
-import com.sun.tools.rngom.digested.DDefine;
-import com.sun.tools.rngom.digested.DElementPattern;
-import com.sun.tools.rngom.digested.DPattern;
-import com.sun.tools.rngom.digested.DPatternWalker;
-import com.sun.tools.rngom.digested.DRefPattern;
-import com.sun.tools.rngom.digested.DValuePattern;
-import com.sun.tools.rngom.nc.NameClass;
-import com.sun.tools.rngom.xml.util.WellKnownNamespaces;
 
 /**
  * @author Kohsuke Kawaguchi
@@ -152,8 +152,7 @@ public final class RELAXNGCompiler {
         OUTER:
         for( DDefine def : defs ) {
             DPattern p = def.getPattern();
-            if (p instanceof DChoicePattern) {
-                DChoicePattern cp = (DChoicePattern) p;
+            if (p instanceof DChoicePattern cp) {
 
                 members.clear();
 
@@ -162,8 +161,7 @@ public final class RELAXNGCompiler {
                 DValuePattern vp = null;
 
                 for( DPattern child : cp ) {
-                    if(child instanceof DValuePattern) {
-                        DValuePattern c = (DValuePattern) child;
+                    if(child instanceof DValuePattern c) {
                         if(vp==null)
                             vp=c;
                         else {
@@ -207,8 +205,7 @@ public final class RELAXNGCompiler {
         // look for elements among named patterns
         for( DDefine def : defs ) {
             DPattern p = def.getPattern();
-            if (p instanceof DElementPattern) {
-                DElementPattern ep = (DElementPattern) p;
+            if (p instanceof DElementPattern ep) {
 
                 mapToClass(ep);
             }

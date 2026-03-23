@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,17 +11,13 @@
 
 package com.sun.tools.jxc.model.nav;
 
-import com.sun.source.tree.CompilationUnitTree;
-import com.sun.source.util.TreePath;
-import com.sun.source.util.Trees;
-import org.glassfish.jaxb.core.v2.model.nav.Navigator;
-import org.glassfish.jaxb.core.v2.runtime.Location;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
@@ -42,6 +39,12 @@ import javax.lang.model.util.ElementFilter;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.SimpleTypeVisitor8;
 import javax.lang.model.util.Types;
+
+import com.sun.source.tree.CompilationUnitTree;
+import com.sun.source.util.TreePath;
+import com.sun.source.util.Trees;
+import org.glassfish.jaxb.core.v2.model.nav.Navigator;
+import org.glassfish.jaxb.core.v2.runtime.Location;
 
 /**
  * {@link Navigator} implementation for annotation processing.

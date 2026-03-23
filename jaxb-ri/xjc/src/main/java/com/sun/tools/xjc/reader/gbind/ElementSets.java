@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,6 +11,7 @@
 
 package com.sun.tools.xjc.reader.gbind;
 
+import java.io.Serial;
 import java.util.LinkedHashSet;
 
 /**
@@ -43,6 +45,7 @@ public final class ElementSets {
      */
     private static final class MultiValueSet extends LinkedHashSet<Element> implements ElementSet {
 
+        @Serial
         private static final long serialVersionUID = -2635296810004496648L;
 
         public MultiValueSet(ElementSet lhs, ElementSet rhs) {

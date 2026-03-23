@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2022, 2026 Eclipse Foundation
  * Copyright (C) 2004-2011
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -25,6 +26,7 @@ import com.sun.tools.rngom.binary.Pattern;
 import com.sun.tools.rngom.nc.NameClass;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -53,12 +55,10 @@ public class ChildElementFinder extends PatternWalker {
 
         public boolean equals(Object o) {
             if (this == o) return true;
-            if (!(o instanceof Element)) return false;
+            if (!(o instanceof Element element)) return false;
 
-            final Element element = (Element) o;
-
-            if (content != null ? !content.equals(element.content) : element.content != null) return false;
-            if (nc != null ? !nc.equals(element.nc) : element.nc != null) return false;
+            if (!Objects.equals(content, element.content)) return false;
+            if (!Objects.equals(nc, element.nc)) return false;
 
             return true;
         }

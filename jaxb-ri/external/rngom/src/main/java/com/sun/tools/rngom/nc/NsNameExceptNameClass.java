@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Eclipse Foundation
+ * Copyright (c) 2022, 2026 Eclipse Foundation
  * Copyright (C) 2004-2011
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,9 +22,12 @@
  */
 package com.sun.tools.rngom.nc;
 
+import java.io.Serial;
+
 import javax.xml.namespace.QName;
 
 public class NsNameExceptNameClass extends NameClass {
+  @Serial
   private static final long serialVersionUID = -5798429257214762521L;
 
   private final NameClass nameClass;
@@ -46,10 +49,9 @@ public class NsNameExceptNameClass extends NameClass {
 
   @Override
   public boolean equals(Object obj) {
-    if (obj == null || !(obj instanceof NsNameExceptNameClass))
+    if (obj == null || !(obj instanceof NsNameExceptNameClass other))
       return false;
-    NsNameExceptNameClass other = (NsNameExceptNameClass)obj;
-    return (namespaceURI.equals(other.namespaceURI)
+      return (namespaceURI.equals(other.namespaceURI)
 	    && nameClass.equals(other.nameClass));
   }
 

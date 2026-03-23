@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 2005, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -13,6 +14,7 @@ package com.sun.xml.txw2;
 import java.util.AbstractList;
 import java.util.Collections;
 import java.util.List;
+
 import javax.xml.namespace.QName;
 
 /**
@@ -100,7 +102,7 @@ public interface DatatypeWriter<DT> {
                     @Override
                     public void print(QName qn, NamespaceResolver resolver, StringBuilder buf) {
                         String p = resolver.getPrefix(qn.getNamespaceURI());
-                        if (p.length() != 0)
+                        if (!p.isEmpty())
                             buf.append(p).append(':');
                         buf.append(qn.getLocalPart());
                     }

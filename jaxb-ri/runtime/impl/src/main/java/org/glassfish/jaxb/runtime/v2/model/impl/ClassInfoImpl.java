@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -57,6 +58,8 @@ import org.glassfish.jaxb.core.v2.util.EditDistance;
 import org.glassfish.jaxb.runtime.v2.model.annotation.MethodLocatable;
 
 import javax.xml.namespace.QName;
+
+import java.io.Serial;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.AbstractList;
@@ -152,7 +155,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
             if(propOrder.length==0)
                 this.propOrder = null;   // unordered
             else {
-                if(propOrder[0].length()==0)
+                if(propOrder[0].isEmpty())
                     this.propOrder = DEFAULT_ORDER;
                 else
                     this.propOrder = propOrder;
@@ -308,7 +311,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
             for (PropertyInfoImpl p : properties) {
                 sorter.checkedGet(p);   // have it check for errors
             }
-            Collections.sort(properties,sorter);
+            properties.sort(sorter);
             sorter.checkUnusedProperties();
         }
 
@@ -468,6 +471,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
      * extends {@link HashMap} to save memory.
      */
     private final class PropertySorter extends HashMap<String,Integer> implements Comparator<PropertyInfoImpl> {
+        @Serial
         private static final long serialVersionUID = 8074459976041391290L;
         /**
          * Mark property names that are used, so that we can report unused property names in the propOrder array.
@@ -581,6 +585,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
     }
 
     private static final class ConflictException extends Exception {
+        @Serial
         private static final long serialVersionUID = -8261248191127673032L;
         final List<Annotation> annotations;
 
@@ -590,6 +595,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
     }
 
     private static final class DuplicateException extends Exception {
+        @Serial
         private static final long serialVersionUID = -2996855754364938240L;
         final Annotation a1,a2;
         public DuplicateException(Annotation a1, Annotation a2) {
@@ -1308,7 +1314,7 @@ public class ClassInfoImpl<T,C,F,M> extends TypeInfoImpl<T,C,F,M>
 
         String method = t.factoryMethod();
         T fClass = reader().getClassValue(t, "factoryClass");
-        if (method.length() > 0){
+        if (!method.isEmpty()){
             if(nav().isSameType(fClass, nav().ref(XmlType.DEFAULT.class))){
                 fClass = nav().use(clazz);
             }

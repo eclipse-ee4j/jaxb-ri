@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -52,8 +53,7 @@ final class GenericArrayTypeImpl implements GenericArrayType {
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof GenericArrayType) {
-            GenericArrayType that = (GenericArrayType) o;
+        if (o instanceof GenericArrayType that) {
 
             Type thatComponentType = that.getGenericComponentType();
             return genericComponentType.equals(thatComponentType);

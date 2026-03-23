@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2022, 2026 Eclipse Foundation
  * Copyright (C) 2004-2011
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,6 +22,8 @@
  */
 package com.sun.tools.rngom.dump;
 
+import java.util.List;
+
 import com.sun.tools.rngom.ast.builder.Annotations;
 import com.sun.tools.rngom.ast.builder.BuildException;
 import com.sun.tools.rngom.ast.builder.CommentList;
@@ -28,8 +31,6 @@ import com.sun.tools.rngom.ast.builder.NameClassBuilder;
 import com.sun.tools.rngom.ast.om.Location;
 import com.sun.tools.rngom.ast.om.ParsedElementAnnotation;
 import com.sun.tools.rngom.ast.om.ParsedNameClass;
-
-import java.util.List;
 
 /**
  * 
@@ -66,8 +67,7 @@ public class NameClassBuilderImpl implements NameClassBuilder {
     @Override
     public ParsedNameClass makeChoice(List nameClasses, Location loc, Annotations anno) {
         printer.name("makeChoice");
-        for( int i=0; i<nameClasses.size(); i++ )
-            printer.param(nameClasses.get(i));
+        for (Object nameClass : nameClasses) printer.param(nameClass);
         printer.param(loc).param(anno);
         return printer.result(factory.createNameClass());
     }

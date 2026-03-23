@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,23 +11,24 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime.output;
 
-import org.glassfish.jaxb.core.marshaller.NoEscapeHandler;
-import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
-import org.glassfish.jaxb.runtime.v2.runtime.Name;
-import org.glassfish.jaxb.runtime.v2.runtime.XMLSerializer;
-import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.Base64Data;
-import com.sun.xml.fastinfoset.EncodingConstants;
-import com.sun.xml.fastinfoset.stax.StAXDocumentSerializer;
-import jakarta.xml.bind.JAXBContext;
-import org.jvnet.fastinfoset.VocabularyApplicationData;
-import org.xml.sax.SAXException;
-
-import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
 import java.util.WeakHashMap;
+
+import javax.xml.stream.XMLStreamException;
+
+import com.sun.xml.fastinfoset.EncodingConstants;
+import com.sun.xml.fastinfoset.stax.StAXDocumentSerializer;
+import jakarta.xml.bind.JAXBContext;
+import org.glassfish.jaxb.core.marshaller.NoEscapeHandler;
+import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
+import org.glassfish.jaxb.runtime.v2.runtime.Name;
+import org.glassfish.jaxb.runtime.v2.runtime.XMLSerializer;
+import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.Base64Data;
+import org.jvnet.fastinfoset.VocabularyApplicationData;
+import org.xml.sax.SAXException;
 
 /**
  * {@link XmlOutput} for {@link StAXDocumentSerializer}.
@@ -279,7 +281,7 @@ public final class FastInfosetStreamWriterOutput extends XMLStreamWriterOutput {
         fiout.writeLowLevelStartNamespaces();
         for (int i = nse.count() - 1; i >= 0; i--) {
             final String uri = nse.getNsUri(i);
-            if (uri.length() == 0 && nse.getBase() == 1)
+            if (uri.isEmpty() && nse.getBase() == 1)
                 continue;   // no point in definint xmlns='' on the root
             fiout.writeLowLevelNamespace(nse.getPrefix(i), uri);
         }
@@ -373,7 +375,7 @@ public final class FastInfosetStreamWriterOutput extends XMLStreamWriterOutput {
         /*
          * Check if the CharSequence is from a base64Binary data type
          */
-        if (!(value instanceof Base64Data)) {
+        if (!(value instanceof Base64Data dataValue)) {
             final int len = value.length();
             if(len <buf.length) {
                 value.writeTo(buf, 0);
@@ -382,7 +384,6 @@ public final class FastInfosetStreamWriterOutput extends XMLStreamWriterOutput {
                 fiout.writeLowLevelText(value.toString());
             }
         } else {
-            final Base64Data dataValue = (Base64Data)value;
             // Write out the octets using the base64 encoding algorithm
             fiout.writeLowLevelOctets(dataValue.get(), dataValue.getDataLen());
         }
@@ -409,7 +410,7 @@ public final class FastInfosetStreamWriterOutput extends XMLStreamWriterOutput {
             fiout.writeLowLevelStartNamespaces();
             for (int i = nse.count() - 1; i >= 0; i--) {
                 final String uri = nse.getNsUri(i);
-                if (uri.length() == 0 && nse.getBase() == 1)
+                if (uri.isEmpty() && nse.getBase() == 1)
                     continue;   // no point in definint xmlns='' on the root
                 fiout.writeLowLevelNamespace(nse.getPrefix(i), uri);
             }

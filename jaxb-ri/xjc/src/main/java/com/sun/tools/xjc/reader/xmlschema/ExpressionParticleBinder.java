@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -20,8 +21,8 @@ import com.sun.tools.xjc.reader.gbind.Element;
 import com.sun.tools.xjc.reader.gbind.Expression;
 import com.sun.tools.xjc.reader.gbind.Graph;
 import com.sun.tools.xjc.reader.xmlschema.bindinfo.BIProperty;
-import org.glassfish.jaxb.core.v2.model.core.WildcardMode;
 import com.sun.xml.xsom.XSParticle;
+import org.glassfish.jaxb.core.v2.model.core.WildcardMode;
 
 /**
  * {@link ParticleBinder} that uses {@link ExpressionBuilder} et al
@@ -63,13 +64,11 @@ final class ExpressionParticleBinder extends ParticleBinder {
                 nameTokenCount++;
             }
 
-            if(e instanceof GElementImpl) {
-                GElementImpl ei = (GElementImpl) e;
+            if(e instanceof GElementImpl ei) {
                 rtsb.elementDecl(ei.decl);
                 continue;
             }
-            if(e instanceof GWildcardElement) {
-                GWildcardElement w = (GWildcardElement)e;
+            if(e instanceof GWildcardElement w) {
                 rtsb.getRefs().add(new RawTypeSetBuilder.WildcardRef(
                     w.isStrict() ? WildcardMode.STRICT : WildcardMode.SKIP));
                 continue;

@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,6 +11,8 @@
 
 package org.glassfish.jaxb.runtime.api;
 
+
+import java.io.Serial;
 
 /**
  * Signals an error in {@link RawAccessor}.
@@ -30,6 +33,7 @@ package org.glassfish.jaxb.runtime.api;
  * @since 2.0 EA1
  */
 public final class AccessorException extends Exception {
+    @Serial
     private static final long serialVersionUID = 3825830567556994999L;
 
     public AccessorException() {

@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -23,6 +24,7 @@ import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.UnmarshallingContext;
 import jakarta.xml.bind.JAXBException;
 import org.xml.sax.SAXException;
 
+import java.io.Serial;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Array;
 import java.lang.reflect.ParameterizedType;
@@ -199,6 +201,7 @@ public abstract class Lister<BeanT,PropT,ItemT,PackT> {
     }
 
     public static final class Pack<ItemT> extends ArrayList<ItemT> {
+        @Serial
         private static final long serialVersionUID = 8543908122652908717L;
         private final Class<ItemT> itemType;
 
@@ -246,11 +249,12 @@ public abstract class Lister<BeanT,PropT,ItemT,PackT> {
         @Override
         public org.glassfish.jaxb.runtime.v2.runtime.reflect.ListIterator<Object> iterator(T collection, XMLSerializer context) {
             final Iterator<?> itr = collection.iterator();
-            return new org.glassfish.jaxb.runtime.v2.runtime.reflect.ListIterator<Object>() {
+            return new org.glassfish.jaxb.runtime.v2.runtime.reflect.ListIterator<>() {
                 @Override
                 public boolean hasNext() {
                     return itr.hasNext();
                 }
+
                 @Override
                 public Object next() {
                     return itr.next();

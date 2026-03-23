@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 2005, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -19,6 +20,7 @@ import com.sun.tools.txw2.NameUtil;
 import com.sun.tools.txw2.TxwOptions;
 import com.sun.xml.txw2.annotation.XmlNamespace;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -33,6 +35,7 @@ import java.util.Set;
  */
 public class NodeSet extends LinkedHashSet<WriterNode> {
 
+    @Serial
     private static final long serialVersionUID = 4733209772279560500L;
     /*package*/ final TxwOptions opts;
     /*package*/ final JCodeModel codeModel;
@@ -72,8 +75,7 @@ public class NodeSet extends LinkedHashSet<WriterNode> {
      */
     private void markRoot(Iterable<Leaf> c, Set<Element> rootElements) {
         for( Leaf l : c ) {
-            if( l instanceof Element ) {
-                Element e = (Element)l;
+            if(l instanceof Element e) {
                 rootElements.add(e);
                 e.isRoot = true;
             }
@@ -88,13 +90,11 @@ public class NodeSet extends LinkedHashSet<WriterNode> {
             if(l instanceof Element)
                 if(add((Element)l))
                     addAll((Element)l);
-            if(l instanceof Grammar) {
-                Grammar g = (Grammar)l;
+            if(l instanceof Grammar g) {
                 for( Define d : g.getDefinitions() )
                     add(d);
             }
-            if(l instanceof Ref) {
-                Ref r = (Ref)l;
+            if(l instanceof Ref r) {
                 Define def = r.def;
 //                if(def instanceof Grammar) {
 //                    for( Define d : ((Grammar)def).getDefinitions() )
@@ -148,7 +148,7 @@ public class NodeSet extends LinkedHashSet<WriterNode> {
                     clazz.javadoc().add("<p><b>Auto-generated, do not edit.</b></p>");
                     return clazz;
                 } catch (JClassAlreadyExistsException e1) {
-                    ; // continue
+                    // continue
                 }
             }
         }

@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2025 Oracle and/or its affiliates and others. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,6 +11,17 @@
 
 package com.sun.tools.xjc.addon.episode;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import com.sun.tools.xjc.BadCommandLineException;
 import com.sun.tools.xjc.Options;
 import com.sun.tools.xjc.Plugin;
@@ -17,8 +29,6 @@ import com.sun.tools.xjc.outline.ClassOutline;
 import com.sun.tools.xjc.outline.EnumOutline;
 import com.sun.tools.xjc.outline.Outline;
 import com.sun.tools.xjc.reader.Const;
-import org.glassfish.jaxb.core.v2.schemagen.episode.Bindings;
-import org.glassfish.jaxb.core.v2.schemagen.episode.SchemaBindings;
 import com.sun.xml.txw2.TXW;
 import com.sun.xml.txw2.output.StreamSerializer;
 import com.sun.xml.xsom.XSAnnotation;
@@ -41,20 +51,11 @@ import com.sun.xml.xsom.XSSimpleType;
 import com.sun.xml.xsom.XSWildcard;
 import com.sun.xml.xsom.XSXPath;
 import com.sun.xml.xsom.visitor.XSFunction;
+import org.glassfish.jaxb.core.v2.schemagen.episode.Bindings;
+import org.glassfish.jaxb.core.v2.schemagen.episode.SchemaBindings;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Creates the episode file,
@@ -123,9 +124,8 @@ public class PluginImpl extends Plugin {
                 XSComponent sc = oa.schemaComponent;
 
                 if (sc == null) continue;
-                if (!(sc instanceof XSDeclaration))
+                if (!(sc instanceof XSDeclaration decl))
                     continue;
-                XSDeclaration decl = (XSDeclaration) sc;
                 if (decl.isLocal())
                     continue;   // local components cannot be referenced from outside, so no need to list.
 
@@ -137,7 +137,7 @@ public class PluginImpl extends Plugin {
 
                 list.add(oa);
 
-                if (decl.getTargetNamespace().equals(""))
+                if (decl.getTargetNamespace().isEmpty())
                     hasComponentInNoNamespace = true;
             }
 
@@ -157,17 +157,17 @@ public class PluginImpl extends Plugin {
             	PerSchemaOutlineAdaptors ps = e.getValue();
                 Bindings group = bindings.bindings();
                 String tns = e.getKey().getTargetNamespace();
-                if(!tns.equals(""))
+                if(!tns.isEmpty())
                     group._namespace(tns,"tns");
 
-                group.scd("x-schema::"+(tns.equals("")?"":"tns"));
+                group.scd("x-schema::"+(tns.isEmpty() ?"":"tns"));
                 group._attribute("if-exists", true);
                 group._attribute("auto-acknowledge", true);
                 SchemaBindings schemaBindings = group.schemaBindings();
 				schemaBindings.map(false);
                 if (ps.packageNames.size() == 1) {
                     final String packageName = ps.packageNames.iterator().next();
-                    if (packageName != null && packageName.length() > 0) {
+                    if (packageName != null && !packageName.isEmpty()) {
 						schemaBindings._package().name(packageName);
 					}
 				}
@@ -202,7 +202,7 @@ public class PluginImpl extends Plugin {
      */
     private static final XSFunction<String> SCD = new XSFunction<>() {
         private String name(XSDeclaration decl) {
-            if (decl.getTargetNamespace().equals(""))
+            if (decl.getTargetNamespace().isEmpty())
                 return decl.getName();
             else
                 return "tns:" + decl.getName();

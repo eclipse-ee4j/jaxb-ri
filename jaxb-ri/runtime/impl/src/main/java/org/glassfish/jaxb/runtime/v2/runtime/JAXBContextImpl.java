@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,47 +11,23 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime;
 
-import com.sun.istack.NotNull;
-import com.sun.istack.Pool;
-import org.glassfish.jaxb.core.api.ErrorListener;
-import org.glassfish.jaxb.runtime.api.*;
-import org.glassfish.jaxb.core.unmarshaller.DOMScanner;
-import org.glassfish.jaxb.core.util.Which;
-import org.glassfish.jaxb.core.v2.WellKnownNamespace;
-import org.glassfish.jaxb.runtime.v2.model.annotation.RuntimeAnnotationReader;
-import org.glassfish.jaxb.runtime.v2.model.annotation.RuntimeInlineAnnotationReader;
-import org.glassfish.jaxb.core.v2.model.core.Adapter;
-import org.glassfish.jaxb.core.v2.model.core.NonElement;
-import org.glassfish.jaxb.core.v2.model.core.Ref;
-import org.glassfish.jaxb.runtime.v2.model.impl.RuntimeBuiltinLeafInfoImpl;
-import org.glassfish.jaxb.runtime.v2.model.impl.RuntimeModelBuilder;
-import org.glassfish.jaxb.core.v2.model.nav.Navigator;
-import org.glassfish.jaxb.core.v2.runtime.RuntimeUtil;
-import org.glassfish.jaxb.runtime.v2.runtime.output.Encoded;
-import org.glassfish.jaxb.runtime.v2.runtime.property.AttributeProperty;
-import org.glassfish.jaxb.runtime.v2.runtime.property.Property;
-import org.glassfish.jaxb.runtime.v2.runtime.reflect.Accessor;
-import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.Loader;
-import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.TagName;
-import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.UnmarshallerImpl;
-import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.UnmarshallingContext;
-import org.glassfish.jaxb.runtime.v2.schemagen.XmlSchemaGenerator;
-import org.glassfish.jaxb.core.v2.util.EditDistance;
-import org.glassfish.jaxb.runtime.v2.util.QNameMap;
-import org.glassfish.jaxb.core.v2.util.XmlFactory;
-import com.sun.xml.txw2.output.ResultFactory;
-import jakarta.xml.bind.*;
-import jakarta.xml.bind.annotation.XmlAttachmentRef;
-import jakarta.xml.bind.annotation.XmlList;
-import jakarta.xml.bind.annotation.XmlNs;
-import jakarta.xml.bind.annotation.XmlSchema;
-import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-import org.glassfish.jaxb.runtime.v2.model.runtime.*;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
+import java.io.IOException;
+import java.lang.ref.WeakReference;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Type;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
@@ -62,13 +39,67 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
-import java.io.IOException;
-import java.lang.ref.WeakReference;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Type;
-import java.util.*;
-import java.util.Map.Entry;
+
+import com.sun.istack.NotNull;
+import com.sun.istack.Pool;
+import com.sun.xml.txw2.output.ResultFactory;
+import jakarta.xml.bind.Binder;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBIntrospector;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.SchemaOutputResolver;
+import jakarta.xml.bind.Unmarshaller;
+import jakarta.xml.bind.annotation.XmlAttachmentRef;
+import jakarta.xml.bind.annotation.XmlList;
+import jakarta.xml.bind.annotation.XmlNs;
+import jakarta.xml.bind.annotation.XmlSchema;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import org.glassfish.jaxb.core.api.ErrorListener;
+import org.glassfish.jaxb.core.unmarshaller.DOMScanner;
+import org.glassfish.jaxb.core.util.Which;
+import org.glassfish.jaxb.core.v2.WellKnownNamespace;
+import org.glassfish.jaxb.core.v2.model.core.Adapter;
+import org.glassfish.jaxb.core.v2.model.core.NonElement;
+import org.glassfish.jaxb.core.v2.model.core.Ref;
+import org.glassfish.jaxb.core.v2.model.nav.Navigator;
+import org.glassfish.jaxb.core.v2.runtime.RuntimeUtil;
+import org.glassfish.jaxb.core.v2.util.EditDistance;
+import org.glassfish.jaxb.core.v2.util.XmlFactory;
+import org.glassfish.jaxb.runtime.api.AccessorException;
+import org.glassfish.jaxb.runtime.api.Bridge;
+import org.glassfish.jaxb.runtime.api.CompositeStructure;
+import org.glassfish.jaxb.runtime.api.JAXBRIContext;
+import org.glassfish.jaxb.runtime.api.RawAccessor;
+import org.glassfish.jaxb.runtime.api.TypeReference;
+import org.glassfish.jaxb.runtime.v2.model.annotation.RuntimeAnnotationReader;
+import org.glassfish.jaxb.runtime.v2.model.annotation.RuntimeInlineAnnotationReader;
+import org.glassfish.jaxb.runtime.v2.model.impl.RuntimeBuiltinLeafInfoImpl;
+import org.glassfish.jaxb.runtime.v2.model.impl.RuntimeModelBuilder;
+import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimeArrayInfo;
+import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimeBuiltinLeafInfo;
+import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimeClassInfo;
+import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimeElementInfo;
+import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimeEnumLeafInfo;
+import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimeLeafInfo;
+import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimeTypeInfo;
+import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimeTypeInfoSet;
+import org.glassfish.jaxb.runtime.v2.runtime.output.Encoded;
+import org.glassfish.jaxb.runtime.v2.runtime.property.AttributeProperty;
+import org.glassfish.jaxb.runtime.v2.runtime.property.Property;
+import org.glassfish.jaxb.runtime.v2.runtime.reflect.Accessor;
+import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.Loader;
+import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.TagName;
+import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.UnmarshallerImpl;
+import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.UnmarshallingContext;
+import org.glassfish.jaxb.runtime.v2.schemagen.XmlSchemaGenerator;
+import org.glassfish.jaxb.runtime.v2.util.QNameMap;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 /**
  * This class provides the implementation of JAXBContext.
@@ -885,10 +916,10 @@ public final class JAXBContextImpl extends JAXBRIContext {
     @Override
     public RawAccessor getElementPropertyAccessor(Class wrapperBean, String nsUri, String localName) throws JAXBException {
         JaxBeanInfo bi = getBeanInfo(wrapperBean,true);
-        if(!(bi instanceof ClassBeanInfoImpl))
+        if(!(bi instanceof ClassBeanInfoImpl cb))
             throw new JAXBException(wrapperBean+" is not a bean");
 
-        for( ClassBeanInfoImpl cb = (ClassBeanInfoImpl) bi; cb!=null; cb=cb.superClazz) {
+        for(; cb!=null; cb=cb.superClazz) {
             for (Property p : cb.properties) {
                 final Accessor acc = p.getElementPropertyAccessor(nsUri,localName);
                 if(acc!=null)
@@ -947,13 +978,11 @@ public final class JAXBContextImpl extends JAXBRIContext {
      */
     public String getXMIMEContentType( Object o ) {
         JaxBeanInfo bi = getBeanInfo(o);
-        if(!(bi instanceof ClassBeanInfoImpl))
+        if(!(bi instanceof ClassBeanInfoImpl cb))
             return null;
 
-        ClassBeanInfoImpl cb = (ClassBeanInfoImpl) bi;
         for (Property p : cb.properties) {
-            if (p instanceof AttributeProperty) {
-                AttributeProperty ap = (AttributeProperty) p;
+            if (p instanceof AttributeProperty ap) {
                 if(ap.attName.equals(WellKnownNamespace.XML_MIME_URI,"contentType"))
                     try {
                         return (String)ap.xacc.print(o);

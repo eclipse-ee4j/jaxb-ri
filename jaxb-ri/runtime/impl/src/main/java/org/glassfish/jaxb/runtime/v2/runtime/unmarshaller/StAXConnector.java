@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,14 +11,14 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime.unmarshaller;
 
-import org.glassfish.jaxb.core.v2.runtime.unmarshaller.LocatorEx;
-import jakarta.xml.bind.ValidationEventLocator;
-import jakarta.xml.bind.helpers.ValidationEventLocatorImpl;
-import org.xml.sax.SAXException;
-
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.stream.Location;
 import javax.xml.stream.XMLStreamException;
+
+import jakarta.xml.bind.ValidationEventLocator;
+import jakarta.xml.bind.helpers.ValidationEventLocatorImpl;
+import org.glassfish.jaxb.core.v2.runtime.unmarshaller.LocatorEx;
+import org.xml.sax.SAXException;
 
 /**
  * @author Kohsuke Kawaguchi
@@ -93,7 +94,7 @@ abstract class StAXConnector {
     }
 
     protected final String getQName(String prefix, String localName) {
-        if(prefix==null || prefix.length()==0)
+        if(prefix==null || prefix.isEmpty())
             return localName;
         else
             return prefix + ':' + localName;

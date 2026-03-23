@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,17 +11,17 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime.unmarshaller;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.UnmarshallerHandler;
 import org.glassfish.jaxb.core.Utils;
 import org.glassfish.jaxb.core.WhiteSpaceProcessor;
 import org.glassfish.jaxb.core.v2.runtime.unmarshaller.LocatorEx;
-import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.UnmarshallerHandler;
 import org.xml.sax.Attributes;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Receives SAX events and convert them to our internal events.
@@ -121,11 +122,11 @@ public final class SAXConnector implements UnmarshallerHandler {
             logger.log(Level.FINER, "SAXConnector.startElement: {0}:{1}:{2}, attrs: {3}", new Object[]{uri, local, qname, atts});
         }
         // work gracefully with misconfigured parsers that don't support namespaces
-        if( uri==null || uri.length()==0 )
+        if( uri==null || uri.isEmpty())
             uri="";
-        if( local==null || local.length()==0 )
+        if( local==null || local.isEmpty())
             local=qname;
-        if( qname==null || qname.length()==0 )
+        if( qname==null || qname.isEmpty())
             qname=local;
 
         processText(!context.getCurrentState().isMixed());

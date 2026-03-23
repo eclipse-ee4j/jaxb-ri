@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,24 +11,24 @@
 
 package com.sun.tools.xjc.model;
 
+import java.io.Serial;
 import java.util.Collection;
 import java.util.LinkedHashSet;
-import java.util.Set;
 import java.util.Map;
+import java.util.Set;
 
-import jakarta.activation.MimeType;
-import jakarta.xml.bind.annotation.W3CDomHandler;
 import javax.xml.namespace.QName;
 
 import com.sun.tools.xjc.model.nav.NClass;
 import com.sun.tools.xjc.model.nav.NType;
 import com.sun.tools.xjc.model.nav.NavigatorImpl;
+import com.sun.xml.xsom.XSComponent;
+import jakarta.activation.MimeType;
+import jakarta.xml.bind.annotation.W3CDomHandler;
 import org.glassfish.jaxb.core.v2.model.core.ID;
 import org.glassfish.jaxb.core.v2.model.core.PropertyKind;
 import org.glassfish.jaxb.core.v2.model.core.ReferencePropertyInfo;
 import org.glassfish.jaxb.core.v2.model.core.WildcardMode;
-import com.sun.xml.xsom.XSComponent;
-
 import org.xml.sax.Locator;
 
 /**
@@ -74,6 +75,7 @@ public final class CReferencePropertyInfo extends CPropertyInfo implements Refer
         // when computing the signature
 
         final class RefList extends LinkedHashSet<CTypeInfo> {
+            @Serial
             private static final long serialVersionUID = -6136978201617936640L;
             RefList() {
                 super(elements.size());

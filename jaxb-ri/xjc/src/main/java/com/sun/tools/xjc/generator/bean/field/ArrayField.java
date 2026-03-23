@@ -1,6 +1,6 @@
 /*
+ * Copyright (c) 2025, 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,8 +11,9 @@
 
 package com.sun.tools.xjc.generator.bean.field;
 
-import com.sun.codemodel.JAssignmentTarget;
 import java.util.List;
+
+import com.sun.codemodel.JAssignmentTarget;
 import com.sun.codemodel.JBlock;
 import com.sun.codemodel.JClass;
 import com.sun.codemodel.JExpr;
@@ -102,7 +103,7 @@ final class ArrayField extends AbstractListField {
         //     return (retVal);
         // }
         $getAll = writer.declareMethod( exposedType.array(),"get"+prop.getName(true));
-        if (prop.javadoc != null && prop.javadoc.length() > 0) {
+        if (prop.javadoc != null && !prop.javadoc.isEmpty()) {
             writer.javadoc().appendXML(prop.javadoc).append("\n\n");
         }
         body = $getAll.body();

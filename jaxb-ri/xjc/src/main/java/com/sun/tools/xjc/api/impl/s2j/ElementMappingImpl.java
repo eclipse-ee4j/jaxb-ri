@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -59,11 +60,9 @@ final class ElementMappingImpl extends AbstractMappingImpl<CElementInfo> {
 
         CTypeInfo typeClass = p.ref().get(0);
 
-        if(!(typeClass instanceof CClassInfo))
+        if(!(typeClass instanceof CClassInfo ci))
             // things like <xs:element name="foo" type="xs:string" /> is not eligible.
             return null;
-
-        CClassInfo ci = (CClassInfo)typeClass;
 
         // if the type is abstract we can't use it.
         if(ci.isAbstract())

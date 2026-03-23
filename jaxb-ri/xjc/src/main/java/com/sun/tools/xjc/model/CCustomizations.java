@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,6 +11,7 @@
 
 package com.sun.tools.xjc.model;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -28,6 +30,7 @@ import com.sun.tools.xjc.Plugin;
  */
 public final class CCustomizations extends ArrayList<CPluginCustomization> {
 
+    @Serial
     private static final long serialVersionUID = 7551826676482019240L;
     /**
      * All {@link CCustomizations} used by a {@link Model} form a single linked list

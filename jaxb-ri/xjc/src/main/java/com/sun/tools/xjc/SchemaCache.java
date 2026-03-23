@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -17,18 +18,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.xml.XMLConstants;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.ValidatorHandler;
 
 import org.glassfish.jaxb.core.v2.util.XmlFactory;
-import javax.xml.XMLConstants;
-
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
 import org.xml.sax.SAXException;
-
 import static org.glassfish.jaxb.core.v2.util.XmlFactory.allowExternalAccess;
 
 /**
@@ -89,7 +88,7 @@ public final class SchemaCache {
         return schema.newValidatorHandler();
     }
 
-    class ResourceResolver implements LSResourceResolver {
+    static class ResourceResolver implements LSResourceResolver {
 
         private List<InputStream> streamsToClose = Collections.synchronizedList(new ArrayList<>());
         private Class<?> clazz;

@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,34 +11,46 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime.unmarshaller;
 
-import com.sun.istack.NotNull;
-import com.sun.istack.Nullable;
-import com.sun.istack.SAXParseException2;
-import org.glassfish.jaxb.runtime.IDResolver;
-import org.glassfish.jaxb.runtime.api.AccessorException;
-import org.glassfish.jaxb.runtime.api.ClassResolver;
-import org.glassfish.jaxb.core.unmarshaller.InfosetScanner;
-import org.glassfish.jaxb.core.v2.ClassFactory;
-import org.glassfish.jaxb.runtime.v2.runtime.AssociationMap;
-import org.glassfish.jaxb.runtime.v2.runtime.Coordinator;
-import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
-import org.glassfish.jaxb.runtime.v2.runtime.JaxBeanInfo;
-import org.glassfish.jaxb.core.v2.runtime.unmarshaller.LocatorEx;
-import jakarta.xml.bind.*;
-import jakarta.xml.bind.helpers.ValidationEventImpl;
-import org.xml.sax.ErrorHandler;
-import org.xml.sax.Locator;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.LocatorImpl;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.Callable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.namespace.QName;
-import java.lang.reflect.Method;
-import java.util.*;
-import java.util.concurrent.Callable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import com.sun.istack.NotNull;
+import com.sun.istack.Nullable;
+import com.sun.istack.SAXParseException2;
+import jakarta.xml.bind.JAXBElement;
+import jakarta.xml.bind.UnmarshalException;
+import jakarta.xml.bind.Unmarshaller;
+import jakarta.xml.bind.ValidationEvent;
+import jakarta.xml.bind.ValidationEventHandler;
+import jakarta.xml.bind.ValidationEventLocator;
+import jakarta.xml.bind.helpers.ValidationEventImpl;
+import org.glassfish.jaxb.core.unmarshaller.InfosetScanner;
+import org.glassfish.jaxb.core.v2.ClassFactory;
+import org.glassfish.jaxb.core.v2.runtime.unmarshaller.LocatorEx;
+import org.glassfish.jaxb.runtime.IDResolver;
+import org.glassfish.jaxb.runtime.api.AccessorException;
+import org.glassfish.jaxb.runtime.api.ClassResolver;
+import org.glassfish.jaxb.runtime.v2.runtime.AssociationMap;
+import org.glassfish.jaxb.runtime.v2.runtime.Coordinator;
+import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
+import org.glassfish.jaxb.runtime.v2.runtime.JaxBeanInfo;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.Locator;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.LocatorImpl;
 
 /**
  * Center of the unmarshalling.
@@ -535,7 +548,7 @@ public final class UnmarshallingContext extends Coordinator
         pushCoordinator();
         try {
             if (current.elementDefaultValue != null) {
-                if (pcdata.length() == 0) {
+                if (pcdata.isEmpty()) {
                     // send the default value into the unmarshaller instead
                     pcdata = current.elementDefaultValue;
                 }
@@ -876,7 +889,7 @@ public final class UnmarshallingContext extends Coordinator
 
         // by default, the default ns is bound to "".
         // but allow environmentNamespaceContext to take precedence
-        if(prefix.equals(""))
+        if(prefix.isEmpty())
             return "";
 
         // unresolved. error.

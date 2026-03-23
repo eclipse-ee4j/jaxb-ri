@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,11 +11,11 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime.reflect;
 
+import jakarta.xml.bind.JAXBException;
 import org.glassfish.jaxb.core.WhiteSpaceProcessor;
 import org.glassfish.jaxb.runtime.api.AccessorException;
 import org.glassfish.jaxb.runtime.v2.runtime.Transducer;
 import org.glassfish.jaxb.runtime.v2.runtime.XMLSerializer;
-import jakarta.xml.bind.JAXBException;
 import org.xml.sax.SAXException;
 
 /**
@@ -85,7 +86,7 @@ public final class ListTransducedAccessorImpl<BeanT,ListT,ItemT,PackT> extends D
             try {
                 ItemT item = itr.next();
                 if (item != null) {
-                    if(buf.length()>0)  buf.append(' ');
+                    if(!buf.isEmpty())  buf.append(' ');
                     buf.append(xducer.print(item));
                 }
             } catch (JAXBException e) {

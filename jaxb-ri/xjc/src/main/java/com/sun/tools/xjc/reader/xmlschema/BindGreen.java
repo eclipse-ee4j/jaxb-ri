@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -46,12 +47,12 @@ public final class BindGreen extends ColorBinder {
 
     public void attContainer(XSAttContainer cont) {
         // inline
-        Iterator itr = cont.iterateDeclaredAttributeUses();
+        Iterator<? extends XSAttributeUse> itr = cont.iterateDeclaredAttributeUses();
         while(itr.hasNext())
-            builder.ying((XSAttributeUse)itr.next(),cont);
-        itr = cont.iterateAttGroups();
-        while(itr.hasNext())
-            builder.ying((XSAttGroupDecl)itr.next(),cont);
+            builder.ying(itr.next(),cont);
+        Iterator<? extends XSAttGroupDecl> itr2 = cont.iterateAttGroups();
+        while(itr2.hasNext())
+            builder.ying(itr2.next(),cont);
 
         XSWildcard w = cont.getAttributeWildcard();
         if(w!=null)

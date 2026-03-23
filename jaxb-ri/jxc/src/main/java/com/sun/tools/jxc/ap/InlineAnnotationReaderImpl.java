@@ -26,9 +26,10 @@ import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.MirroredTypeException;
 import javax.lang.model.type.MirroredTypesException;
 import javax.lang.model.type.TypeMirror;
-import org.glassfish.jaxb.runtime.v2.model.annotation.AbstractInlineAnnotationReaderImpl;
+
 import org.glassfish.jaxb.core.v2.model.annotation.AnnotationReader;
 import org.glassfish.jaxb.core.v2.model.annotation.Locatable;
+import org.glassfish.jaxb.runtime.v2.model.annotation.AbstractInlineAnnotationReaderImpl;
 import org.glassfish.jaxb.runtime.v2.model.annotation.LocatableAnnotation;
 
 /**
@@ -130,8 +131,7 @@ public final class InlineAnnotationReaderImpl extends AbstractInlineAnnotationRe
         } catch (IllegalAccessException e) {
             throw new IllegalAccessError(e.getMessage());
         } catch (InvocationTargetException e) {
-            if( e.getCause() instanceof MirroredTypeException ) {
-                MirroredTypeException me = (MirroredTypeException)e.getCause();
+            if(e.getCause() instanceof MirroredTypeException me) {
                 return me.getTypeMirror();
             }
             // impossible
@@ -150,15 +150,13 @@ public final class InlineAnnotationReaderImpl extends AbstractInlineAnnotationRe
         } catch (IllegalAccessException e) {
             throw new IllegalAccessError(e.getMessage());
         } catch (InvocationTargetException e) {
-            if( e.getCause() instanceof MirroredTypesException ) {
-                MirroredTypesException me = (MirroredTypesException)e.getCause();
+            if(e.getCause() instanceof MirroredTypesException me) {
                 Collection<? extends TypeMirror> r = me.getTypeMirrors();
                 return r.toArray(new TypeMirror[0]);
             }
             // *********************** TODO: jdk6 bug. Fixed in java7
             // According to the javadocs it should throw the MirroredTypesException
-            if( e.getCause() instanceof MirroredTypeException ) {
-                MirroredTypeException me = (MirroredTypeException)e.getCause();
+            if(e.getCause() instanceof MirroredTypeException me) {
                 TypeMirror tr = me.getTypeMirror();
                 TypeMirror[] trArr = new TypeMirror[1];
                 trArr[0] = tr;

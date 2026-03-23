@@ -55,7 +55,7 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
         return sc;
     }
 
-    private static final TypeVisitor<Type, Class<?>> baseClassFinder = new TypeVisitor<Type, Class<?>>() {
+    private static final TypeVisitor<Type, Class<?>> baseClassFinder = new TypeVisitor<>() {
 
         @Override
         public Type onClass(Class<?> c, Class<?> sup) {
@@ -161,7 +161,7 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
             return v;   // this is a free variable
         }
     }
-    private static final TypeVisitor<Type, BinderArg> binder = new TypeVisitor<Type, BinderArg>() {
+    private static final TypeVisitor<Type, BinderArg> binder = new TypeVisitor<>() {
 
         @Override
         public Type onClass(Class<?> c, BinderArg args) {
@@ -362,7 +362,7 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
     /**
      * Implements the logic for {@link #erasure(Type)}.
      */
-    private static final TypeVisitor<Class, Void> eraser = new TypeVisitor<Class, Void>() {
+    private static final TypeVisitor<Class, Void> eraser = new TypeVisitor<>() {
 
         @Override
         public Class<?> onClass(Class<?> c, Void v) {
@@ -470,8 +470,7 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
 
     @Override
     public Type getTypeArgument(Type type, int i) {
-        if (type instanceof ParameterizedType) {
-            ParameterizedType p = (ParameterizedType) type;
+        if (type instanceof ParameterizedType p) {
             return fix(p.getActualTypeArguments()[i]);
         } else {
             throw new IllegalArgumentException();
@@ -667,13 +666,11 @@ import org.glassfish.jaxb.core.v2.runtime.Location;
      * See bug 6202725.
      */
     private Type fix(Type t) {
-        if (!(t instanceof GenericArrayType)) {
+        if (!(t instanceof GenericArrayType gat)) {
             return t;
         }
 
-        GenericArrayType gat = (GenericArrayType) t;
-        if (gat.getGenericComponentType() instanceof Class) {
-            Class<?> c = (Class<?>) gat.getGenericComponentType();
+        if (gat.getGenericComponentType() instanceof Class<?> c) {
             return Array.newInstance(c, 0).getClass();
         }
 

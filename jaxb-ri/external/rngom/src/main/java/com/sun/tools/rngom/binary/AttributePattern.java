@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2022, 2026 Eclipse Foundation
  * Copyright (C) 2004-2011
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -88,10 +89,9 @@ public final class AttributePattern extends Pattern {
   }
 
   boolean samePattern(Pattern other) {
-    if (!(other instanceof AttributePattern))
+    if (!(other instanceof AttributePattern ap))
       return false;
-    AttributePattern ap = (AttributePattern)other;
-    return nameClass.equals(ap.nameClass)&& p == ap.p;
+      return nameClass.equals(ap.nameClass)&& p == ap.p;
   }
 
   void checkRecursion(int depth) throws SAXException {

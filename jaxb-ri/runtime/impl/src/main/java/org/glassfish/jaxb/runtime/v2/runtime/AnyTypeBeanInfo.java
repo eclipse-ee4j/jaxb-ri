@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,21 +11,26 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime;
 
+import java.io.IOException;
+
+import javax.xml.XMLConstants;
+import javax.xml.namespace.QName;
+import javax.xml.stream.XMLStreamException;
+
+import jakarta.xml.bind.ValidationEvent;
+import jakarta.xml.bind.annotation.W3CDomHandler;
+import jakarta.xml.bind.helpers.ValidationEventImpl;
 import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimeTypeInfo;
 import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.DomLoader;
 import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.Loader;
 import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.UnmarshallingContext;
 import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.XsiTypeLoader;
-import jakarta.xml.bind.ValidationEvent;
-import jakarta.xml.bind.annotation.W3CDomHandler;
-import jakarta.xml.bind.helpers.ValidationEventImpl;
-import org.w3c.dom.*;
+import org.w3c.dom.Attr;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-
-import javax.xml.XMLConstants;
-import javax.xml.namespace.QName;
-import javax.xml.stream.XMLStreamException;
-import java.io.IOException;
 
 /**
  * {@link JaxBeanInfo} for handling {@code xs:anyType}.
@@ -141,7 +147,7 @@ final class AnyTypeBeanInfo extends JaxBeanInfo<Object> implements AttributeAcce
                 continue;
             }
             String nsUri = a.getNamespaceURI();
-            if(nsUri!=null && nsUri.length()>0)
+            if(nsUri!=null && !nsUri.isEmpty())
                 context.declareNamespace( nsUri, a.getPrefix(), true );
         }
     }

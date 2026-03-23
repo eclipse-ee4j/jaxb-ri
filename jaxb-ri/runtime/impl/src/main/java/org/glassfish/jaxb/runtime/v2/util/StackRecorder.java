@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,12 +11,15 @@
 
 package org.glassfish.jaxb.runtime.v2.util;
 
+import java.io.Serial;
+
 /**
  * Created to record the caller stack trace in logging.
  *
  * @author Kohsuke Kawaguchi
  */
 public class StackRecorder extends Throwable {
+    @Serial
     private static final long serialVersionUID = 1296878485146023581L;
 
     /**

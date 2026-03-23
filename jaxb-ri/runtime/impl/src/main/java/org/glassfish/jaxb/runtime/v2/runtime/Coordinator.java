@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -22,6 +23,8 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Object that coordinates the marshalling/unmarshalling.
@@ -47,13 +50,13 @@ import java.util.HashMap;
  */
 public abstract class Coordinator implements ErrorHandler, ValidationEventHandler {
     
-    private final HashMap<Class<? extends XmlAdapter>,XmlAdapter> adapters =
+    private final Map<Class<? extends XmlAdapter>,XmlAdapter> adapters =
             new HashMap<>();
 
     /**
      * Default constructor.
      */
-    protected Coordinator() {};
+    protected Coordinator() {}
 
     public final XmlAdapter putAdapter(Class<? extends XmlAdapter> c, XmlAdapter a) {
         if(a==null)
@@ -144,18 +147,14 @@ public abstract class Coordinator implements ErrorHandler, ValidationEventHandle
             new ValidationEventImpl( severity, saxException.getMessage(), getLocation() );
 
         Exception e = saxException.getException();
-        if( e != null ) {
-            ve.setLinkedException( e );
-        } else {
-            ve.setLinkedException( saxException );
-        }
+        ve.setLinkedException(Objects.requireNonNullElse(e, saxException));
 
         // call the client's event handler.  If it returns false, then bail-out
         // and terminate the unmarshal operation.
         boolean result = handleEvent( ve );
         if( ! result ) {
             // bail-out of the parse with a SAX exception, but convert it into
-            // an UnmarshalException back in in the AbstractUnmarshaller
+            // an UnmarshalException back in the AbstractUnmarshaller
             throw saxException;
         }
     }

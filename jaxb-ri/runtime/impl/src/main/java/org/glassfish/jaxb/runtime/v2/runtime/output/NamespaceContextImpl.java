@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,20 +11,21 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime.output;
 
+import java.io.IOException;
+import java.util.Collections;
+import java.util.Iterator;
+
+import javax.xml.XMLConstants;
+import javax.xml.stream.XMLStreamException;
+
 import com.sun.istack.NotNull;
 import com.sun.istack.Nullable;
-import org.glassfish.jaxb.runtime.marshaller.NamespacePrefixMapper;
 import org.glassfish.jaxb.core.v2.WellKnownNamespace;
+import org.glassfish.jaxb.runtime.marshaller.NamespacePrefixMapper;
 import org.glassfish.jaxb.runtime.v2.runtime.Name;
 import org.glassfish.jaxb.runtime.v2.runtime.NamespaceContext2;
 import org.glassfish.jaxb.runtime.v2.runtime.XMLSerializer;
 import org.xml.sax.SAXException;
-
-import javax.xml.XMLConstants;
-import javax.xml.stream.XMLStreamException;
-import java.io.IOException;
-import java.util.Collections;
-import java.util.Iterator;
 
 /**
  * Keeps track of in-scope namespace bindings for the marshaller.
@@ -94,7 +96,7 @@ public final class NamespaceContextImpl implements NamespaceContext2 {
     public NamespaceContextImpl(XMLSerializer owner) {
         this.owner = owner;
 
-        current = top = new Element(this,null);
+        current = top = new Element(this, null);
         // register namespace URIs that are implicitly bound
         put(XMLConstants.XML_NS_URI,XMLConstants.XML_NS_PREFIX);
     }
@@ -122,11 +124,11 @@ public final class NamespaceContextImpl implements NamespaceContext2 {
     public int declareNsUri( String uri, String preferedPrefix, boolean requirePrefix ) {
         preferedPrefix = prefixMapper.getPreferredPrefix(uri,preferedPrefix,requirePrefix);
 
-        if(uri.length()==0) {
+        if(uri.isEmpty()) {
             for( int i=size-1; i>=0; i-- ) {
-                if(nsUris[i].length()==0)
+                if(nsUris[i].isEmpty())
                     return i; // already declared
-                if(prefixes[i].length()==0) {
+                if(prefixes[i].isEmpty()) {
                     // the default prefix is already taken.
                     // move that URI to another prefix, then assign "" to the default prefix.
                     assert current.defaultPrefixIndex==-1 && current.oldDefaultNamespaceUriIndex==-1;
@@ -184,7 +186,7 @@ public final class NamespaceContextImpl implements NamespaceContext2 {
             for( int i=size-1; i>=0; i-- ) {
                 String p = prefixes[i];
                 if(nsUris[i].equals(uri)) {
-                    if (!requirePrefix || p.length()>0)
+                    if (!requirePrefix || !p.isEmpty())
                         return i;
                     // declared but this URI is bound to empty. Look further
                 }
@@ -357,7 +359,7 @@ public final class NamespaceContextImpl implements NamespaceContext2 {
      *  <li>If a non-empty prefix is declared, it will never be reassigned to different namespace URIs.</li>
      * </ul>
      */
-    public final class Element {
+    public static final class Element {
 
         public final NamespaceContextImpl context;
 
@@ -426,7 +428,7 @@ public final class NamespaceContextImpl implements NamespaceContext2 {
 
         public Element push() {
             if(next==null)
-                next = new Element(context,this);
+                next = new Element(context, this);
             next.onPushed();
             return next;
         }

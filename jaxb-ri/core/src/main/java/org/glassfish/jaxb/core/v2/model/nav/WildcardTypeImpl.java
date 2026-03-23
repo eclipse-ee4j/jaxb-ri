@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -44,8 +45,7 @@ final class WildcardTypeImpl implements WildcardType {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof WildcardType) {
-            WildcardType that = (WildcardType) obj;
+        if (obj instanceof WildcardType that) {
             return Arrays.equals(that.getLowerBounds(),lb)
                 && Arrays.equals(that.getUpperBounds(),ub);
         }

@@ -11,23 +11,21 @@
 
 package com.sun.codemodel.tests;
 
-import com.sun.codemodel.ClassType;
-import com.sun.codemodel.JExpr;
-import com.sun.codemodel.writer.OutputStreamCodeWriter;
+import java.io.ByteArrayOutputStream;
+import java.nio.charset.StandardCharsets;
 
+import com.sun.codemodel.ClassType;
 import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.JDefinedClass;
+import com.sun.codemodel.JExpr;
 import com.sun.codemodel.JMethod;
 import com.sun.codemodel.JMod;
 import com.sun.codemodel.JVar;
+import com.sun.codemodel.writer.OutputStreamCodeWriter;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.io.ByteArrayOutputStream;
-import java.nio.charset.StandardCharsets;
 
 public class JMethodTest {
 
@@ -52,6 +50,7 @@ public class JMethodTest {
 		assertTrue(generatedClass.contains("public void foo(String foo)"));
 	}
 
+	@Test
 	public void testDefaultMethod() throws Throwable {
 		JCodeModel cm = new JCodeModel();
 		String className = "gh1706.InterfaceTest";

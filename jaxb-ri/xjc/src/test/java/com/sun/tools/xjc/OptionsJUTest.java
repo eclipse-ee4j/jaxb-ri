@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2011, 2023 Oracle and/or its affiliates. All rights reserved.
  * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
+ * Copyright (c) 2011, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,15 +11,6 @@
 
 package com.sun.tools.xjc;
 
-import com.sun.codemodel.JClassAlreadyExistsException;
-import com.sun.codemodel.JCodeModel;
-import com.sun.codemodel.JDefinedClass;
-import com.sun.codemodel.JMod;
-import com.sun.istack.tools.DefaultAuthenticator;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -29,6 +20,14 @@ import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.sun.codemodel.JClassAlreadyExistsException;
+import com.sun.codemodel.JCodeModel;
+import com.sun.codemodel.JDefinedClass;
+import com.sun.codemodel.JMod;
+import com.sun.istack.tools.DefaultAuthenticator;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -103,7 +102,7 @@ public class OptionsJUTest {
             in = fis.readAllBytes();
             fis.close();
             cls.delete();
-            inStr = new String(in, Charset.defaultCharset().name());
+            inStr = new String(in, Charset.defaultCharset());
             assertTrue(inStr.contains("// This f"), "Got: '" + inStr + "'");
             assertTrue(inStr.contains("// Generated on:"), "Got: '" + inStr + "'");
 
@@ -116,7 +115,7 @@ public class OptionsJUTest {
             in = fis.readAllBytes();
             fis.close();
             cls.delete();
-            inStr = new String(in, Charset.defaultCharset().name());
+            inStr = new String(in, Charset.defaultCharset());
             assertTrue(inStr.contains("// This f"), "Got: '" + inStr + "'");
             assertFalse(inStr.contains("// Generated on:"), "Got: '" + inStr + "'");
         } finally {

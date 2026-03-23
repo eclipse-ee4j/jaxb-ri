@@ -11,6 +11,19 @@
 
 package com.sun.tools.xjc;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.LineNumberReader;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.Iterator;
+
 import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.JDeclaration;
 import com.sun.codemodel.JDefinedClass;
@@ -25,20 +38,6 @@ import com.sun.tools.xjc.api.XJC;
 import com.sun.tools.xjc.util.Util;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.InputSource;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.LineNumberReader;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.Iterator;
-
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -199,6 +198,7 @@ public class CodeGenTest {
      *
      * @see <a href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1788">Issue #1788</a>
      */
+    @Test
     public void testIssue1788() throws FileNotFoundException, URISyntaxException {
         String schemaFileName = "/schemas/issue1788/schema.xsd";
         String bindingFileName = "/schemas/issue1788/binding.xjb";
@@ -237,6 +237,7 @@ public class CodeGenTest {
      *
      * @see <a href="https://github.com/eclipse-ee4j/jaxb-ri/issues/1788">Issue #1788</a>
      */
+    @Test
     public void testIssue1865() throws FileNotFoundException, URISyntaxException {
         String schemaFileName = "/schemas/issue1865/simple.xsd";
         String packageName = "org.example.issue1865";

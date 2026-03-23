@@ -1,6 +1,6 @@
 /*
+ * Copyright (c) 2025, 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -13,9 +13,9 @@ package com.sun.codemodel;
 
 import com.sun.codemodel.util.Util;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 
 /**
  * A part is a part of a javadoc comment, and it is a list of values.
@@ -33,6 +33,7 @@ import java.util.Iterator;
  */
 public class JCommentPart extends ArrayList<Object> {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     protected JCommentPart() {
@@ -95,29 +96,23 @@ public class JCommentPart extends ArrayList<Object> {
         if(!isEmpty())
             f.p(indent);
 
-        Iterator<Object> itr = iterator();
-        while(itr.hasNext()) {
-            Object o = itr.next();
-
-            if(o instanceof String) {
+        for (Object o : this) {
+            if (o instanceof String s) {
                 int idx;
-                String s = (String)o;
-                while( (idx=s.indexOf('\n'))!=-1 ) {
-                    String line = s.substring(0,idx);
-                    if(line.length()>0)
+                while ((idx = s.indexOf('\n')) != -1) {
+                    String line = s.substring(0, idx);
+                    if (!line.isEmpty())
                         f.p(escape(line));
-                    s = s.substring(idx+1);
+                    s = s.substring(idx + 1);
                     f.nl().p(indent);
                 }
-                if(s.length()!=0)
+                if (!s.isEmpty())
                     f.p(escape(s));
-            } else
-            if(o instanceof JClass) {
+            } else if (o instanceof JClass) {
                 // TODO: this doesn't print the parameterized type properly
-                ((JClass)o).printLink(f);
-            } else
-            if(o instanceof JType) {
-                f.g((JType)o);
+                ((JClass) o).printLink(f);
+            } else if (o instanceof JType) {
+                f.g((JType) o);
             } else
                 throw new IllegalStateException();
         }

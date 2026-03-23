@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,18 +11,17 @@
 
 package com.sun.tools.xjc.model;
 
-import jakarta.activation.MimeType;
-import jakarta.xml.bind.annotation.adapters.XmlAdapter;
+import java.util.Objects;
 
 import com.sun.codemodel.JExpr;
 import com.sun.codemodel.JExpression;
 import com.sun.codemodel.JStringLiteral;
 import com.sun.tools.xjc.outline.Outline;
+import com.sun.xml.xsom.XmlString;
+import jakarta.activation.MimeType;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 import org.glassfish.jaxb.core.v2.ClassFactory;
 import org.glassfish.jaxb.core.v2.model.core.ID;
-import com.sun.xml.xsom.XmlString;
-
-import java.util.Objects;
 
 
 /**
@@ -73,14 +73,12 @@ final class TypeUseImpl implements TypeUse {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof TypeUseImpl)) return false;
-
-        final TypeUseImpl that = (TypeUseImpl) o;
+        if (!(o instanceof TypeUseImpl that)) return false;
 
         if (collection != that.collection) return false;
         if (this.id != that.id ) return false;
         if (!Objects.equals(adapter, that.adapter)) return false;
-        return coreType != null ? coreType.equals(that.coreType) : that.coreType == null;
+        return Objects.equals(coreType, that.coreType);
     }
 
     @Override
@@ -105,8 +103,7 @@ final class TypeUseImpl implements TypeUse {
         Class<? extends XmlAdapter> atype = adapter.getAdapterIfKnown();
 
         // try to run the adapter now rather than later.
-        if(cons instanceof JStringLiteral && atype!=null) {
-            JStringLiteral scons = (JStringLiteral) cons;
+        if(cons instanceof JStringLiteral scons && atype!=null) {
             XmlAdapter a = ClassFactory.create(atype);
             try {
                 Object value = a.unmarshal(scons.str);

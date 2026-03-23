@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 2025, 2026 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,6 +11,10 @@
 
 package org.glassfish.jaxb.runtime.v2.schemagen;
 
+import java.io.ByteArrayOutputStream;
+import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
+
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.annotation.XmlAccessType;
@@ -17,11 +22,6 @@ import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import org.junit.jupiter.api.Test;
-
-import java.io.ByteArrayOutputStream;
-import java.io.StringWriter;
-import java.nio.charset.StandardCharsets;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -221,7 +221,7 @@ public class IndentationTest {
         marshaller.marshal(level0, byteStream);
         
         // Convert bytes to String using UTF-8
-        String result = byteStream.toString(StandardCharsets.UTF_8.name());
+        String result = byteStream.toString(StandardCharsets.UTF_8);
         System.out.println("Test output (ByteArrayOutputStream):");
         System.out.println(result);
 
@@ -298,7 +298,7 @@ public class IndentationTest {
         // Test with ByteArrayOutputStream
         ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
         marshaller.marshal(level0, byteStream);
-        String result = byteStream.toString(StandardCharsets.UTF_8.name());
+        String result = byteStream.toString(StandardCharsets.UTF_8);
         
         System.out.println("8-level test output (ByteArrayOutputStream):");
         System.out.println(result);
@@ -338,7 +338,7 @@ public class IndentationTest {
         // Test with ByteArrayOutputStream
         ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
         marshaller.marshal(node, byteStream);
-        String result = byteStream.toString(StandardCharsets.UTF_8.name());
+        String result = byteStream.toString(StandardCharsets.UTF_8);
         
         System.out.println("16-level test output (ByteArrayOutputStream, first 2000 chars):");
         System.out.println(result.substring(0, Math.min(2000, result.length())));

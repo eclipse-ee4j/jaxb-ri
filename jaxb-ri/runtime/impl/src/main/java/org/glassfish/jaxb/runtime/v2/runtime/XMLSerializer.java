@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,10 +11,37 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime;
 
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
+import javax.xml.XMLConstants;
+import javax.xml.namespace.QName;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.sax.SAXResult;
+
 import com.sun.istack.SAXException2;
+import jakarta.activation.MimeType;
+import jakarta.xml.bind.DatatypeConverter;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.ValidationEvent;
+import jakarta.xml.bind.ValidationEventHandler;
+import jakarta.xml.bind.ValidationEventLocator;
+import jakarta.xml.bind.annotation.DomHandler;
+import jakarta.xml.bind.annotation.XmlNs;
+import jakarta.xml.bind.attachment.AttachmentMarshaller;
+import jakarta.xml.bind.helpers.NotIdentifiableEventImpl;
+import jakarta.xml.bind.helpers.ValidationEventImpl;
+import jakarta.xml.bind.helpers.ValidationEventLocatorImpl;
 import org.glassfish.jaxb.runtime.CycleRecoverable;
-import org.glassfish.jaxb.runtime.marshaller.NamespacePrefixMapper;
 import org.glassfish.jaxb.runtime.api.AccessorException;
+import org.glassfish.jaxb.runtime.marshaller.NamespacePrefixMapper;
 import org.glassfish.jaxb.runtime.util.ValidationEventLocatorExImpl;
 import org.glassfish.jaxb.runtime.v2.model.runtime.RuntimeBuiltinLeafInfo;
 import org.glassfish.jaxb.runtime.v2.runtime.output.MTOMXmlOutput;
@@ -24,28 +52,7 @@ import org.glassfish.jaxb.runtime.v2.runtime.property.Property;
 import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.Base64Data;
 import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.IntData;
 import org.glassfish.jaxb.runtime.v2.util.CollisionCheckStack;
-import jakarta.activation.MimeType;
-import jakarta.xml.bind.*;
-import jakarta.xml.bind.annotation.DomHandler;
-import jakarta.xml.bind.annotation.XmlNs;
-import jakarta.xml.bind.attachment.AttachmentMarshaller;
-import jakarta.xml.bind.helpers.NotIdentifiableEventImpl;
-import jakarta.xml.bind.helpers.ValidationEventImpl;
-import jakarta.xml.bind.helpers.ValidationEventLocatorImpl;
 import org.xml.sax.SAXException;
-
-import javax.xml.XMLConstants;
-import javax.xml.namespace.QName;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.sax.SAXResult;
-import java.io.IOException;
-import java.lang.reflect.Method;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * Receives XML serialization event and writes to {@link XmlOutput}.
@@ -388,7 +395,7 @@ public final class XMLSerializer extends Coordinator {
 
     public void attribute(String uri, String local, String value) throws SAXException {
         int prefix;
-        if(uri.length()==0) {
+        if(uri.isEmpty()) {
             // default namespace. don't need prefix
             prefix = -1;
         } else {
@@ -723,9 +730,9 @@ public final class XMLSerializer extends Coordinator {
         for( Map.Entry<QName,String> e : attributes.entrySet() ) {
             QName n = e.getKey();
             String nsUri = n.getNamespaceURI();
-            if(nsUri.length()>0) {
+            if(!nsUri.isEmpty()) {
                 String p = n.getPrefix();
-                if(p.length()==0)   p=null;
+                if(p.isEmpty())   p=null;
                 nsContext.declareNsUri(nsUri, p, true);
             }
         }

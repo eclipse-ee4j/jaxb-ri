@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -183,7 +184,7 @@ public class JDefinedClass
         super(owner);
 
         if(name!=null) {
-            if (name.trim().length() == 0)
+            if (name.trim().isEmpty())
                 throw new IllegalArgumentException("JClass name empty");
     
             if (!Character.isJavaIdentifierStart(name.charAt(0))) {

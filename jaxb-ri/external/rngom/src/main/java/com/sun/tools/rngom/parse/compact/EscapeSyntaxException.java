@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Eclipse Foundation
+ * Copyright (c) 2022, 2026 Eclipse Foundation
  * Copyright (C) 2004-2011
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,7 +22,10 @@
  */
 package com.sun.tools.rngom.parse.compact;
 
+import java.io.Serial;
+
 class EscapeSyntaxException extends RuntimeException {
+  @Serial
   private static final long serialVersionUID = 3346564367583863281L;
   private final String key;
   private final int lineNumber;

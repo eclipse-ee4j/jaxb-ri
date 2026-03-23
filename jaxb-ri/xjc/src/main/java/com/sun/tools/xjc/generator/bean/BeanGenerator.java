@@ -1,6 +1,6 @@
 /*
+ * Copyright (c) 2025, 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,26 +11,16 @@
 
 package com.sun.tools.xjc.generator.bean;
 
-import static com.sun.tools.xjc.outline.Aspect.EXPOSED;
-
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import com.sun.tools.xjc.outline.ElementOutline;
-import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.annotation.XmlAttachmentRef;
-import jakarta.xml.bind.annotation.XmlID;
-import jakarta.xml.bind.annotation.XmlIDREF;
-import jakarta.xml.bind.annotation.XmlMimeType;
-import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.xml.namespace.QName;
 
 import com.sun.codemodel.ClassType;
@@ -53,6 +43,7 @@ import com.sun.codemodel.JPackage;
 import com.sun.codemodel.JType;
 import com.sun.codemodel.JVar;
 import com.sun.codemodel.fmt.JStaticJavaFile;
+import com.sun.istack.NotNull;
 import com.sun.tools.xjc.AbortException;
 import com.sun.tools.xjc.ErrorReceiver;
 import com.sun.tools.xjc.generator.annotation.spec.XmlAnyAttributeWriter;
@@ -68,26 +59,34 @@ import com.sun.tools.xjc.model.CAdapter;
 import com.sun.tools.xjc.model.CAttributePropertyInfo;
 import com.sun.tools.xjc.model.CClassInfo;
 import com.sun.tools.xjc.model.CClassInfoParent;
+import com.sun.tools.xjc.model.CClassRef;
 import com.sun.tools.xjc.model.CElementInfo;
 import com.sun.tools.xjc.model.CEnumConstant;
 import com.sun.tools.xjc.model.CEnumLeafInfo;
 import com.sun.tools.xjc.model.CPropertyInfo;
+import com.sun.tools.xjc.model.CReferencePropertyInfo;
 import com.sun.tools.xjc.model.CTypeRef;
 import com.sun.tools.xjc.model.Model;
-import com.sun.tools.xjc.model.CClassRef;
 import com.sun.tools.xjc.outline.Aspect;
 import com.sun.tools.xjc.outline.ClassOutline;
+import com.sun.tools.xjc.outline.ElementOutline;
 import com.sun.tools.xjc.outline.EnumConstantOutline;
 import com.sun.tools.xjc.outline.EnumOutline;
 import com.sun.tools.xjc.outline.FieldOutline;
 import com.sun.tools.xjc.outline.Outline;
 import com.sun.tools.xjc.outline.PackageOutline;
 import com.sun.tools.xjc.util.CodeModelClassFactory;
+import com.sun.xml.xsom.XmlString;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.annotation.XmlAttachmentRef;
+import jakarta.xml.bind.annotation.XmlID;
+import jakarta.xml.bind.annotation.XmlIDREF;
+import jakarta.xml.bind.annotation.XmlMimeType;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.glassfish.jaxb.core.v2.model.core.PropertyInfo;
 import org.glassfish.jaxb.core.v2.runtime.SwaRefAdapterMarker;
-import com.sun.xml.xsom.XmlString;
-import com.sun.istack.NotNull;
-import com.sun.tools.xjc.model.CReferencePropertyInfo;
+import static com.sun.tools.xjc.outline.Aspect.EXPOSED;
 
 /**
  * Generates fields and accessors.
@@ -272,7 +271,7 @@ public final class BeanGenerator implements Outline {
                 case INTF_AND_IMPL: {
                     StringBuilder buf = new StringBuilder();
                     for (PackageOutlineImpl po : packageContexts.values()) {
-                        if (buf.length() > 0) {
+                        if (!buf.isEmpty()) {
                             buf.append(':');
                         }
                         buf.append(po._package().name());
@@ -310,18 +309,10 @@ public final class BeanGenerator implements Outline {
 
     @Override
     public JClassContainer getContainer(CClassInfoParent parent, Aspect aspect) {
-        CClassInfoParent.Visitor<JClassContainer> v;
-        switch (aspect) {
-            case EXPOSED:
-                v = exposedContainerBuilder;
-                break;
-            case IMPLEMENTATION:
-                v = implContainerBuilder;
-                break;
-            default:
-                assert false;
-                throw new IllegalStateException();
-        }
+        CClassInfoParent.Visitor<JClassContainer> v = switch (aspect) {
+            case EXPOSED -> exposedContainerBuilder;
+            case IMPLEMENTATION -> implContainerBuilder;
+        };
         return parent.accept(v);
     }
 
@@ -595,13 +586,16 @@ public final class BeanGenerator implements Outline {
 
         JMethod $get = writer.declareMethod(mapType, "get" + METHOD_SEED);
         $get.javadoc().append(
-                "Gets a map that contains attributes that aren't bound to any typed property on this class.\n\n"
-                + "<p>\n"
-                + "the map is keyed by the name of the attribute and \n"
-                + "the value is the string value of the attribute.\n"
-                + "\n"
-                + "the map returned by this method is live, and you can add new attribute\n"
-                + "by updating the map directly. Because of this design, there's no setter.\n");
+                """
+                        Gets a map that contains attributes that aren't bound to any typed property on this class.
+                        
+                        <p>
+                        the map is keyed by the name of the attribute and\s
+                        the value is the string value of the attribute.
+                        
+                        the map returned by this method is live, and you can add new attribute
+                        by updating the map directly. Because of this design, there's no setter.
+                        """);
         $get.javadoc().addReturn().append("always non-null");
 
         $get.body()._return($ref);

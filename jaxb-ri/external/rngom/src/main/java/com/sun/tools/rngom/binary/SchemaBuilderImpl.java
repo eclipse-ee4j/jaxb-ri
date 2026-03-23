@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2022, 2026 Eclipse Foundation
  * Copyright (C) 2004-2012
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -25,6 +26,13 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
 
+import com.sun.tools.rngdatatype.Datatype;
+import com.sun.tools.rngdatatype.DatatypeBuilder;
+import com.sun.tools.rngdatatype.DatatypeException;
+import com.sun.tools.rngdatatype.DatatypeLibrary;
+import com.sun.tools.rngdatatype.DatatypeLibraryFactory;
+import com.sun.tools.rngdatatype.ValidationContext;
+import com.sun.tools.rngdatatype.helpers.DatatypeLibraryLoader;
 import com.sun.tools.rngom.ast.builder.Annotations;
 import com.sun.tools.rngom.ast.builder.BuildException;
 import com.sun.tools.rngom.ast.builder.CommentList;
@@ -43,21 +51,14 @@ import com.sun.tools.rngom.ast.om.ParsedElementAnnotation;
 import com.sun.tools.rngom.ast.om.ParsedNameClass;
 import com.sun.tools.rngom.ast.om.ParsedPattern;
 import com.sun.tools.rngom.ast.util.LocatorImpl;
-import com.sun.tools.rngom.dt.builtin.BuiltinDatatypeLibraryFactory;
 import com.sun.tools.rngom.dt.CascadingDatatypeLibraryFactory;
+import com.sun.tools.rngom.dt.builtin.BuiltinDatatypeLibraryFactory;
 import com.sun.tools.rngom.nc.NameClass;
 import com.sun.tools.rngom.nc.NameClassBuilderImpl;
 import com.sun.tools.rngom.parse.Context;
 import com.sun.tools.rngom.parse.IllegalSchemaException;
 import com.sun.tools.rngom.parse.Parseable;
 import com.sun.tools.rngom.util.Localizer;
-import com.sun.tools.rngdatatype.Datatype;
-import com.sun.tools.rngdatatype.DatatypeBuilder;
-import com.sun.tools.rngdatatype.DatatypeException;
-import com.sun.tools.rngdatatype.DatatypeLibrary;
-import com.sun.tools.rngdatatype.DatatypeLibraryFactory;
-import com.sun.tools.rngdatatype.ValidationContext;
-import com.sun.tools.rngdatatype.helpers.DatatypeLibraryLoader;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
@@ -274,11 +275,11 @@ public class SchemaBuilderImpl implements SchemaBuilder, ElementAnnotationBuilde
 
         ValidationContextImpl(ValidationContext vc, String ns) {
             this.vc = vc;
-            this.ns = ns.length() == 0 ? null : ns;
+            this.ns = ns.isEmpty() ? null : ns;
         }
 
         public String resolveNamespacePrefix(String prefix) {
-            return prefix.length() == 0 ? ns : vc.resolveNamespacePrefix(prefix);
+            return prefix.isEmpty() ? ns : vc.resolveNamespacePrefix(prefix);
         }
 
         public String getBaseUri() {

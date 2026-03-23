@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 2005, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,10 +11,10 @@
 
 package com.sun.xml.txw2;
 
-import com.sun.xml.txw2.output.XmlSerializer;
-
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
+
+import com.sun.xml.txw2.output.XmlSerializer;
 
 /**
  * Coordinates the entire writing process.
@@ -125,7 +126,7 @@ public final class Document {
             return;
         }
 
-        if(buf.length()>0)
+        if(!buf.isEmpty())
             buf.append(' ');
 
         Class<?> c = obj.getClass();
@@ -248,7 +249,7 @@ public final class Document {
             // writeBody attributes
             for( Attribute a=attributes; a!=null; a=a.next) {
                 String prefix;
-                if(a.nsUri.length()==0) prefix="";
+                if(a.nsUri.isEmpty()) prefix="";
                 else                    prefix=inscopeNamespace.getPrefix(a.nsUri);
                 out.writeAttribute( a.nsUri, a.localName, prefix, fixPrefix(a.value) );
             }
@@ -303,7 +304,7 @@ public final class Document {
 
             int length = 2;
             String prefix = ns.prefix;
-            if(prefix.length()==0) {
+            if(prefix.isEmpty()) {
                 if(buf.length()<=i+2 || buf.charAt(i+2)!=':')
                     throw new IllegalStateException("Unexpected use of prefixes "+buf);
                 length=3;

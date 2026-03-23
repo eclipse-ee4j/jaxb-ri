@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -13,12 +14,9 @@ package com.sun.tools.xjc.model;
 import java.lang.annotation.Annotation;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.xml.XMLConstants;
-
-import jakarta.xml.bind.annotation.XmlSchemaType;
-import jakarta.xml.bind.annotation.XmlTransient;
-import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import javax.xml.namespace.QName;
 
 import com.sun.codemodel.JClass;
@@ -29,11 +27,13 @@ import com.sun.tools.xjc.generator.bean.field.FieldRenderer;
 import com.sun.tools.xjc.model.nav.NClass;
 import com.sun.tools.xjc.model.nav.NType;
 import com.sun.tools.xjc.reader.Ring;
+import com.sun.xml.xsom.XSComponent;
+import jakarta.xml.bind.annotation.XmlSchemaType;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.glassfish.jaxb.core.api.impl.NameConverter;
 import org.glassfish.jaxb.core.v2.model.core.PropertyInfo;
 import org.glassfish.jaxb.core.v2.runtime.RuntimeUtil;
-import com.sun.xml.xsom.XSComponent;
-
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.Locator;
 
@@ -108,10 +108,7 @@ public abstract class CPropertyInfo implements PropertyInfo<NType,NClass>, CCust
 
         this.isCollection = collection;
         this.locator = locator;
-        if(customizations==null)
-            this.customizations = CCustomizations.EMPTY;
-        else
-            this.customizations = customizations;
+        this.customizations = Objects.requireNonNullElse(customizations, CCustomizations.EMPTY);
         this.source = source;
     }
 

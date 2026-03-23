@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 2005, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,12 +11,12 @@
 
 package com.sun.xml.txw2;
 
-import com.sun.xml.txw2.output.XmlSerializer;
-import com.sun.xml.txw2.output.TXWSerializer;
+import javax.xml.namespace.QName;
+
 import com.sun.xml.txw2.annotation.XmlElement;
 import com.sun.xml.txw2.annotation.XmlNamespace;
-
-import javax.xml.namespace.QName;
+import com.sun.xml.txw2.output.TXWSerializer;
+import com.sun.xml.txw2.output.XmlSerializer;
 
 /**
  * Entry point to TXW.
@@ -36,7 +37,7 @@ public abstract class TXW {
             nsUri = xe.ns();
         }
 
-        if(localName.length()==0) {
+        if(localName.isEmpty()) {
             localName = c.getName();
             int idx = localName.lastIndexOf('.');
             if(idx>=0)
@@ -74,8 +75,7 @@ public abstract class TXW {
      *      to write the contents of the root element.
      */
     public static <T extends TypedXmlWriter> T create( Class<T> rootElement, XmlSerializer out ) {
-        if (out instanceof TXWSerializer) {
-            TXWSerializer txws = (TXWSerializer) out;
+        if (out instanceof TXWSerializer txws) {
             return txws.txw._element(rootElement);
         }
 
@@ -107,8 +107,7 @@ public abstract class TXW {
      * @see #create(Class,XmlSerializer)
      */
     public static <T extends TypedXmlWriter> T create( QName tagName, Class<T> rootElement, XmlSerializer out ) {
-        if (out instanceof TXWSerializer) {
-            TXWSerializer txws = (TXWSerializer) out;
+        if (out instanceof TXWSerializer txws) {
             return txws.txw._element(tagName,rootElement);
         }
         return new ContainerElement(new Document(out),null,tagName.getNamespaceURI(),tagName.getLocalPart())._cast(rootElement);

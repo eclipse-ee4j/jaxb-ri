@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -42,8 +43,7 @@ final class ClassNameAllocatorWrapper implements ClassNameAllocator {
     }
 
     public String assignClassName(CClassInfoParent parent, String className) {
-        if (parent instanceof CClassInfoParent.Package) {
-            CClassInfoParent.Package p = (CClassInfoParent.Package) parent;
+        if (parent instanceof CClassInfoParent.Package p) {
             return assignClassName(p.pkg,className);
         }
         // not a package-level class

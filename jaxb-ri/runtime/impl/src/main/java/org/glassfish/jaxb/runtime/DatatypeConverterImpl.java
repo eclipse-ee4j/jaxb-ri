@@ -11,9 +11,14 @@
 
 package org.glassfish.jaxb.runtime;
 
-import org.glassfish.jaxb.core.WhiteSpaceProcessor;
-import jakarta.xml.bind.DatatypeConverter;
-import jakarta.xml.bind.DatatypeConverterInterface;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.GregorianCalendar;
+import java.util.Map;
+import java.util.TimeZone;
+import java.util.WeakHashMap;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -21,9 +26,10 @@ import javax.xml.namespace.NamespaceContext;
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.*;
+
+import jakarta.xml.bind.DatatypeConverter;
+import jakarta.xml.bind.DatatypeConverterInterface;
+import org.glassfish.jaxb.core.WhiteSpaceProcessor;
 
 /**
  * This class is the JAXB RI's default implementation of the 
@@ -109,7 +115,7 @@ public final class DatatypeConverterImpl implements DatatypeConverterInterface {
     public static BigDecimal _parseDecimal(CharSequence content) {
         content = WhiteSpaceProcessor.trim(content);
 
-        if (content.length() <= 0) {
+        if (content.isEmpty()) {
             return null;
         }
 
@@ -145,17 +151,19 @@ public final class DatatypeConverterImpl implements DatatypeConverterInterface {
          *
          */
 
-        if (s.equals("NaN")) {
-            return Float.NaN;
-        }
-        if (s.equals("INF")) {
-            return Float.POSITIVE_INFINITY;
-        }
-        if (s.equals("-INF")) {
-            return Float.NEGATIVE_INFINITY;
+        switch (s) {
+            case "NaN" -> {
+                return Float.NaN;
+            }
+            case "INF" -> {
+                return Float.POSITIVE_INFINITY;
+            }
+            case "-INF" -> {
+                return Float.NEGATIVE_INFINITY;
+            }
         }
 
-        if (s.length() == 0
+        if (s.isEmpty()
                 || !isDigitOrPeriodOrSign(s.charAt(0))
                 || !isDigitOrPeriodOrSign(s.charAt(s.length() - 1))) {
             throw new NumberFormatException();
@@ -181,17 +189,19 @@ public final class DatatypeConverterImpl implements DatatypeConverterInterface {
     public static double _parseDouble(CharSequence _val) {
         String val = WhiteSpaceProcessor.trim(_val).toString();
 
-        if (val.equals("NaN")) {
-            return Double.NaN;
-        }
-        if (val.equals("INF")) {
-            return Double.POSITIVE_INFINITY;
-        }
-        if (val.equals("-INF")) {
-            return Double.NEGATIVE_INFINITY;
+        switch (val) {
+            case "NaN" -> {
+                return Double.NaN;
+            }
+            case "INF" -> {
+                return Double.POSITIVE_INFINITY;
+            }
+            case "-INF" -> {
+                return Double.NEGATIVE_INFINITY;
+            }
         }
 
-        if (val.length() == 0
+        if (val.isEmpty()
                 || !isDigitOrPeriodOrSign(val.charAt(0))
                 || !isDigitOrPeriodOrSign(val.charAt(val.length() - 1))) {
             throw new NumberFormatException(val);
@@ -212,7 +222,7 @@ public final class DatatypeConverterImpl implements DatatypeConverterInterface {
         char ch;
         boolean value = false;
 
-        if (len <= 0) {
+        if (len == 0) {
             return null;
         }
 
@@ -329,7 +339,7 @@ public final class DatatypeConverterImpl implements DatatypeConverterInterface {
             uri = nsc.getNamespaceURI(prefix);
             // uri can never be null according to javadoc,
             // but some users reported that there are implementations that return null.
-            if (uri == null || uri.length() == 0) // crap. the NamespaceContext interface is broken.
+            if (uri == null || uri.isEmpty()) // crap. the NamespaceContext interface is broken.
             // error: unbound prefix
             {
                 throw new IllegalArgumentException("prefix " + prefix + " is not bound to a namespace");
@@ -383,7 +393,7 @@ public final class DatatypeConverterImpl implements DatatypeConverterInterface {
         String prefix = nsc.getPrefix(val.getNamespaceURI());
         String localPart = val.getLocalPart();
 
-        if (prefix == null || prefix.length() == 0) { // be defensive
+        if (prefix == null || prefix.isEmpty()) { // be defensive
             qname = localPart;
         } else {
             qname = prefix + ':' + localPart;

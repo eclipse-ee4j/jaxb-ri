@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2022, 2026 Eclipse Foundation
  * Copyright (C) 2004-2012
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,6 +24,7 @@ package com.sun.tools.rngom.parse.xml;
 
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.Objects;
 import java.util.Stack;
 import java.util.Vector;
 import java.util.List;
@@ -301,25 +303,24 @@ class SchemaParser {
             int len = atts.getLength();
             for (int i = 0; i < len; i++) {
                 String uri = atts.getURI(i);
-                if (uri.length() == 0) {
+                if (uri.isEmpty()) {
                     String name = atts.getLocalName(i);
-                    if (name.equals("name")) {
-                        setName(atts.getValue(i).trim());
-                    } else if (name.equals("ns")) {
-                        ns = atts.getValue(i);
-                    } else if (name.equals("datatypeLibrary")) {
-                        datatypeLibrary = atts.getValue(i);
-                        checkUri(datatypeLibrary);
-                        if (!datatypeLibrary.equals("")
-                                && !Uri.isAbsolute(datatypeLibrary)) {
-                            error("relative_datatype_library");
+                    switch (name) {
+                        case "name" -> setName(atts.getValue(i).trim());
+                        case "ns" -> ns = atts.getValue(i);
+                        case "datatypeLibrary" -> {
+                            datatypeLibrary = atts.getValue(i);
+                            checkUri(datatypeLibrary);
+                            if (!datatypeLibrary.isEmpty()
+                                    && !Uri.isAbsolute(datatypeLibrary)) {
+                                error("relative_datatype_library");
+                            }
+                            if (Uri.hasFragmentId(datatypeLibrary)) {
+                                error("fragment_identifier_datatype_library");
+                            }
+                            datatypeLibrary = Uri.escapeDisallowedChars(datatypeLibrary);
                         }
-                        if (Uri.hasFragmentId(datatypeLibrary)) {
-                            error("fragment_identifier_datatype_library");
-                        }
-                        datatypeLibrary = Uri.escapeDisallowedChars(datatypeLibrary);
-                    } else {
-                        setOtherAttribute(name, atts.getValue(i));
+                        default -> setOtherAttribute(name, atts.getValue(i));
                     }
                 } else if (uri.equals(relaxngURI)) {
                     error("qualified_attribute", atts.getLocalName(i));
@@ -464,7 +465,7 @@ class SchemaParser {
         }
 
         void flushText() {
-            if (textBuf != null && textBuf.length() != 0) {
+            if (textBuf != null && !textBuf.isEmpty()) {
                 builder.addText(textBuf.toString(), textLoc, getComments());
                 textBuf.setLength(0);
             }
@@ -1003,11 +1004,7 @@ class SchemaParser {
         void endAttributes() throws SAXException {
             if (name != null) {
                 String nsUse;
-                if (ns != null) {
-                    nsUse = ns;
-                } else {
-                    nsUse = "";
-                }
+                nsUse = Objects.requireNonNullElse(ns, "");
                 nameClass = expandName(name, nsUse, null);
                 nameClassWasAttribute = true;
             } else {
@@ -1075,16 +1072,18 @@ class SchemaParser {
         }
 
         State createChildState(String localName) throws SAXException {
-            if (localName.equals("define")) {
-                return new DefineState(section);
-            }
-            if (localName.equals("start")) {
-                return new StartState(section);
-            }
-            if (localName.equals("include")) {
-                Include include = section.makeInclude();
-                if (include != null) {
-                    return new IncludeState(include);
+            switch (localName) {
+                case "define" -> {
+                    return new DefineState(section);
+                }
+                case "start" -> {
+                    return new StartState(section);
+                }
+                case "include" -> {
+                    Include include = section.makeInclude();
+                    if (include != null) {
+                        return new IncludeState(include);
+                    }
                 }
             }
             if (localName.equals("div")) {
@@ -1799,7 +1798,7 @@ class SchemaParser {
 
     private String findPrefix(String qName, String uri) {
         String prefix = null;
-        if (qName == null || qName.equals("")) {
+        if (qName == null || qName.isEmpty()) {
             for (PrefixMapping p = context.prefixMapping; p != null; p = p.next) {
                 if (p.uri.equals(uri)) {
                     prefix = p.prefix;

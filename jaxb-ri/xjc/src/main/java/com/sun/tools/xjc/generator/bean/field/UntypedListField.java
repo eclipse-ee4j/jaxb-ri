@@ -1,6 +1,6 @@
 /*
+ * Copyright (c) 2025, 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,7 +24,6 @@ import com.sun.tools.xjc.generator.bean.ClassOutlineImpl;
 import com.sun.tools.xjc.generator.bean.MethodWriter;
 import com.sun.tools.xjc.model.CPropertyInfo;
 import com.sun.tools.xjc.outline.FieldAccessor;
-import org.glassfish.jaxb.core.api.impl.NameConverter;
 
 /**
  * Realizes a property as an untyped {@link List}.
@@ -99,7 +98,7 @@ public class UntypedListField extends AbstractListField {
         //     return <ref>;
         // }
         $get = writer.declareMethod(listT,"get"+prop.getName(true));
-        if (prop.javadoc != null && prop.javadoc.length() > 0) {
+        if (prop.javadoc != null && !prop.javadoc.isEmpty()) {
             writer.javadoc().appendXML(prop.javadoc).append("\n\n");
         }
         JBlock block = $get.body();

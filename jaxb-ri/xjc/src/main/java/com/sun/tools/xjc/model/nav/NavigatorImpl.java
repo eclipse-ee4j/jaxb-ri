@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -39,19 +40,15 @@ public final class NavigatorImpl implements Navigator<NType,NClass,Void,Void> {
 
     @Override
     public NType getBaseClass(NType nt, NClass base) {
-        if(nt instanceof EagerNType) {
-            EagerNType ent = (EagerNType) nt;
-            if (base instanceof EagerNClass) {
-                EagerNClass enc = (EagerNClass) base;
+        if(nt instanceof EagerNType ent) {
+            if (base instanceof EagerNClass enc) {
                 return create(Utils.REFLECTION_NAVIGATOR.getBaseClass(ent.t, enc.c));
             }
             // lazy class can never be a base type of an eager type
             return null;
         }
-        if (nt instanceof NClassByJClass) {
-            NClassByJClass nnt = (NClassByJClass) nt;
-            if (base instanceof EagerNClass) {
-                EagerNClass enc = (EagerNClass) base;
+        if (nt instanceof NClassByJClass nnt) {
+            if (base instanceof EagerNClass enc) {
                 return ref(nnt.clazz.getBaseClass(enc.c));
             }
         }
@@ -185,12 +182,10 @@ public final class NavigatorImpl implements Navigator<NType,NClass,Void,Void> {
 
     @Override
     public NType getTypeArgument(NType nt, int i) {
-        if (nt instanceof EagerNType) {
-            EagerNType ent = (EagerNType) nt;
+        if (nt instanceof EagerNType ent) {
             return create(Utils.REFLECTION_NAVIGATOR.getTypeArgument(ent.t,i));
         }
-        if (nt instanceof NClassByJClass) {
-            NClassByJClass nnt = (NClassByJClass) nt;
+        if (nt instanceof NClassByJClass nnt) {
             return ref(nnt.clazz.getTypeParameters().get(i));
         }
 
@@ -199,12 +194,10 @@ public final class NavigatorImpl implements Navigator<NType,NClass,Void,Void> {
 
     @Override
     public boolean isParameterizedType(NType nt) {
-        if (nt instanceof EagerNType) {
-            EagerNType ent = (EagerNType) nt;
+        if (nt instanceof EagerNType ent) {
             return Utils.REFLECTION_NAVIGATOR.isParameterizedType(ent.t);
         }
-        if (nt instanceof NClassByJClass) {
-            NClassByJClass nnt = (NClassByJClass) nt;
+        if (nt instanceof NClassByJClass nnt) {
             return nnt.clazz.isParameterized();
         }
 
@@ -294,8 +287,7 @@ public final class NavigatorImpl implements Navigator<NType,NClass,Void,Void> {
 
     @Override
     public <T> NType erasure(NType type) {
-        if(type instanceof NParameterizedType) {
-            NParameterizedType pt = (NParameterizedType) type;
+        if(type instanceof NParameterizedType pt) {
             return pt.rawType;
         }
         return type;

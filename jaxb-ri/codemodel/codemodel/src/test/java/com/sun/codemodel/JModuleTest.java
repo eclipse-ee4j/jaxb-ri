@@ -1,6 +1,6 @@
 /*
+ * Copyright (c) 2025, 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 2016, 2021 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -11,14 +11,13 @@
 
 package com.sun.codemodel;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import java.io.CharArrayWriter;
 import java.io.PrintWriter;
 import java.util.regex.Pattern;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -39,7 +38,7 @@ public class JModuleTest {
     static final String DEP_MODULE_NAME = "other.module";
 
     /** System dependent new line. */
-    static final String EOL = System.getProperty("line.separator");
+    static final String EOL = System.lineSeparator();
 
     /** Pattern to match white spaces sequences. */
     private static final Pattern WH_SPACES = Pattern.compile("\\p{javaWhitespace}+");

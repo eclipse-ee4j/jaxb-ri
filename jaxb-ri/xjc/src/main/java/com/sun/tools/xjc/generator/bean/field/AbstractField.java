@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -52,7 +53,6 @@ import com.sun.tools.xjc.model.nav.NClass;
 import com.sun.tools.xjc.outline.Aspect;
 import static com.sun.tools.xjc.outline.Aspect.IMPLEMENTATION;
 import static java.util.Comparator.comparing;
-import static java.util.stream.Collectors.toList;
 
 import com.sun.tools.xjc.outline.ClassOutline;
 import com.sun.tools.xjc.outline.FieldAccessor;
@@ -260,7 +260,7 @@ abstract class AbstractField implements FieldOutline {
         // generate the namespace property?
         String generatedNS = ctype.getTagName().getNamespaceURI();
         if (((formDefault == XmlNsForm.QUALIFIED) && !generatedNS.equals(enclosingTypeNS)) ||
-                ((formDefault == XmlNsForm.UNQUALIFIED) && !generatedNS.equals(""))) {
+                ((formDefault == XmlNsForm.UNQUALIFIED) && !generatedNS.isEmpty())) {
             if(xew == null) xew = getXew(checkWrapper, field);
             xew.namespace(generatedNS);
         }
@@ -347,7 +347,7 @@ abstract class AbstractField implements FieldOutline {
         }
 
         // generate namespace property?
-        if(!generatedNS.equals("")) { // assume attributeFormDefault == unqualified
+        if(!generatedNS.isEmpty()) { // assume attributeFormDefault == unqualified
             xaw.namespace(generatedNS);
         }
 
@@ -460,7 +460,7 @@ abstract class AbstractField implements FieldOutline {
         		.filter(Objects::nonNull)
                 .map(tt -> tt.toType(outline.parent(), Aspect.EXPOSED))
                 .sorted(comparing(JType::fullName))
-                .collect(toList());
+                .toList();
         for( JType t : refs ) {
             if( t.isPrimitive() || t.isArray() )
                 r.add(t.fullName());

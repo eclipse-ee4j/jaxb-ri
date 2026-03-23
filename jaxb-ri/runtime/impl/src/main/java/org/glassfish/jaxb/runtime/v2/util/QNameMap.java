@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,10 +11,18 @@
 
 package org.glassfish.jaxb.runtime.v2.util;
 
-import org.glassfish.jaxb.runtime.v2.runtime.Name;
+import java.util.AbstractSet;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Objects;
+import java.util.Set;
 
 import javax.xml.namespace.QName;
-import java.util.*;
+
+import org.glassfish.jaxb.runtime.v2.runtime.Name;
 
 /**
  * Map keyed by {@link QName}.
@@ -366,9 +375,8 @@ public final class QNameMap<V> {
 
         @Override
         public boolean equals(Object o) {
-            if (!(o instanceof Entry))
+            if (!(o instanceof Entry e))
                 return false;
-            Entry e = (Entry)o;
             String k1 = nsUri;
             String k2 = e.nsUri;
             String k3 = localName;

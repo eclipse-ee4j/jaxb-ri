@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -83,7 +84,7 @@ public final class XmlString {
 
     private static final ValidationContext NULL_CONTEXT = new ValidationContext() {
         public String resolveNamespacePrefix(String s) {
-            if(s.length()==0)   return "";
+            if(s.isEmpty())   return "";
             if(s.equals("xml")) return "http://www.w3.org/XML/1998/namespace";
             return null;
         }

@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,20 +11,20 @@
 
 package com.sun.xml.xsom.impl;
 
-import com.sun.xml.xsom.XSFacet;
-import com.sun.xml.xsom.XSRestrictionSimpleType;
-import com.sun.xml.xsom.XSVariety;
-import com.sun.xml.xsom.XSSimpleType;
-import com.sun.xml.xsom.impl.parser.SchemaDocumentImpl;
-import com.sun.xml.xsom.visitor.XSSimpleTypeFunction;
-import com.sun.xml.xsom.visitor.XSSimpleTypeVisitor;
-import org.xml.sax.Locator;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+
+import com.sun.xml.xsom.XSFacet;
+import com.sun.xml.xsom.XSRestrictionSimpleType;
+import com.sun.xml.xsom.XSSimpleType;
+import com.sun.xml.xsom.XSVariety;
+import com.sun.xml.xsom.impl.parser.SchemaDocumentImpl;
+import com.sun.xml.xsom.visitor.XSSimpleTypeFunction;
+import com.sun.xml.xsom.visitor.XSSimpleTypeVisitor;
+import org.xml.sax.Locator;
 
 public class RestrictionSimpleTypeImpl extends SimpleTypeImpl implements XSRestrictionSimpleType {
 
@@ -50,9 +51,8 @@ public class RestrictionSimpleTypeImpl extends SimpleTypeImpl implements XSRestr
 
     public XSFacet getDeclaredFacet( String name ) {
         int len = facets.size();
-        for( int i=0; i<len; i++ ) {
-            XSFacet f = facets.get(i);
-            if(f.getName().equals(name))
+        for (XSFacet f : facets) {
+            if (f.getName().equals(name))
                 return f;
         }
         return null;

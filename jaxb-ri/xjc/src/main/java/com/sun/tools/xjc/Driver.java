@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintStream;
+import java.io.Serial;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
@@ -41,7 +42,6 @@ import com.sun.tools.xjc.writer.SignatureWriter;
 import com.sun.xml.xsom.XSComplexType;
 import com.sun.xml.xsom.XSParticle;
 import com.sun.xml.xsom.XSSchemaSet;
-
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
@@ -243,7 +243,7 @@ public final class Driver {
 
         // display a warning if the user specified the default package
         // this should work, but is generally a bad idea
-        if(opt.defaultPackage != null && opt.defaultPackage.length()==0) {
+        if(opt.defaultPackage != null && opt.defaultPackage.isEmpty()) {
             listener.message(Messages.format(Messages.WARNING_MSG, Messages.format(Messages.DEFAULT_PACKAGE_WARNING)));
         }
 
@@ -467,35 +467,37 @@ public final class Driver {
         /** Parse XJC-specific options. */
         @Override
         public int parseArgument(String[] args, int i) throws BadCommandLineException {
-            if (args[i].equals("-noNS")) {
-                noNS = true;
-                return 1;
-            }
-            if (args[i].equals("-mode")) {
-                i++;
-                if (i == args.length)
-                    throw new BadCommandLineException(
-                        Messages.format(Messages.MISSING_MODE_OPERAND));
-
-                String mstr = args[i].toLowerCase();
-
-                for( Mode m : Mode.values() ) {
-                    if(m.name().toLowerCase().startsWith(mstr) && mstr.length()>2) {
-                        mode = m;
-                        return 2;
-                    }
+            switch (args[i]) {
+                case "-noNS" -> {
+                    noNS = true;
+                    return 1;
                 }
+                case "-mode" -> {
+                    i++;
+                    if (i == args.length)
+                        throw new BadCommandLineException(
+                                Messages.format(Messages.MISSING_MODE_OPERAND));
 
-                throw new BadCommandLineException(
-                    Messages.format(Messages.UNRECOGNIZED_MODE, args[i]));
-            }
-            if (args[i].equals("-help")) {
-                usage(this,false);
-                throw new WeAreDone();
-            }
-            if (args[i].equals("-private")) {
-                usage(this,true);
-                throw new WeAreDone();
+                    String mstr = args[i].toLowerCase();
+
+                    for (Mode m : Mode.values()) {
+                        if (m.name().toLowerCase().startsWith(mstr) && mstr.length() > 2) {
+                            mode = m;
+                            return 2;
+                        }
+                    }
+
+                    throw new BadCommandLineException(
+                            Messages.format(Messages.UNRECOGNIZED_MODE, args[i]));
+                }
+                case "-help" -> {
+                    usage(this, false);
+                    throw new WeAreDone();
+                }
+                case "-private" -> {
+                    usage(this, true);
+                    throw new WeAreDone();
+                }
             }
 
             return super.parseArgument(args, i);
@@ -506,6 +508,7 @@ public final class Driver {
      * Used to signal that we've finished processing.
      */
     private static final class WeAreDone extends BadCommandLineException {
+        @Serial
         private static final long serialVersionUID = 3924802008556012395L;
     }
 

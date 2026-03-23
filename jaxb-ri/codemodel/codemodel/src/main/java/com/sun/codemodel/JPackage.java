@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -19,6 +20,8 @@ import java.io.PrintWriter;
 import java.io.Writer;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -26,8 +29,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.Collection;
-import java.util.Collections;
 
 
 /**
@@ -107,7 +108,7 @@ public final class JPackage implements JDeclaration, JGenerable, JClassContainer
      * Gets the parent package, or null if this class is the root package.
      */
     public JPackage parent() {
-        if(name.length()==0)    return null;
+        if(name.isEmpty())    return null;
 
         int idx = name.lastIndexOf('.');
         return owner._package(name.substring(0,idx));
@@ -358,7 +359,7 @@ public final class JPackage implements JDeclaration, JGenerable, JClassContainer
     /**
      * Checks if this package is the root, unnamed package.
      */
-    public boolean isUnnamed() { return name.length() == 0; }
+    public boolean isUnnamed() { return name.isEmpty(); }
 
     /**
      * Get the name of this package
@@ -422,7 +423,7 @@ public final class JPackage implements JDeclaration, JGenerable, JClassContainer
 
     @Override
     public void declare(JFormatter f ) {
-        if (name.length() != 0)
+        if (!name.isEmpty())
             f.p("package").p(name).p(';').nl();
     }
 

@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,14 +11,15 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime.output;
 
+import java.io.IOException;
+
+import javax.xml.stream.XMLStreamException;
+
 import org.glassfish.jaxb.runtime.util.AttributesImpl;
 import org.glassfish.jaxb.runtime.v2.runtime.XMLSerializer;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.LocatorImpl;
-
-import javax.xml.stream.XMLStreamException;
-import java.io.IOException;
 
 /**
  * {@link XmlOutput} implementation that writes to SAX {@link ContentHandler}.
@@ -72,7 +74,7 @@ public class SAXOutput extends XmlOutputAbstractImpl {
         } else {
             nsUri = nsContext.getNamespaceURI(prefix);
             String p = nsContext.getPrefix(prefix);
-            if(p.length()==0)
+            if(p.isEmpty())
                 // this is more likely a bug in the application code (NamespacePrefixMapper implementation)
                 // this only happens when it tries to assign "" prefix to a non-"" URI,
                 // which is by itself violation of namespace rec. But let's just be safe.
@@ -92,7 +94,7 @@ public class SAXOutput extends XmlOutputAbstractImpl {
             for( int i=0; i<sz; i++ ) {
                 String p = ns.getPrefix(i);
                 String uri = ns.getNsUri(i);
-                if(uri.length()==0 && ns.getBase()==1)
+                if(uri.isEmpty() && ns.getBase()==1)
                     continue;   // no point in defining xmlns='' on the root
                 out.startPrefixMapping(p,uri);
             }
@@ -114,7 +116,7 @@ public class SAXOutput extends XmlOutputAbstractImpl {
             for( int i=sz-1; i>=0; i-- ) {
                 String p = ns.getPrefix(i);
                 String uri = ns.getNsUri(i);
-                if(uri.length()==0 && ns.getBase()==1)
+                if(uri.isEmpty() && ns.getBase()==1)
                     continue;   // no point in definint xmlns='' on the root
                 out.endPrefixMapping(p);
             }
@@ -124,7 +126,7 @@ public class SAXOutput extends XmlOutputAbstractImpl {
     private String getQName(int prefix, String localName) {
         String qname;
         String p = nsContext.getPrefix(prefix);
-        if(p.length()==0)
+        if(p.isEmpty())
             qname = localName;
         else
             qname = p+':'+localName;

@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,13 +11,13 @@
 
 package com.sun.tools.xjc.generator.bean.field;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import com.sun.tools.xjc.generator.bean.ClassOutlineImpl;
 import com.sun.tools.xjc.model.CPropertyInfo;
 import com.sun.tools.xjc.model.CReferencePropertyInfo;
 import com.sun.tools.xjc.outline.FieldOutline;
-import java.io.Serializable;
 
 /**
  * Default implementation of the FieldRendererFactory
@@ -55,8 +56,7 @@ final class DefaultFieldRenderer implements FieldRenderer {
 
     private FieldRenderer decideRenderer(ClassOutlineImpl outline, CPropertyInfo prop) {
 
-        if (prop instanceof CReferencePropertyInfo) {
-            CReferencePropertyInfo p = (CReferencePropertyInfo)prop;
+        if (prop instanceof CReferencePropertyInfo p) {
             if (p.isDummy()) {
                 return frf.getDummyList(outline.parent().getCodeModel().ref(ArrayList.class));
             }

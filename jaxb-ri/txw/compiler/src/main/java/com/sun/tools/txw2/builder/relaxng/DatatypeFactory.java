@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 2005, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,11 +11,11 @@
 
 package com.sun.tools.txw2.builder.relaxng;
 
-import com.sun.tools.txw2.model.Data;
-import com.sun.codemodel.JType;
-import com.sun.codemodel.JCodeModel;
-
 import javax.xml.namespace.QName;
+
+import com.sun.codemodel.JCodeModel;
+import com.sun.codemodel.JType;
+import com.sun.tools.txw2.model.Data;
 
 /**
  * Builds {@link Data} from a XML Schema datatype.
@@ -38,18 +39,26 @@ public class DatatypeFactory {
         || datatypeLibrary.equals("http://www.w3.org/2001/XMLSchema")) {
             type = type.intern();
 
-            if(type=="boolean")
-                return codeModel.BOOLEAN;
-            if(type=="int" || type=="nonNegativeInteger" || type=="positiveInteger")
-                return codeModel.INT;
-            if(type=="QName")
-                return codeModel.ref(QName.class);
-            if(type=="float")
-                return codeModel.FLOAT;
-            if(type=="double")
-                return codeModel.DOUBLE;
-            if(type=="anySimpleType" || type=="anyType")
-                return codeModel.ref(String.class);
+            switch (type) {
+                case "boolean" -> {
+                    return codeModel.BOOLEAN;
+                }
+                case "int", "nonNegativeInteger", "positiveInteger" -> {
+                    return codeModel.INT;
+                }
+                case "QName" -> {
+                    return codeModel.ref(QName.class);
+                }
+                case "float" -> {
+                    return codeModel.FLOAT;
+                }
+                case "double" -> {
+                    return codeModel.DOUBLE;
+                }
+                case "anySimpleType", "anyType" -> {
+                    return codeModel.ref(String.class);
+                }
+            }
         }
 
         return null;

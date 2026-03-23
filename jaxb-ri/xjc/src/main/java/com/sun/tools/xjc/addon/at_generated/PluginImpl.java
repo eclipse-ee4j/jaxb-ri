@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -9,6 +10,10 @@
  */
 
 package com.sun.tools.xjc.addon.at_generated;
+
+import java.io.IOException;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 import com.sun.codemodel.JAnnotatable;
 import com.sun.codemodel.JAnnotationUse;
@@ -23,10 +28,6 @@ import com.sun.tools.xjc.outline.ClassOutline;
 import com.sun.tools.xjc.outline.EnumOutline;
 import com.sun.tools.xjc.outline.Outline;
 import com.sun.tools.xjc.outline.PackageOutline;
-import java.io.IOException;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-
 import org.xml.sax.ErrorHandler;
 
 /**
@@ -44,9 +45,11 @@ public class PluginImpl extends Plugin {
 
     @Override
     public String getUsage() {
-        return "  -mark-generated     :  mark the generated code as @jakarta.annotation.Generated\n"
-             + "                      -noDate            : do not add date\n"
-             + "                      -Xann <annotation> : generate <annotation> instead of @jakarta.annotation.Generated";
+        return """
+                  -mark-generated     :  mark the generated code as @jakarta.annotation.Generated
+                                      -noDate            : do not add date
+                                      -Xann <annotation> : generate <annotation> instead of @jakarta.annotation.Generated\
+                """;
     }
 
     @Override

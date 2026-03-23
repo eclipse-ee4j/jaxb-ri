@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -42,16 +43,13 @@ public abstract class WhitespaceNormalizer
      *        when the specified method is invalid.
      */
     public static WhitespaceNormalizer parse( String method ) {
-        if( method.equals("preserve") )
-            return PRESERVE;
-        
-        if( method.equals("replace") )
-            return REPLACE;
-        
-        if( method.equals("collapse") )
-            return COLLAPSE;
-        
-        throw new IllegalArgumentException(method);
+        return switch (method) {
+            case "preserve" -> PRESERVE;
+            case "replace" -> REPLACE;
+            case "collapse" -> COLLAPSE;
+            default -> throw new IllegalArgumentException(method);
+        };
+
     }
     
     public static final WhitespaceNormalizer PRESERVE = new WhitespaceNormalizer() {

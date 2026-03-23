@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2022, 2026 Eclipse Foundation
  * Copyright (C) 2004-2011
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,25 +22,25 @@
  */
 package com.sun.tools.rngom.dump;
 
+import java.io.OutputStream;
+import java.util.List;
+
 import com.sun.tools.rngom.ast.builder.Annotations;
+import com.sun.tools.rngom.ast.builder.BuildException;
 import com.sun.tools.rngom.ast.builder.CommentList;
+import com.sun.tools.rngom.ast.builder.DataPatternBuilder;
+import com.sun.tools.rngom.ast.builder.ElementAnnotationBuilder;
 import com.sun.tools.rngom.ast.builder.Grammar;
 import com.sun.tools.rngom.ast.builder.NameClassBuilder;
+import com.sun.tools.rngom.ast.builder.SchemaBuilder;
 import com.sun.tools.rngom.ast.builder.Scope;
 import com.sun.tools.rngom.ast.om.Location;
 import com.sun.tools.rngom.ast.om.ParsedElementAnnotation;
+import com.sun.tools.rngom.ast.om.ParsedNameClass;
 import com.sun.tools.rngom.ast.om.ParsedPattern;
 import com.sun.tools.rngom.parse.Context;
 import com.sun.tools.rngom.parse.IllegalSchemaException;
 import com.sun.tools.rngom.parse.Parseable;
-import com.sun.tools.rngom.ast.builder.BuildException;
-import com.sun.tools.rngom.ast.builder.DataPatternBuilder;
-import com.sun.tools.rngom.ast.builder.ElementAnnotationBuilder;
-import com.sun.tools.rngom.ast.builder.SchemaBuilder;
-import com.sun.tools.rngom.ast.om.ParsedNameClass;
-
-import java.util.List;
-import java.io.OutputStream;
 
 /**
  * Dumps the callback invocations to an {@link OutputStream}.
@@ -84,8 +85,7 @@ public class Dumper implements SchemaBuilder {
     }
 
     private ParsedPattern makeNode(List patterns, Location loc, Annotations anno) {
-        for( int i=0; i<patterns.size(); i++ )
-            printer.param(patterns.get(i));
+        for (Object pattern : patterns) printer.param(pattern);
         printer.param(loc).param(anno);
         return printer.result(factory.createPattern());
     }

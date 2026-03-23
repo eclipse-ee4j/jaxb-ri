@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Eclipse Foundation
+ * Copyright (c) 2022, 2026 Eclipse Foundation
  * Copyright (C) 2004-2012
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,10 +22,13 @@
  */
 package com.sun.tools.rngom.nc;
 
+import java.io.Serial;
+
 import javax.xml.namespace.QName;
 
 public class SimpleNameClass extends NameClass {
 
+    @Serial
     private static final long serialVersionUID = -1776408159849453340L;
 
     public final QName name;
@@ -59,10 +62,9 @@ public class SimpleNameClass extends NameClass {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null || !(obj instanceof SimpleNameClass)) {
+        if (obj == null || !(obj instanceof SimpleNameClass other)) {
             return false;
         }
-        SimpleNameClass other = (SimpleNameClass) obj;
         return name.equals(other.name);
     }
 

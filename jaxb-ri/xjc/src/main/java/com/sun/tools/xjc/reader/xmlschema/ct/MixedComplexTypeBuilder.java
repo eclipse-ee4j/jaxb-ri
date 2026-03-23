@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,17 +11,18 @@
 
 package com.sun.tools.xjc.reader.xmlschema.ct;
 
+import java.util.List;
+
 import com.sun.tools.xjc.model.CBuiltinLeafInfo;
 import com.sun.tools.xjc.model.CClass;
 import com.sun.tools.xjc.model.CPropertyInfo;
 import com.sun.tools.xjc.reader.RawTypeSet;
 import com.sun.tools.xjc.reader.xmlschema.RawTypeSetBuilder;
 import com.sun.tools.xjc.reader.xmlschema.bindinfo.BIProperty;
-import static com.sun.tools.xjc.reader.xmlschema.ct.ComplexTypeBindingMode.FALLBACK_CONTENT;
 import com.sun.xml.xsom.XSComplexType;
 import com.sun.xml.xsom.XSContentType;
 import com.sun.xml.xsom.XSType;
-import java.util.List;
+import static com.sun.tools.xjc.reader.xmlschema.ct.ComplexTypeBindingMode.FALLBACK_CONTENT;
 
 /**
  * @author Kohsuke Kawaguchi
@@ -65,7 +67,7 @@ final class MixedComplexTypeBuilder extends CTBuilder {
 
         if (generateMixedExtensions) {            
             List<XSComplexType> cType = ct.getSubtypes();
-            boolean isSubtyped = (cType != null) && (cType.size() > 0);
+            boolean isSubtyped = (cType != null) && (!cType.isEmpty());
 
             if (contentType.asEmpty() != null) {
                 if (isSubtyped) {

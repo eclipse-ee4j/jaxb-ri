@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -233,8 +234,7 @@ public abstract class JExpr {
                     // not printable. use Unicode escape
                     sb.append("\\u");
                     String hex = Integer.toHexString(((int)c)&0xFFFF);
-                    for( int k=hex.length(); k<4; k++ )
-                        sb.append('0');
+                    sb.append("0".repeat(4 - hex.length()));
                     sb.append(hex);
                 } else {
                     sb.append(c);

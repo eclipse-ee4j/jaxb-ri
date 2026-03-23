@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -11,7 +12,6 @@
 package com.sun.tools.xjc.reader.internalizer;
 
 import org.glassfish.jaxb.core.unmarshaller.DOMScanner;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -119,8 +119,7 @@ public class DOMForestScanner {
         
         private Locator findLocator() {
             Node n = parent.getCurrentLocation();
-            if( n instanceof Element ) {
-                Element e = (Element)n;
+            if(n instanceof Element e) {
                 if( inStart )
                     return forest.locatorTable.getStartLocation( e );
                 else

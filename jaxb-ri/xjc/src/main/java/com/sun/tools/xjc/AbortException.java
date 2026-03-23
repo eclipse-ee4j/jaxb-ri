@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -13,6 +14,8 @@
  */
 package com.sun.tools.xjc;
 
+import java.io.Serial;
+
 /**
  * Signals the abortion of the compilation.
  * <p>
@@ -22,6 +25,7 @@ package com.sun.tools.xjc;
  * @author Kohsuke Kawaguchi (kohsuke.kawaguchi@sun.com)
  */
 public class AbortException extends RuntimeException {
+    @Serial
     private static final long serialVersionUID = -335027176514421642L;
 
     public AbortException() {

@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2022, 2026 Eclipse Foundation
  * Copyright (C) 2004-2011
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,9 +22,9 @@
  */
 package com.sun.tools.rngom.binary;
 
-import com.sun.tools.rngom.binary.visitor.PatternVisitor;
-import com.sun.tools.rngom.binary.visitor.PatternFunction;
 import com.sun.tools.rngdatatype.Datatype;
+import com.sun.tools.rngom.binary.visitor.PatternFunction;
+import com.sun.tools.rngom.binary.visitor.PatternVisitor;
 
 public class ValuePattern extends StringPattern {
   Object obj;
@@ -55,10 +56,9 @@ public class ValuePattern extends StringPattern {
     @Override
   void checkRestrictions(int context, DuplicateAttributeDetector dad, Alphabet alpha)
     throws RestrictionViolationException {
-    switch (context) {
-    case START_CONTEXT:
-      throw new RestrictionViolationException("start_contains_value");
-    }
+        if (context == START_CONTEXT) {
+            throw new RestrictionViolationException("start_contains_value");
+        }
   }
 
   Datatype getDatatype() {

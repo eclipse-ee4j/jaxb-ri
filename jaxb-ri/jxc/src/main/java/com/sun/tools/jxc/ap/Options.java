@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -56,45 +57,43 @@ public class Options  {
     }
 
     private int parseArgument( String[] args, int i ) throws BadCommandLineException {
-        if (args[i].equals("-d")) {
-            if (i == args.length - 1)
-                throw new BadCommandLineException(
-                        (Messages.OPERAND_MISSING.format(args[i])));
-            targetDir = new File(args[++i]);
-            if( !targetDir.exists() )
-                throw new BadCommandLineException(
-                        Messages.NON_EXISTENT_FILE.format(targetDir));
-            return 1;
-        }
+        switch (args[i]) {
+            case "-d" -> {
+                if (i == args.length - 1)
+                    throw new BadCommandLineException(
+                            (Messages.OPERAND_MISSING.format(args[i])));
+                targetDir = new File(args[++i]);
+                if (!targetDir.exists())
+                    throw new BadCommandLineException(
+                            Messages.NON_EXISTENT_FILE.format(targetDir));
+                return 1;
+            }
+            case "-episode" -> {
+                if (i == args.length - 1)
+                    throw new BadCommandLineException(
+                            (Messages.OPERAND_MISSING.format(args[i])));
+                episodeFile = new File(args[++i]);
+                return 1;
+            }
+            case DISABLE_XML_SECURITY -> {
+                disableXmlSecurity = true;
+                return 0;
+            }
+            case "-encoding" -> {
+                if (i == args.length - 1)
+                    throw new BadCommandLineException(
+                            (Messages.OPERAND_MISSING.format(args[i])));
+                encoding = args[++i];
+                return 1;
+            }
+            case "-cp", "-classpath" -> {
+                if (i == args.length - 1)
+                    throw new BadCommandLineException(
+                            (Messages.OPERAND_MISSING.format(args[i])));
+                classpath = args[++i];
 
-        if (args[i].equals("-episode")) {
-            if (i == args.length - 1)
-                throw new BadCommandLineException(
-                        (Messages.OPERAND_MISSING.format(args[i])));
-            episodeFile = new File(args[++i]);
-            return 1;
-        }
-
-        if (args[i].equals(DISABLE_XML_SECURITY)) {
-            disableXmlSecurity = true;
-            return 0;
-        }
-
-        if (args[i].equals("-encoding")) {
-            if (i == args.length - 1)
-                throw new BadCommandLineException(
-                        (Messages.OPERAND_MISSING.format(args[i])));
-            encoding = args[++i];
-            return 1;
-        }
-
-        if (args[i].equals("-cp") || args[i].equals("-classpath")) {
-            if (i == args.length - 1)
-                throw new BadCommandLineException(
-                        (Messages.OPERAND_MISSING.format(args[i])));
-            classpath = args[++i];
-
-            return 1;
+                return 1;
+            }
         }
 
         throw new BadCommandLineException(

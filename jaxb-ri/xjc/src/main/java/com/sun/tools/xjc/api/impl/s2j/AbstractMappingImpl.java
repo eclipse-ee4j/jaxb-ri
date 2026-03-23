@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -25,15 +26,14 @@ import com.sun.tools.xjc.model.CElementPropertyInfo;
 import com.sun.tools.xjc.model.CPropertyInfo;
 import com.sun.tools.xjc.model.CReferencePropertyInfo;
 import com.sun.tools.xjc.model.CTypeRef;
-import org.glassfish.jaxb.core.v2.model.core.ClassInfo;
-import org.glassfish.jaxb.core.v2.model.core.ReferencePropertyInfo;
-
 import com.sun.xml.xsom.XSComplexType;
 import com.sun.xml.xsom.XSComponent;
 import com.sun.xml.xsom.XSContentType;
 import com.sun.xml.xsom.XSModelGroup;
 import com.sun.xml.xsom.XSParticle;
 import com.sun.xml.xsom.XSTerm;
+import org.glassfish.jaxb.core.v2.model.core.ClassInfo;
+import org.glassfish.jaxb.core.v2.model.core.ReferencePropertyInfo;
 
 /**
  * Partial common implementation between {@link ElementMappingImpl} and {@link BeanMappingImpl}
@@ -101,9 +101,8 @@ abstract class AbstractMappingImpl<InfoT extends CElement> implements Mapping {
         }
 
         for (CPropertyInfo p : typeBean.getProperties()) {
-            if (p instanceof CElementPropertyInfo) {
-                CElementPropertyInfo ep = (CElementPropertyInfo) p;
-// wrong. A+,B,C is eligible for drill-down.
+            if (p instanceof CElementPropertyInfo ep) {
+                // wrong. A+,B,C is eligible for drill-down.
 //                if(ep.isCollection())
 //                    // content model like A+,B,C is not eligible
 //                    return null;

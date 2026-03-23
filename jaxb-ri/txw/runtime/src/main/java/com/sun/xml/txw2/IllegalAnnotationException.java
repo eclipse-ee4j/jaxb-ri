@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 2005, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -9,6 +10,8 @@
  */
 
 package com.sun.xml.txw2;
+
+import java.io.Serial;
 
 /**
  * Signals an incorrect use of TXW annotations.
@@ -28,5 +31,6 @@ public class IllegalAnnotationException extends TxwException {
         super(message, cause);
     }
 
+    @Serial
     private static final long serialVersionUID = 1L;
 }

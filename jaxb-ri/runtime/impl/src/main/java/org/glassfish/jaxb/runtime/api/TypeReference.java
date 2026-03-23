@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,11 +11,12 @@
 
 package org.glassfish.jaxb.runtime.api;
 
-import javax.xml.namespace.QName;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.Collection;
+
+import javax.xml.namespace.QName;
 
 /**
  * A reference to a JAXB-bound type.
@@ -53,8 +55,8 @@ public final class TypeReference {
             String nullArgs = "";
 
             if(tagName == null)     nullArgs = "tagName";
-            if(type == null)        nullArgs += (nullArgs.length() > 0 ? ", type" : "type");
-            if(annotations == null) nullArgs += (nullArgs.length() > 0 ? ", annotations" : "annotations");
+            if(type == null)        nullArgs += (!nullArgs.isEmpty() ? ", type" : "type");
+            if(annotations == null) nullArgs += (!nullArgs.isEmpty() ? ", annotations" : "annotations");
 
             Messages.ARGUMENT_CANT_BE_NULL.format(nullArgs);
             

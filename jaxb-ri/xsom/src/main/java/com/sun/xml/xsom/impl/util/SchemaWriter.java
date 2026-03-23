@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -9,6 +10,12 @@
  */
 
 package com.sun.xml.xsom.impl.util;
+
+import java.io.IOException;
+import java.io.Writer;
+import java.math.BigInteger;
+import java.text.MessageFormat;
+import java.util.Iterator;
 
 import com.sun.xml.xsom.XSAnnotation;
 import com.sun.xml.xsom.XSAttGroupDecl;
@@ -31,21 +38,15 @@ import com.sun.xml.xsom.XSSimpleType;
 import com.sun.xml.xsom.XSType;
 import com.sun.xml.xsom.XSUnionSimpleType;
 import com.sun.xml.xsom.XSWildcard;
-import com.sun.xml.xsom.XSXPath;
 import com.sun.xml.xsom.XSWildcard.Any;
 import com.sun.xml.xsom.XSWildcard.Other;
 import com.sun.xml.xsom.XSWildcard.Union;
+import com.sun.xml.xsom.XSXPath;
 import com.sun.xml.xsom.impl.Const;
 import com.sun.xml.xsom.visitor.XSSimpleTypeVisitor;
 import com.sun.xml.xsom.visitor.XSTermVisitor;
 import com.sun.xml.xsom.visitor.XSVisitor;
 import com.sun.xml.xsom.visitor.XSWildcardFunction;
-
-import java.io.IOException;
-import java.io.Writer;
-import java.math.BigInteger;
-import java.text.MessageFormat;
-import java.util.Iterator;
 
 /**
  * Generates approximated XML Schema representation from
@@ -256,7 +257,7 @@ public class SchemaWriter implements XSVisitor, XSSimpleTypeVisitor {
                 ref.append(MessageFormat.format(" '{'{0}'}'{1}", member.getTargetNamespace(),member.getName()));
         }
 
-        if(ref.length()==0)
+        if(ref.isEmpty())
             println("<union>");
         else
             println("<union memberTypes=\""+ref+"\">");
@@ -540,17 +541,12 @@ public class SchemaWriter implements XSVisitor, XSSimpleTypeVisitor {
     }
 
     private void wildcard( String tagName, XSWildcard wc, String extraAtts ) {
-        final String proessContents;
-        switch(wc.getMode()) {
-        case XSWildcard.LAX:
-            proessContents = " processContents='lax'";break;
-        case XSWildcard.STRTICT:
-            proessContents = "";break;
-        case XSWildcard.SKIP:
-            proessContents = " processContents='skip'";break;
-        default:
-            throw new AssertionError();
-        }
+        final String proessContents = switch (wc.getMode()) {
+            case XSWildcard.LAX -> " processContents='lax'";
+            case XSWildcard.STRTICT -> "";
+            case XSWildcard.SKIP -> " processContents='skip'";
+            default -> throw new AssertionError();
+        };
 
         println(MessageFormat.format("<{0}{1}{2}{3}/>",tagName, proessContents, wc.apply(WILDCARD_NS), extraAtts));
     }
