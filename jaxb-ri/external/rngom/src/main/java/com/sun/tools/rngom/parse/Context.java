@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2022, 2026 Eclipse Foundation
  * Copyright (C) 2004-2011
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -33,7 +34,7 @@ public interface Context extends ValidationContext {
     /**
      * Enumerates the prefixes bound to namespaces.
      */
-    Enumeration prefixes();
+    Enumeration<String> prefixes();
     
     /**
      * Returns the immutable snapshot of this .

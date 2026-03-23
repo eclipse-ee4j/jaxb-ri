@@ -195,6 +195,19 @@
                     <version>4.2.0</version>
                 </plugin>
                 <plugin>
+                    <groupId>org.javacc.plugin</groupId>
+                    <artifactId>javacc-maven-plugin</artifactId>
+                    <version>3.8.0</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.javacc.generator</groupId>
+                            <artifactId>java</artifactId>
+                            <version>8.1.0</version>
+                            <scope>runtime</scope>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.15.0</version>

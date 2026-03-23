@@ -1,51 +1,97 @@
+/*
+ * Copyright (c) 2022, 2026 Eclipse Foundation
+ * Copyright (C) 2004-2011
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
 options {
   STATIC = false;
   UNICODE_INPUT = true;
   JAVA_UNICODE_ESCAPE = true;
+  GENERATE_GENERICS = true;
+  GENERATE_STRING_BUILDER = true;
 }
 
 PARSER_BEGIN(CompactSyntax)
-
+/*
+ * Copyright (c) 2022, 2026 Eclipse Foundation
+ * Copyright (C) 2004-2011
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
 package com.sun.tools.rngom.parse.compact;
 
 import java.io.Reader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
-import Annotations;
-import BuildException;
-import CommentList;
-import DataPatternBuilder;
-import Div;
-import ElementAnnotationBuilder;
-import Grammar;
-import GrammarSection;
-import Include;
-import IncludedGrammar;
-import NameClassBuilder;
-import SchemaBuilder;
-import Scope;
-import Location;
-import ParsedElementAnnotation;
-import ParsedNameClass;
-import ParsedPattern;
-import Context;
-import IllegalSchemaException;
-import Parseable;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.LocatorImpl;
 
-import Localizer;
-import WellKnownNamespaces;
-
+import com.sun.tools.rngom.ast.builder.Annotations;
+import com.sun.tools.rngom.ast.builder.BuildException;
+import com.sun.tools.rngom.ast.builder.CommentList;
+import com.sun.tools.rngom.ast.builder.DataPatternBuilder;
+import com.sun.tools.rngom.ast.builder.Div;
+import com.sun.tools.rngom.ast.builder.ElementAnnotationBuilder;
+import com.sun.tools.rngom.ast.builder.Grammar;
+import com.sun.tools.rngom.ast.builder.GrammarSection;
+import com.sun.tools.rngom.ast.builder.Include;
+import com.sun.tools.rngom.ast.builder.IncludedGrammar;
+import com.sun.tools.rngom.ast.builder.NameClassBuilder;
+import com.sun.tools.rngom.ast.builder.SchemaBuilder;
+import com.sun.tools.rngom.ast.builder.Scope;
+import com.sun.tools.rngom.ast.om.Location;
+import com.sun.tools.rngom.ast.om.ParsedElementAnnotation;
+import com.sun.tools.rngom.ast.om.ParsedNameClass;
+import com.sun.tools.rngom.ast.om.ParsedPattern;
+import com.sun.tools.rngom.parse.Context;
+import com.sun.tools.rngom.parse.IllegalSchemaException;
+import com.sun.tools.rngom.parse.Parseable;
+import com.sun.tools.rngom.util.Localizer;
+import com.sun.tools.rngom.xml.util.WellKnownNamespaces;
 
 public class CompactSyntax implements Context {
   private static final int IN_ELEMENT = 0;
@@ -63,11 +109,11 @@ public class CompactSyntax implements Context {
    */
   private CompactParseable parseable;
   private ErrorHandler eh;
-  private final Hashtable namespaceTable = new Hashtable();
-  private final Hashtable datatypesTable = new Hashtable();
+  private final Hashtable<String, String> namespaceTable = new Hashtable<>();
+  private final Map<String, String> datatypesTable = new Hashtable<>();
   private boolean hadError = false;
   private static final Localizer localizer = new Localizer(new Localizer(Parseable.class),CompactSyntax.class);
-  private final Hashtable attributeNameTable = new Hashtable();
+  private final Map<String, String> attributeNameTable = new Hashtable<>();
   private boolean annotationsIncludeElements = false;
   
   /**
@@ -178,10 +224,10 @@ public class CompactSyntax implements Context {
       loc.setColumnNumber(tok.beginColumn);
       loc.setSystemId(sourceUri);
       try {
-	eh.error(new SAXParseException(message, loc));
+    eh.error(new SAXParseException(message, loc));
       }
       catch (SAXException se) {
-	throw new BuildException(se);
+    throw new BuildException(se);
       }
     }
   }
@@ -193,10 +239,10 @@ public class CompactSyntax implements Context {
       loc.setColumnNumber(e.getColumnNumber());
       loc.setSystemId(sourceUri);
       try {
-	eh.error(new SAXParseException(localizer.message(e.getKey()), loc));
+    eh.error(new SAXParseException(localizer.message(e.getKey()), loc));
       }
       catch (SAXException se) {
-	throw new BuildException(se);
+    throw new BuildException(se);
       }
     }
   }
@@ -234,13 +280,13 @@ public class CompactSyntax implements Context {
   }
 
   public String resolveNamespacePrefix(String prefix) {
-    String result = (String)namespaceTable.get(prefix);
-    if (result.length() == 0)
+    String result = namespaceTable.get(prefix);
+    if (result.isEmpty())
       return null;
     return result;
   }
 
-  public Enumeration prefixes() {
+  public Enumeration<String> prefixes() {
     return namespaceTable.keys();
   }
 
@@ -292,19 +338,19 @@ public class CompactSyntax implements Context {
       if (lastCommentSourceToken == null)
         lastCommentSourceToken = token;
       do {
-	lastCommentSourceToken = lastCommentSourceToken.next;
-	Token t = lastCommentSourceToken.specialToken;
-	if (t != null) {
-	  while (t.specialToken != null)
-	    t = t.specialToken;
-	  if (comments == null)
-	    comments = sb.makeCommentList();
-	  for (; t != null; t = t.next) {
+    lastCommentSourceToken = lastCommentSourceToken.next;
+    Token t = lastCommentSourceToken.specialToken;
+    if (t != null) {
+      while (t.specialToken != null)
+        t = t.specialToken;
+      if (comments == null)
+        comments = sb.makeCommentList();
+      for (; t != null; t = t.next) {
             String s = mungeComment(t.image);
             Location loc = makeLocation(t);
             if (t.next != null
                 && t.next.kind == CompactSyntaxConstants.SINGLE_LINE_COMMENT_CONTINUE) {
-              StringBuffer buf = new StringBuffer(s);
+              StringBuilder buf = new StringBuilder(s);
               do {
                 t = t.next;
                 buf.append('\n');
@@ -313,9 +359,9 @@ public class CompactSyntax implements Context {
                        && t.next.kind == CompactSyntaxConstants.SINGLE_LINE_COMMENT_CONTINUE);
               s = buf.toString();
             }
-	    comments.addComment(s, loc);
+        comments.addComment(s, loc);
           }
-	}
+    }
       } while (lastCommentSourceToken != nextToken);
     }
     return comments;
@@ -398,7 +444,7 @@ public class CompactSyntax implements Context {
   }
 
   private String lookupPrefix(String prefix, Token t) {
-    String ns = (String)namespaceTable.get(prefix);
+    String ns = namespaceTable.get(prefix);
     if (ns == null) {
       error("undeclared_prefix", prefix, t);
       return "#error";
@@ -406,7 +452,7 @@ public class CompactSyntax implements Context {
     return ns;
   }
   private String lookupDatatype(String prefix, Token t) {
-    String ns = (String)datatypesTable.get(prefix);
+    String ns = datatypesTable.get(prefix);
     if (ns == null) {
       error("undeclared_prefix", prefix, t);
       return ""; // XXX
@@ -638,7 +684,7 @@ ParsedPattern NotAllowedExpr(Annotations a) :
 
 ParsedPattern Expr(boolean topLevel, Scope scope, Token t, Annotations a) :
 {
-  List patterns = new ArrayList();
+  List<ParsedPattern> patterns = new ArrayList<>();
   ParsedPattern p;
   boolean[] hadOccur = new boolean[1];
   Token[] except = new Token[1];
@@ -765,9 +811,9 @@ ParsedNameClass NameClassAlternatives(int context, ParsedNameClass nc, Annotatio
     (t = "|" nc = BasicNameClass(context) nc = AnnotateAfter(nc)
     {
       if (nNameClasses >= nameClasses.length) {
-	ParsedNameClass[] oldNameClasses = nameClasses;
-	nameClasses = new ParsedNameClass[oldNameClasses.length*2];
-	System.arraycopy(oldNameClasses, 0, nameClasses, 0, oldNameClasses.length);
+    ParsedNameClass[] oldNameClasses = nameClasses;
+    nameClasses = new ParsedNameClass[oldNameClasses.length*2];
+    System.arraycopy(oldNameClasses, 0, nameClasses, 0, oldNameClasses.length);
       }
       nameClasses[nNameClasses++] = nc;
     })+
@@ -986,17 +1032,17 @@ void GrammarComponent(GrammarSection section, Scope scope) :
   Annotations a;
 }
 {
-  (a = Annotations()
+  a = Annotations()
    (Definition(section, scope, a)
     | Include(section, scope, a)
-    | Div(section, scope, a)))
+    | Div(section, scope, a))
   (LOOKAHEAD(2) e = AnnotationElementNotKeyword() { section.topLevelAnnotation(e); })*
 }
 
 void Definition(GrammarSection section, Scope scope, Annotations a) :
 {}
 {
-  (Define(section, scope, a) | Start(section, scope, a))
+  Define(section, scope, a) | Start(section, scope, a)
 }
 
 void Start(GrammarSection section, Scope scope, Annotations a) :
@@ -1066,8 +1112,8 @@ void IncludeComponent(GrammarSection section, Scope scope) :
   Annotations a;
 }
 {
-  (a = Annotations() (Definition(section, scope, a)
-                      | IncludeDiv(section, scope, a)))
+  a = Annotations() (Definition(section, scope, a)
+                      | IncludeDiv(section, scope, a))
   (LOOKAHEAD(2) e = AnnotationElementNotKeyword() { section.topLevelAnnotation(e); })*
 }
 
@@ -1353,7 +1399,7 @@ void PrefixedAnnotationAttribute(Annotations a, boolean nested) :
     String ns = lookupPrefix(prefix, t);
     if (ns == this.inheritedNs)
       error("inherited_annotation_namespace", t);
-    else if (ns.length() == 0 && !nested)
+    else if (ns.isEmpty() && !nested)
       error("unqualified_annotation_attribute", t);
     else if (ns.equals(WellKnownNamespaces.RELAX_NG) && !nested)
       error("relax_ng_namespace", t);
@@ -1364,8 +1410,8 @@ void PrefixedAnnotationAttribute(Annotations a, boolean nested) :
     else if (ns.equals(WellKnownNamespaces.XMLNS))
       error("xmlns_annotation_attribute_uri", t);
     else {
-      if (ns.length() == 0)
-	prefix = null;
+      if (ns.isEmpty())
+        prefix = null;
       addAttribute(a, ns, qn.substring(colon + 1), prefix, value, t);
     }
   }
@@ -1428,11 +1474,11 @@ ParsedElementAnnotation PrefixedAnnotationElement(boolean nested) :
       ns = "";
     }
     else {
-      if (ns.length() == 0)
+      if (ns.isEmpty())
         prefix = null;
     }
     eab = sb.makeElementAnnotationBuilder(ns, qn.substring(colon + 1), prefix,
-					  makeLocation(t), comments, getContext());
+                      makeLocation(t), comments, getContext());
   }
   AnnotationElementContent(eab)
   { return eab.makeElementAnnotation(); }
@@ -1497,7 +1543,7 @@ String Literal() :
 {
   Token t;
   String s;
-  StringBuffer buf;
+  StringBuilder buf;
 }
 {
   t = <LITERAL>
@@ -1505,7 +1551,7 @@ String Literal() :
     s = unquote(t.image);
   }
   (
-    { buf = new StringBuffer(s); }
+    { buf = new StringBuilder(s); }
     ("~" t = <LITERAL> { buf.append(unquote(t.image)); })+
     { s = buf.toString(); }
   )?
@@ -1517,7 +1563,7 @@ LocatedString LocatedLiteral() :
   Token t;
   Token t2;
   String s;
-  StringBuffer buf;
+  StringBuilder buf;
 }
 {
   t = <LITERAL>
@@ -1525,7 +1571,7 @@ LocatedString LocatedLiteral() :
     s = unquote(t.image);
   }
   (
-    { buf = new StringBuffer(s); }
+    { buf = new StringBuilder(s); }
     ("~" t2 = <LITERAL> { buf.append(unquote(t2.image)); })+
     { s = buf.toString(); }
   )?
