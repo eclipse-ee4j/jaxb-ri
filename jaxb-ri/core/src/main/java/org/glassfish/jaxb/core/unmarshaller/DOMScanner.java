@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,7 +11,12 @@
 
 package org.glassfish.jaxb.core.unmarshaller;
 
+import java.util.AbstractMap;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Enumeration;
+import java.util.Map;
+import java.util.Objects;
 
 import jakarta.xml.bind.ValidationEventLocator;
 import jakarta.xml.bind.helpers.AbstractUnmarshallerImpl;
@@ -176,80 +182,90 @@ public class DOMScanner implements LocatorEx,InfosetScanner<Node> {
     /**
      * Visits an element and its subtree.
      */
-    public void visit( Element e ) throws SAXException {
-        setCurrentLocation( e );
-        final NamedNodeMap attributes = e.getAttributes();
-        
-        atts.clear();
-        int len = attributes==null ? 0: attributes.getLength();
-        
-        for( int i=len-1; i>=0; i-- ) {
-            Attr a = (Attr)attributes.item(i);
-            String name = a.getName();
-            // start namespace binding
-           if(name.startsWith("xmlns")) {
-                if(name.length()==5) {
-                    receiver.startPrefixMapping( "", a.getValue() );
-                } else {
-                    String localName = a.getLocalName();
-                    if(localName==null) {
-                        // DOM built without namespace support has this problem
-                        localName = name.substring(6);
-                    }
-                    receiver.startPrefixMapping( localName, a.getValue() );
-                }
+    public void visit( Element element ) throws SAXException {
+        Deque<Map.Entry<Node, Boolean>> stack = new ArrayDeque<>();
+        stack.push(new AbstractMap.SimpleEntry<>(element, true));
+        while (!stack.isEmpty()) {
+            Map.Entry<Node, Boolean> node = stack.pop();
+            // visit -> setCurrentLocation(node)
+            Element e = visit(node.getKey());
+
+            // e == null -> node was not Element -> continue to next (visit does process)
+            if (e == null) {
                 continue;
             }
-            
-            String uri = a.getNamespaceURI();
-            if(uri==null)   uri="";
-            
-            String local = a.getLocalName();
-            if(local==null) local = a.getName();
-            // add other attributes to the attribute list
-            // that we will pass to the ContentHandler
-            atts.addAttribute(
-                uri,
-                local,
-                a.getName(),
-                "CDATA",
-                a.getValue());
-        }
-        
-        String uri = e.getNamespaceURI();
-        if(uri==null)   uri="";
-        String local = e.getLocalName();
-        String qname = e.getTagName();
-        if(local==null) local = qname;
-        receiver.startElement( uri, local, qname, atts );
-        
-        // visit its children
-        NodeList children = e.getChildNodes();
-        int clen = children.getLength();
-        for( int i=0; i<clen; i++ )
-            visit(children.item(i));
-        
-        
-        
-        setCurrentLocation( e );
-        receiver.endElement( uri, local, qname );
-        
-        // call the endPrefixMapping method
-        for( int i=len-1; i>=0; i-- ) {
-            Attr a = (Attr)attributes.item(i);
-            String name = a.getName();
-            if(name.startsWith("xmlns")) {
-                if(name.length()==5)
-                    receiver.endPrefixMapping("");
-                else
-                    receiver.endPrefixMapping(a.getLocalName());
+
+            // el != null -> node was Element -> do process 2 phases on Element
+            String uri = Objects.toString(e.getNamespaceURI(), "");
+            String qname = e.getTagName();
+            String local = Objects.toString(e.getLocalName(), qname);
+            final NamedNodeMap attributes = e.getAttributes();
+            int len = attributes==null ? 0: attributes.getLength();
+
+            if (node.getValue()) {
+                // beginning phase of treatment of Element
+                atts.clear();
+
+                for( int i=len-1; i>=0; i-- ) {
+                    Attr a = (Attr)attributes.item(i);
+                    String name = a.getName();
+                    // start namespace binding
+                    if(name.startsWith("xmlns")) {
+                        if(name.length()==5) {
+                            receiver.startPrefixMapping( "", a.getValue() );
+                        } else {
+                            String localName = a.getLocalName();
+                            if(localName==null) {
+                                // DOM built without namespace support has this problem
+                                localName = name.substring(6);
+                            }
+                            receiver.startPrefixMapping( localName, a.getValue() );
+                        }
+                        continue;
+                    }
+
+                    // add other attributes to the attribute list
+                    // that we will pass to the ContentHandler
+                    atts.addAttribute(
+                            Objects.toString(a.getNamespaceURI(), ""),
+                            Objects.toString(a.getLocalName(), a.getName()),
+                            a.getName(),
+                            "CDATA",
+                            a.getValue());
+                }
+
+                receiver.startElement( uri, local, qname, atts );
+
+                stack.push(new AbstractMap.SimpleEntry<>(e, false));
+
+                // visit its children
+                NodeList children = e.getChildNodes();
+                int clen = children.getLength();
+                for (int i = clen - 1; i >= 0; i--) {
+                    stack.push(new AbstractMap.SimpleEntry<>(children.item(i), true));
+                }
+            } else {
+                // end phase of treatment of Element
+                receiver.endElement( uri, local, qname );
+
+                // call the endPrefixMapping method
+                for( int i=len-1; i>=0; i-- ) {
+                    Attr a = (Attr)attributes.item(i);
+                    String name = a.getName();
+                    if(name.startsWith("xmlns")) {
+                        if(name.length()==5)
+                            receiver.endPrefixMapping("");
+                        else
+                            receiver.endPrefixMapping(a.getLocalName());
+                    }
+                }
             }
         }
     }
-    
-    private void visit( Node n ) throws SAXException {
+
+    private Element visit( Node n ) throws SAXException {
         setCurrentLocation( n );
-        
+
         // if a case statement gets too big, it should be made into a separate method.
         switch(n.getNodeType()) {
         case Node.CDATA_SECTION_NODE:
@@ -258,8 +274,7 @@ public class DOMScanner implements LocatorEx,InfosetScanner<Node> {
             receiver.characters( value.toCharArray(), 0, value.length() );
             break;
         case Node.ELEMENT_NODE:
-            visit( (Element)n );
-            break;
+            return (Element) n;
         case Node.ENTITY_REFERENCE_NODE:
             receiver.skippedEntity(n.getNodeName());
             break;
@@ -268,8 +283,9 @@ public class DOMScanner implements LocatorEx,InfosetScanner<Node> {
             receiver.processingInstruction(pi.getTarget(),pi.getData());
             break;
         }
+        return null;
     }
-    
+
     private void setCurrentLocation( Node currNode ) {
         currentNode = currNode;
     }
