@@ -99,32 +99,27 @@ public final class UnmarshallerImpl extends AbstractUnmarshallerImpl implements 
 
     /**
      * Obtains a configured XMLReader.
-     * 
+     *
      * This method is used when the client-specified
      * {@link SAXSource} object doesn't have XMLReader.
-     * 
+     *
      * {@link Unmarshaller} is not re-entrant, so we will
      * only use one instance of XMLReader.
-     * 
+     *
      * Overriden in order to fix potential security issue.
      */
      @Override
     protected XMLReader getXMLReader() throws JAXBException {
          if (reader == null) {
              try {
-                 SAXParserFactory parserFactory = XmlFactory.createParserFactory(context.disableSecurityProcessing);
-                 // there is no point in asking a validation because 
-                 // there is no guarantee that the document will come with
-                 // a proper schemaLocation.
-                 parserFactory.setValidating(false);
-                 reader = parserFactory.newSAXParser().getXMLReader();
+                 reader = context.getSAXParserFactory().newSAXParser().getXMLReader();
              } catch (ParserConfigurationException | SAXException e) {
                  throw new JAXBException(e);
              }
          }
          return reader;
      }
-    
+
     private SAXConnector getUnmarshallerHandler( boolean intern, JaxBeanInfo expectedType ) {
         XmlVisitor h = createUnmarshallerHandler(null, false, expectedType);
         if (intern) {

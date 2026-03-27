@@ -57,6 +57,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.FactoryConfigurationError;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.Result;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
@@ -216,6 +217,12 @@ public final class JAXBContextImpl extends JAXBRIContext {
      * @since 2.3.3
      */
     public final int maxErrorsCount;
+
+    /**
+     * The parserFactory for this JAXBContext
+     * @since 4.0.8
+     */
+    private volatile SAXParserFactory parserFactory;
 
     /**
      * Returns declared XmlNs annotations (from package-level annotation XmlSchema
@@ -987,6 +994,24 @@ public final class JAXBContextImpl extends JAXBRIContext {
             return lhs.getNamespaceURI().compareTo(rhs.getNamespaceURI());
         }
     };
+
+    public SAXParserFactory getSAXParserFactory() {
+        SAXParserFactory factory = parserFactory;
+        if (factory == null) {
+            synchronized (this) {
+                factory = parserFactory;
+                if (factory == null) {
+                    factory = XmlFactory.createParserFactory(disableSecurityProcessing);
+                    // there is no point in asking a validation because
+                    // there is no guarantee that the document will come with
+                    // a proper schemaLocation.
+                    factory.setValidating(false);
+                    parserFactory = factory;
+                }
+            }
+        }
+        return factory;
+    }
 
     public static class JAXBContextBuilder {
 
