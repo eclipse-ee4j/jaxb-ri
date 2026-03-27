@@ -113,10 +113,10 @@ public final class JAXBContextImpl extends JAXBRIContext {
     private final Map<TypeReference, Bridge> bridges = new LinkedHashMap<>();
 
     /**
-     * Shared instance of {@link DocumentBuilder}.
+     * Instance of {@link DocumentBuilder}.
      * Lock before use. Lazily created.
      */
-    private static DocumentBuilder db;
+    private DocumentBuilder db;
 
     private final QNameMap<JaxBeanInfo> rootMap = new QNameMap<>();
     private final HashMap<QName,JaxBeanInfo> typeMap = new HashMap<>();
@@ -726,7 +726,7 @@ public final class JAXBContextImpl extends JAXBRIContext {
     /**
      * Creates a new DOM document.
      */
-    static Document createDom(boolean disableSecurityProcessing) {
+    Document createDom() {
         synchronized(JAXBContextImpl.class) {
             if(db==null) {
                 try {
