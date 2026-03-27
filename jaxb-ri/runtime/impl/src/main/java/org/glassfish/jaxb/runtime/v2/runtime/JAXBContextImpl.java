@@ -30,7 +30,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import javax.xml.namespace.QName;
-import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.FactoryConfigurationError;
 import javax.xml.parsers.ParserConfigurationException;
@@ -113,10 +112,10 @@ public final class JAXBContextImpl extends JAXBRIContext {
     private final Map<TypeReference, Bridge> bridges = new LinkedHashMap<>();
 
     /**
-     * Instance of {@link DocumentBuilder}.
-     * Lock before use. Lazily created.
+     * Cached instance of {@link DocumentBuilderFactory}.
+     * Thread-safe after configuration. Lazily created.
      */
-    private DocumentBuilder db;
+    private volatile DocumentBuilderFactory dbf;
 
     private final QNameMap<JaxBeanInfo> rootMap = new QNameMap<>();
     private final HashMap<QName,JaxBeanInfo> typeMap = new HashMap<>();
@@ -727,17 +726,20 @@ public final class JAXBContextImpl extends JAXBRIContext {
      * Creates a new DOM document.
      */
     Document createDom() {
-        synchronized(JAXBContextImpl.class) {
-            if(db==null) {
-                try {
-                    DocumentBuilderFactory dbf = XmlFactory.createDocumentBuilderFactory(disableSecurityProcessing);
-                    db = dbf.newDocumentBuilder();
-                } catch (ParserConfigurationException e) {
-                    // impossible
-                    throw new FactoryConfigurationError(e);
+        DocumentBuilderFactory factory = dbf;
+        if (factory == null) {
+            synchronized (this) {
+                factory = dbf;
+                if (factory == null) {
+                    dbf = factory = XmlFactory.createDocumentBuilderFactory(disableSecurityProcessing);
                 }
             }
-            return db.newDocument();
+        }
+        try {
+            return factory.newDocumentBuilder().newDocument();
+        } catch (ParserConfigurationException e) {
+            // impossible
+            throw new FactoryConfigurationError(e);
         }
     }
 
