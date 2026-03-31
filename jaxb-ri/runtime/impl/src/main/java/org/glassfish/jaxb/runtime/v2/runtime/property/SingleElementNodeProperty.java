@@ -59,7 +59,7 @@ final class SingleElementNodeProperty<BeanT,ValueT> extends PropertyImpl<BeanT> 
 
     public SingleElementNodeProperty(JAXBContextImpl context, RuntimeElementPropertyInfo prop) {
         super(context,prop);
-        acc = prop.getAccessor().optimize(context);
+        acc = prop.getAccessor();
         this.prop = prop;
 
         QName nt = null;
