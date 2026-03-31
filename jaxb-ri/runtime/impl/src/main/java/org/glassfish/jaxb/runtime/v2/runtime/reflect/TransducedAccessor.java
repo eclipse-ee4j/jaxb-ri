@@ -199,7 +199,7 @@ public abstract class TransducedAccessor<BeanT> {
 
         public CompositeTransducedAccessorImpl(JAXBContextImpl context, Transducer<ValueT> xducer, Accessor<BeanT,ValueT> acc) {
             this.xducer = xducer;
-            this.acc = acc.optimize(context);
+            this.acc = acc;
         }
 
         @Override
