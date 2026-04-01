@@ -172,7 +172,7 @@ public /*to make unit tests happy*/ final class MarshallerImpl extends AbstractM
             final Node node = ((DOMResult) result).getNode();
 
             if (node == null) {
-                Document doc = JAXBContextImpl.createDom(getContext().disableSecurityProcessing);
+                Document doc = getContext().createDom();
                 ((DOMResult) result).setNode(doc);
                 return new SAXOutput(new SAX2DOMEx(doc));
             } else {
