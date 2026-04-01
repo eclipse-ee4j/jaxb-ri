@@ -12,7 +12,9 @@ package org.glassfish.jaxb.runtime.v2.schemagen;
 
 
 /**
- * Other miscellaneous utility methods.
+ * TODO: JAX-WS dependes on this class - consider moving it somewhere more stable, Notify JAX-WS before modifying anything...
+ *
+ * Other miscellaneous utility methods. 
  * 
  * @author
  *     Kohsuke Kawaguchi (kohsuke.kawaguchi@sun.com)
