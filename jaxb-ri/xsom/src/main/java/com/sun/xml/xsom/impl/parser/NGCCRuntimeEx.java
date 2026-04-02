@@ -547,9 +547,7 @@ public class NGCCRuntimeEx extends NGCCRuntime implements PatcherManager {
         StringBuilder result = new StringBuilder(len /*allocate enough size to avoid re-allocation*/);
 
         if (s != 0) {
-            for (int i = 0; i < s; i++) {
-                result.append(text.charAt(i));
-            }
+            result.append(text, 0, s);
             result.append(' ');
         }
 
