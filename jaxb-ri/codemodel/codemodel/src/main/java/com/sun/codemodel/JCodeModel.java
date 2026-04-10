@@ -779,13 +779,11 @@ public final class JCodeModel {
 
         @Override
         public JTypeVar[] typeParams() {
-            // TODO: does JDK 1.5 reflection provides these information?
             return super.typeParams();
         }
 
         @Override
         protected JClass substituteParams(JTypeVar[] variables, List<JClass> bindings) {
-            // TODO: does JDK 1.5 reflection provides these information?
             return this;
         }
     }
