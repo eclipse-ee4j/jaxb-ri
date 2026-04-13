@@ -136,7 +136,6 @@ module com.sun.xml.bind.osgi {
     exports com.sun.tools.rngdatatype;
     exports com.sun.tools.rngdatatype.helpers;
 
-    opens org.glassfish.jaxb.runtime.v2.runtime.reflect.opt to jakarta.xml.bind;
     opens org.glassfish.jaxb.runtime.v2.schemagen to jakarta.xml.bind;
     opens org.glassfish.jaxb.runtime.v2.schemagen.xmlschema to jakarta.xml.bind;
     opens org.glassfish.jaxb.runtime.v2 to jakarta.xml.bind;

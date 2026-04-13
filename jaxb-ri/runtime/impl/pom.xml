@@ -40,7 +40,6 @@
             --add-opens org.glassfish.jaxb.runtime/org.glassfish.jaxb.runtime.v2.schemagen=org.glassfish.jaxb.core
             --add-opens java.base/java.lang=org.glassfish.jaxb.runtime
             --add-opens java.base/java.lang.reflect=org.glassfish.jaxb.runtime
-            --add-opens org.glassfish.jaxb.runtime/org.glassfish.jaxb.runtime.v2.runtime.reflect.opt=org.glassfish.jaxb.core
         </argLine>
         <txwc2.sources>${project.build.directory}/generated-sources/txwc2</txwc2.sources>
     </properties>

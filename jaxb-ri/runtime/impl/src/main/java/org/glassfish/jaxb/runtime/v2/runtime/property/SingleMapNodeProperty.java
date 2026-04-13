@@ -59,7 +59,7 @@ final class SingleMapNodeProperty<BeanT,ValueT extends Map> extends PropertyImpl
     @SuppressWarnings({"unchecked"})
     public SingleMapNodeProperty(JAXBContextImpl context, RuntimeMapPropertyInfo prop) {
         super(context, prop);
-        acc = prop.getAccessor().optimize(context);
+        acc = prop.getAccessor();
         this.tagName = context.nameBuilder.createElementName(prop.getXmlName());
         this.entryTag = context.nameBuilder.createElementName("","entry");
         this.keyTag = context.nameBuilder.createElementName("","key");
