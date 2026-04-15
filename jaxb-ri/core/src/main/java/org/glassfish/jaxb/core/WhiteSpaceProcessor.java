@@ -68,7 +68,7 @@ public abstract class WhiteSpaceProcessor {
             if( isWhiteSpaceExceptSpace(buf.charAt(i)))
                 buf.setCharAt(i,' ');
 
-        return new String(buf);
+        return buf;
     }
 
     /**
