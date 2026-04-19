@@ -20,6 +20,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
+import java.util.Objects;
+
 import javax.xml.namespace.QName;
 import javax.xml.validation.Schema;
 
@@ -178,7 +180,7 @@ public class BinderImpl<XmlNode> extends Binder<XmlNode> {
         // the marshalling successful.
         JaxBeanInfo bi = context.getBeanInfo(jaxbObject, true);
         if(!bi.isElement())
-            jaxbObject = new JAXBElement(new QName(e.getNamespaceURI(),e.getLocalName()),bi.jaxbType,jaxbObject);
+            jaxbObject = new JAXBElement(new QName(e.getNamespaceURI(),Objects.requireNonNullElse(e.getLocalName(), e.getNodeName()),bi.jaxbType,jaxbObject);
 
 
         getMarshaller().marshal(jaxbObject,p);
