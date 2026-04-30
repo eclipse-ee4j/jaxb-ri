@@ -23,7 +23,7 @@
 
     <groupId>org.glassfish.jaxb</groupId>
     <artifactId>jaxb-codemodel-parent</artifactId>
-    <version>4.0.8-SNAPSHOT</version>
+    <version>4.0.8</version>
     <packaging>pom</packaging>
     <name>Codemodel</name>
     <description>Java source code generation library</description>
