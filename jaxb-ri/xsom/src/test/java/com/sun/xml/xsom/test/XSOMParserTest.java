@@ -24,6 +24,7 @@ import com.sun.xml.xsom.parser.XSOMParser;
 import com.sun.xml.xsom.parser.XmlFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.InputSource;
 
@@ -34,6 +35,7 @@ import java.util.Set;
  *
  * @author Farrukh S. Najmi
  */
+@Disabled("Fails with HTTP 403 on GH")
 public class XSOMParserTest {
 
     private static String docURLStr = "https://docs.oasis-open.org/regrep/regrep-core/v4.0/os/xsd/lcm.xsd";
