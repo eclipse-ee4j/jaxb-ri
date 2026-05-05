@@ -1,8 +1,8 @@
 package com.sun.xml.xsom.test;
 
 /*
+ * Copyright (c) 2025, 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -24,6 +24,7 @@ import com.sun.xml.xsom.parser.SchemaDocument;
 import com.sun.xml.xsom.parser.XmlFactory;
 import junit.framework.*;
 import org.junit.Ignore;
+
 import org.xml.sax.InputSource;
 
 import java.net.URL;
@@ -33,6 +34,7 @@ import java.util.Set;
  *
  * @author Farrukh S. Najmi
  */
+@Ignore("Fails with HTTP 403 on GH")
 public class XSOMParserTest extends TestCase {
 
     private static String docURLStr = "https://docs.oasis-open.org/regrep/v3.0/schema/lcm.xsd";
