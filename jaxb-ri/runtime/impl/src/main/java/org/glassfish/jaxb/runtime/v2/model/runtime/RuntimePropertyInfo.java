@@ -35,16 +35,8 @@ public interface RuntimePropertyInfo extends PropertyInfo<Type,Class> {
      * Even for a multi-value property, this method returns an accessor
      * to that property. IOW, the accessor works against the raw type.
      *
-     * <p>
-     * This methods returns unoptimized accessor (because optimization
-     * accessors are often combined into bigger pieces, and optimization
-     * generally works better if you can look at a bigger piece, as opposed
-     * to individually optimize a smaller components)
-     *
      * @return
      *      never null.
-     *
-     * @see Accessor#optimize(JAXBContextImpl)
      */
     Accessor getAccessor();
 

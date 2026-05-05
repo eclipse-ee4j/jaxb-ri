@@ -42,7 +42,6 @@ module org.glassfish.jaxb.runtime {
     exports org.glassfish.jaxb.runtime.v2.schemagen.xmlschema;
     exports org.glassfish.jaxb.runtime.v2.util;
 
-    opens org.glassfish.jaxb.runtime.v2.runtime.reflect.opt to jakarta.xml.bind;
     opens org.glassfish.jaxb.runtime.v2.schemagen to jakarta.xml.bind;
     opens org.glassfish.jaxb.runtime.v2.schemagen.xmlschema to jakarta.xml.bind;
 
