@@ -26,7 +26,7 @@
     <groupId>org.glassfish.jaxb</groupId>
     <artifactId>jaxb-external-parent</artifactId>
     <packaging>pom</packaging>
-    <version>4.0.8-SNAPSHOT</version>
+    <version>4.0.9-SNAPSHOT</version>
     <name>JAXB External parent</name>
     <description>JAXB External parent module. Contains sources for external components.</description>
     <url>https://eclipse-ee4j.github.io/jaxb-ri/</url>
