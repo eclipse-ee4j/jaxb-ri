@@ -462,6 +462,9 @@ abstract class AbstractField implements FieldOutline {
                 .sorted(comparing(JType::fullName))
                 .collect(toList());
         for( JType t : refs ) {
+            if (prop.getAdapter() != null && prop.getAdapter().defaultType != null && prop.getAdapter().customType != null && t.equals(prop.getAdapter().defaultType.toType(outline.parent(), Aspect.EXPOSED))) {
+                t = prop.getAdapter().customType.toType(outline.parent(), Aspect.EXPOSED);
+            }
             if( t.isPrimitive() || t.isArray() )
                 r.add(t.fullName());
             else {
