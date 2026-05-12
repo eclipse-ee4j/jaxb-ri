@@ -719,21 +719,13 @@ public final class DatatypeConverterImpl implements DatatypeConverterInterface {
 
     public static DatatypeFactory getDatatypeFactory() {
         ClassLoader tccl = Thread.currentThread().getContextClassLoader();
-        DatatypeFactory df = DF_CACHE.get(tccl);
-        if (df == null) {
-            synchronized (DatatypeConverterImpl.class) {
-                df = DF_CACHE.get(tccl);
-                if (df == null) { // to prevent multiple initialization
-                    try {
-                        df = DatatypeFactory.newInstance();
-                    } catch (DatatypeConfigurationException e) {
-                        throw new Error(Messages.FAILED_TO_INITIALE_DATATYPE_FACTORY.format(),e);
-                    }
-                    DF_CACHE.put(tccl, df);
-                }
+        return DF_CACHE.computeIfAbsent(tccl, k -> {
+            try {
+                return DatatypeFactory.newInstance();
+            } catch (DatatypeConfigurationException e) {
+                throw new Error(Messages.FAILED_TO_INITIALE_DATATYPE_FACTORY.format(), e);
             }
-        }
-        return df;
+        });
     }
 
     private static final class CalendarFormatter {
