@@ -151,10 +151,7 @@ public class DataWriter extends XMLWriter
     @Deprecated
     public void setIndentStep (int indentStep)
     {
-        StringBuilder buf = new StringBuilder();
-        for( ; indentStep>0; indentStep-- )
-            buf.append(' ');
-        setIndentStep(buf.toString());
+        setIndentStep(" ".repeat(indentStep));
     }
     
     public void setIndentStep(String s) {
