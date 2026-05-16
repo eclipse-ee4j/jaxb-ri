@@ -48,7 +48,7 @@ final class SingleReferenceNodeProperty<BeanT,ValueT> extends PropertyImpl<BeanT
 
     public SingleReferenceNodeProperty(JAXBContextImpl context, RuntimeReferencePropertyInfo prop) {
         super(context,prop);
-        acc = prop.getAccessor().optimize(context);
+        acc = prop.getAccessor();
 
         for (RuntimeElement e : prop.getElements()) {
             expectedElements.put( e.getElementName(), context.getOrCreate(e) );

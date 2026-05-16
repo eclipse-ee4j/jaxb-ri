@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -59,7 +60,7 @@ final class SingleElementNodeProperty<BeanT,ValueT> extends PropertyImpl<BeanT> 
 
     public SingleElementNodeProperty(JAXBContextImpl context, RuntimeElementPropertyInfo prop) {
         super(context,prop);
-        acc = prop.getAccessor().optimize(context);
+        acc = prop.getAccessor();
         this.prop = prop;
 
         QName nt = null;

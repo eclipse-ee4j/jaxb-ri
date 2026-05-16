@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 2019, 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -136,7 +137,6 @@ module com.sun.xml.bind.osgi {
     exports com.sun.tools.rngdatatype;
     exports com.sun.tools.rngdatatype.helpers;
 
-    opens org.glassfish.jaxb.runtime.v2.runtime.reflect.opt to jakarta.xml.bind;
     opens org.glassfish.jaxb.runtime.v2.schemagen to jakarta.xml.bind;
     opens org.glassfish.jaxb.runtime.v2.schemagen.xmlschema to jakarta.xml.bind;
     opens org.glassfish.jaxb.runtime.v2 to jakarta.xml.bind;

@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -31,7 +32,7 @@ import jakarta.xml.bind.annotation.XmlAnyElement;
  * for applications.
  *
  * <p>
- * This is where {@link ClassResolver} comes to resucue.
+ * This is where {@link ClassResolver} comes to rescue.
  *
  * <p>
  * A {@link ClassResolver} instance can be specified on {@link Unmarshaller} via

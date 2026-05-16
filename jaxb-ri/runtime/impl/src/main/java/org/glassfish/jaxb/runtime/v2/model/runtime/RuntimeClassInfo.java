@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -12,7 +13,6 @@ package org.glassfish.jaxb.runtime.v2.model.runtime;
 
 import org.glassfish.jaxb.core.annotation.XmlLocation;
 import org.glassfish.jaxb.core.v2.model.core.ClassInfo;
-import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
 import org.glassfish.jaxb.runtime.v2.runtime.reflect.Accessor;
 import org.xml.sax.Locator;
 
@@ -42,10 +42,8 @@ public interface RuntimeClassInfo extends ClassInfo<Type,Class>, RuntimeNonEleme
      * returns the accessor to access the property.
      *
      * @return
-     *      unoptimized accessor.
+     *      accessor.
      *      non-null iff {@link #hasAttributeWildcard()}==true.
-     *
-     * @see Accessor#optimize(JAXBContextImpl)
      */
     <BeanT> Accessor<BeanT,Map<QName,String>> getAttributeWildcard();
 

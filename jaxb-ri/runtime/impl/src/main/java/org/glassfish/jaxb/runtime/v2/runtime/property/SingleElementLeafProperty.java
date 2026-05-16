@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -51,7 +52,7 @@ final class SingleElementLeafProperty<BeanT> extends PropertyImpl<BeanT> {
         assert tagName != null;
         nillable = ref.isNillable();
         defaultValue = ref.getDefaultValue();
-        this.acc = prop.getAccessor().optimize(context);
+        this.acc = prop.getAccessor();
 
         xacc = TransducedAccessor.get(context, ref);
         assert xacc != null;

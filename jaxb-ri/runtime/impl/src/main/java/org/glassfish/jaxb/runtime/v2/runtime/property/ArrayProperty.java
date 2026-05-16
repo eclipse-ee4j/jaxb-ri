@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -35,7 +36,7 @@ abstract class ArrayProperty<BeanT,ListT,ItemT> extends PropertyImpl<BeanT> {
         lister = Lister.create(
             Utils.REFLECTION_NAVIGATOR.erasure(prop.getRawType()),prop.id(),prop.getAdapter());
         assert lister!=null;
-        acc = prop.getAccessor().optimize(context);
+        acc = prop.getAccessor();
         assert acc!=null;
     }
 

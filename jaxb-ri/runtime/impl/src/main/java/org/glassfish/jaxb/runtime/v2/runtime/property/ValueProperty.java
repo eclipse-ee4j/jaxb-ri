@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -47,7 +48,7 @@ public final class ValueProperty<BeanT> extends PropertyImpl<BeanT> {
     public ValueProperty(JAXBContextImpl context, RuntimeValuePropertyInfo prop) {
         super(context,prop);
         xacc = TransducedAccessor.get(context,prop);
-        acc = prop.getAccessor();   // we only use this for binder, so don't waste memory by optimizing
+        acc = prop.getAccessor();   // we only use this for binder
     }
 
     @Override

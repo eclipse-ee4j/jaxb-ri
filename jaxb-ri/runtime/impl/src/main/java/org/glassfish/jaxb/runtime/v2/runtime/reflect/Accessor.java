@@ -23,13 +23,11 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.sun.istack.Nullable;
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 import org.glassfish.jaxb.core.v2.model.core.Adapter;
 import org.glassfish.jaxb.runtime.api.AccessorException;
 import org.glassfish.jaxb.runtime.api.JAXBRIContext;
-import org.glassfish.jaxb.runtime.v2.model.impl.RuntimeModelBuilder;
 import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
 import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.Loader;
 import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.Receiver;
@@ -61,18 +59,6 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
     protected Accessor(Class<ValueT> valueType) {
         this.valueType = valueType;
     }
-
-    /**
-     * Returns the optimized version of the same accessor.
-     *
-     * @param context The {@link JAXBContextImpl} that owns the whole thing.
-     *                (See {@link RuntimeModelBuilder#context}.)
-     * @return At least the implementation can return {@code this}.
-     */
-    public Accessor<BeanT, ValueT> optimize(@Nullable JAXBContextImpl context) {
-        return this;
-    }
-
 
     /**
      * Gets the value of the property of the given bean object.
@@ -261,11 +247,6 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
                 throw new IllegalAccessError(e.getMessage());
             }
         }
-
-        @Override
-        public Accessor<BeanT, ValueT> optimize(JAXBContextImpl context) {
-            return this;
-        }
     }
 
     /**
@@ -367,11 +348,6 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
             // but because get/set would be called from so many different places,
             // the handling would be tedious.
             return new AccessorException(t);
-        }
-
-        @Override
-        public Accessor<BeanT, ValueT> optimize(JAXBContextImpl context) {
-            return this;
         }
     }
 

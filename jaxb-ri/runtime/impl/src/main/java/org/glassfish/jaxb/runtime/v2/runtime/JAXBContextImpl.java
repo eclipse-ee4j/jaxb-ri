@@ -44,7 +44,6 @@ import com.sun.istack.NotNull;
 import com.sun.istack.Pool;
 import com.sun.xml.txw2.output.ResultFactory;
 import jakarta.xml.bind.Binder;
-import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.JAXBIntrospector;
@@ -220,14 +219,6 @@ public final class JAXBContextImpl extends JAXBRIContext {
     private /*almost final*/ boolean hasSwaRef;
     private final @NotNull Map<Class,Class> subclassReplacements;
 
-    /**
-     * If true, we aim for faster {@link JAXBContext} instantiation performance,
-     * instead of going after efficient sustained unmarshalling/marshalling performance.
-     *
-     * @since 2.0.4
-     */
-    public final boolean fastBoot;
-
     private Set<XmlNs> xmlNsSet = null;
 
     /**
@@ -274,14 +265,6 @@ public final class JAXBContextImpl extends JAXBRIContext {
         this.maxErrorsCount = builder.maxErrorsCount;
 
         Collection<TypeReference> typeRefs = builder.typeRefs;
-
-        boolean fastB;
-        try {
-            fastB = Boolean.getBoolean(JAXBContextImpl.class.getName()+".fastBoot");
-        } catch (SecurityException e) {
-            fastB = false;
-        }
-        this.fastBoot = fastB;
 
         RuntimeTypeInfoSet typeSet = getTypeInfoSet();
 
