@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -15,6 +16,7 @@ import org.glassfish.jaxb.core.v2.ClassFactory;
 import org.glassfish.jaxb.core.v2.model.core.Adapter;
 import org.glassfish.jaxb.runtime.v2.runtime.Coordinator;
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * {@link Accessor} that adapts the value by using {@link Adapter}.
@@ -70,22 +72,21 @@ final class AdaptedAccessor<BeanT,InMemValueT,OnWireValueT> extends Accessor<Bea
     }
 
     /**
-     * Sometimes Adapters are used directly by JAX-WS outside any
-     * {@link Coordinator}. Use this lazily-created cached
-     * {@link XmlAdapter} in such cases.
+     * Sometimes Adapters are used directly by JAX-WS outside any {@link Coordinator}.
+     * Use this lazily-created cached {@link XmlAdapter} in such cases.
      */
-    private XmlAdapter<OnWireValueT, InMemValueT> staticAdapter;
+    private final AtomicReference<XmlAdapter<OnWireValueT, InMemValueT>> staticAdapterReference = new AtomicReference<>();
 
     private XmlAdapter<OnWireValueT, InMemValueT> getAdapter() {
         Coordinator coordinator = Coordinator._getInstance();
-        if(coordinator!=null)
+        if (coordinator!=null)
             return coordinator.getAdapter(adapter);
         else {
-            synchronized(this) {
-                if(staticAdapter==null)
-                    staticAdapter = ClassFactory.create(adapter);
-            }
-            return staticAdapter;
+            XmlAdapter<OnWireValueT, InMemValueT> staticAdapter = staticAdapterReference.get();
+            if (staticAdapter != null)
+                return staticAdapter;
+            staticAdapter = ClassFactory.create(adapter);
+            return staticAdapterReference.compareAndSet(null, staticAdapter) ? staticAdapter : staticAdapterReference.get();
         }
     }
 }
