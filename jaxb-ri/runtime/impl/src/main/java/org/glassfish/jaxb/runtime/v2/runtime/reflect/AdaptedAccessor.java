@@ -79,10 +79,10 @@ final class AdaptedAccessor<BeanT,InMemValueT,OnWireValueT> extends Accessor<Bea
 
     private XmlAdapter<OnWireValueT, InMemValueT> getAdapter() {
         Coordinator coordinator = Coordinator._getInstance();
-        if(coordinator!=null)
+        if (coordinator!=null)
             return coordinator.getAdapter(adapter);
         else {
-            var staticAdapter = staticAdapterReference.get();
+            XmlAdapter<OnWireValueT, InMemValueT> staticAdapter = staticAdapterReference.get();
             if (staticAdapter != null)
                 return staticAdapter;
             staticAdapter = ClassFactory.create(adapter);
