@@ -329,6 +329,9 @@
                         <configuration>
                             <manifestLocation>${project.build.directory}/source-manifest</manifestLocation>
                             <instructions>
+                                <Export-Package />
+                                <Import-Package />
+                                <Provide-Capability />
                                 <Bundle-SymbolicName>${project.groupId}.${project.artifactId}.source</Bundle-SymbolicName>
                                 <Eclipse-SourceBundle>${project.groupId}.${project.artifactId};version="${project.version}"</Eclipse-SourceBundle>
                             </instructions>
