@@ -19,6 +19,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.Callable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -169,10 +171,12 @@ public final class UnmarshallingContext extends Coordinator
     /**
      * The variable introduced to avoid reporting n^10 similar errors.
      * After error is reported counter is decremented. When it became 0 - errors should not be reported any more.
-     *
-     * volatile is required to ensure that concurrent threads will see changed value
      */
-    private static volatile int errorsCounter;
+    private static final AtomicInteger errorsCounter = new AtomicInteger();
+    /**
+     * Indicates whether the error counter has been initialized or not.
+     */
+    private static final AtomicBoolean isErrorCounterInitialized = new AtomicBoolean(false);
 
     /**
      * State information for each element.
@@ -395,7 +399,9 @@ public final class UnmarshallingContext extends Coordinator
         this.parent = _parent;
         this.assoc = assoc;
         this.root = this.current = new State(null);
-        errorsCounter = _parent.context.maxErrorsCount;
+        if (isErrorCounterInitialized.compareAndSet(false, true)) {
+            errorsCounter.set(_parent.context.maxErrorsCount);
+        }
     }
 
     public void reset(InfosetScanner scanner,boolean isInplaceMode, JaxBeanInfo expectedType, IDResolver idResolver) {
@@ -1315,13 +1321,12 @@ public final class UnmarshallingContext extends Coordinator
         if (logger.isLoggable(Level.FINEST))
             return true;
 
-        if (errorsCounter >= 0) {
-            --errorsCounter;
-            if (errorsCounter == 0) // it's possible to miss this because of concurrency. If required add synchronization here
-                handleEvent(new ValidationEventImpl(ValidationEvent.WARNING, Messages.ERRORS_LIMIT_EXCEEDED.format(),
-                        getLocator().getLocation(), null), true);
+        int newValue = errorsCounter.getAndUpdate(v -> v >= 0 ? v - 1 : v);
+        if (newValue == 0) {
+            handleEvent(new ValidationEventImpl(ValidationEvent.WARNING, Messages.ERRORS_LIMIT_EXCEEDED.format(),
+                getLocator().getLocation(), null), true);
         }
-        return errorsCounter >= 0;
+        return newValue >= 0;
     }
 }
 
