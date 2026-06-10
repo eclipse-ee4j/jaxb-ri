@@ -12,6 +12,8 @@ package org.glassfish.jaxb.runtime.v2.runtime.output;
 
 import java.io.IOException;
 
+import org.glassfish.jaxb.core.marshaller.InvalidXmlCharacterPolicy;
+
 /**
  * Buffer for UTF-8 encoded string.
  *
@@ -20,6 +22,17 @@ import java.io.IOException;
  * @author Kohsuke Kawaguchi
  */
 public final class Encoded {
+
+    /**
+     * Policy for characters illegal in serialized XML 1.0 (JAXB-614), applied by
+     * {@link #setEscape}. This is the low-level fallback used when no
+     * {@link org.glassfish.jaxb.core.marshaller.CharacterEscapeHandler} is in
+     * play; the {@link InvalidXmlCharacterPolicy#WRITE} default leaves the hot
+     * path untouched. Resolved once from the system property because this code
+     * path has no access to the per-marshaller configuration.
+     */
+    private static final InvalidXmlCharacterPolicy INVALID_CHAR_POLICY = InvalidXmlCharacterPolicy.resolveDefault();
+
     public byte[] buf;
 
     public int len;
@@ -85,6 +98,18 @@ public final class Encoded {
 
         for (int i = 0; i < length; i++) {
             final char chr = text.charAt(i);
+
+            if (INVALID_CHAR_POLICY != InvalidXmlCharacterPolicy.WRITE
+                    && InvalidXmlCharacterPolicy.isInvalid(chr)) {
+                if (INVALID_CHAR_POLICY == InvalidXmlCharacterPolicy.REPLACE) {
+                    // U+FFFD encodes to the three UTF-8 bytes EF BF BD.
+                    buf[ptr++] = (byte) 0xEF;
+                    buf[ptr++] = (byte) 0xBF;
+                    buf[ptr++] = (byte) 0xBD;
+                }
+                // STRIP: drop the character entirely.
+                continue;
+            }
 
             int ptr1 = ptr;
             if (chr > 0x7F) {
