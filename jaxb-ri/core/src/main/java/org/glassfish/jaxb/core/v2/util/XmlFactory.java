@@ -42,7 +42,7 @@ import org.xml.sax.SAXNotSupportedException;
 public class XmlFactory {
 
     private static final Logger LOGGER = Logger.getLogger(XmlFactory.class.getName());
-    private static final Map<Boolean, SoftReference<TransformerFactory>> transformerFactoryCache = Collections.synchronizedMap(new WeakHashMap<>());
+    private static final Map<ClassLoader, Map<Boolean, SoftReference<TransformerFactory>>> transformerFactoryCache = Collections.synchronizedMap(new WeakHashMap<>());
 
     /**
      * If true XML security features when parsing XML documents will be disabled.
@@ -153,13 +153,15 @@ public class XmlFactory {
             return _createTransformerFactory(disableSecureProcessing);
         }
         TransformerFactory tf = null;
-        SoftReference<TransformerFactory> tfRef = transformerFactoryCache.get(disableSecureProcessing);
+        Map<Boolean, SoftReference<TransformerFactory>> tfMap = transformerFactoryCache.computeIfAbsent(
+                Thread.currentThread().getContextClassLoader(), k -> Collections.synchronizedMap(new WeakHashMap<>()));
+        SoftReference<TransformerFactory> tfRef = tfMap.get(disableSecureProcessing);
         if (tfRef != null) {
             tf = tfRef.get();
         }
         if (tf == null) {
             tf = _createTransformerFactory(disableSecureProcessing);
-            transformerFactoryCache.put(disableSecureProcessing, new SoftReference<>(tf));
+            tfMap.put(disableSecureProcessing, new SoftReference<>(tf));
         }
         return tf;
     }
