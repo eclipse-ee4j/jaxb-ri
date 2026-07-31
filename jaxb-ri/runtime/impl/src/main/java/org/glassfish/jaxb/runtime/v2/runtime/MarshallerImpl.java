@@ -48,6 +48,8 @@ import jakarta.xml.bind.helpers.AbstractMarshallerImpl;
 import org.glassfish.jaxb.core.marshaller.CharacterEscapeHandler;
 import org.glassfish.jaxb.core.marshaller.DataWriter;
 import org.glassfish.jaxb.core.marshaller.DumbEscapeHandler;
+import org.glassfish.jaxb.core.marshaller.InvalidXmlCharacterEscapeHandler;
+import org.glassfish.jaxb.core.marshaller.InvalidXmlCharacterPolicy;
 import org.glassfish.jaxb.core.marshaller.MinimumEscapeHandler;
 import org.glassfish.jaxb.core.marshaller.SAX2DOMEx;
 import org.glassfish.jaxb.core.marshaller.XMLWriter;
@@ -92,6 +94,15 @@ public /*to make unit tests happy*/ final class MarshallerImpl extends AbstractM
 
     /** Object that handles character escaping. */
     private CharacterEscapeHandler escapeHandler = null;
+
+    /**
+     * How to treat characters that are legal in a Java String but illegal in
+     * serialized XML 1.0 (JAXB-614). Defaults from the
+     * {@link InvalidXmlCharacterPolicy#PROPERTY_NAME} system property and is
+     * {@link InvalidXmlCharacterPolicy#WRITE} (historical behaviour) unless
+     * overridden.
+     */
+    private InvalidXmlCharacterPolicy invalidXmlCharacterPolicy = InvalidXmlCharacterPolicy.resolveDefault();
 
     /** XML BLOB written after the XML declaration. */
     private String header=null;
@@ -363,6 +374,13 @@ public /*to make unit tests happy*/ final class MarshallerImpl extends AbstractM
     //
 
     protected CharacterEscapeHandler createEscapeHandler( String encoding ) {
+        // Strip/replace XML-1.0-illegal characters (JAXB-614) on top of whatever
+        // handler is selected below, unless the policy is the historical WRITE.
+        return InvalidXmlCharacterEscapeHandler.wrap(
+                createBaseEscapeHandler(encoding), invalidXmlCharacterPolicy);
+    }
+
+    private CharacterEscapeHandler createBaseEscapeHandler( String encoding ) {
         if( escapeHandler!=null )
             // user-specified one takes precedence.
             return escapeHandler;
@@ -461,8 +479,10 @@ public /*to make unit tests happy*/ final class MarshallerImpl extends AbstractM
             return header;
         if( C14N.equals(name) )
             return c14nSupport;
-        if ( OBJECT_IDENTITY_CYCLE_DETECTION.equals(name)) 
+        if ( OBJECT_IDENTITY_CYCLE_DETECTION.equals(name))
         	return serializer.getObjectIdentityCycleDetection();
+        if ( INVALID_XML_CHARACTER_POLICY.equals(name) )
+            return invalidXmlCharacterPolicy.name();
 
         return super.getProperty(name);
     }
@@ -516,8 +536,27 @@ public /*to make unit tests happy*/ final class MarshallerImpl extends AbstractM
             serializer.setObjectIdentityCycleDetection((Boolean)value);
             return;
         }
+        if ( INVALID_XML_CHARACTER_POLICY.equals(name) ) {
+            invalidXmlCharacterPolicy = toInvalidXmlCharacterPolicy(name, value);
+            return;
+        }
 
         super.setProperty(name, value);
+    }
+
+    /*
+     * Accept either an InvalidXmlCharacterPolicy or its (case-insensitive) name.
+     */
+    private InvalidXmlCharacterPolicy toInvalidXmlCharacterPolicy(String name, Object value) throws PropertyException {
+        if (value instanceof InvalidXmlCharacterPolicy)
+            return (InvalidXmlCharacterPolicy) value;
+        if (value instanceof String)
+            return InvalidXmlCharacterPolicy.parse((String) value);
+        throw new PropertyException(
+                Messages.MUST_BE_X.format(
+                        name,
+                        InvalidXmlCharacterPolicy.class.getName(),
+                        value == null ? "null" : value.getClass().getName()));
     }
 
     /*
@@ -610,4 +649,5 @@ public /*to make unit tests happy*/ final class MarshallerImpl extends AbstractM
     protected static final String XML_HEADERS = "org.glassfish.jaxb.xmlHeaders";
     protected static final String C14N = JAXBRIContext.CANONICALIZATION_SUPPORT;
     protected static final String OBJECT_IDENTITY_CYCLE_DETECTION = "org.glassfish.jaxb.objectIdentitityCycleDetection";
+    protected static final String INVALID_XML_CHARACTER_POLICY = InvalidXmlCharacterPolicy.PROPERTY_NAME;
 }
