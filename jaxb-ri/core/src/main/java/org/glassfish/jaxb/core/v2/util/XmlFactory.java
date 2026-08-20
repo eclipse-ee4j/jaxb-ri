@@ -14,9 +14,6 @@ package org.glassfish.jaxb.core.v2.util;
 import org.glassfish.jaxb.core.v2.Messages;
 
 import java.lang.ref.SoftReference;
-import java.util.Collections;
-import java.util.Map;
-import java.util.WeakHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.XMLConstants;
@@ -42,7 +39,8 @@ import org.xml.sax.SAXNotSupportedException;
 public class XmlFactory {
 
     private static final Logger LOGGER = Logger.getLogger(XmlFactory.class.getName());
-    private static final Map<Boolean, SoftReference<TransformerFactory>> transformerFactoryCache = Collections.synchronizedMap(new WeakHashMap<>());
+    private static volatile SoftReference<TransformerFactory> tfCacheSecure;
+    private static volatile SoftReference<TransformerFactory> tfCacheInsecure;
 
     /**
      * If true XML security features when parsing XML documents will be disabled.
@@ -152,14 +150,15 @@ public class XmlFactory {
         if (!useCache) {
             return _createTransformerFactory(disableSecureProcessing);
         }
-        TransformerFactory tf = null;
-        SoftReference<TransformerFactory> tfRef = transformerFactoryCache.get(disableSecureProcessing);
-        if (tfRef != null) {
-            tf = tfRef.get();
-        }
+        SoftReference<TransformerFactory> ref = disableSecureProcessing ? tfCacheInsecure : tfCacheSecure;
+        TransformerFactory tf = ref != null ? ref.get() : null;
         if (tf == null) {
             tf = _createTransformerFactory(disableSecureProcessing);
-            transformerFactoryCache.put(disableSecureProcessing, new SoftReference<>(tf));
+            if (disableSecureProcessing) {
+                tfCacheInsecure = new SoftReference<>(tf);
+            } else {
+                tfCacheSecure = new SoftReference<>(tf);
+            }
         }
         return tf;
     }
