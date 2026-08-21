@@ -14,6 +14,9 @@ package org.glassfish.jaxb.core.v2.util;
 import org.glassfish.jaxb.core.v2.Messages;
 
 import java.lang.ref.SoftReference;
+import java.util.Collections;
+import java.util.Map;
+import java.util.WeakHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.XMLConstants;
@@ -39,8 +42,8 @@ import org.xml.sax.SAXNotSupportedException;
 public class XmlFactory {
 
     private static final Logger LOGGER = Logger.getLogger(XmlFactory.class.getName());
-    private static volatile SoftReference<TransformerFactory> tfCacheSecure;
-    private static volatile SoftReference<TransformerFactory> tfCacheInsecure;
+    private static volatile Map<ClassLoader, SoftReference<TransformerFactory>> tfCacheSecure = Collections.synchronizedMap( new WeakHashMap<>() );
+    private static volatile Map<ClassLoader, SoftReference<TransformerFactory>> tfCacheInsecure = Collections.synchronizedMap( new WeakHashMap<>() );
 
     /**
      * If true XML security features when parsing XML documents will be disabled.
@@ -150,15 +153,13 @@ public class XmlFactory {
         if (!useCache) {
             return _createTransformerFactory(disableSecureProcessing);
         }
-        SoftReference<TransformerFactory> ref = disableSecureProcessing ? tfCacheInsecure : tfCacheSecure;
+        Map<ClassLoader, SoftReference<TransformerFactory>> cache = isXMLSecurityDisabled(disableSecureProcessing) ? tfCacheInsecure : tfCacheSecure;
+        ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
+        SoftReference<TransformerFactory> ref = cache.get(contextClassLoader);
         TransformerFactory tf = ref != null ? ref.get() : null;
         if (tf == null) {
             tf = _createTransformerFactory(disableSecureProcessing);
-            if (disableSecureProcessing) {
-                tfCacheInsecure = new SoftReference<>(tf);
-            } else {
-                tfCacheSecure = new SoftReference<>(tf);
-            }
+            cache.put(contextClassLoader, new SoftReference<>(tf));
         }
         return tf;
     }
