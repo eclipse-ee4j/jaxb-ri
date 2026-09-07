@@ -33,6 +33,11 @@ public final class XmlFactory {
 
     private static final Logger LOGGER = Logger.getLogger(XmlFactory.class.getName());
 
+    private static final String DISALLOW_DOCTYPE_DECL = "http://apache.org/xml/features/disallow-doctype-decl";
+    private static final String EXTERNAL_GE = "http://xml.org/sax/features/external-general-entities";
+    private static final String EXTERNAL_PE = "http://xml.org/sax/features/external-parameter-entities";
+    private static final String LOAD_EXTERNAL_DTD = "http://apache.org/xml/features/nonvalidating/load-external-dtd";
+
     /**
      * If true XML security features when parsing XML documents will be disabled.
      * The default value is false.
@@ -56,13 +61,20 @@ public final class XmlFactory {
      * - securityProcessing == is set based on security processing property, default is true
      */
     public static SAXParserFactory createParserFactory(boolean disableSecureProcessing) throws IllegalStateException {
+        SAXParserFactory factory = SAXParserFactory.newInstance();
+        if (LOGGER.isLoggable(Level.FINE)) {
+            LOGGER.log(Level.FINE, "SAXParserFactory instance: {0}", factory);
+        }
         try {
-            SAXParserFactory factory = SAXParserFactory.newInstance();
-            if (LOGGER.isLoggable(Level.FINE)) {
-                LOGGER.log(Level.FINE, "SAXParserFactory instance: {0}", factory);
-            }
+            boolean securityOn = !isXMLSecurityDisabled(disableSecureProcessing);
             factory.setNamespaceAware(true);
-            factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, !isXMLSecurityDisabled(disableSecureProcessing));
+            factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, securityOn);
+            if (securityOn) {
+                factory.setFeature(DISALLOW_DOCTYPE_DECL, true);
+                factory.setFeature(EXTERNAL_GE, false);
+                factory.setFeature(EXTERNAL_PE, false);
+                factory.setFeature(LOAD_EXTERNAL_DTD, false);
+            }
             return factory;
         } catch (ParserConfigurationException | SAXNotRecognizedException | SAXNotSupportedException ex) {
             LOGGER.log(Level.SEVERE, null, ex);
