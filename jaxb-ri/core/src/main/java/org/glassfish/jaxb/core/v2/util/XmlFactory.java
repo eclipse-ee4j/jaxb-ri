@@ -45,6 +45,11 @@ public class XmlFactory {
     private static volatile Map<ClassLoader, SoftReference<TransformerFactory>> tfCacheSecure = Collections.synchronizedMap( new WeakHashMap<>() );
     private static volatile Map<ClassLoader, SoftReference<TransformerFactory>> tfCacheInsecure = Collections.synchronizedMap( new WeakHashMap<>() );
 
+    private static final String DISALLOW_DOCTYPE_DECL = "http://apache.org/xml/features/disallow-doctype-decl";
+    private static final String EXTERNAL_GE = "http://xml.org/sax/features/external-general-entities";
+    private static final String EXTERNAL_PE = "http://xml.org/sax/features/external-parameter-entities";
+    private static final String LOAD_EXTERNAL_DTD = "http://apache.org/xml/features/nonvalidating/load-external-dtd";
+
     /**
      * If true XML security features when parsing XML documents will be disabled.
      * The default value is false.
@@ -90,13 +95,20 @@ public class XmlFactory {
      * - securityProcessing == is set based on security processing property, default is true
      */
     public static SAXParserFactory createParserFactory(boolean disableSecureProcessing) throws IllegalStateException {
+        SAXParserFactory factory = SAXParserFactory.newInstance();
+        if (LOGGER.isLoggable(Level.FINE)) {
+            LOGGER.log(Level.FINE, "SAXParserFactory instance: {0}", factory);
+        }
         try {
-            SAXParserFactory factory = SAXParserFactory.newInstance();
-            if (LOGGER.isLoggable(Level.FINE)) {
-                LOGGER.log(Level.FINE, "SAXParserFactory instance: {0}", factory);
-            }
+            boolean securityOn = !isXMLSecurityDisabled(disableSecureProcessing);
             factory.setNamespaceAware(true);
-            factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, !isXMLSecurityDisabled(disableSecureProcessing));
+            factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, securityOn);
+            if (securityOn) {
+                factory.setFeature(DISALLOW_DOCTYPE_DECL, true);
+                factory.setFeature(EXTERNAL_GE, false);
+                factory.setFeature(EXTERNAL_PE, false);
+                factory.setFeature(LOAD_EXTERNAL_DTD, false);
+            }
             return factory;
         } catch (ParserConfigurationException | SAXNotRecognizedException | SAXNotSupportedException ex) {
             LOGGER.log(Level.SEVERE, null, ex);
@@ -195,13 +207,21 @@ public class XmlFactory {
      * - securityProcessing == is set based on security processing property, default is true
      */
     public static DocumentBuilderFactory createDocumentBuilderFactory(boolean disableSecureProcessing) throws IllegalStateException {
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        if (LOGGER.isLoggable(Level.FINE)) {
+            LOGGER.log(Level.FINE, "DocumentBuilderFactory instance: {0}", factory);
+        }
         try {
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            if (LOGGER.isLoggable(Level.FINE)) {
-                LOGGER.log(Level.FINE, "DocumentBuilderFactory instance: {0}", factory);
-            }
+            boolean securityOn = !isXMLSecurityDisabled(disableSecureProcessing);
             factory.setNamespaceAware(true);
-            factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, !isXMLSecurityDisabled(disableSecureProcessing));
+            factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, securityOn);
+            if (securityOn) {
+                factory.setExpandEntityReferences(false);
+                factory.setFeature(DISALLOW_DOCTYPE_DECL, true);
+                factory.setFeature(EXTERNAL_GE, false);
+                factory.setFeature(EXTERNAL_PE, false);
+                factory.setFeature(LOAD_EXTERNAL_DTD, false);
+            }
             return factory;
         } catch (ParserConfigurationException ex) {
             LOGGER.log(Level.SEVERE, null, ex);
