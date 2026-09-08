@@ -42,6 +42,10 @@
                     <groupId>org.apache.felix</groupId>
                     <artifactId>org.apache.felix.ipojo</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
