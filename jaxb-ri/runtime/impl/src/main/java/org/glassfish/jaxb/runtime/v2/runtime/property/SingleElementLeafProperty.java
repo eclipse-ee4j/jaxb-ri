@@ -76,14 +76,17 @@ final class SingleElementLeafProperty<BeanT> extends PropertyImpl<BeanT> {
         boolean hasValue = xacc.hasValue(o);
 
         Object obj = null;
-
-        try {
-            obj = acc.getUnadapted(o);
-        } catch (AccessorException ae) {
-            // noop
-        }
-
         Class valueType = acc.getValueType();
+
+        // xsiTypeNeeded() is always false for a primitive property, so don't read
+        // (and box) the value just to check it
+        if (!valueType.isPrimitive()) {
+            try {
+                obj = acc.getUnadapted(o);
+            } catch (AccessorException ae) {
+                // noop
+            }
+        }
 
         // check for different type than expected. If found, add xsi:type declaration
         if (xsiTypeNeeded(o, w, obj, valueType)) {
