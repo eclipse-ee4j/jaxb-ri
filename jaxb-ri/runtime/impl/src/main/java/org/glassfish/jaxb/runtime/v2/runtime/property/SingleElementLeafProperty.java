@@ -144,7 +144,9 @@ final class SingleElementLeafProperty<BeanT> extends PropertyImpl<BeanT> {
 
     @Override
     public void buildChildElementUnmarshallers(UnmarshallerChain chain, QNameMap<ChildLoader> handlers) {
-        Loader l = new LeafPropertyLoader(xacc);
+        Loader l = acc.getValueType().isPrimitive()
+                ? new PrimitiveLeafLoader(xacc, acc)
+                : new LeafPropertyLoader(xacc);
         if (defaultValue != null)
             l = new DefaultValueLoaderDecorator(l, defaultValue);
         if (nillable || chain.context.allNillable)
@@ -169,5 +171,38 @@ final class SingleElementLeafProperty<BeanT> extends PropertyImpl<BeanT> {
             return acc;
         else
             return null;
+    }
+
+    /**
+     * Loader for a primitive property, which {@link PropertyFactory#isLeaf} binds as a leaf.
+     *
+     * <p>
+     * Such properties used to be bound through the element node path, where a value that fails
+     * to convert leaves the bean receiving {@code null}, i.e. the primitive's default value, once
+     * the error has been reported and recovered from. Keep that outcome.
+     */
+    private static final class PrimitiveLeafLoader extends Loader {
+        private final TransducedAccessor xacc;
+        private final Accessor acc;
+
+        PrimitiveLeafLoader(TransducedAccessor xacc, Accessor acc) {
+            super(true);
+            this.xacc = xacc;
+            this.acc = acc;
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public void text(UnmarshallingContext.State state, CharSequence text) throws SAXException {
+            Object bean = state.getPrev().getTarget();
+            try {
+                xacc.parse(bean, text);
+            } catch (AccessorException e) {
+                handleGenericException(e, true);
+            } catch (RuntimeException e) {
+                handleParseConversionException(state, e);
+                acc.receive(state.getPrev(), null);
+            }
+        }
     }
 }
