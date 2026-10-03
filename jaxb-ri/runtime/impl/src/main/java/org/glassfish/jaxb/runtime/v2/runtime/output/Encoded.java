@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -125,6 +126,54 @@ public final class Encoded {
         len = ptr;
     }
 
+    /**
+     * Fills in the buffer with exactly the bytes that
+     * {@link org.glassfish.jaxb.core.marshaller.MinimumEscapeHandler} followed by {@link #set(String)}
+     * would produce, without the intermediate {@code char[]}, {@code StringBuilder} and {@code String}.
+     *
+     * <p>
+     * {@code &}, {@code <}, {@code >} and {@code \r} are always escaped; {@code "} and {@code \n}
+     * only in attribute values. The character references use the decimal form ({@code &#13;},
+     * {@code &#10;}) that {@code MinimumEscapeHandler} writes, which differs from
+     * {@link #setEscape(String, boolean)}.
+     *
+     * @return
+     *      {@code false} if the text contains a surrogate code unit. The buffer content is then
+     *      undefined and the caller must use the generic escape handler path, which is what
+     *      keeps the output for malformed surrogate pairs identical to it.
+     */
+    boolean setMinimumEscape(String text, boolean isAttribute) {
+        int length = text.length();
+        ensureSize(length*6+1);     // worst case: every char is '"', i.e. "&quot;"
+        byte[][] table = isAttribute ? minimumAttributeEntities : minimumEntities;
+        byte[] buf = this.buf;
+
+        int ptr = 0;
+        for (int i = 0; i < length; i++) {
+            final char chr = text.charAt(i);
+            if (chr < 0x80) {
+                byte[] ent = table[chr];
+                if (ent == null) {
+                    buf[ptr++] = (byte)chr;
+                } else {
+                    System.arraycopy(ent,0,buf,ptr,ent.length);
+                    ptr += ent.length;
+                }
+            } else if (chr < 0x800) {
+                buf[ptr++] = (byte)(0xC0 + (chr >> 6));
+                buf[ptr++] = (byte)(0x80 + (chr & 0x3F));
+            } else if (Character.MIN_HIGH_SURROGATE<=chr && chr<=Character.MAX_LOW_SURROGATE) {
+                return false;
+            } else {
+                buf[ptr++] = (byte)(0xE0 + (chr >> 12));
+                buf[ptr++] = (byte)(0x80 + ((chr >> 6) & 0x3F));
+                buf[ptr++] = (byte)(0x80 + (chr & 0x3F));
+            }
+        }
+        len = ptr;
+        return true;
+    }
+
     private int writeEntity( byte[] entity, int ptr ) {
         System.arraycopy(entity,0,buf,ptr,entity.length);
         return ptr+entity.length;
@@ -172,6 +221,29 @@ public final class Encoded {
         add('\t',"&#x9;",true);
         add('\r',"&#xD;",false);
         add('\n',"&#xA;",true);
+    }
+
+    /**
+     * The replacements {@link org.glassfish.jaxb.core.marshaller.MinimumEscapeHandler} uses,
+     * for text and for attribute values.
+     */
+    private static final byte[][] minimumEntities = new byte[0x80][];
+    private static final byte[][] minimumAttributeEntities = new byte[0x80][];
+
+    static {
+        addMinimum('&',"&amp;",false);
+        addMinimum('<',"&lt;",false);
+        addMinimum('>',"&gt;",false);
+        addMinimum('\r',"&#13;",false);
+        addMinimum('"',"&quot;",true);
+        addMinimum('\n',"&#10;",true);
+    }
+
+    private static void addMinimum(char c, String s, boolean attOnly) {
+        byte[] image = UTF8XmlOutput.toBytes(s);
+        minimumAttributeEntities[c] = image;
+        if(!attOnly)
+            minimumEntities[c] = image;
     }
 
     private static void add(char c, String s, boolean attOnly) {
