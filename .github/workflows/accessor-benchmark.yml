@@ -21,7 +21,7 @@ jobs:
         working-directory: jaxb-ri
         run: mvn -B -pl runtime/impl -am -DskipTests install
       - name: Build accessor benchmark
-        working-directory: jaxb-ri/perf-bench/accessor
+        working-directory: perf-bench/accessor
         run: mvn -B package dependency:build-classpath -Dmdep.outputFile=target/classpath.txt
       - name: Run JMH comparison
         working-directory: jaxb-ri/perf-bench/accessor
@@ -30,7 +30,7 @@ jobs:
             'org.glassfish.jaxb.perf.AccessorBenchmark.*' -f 2 -wi 5 -i 8 -w 1s -r 1s \
             -prof gc -rf json -rff target/accessor-results.json | tee target/accessor-results.txt
       - name: Publish comparison in workflow summary
-        working-directory: jaxb-ri/perf-bench/accessor
+        working-directory: perf-bench/accessor
         run: |
           python3 - target/accessor-results.json >> "$GITHUB_STEP_SUMMARY" <<'PY'
           import json
@@ -59,4 +59,4 @@ jobs:
       - uses: actions/upload-artifact@v6
         with:
           name: accessor-jmh-results
-          path: jaxb-ri/perf-bench/accessor/target/accessor-results.*
+          path: perf-bench/accessor/target/accessor-results.*
