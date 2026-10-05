@@ -255,24 +255,35 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
 
     /** Field accessor backed by a VarHandle adapted once to the Accessor call shape. */
     public static class FieldVarHandle<BeanT, ValueT> extends Accessor<BeanT, ValueT> {
-        private final VarHandle handle;
-        private final boolean isStatic;
+        private final MethodHandle getterHandle;
+        private final MethodHandle setterHandle;
 
         @SuppressWarnings("unchecked")
         public FieldVarHandle(Field field) throws IllegalAccessException {
             super((Class<ValueT>) field.getType());
-            isStatic = Modifier.isStatic(field.getModifiers());
             MethodHandles.Lookup lookup = lookupFor(field.getDeclaringClass());
-            handle = lookup.unreflectVarHandle(field);
+            VarHandle handle = lookup.unreflectVarHandle(field);
             if (Modifier.isFinal(field.getModifiers())) {
                 throw new IllegalAccessException("Cannot write final field: " + field);
             }
+            MethodHandle rawGetter = handle.toMethodHandle(VarHandle.AccessMode.GET);
+            MethodHandle rawSetter = handle.toMethodHandle(VarHandle.AccessMode.SET);
+            if (Modifier.isStatic(field.getModifiers())) {
+                rawGetter = MethodHandles.dropArguments(rawGetter, 0, Object.class);
+                rawSetter = MethodHandles.dropArguments(rawSetter, 0, Object.class);
+            }
+            getterHandle = rawGetter.asType(MethodType.methodType(Object.class, Object.class));
+            setterHandle = rawSetter.asType(MethodType.methodType(void.class, Object.class, Object.class));
         }
 
         @Override
         @SuppressWarnings("unchecked")
         public ValueT get(BeanT bean) {
-            return (ValueT) (isStatic ? handle.get() : handle.get(bean));
+            try {
+                return (ValueT) getterHandle.invokeExact((Object) bean);
+            } catch (Throwable t) {
+                throw handleFailure(t);
+            }
         }
 
         @Override
@@ -281,11 +292,21 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
             if (value == null) {
                 value = (ValueT) uninitializedValues.get(valueType);
             }
-            if (isStatic) {
-                handle.set(value);
-            } else {
-                handle.set(bean, value);
+            try {
+                setterHandle.invokeExact((Object) bean, (Object) value);
+            } catch (Throwable t) {
+                throw handleFailure(t);
             }
+        }
+
+        private RuntimeException handleFailure(Throwable t) {
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            }
+            if (t instanceof Error) {
+                throw (Error) t;
+            }
+            return new IllegalStateException(t);
         }
     }
 
