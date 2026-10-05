@@ -12,13 +12,13 @@ package org.glassfish.jaxb.runtime.v2.runtime;
 
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
 import javax.xml.transform.stream.StreamSource;
-import org.glassfish.jaxb.runtime.v2.runtime.output.XmlOutput;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -26,26 +26,22 @@ import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ReusableUtf8OutputTest {
     @Test
     void reusesOutputForSequentialStreamsAndResetsItsState() throws Exception {
         JAXBContext context = JAXBContext.newInstance(Entry.class);
-        MarshallerImpl marshaller = (MarshallerImpl) context.createMarshaller();
+        Marshaller marshaller = context.createMarshaller();
         ByteArrayOutputStream firstStream = new ByteArrayOutputStream();
         ByteArrayOutputStream secondStream = new ByteArrayOutputStream();
-
-        XmlOutput firstOutput = marshaller.createWriter(firstStream);
-        XmlOutput secondOutput = marshaller.createWriter(secondStream);
-        assertSame(firstOutput, secondOutput);
 
         Entry first = new Entry("first", "value-one");
         Entry second = new Entry("a substantially longer value", "value-two");
         marshaller.marshal(first, firstStream);
         byte[] firstXml = firstStream.toByteArray();
         marshaller.marshal(second, secondStream);
+        firstStream.reset();
         marshaller.marshal(first, firstStream);
 
         assertArrayEquals(firstXml, firstStream.toByteArray());

@@ -1,4 +1,4 @@
-name: Accessor benchmark
+name: JAXB binding benchmark
 
 on:
   pull_request:
@@ -15,15 +15,15 @@ permissions:
 jobs:
   benchmark:
     runs-on: ubuntu-latest
-    timeout-minutes: 40
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - uses: actions/setup-java@v6
         with:
-          distribution: zulu
-          java-version: '25'
+          distribution: temurin
+          java-version: '24'
           cache: maven
       - name: Build baseline and pull request JAXB runtimes
         env:
@@ -46,20 +46,29 @@ jobs:
       - name: Build accessor benchmark
         working-directory: perf-bench/accessor
         run: mvn -B package dependency:build-classpath -Dmdep.outputFile=target/classpath.txt
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '25'
+          cache: maven
       - name: Run end-to-end JAXB and Jackson JMH comparison
         working-directory: perf-bench/accessor
         run: |
           mkdir -p target/results
+          { echo "baseline $BASE_SHA"; echo "head $HEAD_SHA"; java -version 2>&1; nproc; lscpu | grep 'Model name'; } > target/results/environment.txt
           deps="$(cat target/classpath.txt)"
-          for variant in baseline pull-request; do
-            if [ "$variant" = baseline ]; then runtime="/tmp/jaxb-ri-baseline-runtime.jar"; else runtime=""; fi
-            runtime_cp=""
-            if [ -n "$runtime" ]; then runtime_cp="$runtime:"; fi
-            java -cp "target/classes:${runtime_cp}${deps}" org.openjdk.jmh.Main \
-              'org.glassfish.jaxb.perf.EndToEndBenchmark.*' -f 2 -wi 5 -i 8 -w 1s -r 1s \
-              -prof gc -jvmArgsAppend "-XX:+UseG1GC -XX:ActiveProcessorCount=2" \
-              -rf json -rff "target/results/$variant.json" \
-              > "target/results/$variant.txt" 2>&1
+          for round in 1 2; do
+            for variant in baseline pull-request; do
+              if [ "$variant" = baseline ]; then runtime="/tmp/jaxb-ri-baseline-runtime.jar"; else runtime=""; fi
+              runtime_cp=""
+              if [ -n "$runtime" ]; then runtime_cp="$runtime:"; fi
+              echo "$variant round $round load $(cat /proc/loadavg)" >> target/results/environment.txt
+              java -cp "target/classes:${runtime_cp}${deps}" org.openjdk.jmh.Main \
+                'org.glassfish.jaxb.perf.EndToEndBenchmark.*' -f 2 -wi 5 -i 8 -w 1s -r 1s \
+                -prof gc -jvmArgsAppend "-XX:+UseG1GC -XX:ActiveProcessorCount=2" \
+                -rf json -rff "target/results/$variant-$round.json" \
+                > "target/results/$variant-$round.txt" 2>&1
+            done
           done
       - name: Publish comparison in workflow summary
         working-directory: perf-bench/accessor
@@ -72,7 +81,7 @@ jobs:
 
           data = {}
           for path in glob.glob(os.path.join(sys.argv[1], "*.json")):
-              variant = os.path.basename(path).removesuffix(".json")
+              variant, round_number = os.path.basename(path).removesuffix(".json").rsplit("-", 1)
               for row in json.load(open(path, encoding="utf-8")):
                   method = row["benchmark"].rsplit(".", 1)[-1]
                   operation = "marshal" if method.startswith("marshal") else "unmarshal"
@@ -81,18 +90,30 @@ jobs:
                   primary = row["primaryMetric"]
                   secondary = row.get("secondaryMetrics", {})
                   alloc = secondary.get("gc.alloc.rate.norm", secondary.get("·gc.alloc.rate.norm", {}))
-                  data[(variant, operation, books, strategy)] = (primary["score"], primary.get("scoreError", 0), alloc.get("score", float("nan")))
+                  data[(variant, round_number, operation, books, strategy)] = (primary["score"], primary.get("scoreError", 0), alloc.get("score", float("nan")))
+
+          def values(variant, operation, books, strategy, metric):
+              return [data[(variant, round_number, operation, books, strategy)][metric]
+                      for round_number in ("1", "2")]
+
+          def mean(variant, operation, books, strategy, metric):
+              samples = values(variant, operation, books, strategy, metric)
+              return sum(samples) / len(samples)
+
+          def cell(variant, operation, books, strategy):
+              return " / ".join(f"{score:,.0f} ± {error:,.0f}" for score, error in
+                                (data[(variant, r, operation, books, strategy)][:2] for r in ("1", "2")))
 
           print("## JAXB end-to-end performance (JDK 25, JMH, ops/s; allocation in B/op)\n")
-          print(f"Baseline `{os.environ['BASE_SHA'][:10]}` vs PR `{os.environ['HEAD_SHA'][:10]}`; same 4/32/256-book graph, 2 forks, 5x1s warmup, 8x1s measurement, GC profiler.\n")
+          print(f"Baseline `{os.environ['BASE_SHA'][:10]}` vs PR `{os.environ['HEAD_SHA'][:10]}`; same 4/32/256-book graph, two alternating rounds, 2 forks, 5x1s warmup, 8x1s measurement, G1, 2 active processors, GC profiler.\n")
           print("| Operation | Books | JAXB baseline | JAXB PR | Δ vs baseline | Jackson | PR vs Jackson | PR B/op | Jackson B/op |")
           print("|---|---:|---:|---:|---:|---:|---:|---:|---:|")
           for operation in ("marshal", "unmarshal"):
               for books in (4, 32, 256):
-                  base = data[("baseline", operation, books, "handles")]
-                  pr = data[("pull-request", operation, books, "handles")]
-                  jackson = data[("pull-request", operation, books, "jackson")]
-                  print(f"| {operation} | {books} | {base[0]:,.0f} ± {base[1]:,.0f} | {pr[0]:,.0f} ± {pr[1]:,.0f} | {(pr[0]/base[0]-1)*100:+.1f}% | {jackson[0]:,.0f} ± {jackson[1]:,.0f} | {(pr[0]/jackson[0]-1)*100:+.1f}% | {pr[2]:,.0f} | {jackson[2]:,.0f} |")
+                  base = mean("baseline", operation, books, "handles", 0)
+                  pr = mean("pull-request", operation, books, "handles", 0)
+                  jackson = mean("pull-request", operation, books, "jackson", 0)
+                  print(f"| {operation} | {books} | {cell('baseline', operation, books, 'handles')} | {cell('pull-request', operation, books, 'handles')} | {(pr/base-1)*100:+.1f}% | {cell('pull-request', operation, books, 'jackson')} | {(pr/jackson-1)*100:+.1f}% | {mean('pull-request', operation, books, 'handles', 2):,.0f} | {mean('pull-request', operation, books, 'jackson', 2):,.0f} |")
           PY
       - uses: actions/upload-artifact@v6
         with:

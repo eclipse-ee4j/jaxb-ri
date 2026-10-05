@@ -147,7 +147,7 @@ public /*to make unit tests happy*/ final class MarshallerImpl extends AbstractM
      * @since 2.1.5
      */
     public void marshal(Object obj, OutputStream out, NamespaceContext inscopeNamespace) throws JAXBException {
-        write(obj, createWriter(out), new StAXPostInitAction(inscopeNamespace,serializer));
+        write(obj, createWriterForMarshal(out), new StAXPostInitAction(inscopeNamespace,serializer));
     }
 
     @Override
@@ -187,7 +187,7 @@ public /*to make unit tests happy*/ final class MarshallerImpl extends AbstractM
             if (sr.getWriter() != null)
                 return createWriter(sr.getWriter());
             else if (sr.getOutputStream() != null)
-                return createWriter(sr.getOutputStream());
+                return createWriterForMarshal(sr.getOutputStream());
             else if (sr.getSystemId() != null) {
                 String fileURL = sr.getSystemId();
 
@@ -201,7 +201,7 @@ public /*to make unit tests happy*/ final class MarshallerImpl extends AbstractM
                     FileOutputStream fos = new FileOutputStream(fileURL);
                     assert toBeClosed==null;
                     toBeClosed = fos;
-                    return createWriter(fos);
+                    return createWriterForMarshal(fos);
                 } catch (IOException e) {
                     throw new MarshalException(e);
                 }
@@ -425,14 +425,6 @@ public /*to make unit tests happy*/ final class MarshallerImpl extends AbstractM
             Encoded[] table = context.getUTF8NameTable();
             final UTF8XmlOutput out;
             CharacterEscapeHandler ceh = createEscapeHandler(encoding);
-            if (!isFormattedOutput() && !c14nSupport && ceh == null && header == null) {
-                if (reusableUtf8Output == null) {
-                    reusableUtf8Output = new UTF8XmlOutput(os, table, null);
-                } else {
-                    reusableUtf8Output.resetOutputStream(os);
-                }
-                return reusableUtf8Output;
-            }
             if(isFormattedOutput())
                 out = new IndentingUTF8XmlOutput(os, indent, table, ceh);
             else {
@@ -455,6 +447,19 @@ public /*to make unit tests happy*/ final class MarshallerImpl extends AbstractM
                 Messages.UNSUPPORTED_ENCODING.format(encoding),
                 e );
         }
+    }
+
+    private XmlOutput createWriterForMarshal(OutputStream os) throws JAXBException {
+        String encoding = getEncoding();
+        if (encoding.equals("UTF-8") && !isFormattedOutput() && !c14nSupport
+                && escapeHandler == null && header == null) {
+            if (reusableUtf8Output == null)
+                reusableUtf8Output = new UTF8XmlOutput(os, context.getUTF8NameTable(), createEscapeHandler(encoding));
+            else
+                reusableUtf8Output.resetOutputStream(os);
+            return reusableUtf8Output;
+        }
+        return createWriter(os, encoding);
     }
 
 
