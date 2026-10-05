@@ -24,7 +24,7 @@ jobs:
         working-directory: perf-bench/accessor
         run: mvn -B package dependency:build-classpath -Dmdep.outputFile=target/classpath.txt
       - name: Run JMH comparison
-        working-directory: jaxb-ri/perf-bench/accessor
+        working-directory: perf-bench/accessor
         run: |
           java -cp "target/classes:$(cat target/classpath.txt)" org.openjdk.jmh.Main \
             'org.glassfish.jaxb.perf.AccessorBenchmark.*' -f 2 -wi 5 -i 8 -w 1s -r 1s \
