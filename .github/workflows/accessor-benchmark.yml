@@ -3,6 +3,11 @@ name: Accessor benchmark
 on:
   pull_request:
   workflow_dispatch:
+    inputs:
+      base:
+        description: 'Baseline commit (defaults to the parent of the branch head)'
+        required: false
+        default: ''
 
 permissions:
   contents: read
@@ -10,66 +15,88 @@ permissions:
 jobs:
   benchmark:
     runs-on: ubuntu-latest
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
       - uses: actions/setup-java@v6
         with:
           distribution: zulu
           java-version: '25'
           cache: maven
-      - name: Build JAXB RI and install the runtime for the benchmark
-        working-directory: jaxb-ri
-        run: mvn -B -pl runtime/impl -am -DskipTests install
+      - name: Build baseline and pull request JAXB runtimes
+        env:
+          BASE_OVERRIDE: ${{ github.event.inputs.base }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="$BASE_OVERRIDE"
+          if [ -z "$base" ]; then
+            if [ -n "$PR_HEAD_SHA" ]; then base="$(git rev-parse "${PR_HEAD_SHA}^")";
+            else base="$(git rev-parse HEAD^)"; fi
+          fi
+          echo "BASE_SHA=$(git rev-parse "$base")" >> "$GITHUB_ENV"
+          echo "HEAD_SHA=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+          git worktree add /tmp/jaxb-ri-baseline "$base"
+          (cd /tmp/jaxb-ri-baseline/jaxb-ri && mvn -B -pl runtime/impl -am -DskipTests install)
+          cp /tmp/jaxb-ri-baseline/jaxb-ri/runtime/impl/target/jaxb-runtime-4.1.0-SNAPSHOT.jar /tmp/jaxb-ri-baseline-runtime.jar
+          (cd jaxb-ri && mvn -B -pl runtime/impl -am -DskipTests install)
       - name: Build accessor benchmark
         working-directory: perf-bench/accessor
         run: mvn -B package dependency:build-classpath -Dmdep.outputFile=target/classpath.txt
-      - name: Run JMH comparison
+      - name: Run end-to-end JAXB and Jackson JMH comparison
         working-directory: perf-bench/accessor
         run: |
-          java -cp "target/classes:$(cat target/classpath.txt)" org.openjdk.jmh.Main \
-            'org.glassfish.jaxb.perf.*Benchmark.*' -f 2 -wi 5 -i 8 -w 1s -r 1s \
-            -prof gc -rf json -rff target/accessor-results.json | tee target/accessor-results.txt
+          mkdir -p target/results
+          deps="$(cat target/classpath.txt)"
+          for variant in baseline pull-request; do
+            if [ "$variant" = baseline ]; then runtime="/tmp/jaxb-ri-baseline-runtime.jar"; else runtime=""; fi
+            runtime_cp=""
+            if [ -n "$runtime" ]; then runtime_cp="$runtime:"; fi
+            java -cp "target/classes:${runtime_cp}${deps}" org.openjdk.jmh.Main \
+              'org.glassfish.jaxb.perf.EndToEndBenchmark.*' -f 2 -wi 5 -i 8 -w 1s -r 1s \
+              -prof gc -rf json -rff "target/results/$variant.json" \
+              > "target/results/$variant.txt" 2>&1
+          done
       - name: Publish comparison in workflow summary
         working-directory: perf-bench/accessor
         run: |
-          python3 - target/accessor-results.json >> "$GITHUB_STEP_SUMMARY" <<'PY'
+          python3 - target/results >> "$GITHUB_STEP_SUMMARY" <<'PY'
           import json
+          import glob
+          import os
           import sys
 
-          with open(sys.argv[1], encoding="utf-8") as result_file:
-              results = {row["benchmark"].rsplit(".", 1)[-1]: row["primaryMetric"]["score"]
-                         for row in json.load(result_file)}
+          data = {}
+          for path in glob.glob(os.path.join(sys.argv[1], "*.json")):
+              variant = os.path.basename(path).removesuffix(".json")
+              for row in json.load(open(path, encoding="utf-8")):
+                  method = row["benchmark"].rsplit(".", 1)[-1]
+                  operation, strategy = method.split(" ") if " " in method else (method[:7], method[7:])
+                  operation = operation.removesuffix("Reflection").removesuffix("Handles").removesuffix("Jackson")
+                  if method.startswith("marshal"): operation = "marshal"
+                  else: operation = "unmarshal"
+                  strategy = method.removeprefix(operation).lower()
+                  books = int(row["params"]["books"])
+                  primary = row["primaryMetric"]
+                  secondary = row.get("secondaryMetrics", {})
+                  alloc = secondary.get("gc.alloc.rate.norm", secondary.get("·gc.alloc.rate.norm", {}))
+                  data[(variant, operation, books, strategy)] = (primary["score"], primary.get("scoreError", 0), alloc.get("score", float("nan")))
 
-          pairs = (
-              ("Field get", "fieldGetReflection", "fieldGetVarHandle"),
-              ("Field set", "fieldSetReflection", "fieldSetVarHandle"),
-              ("Property get", "propertyGetReflection", "propertyGetMethodHandle"),
-              ("Property set", "propertySetReflection", "propertySetMethodHandle"),
-          )
-
-          print("### Accessor JMH results (ops/s)\n")
-          print("| Operation | Reflection | Handle | Change |")
-          print("|---|---:|---:|---:|")
-          for label, baseline, optimized in pairs:
-              old = results[baseline]
-              new = results[optimized]
-              change = (new / old - 1.0) * 100.0
-              print(f"| {label} | {old:,.0f} | {new:,.0f} | {change:+.1f}% |")
-
-          print("\n### End-to-end JAXB JMH results (operations/s)\n")
-          print("Workload: marshal or unmarshal a catalog containing 64 books; contexts and models are built before timing.")
-          print("| Operation | Reflection | Handle | Change |")
-          print("|---|---:|---:|---:|")
-          for label, baseline, optimized in (
-              ("Marshal", "marshalReflection", "marshalHandles"),
-              ("Unmarshal", "unmarshalReflection", "unmarshalHandles"),
-          ):
-              old = results[baseline]
-              new = results[optimized]
-              change = (new / old - 1.0) * 100.0
-              print(f"| {label} | {old:,.0f} | {new:,.0f} | {change:+.1f}% |")
+          print("## JAXB end-to-end performance (JDK 25, JMH, ops/s; allocation in B/op)\n")
+          print(f"Baseline `{os.environ['BASE_SHA'][:10]}` vs PR `{os.environ['HEAD_SHA'][:10]}`; same 4/32/256-book graph, 2 forks, 5x1s warmup, 8x1s measurement, GC profiler.\n")
+          print("| Operation | Books | JAXB baseline | JAXB PR | Δ vs baseline | Jackson | PR vs Jackson | PR B/op | Jackson B/op |")
+          print("|---|---:|---:|---:|---:|---:|---:|---:|---:|")
+          for operation in ("marshal", "unmarshal"):
+              for books in (4, 32, 256):
+                  base = data[("baseline", operation, books, "handles")]
+                  pr = data[("pull-request", operation, books, "handles")]
+                  jackson = data[("pull-request", operation, books, "jackson")]
+                  print(f"| {operation} | {books} | {base[0]:,.0f} ± {base[1]:,.0f} | {pr[0]:,.0f} ± {pr[1]:,.0f} | {(pr[0]/base[0]-1)*100:+.1f}% | {jackson[0]:,.0f} ± {jackson[1]:,.0f} | {(pr[0]/jackson[0]-1)*100:+.1f}% | {pr[2]:,.0f} | {jackson[2]:,.0f} |")
           PY
       - uses: actions/upload-artifact@v6
         with:
-          name: accessor-jmh-results
-          path: perf-bench/accessor/target/accessor-results.*
+          name: jaxb-end-to-end-jmh-results
+          path: perf-bench/accessor/target/results/*

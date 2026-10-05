@@ -31,7 +31,7 @@ import org.xml.sax.SAXException;
  * @author Paul Sandoz
  */
 public class UTF8XmlOutput extends XmlOutputAbstractImpl {
-    protected final OutputStream out;
+    protected OutputStream out;
 
     /** prefixes encoded. */
     private Encoded[] prefixes = new Encoded[8];
@@ -87,6 +87,14 @@ public class UTF8XmlOutput extends XmlOutputAbstractImpl {
         for( int i=0; i<prefixes.length; i++ )
             prefixes[i] = new Encoded();
         this.escapeHandler = escapeHandler;
+    }
+
+    /** Rebinds this output to the next document written by the same non-thread-safe marshaller. */
+    public final void resetOutputStream(OutputStream out) {
+        this.out = out;
+        octetBufferIndex = 0;
+        closeStartTagPending = false;
+        prefixCount = 0;
     }
 
     public void setHeader(String header) {

@@ -101,6 +101,9 @@ public /*to make unit tests happy*/ final class MarshallerImpl extends AbstractM
 
     protected final XMLSerializer serializer;
 
+    /** Reused only for the common plain UTF-8 OutputStream path. */
+    private UTF8XmlOutput reusableUtf8Output;
+
     /**
      * Non-null if we do the marshal-time validation.
      */
@@ -422,6 +425,14 @@ public /*to make unit tests happy*/ final class MarshallerImpl extends AbstractM
             Encoded[] table = context.getUTF8NameTable();
             final UTF8XmlOutput out;
             CharacterEscapeHandler ceh = createEscapeHandler(encoding);
+            if (!isFormattedOutput() && !c14nSupport && ceh == null && header == null) {
+                if (reusableUtf8Output == null) {
+                    reusableUtf8Output = new UTF8XmlOutput(os, table, null);
+                } else {
+                    reusableUtf8Output.resetOutputStream(os);
+                }
+                return reusableUtf8Output;
+            }
             if(isFormattedOutput())
                 out = new IndentingUTF8XmlOutput(os, indent, table, ceh);
             else {
