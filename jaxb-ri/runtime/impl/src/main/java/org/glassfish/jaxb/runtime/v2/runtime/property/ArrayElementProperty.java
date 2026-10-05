@@ -41,6 +41,8 @@ import java.util.Map;
 abstract class ArrayElementProperty<BeanT,ListT,ItemT> extends ArrayERProperty<BeanT,ListT,ItemT> {
 
     private final Map<Class,TagAndType> typeMap  = new HashMap<>();
+    /** Fallback element used when a collection item has an unexpected subtype. */
+    private final TagAndType fallbackType;
     /**
      * Set by the constructor and reset in the {@link #wrapUp()} method.
      */
@@ -77,6 +79,8 @@ abstract class ArrayElementProperty<BeanT,ListT,ItemT> extends ArrayERProperty<B
             if(typeRef.isNillable() && n==null)
                 n = tt.tagName;
         }
+
+        fallbackType = typeMap.isEmpty() ? null : typeMap.values().iterator().next();
 
         nillableTagName = n;
     }
@@ -125,7 +129,8 @@ abstract class ArrayElementProperty<BeanT,ListT,ItemT> extends ArrayERProperty<B
                         // see the similar code in SingleElementNodeProperty.
                         // for the purpose of simple type substitution, make it a non-error
 
-                        w.startElement(typeMap.values().iterator().next().tagName,null);
+                        TagAndType fallback = fallbackType != null ? fallbackType : typeMap.values().iterator().next();
+                        w.startElement(fallback.tagName,null);
                         w.childAsXsiType(item,fieldName,w.grammar.getBeanInfo(Object.class), false);
                     } else {
                         w.startElement(tt.tagName,null);

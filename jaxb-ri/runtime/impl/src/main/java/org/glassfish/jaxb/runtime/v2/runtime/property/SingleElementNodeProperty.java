@@ -51,6 +51,9 @@ final class SingleElementNodeProperty<BeanT,ValueT> extends PropertyImpl<BeanT> 
 
     private final Map<Class,TagAndType> typeNames = new HashMap<>();
 
+    /** Fallback element used when the runtime value has an unexpected subtype. */
+    private final TagAndType fallbackType;
+
     private RuntimeElementPropertyInfo prop;
     
     /**
@@ -77,6 +80,8 @@ final class SingleElementNodeProperty<BeanT,ValueT> extends PropertyImpl<BeanT> 
                 context.nameBuilder.createElementName(e.getTagName()),beanInfo) );
             nil |= e.isNillable();
         }
+
+        fallbackType = typeNames.isEmpty() ? null : typeNames.values().iterator().next();
         
         nullTagName = context.nameBuilder.createElementName(nt);
 
@@ -122,7 +127,8 @@ final class SingleElementNodeProperty<BeanT,ValueT> extends PropertyImpl<BeanT> 
                 // but for the purpose of experimenting with simple type substitution,
                 // it's convenient to marshal this anyway (for example so that classes
                 // generated from simple types like String can be marshalled as expected.)
-                w.startElement(typeNames.values().iterator().next().tagName,null);
+                TagAndType fallback = fallbackType != null ? fallbackType : typeNames.values().iterator().next();
+                w.startElement(fallback.tagName,null);
                 w.childAsXsiType(v,fieldName,w.grammar.getBeanInfo(Object.class), addNilDecl && nillable);
             } else {
                 w.startElement(tt.tagName,null);
