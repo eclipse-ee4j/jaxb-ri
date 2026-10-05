@@ -27,7 +27,7 @@ jobs:
         working-directory: perf-bench/accessor
         run: |
           java -cp "target/classes:$(cat target/classpath.txt)" org.openjdk.jmh.Main \
-            'org.glassfish.jaxb.perf.AccessorBenchmark.*' -f 2 -wi 5 -i 8 -w 1s -r 1s \
+            'org.glassfish.jaxb.perf.*Benchmark.*' -f 2 -wi 5 -i 8 -w 1s -r 1s \
             -prof gc -rf json -rff target/accessor-results.json | tee target/accessor-results.txt
       - name: Publish comparison in workflow summary
         working-directory: perf-bench/accessor
@@ -51,6 +51,19 @@ jobs:
           print("| Operation | Reflection | Handle | Change |")
           print("|---|---:|---:|---:|")
           for label, baseline, optimized in pairs:
+              old = results[baseline]
+              new = results[optimized]
+              change = (new / old - 1.0) * 100.0
+              print(f"| {label} | {old:,.0f} | {new:,.0f} | {change:+.1f}% |")
+
+          print("\n### End-to-end JAXB JMH results (operations/s)\n")
+          print("Workload: marshal or unmarshal a catalog containing 64 books; contexts and models are built before timing.")
+          print("| Operation | Reflection | Handle | Change |")
+          print("|---|---:|---:|---:|")
+          for label, baseline, optimized in (
+              ("Marshal", "marshalReflection", "marshalHandles"),
+              ("Unmarshal", "unmarshalReflection", "unmarshalHandles"),
+          ):
               old = results[baseline]
               new = results[optimized]
               change = (new / old - 1.0) * 100.0
