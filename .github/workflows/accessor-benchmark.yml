@@ -4,6 +4,14 @@ on:
   pull_request:
   workflow_dispatch:
     inputs:
+      mode:
+        description: 'Run the full benchmark or isolate XML parser providers'
+        type: choice
+        options:
+          - all
+          - parser
+        required: true
+        default: all
       base:
         description: 'Baseline commit (defaults to the parent of the branch head)'
         required: false
@@ -26,6 +34,7 @@ jobs:
           java-version: '24'
           cache: maven
       - name: Build baseline and pull request JAXB runtimes
+        if: github.event_name != 'workflow_dispatch' || inputs.mode != 'parser'
         env:
           BASE_OVERRIDE: ${{ github.event.inputs.base }}
           PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
@@ -43,6 +52,10 @@ jobs:
           (cd /tmp/jaxb-ri-baseline/jaxb-ri && mvn -B -pl runtime/impl -am -DskipTests install)
           cp /tmp/jaxb-ri-baseline/jaxb-ri/runtime/impl/target/jaxb-runtime-4.1.0-SNAPSHOT.jar /tmp/jaxb-ri-baseline-runtime.jar
           (cd jaxb-ri && mvn -B -pl runtime/impl -am -DskipTests install)
+      - name: Build JAXB runtime for parser comparison
+        if: github.event_name == 'workflow_dispatch' && inputs.mode == 'parser'
+        working-directory: jaxb-ri
+        run: mvn -B -pl runtime/impl -am -DskipTests install
       - name: Build accessor benchmark
         working-directory: perf-bench/accessor
         run: mvn -B package dependency:build-classpath -Dmdep.outputFile=target/classpath.txt
@@ -52,6 +65,7 @@ jobs:
           java-version: '25'
           cache: maven
       - name: Run end-to-end JAXB and Jackson JMH comparison
+        if: github.event_name != 'workflow_dispatch' || inputs.mode != 'parser'
         working-directory: perf-bench/accessor
         run: |
           mkdir -p target/results
@@ -64,13 +78,33 @@ jobs:
               if [ -n "$runtime" ]; then runtime_cp="$runtime:"; fi
               echo "$variant round $round load $(cat /proc/loadavg)" >> target/results/environment.txt
               java -cp "target/classes:${runtime_cp}${deps}" org.openjdk.jmh.Main \
-                'org.glassfish.jaxb.perf.EndToEndBenchmark.*' -f 2 -wi 5 -i 8 -w 1s -r 1s \
+                'org.glassfish.jaxb.perf.EndToEndBenchmark.(marshalReflection|marshalHandles|marshalJackson|unmarshalReflection|unmarshalHandles|unmarshalJackson)' \
+                -f 2 -wi 5 -i 8 -w 1s -r 1s \
                 -prof gc -jvmArgsAppend "-XX:+UseG1GC -XX:ActiveProcessorCount=2" \
                 -rf json -rff "target/results/$variant-$round.json" \
                 > "target/results/$variant-$round.txt" 2>&1
             done
           done
+      - name: Compare JAXB and Jackson parser providers
+        if: github.event_name == 'workflow_dispatch' && inputs.mode == 'parser'
+        working-directory: perf-bench/accessor
+        run: |
+          set -euo pipefail
+          mkdir -p target/parser-results
+          { java -version 2>&1; nproc; lscpu | grep 'Model name'; } > target/parser-results/environment.txt
+          deps="$(cat target/classpath.txt)"
+          for round in 1 2; do
+            echo "round $round load $(cat /proc/loadavg)" >> target/parser-results/environment.txt
+            java -cp "target/classes:$deps" org.openjdk.jmh.Main \
+              'org.glassfish.jaxb.perf.EndToEndBenchmark.unmarshalParser.*' \
+              -f 2 -wi 5 -i 8 -w 1s -r 1s -prof gc \
+              -jvmArgsAppend "-XX:+UseG1GC -XX:ActiveProcessorCount=2" \
+              -rf json -rff "target/parser-results/round-$round.json" \
+              > "target/parser-results/round-$round.txt" 2>&1
+          done
+          grep -F 'Parser providers:' target/parser-results/round-1.txt >> target/parser-results/environment.txt
       - name: Publish comparison in workflow summary
+        if: github.event_name != 'workflow_dispatch' || inputs.mode != 'parser'
         working-directory: perf-bench/accessor
         run: |
           python3 - target/results >> "$GITHUB_STEP_SUMMARY" <<'PY'
@@ -115,7 +149,55 @@ jobs:
                   jackson = mean("pull-request", operation, books, "jackson", 0)
                   print(f"| {operation} | {books} | {cell('baseline', operation, books, 'handles')} | {cell('pull-request', operation, books, 'handles')} | {(pr/base-1)*100:+.1f}% | {cell('pull-request', operation, books, 'jackson')} | {(pr/jackson-1)*100:+.1f}% | {mean('pull-request', operation, books, 'handles', 2):,.0f} | {mean('pull-request', operation, books, 'jackson', 2):,.0f} |")
           PY
+      - name: Publish parser comparison
+        if: github.event_name == 'workflow_dispatch' && inputs.mode == 'parser'
+        working-directory: perf-bench/accessor
+        run: |
+          python3 - target/parser-results >> "$GITHUB_STEP_SUMMARY" <<'PY'
+          import glob
+          import json
+          import os
+          import sys
+
+          data = {}
+          for path in glob.glob(os.path.join(sys.argv[1], "round-*.json")):
+              round_number = os.path.basename(path).removeprefix("round-").removesuffix(".json")
+              for row in json.load(open(path, encoding="utf-8")):
+                  parser = row["benchmark"].rsplit(".", 1)[-1].removeprefix("unmarshalParser")
+                  books = int(row["params"]["books"])
+                  metric = row["primaryMetric"]
+                  secondary = row.get("secondaryMetrics", {})
+                  alloc = secondary.get("gc.alloc.rate.norm", secondary.get("·gc.alloc.rate.norm", {}))
+                  data[(parser, books, round_number)] = (
+                      metric["score"], metric.get("scoreError", 0), alloc.get("score", float("nan")))
+
+          parsers = ("SaxDefault", "StaxJdk", "StaxWoodstox", "SaxWoodstox", "JacksonWoodstox")
+          def average(parser, books, metric):
+              return sum(data[(parser, books, round_number)][metric] for round_number in ("1", "2")) / 2
+
+          def round_cell(parser, books, round_number):
+              score, error, _ = data[(parser, books, round_number)]
+              return f"{score:,.0f} ± {error:,.0f}"
+
+          print("## JAXB parser-provider comparison (JDK 25, JMH, ops/s; allocation in B/op)\n")
+          print("Same JAXB model and XML; parser factories are initialized once per JMH trial and readers per operation. Two rounds, 2 forks, 5x1s warmup, 8x1s measurement, G1, 2 active processors, GC profiler.\n")
+          print("| Parser path | Books | Round 1 | Round 2 | Mean ops/s | Δ vs JAXB SAX | Mean B/op |")
+          print("|---|---:|---:|---:|---:|---:|---:|")
+          for parser in parsers:
+              for books in (4, 32, 256):
+                  baseline = average("SaxDefault", books, 0)
+                  mean = average(parser, books, 0)
+                  alloc = average(parser, books, 2)
+                  delta = (mean / baseline - 1) * 100
+                  print(f"| {parser} | {books} | {round_cell(parser, books, '1')} | {round_cell(parser, books, '2')} | {mean:,.0f} | {delta:+.1f}% | {alloc:,.0f} |")
+          PY
       - uses: actions/upload-artifact@v6
+        if: github.event_name != 'workflow_dispatch' || inputs.mode != 'parser'
         with:
           name: jaxb-end-to-end-jmh-results
           path: perf-bench/accessor/target/results/*
+      - uses: actions/upload-artifact@v6
+        if: github.event_name == 'workflow_dispatch' && inputs.mode == 'parser'
+        with:
+          name: jaxb-parser-provider-jmh-results
+          path: perf-bench/accessor/target/parser-results/*

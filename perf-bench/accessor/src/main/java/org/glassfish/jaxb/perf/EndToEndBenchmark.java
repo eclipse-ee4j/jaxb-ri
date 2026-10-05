@@ -19,6 +19,8 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlValue;
+import com.ctc.wstx.sax.WstxSAXParserFactory;
+import com.ctc.wstx.stax.WstxInputFactory;
 import org.glassfish.jaxb.runtime.AccessorFactory;
 import org.glassfish.jaxb.runtime.AccessorFactoryImpl;
 import org.glassfish.jaxb.runtime.XmlAccessorFactory;
@@ -30,6 +32,7 @@ import org.openjdk.jmh.annotations.Param;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
+import tools.jackson.dataformat.xml.XmlFactory;
 import tools.jackson.dataformat.xml.XmlMapper;
 import tools.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import tools.jackson.dataformat.xml.annotation.JacksonXmlProperty;
@@ -40,6 +43,14 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import javax.xml.XMLConstants;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+import javax.xml.transform.sax.SAXSource;
+import javax.xml.parsers.SAXParserFactory;
+import org.xml.sax.InputSource;
+import org.xml.sax.XMLReader;
 
 /** End-to-end JAXB/Jackson throughput over the same verified object graph. */
 @State(Scope.Thread)
@@ -51,6 +62,13 @@ public class EndToEndBenchmark {
     private Marshaller handleMarshaller;
     private Unmarshaller reflectionUnmarshaller;
     private Unmarshaller handleUnmarshaller;
+    private Unmarshaller parserJdkStaxUnmarshaller;
+    private Unmarshaller parserWoodstoxStaxUnmarshaller;
+    private Unmarshaller parserWoodstoxSaxUnmarshaller;
+    private XMLInputFactory parserJdkStaxFactory;
+    private XMLInputFactory parserWoodstoxFactory;
+    private XMLReader parserWoodstoxSaxReader;
+    private XmlMapper parserWoodstoxJackson;
     private XmlMapper jackson;
     private Catalog catalog;
     private byte[] xml;
@@ -68,6 +86,20 @@ public class EndToEndBenchmark {
         handleUnmarshaller = handleContext.createUnmarshaller();
         jackson = new XmlMapper();
 
+        parserJdkStaxUnmarshaller = handleContext.createUnmarshaller();
+        parserWoodstoxStaxUnmarshaller = handleContext.createUnmarshaller();
+        parserWoodstoxSaxUnmarshaller = handleContext.createUnmarshaller();
+        parserJdkStaxFactory = secureStaxFactory(XMLInputFactory.newDefaultFactory());
+        WstxInputFactory woodstoxFactory = new WstxInputFactory();
+        parserWoodstoxFactory = secureStaxFactory(woodstoxFactory);
+        WstxSAXParserFactory woodstoxSaxFactory = new WstxSAXParserFactory(woodstoxFactory);
+        woodstoxSaxFactory.setNamespaceAware(true);
+        woodstoxSaxFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+        parserWoodstoxSaxReader = woodstoxSaxFactory.newSAXParser().getXMLReader();
+        // Supplying a factory bypasses Jackson's default factory hardening, so both
+        // databinders deliberately share this explicitly secured Woodstox factory.
+        parserWoodstoxJackson = new XmlMapper(new XmlFactory(parserWoodstoxFactory));
+
         catalog = fixture(books);
         output.reset();
         handleMarshaller.marshal(catalog, output);
@@ -75,6 +107,17 @@ public class EndToEndBenchmark {
         verifyGraph((Catalog) reflectionUnmarshaller.unmarshal(new ByteArrayInputStream(xml)));
         verifyGraph((Catalog) handleUnmarshaller.unmarshal(new ByteArrayInputStream(xml)));
         verifyGraph(jackson.readValue(xml, Catalog.class));
+        verifyGraph((Catalog) unmarshalStax(parserJdkStaxUnmarshaller, parserJdkStaxFactory));
+        verifyGraph((Catalog) unmarshalStax(parserWoodstoxStaxUnmarshaller, parserWoodstoxFactory));
+        verifyGraph((Catalog) parserWoodstoxSaxUnmarshaller.unmarshal(new SAXSource(
+                parserWoodstoxSaxReader, new InputSource(new ByteArrayInputStream(xml)))));
+        verifyGraph(parserWoodstoxJackson.readValue(xml, Catalog.class));
+
+        XMLReader defaultSaxReader = SAXParserFactory.newInstance().newSAXParser().getXMLReader();
+        System.err.printf("Parser providers: JAXP SAX=%s / %s; JDK StAX=%s; Woodstox StAX=%s; Woodstox SAX=%s%n",
+                SAXParserFactory.newInstance().getClass().getName(), defaultSaxReader.getClass().getName(),
+                parserJdkStaxFactory.getClass().getName(),
+                parserWoodstoxFactory.getClass().getName(), parserWoodstoxSaxReader.getClass().getName());
 
         output.reset();
         jackson.writeValue(output, catalog);
@@ -84,6 +127,33 @@ public class EndToEndBenchmark {
     private static JAXBRIContext context() throws JAXBException {
         return JAXBRIContext.newInstance(new Class<?>[]{Catalog.class, Book.class}, null,
                 null, null, false, null, true, false, false, false);
+    }
+
+    private static XMLInputFactory secureStaxFactory(XMLInputFactory factory) {
+        factory.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, Boolean.TRUE);
+        factory.setProperty(XMLInputFactory.IS_COALESCING, Boolean.TRUE);
+        factory.setProperty(XMLInputFactory.SUPPORT_DTD, Boolean.FALSE);
+        factory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, Boolean.FALSE);
+        return factory;
+    }
+
+    private XMLStreamReader newReader(XMLInputFactory factory) throws XMLStreamException {
+        return factory.createXMLStreamReader(new ByteArrayInputStream(xml));
+    }
+
+    private Object unmarshalStax(Unmarshaller unmarshaller, XMLInputFactory factory) throws Exception {
+        XMLStreamReader reader = newReader(factory);
+        try {
+            return unmarshaller.unmarshal(reader);
+        } finally {
+            reader.close();
+        }
+    }
+
+    private Object unmarshalWoodstoxSax() throws Exception {
+        SAXSource source = new SAXSource(parserWoodstoxSaxReader,
+                new InputSource(new ByteArrayInputStream(xml)));
+        return parserWoodstoxSaxUnmarshaller.unmarshal(source);
     }
 
     private static Catalog fixture(int count) {
@@ -132,6 +202,26 @@ public class EndToEndBenchmark {
 
     @Benchmark public Object unmarshalJackson() throws Exception {
         return jackson.readValue(xml, Catalog.class);
+    }
+
+    @Benchmark public Object unmarshalParserSaxDefault() throws Exception {
+        return handleUnmarshaller.unmarshal(new ByteArrayInputStream(xml));
+    }
+
+    @Benchmark public Object unmarshalParserStaxJdk() throws Exception {
+        return unmarshalStax(parserJdkStaxUnmarshaller, parserJdkStaxFactory);
+    }
+
+    @Benchmark public Object unmarshalParserStaxWoodstox() throws Exception {
+        return unmarshalStax(parserWoodstoxStaxUnmarshaller, parserWoodstoxFactory);
+    }
+
+    @Benchmark public Object unmarshalParserSaxWoodstox() throws Exception {
+        return unmarshalWoodstoxSax();
+    }
+
+    @Benchmark public Object unmarshalParserJacksonWoodstox() throws Exception {
+        return parserWoodstoxJackson.readValue(xml, Catalog.class);
     }
 
     /** Test-only switch selected while JAXB builds each context's immutable model. */
