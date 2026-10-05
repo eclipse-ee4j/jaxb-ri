@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
+# SPDX-License-Identifier: BSD-3-Clause
+
 """Render JMH accessor results as a compact markdown comparison."""
 
 import json
