@@ -57,7 +57,8 @@ jobs:
             if [ -n "$runtime" ]; then runtime_cp="$runtime:"; fi
             java -cp "target/classes:${runtime_cp}${deps}" org.openjdk.jmh.Main \
               'org.glassfish.jaxb.perf.EndToEndBenchmark.*' -f 2 -wi 5 -i 8 -w 1s -r 1s \
-              -prof gc -rf json -rff "target/results/$variant.json" \
+              -prof gc -jvmArgsAppend "-XX:+UseG1GC -XX:ActiveProcessorCount=2" \
+              -rf json -rff "target/results/$variant.json" \
               > "target/results/$variant.txt" 2>&1
           done
       - name: Publish comparison in workflow summary
@@ -74,10 +75,7 @@ jobs:
               variant = os.path.basename(path).removesuffix(".json")
               for row in json.load(open(path, encoding="utf-8")):
                   method = row["benchmark"].rsplit(".", 1)[-1]
-                  operation, strategy = method.split(" ") if " " in method else (method[:7], method[7:])
-                  operation = operation.removesuffix("Reflection").removesuffix("Handles").removesuffix("Jackson")
-                  if method.startswith("marshal"): operation = "marshal"
-                  else: operation = "unmarshal"
+                  operation = "marshal" if method.startswith("marshal") else "unmarshal"
                   strategy = method.removeprefix(operation).lower()
                   books = int(row["params"]["books"])
                   primary = row["primaryMetric"]

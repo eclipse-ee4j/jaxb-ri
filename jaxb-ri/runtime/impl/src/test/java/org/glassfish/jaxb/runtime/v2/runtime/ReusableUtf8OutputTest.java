@@ -17,6 +17,7 @@ import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import jakarta.xml.bind.annotation.XmlType;
+import javax.xml.transform.stream.StreamSource;
 import org.glassfish.jaxb.runtime.v2.runtime.output.XmlOutput;
 import org.junit.jupiter.api.Test;
 
@@ -49,7 +50,7 @@ class ReusableUtf8OutputTest {
 
         assertArrayEquals(firstXml, firstStream.toByteArray());
         assertEquals("value-two", context.createUnmarshaller().unmarshal(
-                new java.io.ByteArrayInputStream(secondStream.toByteArray()), Entry.class).getValue());
+                new StreamSource(new java.io.ByteArrayInputStream(secondStream.toByteArray())), Entry.class).getValue());
         assertTrue(new String(secondStream.toByteArray(), StandardCharsets.UTF_8)
                 .contains("a substantially longer value"));
     }
