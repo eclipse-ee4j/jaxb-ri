@@ -16,6 +16,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodType;
+import java.lang.invoke.VarHandle;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -246,6 +250,108 @@ public abstract class Accessor<BeanT, ValueT> implements Receiver {
             } catch (IllegalAccessException e) {
                 throw new IllegalAccessError(e.getMessage());
             }
+        }
+    }
+
+    /** Field accessor backed by a VarHandle adapted once to the Accessor call shape. */
+    public static class FieldVarHandle<BeanT, ValueT> extends Accessor<BeanT, ValueT> {
+        private final VarHandle handle;
+        private final boolean isStatic;
+
+        @SuppressWarnings("unchecked")
+        public FieldVarHandle(Field field) throws IllegalAccessException {
+            super((Class<ValueT>) field.getType());
+            isStatic = Modifier.isStatic(field.getModifiers());
+            MethodHandles.Lookup lookup = lookupFor(field.getDeclaringClass());
+            handle = lookup.unreflectVarHandle(field);
+            if (Modifier.isFinal(field.getModifiers())) {
+                throw new IllegalAccessException("Cannot write final field: " + field);
+            }
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public ValueT get(BeanT bean) {
+            return (ValueT) (isStatic ? handle.get() : handle.get(bean));
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public void set(BeanT bean, ValueT value) {
+            if (value == null) {
+                value = (ValueT) uninitializedValues.get(valueType);
+            }
+            if (isStatic) {
+                handle.set(value);
+            } else {
+                handle.set(bean, value);
+            }
+        }
+    }
+
+    /** Getter/setter accessor using handles linked once while the JAXB model is built. */
+    public static class GetterSetterMethodHandle<BeanT, ValueT> extends Accessor<BeanT, ValueT> {
+        private final Method getter;
+        private final Method setter;
+        private final MethodHandle getterHandle;
+        private final MethodHandle setterHandle;
+
+        @SuppressWarnings("unchecked")
+        public GetterSetterMethodHandle(Method getter, Method setter) throws IllegalAccessException {
+            super((Class<ValueT>) (getter != null ? getter.getReturnType() : setter.getParameterTypes()[0]));
+            this.getter = getter;
+            this.setter = setter;
+            MethodHandles.Lookup lookup = lookupFor((getter != null ? getter : setter).getDeclaringClass());
+            MethodHandle rawGetter = getter == null ? null : lookup.unreflect(getter);
+            MethodHandle rawSetter = setter == null ? null : lookup.unreflect(setter);
+            getterHandle = rawGetter == null ? null : rawGetter.asType(MethodType.methodType(Object.class, Object.class));
+            setterHandle = rawSetter == null ? null : rawSetter.asType(MethodType.methodType(void.class, Object.class, Object.class));
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public ValueT get(BeanT bean) throws AccessorException {
+            if (getterHandle == null) {
+                throw new AccessorException(Messages.NO_GETTER.format(setter.toString()));
+            }
+            try {
+                return (ValueT) getterHandle.invokeExact((Object) bean);
+            } catch (Throwable t) {
+                throw handleInvocationTargetException(t);
+            }
+        }
+
+        @Override
+        public void set(BeanT bean, ValueT value) throws AccessorException {
+            if (setterHandle == null) {
+                throw new AccessorException(Messages.NO_SETTER.format(getter.toString()));
+            }
+            try {
+                if (value == null) {
+                    value = (ValueT) uninitializedValues.get(valueType);
+                }
+                setterHandle.invokeExact((Object) bean, (Object) value);
+            } catch (Throwable t) {
+                throw handleInvocationTargetException(t);
+            }
+        }
+
+        private AccessorException handleInvocationTargetException(Throwable t) {
+            if (t instanceof RuntimeException) {
+                throw (RuntimeException) t;
+            }
+            if (t instanceof Error) {
+                throw (Error) t;
+            }
+            return new AccessorException(t);
+        }
+    }
+
+    private static MethodHandles.Lookup lookupFor(Class<?> declaringClass) throws IllegalAccessException {
+        try {
+            return MethodHandles.privateLookupIn(declaringClass, MethodHandles.lookup());
+        } catch (IllegalAccessException e) {
+            return MethodHandles.publicLookup().in(declaringClass);
         }
     }
 

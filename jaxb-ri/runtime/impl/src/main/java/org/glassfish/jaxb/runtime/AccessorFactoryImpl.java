@@ -34,6 +34,13 @@ public class AccessorFactoryImpl implements InternalAccessorFactory {
      */
     @Override
     public Accessor createFieldAccessor(Class bean, Field field, boolean readOnly) {
+        if (!readOnly && !java.lang.reflect.Modifier.isFinal(field.getModifiers())) {
+            try {
+                return new Accessor.FieldVarHandle(field);
+            } catch (IllegalAccessException | RuntimeException ignored) {
+                // Retain the established reflection behavior when a handle cannot be linked.
+            }
+        }
         return readOnly
                 ? new Accessor.ReadOnlyFieldReflection(field)
                 : new Accessor.FieldReflection(field);
@@ -50,6 +57,13 @@ public class AccessorFactoryImpl implements InternalAccessorFactory {
      */
     @Override
     public Accessor createFieldAccessor(Class bean, Field field, boolean readOnly, boolean supressWarning) {
+        if (!readOnly && !java.lang.reflect.Modifier.isFinal(field.getModifiers())) {
+            try {
+                return new Accessor.FieldVarHandle(field);
+            } catch (IllegalAccessException | RuntimeException ignored) {
+                // Retain the established reflection behavior when a handle cannot be linked.
+            }
+        }
         return readOnly
                 ? new Accessor.ReadOnlyFieldReflection(field, supressWarning)
                 : new Accessor.FieldReflection(field, supressWarning);
@@ -65,6 +79,13 @@ public class AccessorFactoryImpl implements InternalAccessorFactory {
      */
     @Override
     public Accessor createPropertyAccessor(Class bean, Method getter, Method setter) {    
+        if (getter != null && setter != null) {
+            try {
+                return new Accessor.GetterSetterMethodHandle(getter, setter);
+            } catch (IllegalAccessException | RuntimeException ignored) {
+                // Retain the established reflection behavior when a handle cannot be linked.
+            }
+        }
         if (getter == null) {
             return new Accessor.SetterOnlyReflection(setter);
         }
