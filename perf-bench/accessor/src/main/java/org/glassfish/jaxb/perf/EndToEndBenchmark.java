@@ -13,7 +13,7 @@ package org.glassfish.jaxb.perf;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
-import org.glassfish.jaxb.AccessorFactory;
+import org.glassfish.jaxb.runtime.AccessorFactory;
 import org.glassfish.jaxb.runtime.AccessorFactoryImpl;
 import org.glassfish.jaxb.runtime.XmlAccessorFactory;
 import org.glassfish.jaxb.runtime.api.JAXBRIContext;
