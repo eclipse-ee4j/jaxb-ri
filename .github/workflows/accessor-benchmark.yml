@@ -31,7 +31,31 @@ jobs:
             -prof gc -rf json -rff target/accessor-results.json | tee target/accessor-results.txt
       - name: Publish comparison in workflow summary
         working-directory: jaxb-ri/perf-bench/accessor
-        run: python3 ../../scripts/accessor-benchmark-summary.py target/accessor-results.json >> "$GITHUB_STEP_SUMMARY"
+        run: |
+          python3 - target/accessor-results.json >> "$GITHUB_STEP_SUMMARY" <<'PY'
+          import json
+          import sys
+
+          with open(sys.argv[1], encoding="utf-8") as result_file:
+              results = {row["benchmark"].rsplit(".", 1)[-1]: row["primaryMetric"]["score"]
+                         for row in json.load(result_file)}
+
+          pairs = (
+              ("Field get", "fieldGetReflection", "fieldGetVarHandle"),
+              ("Field set", "fieldSetReflection", "fieldSetVarHandle"),
+              ("Property get", "propertyGetReflection", "propertyGetMethodHandle"),
+              ("Property set", "propertySetReflection", "propertySetMethodHandle"),
+          )
+
+          print("### Accessor JMH results (ops/s)\n")
+          print("| Operation | Reflection | Handle | Change |")
+          print("|---|---:|---:|---:|")
+          for label, baseline, optimized in pairs:
+              old = results[baseline]
+              new = results[optimized]
+              change = (new / old - 1.0) * 100.0
+              print(f"| {label} | {old:,.0f} | {new:,.0f} | {change:+.1f}% |")
+          PY
       - uses: actions/upload-artifact@v6
         with:
           name: accessor-jmh-results
