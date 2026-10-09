@@ -117,6 +117,9 @@ public /*to make unit tests happy*/ final class MarshallerImpl extends AbstractM
     private Flushable toBeFlushed;
     private Closeable toBeClosed;
 
+    /** Reused by successive UTF-8 OutputStream writers created by this marshaller. */
+    private final byte[] utf8OutputBuffer = new byte[1024];
+
     /**
      * @param assoc
      *      non-null if the marshaller is working inside {@link BinderImpl}.
@@ -423,12 +426,12 @@ public /*to make unit tests happy*/ final class MarshallerImpl extends AbstractM
             final UTF8XmlOutput out;
             CharacterEscapeHandler ceh = createEscapeHandler(encoding);
             if(isFormattedOutput())
-                out = new IndentingUTF8XmlOutput(os, indent, table, ceh);
+                out = new IndentingUTF8XmlOutput(os, indent, table, ceh, utf8OutputBuffer);
             else {
                 if(c14nSupport)
-                    out = new C14nXmlOutput(os, table, context.c14nSupport, ceh);
+                    out = new C14nXmlOutput(os, table, context.c14nSupport, ceh, utf8OutputBuffer);
                 else
-                    out = new UTF8XmlOutput(os, table, ceh);
+                    out = new UTF8XmlOutput(os, table, ceh, utf8OutputBuffer);
             }
             if(header!=null)
                 out.setHeader(header);

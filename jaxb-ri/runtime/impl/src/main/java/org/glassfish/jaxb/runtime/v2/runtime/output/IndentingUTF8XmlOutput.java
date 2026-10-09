@@ -53,7 +53,12 @@ public final class IndentingUTF8XmlOutput extends UTF8XmlOutput {
      *      otherwise the string is used for indentation.
      */
     public IndentingUTF8XmlOutput(OutputStream out, String indentStr, Encoded[] localNames, CharacterEscapeHandler escapeHandler) {
-        super(out, localNames, escapeHandler);
+        this(out, indentStr, localNames, escapeHandler, new byte[1024]);
+    }
+
+    public IndentingUTF8XmlOutput(OutputStream out, String indentStr, Encoded[] localNames,
+                                  CharacterEscapeHandler escapeHandler, byte[] octetBuffer) {
+        super(out, localNames, escapeHandler, octetBuffer);
 
         if(indentStr!=null) {
             Encoded e = new Encoded(indentStr);
