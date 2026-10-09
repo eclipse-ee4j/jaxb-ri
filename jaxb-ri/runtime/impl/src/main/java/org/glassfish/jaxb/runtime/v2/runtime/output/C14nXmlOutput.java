@@ -28,7 +28,12 @@ import org.glassfish.jaxb.runtime.v2.runtime.Name;
  */
 public class C14nXmlOutput extends UTF8XmlOutput {
     public C14nXmlOutput(OutputStream out, Encoded[] localNames, boolean namedAttributesAreOrdered, CharacterEscapeHandler escapeHandler) {
-        super(out, localNames, escapeHandler);
+        this(out, localNames, namedAttributesAreOrdered, escapeHandler, new byte[1024]);
+    }
+
+    public C14nXmlOutput(OutputStream out, Encoded[] localNames, boolean namedAttributesAreOrdered,
+                         CharacterEscapeHandler escapeHandler, byte[] octetBuffer) {
+        super(out, localNames, escapeHandler, octetBuffer);
         this.namedAttributesAreOrdered = namedAttributesAreOrdered;
 
         for( int i=0; i<staticAttributes.length; i++ )
