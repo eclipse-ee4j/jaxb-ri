@@ -83,7 +83,9 @@ public abstract class PropertyFactory {
 
 
         boolean isCollection = info.isCollection();
-        boolean isLeaf = isLeaf(info);
+        // only element properties can be leaves: there is no "reference leaf" nor "map leaf",
+        // even for a reference to an element whose content is just PCDATA (@XmlValue).
+        boolean isLeaf = kind == PropertyKind.ELEMENT && isLeaf(info);
 
         return propImpls.get((isLeaf?0:6)+(isCollection?3:0)+kind.propertyIndex).apply(grammar, info);
     }
