@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -99,7 +100,8 @@ public final class AttributeProperty<BeanT> extends PropertyImpl<BeanT>
 
     @Override
     public String getIdValue(BeanT bean) throws AccessorException, SAXException {
-        return xacc.print(bean).toString();
+        CharSequence id = xacc.print(bean);
+        return id == null ? null : id.toString();
     }
 
     @Override
