@@ -57,7 +57,7 @@ public class UTF8XmlOutput extends XmlOutputAbstractImpl {
 
     /** Buffer of octets for writing. */
     // TODO: Obtain buffer size from property on the JAXB context
-    protected final byte[] octetBuffer = new byte[1024];
+    protected final byte[] octetBuffer;
     
     /** Index in buffer to write to. */
     protected int octetBufferIndex;
@@ -82,8 +82,21 @@ public class UTF8XmlOutput extends XmlOutputAbstractImpl {
      *      local names encoded in UTF-8.
      */
     public UTF8XmlOutput(OutputStream out, Encoded[] localNames, CharacterEscapeHandler escapeHandler) {
+        this(out, localNames, escapeHandler, new byte[1024]);
+    }
+
+    /**
+     * Creates a writer using a caller-owned output buffer. The caller may reuse this buffer
+     * between completed marshalling operations; this writer does not retain data after flushing.
+     */
+    public UTF8XmlOutput(OutputStream out, Encoded[] localNames, CharacterEscapeHandler escapeHandler,
+                         byte[] octetBuffer) {
+        if (octetBuffer.length < 4) {
+            throw new IllegalArgumentException("octetBuffer must contain at least four bytes");
+        }
         this.out = out;
         this.localNames = localNames;
+        this.octetBuffer = octetBuffer;
         for( int i=0; i<prefixes.length; i++ )
             prefixes[i] = new Encoded();
         this.escapeHandler = escapeHandler;
@@ -301,27 +314,41 @@ public class UTF8XmlOutput extends XmlOutputAbstractImpl {
 
     public final void text(int value) throws IOException {
         closeStartTag();
-        /*
-         * TODO
-         * Change to use the octet buffer directly
-         */
+        int digits = 1;
+        for (int remaining = value; remaining <= -10 || remaining >= 10; digits++) {
+            remaining /= 10;
+        }
+        int length = digits + (value < 0 ? 1 : 0);
 
-        // max is -2147483648 and 11 digits
-        boolean minus = (value<0);
-        textBuffer.ensureSize(11);
-        byte[] buf = textBuffer.buf;
-        int idx = 11;
+        // Very small caller-supplied buffers keep the original reusable scratch-buffer path.
+        if (length > octetBuffer.length) {
+            textBuffer.ensureSize(11);
+            byte[] buf = textBuffer.buf;
+            int index = 11;
+            int remaining = value;
+            do {
+                int digit = remaining % 10;
+                if (digit < 0) digit = -digit;
+                buf[--index] = (byte) ('0' | digit);
+                remaining /= 10;
+            } while (remaining != 0);
+            if (value < 0) buf[--index] = '-';
+            write(buf, index, 11 - index);
+            return;
+        }
 
+        if (octetBuffer.length - octetBufferIndex < length) flushBuffer();
+        int end = octetBufferIndex + length;
+        int index = end;
+        int remaining = value;
         do {
-            int r = value%10;
-            if(r<0) r = -r;
-            buf[--idx] = (byte)('0'|r);    // really measn 0x30+r but 0<=r<10, so bit-OR would do.
-            value /= 10;
-        } while(value!=0);
-
-        if(minus)   buf[--idx] = (byte)'-';
-
-        write(buf,idx,11-idx);
+            int digit = remaining % 10;
+            if (digit < 0) digit = -digit;
+            octetBuffer[--index] = (byte) ('0' | digit);
+            remaining /= 10;
+        } while (remaining != 0);
+        if (value < 0) octetBuffer[--index] = '-';
+        octetBufferIndex = end;
     }
 
     /**
