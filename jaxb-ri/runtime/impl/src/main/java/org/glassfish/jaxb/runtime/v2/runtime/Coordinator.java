@@ -104,10 +104,12 @@ public abstract class Coordinator implements ErrorHandler, ValidationEventHandle
      * Called whenever an execution flow exits the realm of this .
      */
     protected final void popCoordinator() {
-        if (old != null)
-            activeTable.set(old);
-        else
-            activeTable.remove();
+        // Restore the previous value without removing the thread's map entry.
+        // The unmarshaller pushes and pops once per SAX/StAX event, and a remove()
+        // followed by the next get() re-creates the ThreadLocalMap entry (one allocation
+        // plus a stale-slot scan) for every event. A null value keeps no reference
+        // to this coordinator, so nothing is retained after the episode ends.
+        activeTable.set(old);
         old = null; // avoid memory leak
     }
 
