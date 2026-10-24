@@ -294,7 +294,7 @@ public final class Base64Data extends Pcdata {
 
     @Override
     public void writeTo(UTF8XmlOutput output) throws IOException {
-        // TODO: this is inefficient if the data source is note byte[] but DataHandler
+        // TODO: this is inefficient if the data source is not byte[] but DataHandler
         get();
         output.text(data, dataLen);
     }
