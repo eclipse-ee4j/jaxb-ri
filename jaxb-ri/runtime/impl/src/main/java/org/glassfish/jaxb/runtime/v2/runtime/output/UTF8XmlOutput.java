@@ -17,6 +17,7 @@ import java.io.OutputStream;
 import javax.xml.stream.XMLStreamException;
 
 import org.glassfish.jaxb.core.marshaller.CharacterEscapeHandler;
+import org.glassfish.jaxb.core.marshaller.MinimumEscapeHandler;
 import org.glassfish.jaxb.runtime.DatatypeConverterImpl;
 import org.glassfish.jaxb.runtime.util.StringBuilderWriter;
 import org.glassfish.jaxb.runtime.v2.runtime.MarshallerImpl;
@@ -289,12 +290,15 @@ public class UTF8XmlOutput extends XmlOutputAbstractImpl {
     }
 
     private void doText(String value,boolean isAttribute) throws IOException {
-        if (escapeHandler != null) {
+        if (escapeHandler == null) {
+            textBuffer.setEscape(value, isAttribute);
+        } else if (escapeHandler != MinimumEscapeHandler.theInstance
+                || !textBuffer.setMinimumEscape(value, isAttribute)) {
+            // MinimumEscapeHandler is the default for UTF-8 and is handled above in a
+            // single pass, with byte-for-byte the same output as this generic path.
             StringBuilderWriter sbw = new StringBuilderWriter(value.length());
             escapeHandler.escape(value.toCharArray(), 0, value.length(), isAttribute, sbw);
             textBuffer.set(sbw.toString());
-        } else {
-            textBuffer.setEscape(value, isAttribute);
         }
         textBuffer.write(this);
     }
