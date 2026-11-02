@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -12,8 +13,10 @@ package org.glassfish.jaxb.runtime;
 
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DatatypeConverterImplTest {
@@ -56,5 +59,27 @@ public class DatatypeConverterImplTest {
         assertTrue(DatatypeConverterImpl._parseBoolean(" true"));
         assertTrue(DatatypeConverterImpl._parseBoolean("true "));
         assertTrue(DatatypeConverterImpl._parseBoolean(" true "));
+    }
+
+    @Test
+    @SuppressWarnings({"deprecation"})
+    public void testParseIntOutOfRange() {
+        assertEquals(Integer.MAX_VALUE, DatatypeConverterImpl._parseInt("2147483647"));
+        assertEquals(Integer.MAX_VALUE, DatatypeConverterImpl._parseInt(" +2147483647 "));
+        assertEquals(Integer.MIN_VALUE, DatatypeConverterImpl._parseInt("-2147483648"));
+        assertThrows(NumberFormatException.class, () -> DatatypeConverterImpl._parseInt("2147483648"));
+        assertThrows(NumberFormatException.class, () -> DatatypeConverterImpl._parseInt("-2147483649"));
+        assertThrows(NumberFormatException.class, () -> DatatypeConverterImpl._parseInt("4294967295"));
+        assertThrows(NumberFormatException.class, () -> DatatypeConverterImpl._parseInt("99999999999999999999"));
+
+        assertEquals(Short.MAX_VALUE, DatatypeConverterImpl._parseShort("32767"));
+        assertEquals(Short.MIN_VALUE, DatatypeConverterImpl._parseShort("-32768"));
+        assertThrows(NumberFormatException.class, () -> DatatypeConverterImpl._parseShort("32768"));
+        assertThrows(NumberFormatException.class, () -> DatatypeConverterImpl._parseShort("65535"));
+
+        assertEquals(Byte.MAX_VALUE, DatatypeConverterImpl._parseByte("127"));
+        assertEquals(Byte.MIN_VALUE, DatatypeConverterImpl._parseByte("-128"));
+        assertThrows(NumberFormatException.class, () -> DatatypeConverterImpl._parseByte("128"));
+        assertThrows(NumberFormatException.class, () -> DatatypeConverterImpl._parseByte("256"));
     }
 }
