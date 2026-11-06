@@ -20,7 +20,7 @@ public class TokenMgrError extends Error {
     */
 
    /**
-    * Lexical error occured.
+    * Lexical error occurred.
     */
    static final int LEXICAL_ERROR = 0;
 
