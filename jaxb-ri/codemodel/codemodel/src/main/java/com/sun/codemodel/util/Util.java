@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
+ * Copyright (c) 2025, 2026 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -32,7 +32,9 @@ public class Util {
     private Util() {}
 
     /**
-     * Escapes the XML tags for Javadoc compatibility
+     * Escapes the XML tags for Javadoc compatibility.
+     * <br><br>
+     * An at sign directly after an opening brace starts an inline tag and is kept.
      */
     public static String escapeXML(String s) {
         if (s == null) {
@@ -51,6 +53,6 @@ public class Util {
                 idx += entryValueLength;
             }
         }
-        return s;
+        return s.replace("{&#064;", "{@");
     }
 }
