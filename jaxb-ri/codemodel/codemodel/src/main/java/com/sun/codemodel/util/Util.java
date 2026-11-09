@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Contributors to the Eclipse Foundation. All rights reserved.
+ * Copyright (c) 2025,2026 Contributors to the Eclipse Foundation. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -27,6 +27,8 @@ public class Util {
         ESCAPED_XML_JAVADOC.add(new AbstractMap.SimpleImmutableEntry<>("<", "&lt;"));
         ESCAPED_XML_JAVADOC.add(new AbstractMap.SimpleImmutableEntry<>(">", "&gt;"));
         ESCAPED_XML_JAVADOC.add(new AbstractMap.SimpleImmutableEntry<>("@", "&#064;"));
+        // restore {@ to unreplaced {&#064;
+        ESCAPED_XML_JAVADOC.add(new AbstractMap.SimpleImmutableEntry<>("{&#064;", "{@"));
     }
 
     private Util() {}
