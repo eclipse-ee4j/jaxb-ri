@@ -27,6 +27,8 @@ public class Util {
         ESCAPED_XML_JAVADOC.add(new AbstractMap.SimpleImmutableEntry<>("<", "&lt;"));
         ESCAPED_XML_JAVADOC.add(new AbstractMap.SimpleImmutableEntry<>(">", "&gt;"));
         ESCAPED_XML_JAVADOC.add(new AbstractMap.SimpleImmutableEntry<>("@", "&#064;"));
+        // restore {@ to unreplaced {&#064;
+        ESCAPED_XML_JAVADOC.add(new AbstractMap.SimpleImmutableEntry<>("{&#064;", "{@"));
     }
 
     private Util() {}
