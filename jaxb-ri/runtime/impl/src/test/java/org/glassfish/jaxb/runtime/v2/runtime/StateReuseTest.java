@@ -156,7 +156,8 @@ public class StateReuseTest {
     public static class Leaf {
         @XmlElement public String value;
 
-        /** Records the state object the unmarshaller uses for this element (depth 2). */
+        /** Records the state object the unmarshaller uses for this element
+         *  (third level below the document root; the root State itself is level 0). */
         public void afterUnmarshal(Unmarshaller u, Object parent) {
             LEAF_STATES.add(UnmarshallingContext.getInstance().getCurrentState());
         }
