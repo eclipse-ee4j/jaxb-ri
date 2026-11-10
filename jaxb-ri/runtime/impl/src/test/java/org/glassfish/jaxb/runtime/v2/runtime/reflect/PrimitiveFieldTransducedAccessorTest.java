@@ -10,9 +10,16 @@
 
 package org.glassfish.jaxb.runtime.v2.runtime.reflect;
 
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.annotation.XmlRootElement;
 import org.glassfish.jaxb.runtime.v2.model.impl.RuntimeBuiltinLeafInfoImpl;
+import org.glassfish.jaxb.runtime.v2.runtime.ClassBeanInfoImpl;
+import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
 import org.glassfish.jaxb.runtime.v2.runtime.Transducer;
+import org.glassfish.jaxb.runtime.v2.runtime.property.Property;
 import org.junit.jupiter.api.Test;
+
+import java.lang.reflect.Field;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -105,5 +112,27 @@ public class PrimitiveFieldTransducedAccessorTest {
         b.parse(bean, "127");
         assertEquals(Byte.MAX_VALUE, bean.b);
         assertEquals("127", b.print(bean));
+    }
+
+    @XmlRootElement
+    public static class Model {
+        public int i;
+        public Integer boxed;
+    }
+
+    /** {@link TransducedAccessor#get} must select the primitive accessor for an int field only. */
+    @Test
+    public void getSelectsThePrimitiveAccessor() throws Exception {
+        JAXBContextImpl context = (JAXBContextImpl) JAXBContext.newInstance(Model.class);
+        ClassBeanInfoImpl<?> bi = (ClassBeanInfoImpl<?>) context.getBeanInfo(Model.class);
+        int primitive = 0, other = 0;
+        for (Property<?> p : bi.properties) {
+            Field f = p.getClass().getDeclaredField("xacc");
+            f.setAccessible(true);
+            if (f.get(p) instanceof PrimitiveFieldTransducedAccessor) primitive++;
+            else other++;
+        }
+        assertEquals(1, primitive);
+        assertEquals(1, other);
     }
 }

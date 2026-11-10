@@ -155,8 +155,9 @@ final class SingleElementLeafProperty<BeanT> extends PropertyImpl<BeanT> {
         if (nillable || chain.context.allNillable)
             l = new XsiNilLoader.Single(l, acc);
 
-        // LeafPropertyXsiLoader doesn't work well with nillable elements
-        if (improvedXsiTypeHandling)
+        // LeafPropertyXsiLoader doesn't work well with nillable elements.
+        // A primitive property cannot hold the value of another type, so xsi:type is ignored for it
+        if (improvedXsiTypeHandling && !acc.getValueType().isPrimitive())
             l = new LeafPropertyXsiLoader(l, xacc, acc);
 
         handlers.put(tagName, new ChildLoader(l, null));

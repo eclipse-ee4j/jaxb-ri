@@ -17,6 +17,9 @@ import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlSeeAlso;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlValue;
 import org.glassfish.jaxb.runtime.v2.runtime.property.Property;
 import org.junit.jupiter.api.Test;
 
@@ -93,5 +96,64 @@ public class PrimitiveElementTest {
             assertTrue(run("<r><i> -12 </i><d> 1e3 </d><z> 1 </z><dl>-9223372036854775808</dl></r>", stax)
                     .startsWith("-12 1000.0 7 true -9223372036854775808 "));
         }
+    }
+
+    @XmlType(name = "w")
+    public static class W {
+        @XmlValue public String v;
+    }
+
+    @XmlRootElement(name = "h")
+    @XmlAccessorType(XmlAccessType.FIELD)
+    @XmlSeeAlso(W.class)
+    public static class Holder {
+        public int i;
+    }
+
+    /**
+     * An int cannot hold the value of a class with a transducer, so xsi:type is ignored for it, as
+     * it is when the property is bound through the element node path.
+     */
+    @Test
+    public void xsiTypeOfAValueClassIsIgnoredForAPrimitive() throws Exception {
+        Unmarshaller u = JAXBContext.newInstance(Holder.class).createUnmarshaller();
+        List<String> events = new ArrayList<>();
+        u.setEventHandler(e -> {
+            events.add(e.getMessage());
+            return true;
+        });
+        Holder h = (Holder) u.unmarshal(new StringReader("<h><i xsi:type='w' " + XSI + ">3</i></h>"));
+        assertEquals(List.of(), events);
+        assertEquals(3, h.i);
+    }
+
+    @XmlRootElement(name = "g")
+    @XmlAccessorType(XmlAccessType.PROPERTY)
+    public static class Getters {
+        static int primitiveReads, boxedReads;
+        private int p = 1;
+        private Integer b = 1;
+        public int getP() { primitiveReads++; return p; }
+        public void setP(int x) { p = x; }
+        public Integer getB() { boxedReads++; return b; }
+        public void setB(Integer x) { b = x; }
+    }
+
+    /**
+     * Marshalling a primitive leaf property does not read the value to check for xsi:type, which
+     * can never be needed: hasValue and writeLeafElement read it, the boxed property is read once more.
+     */
+    @Test
+    public void primitiveGetterIsNotReadForTheXsiTypeCheck() throws Exception {
+        JAXBContext c = JAXBContext.newInstance(Getters.class);
+        Marshaller m = c.createMarshaller();
+        m.setProperty(Marshaller.JAXB_FRAGMENT, true);
+        Getters.primitiveReads = 0;
+        Getters.boxedReads = 0;
+        StringWriter w = new StringWriter();
+        m.marshal(new Getters(), w);
+        assertEquals("<g><b>1</b><p>1</p></g>", w.toString());
+        assertEquals(2, Getters.primitiveReads);
+        assertEquals(3, Getters.boxedReads);
     }
 }
