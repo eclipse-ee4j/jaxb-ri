@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2026 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
+    Copyright (c) 2012, 2021 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Distribution License v. 1.0, which is available at
@@ -89,8 +90,9 @@
         <example>
             <title>Unmarshalling through a securely configured StAX reader</title>
 
-            <programlisting language="java"><![CDATA[// Create once and share: a configured XMLInputFactory is thread safe.
-static final XMLInputFactory XML_INPUT = createInputFactory();
+            <programlisting language="java"><![CDATA[// Create once and share: Woodstox factories are thread-safe once configured.
+// StAX does not guarantee this for every implementation.
+private static final XMLInputFactory XML_INPUT = createInputFactory();
 
 private static XMLInputFactory createInputFactory() {
     XMLInputFactory factory = XMLInputFactory.newFactory();
@@ -102,8 +104,18 @@ private static XMLInputFactory createInputFactory() {
 Object read(Unmarshaller u, InputStream in) throws JAXBException, XMLStreamException {
     XMLStreamReader reader = XML_INPUT.createXMLStreamReader(in);
     try {
+        // Advance to the root element, rejecting the document if it has a DOCTYPE.
+        // With SUPPORT_DTD=false Woodstox skips the DOCTYPE but still reports a DTD event.
+        while (reader.getEventType() != XMLStreamConstants.START_ELEMENT) {
+            if (reader.getEventType() == XMLStreamConstants.DTD) {
+                throw new XMLStreamException("DOCTYPE is not allowed");
+            }
+            reader.next();
+        }
         return u.unmarshal(reader);
     } finally {
+        // Closes the reader only: the underlying InputStream stays open
+        // and remains the caller's responsibility.
         reader.close();
     }
 }]]></programlisting>
@@ -126,14 +138,13 @@ Object read(Unmarshaller u, InputStream in) throws JAXBException, XMLStreamExcep
                 rather than rejecting it: entity references then fail as undeclared, but a
                 document that only contains a DOCTYPE is accepted. If you need such documents
                 rejected, check for <literal>XMLStreamConstants.DTD</literal> events before
-                unmarshalling.</para>
+                unmarshalling, as the example above does.</para>
             </listitem>
             <listitem>
-                <para>Setting the <literal>javax.xml.parsers.SAXParserFactory</literal> system
-                property to a non-Xerces SAX parser does not have the same effect. With secure
-                processing enabled, &binding.impl.name; configures the SAX factory with a
-                Xerces-specific feature, and a parser that does not recognize it makes every
-                unmarshal fail.</para>
+                <para>Replacing the SAX parser through the
+                <literal>javax.xml.parsers.SAXParserFactory</literal> system property is not an
+                alternative: &binding.impl.name; relies on a Xerces-specific feature of the
+                default factory, and other parsers make every unmarshal fail.</para>
             </listitem>
         </itemizedlist>
     </section>
