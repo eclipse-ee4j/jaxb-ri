@@ -141,10 +141,16 @@ public final class Encoded {
      *      {@code false} if the text contains a surrogate code unit. The buffer content is then
      *      undefined and the caller must use the generic escape handler path, which is what
      *      keeps the output for malformed surrogate pairs identical to it.
+     *      Also {@code false} if the text is so long that the worst-case buffer size would overflow
+     *      an {@code int}, see {@link #exceedsMinimumEscapeCapacity(int, boolean)}.
      */
     boolean setMinimumEscape(String text, boolean isAttribute) {
         int length = text.length();
-        ensureSize(length*6+1);     // worst case: every char is '"', i.e. "&quot;"
+        if (exceedsMinimumEscapeCapacity(length, isAttribute))
+            return false;
+        // worst case: every char is '"' ("&quot;", 6 bytes) in an attribute value; in text it is
+        // '&' ("&amp;") or '\r' ("&#13;"), 5 bytes. Other characters need at most 3 bytes.
+        ensureSize(length*(isAttribute ? 6 : 5)+1);
         byte[][] table = isAttribute ? minimumAttributeEntities : minimumEntities;
         byte[] buf = this.buf;
 
@@ -172,6 +178,14 @@ public final class Encoded {
         }
         len = ptr;
         return true;
+    }
+
+    /**
+     * Whether the worst-case buffer size of {@link #setMinimumEscape(String, boolean)}
+     * for a text of the given length does not fit in an {@code int}.
+     */
+    static boolean exceedsMinimumEscapeCapacity(int length, boolean isAttribute) {
+        return length > (Integer.MAX_VALUE-1)/(isAttribute ? 6 : 5);
     }
 
     private int writeEntity( byte[] entity, int ptr ) {

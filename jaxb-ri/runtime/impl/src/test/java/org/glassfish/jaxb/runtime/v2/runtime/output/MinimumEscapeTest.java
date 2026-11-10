@@ -15,6 +15,7 @@ import org.glassfish.jaxb.runtime.util.StringBuilderWriter;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -63,9 +64,9 @@ public class MinimumEscapeTest {
         assertSame("caf\u00E9 \u00FF \u0100 \u07FF \u0800 \u20AC \uFFFF \uFFFD");
         Encoded e = new Encoded();
         assertTrue(e.setMinimumEscape("a\r\n\"", true));
-        assertEquals("a&#13;&#10;&quot;", new String(e.buf, 0, e.len, java.nio.charset.StandardCharsets.UTF_8));
+        assertEquals("a&#13;&#10;&quot;", new String(e.buf, 0, e.len, StandardCharsets.UTF_8));
         assertTrue(e.setMinimumEscape("a\r\n\"\t", false));
-        assertEquals("a&#13;\n\"\t", new String(e.buf, 0, e.len, java.nio.charset.StandardCharsets.UTF_8));
+        assertEquals("a&#13;\n\"\t", new String(e.buf, 0, e.len, StandardCharsets.UTF_8));
     }
 
     @Test
@@ -89,5 +90,61 @@ public class MinimumEscapeTest {
         assertFalse(e.setMinimumEscape("x\uD83D\uDE00y", false));
         assertFalse(e.setMinimumEscape("\uDE00", true));
         assertFalse(e.setMinimumEscape("&\uD800", true));
+    }
+
+    /**
+     * Checks {@code exceedsMinimumEscapeCapacity} itself, not that {@code setMinimumEscape}
+     * calls it: a test of that would need a text of more than 357M characters.
+     */
+    @Test
+    public void overflowGuard() {
+        int attMax = (Integer.MAX_VALUE - 1) / 6;
+        int textMax = (Integer.MAX_VALUE - 1) / 5;
+        assertFalse(Encoded.exceedsMinimumEscapeCapacity(0, true));
+        assertFalse(Encoded.exceedsMinimumEscapeCapacity(0, false));
+        assertFalse(Encoded.exceedsMinimumEscapeCapacity(attMax, true));
+        assertTrue(Encoded.exceedsMinimumEscapeCapacity(attMax + 1, true));
+        assertFalse(Encoded.exceedsMinimumEscapeCapacity(textMax, false));
+        assertTrue(Encoded.exceedsMinimumEscapeCapacity(textMax + 1, false));
+        // the largest accepted sizes, as computed by setMinimumEscape, still fit in an int
+        assertTrue(attMax * 6L + 1 <= Integer.MAX_VALUE);
+        assertTrue(textMax * 5L + 1 <= Integer.MAX_VALUE);
+        assertTrue((attMax + 1) * 6L + 1 > Integer.MAX_VALUE);
+        assertTrue((textMax + 1) * 5L + 1 > Integer.MAX_VALUE);
+        // beyond 357M chars an attribute value must not be sized with an overflowing int
+        assertTrue(Encoded.exceedsMinimumEscapeCapacity(Integer.MAX_VALUE, true));
+        assertTrue(Encoded.exceedsMinimumEscapeCapacity(400_000_000, true));
+        assertFalse(Encoded.exceedsMinimumEscapeCapacity(400_000_000, false));
+    }
+
+    /**
+     * Repeated characters on a fresh {@link Encoded}, so that the buffer is exactly as large as
+     * {@code setMinimumEscape} sized it: a multiplier that is too small throws
+     * {@link ArrayIndexOutOfBoundsException}.
+     */
+    @Test
+    public void worstCaseBytesPerCharacter() {
+        int n = 16;
+        assertWorstCase("\"".repeat(n), true, 6 * n);
+        assertWorstCase("\n".repeat(n), true, 5 * n);
+        assertWorstCase("&".repeat(n), true, 5 * n);
+        assertWorstCase("&".repeat(n), false, 5 * n);
+        assertWorstCase("\r".repeat(n), false, 5 * n);
+        assertWorstCase("\u20AC".repeat(n), false, 3 * n);
+        int max = 0;
+        for (char c = 0; c < 0x800; c++) {
+            for (boolean attribute : new boolean[] {false, true}) {
+                Encoded e = new Encoded();
+                assertTrue(e.setMinimumEscape(String.valueOf(c), attribute));
+                max = Math.max(max, e.len);
+            }
+        }
+        assertEquals(6, max);
+    }
+
+    private static void assertWorstCase(String text, boolean attribute, int expectedLength) {
+        Encoded e = new Encoded();
+        assertTrue(e.setMinimumEscape(text, attribute));
+        assertEquals(expectedLength, e.len);
     }
 }
