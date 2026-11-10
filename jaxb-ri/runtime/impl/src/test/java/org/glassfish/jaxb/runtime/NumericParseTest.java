@@ -14,8 +14,10 @@ import org.glassfish.jaxb.core.WhiteSpaceProcessor;
 import org.junit.jupiter.api.Test;
 
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * The fast paths of {@link DatatypeConverterImpl#_parseDouble} and
@@ -126,5 +128,152 @@ public class NumericParseTest {
             long v = r.nextLong() >> r.nextInt(64);
             checkLong((r.nextInt(5) == 0 && v >= 0 ? "+" : "") + v);
         }
+    }
+
+    /**
+     * A CharSequence over a String that counts toString() calls and optionally refuses them,
+     * so a test can tell whether the allocation-free fast path or the general path ran.
+     */
+    private static final class Probe implements CharSequence {
+        private final String text;
+        private final boolean failOnToString;
+        final AtomicInteger toStringCalls = new AtomicInteger();
+
+        Probe(String text, boolean failOnToString) {
+            this.text = text;
+            this.failOnToString = failOnToString;
+        }
+
+        @Override public int length() { return text.length(); }
+        @Override public char charAt(int index) { return text.charAt(index); }
+        @Override public CharSequence subSequence(int start, int end) { return text.substring(start, end); }
+
+        @Override
+        public String toString() {
+            toStringCalls.incrementAndGet();
+            if (failOnToString) throw new IllegalStateException("toString() must not be called on the fast path");
+            return text;
+        }
+    }
+
+    private static void assertFastDouble(String text, double expected) {
+        double actual = DatatypeConverterImpl._parseDouble(new Probe(text, true));
+        assertEquals(Double.doubleToRawLongBits(expected), Double.doubleToRawLongBits(actual), text);
+    }
+
+    private static void assertFastLong(String text, long expected) {
+        assertEquals(expected, DatatypeConverterImpl._parseLong(new Probe(text, true)), text);
+    }
+
+    /** Inputs without surrounding whitespace, so the general path calls toString() exactly once. */
+    private static void assertGeneralDouble(String text, double expected) {
+        Probe p = new Probe(text, false);
+        double actual = DatatypeConverterImpl._parseDouble(p);
+        assertEquals(Double.doubleToRawLongBits(expected), Double.doubleToRawLongBits(actual), text);
+        assertEquals(1, p.toStringCalls.get(), text);
+    }
+
+    private static void assertGeneralLong(String text, long expected) {
+        Probe p = new Probe(text, false);
+        assertEquals(expected, DatatypeConverterImpl._parseLong(p), text);
+        assertEquals(1, p.toStringCalls.get(), text);
+    }
+
+    @Test
+    public void doubleFastPathDoesNotConvertToString() {
+        assertFastDouble("0", 0.0);
+        assertFastDouble("-0", -0.0);
+        assertFastDouble("+0", 0.0);
+        assertFastDouble("0.0", 0.0);
+        assertFastDouble("-0.0", -0.0);
+        assertFastDouble("42", 42.0);
+        assertFastDouble("-42", -42.0);
+        assertFastDouble("+42", 42.0);
+        assertFastDouble("5.", 5.0);
+        assertFastDouble(".5", 0.5);
+        assertFastDouble("-.5", -0.5);
+        assertFastDouble("1.5", 1.5);
+        assertFastDouble("0.1", 0.1);
+        assertFastDouble("2.675", 2.675);
+        assertFastDouble("9007199254740992", 9007199254740992.0);
+        assertFastDouble("0.0000000000000000000001", 1e-22);
+        assertFastDouble(" \t\r\n1.5 \t\r\n", 1.5);
+        assertFastDouble("  -0  ", -0.0);
+        // just inside the limits: significand exactly 2^53, 22 fraction digits, leading zeros
+        // not counted
+        assertFastDouble("900719925474099.2", 900719925474099.2);
+        assertFastDouble("0.0000000000000000000025", 2.5e-21);
+        assertFastDouble("00000000000000000000000001.25", 1.25);
+    }
+
+    @Test
+    public void longFastPathDoesNotConvertToString() {
+        assertFastLong("0", 0L);
+        assertFastLong("-0", 0L);
+        assertFastLong("+0", 0L);
+        assertFastLong("7", 7L);
+        assertFastLong("-7", -7L);
+        assertFastLong("+7", 7L);
+        assertFastLong(" \t\r\n42 \t\r\n", 42L);
+        assertFastLong("\t-42\n", -42L);
+        assertFastLong("999999999999999999", 999_999_999_999_999_999L);
+        assertFastLong("-999999999999999999", -999_999_999_999_999_999L);
+        assertFastLong("+000000000000000001", 1L);
+        assertFastLong("-000000000000000000", 0L);
+    }
+
+    /**
+     * Guard against a fast path that is too permissive. It does not verify the change under
+     * test: it also passes with the fast path removed.
+     */
+    @Test
+    public void guardDoubleOutsideFastPathUsesGeneralPath() {
+        assertGeneralDouble("1e3", 1000.0);
+        assertGeneralDouble("1.5E-3", 0.0015);
+        assertGeneralDouble("INF", Double.POSITIVE_INFINITY);
+        assertGeneralDouble("-INF", Double.NEGATIVE_INFINITY);
+        assertGeneralDouble("NaN", Double.NaN);
+        // significand above 2^53 (the trailing zero counts)
+        assertGeneralDouble("9007199254740992.0", 9007199254740992.0);
+        // more than 18 significant digits (the trailing zeros count)
+        assertGeneralDouble("1.0000000000000000000000", 1.0);
+        // significand above 2^53
+        assertGeneralDouble("9007199254740993", 9007199254740993.0);
+        assertGeneralDouble("123456789012345678", 123456789012345678.0);
+        // more than 22 fraction digits
+        assertGeneralDouble("0.00000000000000000000001", 1e-23);
+        // more than 18 significant digits
+        assertGeneralDouble("1.2345678901234567890", 1.234567890123456789);
+    }
+
+    /**
+     * Guard against a fast path that is too permissive. It does not verify the change under
+     * test: it also passes with the fast path removed.
+     */
+    @Test
+    public void guardLongOutsideFastPathUsesGeneralPath() {
+        assertGeneralLong("1000000000000000000", 1_000_000_000_000_000_000L);
+        assertGeneralLong("-1000000000000000000", -1_000_000_000_000_000_000L);
+        assertGeneralLong("9223372036854775807", Long.MAX_VALUE);
+        assertGeneralLong("-9223372036854775808", Long.MIN_VALUE);
+    }
+
+    /**
+     * Guard against a fast path that accepts invalid input. It does not verify the change under
+     * test: it also passes with the fast path removed.
+     */
+    @Test
+    public void guardInvalidInputsAreRejectedByGeneralPath() {
+        for (String s : new String[] {"", ".", "-", "+", "1e", "abc", "1.2.3", "--1"}) {
+            Probe p = new Probe(s, false);
+            assertThrows(NumberFormatException.class, () -> DatatypeConverterImpl._parseDouble(p), s);
+            assertEquals(1, p.toStringCalls.get(), s);
+        }
+        for (String s : new String[] {"", "-", "+", "1.0", "1e3", "12a", "--1"}) {
+            Probe p = new Probe(s, false);
+            assertThrows(NumberFormatException.class, () -> DatatypeConverterImpl._parseLong(p), s);
+            assertEquals(1, p.toStringCalls.get(), s);
+        }
+        assertThrows(NumberFormatException.class, () -> DatatypeConverterImpl._parseLong(new Probe("+-1", false)));
     }
 }
