@@ -117,6 +117,9 @@ public /*to make unit tests happy*/ final class MarshallerImpl extends AbstractM
     private Flushable toBeFlushed;
     private Closeable toBeClosed;
 
+    /** Reused by successive UTF-8 OutputStream writers created by this marshaller. */
+    private final byte[] utf8OutputBuffer = new byte[1024];
+
     /**
      * @param assoc
      *      non-null if the marshaller is working inside {@link BinderImpl}.
@@ -413,6 +416,15 @@ public /*to make unit tests happy*/ final class MarshallerImpl extends AbstractM
         return createWriter(os, getEncoding());
     }
 
+    /**
+     * Creates a writer for the given stream.
+     *
+     * <p>
+     * For UTF-8 the writer uses an octet buffer owned by this marshaller and shared by all the
+     * writers it creates. A marshaller is neither thread-safe nor re-entrant, so a writer must be
+     * finished before the next one is created. The buffer is not cleared: the last bytes of a
+     * document stay in it until the next document overwrites them.
+     */
     public XmlOutput createWriter( OutputStream os, String encoding ) throws JAXBException {
         // UTF8XmlOutput does buffering on its own, and
         // otherwise createWriter(Writer) inserts a buffering,
@@ -423,12 +435,12 @@ public /*to make unit tests happy*/ final class MarshallerImpl extends AbstractM
             final UTF8XmlOutput out;
             CharacterEscapeHandler ceh = createEscapeHandler(encoding);
             if(isFormattedOutput())
-                out = new IndentingUTF8XmlOutput(os, indent, table, ceh);
+                out = new IndentingUTF8XmlOutput(os, indent, table, ceh, utf8OutputBuffer);
             else {
                 if(c14nSupport)
-                    out = new C14nXmlOutput(os, table, context.c14nSupport, ceh);
+                    out = new C14nXmlOutput(os, table, context.c14nSupport, ceh, utf8OutputBuffer);
                 else
-                    out = new UTF8XmlOutput(os, table, ceh);
+                    out = new UTF8XmlOutput(os, table, ceh, utf8OutputBuffer);
             }
             if(header!=null)
                 out.setHeader(header);

@@ -28,7 +28,22 @@ import org.glassfish.jaxb.runtime.v2.runtime.Name;
  */
 public class C14nXmlOutput extends UTF8XmlOutput {
     public C14nXmlOutput(OutputStream out, Encoded[] localNames, boolean namedAttributesAreOrdered, CharacterEscapeHandler escapeHandler) {
-        super(out, localNames, escapeHandler);
+        this(out, localNames, namedAttributesAreOrdered, escapeHandler, new byte[1024]);
+    }
+
+    /**
+     * Creates a canonical XML writer using a caller-owned output buffer.
+     *
+     * @param octetBuffer the buffer to use, must not be {@code null} and must hold at least four bytes;
+     *      it may be shared by successive writers but not used by two at once, and it is not cleared
+     *      after flushing
+     * @throws NullPointerException if {@code octetBuffer} is {@code null}
+     * @throws IllegalArgumentException if {@code octetBuffer} is shorter than four bytes
+     * @see UTF8XmlOutput#UTF8XmlOutput(OutputStream, Encoded[], CharacterEscapeHandler, byte[])
+     */
+    public C14nXmlOutput(OutputStream out, Encoded[] localNames, boolean namedAttributesAreOrdered,
+                         CharacterEscapeHandler escapeHandler, byte[] octetBuffer) {
+        super(out, localNames, escapeHandler, octetBuffer);
         this.namedAttributesAreOrdered = namedAttributesAreOrdered;
 
         for( int i=0; i<staticAttributes.length; i++ )
