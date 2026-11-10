@@ -309,6 +309,9 @@ public final class UnmarshallingContext extends Coordinator
             // Keep the child state for the next element at this depth instead of dropping it,
             // which used to cost one State allocation per element that has children.
             // It is reset to what a newly constructed State would hold.
+            // Retention: the chain of states stays reachable from this context for as long as the
+            // Unmarshaller does, one (cleared) State per level of the deepest document seen so far,
+            // whereas it used to be cut below the first level when the document ended.
             if (next != null)
                 next.recycle();
         }

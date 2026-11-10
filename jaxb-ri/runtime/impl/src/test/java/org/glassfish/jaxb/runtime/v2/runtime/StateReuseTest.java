@@ -22,6 +22,7 @@ import jakarta.xml.bind.annotation.XmlElementRef;
 import jakarta.xml.bind.annotation.XmlMixed;
 import jakarta.xml.bind.annotation.XmlRegistry;
 import jakarta.xml.bind.annotation.XmlRootElement;
+import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.UnmarshallingContext;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.namespace.QName;
@@ -31,6 +32,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -134,5 +137,49 @@ public class StateReuseTest {
         assertTrue(o instanceof JAXBElement);
         assertEquals("v", ((JAXBElement<?>) o).getValue());
         check((Root) u.unmarshal(new StringReader(DOC)));
+    }
+
+    private static final List<Object> LEAF_STATES = new ArrayList<>();
+
+    @XmlRootElement(name = "top")
+    @XmlAccessorType(XmlAccessType.FIELD)
+    public static class Top {
+        @XmlElement(name = "mid") public List<Mid> mids = new ArrayList<>();
+    }
+
+    @XmlAccessorType(XmlAccessType.FIELD)
+    public static class Mid {
+        @XmlElement public Leaf leaf;
+    }
+
+    @XmlAccessorType(XmlAccessType.FIELD)
+    public static class Leaf {
+        @XmlElement public String value;
+
+        /** Records the state object the unmarshaller uses for this element (depth 2). */
+        public void afterUnmarshal(Unmarshaller u, Object parent) {
+            LEAF_STATES.add(UnmarshallingContext.getInstance().getCurrentState());
+        }
+    }
+
+    /**
+     * Grandchildren of different siblings sit at the same depth, so they must be handled by the
+     * very same state object. Before the states below the siblings were kept, each sibling
+     * allocated a fresh one for its child.
+     */
+    @Test
+    public void grandchildrenOfDifferentSiblingsShareState() throws Exception {
+        Unmarshaller u = JAXBContext.newInstance(Top.class).createUnmarshaller();
+        String doc = "<top><mid><leaf><value>1</value></leaf></mid>"
+                + "<mid><leaf><value>2</value></leaf></mid>"
+                + "<mid><leaf><value>3</value></leaf></mid></top>";
+        LEAF_STATES.clear();
+        Top top = (Top) u.unmarshal(new StringReader(doc));
+        assertEquals(3, top.mids.size());
+        assertEquals("3", top.mids.get(2).leaf.value);
+        assertEquals(3, LEAF_STATES.size());
+        assertNotNull(LEAF_STATES.get(0));
+        assertSame(LEAF_STATES.get(0), LEAF_STATES.get(1));
+        assertSame(LEAF_STATES.get(0), LEAF_STATES.get(2));
     }
 }
