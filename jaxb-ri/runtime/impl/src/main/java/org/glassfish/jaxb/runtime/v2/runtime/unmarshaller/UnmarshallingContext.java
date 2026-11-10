@@ -287,6 +287,9 @@ public final class UnmarshallingContext extends Coordinator
             nil = false;
             State n = next;
             n.numNsDecl = nsLen;
+            // a recycled state must start in the mode a new one would get from its constructor;
+            // this state's loader (and so its mode) cannot change while it has children.
+            n.mixed = mixed;
             current = n;
         }
 
@@ -303,7 +306,27 @@ public final class UnmarshallingContext extends Coordinator
             elementDefaultValue = null;
             target = null;
             current = prev;
-            next = null;
+            // Keep the child state for the next element at this depth instead of dropping it,
+            // which used to cost one State allocation per element that has children.
+            // It is reset to what a newly constructed State would hold.
+            // Retention: the chain of states stays reachable from this context for as long as the
+            // Unmarshaller does, one State per level of the deepest document seen so far (cleared
+            // by recycle(), except the first-level state, which is never recycled and keeps its
+            // backup as before),
+            // whereas it used to be cut below the first level when the document ended.
+            if (next != null)
+                next.recycle();
+        }
+
+        private void recycle() {
+            loader = null;
+            receiver = null;
+            intercepter = null;
+            target = null;
+            backup = null;
+            elementDefaultValue = null;
+            nil = false;
+            mixed = false;
         }
 
         public boolean isMixed() {
