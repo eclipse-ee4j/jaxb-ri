@@ -12,20 +12,25 @@ package org.glassfish.jaxb.runtime.v2.runtime;
 
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Unmarshaller;
+import jakarta.xml.bind.ValidationEvent;
+import jakarta.xml.bind.ValidationEventLocator;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
 import org.glassfish.jaxb.runtime.v2.runtime.unmarshaller.UnmarshallingContext;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.StringReader;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * The active {@link Coordinator} is published through a thread local for the duration of each
@@ -96,6 +101,88 @@ public class CoordinatorTest {
         } catch (Exception expected) {
             // malformed document
         }
+        assertNull(Coordinator._getInstance());
+    }
+
+    /** Minimal coordinator used to drive push/pop directly. */
+    private static final class TestCoordinator extends Coordinator {
+        void push() {
+            pushCoordinator();
+        }
+
+        void pop() {
+            popCoordinator();
+        }
+
+        @Override
+        protected ValidationEventLocator getLocation() {
+            return null;
+        }
+
+        @Override
+        public boolean handleEvent(ValidationEvent event) {
+            return true;
+        }
+    }
+
+    /**
+     * The unmarshaller pushes and pops the coordinator once per event. Removing the thread local
+     * on every pop forces the next push to allocate a new ThreadLocalMap.Entry (a WeakReference
+     * subclass, 32 bytes with compressed oops, more without). Keeping the entry alive makes the
+     * steady-state push/pop allocation free, so the allocation per cycle must stay far below
+     * the size of one Entry.
+     */
+    @Test
+    public void pushAndPopDoNotAllocateAThreadLocalEntryPerCycle() throws Exception {
+        Object bean = null;
+        Method allocated = null;
+        boolean available = false;
+        String reason = "";
+        try {
+            Class<?> factory = Class.forName("java.lang.management.ManagementFactory");
+            bean = factory.getMethod("getThreadMXBean").invoke(null);
+            Class<?> type = Class.forName("com.sun.management.ThreadMXBean");
+            if (!type.isInstance(bean)) {
+                reason = "com.sun.management.ThreadMXBean not available";
+            } else if (!(Boolean) type.getMethod("isThreadAllocatedMemorySupported").invoke(bean)) {
+                reason = "thread allocation accounting not supported";
+            } else if (!(Boolean) type.getMethod("isThreadAllocatedMemoryEnabled").invoke(bean)) {
+                reason = "thread allocation accounting disabled";
+            } else {
+                allocated = type.getMethod("getThreadAllocatedBytes", long.class);
+                available = true;
+            }
+        } catch (ReflectiveOperationException | RuntimeException e) {
+            reason = "thread allocation accounting not accessible: " + e;
+        }
+        Assumptions.assumeTrue(available, reason);
+
+        TestCoordinator coordinator = new TestCoordinator();
+        long threadId = Thread.currentThread().getId();
+        int cycles = 100_000;
+
+        // warm up: JIT, and creation of the thread's ThreadLocalMap and of the entry
+        for (int i = 0; i < 200_000; i++) {
+            coordinator.push();
+            coordinator.pop();
+        }
+
+        long minBytes = Long.MAX_VALUE;
+        for (int round = 0; round < 7; round++) {
+            long before = (Long) allocated.invoke(bean, threadId);
+            for (int i = 0; i < cycles; i++) {
+                coordinator.push();
+                coordinator.pop();
+            }
+            long after = (Long) allocated.invoke(bean, threadId);
+            minBytes = Math.min(minBytes, after - before);
+        }
+
+        // Threshold: 16 bytes per cycle. The retained entry gives ~0 (only the reflective
+        // measurement calls allocate, amortised over 100000 cycles); remove() gives >= 32.
+        long limit = 16L * cycles;
+        assertTrue(minBytes < limit,
+                "push/pop allocated " + minBytes + " bytes in " + cycles + " cycles (limit " + limit + ")");
         assertNull(Coordinator._getInstance());
     }
 }
