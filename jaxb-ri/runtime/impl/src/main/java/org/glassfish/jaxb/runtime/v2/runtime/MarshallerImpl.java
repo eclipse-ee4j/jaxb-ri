@@ -416,6 +416,15 @@ public /*to make unit tests happy*/ final class MarshallerImpl extends AbstractM
         return createWriter(os, getEncoding());
     }
 
+    /**
+     * Creates a writer for the given stream.
+     *
+     * <p>
+     * For UTF-8 the writer uses an octet buffer owned by this marshaller and shared by all the
+     * writers it creates. A marshaller is neither thread-safe nor re-entrant, so a writer must be
+     * finished before the next one is created. The buffer is not cleared: the last bytes of a
+     * document stay in it until the next document overwrites them.
+     */
     public XmlOutput createWriter( OutputStream os, String encoding ) throws JAXBException {
         // UTF8XmlOutput does buffering on its own, and
         // otherwise createWriter(Writer) inserts a buffering,

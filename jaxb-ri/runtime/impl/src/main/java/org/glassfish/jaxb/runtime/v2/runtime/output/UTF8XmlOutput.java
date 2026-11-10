@@ -13,6 +13,7 @@ package org.glassfish.jaxb.runtime.v2.runtime.output;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Objects;
 
 import javax.xml.stream.XMLStreamException;
 
@@ -86,11 +87,23 @@ public class UTF8XmlOutput extends XmlOutputAbstractImpl {
     }
 
     /**
-     * Creates a writer using a caller-owned output buffer. The caller may reuse this buffer
-     * between completed marshalling operations; this writer does not retain data after flushing.
+     * Creates a writer using a caller-owned output buffer.
+     *
+     * <p>
+     * The caller may reuse the buffer for successive writers, but only one writer may use it at a
+     * time (it is neither thread-safe nor re-entrant). The buffer is not cleared: after a document
+     * has been flushed, its last bytes remain in the buffer until overwritten by the next document.
+     *
+     * @param out the stream receiving the encoded output
+     * @param localNames local names encoded in UTF-8
+     * @param escapeHandler the character escape handler, may be {@code null}
+     * @param octetBuffer the buffer to use, must not be {@code null} and must hold at least four bytes
+     * @throws NullPointerException if {@code octetBuffer} is {@code null}
+     * @throws IllegalArgumentException if {@code octetBuffer} is shorter than four bytes
      */
     public UTF8XmlOutput(OutputStream out, Encoded[] localNames, CharacterEscapeHandler escapeHandler,
                          byte[] octetBuffer) {
+        Objects.requireNonNull(octetBuffer, "octetBuffer");
         if (octetBuffer.length < 4) {
             throw new IllegalArgumentException("octetBuffer must contain at least four bytes");
         }

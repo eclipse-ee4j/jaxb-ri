@@ -31,6 +31,16 @@ public class C14nXmlOutput extends UTF8XmlOutput {
         this(out, localNames, namedAttributesAreOrdered, escapeHandler, new byte[1024]);
     }
 
+    /**
+     * Creates a canonical XML writer using a caller-owned output buffer.
+     *
+     * @param octetBuffer the buffer to use, must not be {@code null} and must hold at least four bytes;
+     *      it may be shared by successive writers but not used by two at once, and it is not cleared
+     *      after flushing
+     * @throws NullPointerException if {@code octetBuffer} is {@code null}
+     * @throws IllegalArgumentException if {@code octetBuffer} is shorter than four bytes
+     * @see UTF8XmlOutput#UTF8XmlOutput(OutputStream, Encoded[], CharacterEscapeHandler, byte[])
+     */
     public C14nXmlOutput(OutputStream out, Encoded[] localNames, boolean namedAttributesAreOrdered,
                          CharacterEscapeHandler escapeHandler, byte[] octetBuffer) {
         super(out, localNames, escapeHandler, octetBuffer);
