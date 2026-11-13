@@ -137,6 +137,10 @@ public abstract class TransducedAccessor<BeanT> {
         if(prop.id()==ID.IDREF)
             return new IDREFTransducedAccessorImpl(prop.getAccessor());
 
+        TransducedAccessor<T> primitive = PrimitiveFieldTransducedAccessor.create(xducer, prop.getAccessor());
+        if(primitive!=null)
+            return primitive;
+
         if(xducer.useNamespace())
             return new CompositeContextDependentTransducedAccessorImpl( context, xducer, prop.getAccessor() );
         else
