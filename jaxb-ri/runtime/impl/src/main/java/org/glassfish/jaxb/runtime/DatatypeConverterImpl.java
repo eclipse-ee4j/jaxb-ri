@@ -101,6 +101,36 @@ public final class DatatypeConverterImpl implements DatatypeConverterInterface {
     }
 
     public static long _parseLong(CharSequence s) {
+        // Fast path for the common lexical form: optional surrounding XML whitespace, an
+        // optional sign and at most 18 digits, which cannot overflow a long. Anything else,
+        // including every invalid input, takes the original path and its exception.
+        int len = s.length();
+        int i = 0;
+        while (i < len && WhiteSpaceProcessor.isWhiteSpace(s.charAt(i))) i++;
+        int end = len;
+        while (end > i && WhiteSpaceProcessor.isWhiteSpace(s.charAt(end - 1))) end--;
+        boolean negative = false;
+        if (i < end) {
+            char c = s.charAt(i);
+            if (c == '-' || c == '+') {
+                negative = c == '-';
+                i++;
+            }
+        }
+        int digits = end - i;
+        if (digits > 0 && digits <= 18) {
+            long r = 0;
+            for (; i < end; i++) {
+                int d = s.charAt(i) - '0';
+                if (d < 0 || d > 9) {
+                    r = -1;
+                    break;
+                }
+                r = r * 10 + d;
+            }
+            if (r >= 0)
+                return negative ? -r : r;
+        }
         return Long.parseLong(removeOptionalPlus(WhiteSpaceProcessor.trim(s)).toString());
     }
 
@@ -186,7 +216,68 @@ public final class DatatypeConverterImpl implements DatatypeConverterInterface {
         return String.valueOf(v);
     }
 
+    /**
+     * Exactly representable powers of ten, {@code 1e0} to {@code 1e22}.
+     */
+    private static final double[] EXACT_POWERS_OF_TEN = {
+        1e0, 1e1, 1e2, 1e3, 1e4, 1e5, 1e6, 1e7, 1e8, 1e9, 1e10, 1e11,
+        1e12, 1e13, 1e14, 1e15, 1e16, 1e17, 1e18, 1e19, 1e20, 1e21, 1e22
+    };
+
+    /**
+     * Parses the plain decimal form {@code [sign] digits [. digits]}, surrounded by optional XML
+     * whitespace, when the result can be computed exactly: a significand of at most 2^53 and at
+     * most 22 fraction digits. Both operands of the single division are then exact doubles, so
+     * IEEE 754 rounds the quotient correctly, which is the value {@link Double#parseDouble}
+     * returns for the same text.
+     *
+     * @return the value, or {@code NaN} (which this form cannot denote) if the text has another
+     *         form; the caller then uses the general parser.
+     */
+    private static double parsePlainDecimal(CharSequence s) {
+        int len = s.length();
+        int i = 0;
+        while (i < len && WhiteSpaceProcessor.isWhiteSpace(s.charAt(i))) i++;
+        int end = len;
+        while (end > i && WhiteSpaceProcessor.isWhiteSpace(s.charAt(end - 1))) end--;
+        if (i == end) return Double.NaN;
+
+        boolean negative = false;
+        char c = s.charAt(i);
+        if (c == '-' || c == '+') {
+            negative = c == '-';
+            i++;
+        }
+        long significand = 0;
+        int significantDigits = 0;
+        int digits = 0;
+        int scale = -1;     // number of fraction digits, -1 while no '.' has been seen
+        for (; i < end; i++) {
+            c = s.charAt(i);
+            if (c >= '0' && c <= '9') {
+                digits++;
+                if (scale >= 0) scale++;
+                if (significantDigits > 0 || c != '0') {
+                    if (++significantDigits > 18) return Double.NaN;
+                    significand = significand * 10 + (c - '0');
+                }
+            } else if (c == '.' && scale < 0) {
+                scale = 0;
+            } else {
+                return Double.NaN;    // exponent, INF, NaN or not a number at all
+            }
+        }
+        if (digits == 0 || scale > 22 || significand > (1L << 53)) return Double.NaN;
+
+        double value = scale > 0 ? (double) significand / EXACT_POWERS_OF_TEN[scale] : (double) significand;
+        return negative ? -value : value;
+    }
+
     public static double _parseDouble(CharSequence _val) {
+        double plain = parsePlainDecimal(_val);
+        if (!Double.isNaN(plain))
+            return plain;
+
         String val = WhiteSpaceProcessor.trim(_val).toString();
 
         switch (val) {
