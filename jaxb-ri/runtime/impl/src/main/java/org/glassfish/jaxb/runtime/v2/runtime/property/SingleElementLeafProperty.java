@@ -68,7 +68,8 @@ final class SingleElementLeafProperty<BeanT> extends PropertyImpl<BeanT> {
 
     @Override
     public String getIdValue(BeanT bean) throws AccessorException, SAXException {
-        return xacc.print(bean).toString();
+        CharSequence id = xacc.print(bean);
+        return id == null ? null : id.toString();
     }
 
     @Override
