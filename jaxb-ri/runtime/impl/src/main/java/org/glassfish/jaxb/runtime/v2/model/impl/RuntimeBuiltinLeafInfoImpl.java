@@ -243,7 +243,11 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
                     @SuppressWarnings({"deprecation"})
                     public Character parse(CharSequence text) {
                         // TODO.checkSpec("default mapping for char is not defined yet");
-                        return (char) DatatypeConverterImpl._parseInt(text);
+                        int v = DatatypeConverterImpl._parseInt(text);
+                        if (v < Character.MIN_VALUE || v > Character.MAX_VALUE) {
+                            throw new NumberFormatException("Value out of range: " + text);
+                        }
+                        return (char) v;
                     }
 
                     @Override
