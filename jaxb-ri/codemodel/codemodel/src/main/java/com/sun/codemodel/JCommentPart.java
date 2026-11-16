@@ -123,10 +123,16 @@ public class JCommentPart extends ArrayList<Object> {
 
     /**
      * Escapes the appearance of the comment terminator.
+     * Unicode escapes are broken up as well, since javac translates them
+     * before it looks for the end of the comment.
      */
     private String escape(String s) {
+        return breakSequence(breakSequence(s, "*/"), "\\u");
+    }
+
+    private static String breakSequence(String s, String seq) {
         while(true) {
-            int idx = s.indexOf("*/");
+            int idx = s.indexOf(seq);
             if(idx <0)   return s;
 
             s = s.substring(0,idx+1)+"<!---->"+s.substring(idx+1);
