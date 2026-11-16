@@ -80,7 +80,7 @@ public final class DatatypeConverterImpl implements DatatypeConverterInterface {
         int len = s.length();
         int sign = 1;
 
-        int r = 0;
+        long r = 0;
 
         for (int i = 0; i < len; i++) {
             char ch = s.charAt(i);
@@ -88,6 +88,10 @@ public final class DatatypeConverterImpl implements DatatypeConverterInterface {
                 // skip whitespace
             } else if ('0' <= ch && ch <= '9') {
                 r = r * 10 + (ch - '0');
+                // one past MAX_VALUE is still needed for MIN_VALUE
+                if (r > Integer.MAX_VALUE + 1L) {
+                    throw new NumberFormatException("Value out of range: " + s);
+                }
             } else if (ch == '-') {
                 sign = -1;
             } else if (ch == '+') {
@@ -97,7 +101,11 @@ public final class DatatypeConverterImpl implements DatatypeConverterInterface {
             }
         }
 
-        return r * sign;
+        r *= sign;
+        if (r > Integer.MAX_VALUE) {
+            throw new NumberFormatException("Value out of range: " + s);
+        }
+        return (int) r;
     }
 
     public static long _parseLong(CharSequence s) {
@@ -105,7 +113,11 @@ public final class DatatypeConverterImpl implements DatatypeConverterInterface {
     }
 
     public static short _parseShort(CharSequence s) {
-        return (short) _parseInt(s);
+        int v = _parseInt(s);
+        if (v < Short.MIN_VALUE || v > Short.MAX_VALUE) {
+            throw new NumberFormatException("Value out of range: " + s);
+        }
+        return (short) v;
     }
 
     public static String _printShort(short val) {
@@ -289,7 +301,11 @@ public final class DatatypeConverterImpl implements DatatypeConverterInterface {
     }
 
     public static byte _parseByte(CharSequence literal) {
-        return (byte) _parseInt(literal);
+        int v = _parseInt(literal);
+        if (v < Byte.MIN_VALUE || v > Byte.MAX_VALUE) {
+            throw new NumberFormatException("Value out of range: " + literal);
+        }
+        return (byte) v;
     }
 
     public static String _printByte(byte val) {
