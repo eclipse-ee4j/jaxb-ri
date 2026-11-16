@@ -234,6 +234,7 @@ public final class UnmarshallerImpl extends AbstractUnmarshallerImpl implements 
         }
 
         Object result = connector.getResult();
+        connector.getContext().clearResult();
 
         // avoid keeping unnecessary references too long to let the GC
         // reclaim more memory.
@@ -426,7 +427,9 @@ public final class UnmarshallerImpl extends AbstractUnmarshallerImpl implements 
                 h = new InterningXmlVisitor(h);
             }
             new StAXEventConnector(reader,h).bridge();
-            return h.getContext().getResult();
+            Object retVal = h.getContext().getResult();
+            h.getContext().clearResult();
+            return retVal;
         } catch (XMLStreamException e) {
             throw handleStreamException(e);
         }
