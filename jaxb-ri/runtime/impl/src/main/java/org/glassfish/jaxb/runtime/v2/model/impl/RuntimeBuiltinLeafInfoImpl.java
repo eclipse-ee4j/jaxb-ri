@@ -631,7 +631,7 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
 
                             switch (format.charAt(fidx++)) {
                                 case 'Y':
-                                    printNumber(buf, value.getEonAndYear(), 4);
+                                    printYear(buf, value.getEonAndYear());
                                     break;
                                 case 'M':
                                     printNumber(buf, value.getMonth(), 2);
@@ -675,6 +675,18 @@ public abstract class RuntimeBuiltinLeafInfoImpl<T> extends BuiltinLeafInfoImpl<
                         }
 
                         return buf.toString();
+                    }
+
+                    /**
+                     * Prints the year with at least four digits, the minus sign of a negative
+                     * year coming before the padding zeros, as in {@code -0001}.
+                     */
+                    private void printYear(StringBuilder out, BigInteger year) {
+                        if (year.signum() < 0) {
+                            out.append('-');
+                            year = year.negate();
+                        }
+                        printNumber(out, year, 4);
                     }
 
                     private void printNumber(StringBuilder out, BigInteger number, int nDigits) {
