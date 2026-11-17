@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 1997, 2025 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -53,7 +54,22 @@ public final class IndentingUTF8XmlOutput extends UTF8XmlOutput {
      *      otherwise the string is used for indentation.
      */
     public IndentingUTF8XmlOutput(OutputStream out, String indentStr, Encoded[] localNames, CharacterEscapeHandler escapeHandler) {
-        super(out, localNames, escapeHandler);
+        this(out, indentStr, localNames, escapeHandler, new byte[1024]);
+    }
+
+    /**
+     * Creates an indenting writer using a caller-owned output buffer.
+     *
+     * @param octetBuffer the buffer to use, must not be {@code null} and must hold at least four bytes;
+     *      it may be shared by successive writers but not used by two at once, and it is not cleared
+     *      after flushing
+     * @throws NullPointerException if {@code octetBuffer} is {@code null}
+     * @throws IllegalArgumentException if {@code octetBuffer} is shorter than four bytes
+     * @see UTF8XmlOutput#UTF8XmlOutput(OutputStream, Encoded[], CharacterEscapeHandler, byte[])
+     */
+    public IndentingUTF8XmlOutput(OutputStream out, String indentStr, Encoded[] localNames,
+                                  CharacterEscapeHandler escapeHandler, byte[] octetBuffer) {
+        super(out, localNames, escapeHandler, octetBuffer);
 
         if(indentStr!=null) {
             Encoded e = new Encoded(indentStr);
