@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
+    Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
     Copyright (c) 2012, 2021 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
@@ -67,4 +68,84 @@
     Unmarshaller objects. Different threads may reuse one Unmarshaller
     instance, as long as you don't use one instance from two threads at the
     same time.</para>
+
+    <section xml:id="other-miscellaneous-topics-performance-choosing-the-xml-parser">
+        <title>Choosing the XML parser for unmarshalling</title>
+
+        <para><literal>Unmarshaller.unmarshal(InputStream)</literal>, and likewise the
+        <literal>File</literal>, <literal>URL</literal>, <literal>Reader</literal>,
+        <literal>StreamSource</literal> and <literal>InputSource</literal> variants, parse the
+        document with the JAXP <literal>SAXParserFactory</literal> of the JDK, configured with
+        secure-processing defaults: a DOCTYPE is rejected and external entities are not
+        loaded. On small documents most of the unmarshalling time can be spent setting up and
+        running that parser rather than in &binding.impl.name; itself.</para>
+
+        <para>If your application reads many small documents and has a faster StAX
+        implementation such as Woodstox on its classpath, you can create the
+        <literal>XMLStreamReader</literal> yourself and pass it to
+        <literal>Unmarshaller.unmarshal(XMLStreamReader)</literal>. &binding.impl.name; applies
+        no security settings to a reader it did not create, so configure the factory before
+        using it:</para>
+
+        <example>
+            <title>Unmarshalling through a securely configured StAX reader</title>
+
+            <programlisting language="java"><![CDATA[// Create once and share: Woodstox factories are thread-safe once configured.
+// StAX does not guarantee this for every implementation.
+private static final XMLInputFactory XML_INPUT = createInputFactory();
+
+private static XMLInputFactory createInputFactory() {
+    XMLInputFactory factory = XMLInputFactory.newFactory();
+    factory.setProperty(XMLInputFactory.SUPPORT_DTD, false);
+    factory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
+    return factory;
+}
+
+Object read(Unmarshaller u, InputStream in) throws JAXBException, XMLStreamException {
+    XMLStreamReader reader = XML_INPUT.createXMLStreamReader(in);
+    try {
+        // Advance to the root element, rejecting the document if it has a DOCTYPE.
+        // With SUPPORT_DTD=false Woodstox skips the DOCTYPE but still reports a DTD event.
+        while (reader.getEventType() != XMLStreamConstants.START_ELEMENT) {
+            if (reader.getEventType() == XMLStreamConstants.DTD) {
+                throw new XMLStreamException("DOCTYPE is not allowed");
+            }
+            reader.next();
+        }
+        return u.unmarshal(reader);
+    } finally {
+        // Closes the reader only: the underlying InputStream stays open
+        // and remains the caller's responsibility.
+        reader.close();
+    }
+}]]></programlisting>
+        </example>
+
+        <para>Keep the following in mind:</para>
+
+        <itemizedlist>
+            <listitem>
+                <para>Measure with your own documents. The StAX implementation built into the
+                JDK is typically slower than the default SAX path, so this only pays off with a
+                faster provider.</para>
+            </listitem>
+            <listitem>
+                <para>Do not use a StAX factory with its default settings for untrusted input.
+                Woodstox, for example, supports DTDs and external entities by default.</para>
+            </listitem>
+            <listitem>
+                <para>With <literal>SUPPORT_DTD</literal> disabled, Woodstox skips a DOCTYPE
+                rather than rejecting it: entity references then fail as undeclared, but a
+                document that only contains a DOCTYPE is accepted. If you need such documents
+                rejected, check for <literal>XMLStreamConstants.DTD</literal> events before
+                unmarshalling, as the example above does.</para>
+            </listitem>
+            <listitem>
+                <para>Replacing the SAX parser through the
+                <literal>javax.xml.parsers.SAXParserFactory</literal> system property is not an
+                alternative: &binding.impl.name; relies on a Xerces-specific feature of the
+                default factory, and other parsers make every unmarshal fail.</para>
+            </listitem>
+        </itemizedlist>
+    </section>
 </section>
