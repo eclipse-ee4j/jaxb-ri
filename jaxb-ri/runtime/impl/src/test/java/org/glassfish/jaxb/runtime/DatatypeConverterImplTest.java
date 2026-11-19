@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 2023 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -10,10 +11,14 @@
 
 package org.glassfish.jaxb.runtime;
 
+import java.math.BigDecimal;
+
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DatatypeConverterImplTest {
@@ -56,5 +61,18 @@ public class DatatypeConverterImplTest {
         assertTrue(DatatypeConverterImpl._parseBoolean(" true"));
         assertTrue(DatatypeConverterImpl._parseBoolean("true "));
         assertTrue(DatatypeConverterImpl._parseBoolean(" true "));
+    }
+
+    @Test
+    @SuppressWarnings({"deprecation"})
+    public void testParseDecimalRejectsExponent() {
+        assertEquals(new BigDecimal("12.50"), DatatypeConverterImpl._parseDecimal(" 12.50 "));
+        assertEquals(new BigDecimal("-0.5"), DatatypeConverterImpl._parseDecimal("-.5"));
+        assertEquals(new BigDecimal("1"), DatatypeConverterImpl._parseDecimal("+1"));
+        assertNull(DatatypeConverterImpl._parseDecimal(" "));
+
+        assertThrows(NumberFormatException.class, () -> DatatypeConverterImpl._parseDecimal("1E999999999"));
+        assertThrows(NumberFormatException.class, () -> DatatypeConverterImpl._parseDecimal("1e-999999999"));
+        assertThrows(NumberFormatException.class, () -> DatatypeConverterImpl._parseDecimal("1.5E+3"));
     }
 }
