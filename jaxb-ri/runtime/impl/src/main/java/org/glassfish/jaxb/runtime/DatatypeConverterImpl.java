@@ -119,7 +119,13 @@ public final class DatatypeConverterImpl implements DatatypeConverterInterface {
             return null;
         }
 
-        return new BigDecimal(content.toString());
+        String s = content.toString();
+        // xs:decimal has no exponent form. BigDecimal accepts one, and a short
+        // "1E999999999" would then print back as a billion-digit plain string.
+        if (s.indexOf('e') >= 0 || s.indexOf('E') >= 0) {
+            throw new NumberFormatException("Exponent is not allowed in xs:decimal");
+        }
+        return new BigDecimal(s);
 
         // from purely XML Schema perspective,
         // this implementation has a problem, since 
