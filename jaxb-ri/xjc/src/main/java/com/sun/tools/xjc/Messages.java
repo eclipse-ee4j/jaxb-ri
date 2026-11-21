@@ -55,17 +55,9 @@ public final class Messages {
     static final String NON_EXISTENT_DIR = // 1 arg
         "Driver.NonExistentDir";
 
-    // Usage not found. TODO Remove
-    // static final String MISSING_RUNTIME_PACKAGENAME = // 0 args
-    //     "Driver.MissingRuntimePackageName";
-
     static final String MISSING_MODE_OPERAND = // 0 args
             "Driver.MissingModeOperand";
 
-    // Usage not found. TODO Remove
-    // static final String MISSING_COMPATIBILITY_OPERAND = // 0 args
-    //     "Driver.MissingCompatibilityOperand";
-    
     static final String INVALID_JAVA_MODULE_NAME = // 1 arg
         "Driver.INVALID_JAVA_MODULE_NAME";
 
