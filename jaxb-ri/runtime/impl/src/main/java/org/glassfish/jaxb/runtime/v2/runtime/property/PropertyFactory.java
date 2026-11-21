@@ -14,9 +14,11 @@ package org.glassfish.jaxb.runtime.v2.runtime.property;
 import org.glassfish.jaxb.core.v2.model.core.ClassInfo;
 import org.glassfish.jaxb.core.v2.model.core.ID;
 import org.glassfish.jaxb.core.v2.model.core.PropertyKind;
+import org.glassfish.jaxb.core.v2.runtime.RuntimeUtil;
 import org.glassfish.jaxb.runtime.v2.model.runtime.*;
 import org.glassfish.jaxb.runtime.v2.runtime.JAXBContextImpl;
 
+import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -112,6 +114,15 @@ public abstract class PropertyFactory {
             // in which case it will still produce PCDATA in this reference.
             return false;
 
-        return info.getIndividualType().equals(rti.getType());
+        Type individualType = info.getIndividualType();
+        if (individualType.equals(rti.getType()))
+            return true;
+
+        // A single-valued primitive property is bound to the built-in leaf of its wrapper type
+        // (int -> Integer, ...). A primitive cannot hold a subtype, so the xsi:type-capable node
+        // path brings nothing but per-value boxing, cycle detection and namespace bookkeeping.
+        return !info.isCollection()
+                && individualType instanceof Class<?> c && c.isPrimitive()
+                && RuntimeUtil.primitiveToBox.get(c) == rti.getType();
     }
 }
